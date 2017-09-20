@@ -455,7 +455,7 @@ To install Unit with all modules and Go packages, run the following command:
 ## Configuration
 
 By default, the Unit API is available in the control socket file
-**unit.control.sock**.
+**control.unit.sock**.
 
 ### Applications
 
