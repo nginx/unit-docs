@@ -50,6 +50,8 @@
      - [Example 2](#installing-unit-example2)
   - [Securing and Proxying Unit API](#securing-and-proxying-unit-api)
 - [Contribution](#contribution)
+     - [Source code for NGINX Unit](#source-code-for-unit)
+     - [Source for NGINX Unit documentation](#source-for-docs)
 - [Troubleshooting](#troubleshooting)
 
 <!-- /menu -->
