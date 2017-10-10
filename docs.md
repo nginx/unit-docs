@@ -150,7 +150,7 @@ Ubuntu&nbsp;16.04&nbsp;LTS.
    about a missing PGP key during installation of the Unit package.
 
    ```
-   # sudo apt-key add nginx_signing.key
+   # apt-key add nginx_signing.key
    ```
 
    3. Append the following to the end of the file **/etc/apt/sources.list**:
