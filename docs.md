@@ -273,6 +273,13 @@ and Python) that you want to support.
 
 #### Configuring Sources
 
+First you need to run configure script to perform necessary system checks and
+generate Makefile required to compile all other stuff.
+
+```
+# ./configure
+```
+
 With Unit, you can simultaneously run applications that use different versions
 of a supported language (Go, PHP, or Python). You need to configure a separate
 Unit module for each one. The following commands create the necessary
