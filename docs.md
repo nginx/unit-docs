@@ -129,15 +129,21 @@ Ubuntu&nbsp;16.04&nbsp;LTS.
    ```
    [unit]
    name=unit repo
-   baseurl=http://nginx.org/packages/mainline/centos/7/$basearch/
+   baseurl=http://packages.nginx.org/unit/centos/7/$basearch/
    gpgcheck=0
    enabled=1
    ```
 
-   2. Download the Unit package:
+   2. Install Unit base package:
 
    ```
    # yum install unit
+   ```
+
+   3. Install additional module packages you would like to use, e.g.:
+
+   ```
+   # yum install unit-php unit-python unit-go
    ```
 
 #### Ubuntu Packages
@@ -153,18 +159,25 @@ Ubuntu&nbsp;16.04&nbsp;LTS.
    # apt-key add nginx_signing.key
    ```
 
-   3. Append the following to the end of the file **/etc/apt/sources.list**:
+   3. Create the **/etc/apt/sources.list.d/unit.list** file with the
+   following contents:
 
    ```
-   deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx
-   deb-src http://nginx.org/packages/mainline/ubuntu/ xenial nginx
+   deb http://packages.nginx.org/unit/ubuntu/ xenial unit
+   deb-src http://packages.nginx.org/unit/ubuntu/ xenial unit
    ```
 
-   4. Download the Unit package:
+   4. Install Unit base package:
 
    ```
    # apt-get update
    # apt-get install unit
+   ```
+
+   5. Install additional module packages you would like to use, e.g.:
+
+   ```
+   # apt-get install unit-php unit-python2.7 unit-python3.5
    ```
 
 ### Source Code
