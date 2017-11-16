@@ -4,9 +4,14 @@ SOURCEDIR	= source
 BUILDDIR	= build
 DEPLOYDIR	= deploy
 
-EXCLUDE		= '.**','*.inv','*.gz','*/pygments.css','/contents'
+EXCLUDE = \
+	--exclude='.*' \
+	--exclude='*.inv' \
+	--exclude='*.gz' \
+	--exclude='*/pygments.css' \
+	--exclude='/contents'
 
-COMPRESS	= \
+COMPRESS = \
 	-name '*.html' \
 	-o -name '*.css' \
 	-o -name '*.js' \
@@ -32,7 +37,7 @@ clean:
 	rm -rf $(BUILDDIR)
 
 deploy: site
-	rsync -rcv --delete --exclude={$(EXCLUDE)} "$(BUILDDIR)/" "$(DEPLOYDIR)"
+	rsync -rcv --delete $(EXCLUDE) "$(BUILDDIR)/" "$(DEPLOYDIR)"
 	$(MAKE) do_gzip
 	chmod -R g=u "$(DEPLOYDIR)"
 
