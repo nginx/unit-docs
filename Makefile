@@ -4,7 +4,7 @@ SOURCEDIR	= source
 BUILDDIR	= build
 DEPLOYDIR	= deploy
 
-EXCLUDE		= '.*','*.inv','*.gz','*/pygments.css','/contents'
+EXCLUDE		= '.**','*.inv','*.gz','*/pygments.css','/contents'
 
 COMPRESS	= \
 	-name '*.html' \
