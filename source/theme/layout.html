@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+@font-face {
+    font-family: 'Open Sans';
+    src: local('OpenSans'), local('Open Sans'), local('Open Sans Regular'), local('OpenSans-Regular'),
+         url('{{ pathto('_static/OpenSans.woff2', 1) }}') format('woff2'),
+         url('{{ pathto('_static/OpenSans.woff', 1) }}') format('woff');
+}
+</style>
+<link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" />
+<link rel="icon" href="{{ pathto('_static/icon.png', 1) }}" />
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KFQJNTS');</script>
+<!-- End Google Tag Manager -->
+
+{%- if next %}
+<link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+{%- endif %}
+{%- if prev %}
+<link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+{%- endif %}
+
+<title>{{ title|striptags|e }} &mdash; NGINX Unit</title>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFQJNTS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<div>
+<div id="side">
+    <h1>
+        {%- if pagename != "index" %}
+        <a href="{{ pathto('index') }}">
+        {%- endif %}
+            <img src="{{ pathto('_static/logo.svg', 1) }}" alt="NGINX Unit" />
+        {%- if pagename != "index" %}
+        </a>
+        {%- endif %}
+    </h1>
+    {{ toctree(maxdepth = 3) }}
+</div>
+<div id="content">
+    {% block body %} {% endblock %}
+    <p id="footer">
+        Copyright &copy; 2017 <a href="https://www.nginx.com/">NGINX, Inc.</a>
+    </p>
+</div>
+</div>
+</body>
+</html>
