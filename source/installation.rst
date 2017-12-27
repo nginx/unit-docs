@@ -226,7 +226,7 @@ Building the Go Applications
         import (
             "fmt"
             "net/http"
-            "unit"
+            "nginx/unit"
         )
 
    b) In the ``main()`` function, comment out the ``http.ListenandServe``
