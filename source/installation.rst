@@ -213,20 +213,24 @@ application inside Unit.
      + go version go1.6.2 linux/amd64
      + Go package path: "/home/user/go_apps"
 
+3. Install the Go package in your working GOPATH::
+
+    # make go-install
+
 Building the Go Applications
 ----------------------------
 
 1. Modify the source file for the Go application, making changes in two
    places:
 
-   a) In the ``import`` section, add ``"unit"`` on a separate line:
+   a) In the ``import`` section, add ``"nginx/unit"`` on a separate line:
 
       .. code-block:: go
 
         import (
             "fmt"
             "net/http"
-            "unit"
+            "nginx/unit"
         )
 
    b) In the ``main()`` function, comment out the ``http.ListenandServe``
@@ -326,18 +330,6 @@ To compile the Unit executable and all configured modules for PHP, Python, or
 both, run this command::
 
     # make all
-
-To compile the packages for Go:
-
-1. Verify that the ``GOPATH`` environment variable is set correctly, or set
-   the ``GOPATH`` variable::
-
-    # go env GOPATH
-    # export GOPATH=<path>
-
-2. Compile and install the package::
-
-    # make go-install
 
 Installing from Sources
 =======================
