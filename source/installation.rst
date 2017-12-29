@@ -37,20 +37,35 @@ system.
 Precompiled Packages
 ********************
 
-Precompiled binaries for Unit are available for CentOS |_| 7.0 and
-Ubuntu |_| 16.04 |_| LTS.
+Precompiled binaries for Unit are available for:
+
+ * CentOS 6, 7
+ * Ubuntu 16.04, 17.04, 17.10
+ * Debian 8, 9
 
 CentOS Packages
 ===============
 
 1. Create the file **/etc/yum.repos.d/unit.repo** with the following
-   contents:
+   contents.
+
+   For CentOS 6:
 
    .. code-block:: ini
 
     [unit]
     name=unit repo
-    baseurl=http://packages.nginx.org/unit/centos/7/$basearch/
+    baseurl=https://packages.nginx.org/unit/centos/6/$basearch/
+    gpgcheck=0
+    enabled=1
+
+   For CentOS 7:
+
+   .. code-block:: ini
+
+    [unit]
+    name=unit repo
+    baseurl=https://packages.nginx.org/unit/centos/7/$basearch/
     gpgcheck=0
     enabled=1
 
@@ -61,7 +76,6 @@ CentOS Packages
 3. Install additional module packages you would like to use, e.g.::
 
     # yum install unit-php unit-python unit-go
-
 
 Ubuntu Packages
 ===============
@@ -78,19 +92,83 @@ Ubuntu Packages
    of the Unit package.
 
 3. Create the **/etc/apt/sources.list.d/unit.list** file with the
-   following contents::
+   following contents.
 
-    deb http://packages.nginx.org/unit/ubuntu/ xenial unit
-    deb-src http://packages.nginx.org/unit/ubuntu/ xenial unit
+   For Ubuntu 16.04::
+
+    deb https://packages.nginx.org/unit/ubuntu/ xenial unit
+    deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
+
+   For Ubuntu 17.04::
+
+    deb https://packages.nginx.org/unit/ubuntu/ zesty unit
+    deb-src https://packages.nginx.org/unit/ubuntu/ zesty unit
+
+   For Ubuntu 17.10::
+
+    deb https://packages.nginx.org/unit/ubuntu/ artful unit
+    deb-src https://packages.nginx.org/unit/ubuntu/ artful unit
 
 4. Install Unit base package::
 
     # apt-get update
     # apt-get install unit
 
-5. Install additional module packages you would like to use, e.g.::
+5. Install additional module packages you would like to use.
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5
+   For Ubuntu 16.04::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go
+
+   For Ubuntu 17.04::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8
+
+   For Ubuntu 17.10::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9
+
+Debian Packages
+===============
+
+1. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
+   the NGINX, |_| Inc. repository and packages.
+
+2. Add the key to the ``apt`` program's keyring::
+
+    # apt-key add nginx_signing.key
+
+   The program can then authenticate the NGINX repository signature,
+   which eliminates warnings about a missing PGP key during installation
+   of the Unit package.
+
+3. Create the **/etc/apt/sources.list.d/unit.list** file with the
+   following contents.
+
+   For Debian 8::
+
+    deb https://packages.nginx.org/unit/debian/ jessie unit
+    deb-src https://packages.nginx.org/unit/debian/ jessie unit
+
+   For Debian 9::
+
+    deb https://packages.nginx.org/unit/debian/ stretch unit
+    deb-src https://packages.nginx.org/unit/debian/ stretch unit
+
+4. Install Unit base package::
+
+    # apt-get update
+    # apt-get install unit
+
+5. Install additional module packages you would like to use.
+
+   For Debian 8::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.4
+
+   For Debian 9::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8
 
 Source Code
 ***********
