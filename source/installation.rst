@@ -40,6 +40,7 @@ Precompiled Packages
 Precompiled binaries for Unit are available for:
 
  * CentOS 6, 7
+ * RHEL 6, 7
  * Ubuntu 16.04, 17.04, 17.10
  * Debian 8, 9
 
@@ -62,6 +63,34 @@ CentOS Packages
     # yum install unit
 
 3. Install additional module packages you would like to use, e.g.::
+
+    # yum install unit-php unit-python unit-go
+
+RHEL Packages
+=============
+
+1. Create the file **/etc/yum.repos.d/unit.repo** with the following
+   contents:
+
+   .. code-block:: ini
+
+    [unit]
+    name=unit repo
+    baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
+    gpgcheck=0
+    enabled=1
+
+2. Install Unit base package::
+
+    # yum install unit
+
+3. Install additional module packages you would like to use.
+
+   For RHEL 6::
+
+    # yum install unit-php unit-python
+
+   For RHEL 7::
 
     # yum install unit-php unit-python unit-go
 
