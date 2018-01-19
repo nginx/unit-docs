@@ -47,25 +47,13 @@ CentOS Packages
 ===============
 
 1. Create the file **/etc/yum.repos.d/unit.repo** with the following
-   contents.
-
-   For CentOS 6:
+   contents:
 
    .. code-block:: ini
 
     [unit]
     name=unit repo
-    baseurl=https://packages.nginx.org/unit/centos/6/$basearch/
-    gpgcheck=0
-    enabled=1
-
-   For CentOS 7:
-
-   .. code-block:: ini
-
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/centos/7/$basearch/
+    baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
     gpgcheck=0
     enabled=1
 
