@@ -251,7 +251,7 @@ The common options are follows:
       - Description
 
     * - ``type``
-      - Type of the application: ``go``, ``php``, or ``python``.
+      - Type of the application: ``go``, ``perl`, ``php``, or ``python``.
 
     * - ``processes`` (optional)
       - Number of application processes.
@@ -293,6 +293,29 @@ Example::
         "executable": "bin/chat_app",
         "user": "www-go",
         "group": "www-go"
+    }
+
+Perl Application
+================
+
+.. list-table::
+    :header-rows: 1
+
+    * - Object
+      - Description
+
+    * - ``script``
+      - PSGI script path.
+
+Example::
+
+    {
+        "type": "perl",
+        "script": "/www/bugtracker/app.psgi",
+        "working_directory": "/www/bugtracker",
+        "processes": 10,
+        "user": "www",
+        "group": "www"
     }
 
 PHP Application
@@ -351,7 +374,6 @@ Example::
         "group": "www"
     }
 
-
 Full Example
 ============
 
@@ -409,6 +431,15 @@ Full Example
                 "group": "www-chat",
                 "working_directory": "/www/chat",
                 "executable": "bin/chat_app"
+            },
+
+            "bugtracker": {
+                "type": "perl",
+                "processes": 3,
+                "user": "www",
+                "group": "www",
+                "working_directory": "/www/bugtracker",
+                "script": "app.psgi"
             }
         }
     }

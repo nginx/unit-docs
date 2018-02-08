@@ -28,6 +28,7 @@ Supported Application Languages
 - Python
 - PHP
 - Go
+- Perl
 - JavaScript/Node.js *(coming soon)*
 - Java *(coming soon)*
 - Ruby *(coming soon)*

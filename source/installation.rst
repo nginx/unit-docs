@@ -30,6 +30,7 @@ languages:
 * Python 2.6, 2.7, 3
 * PHP 5, 7
 * Go 1.6 or later
+* Perl 5.12 or later
 
 You can run multiple versions of the same language installed on the same
 system.
@@ -64,7 +65,7 @@ CentOS Packages
 
 3. Install additional module packages you would like to use, e.g.::
 
-    # yum install unit-php unit-python unit-go
+    # yum install unit-php unit-python unit-go unit-perl
 
 RHEL Packages
 =============
@@ -88,11 +89,11 @@ RHEL Packages
 
    For RHEL 6::
 
-    # yum install unit-php unit-python
+    # yum install unit-php unit-python unit-perl
 
    For RHEL 7::
 
-    # yum install unit-php unit-python unit-go
+    # yum install unit-php unit-python unit-go unit-perl
 
 Ubuntu Packages
 ===============
@@ -135,15 +136,15 @@ Ubuntu Packages
 
    For Ubuntu 16.04::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go unit-perl
 
    For Ubuntu 17.04::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl
 
    For Ubuntu 17.10::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9 unit-perl
 
 Debian Packages
 ===============
@@ -181,11 +182,11 @@ Debian Packages
 
    For Debian 8::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.4
+    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl
 
    For Debian 9::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl
 
 Source Code
 ***********
@@ -256,6 +257,10 @@ Ubuntu Prerequisites
 
     # apt-get install python-dev
 
+5. For Perl applications support, install the ``libperl-dev`` package::
+
+    # apt-get install libperl-dev
+
 CentOS Prerequisites
 --------------------
 
@@ -275,6 +280,11 @@ CentOS Prerequisites
 4. For Python applications support, install the ``python-devel`` package::
 
     # yum install python-devel
+
+5. For Perl applications support, install the ``perl-devel`` and ``perl-libs``
+   packages::
+
+    # yum install perl-devel perl-libs
 
 Configuring Sources
 ===================
@@ -346,6 +356,45 @@ Building the Go Applications
 If the Go application is executed directly, the unit module will fall back
 to the http module.  If the Go application is launched by Unit, it will
 communicate with the Unit router via shared memory.
+
+Configuring Perl Modules
+------------------------
+
+To configure a Unit module (called **perl.unit.so**) for the version of
+Perl that the ``configure`` script finds bundled with the operating system,
+run this command::
+
+    # ./configure perl
+
+To configure Unit modules for other versions of Perl (including versions you
+have customized), repeat the following command for each one::
+
+    # ./configure perl OPTIONS
+
+where ``OPTIONS`` can be:
+
+--module=<prefix>
+
+  Sets the filename prefix for the Unit module specific to the Perl
+  version (that is, the resulting module is called **<prefix>.unit.so**).
+
+--perl=<perl>
+
+  Specifies the particular Perl interpreter.
+
+--include=<directory>
+
+  Specifies the directory for the Perl headers files to use.
+
+For example, this command generates a module called **perl-5.20.unit.so** for
+Perl |_| 5.20.2::
+
+    $ ./configure perl --module=perl-5.20 \
+                       --perl=perl5.20.2
+    configuring Perl module
+    checking for Perl ... found
+     + Perl version: 5.20.2
+     + Perl module: perl-5.20.unit.so
 
 Configuring PHP Modules
 -----------------------
