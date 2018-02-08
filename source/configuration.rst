@@ -50,7 +50,7 @@ application::
 
 
 For complete details about the JSON objects for each language, see
-`Listener and Application Objects`_.
+`Application Objects`_.
 
 Minimum Configuration
 *********************
@@ -218,11 +218,8 @@ Delete the listener on \*:8400:
         "success": "Reconfiguration done."
     }
 
-Listener and Application Objects
-********************************
-
-Listener
-========
+Listener Objects
+****************
 
 .. list-table::
     :header-rows: 1
@@ -239,6 +236,42 @@ Example::
         "application": "blogs"
     }
 
+Application Objects
+*******************
+
+Each application object has a number of common options that can be specified
+for any application regardless of its type.
+
+The common options are follows:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Object
+      - Description
+
+    * - ``type``
+      - Type of the application: ``go``, ``php``, or ``python``.
+
+    * - ``processes`` (optional)
+      - Number of application processes.
+        By default 1 process is used.
+
+    * - ``working_directory`` (optional)
+      - Working directory for the application.
+        If not specified, the working directory of Unit daemon is used.
+
+    * - ``user`` (optional)
+      - Username that runs the app process.
+        If not specified, ``nobody`` is used.
+
+    * - ``group`` (optional)
+      - Group name that runs the app process.
+        If not specified, user's primary group is used.
+
+Depending on the ``type`` of application you need to configure a number of
+additional options.
+
 Go Application
 ==============
 
@@ -248,26 +281,9 @@ Go Application
     * - Object
       - Description
 
-    * - ``type``
-      - Type of the application (``go``).
-
-    * - ``processes``
-      - Number of application processes.
-
-    * - ``working_directory``
-      - Working directory for the application.
-
     * - ``executable``
       - Path to compiled application, absolute or relative
         to ``working_directory``.
-
-    * - ``user`` (optional)
-      - Username that runs the app process.
-        If not specified, ``nobody`` is used.
-
-    * - ``group`` (optional)
-      - Group name that runs the app process.
-        If not specified, user's primary group is used.
 
 Example::
 
@@ -288,17 +304,8 @@ PHP Application
     * - Object
       - Description
 
-    * - ``type``
-      - Type of the application (``php``).
-
-    * - ``processes``
-      - Number of application processes.
-
     * - ``root``
       - Directory to search for PHP files.
-
-    * - ``working_directory``
-      - Working directory for the application.
 
     * - ``index``
       - Default launch file when the PHP file name is not specified in the URL.
@@ -306,14 +313,6 @@ PHP Application
     * - ``script`` (optional)
       - File that Unit runs for every URL, instead of searching for a file in
         the filesystem.  The location is relative to the root.
-
-    * - ``user`` (optional)
-      - Username that runs the app process.
-        If not specified, ``nobody`` is used.
-
-    * - ``group`` (optional)
-      - Group name that runs the app process.
-        If not specified, user's primary group is used.
 
 Example::
 
@@ -335,28 +334,11 @@ Python Application
     * - Object
       - Description
 
-    * - ``type``
-      - Type of the application (``python``).
-
-    * - ``processes``
-      - Number of application processes.
-
-    * - ``path``
-      - Path to search for the WSGI module file.
-
-    * - ``working_directory``
-      - Working directory for the application.
-
     * - ``module``
       - WSGI module name.
 
-    * - ``user`` (optional)
-      - Username that runs the app process.
-        If not specified, ``nobody`` is used.
-
-    * - ``group`` (optional)
-      - Group name that runs the app process.
-        If not specified, user's primary group is used.
+    * - ``path`` (optional)
+      - Path to search for the WSGI module file.
 
 Example::
 
