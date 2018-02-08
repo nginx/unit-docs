@@ -12,10 +12,10 @@ Applications
 For each application, you use the API to define a JSON object in the
 ``applications`` section of the Unit configuration.  The JSON object defines
 several characteristics of the application, including the language it's written
-in, the number of application worker processes to run, the directory with
-the file or files for the application, and parameters that vary by language.
+in, the number of application processes to run, the directory with the file or
+files for the application, and parameters that vary by language.
 
-This example runs 20 workers of the PHP application named **blogs** using the
+This example runs 20 processes of the PHP application named **blogs** using the
 files found in the **/www/blogs/scripts** directory.  The default launch file
 when the URL doesn't specify the PHP file is **index.php**.
 
@@ -24,7 +24,7 @@ when the URL doesn't specify the PHP file is **index.php**.
     {
         "blogs": {
             "type": "php",
-            "workers": 20,
+            "processes": 20,
             "root": "/www/blogs/scripts",
             "index": "index.php"
         }
@@ -68,7 +68,7 @@ listener and associated application, as in this example::
         "applications": {
             "blogs": {
                 "type": "php",
-                "workers": 20,
+                "processes": 20,
                 "root": "/www/blogs/scripts",
                 "index": "index.php"
             }
@@ -110,7 +110,7 @@ The contents of **wiki.json** are::
 
     {
         "type": "python",
-        "workers": 10,
+        "processes": 10,
         "module": "wsgi",
         "user": "www-wiki",
         "group": "www-wiki",
@@ -158,7 +158,7 @@ Display the data for the **wiki** application:
     # curl --unix-socket ./control.unit.sock http://localhost/applications/wiki
     {
         "type": "python",
-        "workers": 10,
+        "processes": 10,
         "module": "wsgi",
         "user": "www",
         "group": "www",
@@ -251,8 +251,8 @@ Go Application
     * - ``type``
       - Type of the application (``go``).
 
-    * - ``workers``
-      - Number of application workers.
+    * - ``processes``
+      - Number of application processes.
 
     * - ``working_directory``
       - Working directory for the application.
@@ -291,8 +291,8 @@ PHP Application
     * - ``type``
       - Type of the application (``php``).
 
-    * - ``workers``
-      - Number of application workers.
+    * - ``processes``
+      - Number of application processes.
 
     * - ``root``
       - Directory to search for PHP files.
@@ -319,7 +319,7 @@ Example::
 
     {
         "type": "php",
-        "workers": 20,
+        "processes": 20,
         "root": "/www/blogs/scripts",
         "index": "index.php",
         "user": "www-blogs",
@@ -338,8 +338,8 @@ Python Application
     * - ``type``
       - Type of the application (``python``).
 
-    * - ``workers``
-      - Number of application workers.
+    * - ``processes``
+      - Number of application processes.
 
     * - ``path``
       - Path to search for the WSGI module file.
@@ -362,7 +362,7 @@ Example::
 
     {
         "type": "python",
-        "workers": 10,
+        "processes": 10,
         "path": "/www/store/cart",
         "module": "wsgi",
         "user": "www",
@@ -397,7 +397,7 @@ Full Example
         "applications": {
             "blogs": {
                 "type": "php",
-                "workers": 20,
+                "processes": 20,
                 "root": "/www/blogs/scripts",
                 "user": "www-blogs",
                 "group": "www-blogs",
@@ -406,7 +406,7 @@ Full Example
 
             "wiki": {
                 "type": "python",
-                "workers": 10,
+                "processes": 10,
                 "user": "www-wiki",
                 "group": "www-wiki",
                 "path": "/www/wiki"
@@ -414,7 +414,7 @@ Full Example
 
             "shopping_cart": {
                 "type": "python",
-                "workers": 10,
+                "processes": 10,
                 "module": "wsgi",
                 "user": "www",
                 "group": "www",
