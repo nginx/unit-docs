@@ -350,8 +350,8 @@ communicate with the Unit router via shared memory.
 Configuring PHP Modules
 -----------------------
 
-To configure a Unit module (called **php.unit.so**) for the most recent version
-of PHP that the ``configure`` script finds bundled with the operating system,
+To configure a Unit module (called **php.unit.so**) for the version of
+PHP that the ``configure`` script finds bundled with the operating system,
 run this command::
 
     # ./configure php
@@ -359,18 +359,26 @@ run this command::
 To configure Unit modules for other versions of PHP (including versions you
 have customized), repeat the following command for each one::
 
-    # ./configure php --module=<prefix> --config=<script-name> --lib-path=<pathname>
+    # ./configure php OPTIONS
 
-where
+where ``OPTIONS`` can be:
 
---module    Sets the filename prefix for the Unit module specific to the PHP
-            version (that is, the resulting module is called
-            **<prefix>.unit.so**).
+--module=<prefix>
 
---config    Specifies the filename of the **php-config** script for the
-            particular version of PHP.
+  Sets the filename prefix for the Unit module specific to the PHP
+  version (that is, the resulting module is called **<prefix>.unit.so**).
 
---lib-path  Specifies the directory for the PHP library file to use.
+--config=<script>
+
+  Specifies the **php-config** script for the particular version of PHP.
+
+--lib-path=<directory>
+
+  Specifies the directory for the PHP library file to use.
+
+--lib-static
+
+  Enables linking with static library.
 
 For example, this command generates a module called **php70.unit.so** for
 PHP |_| 7.0::
@@ -388,25 +396,31 @@ PHP |_| 7.0::
 Configuring Python Modules
 --------------------------
 
-To configure a Unit module (called **python.unit.so**) for the most recent
-version of Python that the ``configure`` script finds bundled with the
-operating system, run this command::
+To configure a Unit module (called **python.unit.so**) for the version of
+Python that the ``configure`` script finds bundled with the operating system,
+run this command::
 
     # ./configure python
 
 To configure Unit modules for other versions of Python (including versions you
 have customized), repeat the following command for each one::
 
-    # ./configure python --module=<prefix> --config=<script-name>
+    # ./configure python OPTIONS
 
-where
+where ``OPTIONS`` can be:
 
---module  Sets the filename prefix for the Unit module specific to the
-          Python version (that is, the resulting modules is called
-          **<prefix>.unit.so**).
+--module=<prefix>
 
---config  Specifies the filename of the **python-config** script for the
-          particular version of Python.
+  Sets the filename prefix for the Unit module specific to the Python
+  version (that is, the resulting module is called **<prefix>.unit.so**).
+
+--config=<script>
+
+  Specifies the **python-config** script for the particular version of Python.
+
+--lib-path=<directory>
+
+  Specifies the directory for the Python library file to use.
 
 For example, this command generates a module called **py33.unit.so** for
 Python |_| 3.3::

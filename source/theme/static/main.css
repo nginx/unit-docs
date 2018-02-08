@@ -144,6 +144,9 @@ body > div {
     border-top: .1em solid #ddd;
     border-bottom: .1em solid #ddd;
 }
+#content .option-list td {
+    border: none;
+}
 #content col {
     width: auto;
 }
