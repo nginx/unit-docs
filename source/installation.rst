@@ -42,6 +42,7 @@ Precompiled binaries for Unit are available for:
 
  * CentOS 6, 7
  * RHEL 6, 7
+ * Amazon Linux
  * Ubuntu 16.04, 17.04, 17.10
  * Debian 8, 9
 
@@ -92,6 +93,42 @@ RHEL Packages
     # yum install unit-php unit-python unit-perl
 
    For RHEL 7::
+
+    # yum install unit-php unit-python unit-go unit-perl
+
+Amazon Linux Packages
+=====================
+
+1. Create the file **/etc/yum.repos.d/unit.repo** with the following
+   contents:
+
+   .. code-block:: ini
+
+    [unit]
+    name=unit repo
+    baseurl=https://packages.nginx.org/unit/amzn/$releasever/$basearch/
+    gpgcheck=0
+    enabled=1
+
+   For Amazon Linux 2 LTS:
+
+   .. code-block:: ini
+
+    [unit]
+    name=unit repo
+    baseurl=https://packages.nginx.org/unit/amzn2/$releasever/$basearch/
+    gpgcheck=0
+    enabled=1
+
+2. Install Unit base package::
+
+    # yum install unit
+
+3. Install additional module packages you would like to use, e.g.::
+
+    # yum install unit-php unit-python27 unit-python34 unit-python35 unit-python36 unit-go unit-perl
+
+   For Amazon Linux 2 LTS::
 
     # yum install unit-php unit-python unit-go unit-perl
 
