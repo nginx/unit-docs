@@ -251,7 +251,7 @@ The common options are follows:
       - Description
 
     * - ``type``
-      - Type of the application: ``go``, ``perl`, ``php``, or ``python``.
+      - Type of the application: ``go``, ``perl``, ``php``, or ``python``.
 
     * - ``processes`` (optional)
       - Number of application processes.
