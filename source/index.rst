@@ -3,7 +3,7 @@
 About
 #####
 
-NGINX Unit is a dynamic web application server, designed to run applications
+NGINX Unit is a dynamic web and application server, designed to run applications
 in multiple languages.  Unit is lightweight, polyglot, and dynamically
 configured via API.  The design of the server allows reconfiguration of
 specific application parameters as needed by the engineering or operations.
