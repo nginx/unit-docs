@@ -251,7 +251,8 @@ The common options are follows:
       - Description
 
     * - ``type``
-      - Type of the application: ``go``, ``perl``, ``php``, or ``python``.
+      - Type of the application: ``go``, ``perl``, ``php``, ``python``,
+        or ``ruby``.
 
     * - ``processes`` (optional)
       - Number of application processes.
@@ -374,8 +375,30 @@ Example::
         "group": "www"
     }
 
+Ruby Application
+==================
+
+.. list-table::
+    :header-rows: 1
+
+    * - Object
+      - Description
+
+    * - ``script``
+      - Rack script path.
+
+Example::
+
+    {
+        "type": "ruby",
+        "processes": 5,
+        "user": "www",
+        "group": "www",
+        "script": "/www/cms/config.ru"
+    }
+
 Full Example
-============
+************
 
 ::
 
@@ -389,12 +412,16 @@ Full Example
                 "application": "wiki"
             },
 
-            "*:8401": {
-                "application": "shopping_cart"
-            },
-
             "*:8500": {
                 "application": "go_chat_app"
+            },
+
+            "127.0.0.1:8600": {
+                "application": "bugtracker"
+            },
+
+            "127.0.0.1:8601": {
+                "application": "cms"
             }
         },
 
@@ -413,16 +440,8 @@ Full Example
                 "processes": 10,
                 "user": "www-wiki",
                 "group": "www-wiki",
-                "path": "/www/wiki"
-            },
-
-            "shopping_cart": {
-                "type": "python",
-                "processes": 10,
-                "module": "wsgi",
-                "user": "www",
-                "group": "www",
-                "path": "/www/store/cart"
+                "path": "/www/wiki",
+                "module": "wsgi"
             },
 
             "go_chat_app": {
@@ -440,6 +459,14 @@ Full Example
                 "group": "www",
                 "working_directory": "/www/bugtracker",
                 "script": "app.psgi"
+            },
+
+            "cms": {
+                "type": "ruby",
+                "processes": 5,
+                "user": "www",
+                "group": "www",
+                "script": "/www/cms/config.ru"
             }
         }
     }

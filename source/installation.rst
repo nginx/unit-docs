@@ -31,6 +31,7 @@ languages:
 * PHP 5, 7
 * Go 1.6 or later
 * Perl 5.12 or later
+* Ruby 2.0 or later
 
 You can run multiple versions of the same language installed on the same
 system.
@@ -298,6 +299,10 @@ Ubuntu Prerequisites
 
     # apt-get install libperl-dev
 
+6. For Ruby applications support, install the ``ruby-dev`` package::
+
+    # apt-get install ruby-dev
+
 CentOS Prerequisites
 --------------------
 
@@ -322,6 +327,10 @@ CentOS Prerequisites
    packages::
 
     # yum install perl-devel perl-libs
+
+6. For Ruby applications support, install the ``ruby-devel`` package::
+
+    # yum install ruby-devel
 
 Configuring Sources
 ===================
@@ -518,11 +527,45 @@ Python |_| 3.3::
     checking for Python version ... 3.3
      + Python module: py33.unit.so
 
+Configuring Ruby Modules
+--------------------------
+
+To configure a Unit module (called **ruby.unit.so**) for the version of
+Ruby that the ``configure`` script finds bundled with the operating system,
+run this command::
+
+    # ./configure ruby
+
+To configure Unit modules for other versions of Ruby (including versions you
+have customized), repeat the following command for each one::
+
+    # ./configure ruby OPTIONS
+
+where ``OPTIONS`` can be:
+
+--module=<prefix>
+
+  Sets the filename prefix for the Unit module specific to the Ruby
+  version (that is, the resulting module is called **<prefix>.unit.so**).
+
+--ruby=<ruby>
+
+  Specifies the particular Ruby interpreter.
+
+For example, this command generates a module called **ru23.unit.so** for
+Ruby |_| 2.3::
+
+    # ./configure ruby --module=ru23  \
+                       --ruby=ruby23
+    configuring Ruby module
+    checking for Ruby ... found
+     + Ruby version: 2.3.0
+     + Ruby module: ru23.unit.so
+
 Compiling Sources
 =================
 
-To compile the Unit executable and all configured modules for PHP, Python, or
-both, run this command::
+To compile the Unit executable and all configured modules run this command::
 
     # make all
 
