@@ -44,7 +44,7 @@ Precompiled binaries for Unit are available for:
  * CentOS 6, 7
  * RHEL 6, 7
  * Amazon Linux
- * Ubuntu 16.04, 17.04, 17.10
+ * Ubuntu 16.04, 17.10
  * Debian 8, 9
 
 CentOS Packages
@@ -155,11 +155,6 @@ Ubuntu Packages
     deb https://packages.nginx.org/unit/ubuntu/ xenial unit
     deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-   For Ubuntu 17.04::
-
-    deb https://packages.nginx.org/unit/ubuntu/ zesty unit
-    deb-src https://packages.nginx.org/unit/ubuntu/ zesty unit
-
    For Ubuntu 17.10::
 
     deb https://packages.nginx.org/unit/ubuntu/ artful unit
@@ -174,15 +169,11 @@ Ubuntu Packages
 
    For Ubuntu 16.04::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go unit-perl
-
-   For Ubuntu 17.04::
-
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go unit-perl unit-ruby
 
    For Ubuntu 17.10::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9 unit-perl
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9 unit-perl unit-ruby
 
 Debian Packages
 ===============
@@ -220,11 +211,11 @@ Debian Packages
 
    For Debian 8::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl
+    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl unit-ruby
 
    For Debian 9::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl unit-ruby
 
 Source Code
 ***********
