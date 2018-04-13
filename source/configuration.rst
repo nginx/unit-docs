@@ -363,6 +363,11 @@ Python Application
 
     * - ``path`` (optional)
       - Path to search for the WSGI module file.
+        Synonymous to setting the ``PYTHONPATH`` environment variable.
+
+    * - ``home`` (optional)
+      - Path to the root of a virtual environment containing third-party dependencies.
+        Relative paths are with respect to the ``working_directory`` path.
 
 Example::
 
@@ -370,6 +375,7 @@ Example::
         "type": "python",
         "processes": 10,
         "path": "/www/store/cart",
+        "home": "/www/store/.virtualenv",
         "module": "wsgi",
         "user": "www",
         "group": "www"
