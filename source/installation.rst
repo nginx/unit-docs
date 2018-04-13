@@ -470,7 +470,7 @@ For example, this command generates a module called **php70.unit.so** for
 PHP |_| 7.0::
 
     # ./configure php --module=php70  \
-                      --config=/usr/lib64/php7.0/php-config  \
+                      --config=/usr/lib64/php7.0/bin/php-config  \
                       --lib-path=/usr/lib64/php7.0/lib64
     configuring PHP module
     checking for PHP ... found
