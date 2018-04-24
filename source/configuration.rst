@@ -92,7 +92,7 @@ file:
 .. code-block:: none
 
     # curl -X PUT -d @/path/to/start.json  \
-           --unix-socket /path/to/control.unit.sock http://localhost/
+           --unix-socket /path/to/control.unit.sock http://localhost/config/
 
 
 Example: Create an Application Object
@@ -103,7 +103,7 @@ Create a new application object called **wiki** from the file **wiki.json**:
 .. code-block:: none
 
     # curl -X PUT -d @/path/to/wiki.json  \
-           --unix-socket /path/to/control.unit.sock http://localhost/applications/wiki
+           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
 
 The contents of **wiki.json** are::
@@ -129,7 +129,7 @@ Display the complete configuration:
 
 .. code-block:: none
 
-    # curl --unix-socket /path/to/control.unit.sock http://localhost/
+    # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
     {
         "listeners": {
             "*:8300": {
@@ -155,7 +155,7 @@ Display the data for the **wiki** application:
 
 .. code-block:: none
 
-    # curl --unix-socket /path/to/control.unit.sock http://localhost/applications/wiki
+    # curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
     {
         "type": "python",
         "processes": 10,
@@ -179,7 +179,7 @@ Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
 .. code-block:: none
 
     # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
-           'http://localhost/listeners/*:8400/application'
+           'http://localhost/config/listeners/*:8400/application'
     {
         "success": "Reconfiguration done."
     }
@@ -194,7 +194,7 @@ Change the ``root`` object for the **blogs** application to
 
     # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
            --unix-socket /path/to/control.unit.sock  \
-           http://localhost/applications/blogs/root
+           http://localhost/config/applications/blogs/root
     {
         "success": "Reconfiguration done."
     }
@@ -213,7 +213,7 @@ Delete the listener on \*:8400:
 .. code-block:: none
 
     # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
-           'http://localhost/listeners/*:8400'
+           'http://localhost/config/listeners/*:8400'
     {
         "success": "Reconfiguration done."
     }
