@@ -1,4 +1,29 @@
 
+Changes with Unit 1.1                                            26 Apr 2018
+
+    *) Bugfix: Python applications that use the write() callable did not
+       work.
+
+    *) Bugfix: virtual environments created with Python 3.3 or above might
+       not have worked.
+
+    *) Bugfix: the request.Read() function in Go applications did not
+       produce EOF when the whole body was read.
+
+    *) Bugfix: a segmentation fault might have occurred while access log
+       reopening.
+
+    *) Bugfix: in parsing of IPv6 control socket addresses.
+
+    *) Bugfix: loading of application modules was broken on OpenBSD.
+
+    *) Bugfix: a segmentation fault might have occurred when there were two
+       modules with the same type and version; the bug had appeared in 1.0.
+
+    *) Bugfix: alerts "freed pointer points to non-freeble page" might have
+       appeared in log on 32-bit platforms.
+
+
 Changes with Unit 1.0                                            12 Apr 2018
 
     *) Change: configuration object moved into "/config/" path.
@@ -9,7 +34,7 @@ Changes with Unit 1.0                                            12 Apr 2018
        header or body.
 
     *) Bugfix: Ruby applications that use encoding conversions might not
-       work.
+       have worked.
 
     *) Bugfix: various stability issues.
 
@@ -29,8 +54,8 @@ Changes with Unit 0.7                                            22 Mar 2018
     *) Bugfix: a segmentation fault occurred in Python module if
        start_response() was called outside of WSGI callable.
 
-    *) Bugfix: a segmentation fault might occur in PHP module if there was
-       an error while initialization.
+    *) Bugfix: a segmentation fault might have occurred in PHP module if
+       there was an error while initialization.
 
 
 Changes with Unit 0.6                                            09 Feb 2018
@@ -51,7 +76,7 @@ Changes with Unit 0.5                                            08 Feb 2018
 
     *) Bugfix: in reading client request body; the bug had appeared in 0.3.
 
-    *) Bugfix: some Python applications might not work due to missing
+    *) Bugfix: some Python applications might not have worked due to missing
        "wsgi.errors" environ variable.
 
     *) Bugfix: HTTP chunked responses might be encoded incorrectly on 32-bit
@@ -74,8 +99,8 @@ Changes with Unit 0.4                                            15 Jan 2018
     *) Bugfix: HTTP large header buffers allocation and deallocation fixed;
        the bug had appeared in 0.3.
 
-    *) Bugfix: some PHP applications might not work with relative "root"
-       path.
+    *) Bugfix: some PHP applications might not have worked with relative
+       "root" path.
 
 
 Changes with Unit 0.3                                            28 Dec 2017
