@@ -44,7 +44,7 @@ Precompiled binaries for Unit are available for:
  * CentOS 6, 7
  * RHEL 6, 7
  * Amazon Linux
- * Ubuntu 16.04, 17.10
+ * Ubuntu 16.04, 17.10, 18.04
  * Debian 8, 9
 
 CentOS Packages
@@ -160,6 +160,11 @@ Ubuntu Packages
     deb https://packages.nginx.org/unit/ubuntu/ artful unit
     deb-src https://packages.nginx.org/unit/ubuntu/ artful unit
 
+   For Ubuntu 18.04::
+
+    deb https://packages.nginx.org/unit/ubuntu/ bionic unit
+    deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
+
 4. Install Unit base package::
 
     # apt-get update
@@ -174,6 +179,10 @@ Ubuntu Packages
    For Ubuntu 17.10::
 
     # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9 unit-perl unit-ruby
+
+   For Ubuntu 18.04::
+
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 unit-go1.10 unit-perl unit-ruby
 
 Debian Packages
 ===============
