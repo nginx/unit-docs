@@ -575,3 +575,16 @@ Installing from Sources
 To install Unit with all modules and Go packages, run the following command::
 
     # make install
+
+
+Starting the daemon
+*******************
+
+When Unit is build from source, the daemon process can be started by running
+``unitd`` (or ``build/unitd``). Take note that the daemon must run as root.
+
+In most cases its easier to start the daemon as a service with ``service unit restart``.
+Any command line arguments can be set in ``/etc/defaults/unit``.
+
+On most Linux distributions, one can configure ``systemd`` to automatically
+start after a reboot of the system: ``sudo systemctl enable unit.service``.
