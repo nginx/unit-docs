@@ -397,6 +397,29 @@ Example::
         "script": "/www/cms/config.ru"
     }
 
+Access log
+**********
+
+To configure access logging, use the ``access_log`` parameter in a configuration
+object to specify the path to the log file.
+
+In the example below, all requests will be logged to **/var/log/access.log**:
+
+.. code-block:: none
+
+    # curl -X PUT -d '"/var/log/access.log"'  \
+           --unix-socket /path/to/control.unit.sock  \
+           http://localhost/config/access_log
+    {
+        "success": "Reconfiguration done."
+    }
+
+The log is written in the Combined Log Format.  Example of a log line:
+
+.. code-block:: none
+
+    127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
+
 Full Example
 ************
 
@@ -468,5 +491,7 @@ Full Example
                 "group": "www",
                 "script": "/www/cms/config.ru"
             }
-        }
+        },
+
+        "access_log": "/var/log/access.log"
     }
