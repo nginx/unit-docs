@@ -263,6 +263,8 @@ The common options are follows:
     * - ``processes`` (optional)
       - Number of application processes.
         By default 1 process is used.
+        Use the ``max`` and ``spare`` options to take advantage of
+        the dynamic processes management feature.
 
     * - ``working_directory`` (optional)
       - Working directory for the application.
