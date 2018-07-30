@@ -41,7 +41,7 @@ deploy: site
 	$(MAKE) do_gzip
 	chmod -R g=u "$(DEPLOYDIR)"
 
-do_gzip: $(addsuffix .gz, $(shell find "$(DEPLOYDIR)" $(COMPRESS)))
+do_gzip: $(addsuffix .gz, $(shell find "$(DEPLOYDIR)" $(COMPRESS) 2>/dev/null))
 
 	find "$(DEPLOYDIR)" -type f ! -name '*.gz' \
 		-exec test \! -e {}.gz \; -print
