@@ -254,6 +254,18 @@ The common options are follows:
       - Type of the application: ``go``, ``perl``, ``php``, ``python``,
         or ``ruby``.
 
+        You can also identify the specific version of the language runtime
+        for your application: ``"type": "python 3"``, or
+        ``"type": "python 3.4"``, or ``"type": "python 3.4.9rc1"``.  Unit
+        compares this version with the discovered modules and uses the latest
+        matching one.
+
+        For example, if you have installed only one PHP 7 module, 7.1.9,
+        it will match ``"php"``, ``"php 7"``, ``"php 7.1"``, and
+        ``"php 7.1.9"``.  If you install two PHP modules, 7.0.2 and 7.0.23,
+        and prefer to use 7.0.2, set ``"type": "php 7.0.2"``.  If you supply
+        ``"php 7"``, PHP 7.0.23 will be used as the latest version available.
+
     * - ``processes`` (optional)
       - Number of application processes.
         By default 1 process is used.
@@ -270,8 +282,32 @@ The common options are follows:
       - Group name that runs the app process.
         If not specified, user's primary group is used.
 
-Depending on the ``type`` of application you need to configure a number of
-additional options.
+    * - ``environment`` (optional)
+      - Environment variables to be used by the application.
+
+Example::
+
+    {
+        "type": "python 3.6",
+        "processes": 16,
+        "working_directory": "/www/python-apps",
+        "path": "blog",
+        "module": "blog.wsgi",
+        "user": "blog",
+        "group": "blog",
+
+        "environment": {
+            "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
+            "DB_ENGINE": "django.db.backends.postgresql",
+            "DB_NAME": "blog",
+            "DB_HOST": "127.0.0.1",
+            "DB_PORT": "5432"
+        }
+    }
+
+Depending on the ``type`` of the application, you may need to configure
+a number of additional options.
+In the example above, Python-specific options ``path`` and ``module`` are used.
 
 Go Application
 ==============
@@ -286,6 +322,11 @@ Go Application
       - Path to compiled application, absolute or relative
         to ``working_directory``.
 
+    * - ``arguments`` (optional)
+      - Command line arguments to be passed to the application.
+        The example below is equivalent to
+        ``/www/chat/bin/chat_app --tmp-files /tmp/go-cache``.
+
 Example::
 
     {
@@ -293,7 +334,8 @@ Example::
         "working_directory": "/www/chat",
         "executable": "bin/chat_app",
         "user": "www-go",
-        "group": "www-go"
+        "group": "www-go",
+        "arguments": ["--tmp-files", "/tmp/go-cache"]
     }
 
 Perl Application
@@ -338,6 +380,25 @@ PHP Application
       - File that Unit runs for every URL, instead of searching for a file in
         the filesystem.  The location is relative to the root.
 
+You can also customize php.ini using the following options
+(available in the ``options`` object):
+
+.. list-table::
+    :header-rows: 1
+
+    * - Object
+      - Description
+
+    * - ``file`` (optional)
+      - Path name of the php.ini file.
+
+    * - ``admin`` and ``user`` (optional)
+      - Configuration objects for php.ini.
+        Note that their configuration values must be supplied as strings
+        even when they represent numbers.
+        The ``user`` object allows ``ini_set()`` to override the options
+        from within the application.
+
 Example::
 
     {
@@ -346,7 +407,19 @@ Example::
         "root": "/www/blogs/scripts",
         "index": "index.php",
         "user": "www-blogs",
-        "group": "www-blogs"
+        "group": "www-blogs",
+
+        "options": {
+            "file": "/etc/php.ini",
+            "admin": {
+                "memory_limit": "256M",
+                "variables_order": "EGPCS",
+                "expose_php": "0"
+            },
+            "user": {
+                "display_errors": "0"
+            }
+        }
     }
 
 Python Application
