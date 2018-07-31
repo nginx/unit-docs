@@ -18,7 +18,7 @@ Key Features
 
 - Fully dynamic reconfiguration using RESTful JSON API
 - Multiple application languages and versions can run simultaneously
-- Dynamic application processes management *(coming soon)*
+- Dynamic application processes management
 - TLS support *(coming soon)*
 - TCP, HTTP, HTTPS, HTTP/2 routing and proxying *(coming soon)*
 
