@@ -267,8 +267,12 @@ The common options are follows:
         ``"php 7"``, PHP 7.0.23 will be used as the latest version available.
 
     * - ``processes`` (optional)
-      - Number of application processes.
-        By default 1 process is used.
+      - An integer or an object.  Integer value configures a static number
+        of application processes.  Object accepts dynamic process management
+        settings: ``max``, ``spare``, and ``idle_timeout``.  For details, see
+        :ref:`app-proc-management`.
+
+        The default value is 1.
 
     * - ``working_directory`` (optional)
       - Working directory for the application.
@@ -308,6 +312,62 @@ Example::
 Depending on the ``type`` of the application, you may need to configure
 a number of additional options.
 In the example above, Python-specific options ``path`` and ``module`` are used.
+
+.. _app-proc-management:
+
+Process Management
+==================
+
+The ``processes`` option offers choice between static and dynamic process
+management model.  If you provide an integer value, Unit immediately launches
+the given number of application processes and maintains them statically without
+scaling.
+
+Unit also supports a dynamic prefork model for ``processes`` that is
+enabled and configured with the following parameters:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - ``max``
+      - Maximum number of application processes that Unit will maintain
+        (busy and idle).
+
+        The default value is 1.
+
+    * - ``spare``
+      - Minimum number of idle processes that Unit will reserve for the
+        application when possible.  When Unit starts an application, ``spare``
+        idle processes are launched.  As requests arrive, Unit assigns them to
+        existing idle processes and forks new idle ones to maintain the
+        ``spare`` level if ``max`` permits.  When processes complete requests
+        and turn idle, Unit terminates extra ones after a timeout.
+
+        The default value is 0.  The value of ``spare`` cannot exceed ``max``.
+
+
+    * - ``idle_timeout``
+      - Number of seconds for Unit to wait before it terminates an extra idle
+        process, when the count of idle processes exceeds ``spare``.
+
+        The default value is 15.
+
+If ``processes`` is omitted entirely, Unit creates 1 static process.  If empty
+object is provided: ``"processes": {}``, dynamic behavior with default
+parameter values is assumed.
+
+In the following example, Unit tries to keep 5 idle processes, no more than 10
+processes in total, and terminates extra idle processes after 20 seconds of
+inactivity::
+
+    {
+        "max": 10,
+        "spare": 5,
+        "idle_timeout": 20
+    }
 
 Go Application
 ==============
