@@ -31,7 +31,7 @@ serve: site
 	@cd "$(BUILDDIR)" && $(SERVER)
 
 check:
-	@$(SPHINX) -b linkcheck "$(SOURCEDIR)" "$(BUILDDIR)"
+	@$(SPHINX) -b linkcheck "$(SOURCEDIR)" .
 
 clean:
 	rm -rf $(BUILDDIR)
