@@ -136,7 +136,8 @@ body > div {
     border: none;
     border-collapse: collapse;
 }
-#content th, td {
+#content th,
+#content td {
     border: none;
     padding: .2em .5em;
 }
@@ -156,7 +157,8 @@ body > div {
 #content col {
     width: auto;
 }
-#content .literal, #content span.option {
+#content .literal,
+#content span.option {
     padding: .2em .4em;
     background: #eee;
     color: #666;
@@ -174,7 +176,9 @@ body > div {
     padding-bottom: 56.25%;
     overflow: hidden;
 }
-#content .video iframe, #content .video object, #content .video embed {
+#content .video iframe,
+#content .video object,
+#content .video embed {
     position: absolute;
     top:0;
     left:0;
