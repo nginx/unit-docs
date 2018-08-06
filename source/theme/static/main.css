@@ -144,6 +144,12 @@ body > div {
     border-top: .1em solid #ddd;
     border-bottom: .1em solid #ddd;
 }
+#content td > .first {
+    margin-top: 0;
+}
+#content td > .last {
+    margin-bottom: 0;
+}
 #content .option-list td {
     border: none;
 }
