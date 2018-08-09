@@ -36,6 +36,8 @@ languages:
 You can run multiple versions of the same language installed on the same
 system.
 
+.. _installation-precomp-pkgs:
+
 Precompiled Packages
 ********************
 
