@@ -497,12 +497,25 @@ Python Application
     * - ``path`` (optional)
       - Path to search for the WSGI module file.
 
+    * - ``home`` (optional)
+      - Path to Python `virtual environment <https://packaging.python.org/
+        tutorials/installing-packages/#creating-virtual-environments>`_
+        for the application.  You can set this value relative to the
+        ``working_directory`` of the application.
+
+        Note: The Python version used by Unit to run the application is
+        controlled by the ``type`` of the application.  Unit doesn't use
+        command line Python interpreter within the virtual environment due to
+        performance considerations.
+
 Example::
 
     {
-        "type": "python",
+        "type": "python 3.6",
         "processes": 10,
-        "path": "/www/store/cart",
+        "working_directory": "/www/store/",
+        "path": "/www/store/cart/",
+        "home": "/www/store/.virtualenv/",
         "module": "wsgi",
         "user": "www",
         "group": "www"
