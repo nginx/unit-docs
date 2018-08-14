@@ -266,11 +266,16 @@ The common options are follows:
         and prefer to use 7.0.2, set ``"type": "php 7.0.2"``.  If you supply
         ``"php 7"``, PHP 7.0.23 will be used as the latest version available.
 
+    * - ``limits`` (optional)
+      - An object that accepts two integer options, ``timeout`` and
+        ``requests``.  Their values restrict the life cycle of an application
+        process.  For details, see :ref:`configuration-proc-mgmt-lmts`.
+
     * - ``processes`` (optional)
       - An integer or an object.  Integer value configures a static number
         of application processes.  Object accepts dynamic process management
         settings: ``max``, ``spare``, and ``idle_timeout``.  For details, see
-        :ref:`app-proc-management`.
+        :ref:`configuration-proc-mgmt-prcs`.
 
         The default value is 1.
 
@@ -299,6 +304,10 @@ Example::
         "module": "blog.wsgi",
         "user": "blog",
         "group": "blog",
+        "limits": {
+            "timeout": 10,
+            "requests": 1000
+        },
 
         "environment": {
             "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
@@ -313,10 +322,40 @@ Depending on the ``type`` of the application, you may need to configure
 a number of additional options.
 In the example above, Python-specific options ``path`` and ``module`` are used.
 
-.. _app-proc-management:
+Process Management and Limits
+=============================
+
+Application process behavior in Unit is described by two configuration options,
+``limits`` and ``processes``.
+
+.. _configuration-proc-mgmt-lmts:
+
+Request Limits
+--------------
+
+The ``limits`` object accepts two options:
+
+ .. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - ``timeout`` (optional)
+      - Request timeout in seconds.  If an application process exceeds this
+        limit while processing a request, Unit terminates the process and
+        returns an HTTP error to the client.
+
+    * - ``requests`` (optional)
+      - Maximum number of requests Unit allows an application process to serve.
+        If this limit is reached, Unit terminates and restarts the application
+        process.  This allows to mitigate application memory leaks or other
+        issues that may accumulate over time.
+
+.. _configuration-proc-mgmt-prcs:
 
 Process Management
-==================
+------------------
 
 The ``processes`` option offers choice between static and dynamic process
 management model.  If you provide an integer value, Unit immediately launches
