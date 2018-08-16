@@ -69,10 +69,10 @@ https://www.nginx.com.
 Securing and Proxying Unit API
 ******************************
 
-By default, Unit API is available through a Unix domain socket. In order for
+By default, Unit API is available through a Unix domain socket.  In order for
 the API to be available remotely, configure a reverse proxy with NGINX.
 
-NGINX can provide security, authentication, and access control to the API. It
+NGINX can provide security, authentication, and access control to the API.  It
 is not recommended to expose unsecure Unit API.
 
 Use the following configuration example for NGINX::

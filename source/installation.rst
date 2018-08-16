@@ -344,7 +344,7 @@ generate Makefile required to compile all other stuff::
 
 With Unit, you can simultaneously run applications that use different versions
 of a supported language (Go, PHP, or Python).  You need to configure a separate
-Unit module for each one. The following commands create the necessary
+Unit module for each one.  The following commands create the necessary
 instructions in the **Makefile** for each module.
 
 Configuring Go Package

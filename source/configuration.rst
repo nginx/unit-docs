@@ -79,7 +79,7 @@ Creating Configuration Objects
 ******************************
 
 To create a configuration object, specify the JSON data for it in the body of
-a ``PUT`` request. To reduce errors, it makes sense to write the JSON data in a
+a ``PUT`` request.  To reduce errors, it makes sense to write the JSON data in a
 file and specify the file path with the ``-d`` option to the ``curl`` command.
 
 
