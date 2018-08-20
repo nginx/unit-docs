@@ -228,6 +228,65 @@ Debian Packages
 
     # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl unit-ruby
 
+.. _installation-community-repos:
+
+Community Repositories
+**********************
+
+Warning: Distributions listed in this section are maintained by their
+respective communities.  NGINX has no control or responsibility over these
+resources.  Proceed at your own consideration.
+
+.. _installation-freebsd-pkgs-prts:
+
+FreeBSD
+=======
+
+.. _installation-freebsd-pkgs:
+
+To install Unit using `FreeBSD packages <https://www.
+freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
+repository and install the package::
+
+    # pkg install -y unit
+
+.. _installation-freebsd-prts:
+
+To install Unit using `FreeBSD ports <https://www.
+freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_, update your
+port collection.
+
+For ``portsnap``::
+
+    # portsnap fetch update
+
+For ``svn``::
+
+    # svn update /usr/ports
+
+Next, browse to the port path to build and install the port::
+
+    # cd /usr/ports/www/unit
+    # make
+    # make install
+
+Warning: ``make`` here is used in port configuration.  For ``make`` commands
+to build Unit from the code in our repositories, see :ref:`installation-src`.
+
+.. _installation-gnt-prtg:
+
+Gentoo
+======
+
+To install Unit using `Portage <https://wiki.gentoo.org/wiki/
+Handbook:X86/Full/Portage>`_, update the repository and install the `package
+<https://packages.gentoo.org/packages/www-servers/nginx-unit>`_::
+
+    # emerge --sync
+    # emerge www-servers/nginx-unit
+
+.. _installation-src:
+
 Source Code
 ***********
 
