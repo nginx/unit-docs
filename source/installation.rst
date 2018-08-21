@@ -36,6 +36,39 @@ languages:
 You can run multiple versions of the same language installed on the same
 system.
 
+.. _installation-docker:
+
+Docker Images
+*************
+
+To install and run Unit from our Docker image repository::
+
+    # docker pull nginx/unit
+    # docker run -d nginx/unit
+
+By default, the ``:latest`` image tag is used that resolves into a
+``-full`` configuration of the latest Unit version.  Other `tags <https://hub.
+docker.com/r/nginx/unit/tags/>`_ available:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Tag
+      - Description
+
+    * - ``<version>-full``
+      - Modules for all supported languages.
+
+    * - ``<version>-minimal``
+      - No language modules.
+
+    * - ``<version>-<language>``
+      - Specific language module only, for example ``1.3-ruby2.3`` or
+        ``1.2-python2.7``.
+
+For further details, see the `repository page <https://hub.docker.com/r/
+nginx/unit/>`_.
+
 .. _installation-precomp-pkgs:
 
 Precompiled Packages
