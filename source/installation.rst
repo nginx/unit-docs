@@ -523,44 +523,50 @@ The resulting application works as follows:
   supplied as its first argument and relying on the :ref:`listener's settings
   <configuration-listeners>` instead.
 
-Configuring Perl Modules
-------------------------
+.. _installation-perl:
 
-To configure a Unit module (called **perl.unit.so**) for the version of
-Perl that the ``configure`` script finds bundled with the operating system,
-run this command::
+Configuring Perl
+----------------
 
-    # ./configure perl
+When you run :command:`./configure perl`, the script configures a module to
+support running Perl scripts as applications in Unit.  Available command
+options:
 
-To configure Unit modules for other versions of Perl (including versions you
-have customized), repeat the following command for each one::
+--include=directory
+        Directory path to Perl headers (required to build the module).
 
-    # ./configure perl OPTIONS
+        The default is Perl's `$Config{archlib}/CORE <https://perldoc.perl.
+        org/Config.html>`_ directory.
 
-where ``OPTIONS`` can be:
+--perl=pathname
+        Specific Perl executable pathname.
 
---module=<prefix>
+        The default value is :samp:`perl`.
 
-  Sets the filename prefix for the Unit module specific to the Perl
-  version (that is, the resulting module is called **<prefix>.unit.so**).
+--module=filename
+        Target name for the Perl module that Unit will build
+        (:file:`<filename>.unit.so`).
 
---perl=<perl>
+        The default value is the filename of the :option:`!--perl` executable.
 
-  Specifies the particular Perl interpreter.
+To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
---include=<directory>
+.. code-block:: console
 
-  Specifies the directory for the Perl headers files to use.
-
-For example, this command generates a module called **perl-5.20.unit.so** for
-Perl |_| 5.20.2::
-
-    $ ./configure perl --module=perl-5.20 \
+    # ./configure perl --module=perl-5.20 \
                        --perl=perl5.20.2
-    configuring Perl module
-    checking for Perl ... found
-     + Perl version: 5.20.2
-     + Perl module: perl-5.20.unit.so
+
+        configuring Perl module
+        checking for Perl ... found
+         + Perl version: 5.20.2
+         + Perl module: perl-5.20.unit.so
+
+To build and install the configured module separately:
+
+.. code-block:: console
+
+    # make perl-5.20
+    # make perl-5.20-install
 
 Configuring PHP Modules
 -----------------------
