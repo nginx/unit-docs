@@ -164,6 +164,26 @@ body > div {
     color: #666;
     white-space: nowrap
 }
+#content div.admonition {
+    margin: 1em 0;
+    border-left: .2em solid;
+    padding: .6em 0 .6em 1em;
+}
+#content div.admonition.warning {
+    border-color: #aa0000;
+}
+#content div.admonition.note {
+    border-color: #00974d;
+}
+#content div.admonition p.first {
+    margin-top: 0;
+}
+#content div.admonition p.last {
+    margin-bottom: 0;
+}
+#content div.admonition p.admonition-title {
+    font-weight: bold;
+}
 #content .highlight {
     margin: 1em 0;
     border-radius: .5em;
