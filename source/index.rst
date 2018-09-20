@@ -19,7 +19,7 @@ Key Features
 - Fully dynamic reconfiguration using RESTful JSON API
 - Multiple application languages and versions can run simultaneously
 - Dynamic application process management
-- TLS support *(coming soon)*
+- :ref:`SSL/TLS support (OpenSSL 1.0.1 and later) <configuration-ssl>`
 - TCP, HTTP, HTTPS, HTTP/2 routing and proxying *(coming soon)*
 
 Supported Application Languages

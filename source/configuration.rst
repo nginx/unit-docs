@@ -297,10 +297,21 @@ Listener Objects
     * - ``application``
       - Application name.
 
-Example::
+    * - :samp:`tls` (optional)
+      - SSL/TLS configuration.  Set its only option, :samp:`certificate`, to
+        enable secure communication via the listener.  The value must reference
+        a certificate chain that you have uploaded earlier.  For details, see
+        :ref:`configuration-ssl`.
+
+Example:
+
+.. code-block:: json
 
     {
-        "application": "blogs"
+        "application": "blogs",
+        "tls": {
+            "certificate": "blogs-cert"
+        }
     }
 
 Application Objects
@@ -671,6 +682,201 @@ The log is written in the Combined Log Format.  Example of a log line:
 .. code-block:: none
 
     127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
+
+.. _configuration-ssl:
+
+SSL/TLS and Certificates
+************************
+
+To set up SSL/TLS access for your application, upload a :file:`.pem` file
+containing your certificate chain and private key to Unit.  Next, reference the
+uploaded bundle in the listener's configuration.  After that, the listener's
+application becomes accessible via SSL/TLS.
+
+First, create a :file:`.pem` file with your certificate chain and private key:
+
+.. code-block:: none
+
+    # cat cert.pem ca.pem key.pem > bundle.pem
+
+.. note::
+
+    Usually, your website's certificate (optionally followed by the
+    intermediate CA certificate) is enough to build a certificate chain.  If
+    you add more certificates to your chain, order them leaf to root.
+
+Upload the resulting file to Unit's certificate storage under a suitable name:
+
+.. code-block:: none
+
+    # curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
+
+        {
+            "success": "Certificate chain uploaded."
+        }
+
+.. warning::
+
+    Don't use :option:`!-d` for file upload; this option damages :file:`.pem`
+    files.  Use the :option:`!--data-binary` option when uploading file-based
+    data with :program:`curl` to avoid data corruption.
+
+Internally, Unit stores uploaded certificate bundles along with other
+configuration data in its :file:`state` subdirectory; Unit's control API maps
+them to a separate configuration section, aptly named :samp:`certificates`:
+
+.. code-block:: json
+
+    {
+        "certificates": {
+            "<bundle>": {
+                "key": "RSA (4096 bits)",
+                "chain": [
+                    {
+                        "subject": {
+                            "common_name": "example.com",
+                            "alt_names": [
+                                "example.com",
+                                "www.example.com"
+                            ],
+
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme, Inc."
+                        },
+
+                        "issuer": {
+                            "common_name": "intermediate.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Certification Authority"
+                        },
+
+                        "validity": {
+                            "since": "Sep 18 19:46:19 2018 GMT",
+                            "until": "Jun 15 19:46:19 2021 GMT"
+                        }
+                    },
+
+                    {
+                        "subject": {
+                            "common_name": "intermediate.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Certification Authority"
+                        },
+
+                        "issuer": {
+                            "common_name": "root.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Root Certification Authority"
+                        },
+
+                        "validity": {
+                            "since": "Feb 22 22:45:55 2016 GMT",
+                            "until": "Feb 21 22:45:55 2019 GMT"
+                        }
+                    },
+                ]
+            }
+        }
+    }
+
+.. note::
+
+    You can access individual certificates in your chain, as well as specific
+    alternative names, by their indexes:
+
+    .. code-block:: none
+
+     # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
+     # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
+
+Next, add a :samp:`tls` object to your listener configuration, referencing the
+uploaded bundle's name in :samp:`certificate`:
+
+.. code-block:: json
+
+    {
+        "listeners": {
+            "127.0.0.1:8080": {
+                "application": "wsgi-app",
+                "tls": {
+                    "certificate": "<bundle>"
+                }
+            }
+        }
+    }
+
+The resulting control API configuration may look like this:
+
+.. code-block:: json
+
+    {
+        "certificates": {
+            "<bundle>": {
+                "key": "<key type>",
+                "chain": ["<certificate chain, omitted for brevity>"]
+            }
+        },
+
+        "config": {
+            "listeners": {
+                "127.0.0.1:8080": {
+                    "application": "wsgi-app",
+                    "tls": {
+                        "certificate": "<bundle>"
+                    }
+                }
+            },
+
+            "applications": {
+                "wsgi-app": {
+                    "type": "python",
+                    "module": "wsgi",
+                    "path": "/usr/www/wsgi-app/"
+                }
+            }
+        }
+    }
+
+Now you're solid.  The application is accessible via SSL/TLS:
+
+.. code-block:: none
+
+    # curl -v https://127.0.0.1:8080
+        ...
+        * TLSv1.2 (OUT), TLS handshake, Client hello (1):
+        * TLSv1.2 (IN), TLS handshake, Server hello (2):
+        * TLSv1.2 (IN), TLS handshake, Certificate (11):
+        * TLSv1.2 (IN), TLS handshake, Server finished (14):
+        * TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+        * TLSv1.2 (OUT), TLS change cipher, Client hello (1):
+        * TLSv1.2 (OUT), TLS handshake, Finished (20):
+        * TLSv1.2 (IN), TLS change cipher, Client hello (1):
+        * TLSv1.2 (IN), TLS handshake, Finished (20):
+        * SSL connection using TLSv1.2 / AES256-GCM-SHA384
+        ...
+
+Finally, you can :samp:`DELETE` a certificate bundle that you don't need
+anymore from the storage:
+
+.. code-block:: none
+
+    # curl -X DELETE 127.1:8443/certificates/<bundle>
+
+        {
+            "success": "Certificate deleted."
+        }
+
+.. note::
+
+    You can't delete certificate bundles still referenced in your
+    configuration, overwrite existing bundles using :samp:`PUT`, or (obviously)
+    delete non-existent ones.
+
+Happy SSLing!
 
 Full Example
 ************

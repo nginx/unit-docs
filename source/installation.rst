@@ -656,6 +656,31 @@ Ruby |_| 2.3::
      + Ruby version: 2.3.0
      + Ruby module: ru23.unit.so
 
+.. _installation-ssl:
+
+Configuring SSL/TLS Support
+---------------------------
+
+To enable SSL/TLS support in Unit, use the :option:`!--openssl` option
+with :program:`./configure`:
+
+.. code-block:: none
+
+    # ./configure --openssl
+
+.. note::
+
+    Make sure that OpenSSL (1.0.1 and later) header files and libraries are
+    available in your compiler's search path.
+
+    * To customize the path, provide the :option:`!--cc-opt` and
+      :option:`!--ld-opt` options for :program:`./configure`.
+    * Also, you can set custom :envvar:`CFLAGS` and :envvar:`LDFLAGS`
+      environment variables before running :program:`./configure`.
+
+For more information about further SSL/TLS configuration, see
+:ref:`configuration-ssl`.
+
 Compiling Sources
 =================
 
