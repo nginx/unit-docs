@@ -659,6 +659,16 @@ Example::
         "group": "www",
         "script": "/www/cms/config.ru"
     }
+    
+Example::
+{
+        "type": "ruby",
+        "processes": 5,
+        "user": "www",
+        "group": "www",
+        "working_directory":"/www/cms",
+        "script": "/www/cms/config.ru"
+}    
 
 Access log
 **********
