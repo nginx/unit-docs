@@ -557,8 +557,8 @@ PHP Application
       - File that Unit runs for every URL, instead of searching for a file in
         the filesystem.  The location is relative to the root.
 
-You can also customize php.ini using the following options
-(available in the ``options`` object):
+You can also customize :file:`php.ini` using the following options
+(available in the :samp:`options` object):
 
 .. list-table::
     :header-rows: 1
@@ -566,17 +566,32 @@ You can also customize php.ini using the following options
     * - Object
       - Description
 
-    * - ``file`` (optional)
-      - Path name of the php.ini file.
+    * - :samp:`file`
+      - Pathname of the :file:`php.ini` file.
 
-    * - ``admin`` and ``user`` (optional)
-      - Configuration objects for php.ini.
-        Note that their configuration values must be supplied as strings
-        even when they represent numbers.
-        The ``user`` object allows ``ini_set()`` to override the options
-        from within the application.
+    * - :samp:`admin`, :samp:`user`
+      - Objects with `PHP configuration directives
+        <http://php.net/manual/en/ini.list.php>`_.  Directives in :samp:`admin`
+        are set in :samp:`PHP_INI_SYSTEM` mode; it means that your application
+        can't alter them.  Directives in :samp:`user` are set in
+        :samp:`PHP_INI_USER` mode; your application is allowed to `update them
+        <http://php.net/manual/en/function.ini-set.php>`_ in runtime.
 
-Example::
+Directives from :file:`php.ini` are applied first; next, :samp:`admin` and
+:samp:`user` objects are applied.
+
+.. note::
+
+    Provide string values for any directives you specify in :samp:`options`
+    (for example, :samp:`"max_file_uploads": "64"` instead of
+    :samp:`"max_file_uploads": 64`).  For flags, use :samp:`"0"` and
+    :samp:`"1"` only.  For more information about :samp:`PHP_INI_*` modes, see
+    the `PHP documentation
+    <http://php.net/manual/en/configuration.changes.modes.php>`_.
+
+Example:
+
+.. code-block:: json
 
     {
         "type": "php",
