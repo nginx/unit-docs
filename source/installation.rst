@@ -439,63 +439,89 @@ of a supported language (Go, PHP, or Python).  You need to configure a separate
 Unit module for each one.  The following commands create the necessary
 instructions in the **Makefile** for each module.
 
-Configuring Go Package
-----------------------
+.. _installation-go:
 
-NGINX Unit will provide the Go package that is required for running your Go
-application inside Unit.
+Configuring Go
+--------------
 
-1. Set the ``GOPATH`` environment variable, which sets the output directory
-   for the Unit Go package::
+When you run :command:`./configure go`, Unit sets up the Go package that your
+applications will use to run in Unit.  To use the package, install it in your
+Go environment.  Available configuration options:
 
-    # export GOPATH=/home/user/go_apps
+--go        Filename of the Go executable.
 
-2. Run the following command::
+            The default value is :samp:`go`.
+--go-path   Custom directory path for Go package installation.
+
+            The default value is :samp:`$GOPATH`.
+
+.. note::
+
+    The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
+    `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. Make
+    sure these two paths, the configuration-time :option:`!--go-path` and
+    compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
+    the Unit package.
+
+To build and install the Go package for Unit after configuration, run
+:command:`make go-install`:
+
+.. code-block:: console
 
     # ./configure go
-    configuring Go package
-    checking for Go ... found
-     + go version go1.6.2 linux/amd64
-     + Go package path: "/home/user/go_apps"
-
-3. Install the Go package in your working GOPATH::
-
     # make go-install
 
-Building the Go Applications
-----------------------------
+If you customize the Go executable filename, use the following pattern:
 
-1. Modify the source file for the Go application, making changes in two
-   places:
+.. code-block:: console
 
-   a) In the ``import`` section, add ``"nginx/unit"`` on a separate line:
+    # ./configure go --go=go1.7
+    # make go1.7-install
 
-      .. code-block:: go
+Building Go Applications
+------------------------
 
-        import (
-            "fmt"
-            "net/http"
-            "nginx/unit"
-        )
+To make a Go application support Unit, modify your source code.
 
-   b) In the ``main()`` function, comment out the ``http.ListenandServe``
-      function and insert the ``unit.ListenAndServe`` function:
+   1. In the :samp:`import` section, add the :samp:`"nginx/unit"` package (you
+      have built and installed it earlier with :command:`make go-install`):
 
       .. code-block:: go
 
-        func main() {
-            http.HandleFunc("/", handler)
-            //http.ListenAndServe(":8080", nil)
-            unit.ListenAndServe(":8080", nil)
-        }
+         import (
+             ...
+             "nginx/unit"
+             ...
+         )
 
-2. Build the Go application::
+   2. In the :samp:`main()` function, replace the :samp:`http.ListenandServe`
+      call with :samp:`unit.ListenAndServe`:
 
-    # go build
+      .. code-block:: go
 
-If the Go application is executed directly, the unit module will fall back
-to the http module.  If the Go application is launched by Unit, it will
-communicate with the Unit router via shared memory.
+         func main() {
+             ...
+             http.HandleFunc("/", handler)
+             ...
+             //http.ListenAndServe(":8080", nil)
+             unit.ListenAndServe(":8080", nil)
+             ...
+         }
+
+Build the Go application:
+
+.. code-block:: console
+
+    # go build <application>
+
+The resulting application works as follows:
+
+- When you run it standalone, the :samp:`unit.ListenAndServe` call falls back
+  to :samp:`http` functionality.
+- When :ref:`Unit runs it <configuration-go>`, :samp:`unit.ListenAndServe`
+  communicates with Unit's router process directly, ignoring the address
+  supplied as its first argument and relying on the :ref:`listener's settings
+  <configuration-listeners>` instead.
 
 Configuring Perl Modules
 ------------------------

@@ -30,6 +30,8 @@ when the URL doesn't specify the PHP file is **index.php**.
         }
     }
 
+.. _configuration-listeners:
+
 Listeners
 *********
 
@@ -485,6 +487,8 @@ inactivity::
         "spare": 5,
         "idle_timeout": 20
     }
+
+.. _configuration-go:
 
 Go Application
 ==============
