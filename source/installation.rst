@@ -448,7 +448,7 @@ When you run :command:`./configure go`, Unit sets up the Go package that your
 applications will use to run in Unit.  To use the package, install it in your
 Go environment.  Available configuration options:
 
---go        Filename of the Go executable.
+--go        Specific Go executable pathname.
 
             The default value is :samp:`go`.
 --go-path   Custom directory path for Go package installation.
@@ -471,12 +471,12 @@ To build and install the Go package for Unit after configuration, run
     # ./configure go
     # make go-install
 
-If you customize the Go executable filename, use the following pattern:
+If you customize the Go executable pathname, use the following pattern:
 
 .. code-block:: console
 
-    # ./configure go --go=go1.7
-    # make go1.7-install
+    # ./configure go --go=/usr/local/bin/go1.7
+    # make /usr/local/bin/go1.7-install
 
 Building Go Applications
 ------------------------
