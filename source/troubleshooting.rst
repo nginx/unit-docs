@@ -28,6 +28,8 @@ following command::
 If Unit's not running, refer to Unit-related startup scripts or configuration
 files in your system to discover the log file location.
 
+.. _troubleshooting-dbg-log:
+
 Debug Log
 ---------
 

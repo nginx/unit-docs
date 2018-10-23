@@ -426,18 +426,131 @@ CentOS Prerequisites
 
     # yum install ruby-devel
 
+.. _installation-config-src:
+
 Configuring Sources
 ===================
 
-First you need to run configure script to perform necessary system checks and
-generate Makefile required to compile all other stuff::
+First, run system checks and create the :file:`Makefile` that you will update
+during language module setup:
+
+.. code-block:: console
 
     # ./configure
 
-With Unit, you can simultaneously run applications that use different versions
-of a supported language (Go, PHP, or Python).  You need to configure a separate
-Unit module for each one.  The following commands create the necessary
-instructions in the **Makefile** for each module.
+The :program:`./configure` script has the following options available:
+
+--help
+    Displays a brief summary of general :program:`./configure` options.
+
+    For language-specific details, run :command:`./configure <language>
+    --help`.
+
+--cc=pathname
+    Specific C compiler pathname.
+
+    The default value is :samp:`cc`.
+
+--cc-opt=options
+    Additional C compiler options.
+
+--ld-opt=options
+    Additional linker options.
+
+--prefix=directory
+
+    Destination directory prefix for relative pathnames (can
+    occur in :option:`!--bindir`, :option:`!--sbindir`, :option:`!--libdir`,
+    :option:`!--incdir`, :option:`!--modules`, :option:`!--state`,
+    :option:`!--pid`, :option:`!--log`, and :option:`!--control`).
+
+    Specify the prefix to customize Unit's post-installation directory
+    structure.
+
+--bindir=directory
+    Directory name for end-user executables; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`bin`.
+
+--sbindir=directory
+    Directory name for sysadmin executables; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`sbin`.
+
+--libdir=directory
+    Directory name for :program:`libunit` library files; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`lib`.
+
+--incdir=directory
+    Directory name for :program:`libunit` include files; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`include`.
+
+--modules=directory
+    Directory name for Unit language modules; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`modules`.
+
+--state=directory
+    State directory name; relative path here is :option:`!--prefix`-based.
+
+    The default value is :samp:`state`.
+
+--pid=filename
+    Filename for the PID file of Unit's daemon process; relative path here is
+    :option:`!--prefix`-based.
+
+    The default value is :samp:`unit.pid`.
+
+--log=filename
+    Filename for the Unit log; relative path here is :option:`!--prefix`-based.
+
+    The default value is :samp:`unit.log`.
+
+--control=socket
+    Address of the control API socket; Unix sockets (starting with
+    :samp:`unix:`), IPv4, and IPv6 sockets are valid here.  For Unix sockets,
+    relative path here is :option:`!--prefix`-based.
+
+    The default value is :samp:`unix:control.unit.sock`.
+
+--user=name
+    Username to run Unit's non-privileged processes.
+
+    The default value is :samp:`nobody`.
+
+--group=name
+    Group name to run Unit's non-privileged processes.
+
+    The default value is :option:`!--user`'s primary group.
+
+--openssl
+    Enables :ref:`OpenSSL support <installation-ssl>`.
+
+--debug
+    Enables the :ref:`debug log <troubleshooting-dbg-log>`.
+
+--no-unix-sockets
+    Disables Unix domain sockets support.
+
+--no-ipv6
+    Disables IPv6 support.
+
+Next, configure a module for each language you want to use with Unit.  The
+:command:`./configure <language>` commands set up individual language modules
+and place module-specific instructions in the :file:`Makefile`.
+
+.. note::
+
+    Unit can run applications in several versions of a supported language side
+    by side: you need to configure, build, and install a separate module for
+    each version.
 
 .. _installation-go:
 
