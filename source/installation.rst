@@ -684,51 +684,53 @@ To build and install the configured module separately:
     # make perl-5.20
     # make perl-5.20-install
 
-Configuring PHP Modules
------------------------
+.. _installation-php:
 
-To configure a Unit module (called **php.unit.so**) for the version of
-PHP that the ``configure`` script finds bundled with the operating system,
-run this command::
+Configuring PHP
+---------------
 
-    # ./configure php
+When you run :command:`./configure php`, the script configures a module to
+support running PHP applications in Unit via PHP's :program:`embed` SAPI.
+Available command options:
 
-To configure Unit modules for other versions of PHP (including versions you
-have customized), repeat the following command for each one::
+--config=pathname
+    Pathname of the :program:`php-config` script invoked to configure the PHP
+    module.
 
-    # ./configure php OPTIONS
+    The default value is :samp:`php-config`.
 
-where ``OPTIONS`` can be:
-
---module=<prefix>
-
-  Sets the filename prefix for the Unit module specific to the PHP
-  version (that is, the resulting module is called **<prefix>.unit.so**).
-
---config=<script>
-
-  Specifies the **php-config** script for the particular version of PHP.
-
---lib-path=<directory>
-
-  Specifies the directory for the PHP library file to use.
+--lib-path=directory
+    Directory path of PHP's :program:`embed` SAPI library file
+    (:file:`libphp<version>.so` or :file:`libphp<version>.a`).
 
 --lib-static
+    Enables linking with the static :program:`embed` SAPI library
+    (:file:`libphp<version>.a`).  If this option is specified,
+    :option:`!--lib-path` is also required.
 
-  Enables linking with static library.
+--module=filename
+    Target name for the PHP module that Unit will build
+    (:file:`<filename>.unit.so`).
 
-For example, this command generates a module called **php70.unit.so** for
-PHP |_| 7.0::
+    The default value is :option:`!--config`'s filename without the
+    `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
+    :samp:`php7`).
+
+For example, this command configures a module called :file:`php70.unit.so` for
+PHP |_| 7.0:
+
+.. code-block:: console
 
     # ./configure php --module=php70  \
                       --config=/usr/lib64/php7.0/bin/php-config  \
                       --lib-path=/usr/lib64/php7.0/lib64
-    configuring PHP module
-    checking for PHP ... found
-     + PHP version: 7.0.22-0ubuntu0.16.04.1
-     + PHP SAPI: [apache2handler embed cgi cli fpm]
-    checking for PHP embed SAPI ... found
-     + PHP module: php70.unit.so
+
+        configuring PHP module
+        checking for PHP ... found
+         + PHP version: 7.0.22-0ubuntu0.16.04.1
+         + PHP SAPI: [apache2handler embed cgi cli fpm]
+        checking for PHP embed SAPI ... found
+         + PHP module: php70.unit.so
 
 Configuring Python Modules
 --------------------------
