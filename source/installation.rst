@@ -27,10 +27,11 @@ Architectures:
 For applications running in NGINX Unit you need the respective programming
 languages:
 
-* Python 2.6, 2.7, 3
-* PHP 5, 7
 * Go 1.6 or later
+* Node.js 8.11 or later
+* PHP 5, 7
 * Perl 5.12 or later
+* Python 2.6, 2.7, 3
 * Ruby 2.0 or later
 
 You can run multiple versions of the same language installed on the same
@@ -365,8 +366,8 @@ Installing Required Software
 ============================
 
 Before configuring and compiling Unit, you must install the required build
-tools plus the library files for each of the available languages (Go, PHP,
-and Python) that you want to support.
+tools plus the library files for each of the available languages (Go, Node.js,
+PHP, Perl, Python, and Ruby) that you want to support.
 
 Ubuntu Prerequisites
 --------------------
@@ -379,21 +380,31 @@ Ubuntu Prerequisites
 
     # apt-get install golang
 
-3. For PHP applications support, install the ``php-dev`` and ``libphp-embed``
+3. For Node.js applications support, install the :program:`nodejs` package and
+   the :program:`node-gyp` tool, as well as the :program:`unit-dev` package:
+
+    .. code-block:: console
+
+       # apt-get install nodejs
+       # apt-get install unit-dev
+       # apt-get install npm
+       # npm install node-gyp
+
+4. For PHP applications support, install the ``php-dev`` and ``libphp-embed``
    packages::
 
     # apt-get install php-dev
     # apt-get install libphp-embed
 
-4. For Python applications support, install the ``python-dev`` package::
+5. For Python applications support, install the ``python-dev`` package::
 
     # apt-get install python-dev
 
-5. For Perl applications support, install the ``libperl-dev`` package::
+6. For Perl applications support, install the ``libperl-dev`` package::
 
     # apt-get install libperl-dev
 
-6. For Ruby applications support, install the ``ruby-dev`` package::
+7. For Ruby applications support, install the ``ruby-dev`` package::
 
     # apt-get install ruby-dev
 
@@ -408,21 +419,32 @@ CentOS Prerequisites
 
     # yum install golang
 
-3. For PHP applications support, install the ``php-devel`` and ``php-embedded``
+3. For Node.js applications support, install the :program:`nodejs` package and
+   the :program:`node-gyp` tool, as well as the :program:`unit-devel` package:
+
+   .. code-block:: console
+
+       # curl --silent --location \
+            https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
+       # yum install nodejs
+       # yum install unit-devel
+       # npm install node-gyp
+
+4. For PHP applications support, install the ``php-devel`` and ``php-embedded``
    packages::
 
     # yum install php-devel php-embedded
 
-4. For Python applications support, install the ``python-devel`` package::
+5. For Python applications support, install the ``python-devel`` package::
 
     # yum install python-devel
 
-5. For Perl applications support, install the ``perl-devel`` and ``perl-libs``
+6. For Perl applications support, install the ``perl-devel`` and ``perl-libs``
    packages::
 
     # yum install perl-devel perl-libs
 
-6. For Ruby applications support, install the ``ruby-devel`` package::
+7. For Ruby applications support, install the ``ruby-devel`` package::
 
     # yum install ruby-devel
 
@@ -634,10 +656,102 @@ The resulting application works as follows:
 
 - When you run it standalone, the :samp:`unit.ListenAndServe` call falls back
   to :samp:`http` functionality.
-- When :ref:`Unit runs it <configuration-go>`, :samp:`unit.ListenAndServe`
-  communicates with Unit's router process directly, ignoring the address
-  supplied as its first argument and relying on the :ref:`listener's settings
-  <configuration-listeners>` instead.
+- When :ref:`Unit runs it <configuration-external>`,
+  :samp:`unit.ListenAndServe` communicates with Unit's router process directly,
+  ignoring the address supplied as its first argument and relying on the
+  :ref:`listener's settings <configuration-listeners>` instead.
+
+.. _installation-nodejs:
+
+Configuring Node.js
+-------------------
+
+To set up the Node.js package that your applications need to run in Unit, run
+:program:`npm install unit-http` in your local project directory:
+
+.. code-block:: console
+
+    # npm install unit-http
+
+This should suit most of your needs: :program:`npm` builds and installs Unit's
+:samp:`unit-http` `package <https://www.npmjs.com/package/unit-http>`_ locally.
+Use it in your :ref:`Unit-hosted applications <configuration-external>` as you
+would use the built-in :samp:`http` package in common Node.js.
+
+Otherwise, to avoid using :program:`npm` and build the package manually, first
+run :program:`./configure nodejs` in Unit's source file directory to set up the
+:file:`Makefile` for the :samp:`unit-http` package.  Available options:
+
+--node
+    Specific Node.js executable pathname.
+
+    The default value is :samp:`node`.
+
+--npm
+    Specific NPM executable pathname.
+
+    The default value is :samp:`npm`.
+
+--node-gyp
+    Specific :program:`node-gyp` executable pathname.
+
+    The default value is :samp:`node-gyp`.
+
+Next, run :command:`make node-local-install` to build and install the
+:samp:`unit-http` package in your project directory:
+
+.. code-block:: console
+
+    # ./configure nodejs
+    # make node-local-install DESTDIR=<your Node.js project directory>
+
+.. note::
+
+    If you customize the Node.js executable pathname, use the following
+    pattern:
+
+    .. code-block:: console
+
+        # ./configure nodejs --node=/usr/local/bin/node8.12
+        # make /usr/local/bin/node8.12-local-install DESTDIR=<...>
+
+This installs Unit's Node.js package locally.
+
+Finally, whichever installation option you use, update your application with
+:samp:`unit-http` instead of :samp:`http`:
+
+.. code-block:: javascript
+
+    var http = require('unit-http');
+
+.. note::
+
+    To run Node.js applications that use the `Express framework
+    <https://expressjs.com>`_ in Unit, rewire your code like this:
+
+    .. code-block:: javascript
+
+        #!/usr/bin/env node
+
+        const {
+          createServer,
+          IncomingMessage,
+          ServerResponse,
+        } = require('unit-http')
+
+        require('http').ServerResponse = ServerResponse
+        require('http').IncomingMessage = IncomingMessage
+
+        const express = require('express')
+
+        const app = express()
+
+        app.get('/', (req, res) => {
+          res.set('X-Unit-Type', 'Absolute')
+          res.send('Hello, Unit!')
+        })
+
+        createServer(app).listen()
 
 .. _installation-perl:
 

@@ -331,14 +331,13 @@ The common options are follows:
       - Description
 
     * - ``type``
-      - Type of the application: ``go``, ``perl``, ``php``, ``python``,
-        or ``ruby``.
+      - Type of the application: ``external`` (Go and Node.js), ``perl``,
+        ``php``, ``python``, or ``ruby``.
 
-        You can also identify the specific version of the language runtime
-        for your application: ``"type": "python 3"``, or
-        ``"type": "python 3.4"``, or ``"type": "python 3.4.9rc1"``.  Unit
-        compares this version with the discovered modules and uses the latest
-        matching one.
+        Except with ``external``, you can detail the runtime version: ``"type":
+        "python 3"``, ``"type": "python 3.4"``, or even ``"type": "python
+        3.4.9rc1"``.  Unit searches its modules and uses the latest matching
+        one, reporting an error if none match.
 
         For example, if you have installed only one PHP 7 module, 7.1.9,
         it will match ``"php"``, ``"php 7"``, ``"php 7.1"``, and
@@ -488,10 +487,10 @@ inactivity::
         "idle_timeout": 20
     }
 
-.. _configuration-go:
+.. _configuration-external:
 
-Go Application
-==============
+Go/Node.js Applications
+=======================
 
 .. list-table::
     :header-rows: 1
@@ -499,19 +498,28 @@ Go Application
     * - Object
       - Description
 
-    * - ``executable``
-      - Path to compiled application, absolute or relative
-        to ``working_directory``.
+    * - :samp:`executable` (required)
+      - Pathname of the application, absolute or relative to
+        :samp:`working_directory`.
 
-    * - ``arguments`` (optional)
+        For Node.js, supply your :file:`.js` pathname and start the file itself
+        with a proper shebang:
+
+        .. code-block:: javascript
+
+            #!/usr/bin/env node
+
+    * - :samp:`arguments`
       - Command line arguments to be passed to the application.
         The example below is equivalent to
-        ``/www/chat/bin/chat_app --tmp-files /tmp/go-cache``.
+        :samp:`/www/chat/bin/chat_app --tmp-files /tmp/go-cache`.
 
-Example::
+Example:
+
+.. code-block:: json
 
     {
-        "type": "go",
+        "type": "external",
         "working_directory": "/www/chat",
         "executable": "bin/chat_app",
         "user": "www-go",

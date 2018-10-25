@@ -30,7 +30,7 @@ Supported Application Languages
 - Go
 - Perl
 - Ruby
-- JavaScript/Node.js *(coming soon)*
+- JavaScript (Node.js)
 - Java *(coming soon)*
 
 Demo
