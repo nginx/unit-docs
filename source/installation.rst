@@ -884,40 +884,38 @@ Python |_| 3.3:
         checking for Python version ... 3.3
          + Python module: py33.unit.so
 
-Configuring Ruby Modules
---------------------------
+.. _installation-ruby:
 
-To configure a Unit module (called **ruby.unit.so**) for the version of
-Ruby that the ``configure`` script finds bundled with the operating system,
-run this command::
+Configuring Ruby
+----------------
 
-    # ./configure ruby
+When you run :program:`./configure ruby`, the script configures a module to
+support running Ruby scripts as applications in Unit.  Available command
+options:
 
-To configure Unit modules for other versions of Ruby (including versions you
-have customized), repeat the following command for each one::
+--module=filename
+        Target name for the Ruby module that Unit will build
+        (:file:`<filename>.unit.so`).
 
-    # ./configure ruby OPTIONS
+        The default value is the filename of the :option:`!--ruby` executable.
 
-where ``OPTIONS`` can be:
+--ruby=pathname
+        Specific Ruby executable pathname.
 
---module=<prefix>
+        The default value is :samp:`ruby`.
 
-  Sets the filename prefix for the Unit module specific to the Ruby
-  version (that is, the resulting module is called **<prefix>.unit.so**).
+For example, this command configures a module called :file:`ru23.unit.so` for
+Ruby |_| 2.3:
 
---ruby=<ruby>
-
-  Specifies the particular Ruby interpreter.
-
-For example, this command generates a module called **ru23.unit.so** for
-Ruby |_| 2.3::
+.. code-block:: console
 
     # ./configure ruby --module=ru23  \
                        --ruby=ruby23
-    configuring Ruby module
-    checking for Ruby ... found
-     + Ruby version: 2.3.0
-     + Ruby module: ru23.unit.so
+
+        configuring Ruby module
+        checking for Ruby ... found
+         + Ruby version: 2.3.0
+         + Ruby module: ru23.unit.so
 
 .. _installation-ssl:
 
