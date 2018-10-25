@@ -732,44 +732,43 @@ PHP |_| 7.0:
         checking for PHP embed SAPI ... found
          + PHP module: php70.unit.so
 
-Configuring Python Modules
---------------------------
+.. _installation-python:
 
-To configure a Unit module (called **python.unit.so**) for the version of
-Python that the ``configure`` script finds bundled with the operating system,
-run this command::
+Configuring Python
+------------------
 
-    # ./configure python
+When you run :command:`./configure python`, the script configures a module to
+support running Python scripts as applications in Unit.  Available command
+options:
 
-To configure Unit modules for other versions of Python (including versions you
-have customized), repeat the following command for each one::
+--config=pathname
+    Pathname of the :program:`python-config` script invoked to configure
+    the Python module.
 
-    # ./configure python OPTIONS
+    The default value is :samp:`python-config`.
 
-where ``OPTIONS`` can be:
+--lib-path=directory
+    Custom directory path of the Python runtime library to use with Unit.
 
---module=<prefix>
+--module=filename
+    Target name for the Python module that Unit will build
+    (:samp:`<filename>.unit.so`).
 
-  Sets the filename prefix for the Unit module specific to the Python
-  version (that is, the resulting module is called **<prefix>.unit.so**).
+    The default value is :option:`!--config`'s filename without the `-config`
+    suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
 
---config=<script>
+For example, this command configures a module called :file:`py33.unit.so` for
+Python |_| 3.3:
 
-  Specifies the **python-config** script for the particular version of Python.
-
---lib-path=<directory>
-
-  Specifies the directory for the Python library file to use.
-
-For example, this command generates a module called **py33.unit.so** for
-Python |_| 3.3::
+.. code-block:: console
 
     # ./configure python --module=py33  \
                          --config=python-config-3.3
-    configuring Python module
-    checking for Python ... found
-    checking for Python version ... 3.3
-     + Python module: py33.unit.so
+
+        configuring Python module
+        checking for Python ... found
+        checking for Python version ... 3.3
+         + Python module: py33.unit.so
 
 Configuring Ruby Modules
 --------------------------
