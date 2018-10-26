@@ -690,17 +690,17 @@ Otherwise, to avoid using :program:`npm` and build the package manually, first
 run :program:`./configure nodejs` in Unit's source file directory to set up the
 :file:`Makefile` for the :samp:`unit-http` package.  Available options:
 
---node
+--node=pathname
     Specific Node.js executable pathname.
 
     The default value is :samp:`node`.
 
---npm
+--npm=pathname
     Specific NPM executable pathname.
 
     The default value is :samp:`npm`.
 
---node-gyp
+--node-gyp=pathname
     Specific :program:`node-gyp` executable pathname.
 
     The default value is :samp:`node-gyp`.
