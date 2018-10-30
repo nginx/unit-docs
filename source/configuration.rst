@@ -492,6 +492,10 @@ inactivity::
 Go/Node.js Applications
 =======================
 
+To run your Go or Node.js applications in Unit, you need to configure
+them `and` modify their source code as suggested below.  Let's start with the
+application configuration:
+
 .. list-table::
     :header-rows: 1
 
@@ -526,6 +530,96 @@ Example:
         "group": "www-go",
         "arguments": ["--tmp-files", "/tmp/go-cache"]
     }
+
+Before applying the configuration, update the application itself.
+
+.. _configuration-external-go:
+
+Modifying Go Sources
+--------------------
+
+In the :samp:`import` section, reference the :samp:`"nginx/unit"` package that
+you have installed earlier:
+
+.. code-block:: go
+
+    import (
+        ...
+        "nginx/unit"
+        ...
+    )
+
+In the :samp:`main()` function, replace the :samp:`http.ListenandServe` call
+with :samp:`unit.ListenAndServe`:
+
+.. code-block:: go
+
+    func main() {
+        ...
+        http.HandleFunc("/", handler)
+        ...
+        //http.ListenAndServe(":8080", nil)
+        unit.ListenAndServe(":8080", nil)
+        ...
+    }
+
+The resulting application works as follows:
+
+- When you run it standalone, the :samp:`unit.ListenAndServe` call falls back
+  to :samp:`http` functionality.
+- When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
+  router process directly, ignoring the address supplied as its first argument
+  and relying on the :ref:`listener's settings <configuration-listeners>`
+  instead.
+
+.. _configuration-external-nodejs:
+
+Modifying Node.js Sources
+-------------------------
+
+First, you need to have the :program:`unit-http` package :ref:`installed
+<installation-nodejs-package>`.  If it's global, symlink it in your project
+directory:
+
+.. code-block:: console
+
+    # npm link unit-http
+
+Do the same if you move a Unit-hosted application to a new system where
+:program:`unit-http` is installed globally.
+
+Next, use :samp:`unit-http` instead of :samp:`http` in your code:
+
+.. code-block:: javascript
+
+    var http = require('unit-http');
+
+If your application uses the `Express framework <https://expressjs.com>`_,
+rewire it like this:
+
+.. code-block:: javascript
+
+    #!/usr/bin/env node
+
+    const {
+      createServer,
+      IncomingMessage,
+      ServerResponse,
+    } = require('unit-http')
+
+    require('http').ServerResponse = ServerResponse
+    require('http').IncomingMessage = IncomingMessage
+
+    const express = require('express')
+
+    const app = express()
+
+    app.get('/', (req, res) => {
+      res.set('X-Unit-Type', 'Absolute')
+      res.send('Hello, Unit!')
+    })
+
+    createServer(app).listen()
 
 Perl Application
 ================

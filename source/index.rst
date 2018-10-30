@@ -30,7 +30,7 @@ Supported Application Languages
 - Go
 - Perl
 - Ruby
-- JavaScript (Node.js)
+- :ref:`JavaScript (Node.js) <installation-nodejs-package>`
 - Java *(coming soon)*
 
 Demo

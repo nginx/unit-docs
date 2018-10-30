@@ -103,7 +103,7 @@ CentOS Packages
 
 3. Install additional module packages you would like to use, e.g.::
 
-    # yum install unit-php unit-python unit-go unit-perl
+    # yum install unit-php unit-python unit-go unit-perl unit-devel
 
 RHEL Packages
 =============
@@ -127,11 +127,11 @@ RHEL Packages
 
    For RHEL 6::
 
-    # yum install unit-php unit-python unit-perl
+    # yum install unit-php unit-python unit-perl unit-devel
 
    For RHEL 7::
 
-    # yum install unit-php unit-python unit-go unit-perl
+    # yum install unit-php unit-python unit-go unit-perl unit-devel
 
 Amazon Linux Packages
 =====================
@@ -163,11 +163,12 @@ Amazon Linux Packages
 
 3. Install additional module packages you would like to use, e.g.::
 
-    # yum install unit-php unit-python27 unit-python34 unit-python35 unit-python36 unit-go unit-perl
+    # yum install unit-php unit-python27 unit-python34 unit-python35 \
+          unit-python36 unit-go unit-perl unit-devel
 
    For Amazon Linux 2 LTS::
 
-    # yum install unit-php unit-python unit-go unit-perl
+    # yum install unit-php unit-python unit-go unit-perl unit-devel
 
 Ubuntu Packages
 ===============
@@ -210,15 +211,18 @@ Ubuntu Packages
 
    For Ubuntu 16.04::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go unit-perl unit-ruby
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go \
+          unit-perl unit-ruby unit-dev
 
    For Ubuntu 17.10::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 unit-go1.9 unit-perl unit-ruby
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.8 \
+          unit-go1.9 unit-perl unit-ruby unit-dev
 
    For Ubuntu 18.04::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 unit-go1.10 unit-perl unit-ruby
+    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 \
+          unit-go1.10 unit-perl unit-ruby unit-dev
 
 Debian Packages
 ===============
@@ -256,11 +260,13 @@ Debian Packages
 
    For Debian 8::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl unit-ruby
+    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
+          unit-ruby unit-dev
 
    For Debian 9::
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 unit-go1.8 unit-perl unit-ruby
+    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
+          unit-go1.8 unit-perl unit-ruby unit-dev
 
 .. _installation-community-repos:
 
@@ -318,6 +324,47 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
     # emerge --sync
     # emerge www-servers/nginx-unit
+
+.. _installation-nodejs-package:
+
+Node.js Package
+***************
+
+Unit's Node.js package is called :program:`unit-http`.  It uses Unit's
+:program:`libunit` library; your Node.js applications :samp:`require` the
+package to run in Unit.  You can install it from the NPM `repository
+<https://www.npmjs.com/package/unit-http>`_.
+
+Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
+<installation-precomp-pkgs>` or build it from :ref:`sources
+<installation-config-src>`.  Next, install :program:`unit-http` globally:
+
+.. code-block:: console
+
+    # npm install -g unit-http
+
+.. warning::
+
+    The :program:`unit-http` package is platform and architecture dependent due
+    to performance optimizations.  It can't be moved across different systems
+    with the rest of the :file:`node-modules` directory (for example, during
+    application migration).  Global installation avoids such scenarios; just
+    :ref:`relink the migrated application <configuration-external-nodejs>`.
+
+This should suit most of your needs.  Use the package in your :ref:`Unit-hosted
+application <configuration-external-nodejs>` as you would use the built-in
+:program:`http` package in common Node.js web applications.
+
+If you update Unit later, make sure to update the NPM package as well:
+
+.. code-block:: console
+
+    # npm update -g unit-http
+
+.. note::
+
+    You can also build and install :program:`unit-http` :ref:`manually
+    <installation-nodejs>`.
 
 .. _installation-src:
 
@@ -380,15 +427,13 @@ Ubuntu Prerequisites
 
     # apt-get install golang
 
-3. For Node.js applications support, install the :program:`nodejs` package and
-   the :program:`node-gyp` tool, as well as the :program:`unit-dev` package:
+3. For Node.js applications support, install the official :program:`nodejs`
+   package:
 
     .. code-block:: console
 
+       # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -
        # apt-get install nodejs
-       # apt-get install unit-dev
-       # apt-get install npm
-       # npm install node-gyp
 
 4. For PHP applications support, install the ``php-dev`` and ``libphp-embed``
    packages::
@@ -419,16 +464,13 @@ CentOS Prerequisites
 
     # yum install golang
 
-3. For Node.js applications support, install the :program:`nodejs` package and
-   the :program:`node-gyp` tool, as well as the :program:`unit-devel` package:
+3. For Node.js applications support, install the official :program:`nodejs`
+   package:
 
    .. code-block:: console
 
-       # curl --silent --location \
-            https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
+       # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
        # yum install nodejs
-       # yum install unit-devel
-       # npm install node-gyp
 
 4. For PHP applications support, install the ``php-devel`` and ``php-embedded``
    packages::
@@ -624,71 +666,14 @@ If you customize the Go executable pathname, use the following pattern:
     # ./configure go --go=/usr/local/bin/go1.7
     # make /usr/local/bin/go1.7-install
 
-Building Go Applications
-------------------------
-
-To make a Go application support Unit, modify your source code.
-
-   1. In the :samp:`import` section, add the :samp:`"nginx/unit"` package (you
-      have built and installed it earlier with :command:`make go-install`):
-
-      .. code-block:: go
-
-         import (
-             ...
-             "nginx/unit"
-             ...
-         )
-
-   2. In the :samp:`main()` function, replace the :samp:`http.ListenandServe`
-      call with :samp:`unit.ListenAndServe`:
-
-      .. code-block:: go
-
-         func main() {
-             ...
-             http.HandleFunc("/", handler)
-             ...
-             //http.ListenAndServe(":8080", nil)
-             unit.ListenAndServe(":8080", nil)
-             ...
-         }
-
-Build the Go application:
-
-.. code-block:: console
-
-    # go build <application>
-
-The resulting application works as follows:
-
-- When you run it standalone, the :samp:`unit.ListenAndServe` call falls back
-  to :samp:`http` functionality.
-- When :ref:`Unit runs it <configuration-external>`,
-  :samp:`unit.ListenAndServe` communicates with Unit's router process directly,
-  ignoring the address supplied as its first argument and relying on the
-  :ref:`listener's settings <configuration-listeners>` instead.
-
 .. _installation-nodejs:
 
 Configuring Node.js
 -------------------
 
-To set up the Node.js package that your applications need to run in Unit, run
-:program:`npm install unit-http` in your local project directory:
-
-.. code-block:: console
-
-    # npm install unit-http
-
-This should suit most of your needs: :program:`npm` builds and installs Unit's
-:samp:`unit-http` `package <https://www.npmjs.com/package/unit-http>`_ locally.
-Use it in your :ref:`Unit-hosted applications <configuration-external>` as you
-would use the built-in :samp:`http` package in common Node.js.
-
-Otherwise, to avoid using :program:`npm` and build the package manually, first
-run :program:`./configure nodejs` in Unit's source file directory to set up the
-:file:`Makefile` for the :samp:`unit-http` package.  Available options:
+When you run :command:`./configure nodejs`, Unit sets up the
+:program:`unit-http` package that your applications will use to :ref:`run in
+Unit <configuration-external-nodejs>`.  Available configuration options:
 
 --node=pathname
     Specific Node.js executable pathname.
@@ -705,61 +690,28 @@ run :program:`./configure nodejs` in Unit's source file directory to set up the
 
     The default value is :samp:`node-gyp`.
 
-Next, run :command:`make node-local-install` to build and install the
-:samp:`unit-http` package in your project directory:
+Next, run :command:`make node-install` to build and install the
+:samp:`unit-http` package globally:
 
 .. code-block:: console
 
     # ./configure nodejs
-    # make node-local-install DESTDIR=<your Node.js project directory>
+    # make node-install
 
-.. note::
+If you customize the Node.js executable pathname, use the following pattern:
 
-    If you customize the Node.js executable pathname, use the following
-    pattern:
+.. code-block:: console
+
+    # ./configure nodejs --node=/usr/local/bin/node8.12
+    # make /usr/local/bin/node8.12-install
+
+Optionally, run :command:`make node-local-install` to install the
+:program:`unit-http` package locally:
 
     .. code-block:: console
 
-        # ./configure nodejs --node=/usr/local/bin/node8.12
-        # make /usr/local/bin/node8.12-local-install DESTDIR=<...>
-
-This installs Unit's Node.js package locally.
-
-Finally, whichever installation option you use, update your application with
-:samp:`unit-http` instead of :samp:`http`:
-
-.. code-block:: javascript
-
-    var http = require('unit-http');
-
-.. note::
-
-    To run Node.js applications that use the `Express framework
-    <https://expressjs.com>`_ in Unit, rewire your code like this:
-
-    .. code-block:: javascript
-
-        #!/usr/bin/env node
-
-        const {
-          createServer,
-          IncomingMessage,
-          ServerResponse,
-        } = require('unit-http')
-
-        require('http').ServerResponse = ServerResponse
-        require('http').IncomingMessage = IncomingMessage
-
-        const express = require('express')
-
-        const app = express()
-
-        app.get('/', (req, res) => {
-          res.set('X-Unit-Type', 'Absolute')
-          res.send('Hello, Unit!')
-        })
-
-        createServer(app).listen()
+        # ./configure nodejs
+        # make node-local-install DESTDIR=/your/project/directory
 
 .. _installation-perl:
 
