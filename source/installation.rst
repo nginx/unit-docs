@@ -311,7 +311,8 @@ Next, browse to the port path to build and install the port::
     # make install
 
 Warning: ``make`` here is used in port configuration.  For ``make`` commands
-to build Unit from the code in our repositories, see :ref:`installation-src`.
+to build Unit from the code in our repositories, see
+:ref:`installation-bld-src`.
 
 .. _installation-gnt-prtg:
 
@@ -634,7 +635,8 @@ applications will use to run in Unit.  To use the package, install it in your
 Go environment.  Available configuration options:
 
 --go=pathname
-    Specific Go executable pathname.
+    Specific Go executable pathname.  Also used for :ref:`build and install
+    <installation-bld-src-ext>` commands.
 
     The default value is :samp:`go`.
 
@@ -651,21 +653,6 @@ Go environment.  Available configuration options:
     compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
     the Unit package.
 
-To build and install the Go package for Unit after configuration, run
-:command:`make go-install`:
-
-.. code-block:: console
-
-    # ./configure go
-    # make go-install
-
-If you customize the Go executable pathname, use the following pattern:
-
-.. code-block:: console
-
-    # ./configure go --go=/usr/local/bin/go1.7
-    # make /usr/local/bin/go1.7-install
-
 .. _installation-nodejs:
 
 Configuring Node.js
@@ -676,7 +663,8 @@ When you run :command:`./configure nodejs`, Unit sets up the
 Unit <configuration-external-nodejs>`.  Available configuration options:
 
 --node=pathname
-    Specific Node.js executable pathname.
+    Specific Node.js executable pathname.  Also used for
+    :ref:`build and install <installation-bld-src-ext>` commands.
 
     The default value is :samp:`node`.
 
@@ -689,29 +677,6 @@ Unit <configuration-external-nodejs>`.  Available configuration options:
     Specific :program:`node-gyp` executable pathname.
 
     The default value is :samp:`node-gyp`.
-
-Next, run :command:`make node-install` to build and install the
-:samp:`unit-http` package globally:
-
-.. code-block:: console
-
-    # ./configure nodejs
-    # make node-install
-
-If you customize the Node.js executable pathname, use the following pattern:
-
-.. code-block:: console
-
-    # ./configure nodejs --node=/usr/local/bin/node8.12
-    # make /usr/local/bin/node8.12-install
-
-Optionally, run :command:`make node-local-install` to install the
-:program:`unit-http` package locally:
-
-    .. code-block:: console
-
-        # ./configure nodejs
-        # make node-local-install DESTDIR=/your/project/directory
 
 .. _installation-perl:
 
@@ -735,7 +700,8 @@ options:
 
 --module=filename
         Target name for the Perl module that Unit will build
-        (:file:`<filename>.unit.so`).
+        (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+        <installation-bld-src-emb>` commands.
 
         The default value is the filename of the :option:`!--perl` executable.
 
@@ -750,13 +716,6 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
         checking for Perl ... found
          + Perl version: 5.20.2
          + Perl module: perl-5.20.unit.so
-
-To build and install the configured module separately:
-
-.. code-block:: console
-
-    # make perl-5.20
-    # make perl-5.20-install
 
 .. _installation-php:
 
@@ -784,7 +743,8 @@ Available command options:
 
 --module=filename
     Target name for the PHP module that Unit will build
-    (:file:`<filename>.unit.so`).
+    (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+    <installation-bld-src-emb>` commands.
 
     The default value is :option:`!--config`'s filename without the
     `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
@@ -826,7 +786,8 @@ options:
 
 --module=filename
     Target name for the Python module that Unit will build
-    (:samp:`<filename>.unit.so`).
+    (:samp:`<filename>.unit.so`).  Also used for :ref:`build and install
+    <installation-bld-src-emb>` commands.
 
     The default value is :option:`!--config`'s filename without the `-config`
     suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
@@ -855,7 +816,8 @@ options:
 
 --module=filename
         Target name for the Ruby module that Unit will build
-        (:file:`<filename>.unit.so`).
+        (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+        <installation-bld-src-emb>` commands.
 
         The default value is the filename of the :option:`!--ruby` executable.
 
@@ -877,16 +839,125 @@ Ruby |_| 2.3:
          + Ruby version: 2.3.0
          + Ruby module: ru23.unit.so
 
-Compiling Sources
-=================
+.. _installation-bld-src:
 
-To compile the Unit executable and all configured modules run this command::
+Building and Installing Unit
+============================
 
-    # make all
+To build Unit executables and language modules that you have
+:program:`./configure`'d earlier and install them:
 
-Installing from Sources
-=======================
+.. code-block:: console
 
-To install Unit with all modules and Go packages, run the following command::
-
+    # make
     # make install
+
+.. note::
+
+    Currently, this does not install the Node.js module. See below for
+    :ref:`instructions <installation-bld-src-ext>`.
+
+You can also build and install language modules individually; the specific
+method depends on whether the language module is embedded in Unit or packaged
+externally.
+
+.. _installation-bld-src-emb:
+
+Embedded Language Modules
+-------------------------
+
+To build and install a language module for PHP, Perl, Python, or Ruby after
+configuration, run :command:`make <module>` and :command:`make
+<module>-install`, for example:
+
+.. code-block:: console
+
+    # make perl-5.20
+    # make perl-5.20-install
+
+.. _installation-bld-src-ext:
+
+External Language Packages
+--------------------------
+
+To build and install Unit packages for Go and Node.js, run :command:`make
+<go>-install` and :command:`make <node>-install`:
+
+.. code-block:: console
+
+    # make go-install
+    # make node-install
+
+.. note::
+
+    Run :command:`make <node>-local-install DESTDIR=/your/project/directory` to
+    install the Node.js package locally.  However, mind that the
+    :ref:`recommended <installation-nodejs-package>` method is global
+    installation.
+
+If you customize the executable pathname with :option:`!--go` or
+:option:`!--node`, use the following pattern:
+
+.. code-block:: console
+
+    # ./configure nodejs --node=/usr/local/bin/node8.12
+    # make /usr/local/bin/node8.12-install
+
+    # ./configure go --go=/usr/local/bin/go1.7
+    # make /usr/local/bin/go1.7-install
+
+.. _installation-bld-src-dir:
+
+Directory Structure
+-------------------
+
+To customize the destination directory, you can:
+
+- Set the :option:`!--prefix` during :ref:`source configuration
+  <installation-config-src>`
+- Set the :envvar:`DESTDIR` `variable
+  <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
+  :command:`make install`
+
+The resulting directory structure:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Unit Files
+      - Target Path
+    * - User executables
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<bindir>`
+    * - Sysadmin executables
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<sbindir>`
+    * - State files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<state>`
+    * - Language modules
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<modules>`
+    * - Library files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<libdir>`
+    * - Include files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<incdir>`
+
+For example, :command:`DESTDIR=/usr/local/opt/` and
+:command:`--prefix=unit` yield the following:
+
+    .. code-block:: console
+
+        # make install
+            ...
+            install -d /usr/local/opt/unit/sbin
+            install -p build/unitd /usr/local/opt/unit/sbin/
+            install -d /usr/local/opt/unit/state
+            install -d /usr/local/opt/unit/modules
+            install -p build/module.unit.so \
+                /usr/local/opt/unit/modules/
+            ...
+
+This scheme allows you to adjust your installation for packaging or other
+purposes.
+
+For example, you can supply an absolute path for :option:`!--prefix` and omit
+:envvar:`DESTDIR` entirely, or vice versa.  Mind that Unit executables rely
+solely on :option:`!<prefix>`-based paths; :envvar:`DESTDIR` is used only
+during installation.
