@@ -700,7 +700,7 @@ options:
 
 --module=filename
         Target name for the Perl module that Unit will build
-        (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+        (:file:`<module>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
         The default value is the filename of the :option:`!<perl>` executable.
@@ -738,7 +738,7 @@ Available command options:
 
 --module=filename
     Target name for the PHP module that Unit will build
-    (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+    (:file:`<module>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
     The default value is :option:`!<config>`'s filename without the
@@ -773,7 +773,7 @@ options:
 
 --module=filename
     Target name for the Python module that Unit will build
-    (:samp:`<filename>.unit.so`).  Also used for :ref:`build and install
+    (:samp:`<module>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
     The default value is :option:`!<config>`'s filename without the `-config`
@@ -797,7 +797,7 @@ options:
 
 --module=filename
         Target name for the Ruby module that Unit will build
-        (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
+        (:file:`<module>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
         The default value is the filename of the :option:`!<ruby>` executable.
