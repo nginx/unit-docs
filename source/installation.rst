@@ -534,54 +534,54 @@ The :program:`./configure` script has the following options available:
 
 --bindir=directory
     Directory name for end-user executables; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`bin`.
 
 --sbindir=directory
     Directory name for sysadmin executables; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`sbin`.
 
 --libdir=directory
     Directory name for :program:`libunit` library files; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`lib`.
 
 --incdir=directory
     Directory name for :program:`libunit` include files; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`include`.
 
 --modules=directory
     Directory name for Unit language modules; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`modules`.
 
 --state=directory
-    State directory name; relative path here is :option:`!--prefix`-based.
+    State directory name; relative path here is :option:`!<prefix>`-based.
 
     The default value is :samp:`state`.
 
 --pid=filename
     Filename for the PID file of Unit's daemon process; relative path here is
-    :option:`!--prefix`-based.
+    :option:`!<prefix>`-based.
 
     The default value is :samp:`unit.pid`.
 
 --log=filename
-    Filename for the Unit log; relative path here is :option:`!--prefix`-based.
+    Filename for the Unit log; relative path here is :option:`!<prefix>`-based.
 
     The default value is :samp:`unit.log`.
 
 --control=socket
     Address of the control API socket; Unix sockets (starting with
     :samp:`unix:`), IPv4, and IPv6 sockets are valid here.  For Unix sockets,
-    relative path here is :option:`!--prefix`-based.
+    relative path here is :option:`!<prefix>`-based.
 
     The default value is :samp:`unix:control.unit.sock`.
 
@@ -593,7 +593,7 @@ The :program:`./configure` script has the following options available:
 --group=name
     Group name to run Unit's non-privileged processes.
 
-    The default value is :option:`!--user`'s primary group.
+    The default value is :option:`!<user>`'s primary group.
 
 --openssl
     Enables OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
@@ -703,7 +703,7 @@ options:
         (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
-        The default value is the filename of the :option:`!--perl` executable.
+        The default value is the filename of the :option:`!<perl>` executable.
 
 To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
@@ -746,7 +746,7 @@ Available command options:
     (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
-    The default value is :option:`!--config`'s filename without the
+    The default value is :option:`!<config>`'s filename without the
     `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
     :samp:`php7`).
 
@@ -789,7 +789,7 @@ options:
     (:samp:`<filename>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
-    The default value is :option:`!--config`'s filename without the `-config`
+    The default value is :option:`!<config>`'s filename without the `-config`
     suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
 
 For example, this command configures a module called :file:`py33.unit.so` for
@@ -819,7 +819,7 @@ options:
         (:file:`<filename>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
-        The default value is the filename of the :option:`!--ruby` executable.
+        The default value is the filename of the :option:`!<ruby>` executable.
 
 --ruby=pathname
         Specific Ruby executable pathname.
