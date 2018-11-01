@@ -712,11 +712,6 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
     # ./configure perl --module=perl-5.20 \
                        --perl=perl5.20.2
 
-        configuring Perl module
-        checking for Perl ... found
-         + Perl version: 5.20.2
-         + Perl module: perl-5.20.unit.so
-
 .. _installation-php:
 
 Configuring PHP
@@ -750,21 +745,13 @@ Available command options:
     `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
     :samp:`php7`).
 
-For example, this command configures a module called :file:`php70.unit.so` for
-PHP |_| 7.0:
+To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
 .. code-block:: console
 
     # ./configure php --module=php70  \
                       --config=/usr/lib64/php7.0/bin/php-config  \
                       --lib-path=/usr/lib64/php7.0/lib64
-
-        configuring PHP module
-        checking for PHP ... found
-         + PHP version: 7.0.22-0ubuntu0.16.04.1
-         + PHP SAPI: [apache2handler embed cgi cli fpm]
-        checking for PHP embed SAPI ... found
-         + PHP module: php70.unit.so
 
 .. _installation-python:
 
@@ -792,18 +779,12 @@ options:
     The default value is :option:`!<config>`'s filename without the `-config`
     suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
 
-For example, this command configures a module called :file:`py33.unit.so` for
-Python |_| 3.3:
+To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
 .. code-block:: console
 
     # ./configure python --module=py33  \
                          --config=python-config-3.3
-
-        configuring Python module
-        checking for Python ... found
-        checking for Python version ... 3.3
-         + Python module: py33.unit.so
 
 .. _installation-ruby:
 
@@ -826,18 +807,12 @@ options:
 
         The default value is :samp:`ruby`.
 
-For example, this command configures a module called :file:`ru23.unit.so` for
-Ruby |_| 2.3:
+To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
 .. code-block:: console
 
     # ./configure ruby --module=ru23  \
                        --ruby=ruby23
-
-        configuring Ruby module
-        checking for Ruby ... found
-         + Ruby version: 2.3.0
-         + Ruby module: ru23.unit.so
 
 .. _installation-bld-src:
 
