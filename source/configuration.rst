@@ -1002,75 +1002,165 @@ Happy SSLing!
 Full Example
 ************
 
-::
+.. code-block:: json
 
     {
-        "listeners": {
-            "*:8300": {
-                "application": "blogs"
-            },
+        "certificates": {
+            "bundle": {
+                "key": "RSA (4096 bits)",
+                "chain": [
+                    {
+                        "subject": {
+                            "common_name": "example.com",
+                            "alt_names": [
+                                "example.com",
+                                "www.example.com"
+                            ],
 
-            "*:8400": {
-                "application": "wiki"
-            },
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme, Inc."
+                        },
 
-            "*:8500": {
-                "application": "go_chat_app"
-            },
+                        "issuer": {
+                            "common_name": "intermediate.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Certification Authority"
+                        },
 
-            "127.0.0.1:8600": {
-                "application": "bugtracker"
-            },
+                        "validity": {
+                            "since": "Sep 18 19:46:19 2018 GMT",
+                            "until": "Jun 15 19:46:19 2021 GMT"
+                        }
+                    },
 
-            "127.0.0.1:8601": {
-                "application": "cms"
+                    {
+                        "subject": {
+                            "common_name": "intermediate.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Certification Authority"
+                        },
+
+                        "issuer": {
+                            "common_name": "root.ca.example.com",
+                            "country": "US",
+                            "state_or_province": "CA",
+                            "organization": "Acme Root Certification Authority"
+                        },
+
+                        "validity": {
+                            "since": "Feb 22 22:45:55 2016 GMT",
+                            "until": "Feb 21 22:45:55 2019 GMT"
+                        }
+                    }
+                ]
             }
         },
 
-        "applications": {
-            "blogs": {
-                "type": "php",
-                "processes": 20,
-                "root": "/www/blogs/scripts",
-                "user": "www-blogs",
-                "group": "www-blogs",
-                "index": "index.php"
+        "config": {
+            "settings": {
+                "http": {
+                    "header_read_timeout": 10,
+                    "body_read_timeout": 10,
+                    "send_timeout": 10,
+                    "idle_timeout": 120,
+                    "max_body_size": 6291456
+                }
             },
 
-            "wiki": {
-                "type": "python",
-                "processes": 10,
-                "user": "www-wiki",
-                "group": "www-wiki",
-                "path": "/www/wiki",
-                "module": "wsgi"
+            "listeners": {
+                "*:8300": {
+                    "application": "blogs",
+                    "tls": {
+                        "certificate": "bundle"
+                    }
+                },
+
+                "*:8400": {
+                    "application": "wiki"
+                },
+
+                "*:8500": {
+                    "application": "go_chat_app"
+                },
+
+                "127.0.0.1:8600": {
+                    "application": "bugtracker"
+                },
+
+                "127.0.0.1:8601": {
+                    "application": "cms"
+                }
             },
 
-            "go_chat_app": {
-                "type": "go",
-                "user": "www-chat",
-                "group": "www-chat",
-                "working_directory": "/www/chat",
-                "executable": "bin/chat_app"
+            "applications": {
+                "blogs": {
+                    "type": "php",
+                    "processes": 20,
+                    "root": "/www/blogs/scripts",
+                    "index": "index.php",
+                    "limits": {
+                        "timeout": 10,
+                        "requests": 1000
+                    },
+
+                    "options": {
+                        "file": "/etc/php.ini",
+                        "admin": {
+                            "memory_limit": "256M",
+                            "variables_order": "EGPCS",
+                            "expose_php": "0"
+                        },
+
+                        "user": {
+                            "display_errors": "0"
+                        }
+                    }
+                },
+
+                "wiki": {
+                    "type": "python",
+                    "processes": 10,
+                    "path": "/www/wiki",
+                    "module": "wsgi",
+                    "environment": {
+                        "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
+                        "DB_ENGINE": "django.db.backends.postgresql",
+                        "DB_NAME": "blog",
+                        "DB_HOST": "127.0.0.1",
+                        "DB_PORT": "5432"
+                    }
+                },
+
+                "go_chat_app": {
+                    "type": "external",
+                    "user": "www-chat",
+                    "group": "www-chat",
+                    "working_directory": "/www/chat",
+                    "executable": "bin/chat_app"
+                },
+
+                "bugtracker": {
+                    "type": "perl",
+                    "processes": {
+                        "max": 10,
+                        "spare": 5,
+                        "idle_timeout": 20
+                    },
+
+                    "working_directory": "/www/bugtracker",
+                    "script": "app.psgi"
+                },
+
+                "cms": {
+                    "type": "ruby",
+                    "processes": 5,
+                    "script": "/www/cms/config.ru"
+                }
             },
 
-            "bugtracker": {
-                "type": "perl",
-                "processes": 3,
-                "user": "www",
-                "group": "www",
-                "working_directory": "/www/bugtracker",
-                "script": "app.psgi"
-            },
-
-            "cms": {
-                "type": "ruby",
-                "processes": 5,
-                "user": "www",
-                "group": "www",
-                "script": "/www/cms/config.ru"
-            }
-        },
-
-        "access_log": "/var/log/access.log"
+            "access_log": "/var/log/access.log"
+        }
     }
