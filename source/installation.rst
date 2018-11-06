@@ -417,78 +417,37 @@ Before configuring and compiling Unit, you must install the required build
 tools plus the library files for each of the available languages (Go, Node.js,
 PHP, Perl, Python, and Ruby) that you want to support.
 
-Ubuntu Prerequisites
---------------------
+The commands below assume you are configuring Unit with all supported
+languages; otherwise, skip the packages for languages you aren't going to use.
 
-1. Install the build tools::
+.. _installation-prereq-deb:
+
+Debian, Ubuntu
+--------------
+
+.. code-block:: console
 
     # apt-get install build-essential
-
-2. For Go applications support, install the ``golang`` package::
-
     # apt-get install golang
-
-3. For Node.js applications support, install the official :program:`nodejs`
-   package:
-
-    .. code-block:: console
-
-       # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -
-       # apt-get install nodejs
-
-4. For PHP applications support, install the ``php-dev`` and ``libphp-embed``
-   packages::
-
-    # apt-get install php-dev
-    # apt-get install libphp-embed
-
-5. For Python applications support, install the ``python-dev`` package::
-
-    # apt-get install python-dev
-
-6. For Perl applications support, install the ``libperl-dev`` package::
-
+    # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt-get install nodejs
+    # apt-get install php-dev libphp-embed
     # apt-get install libperl-dev
-
-7. For Ruby applications support, install the ``ruby-dev`` package::
-
+    # apt-get install python-dev
     # apt-get install ruby-dev
 
-CentOS Prerequisites
---------------------
+.. _installation-prereq-rpm:
 
-1. Install the build tools::
+Amazon Linux, CentOS, RHEL
+--------------------------
+
+.. code-block:: console
 
     # yum install gcc make
-
-2. For Go applications support, install the ``golang`` package::
-
     # yum install golang
-
-3. For Node.js applications support, install the official :program:`nodejs`
-   package:
-
-   .. code-block:: console
-
-       # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
-       # yum install nodejs
-
-4. For PHP applications support, install the ``php-devel`` and ``php-embedded``
-   packages::
-
+    # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -; yum install nodejs
     # yum install php-devel php-embedded
-
-5. For Python applications support, install the ``python-devel`` package::
-
-    # yum install python-devel
-
-6. For Perl applications support, install the ``perl-devel`` and ``perl-libs``
-   packages::
-
     # yum install perl-devel perl-libs
-
-7. For Ruby applications support, install the ``ruby-devel`` package::
-
+    # yum install python-devel
     # yum install ruby-devel
 
 .. _installation-config-src:
