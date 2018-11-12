@@ -273,9 +273,31 @@ Debian Packages
 Community Repositories
 **********************
 
-Warning: Distributions listed in this section are maintained by their
-respective communities.  NGINX has no control or responsibility over these
-resources.  Proceed at your own consideration.
+.. warning::
+
+    Distributions listed in this section are maintained by their respective
+    communities.  NGINX has no control or responsibility over these resources.
+    Proceed at your own consideration.
+
+.. _installation-alpine-apk:
+
+Alpine Linux
+============
+
+To install core Unit executables using `Alpine Linux packages
+<https://pkgs.alpinelinux.org/packages?name=unit*>`_:
+
+.. code-block:: console
+
+    # apk update
+    # apk upgrade
+    # apk add unit
+
+To install service manager files and specific language modules:
+
+.. code-block:: console
+
+    # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
 
 .. _installation-archlinux-aur:
 
