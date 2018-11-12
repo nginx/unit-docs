@@ -277,6 +277,30 @@ Warning: Distributions listed in this section are maintained by their
 respective communities.  NGINX has no control or responsibility over these
 resources.  Proceed at your own consideration.
 
+.. _installation-archlinux-aur:
+
+Arch Linux
+==========
+
+To install Unit using the `Arch User Repository (AUR)
+<https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
+
+.. code-block:: console
+
+    $ sudo pacman -S git
+    $ git clone https://aur.archlinux.org/nginx-unit.git
+    $ cd nginx-unit
+
+.. warning::
+
+    Verify that the :file:`PKGBUILD` and accompanying files are not malicious
+    or untrustworthy.  AUR packages are entirely user produced without
+    pre-moderation; you use them at your own risk.
+
+.. code-block:: console
+
+    $ makepkg -si
+
 .. _installation-freebsd-pkgs-prts:
 
 FreeBSD
