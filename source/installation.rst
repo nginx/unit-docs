@@ -667,6 +667,12 @@ When you run :command:`./configure nodejs`, Unit sets up the
 :program:`unit-http` package that your applications will use to :ref:`run in
 Unit <configuration-external-nodejs>`.  Available configuration options:
 
+--local=directory
+    Local directory path for Node.js package installation.
+
+    By default, the package is installed globally :ref:`(recommended)
+    <installation-nodejs-package>`.
+
 --node=pathname
     Specific Node.js executable pathname.  Also used for
     :ref:`build and install <installation-bld-src-ext>` commands.
@@ -832,11 +838,6 @@ To build Unit executables and language modules that you have
     # make
     # make install
 
-.. note::
-
-    Currently, this does not install the Node.js module. See below for
-    :ref:`instructions <installation-bld-src-ext>`.
-
 You can also build and install language modules individually; the specific
 method depends on whether the language module is embedded in Unit or packaged
 externally.
@@ -870,10 +871,19 @@ To build and install Unit packages for Go and Node.js, run :command:`make
 
 .. note::
 
-    Run :command:`make <node>-local-install DESTDIR=/your/project/directory` to
-    install the Node.js package locally.  However, mind that the
-    :ref:`recommended <installation-nodejs-package>` method is global
-    installation.
+    To install the Node.js package locally, run :command:`make
+    <node>-local-install`:
+
+    .. code-block:: console
+
+        # make node-local-install 
+
+    If you haven't specified the :option:`!<local>` :ref:`directory
+    <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
+    it here: :command:`DESTDIR=/your/project/directory`.  If both options are
+    specified, :option:`!DESTDIR` prefixes the :option:`!<local>` value.
+    However, the recommended method is :ref:`global installation
+    <installation-nodejs-package>`.
 
 If you customize the executable pathname with :option:`!--go` or
 :option:`!--node`, use the following pattern:
