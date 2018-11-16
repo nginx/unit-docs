@@ -570,6 +570,13 @@ The :program:`./configure` script has the following options available:
 --state=directory
     State directory name; relative path here is :option:`!<prefix>`-based.
 
+    .. warning::
+
+        Unit state includes its runtime configuration, certificates, and other
+        private records.  It can be copied as is when you migrate your Unit
+        installation; however, mind that it contains sensitive data and must be
+        available only to :samp:`root` with :samp:`700` permissions.
+
     The default value is :samp:`state`.
 
 --pid=filename
@@ -588,7 +595,13 @@ The :program:`./configure` script has the following options available:
     :samp:`unix:`), IPv4, and IPv6 sockets are valid here.  For Unix sockets,
     relative path here is :option:`!<prefix>`-based.
 
-    The default value is :samp:`unix:control.unit.sock`.
+    The default value is :samp:`unix:control.unit.sock`, created as
+    :samp:`root` with :samp:`600` permissions.
+
+    .. warning::
+
+        For security reasons, avoid opening sockets on public interfaces in
+        production.
 
 --user=name
     Username to run Unit's non-privileged processes.
