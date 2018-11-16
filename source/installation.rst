@@ -620,6 +620,53 @@ The :program:`./configure` script has the following options available:
 --no-ipv6
     Disables IPv6 support.
 
+.. _installation-src-dir:
+
+Directory Structure
+-------------------
+
+To customize Unit installation directory, you can:
+
+- Set the :option:`!--prefix` during source configuration
+- Set the :envvar:`DESTDIR` `variable
+  <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
+  :ref:`installation <installation-bld-src>`
+
+The resulting directory structure:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Unit Files
+      - Target Path
+    * - User executables
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<bindir>`
+    * - Sysadmin executables
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<sbindir>`
+    * - State files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<state>`
+    * - Language modules
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<modules>`
+    * - Library files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<libdir>`
+    * - Include files
+      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<incdir>`
+
+For example, :command:`--prefix=unit` and :command:`DESTDIR=/usr/local/opt/`
+yield the following installation base directory: :file:`/usr/local/opt/unit/`.
+This scheme allows you to adjust your installation for packaging or other
+purposes.
+
+For example, you can supply an absolute path for :option:`!--prefix` and omit
+:envvar:`DESTDIR` entirely, or vice versa.  Mind that Unit executables rely
+solely on :option:`!<prefix>`-based paths; :envvar:`DESTDIR` is used only
+during installation.
+
+.. _installation-src-modules:
+
+Configuring Modules
+===================
+
 Next, configure a module for each language you want to use with Unit.  The
 :command:`./configure <language>` commands set up individual language modules
 and place module-specific instructions in the :file:`Makefile`.
@@ -847,7 +894,7 @@ externally.
 Embedded Language Modules
 -------------------------
 
-To build and install a language module for PHP, Perl, Python, or Ruby after
+To build and install Unit modules for PHP, Perl, Python, or Ruby after
 configuration, run :command:`make <module>` and :command:`make
 <module>-install`, for example:
 
@@ -861,8 +908,8 @@ configuration, run :command:`make <module>` and :command:`make
 External Language Packages
 --------------------------
 
-To build and install Unit packages for Go and Node.js, run :command:`make
-<go>-install` and :command:`make <node>-install`:
+To build and install Unit packages for Go and Node.js after configuration, run
+:command:`make <go>-install` and :command:`make <node>-install`, for example:
 
 .. code-block:: console
 
@@ -876,7 +923,7 @@ To build and install Unit packages for Go and Node.js, run :command:`make
 
     .. code-block:: console
 
-        # make node-local-install 
+        # make node-local-install
 
     If you haven't specified the :option:`!<local>` :ref:`directory
     <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
@@ -895,59 +942,3 @@ If you customize the executable pathname with :option:`!--go` or
 
     # ./configure go --go=/usr/local/bin/go1.7
     # make /usr/local/bin/go1.7-install
-
-.. _installation-bld-src-dir:
-
-Directory Structure
--------------------
-
-To customize the destination directory, you can:
-
-- Set the :option:`!--prefix` during :ref:`source configuration
-  <installation-config-src>`
-- Set the :envvar:`DESTDIR` `variable
-  <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :command:`make install`
-
-The resulting directory structure:
-
-.. list-table::
-    :header-rows: 1
-
-    * - Unit Files
-      - Target Path
-    * - User executables
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<bindir>`
-    * - Sysadmin executables
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<sbindir>`
-    * - State files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<state>`
-    * - Language modules
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<modules>`
-    * - Library files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<libdir>`
-    * - Include files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<incdir>`
-
-For example, :command:`DESTDIR=/usr/local/opt/` and
-:command:`--prefix=unit` yield the following:
-
-    .. code-block:: console
-
-        # make install
-            ...
-            install -d /usr/local/opt/unit/sbin
-            install -p build/unitd /usr/local/opt/unit/sbin/
-            install -d /usr/local/opt/unit/state
-            install -d /usr/local/opt/unit/modules
-            install -p build/module.unit.so \
-                /usr/local/opt/unit/modules/
-            ...
-
-This scheme allows you to adjust your installation for packaging or other
-purposes.
-
-For example, you can supply an absolute path for :option:`!--prefix` and omit
-:envvar:`DESTDIR` entirely, or vice versa.  Mind that Unit executables rely
-solely on :option:`!<prefix>`-based paths; :envvar:`DESTDIR` is used only
-during installation.
