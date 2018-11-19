@@ -268,6 +268,36 @@ Debian Packages
     # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
           unit-go1.8 unit-perl unit-ruby unit-dev
 
+.. _installation-precomp-pkgs-startup:
+
+Startup and Shutdown
+====================
+
+To enable automatic startup for Unit after you install it from precompiled
+packages:
+
+    .. code-block:: console
+
+        # systemctl enable unit.service
+
+To start or restart Unit immediately:
+
+    .. code-block:: console
+
+        # systemctl restart unit.service
+
+To stop Unit immediately:
+
+    .. code-block:: console
+
+        # systemctl stop unit.service
+
+To disable automatic startup for Unit:
+
+    .. code-block:: console
+
+        # systemctl disable unit.service
+
 .. _installation-community-repos:
 
 Community Repositories
