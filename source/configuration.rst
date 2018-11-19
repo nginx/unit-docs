@@ -3,9 +3,6 @@
 Configuration
 #############
 
-By default, the Unit API is available in the control socket file
-**control.unit.sock**.
-
 Applications
 ************
 

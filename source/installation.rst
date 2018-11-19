@@ -955,3 +955,59 @@ If you customize the executable pathname with :option:`!--go` or
 
     # ./configure go --go=/usr/local/bin/go1.7
     # make /usr/local/bin/go1.7-install
+
+.. _installation-startup:
+
+Startup
+=======
+
+We advise installing Unit from :ref:`preconfigured packages
+<installation-precomp-pkgs>`; in this case, startup is configured
+automatically.
+
+Even if you install Unit otherwise, manual startup is not recommended.
+Instead, configure a service manager such as :program:`OpenRC` or
+:program:`systemd` or create an :program:`rc.d` script to launch the Unit
+daemon using the parameters below; refer to your system guides for detailed
+instructions.
+
+To start the daemon, run :program:`unitd` as :samp:`root` from the :samp:`sbin`
+installation subdirectory.  Usually, there's no need to override compile-time
+settings; use the :option:`--help` command-line parameter to review their
+values.  For details and security notes, refer to
+:ref:`installation-config-src`.
+
+General options:
+
+--help, -h
+    Displays a brief summary of Unit's command-line parameters and their
+    default values that were configured at compile time.
+
+--no-daemon
+    Runs Unit in non-daemon mode.
+
+--version
+    Displays Unit version and :program:`./configure` settings it was built
+    with.
+
+The following options override compile-time settings:
+
+--control <socket>
+    Address of the control API socket.  IPv4, IPv6, and Unix domain sockets
+    are supported.
+
+--group=name, --user=name
+    Group name and user name used to run Unit's non-privileged processes.
+
+--log <pathname>
+    Pathname for the Unit log.
+
+--modules <directory>
+    Directory path for Unit language modules
+    (:file:`<module>.unit.so` files).
+
+--pid <pathname>
+    Pathname for the PID file of Unit's :program:`main` process.
+
+--state <directory>
+    Directory path for Unit state storage.
