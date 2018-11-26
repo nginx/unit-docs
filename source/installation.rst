@@ -1003,7 +1003,7 @@ instructions.
 
 To start the daemon, run :program:`unitd` as :samp:`root` from the :samp:`sbin`
 installation subdirectory.  Usually, there's no need to override compile-time
-settings; use the :option:`--help` command-line parameter to review their
+settings; use the :option:`!--help` command-line parameter to review their
 values.  For details and security notes, refer to
 :ref:`installation-config-src`.
 
