@@ -536,88 +536,77 @@ during language module setup:
 
 .. code-block:: console
 
-    # ./configure
+    # ./configure <command-line options>
 
-The :program:`./configure` script has the following options available:
+General :program:`./configure` options:
 
 --help
-    Displays a brief summary of general :program:`./configure` options.
+    Displays a brief summary of common :program:`./configure` options.
 
     For language-specific details, run :command:`./configure <language>
-    --help`.
+    --help` or see :ref:`below <installation-src-modules>`.
+
+These options control the compilation process:
 
 --cc=pathname
     Specific C compiler pathname.
 
     The default value is :samp:`cc`.
 
---cc-opt=options
-    Additional C compiler options.
+--cc-opt=options, --ld-opt=options
+    Additional C compiler and linker options.
 
---ld-opt=options
-    Additional linker options.
+    The default values are empty strings.
+
+The following option pair controls Unit's runtime privileges:
+
+--group=name, --user=name
+    Group name and username to run Unit's non-privileged processes.
+
+    The default values are :option:`!<user>`'s primary group and
+    :samp:`nobody`, respectively.
+
+These flags enable or disable support of certain features:
+
+--debug
+    Enables the :ref:`debug log <troubleshooting-dbg-log>`.
+
+--no-ipv6
+    Disables IPv6 support.
+
+--no-unix-sockets
+    Disables Unix domain sockets support.
+
+--openssl
+    Enables OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
+    files and libraries are available in your compiler's search path.
+
+    To customize the path, provide the :option:`!--cc-opt` and
+    :option:`!--ld-opt` options;  alternatively, set :envvar:`CFLAGS` and
+    :envvar:`LDFLAGS` environment variables before running
+    :program:`./configure`.
+
+    For details, see :ref:`configuration-ssl`.
+
+The last option group customizes Unit's :ref:`runtime directory
+structure <installation-src-dir>`:
 
 .. _installation-config-src-prefix:
 
 --prefix=prefix
 
-    Destination directory prefix for so-called *path parameters*:
+    Destination directory prefix for so-called *path options*:
     :option:`!--bindir`, :option:`!--sbindir`, :option:`!--libdir`,
     :option:`!--incdir`, :option:`!--modules`, :option:`!--state`,
     :option:`!--pid`, :option:`!--log`, and :option:`!--control`.  Their
-    relative settings are considered prefix-based.
-
-    Specify the prefix to customize Unit's :ref:`runtime directory structure
-    <installation-src-dir>`.
+    relative settings are prefix-based.
 
     The default value is an empty string.
 
---bindir=directory
-    Directory path for end-user executables.
+--bindir=directory, --sbindir=directory
+    Directory paths for end-user and sysadmin executables.
 
-    The default value is :samp:`bin`.
-
---sbindir=directory
-    Directory path for sysadmin executables.
-
-    The default value is :samp:`sbin`.
-
---libdir=directory
-    Directory path for :program:`libunit` library files.
-
-    The default value is :samp:`lib`.
-
---incdir=directory
-    Directory path for :program:`libunit` include files.
-
-    The default value is :samp:`include`.
-
---modules=directory
-    Directory path for Unit language modules.
-
-    The default value is :samp:`modules`.
-
---state=directory
-    Directory path for Unit state storage.
-
-    .. warning::
-
-        Unit state includes its runtime configuration, certificates, and other
-        private records.  It can be copied as is when you migrate your Unit
-        installation; however, mind that it contains sensitive data and must be
-        available only to :samp:`root` with :samp:`700` permissions.
-
-    The default value is :samp:`state`.
-
---pid=pathname
-    Pathname for the PID file of Unit's daemon process.
-
-    The default value is :samp:`unit.pid`.
-
---log=pathname
-    Pathname for the Unit log.
-
-    The default value is :samp:`unit.log`.
+    The default values are :samp:`bin` and :samp:`sbin`, respectively.
 
 --control=socket
     Address of the control API socket; Unix sockets (starting with
@@ -631,35 +620,37 @@ The :program:`./configure` script has the following options available:
         For security reasons, avoid opening sockets on public interfaces in
         production.
 
---user=name
-    Username to run Unit's non-privileged processes.
+--incdir=directory, --libdir=directory
+    Directory paths for :program:`libunit` header files and libraries.
 
-    The default value is :samp:`nobody`.
+    The default values are :samp:`include` and :samp:`lib`, respectively.
 
---group=name
-    Group name to run Unit's non-privileged processes.
+--log=pathname
+    Pathname for Unit's log.
 
-    The default value is :option:`!<user>`'s primary group.
+    The default value is :samp:`unit.log`.
 
---openssl
-    Enables OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
-    files and libraries are available in your compiler's search path.
+--modules=directory
+    Directory path for Unit's language modules.
 
-    To customize the path, provide the :option:`!--cc-opt` and
-    :option:`!--ld-opt` options;  alternatively, set :envvar:`CFLAGS` and
-    :envvar:`LDFLAGS` environment variables before running
-    :program:`./configure`.
+    The default value is :samp:`modules`.
 
-    For details, see :ref:`configuration-ssl`.
+--pid=pathname
+    Pathname for the PID file of Unit's daemon process.
 
---debug
-    Enables the :ref:`debug log <troubleshooting-dbg-log>`.
+    The default value is :samp:`unit.pid`.
 
---no-unix-sockets
-    Disables Unix domain sockets support.
+--state=directory
+    Directory path for Unit's state storage.
 
---no-ipv6
-    Disables IPv6 support.
+    .. warning::
+
+        Unit state includes its runtime configuration, certificates, and other
+        private records.  It can be copied as is when you migrate your Unit
+        installation; however, mind that it contains sensitive data and must be
+        available only to :samp:`root` with :samp:`700` permissions.
+
+    The default value is :samp:`state`.
 
 .. _installation-src-dir:
 
@@ -668,7 +659,7 @@ Directory Structure
 
 To customize Unit installation and runtime directories, you can both:
 
-- Set the :option:`!--prefix` and path parameters during :ref:`configuration
+- Set the :option:`!--prefix` and path options during :ref:`configuration
   <installation-config-src-prefix>` to set up the runtime file structure: Unit
   will use these settings to locate its modules, state, and other files.
 
@@ -681,7 +672,7 @@ To customize Unit installation and runtime directories, you can both:
 Coordinate these two options as necessary to customize the directory structure.
 One common scenario is installation based on absolute paths.
 
-1. Set absolute runtime paths with :option:`!--prefix` and path parameters:
+1. Set absolute runtime paths with :option:`!--prefix` and path options:
 
    .. code-block:: console
 
@@ -700,7 +691,7 @@ One common scenario is installation based on absolute paths.
 
 An alternative scenario is a build that you can move around the filesystem.
 
-1. Set relative runtime paths with :option:`!--prefix` and path parameters:
+1. Set relative runtime paths with :option:`!--prefix` and path options:
 
    .. code-block:: console
 
@@ -719,7 +710,7 @@ An alternative scenario is a build that you can move around the filesystem.
    .. code-block:: console
 
        # cd <DESTDIR>
-       # movable/sbin/unitd <command-line parameters>
+       # movable/sbin/unitd <command-line options>
 
 You can also combine these two approaches as you see fit; nevertheless, always
 take care to understand how your settings actually work together.
@@ -1017,19 +1008,19 @@ automatically.
 Even if you install Unit otherwise, manual startup is not recommended.
 Instead, configure a service manager such as :program:`OpenRC` or
 :program:`systemd` or create an :program:`rc.d` script to launch the Unit
-daemon using the parameters below; refer to your system guides for detailed
+daemon using the options below; refer to your system guides for detailed
 instructions.
 
 To start the daemon, run :program:`unitd` as :samp:`root` from the :samp:`sbin`
 installation subdirectory.  Usually, there's no need to override compile-time
-settings; use the :option:`!--help` command-line parameter to review their
+settings; use the :option:`!--help` command-line option to review their
 values.  For details and security notes, refer to
 :ref:`installation-config-src`.
 
 General options:
 
 --help, -h
-    Displays a brief summary of Unit's command-line parameters and their
+    Displays a brief summary of Unit's command-line options and their
     default values that were configured at compile time.
 
 --no-daemon
