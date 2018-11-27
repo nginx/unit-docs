@@ -557,48 +557,48 @@ The :program:`./configure` script has the following options available:
 --ld-opt=options
     Additional linker options.
 
---prefix=directory
+.. _installation-config-src-prefix:
 
-    Destination directory prefix for relative pathnames (can
-    occur in :option:`!--bindir`, :option:`!--sbindir`, :option:`!--libdir`,
+--prefix=prefix
+
+    Destination directory prefix for so-called *path parameters*:
+    :option:`!--bindir`, :option:`!--sbindir`, :option:`!--libdir`,
     :option:`!--incdir`, :option:`!--modules`, :option:`!--state`,
-    :option:`!--pid`, :option:`!--log`, and :option:`!--control`).
+    :option:`!--pid`, :option:`!--log`, and :option:`!--control`.  Their
+    relative settings are considered prefix-based.
 
-    Specify the prefix to customize Unit's post-installation directory
-    structure.
+    Specify the prefix to customize Unit's :ref:`runtime directory structure
+    <installation-src-dir>`.
+
+    The default value is an empty string.
 
 --bindir=directory
-    Directory name for end-user executables; relative path here is
-    :option:`!<prefix>`-based.
+    Directory path for end-user executables.
 
     The default value is :samp:`bin`.
 
 --sbindir=directory
-    Directory name for sysadmin executables; relative path here is
-    :option:`!<prefix>`-based.
+    Directory path for sysadmin executables.
 
     The default value is :samp:`sbin`.
 
 --libdir=directory
-    Directory name for :program:`libunit` library files; relative path here is
-    :option:`!<prefix>`-based.
+    Directory path for :program:`libunit` library files.
 
     The default value is :samp:`lib`.
 
 --incdir=directory
-    Directory name for :program:`libunit` include files; relative path here is
-    :option:`!<prefix>`-based.
+    Directory path for :program:`libunit` include files.
 
     The default value is :samp:`include`.
 
 --modules=directory
-    Directory name for Unit language modules; relative path here is
-    :option:`!<prefix>`-based.
+    Directory path for Unit language modules.
 
     The default value is :samp:`modules`.
 
 --state=directory
-    State directory name; relative path here is :option:`!<prefix>`-based.
+    Directory path for Unit state storage.
 
     .. warning::
 
@@ -609,21 +609,19 @@ The :program:`./configure` script has the following options available:
 
     The default value is :samp:`state`.
 
---pid=filename
-    Filename for the PID file of Unit's daemon process; relative path here is
-    :option:`!<prefix>`-based.
+--pid=pathname
+    Pathname for the PID file of Unit's daemon process.
 
     The default value is :samp:`unit.pid`.
 
---log=filename
-    Filename for the Unit log; relative path here is :option:`!<prefix>`-based.
+--log=pathname
+    Pathname for the Unit log.
 
     The default value is :samp:`unit.log`.
 
 --control=socket
     Address of the control API socket; Unix sockets (starting with
-    :samp:`unix:`), IPv4, and IPv6 sockets are valid here.  For Unix sockets,
-    relative path here is :option:`!<prefix>`-based.
+    :samp:`unix:`), IPv4, and IPv6 sockets are valid here.
 
     The default value is :samp:`unix:control.unit.sock`, created as
     :samp:`root` with :samp:`600` permissions.
@@ -668,42 +666,63 @@ The :program:`./configure` script has the following options available:
 Directory Structure
 -------------------
 
-To customize Unit installation directory, you can:
+To customize Unit installation and runtime directories, you can both:
 
-- Set the :option:`!--prefix` during source configuration
+- Set the :option:`!--prefix` and path parameters during :ref:`configuration
+  <installation-config-src-prefix>` to set up the runtime file structure: Unit
+  will use these settings to locate its modules, state, and other files.
+
 - Set the :envvar:`DESTDIR` `variable
   <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :ref:`installation <installation-bld-src>`
+  :ref:`installation <installation-bld-src>`.  Unit file structure will be
+  placed at the specified directory, which can be either the final installation
+  target or an intermediate staging location.
 
-The resulting directory structure:
+Coordinate these two options as necessary to customize the directory structure.
+One common scenario is installation based on absolute paths.
 
-.. list-table::
-    :header-rows: 1
+1. Set absolute runtime paths with :option:`!--prefix` and path parameters:
 
-    * - Unit Files
-      - Target Path
-    * - User executables
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<bindir>`
-    * - Sysadmin executables
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<sbindir>`
-    * - State files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<state>`
-    * - Language modules
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<modules>`
-    * - Library files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<libdir>`
-    * - Include files
-      - :envvar:`DESTDIR` + :option:`!<prefix>` + :option:`!<incdir>`
+   .. code-block:: console
 
-For example, :command:`--prefix=unit` and :command:`DESTDIR=/usr/local/opt/`
-yield the following installation base directory: :file:`/usr/local/opt/unit/`.
-This scheme allows you to adjust your installation for packaging or other
-purposes.
+       # ./configure --state=/var/lib/unit --log=/var/log/unit.log \
+                     --control=unix:/run/unit.control.sock --prefix=/usr/local/
 
-For example, you can supply an absolute path for :option:`!--prefix` and omit
-:envvar:`DESTDIR` entirely, or vice versa.  Mind that Unit executables rely
-solely on :option:`!<prefix>`-based paths; :envvar:`DESTDIR` is used only
-during installation.
+   This configuration will access its state, log, and control socket at custom
+   locations; other files will be accessed by default prefix-based paths:
+   :file:`/usr/local/sbin/`, :file:`/usr/local/modules/`, and so on.
+
+2. If you're building Unit on the system where you intend to run it, omit
+   :option:`!DESTDIR` during installation; the files will be placed at the
+   specified paths.  If you're building Unit for further packaging or
+   containerization, specify :option:`!DESTDIR` to place the files in a staging
+   location, preserving their relative structure.
+
+An alternative scenario is a build that you can move around the filesystem.
+
+1. Set relative runtime paths with :option:`!--prefix` and path parameters:
+
+   .. code-block:: console
+
+       # ./configure --state=config --log=log/unit.log \
+                     --control=unix:control/unit.control.sock --prefix=movable
+
+   This configuration will access its files by prefix-based paths (both default
+   and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
+   directory>/movable/config/`, and so on.
+
+2. Specify :option:`!DESTDIR` during installation to place the build where
+   needed.  You can move it around your system or across compatible systems;
+   however, make sure to relocate the entire file structure and start Unit
+   binaries from the base directory so that the relative paths remain valid:
+
+   .. code-block:: console
+
+       # cd <DESTDIR>
+       # movable/sbin/unitd <command-line parameters>
+
+You can also combine these two approaches as you see fit; nevertheless, always
+take care to understand how your settings actually work together.
 
 .. _installation-src-modules:
 
