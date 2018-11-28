@@ -489,14 +489,14 @@ Unit source code tarballs are available at https://unit.nginx.org/download/.
 Installing Required Software
 ============================
 
-Before configuring and compiling Unit, you must install the required build
-tools plus the library files for each of the available languages (Go, Node.js,
-PHP, Perl, Python, and Ruby) that you want to support.
+Before configuring and compiling Unit, install the required build tools plus
+the library files for available languages (Go, Node.js, PHP, Perl, Python, and
+Ruby) and the other features you want Unit to support.
 
 The commands below assume you are configuring Unit with all supported
-languages; otherwise, skip the packages for languages you aren't going to use.
+languages and features; otherwise, skip the packages you aren’t going to use.
 
-.. _installation-prereq-deb:
+.. _installation-prereq-build:
 
 Debian, Ubuntu
 --------------
@@ -510,8 +510,7 @@ Debian, Ubuntu
     # apt-get install libperl-dev
     # apt-get install python-dev
     # apt-get install ruby-dev
-
-.. _installation-prereq-rpm:
+    # apt-get install libssl-dev
 
 Amazon Linux, CentOS, RHEL
 --------------------------
@@ -525,6 +524,7 @@ Amazon Linux, CentOS, RHEL
     # yum install perl-devel perl-libs
     # yum install python-devel
     # yum install ruby-devel
+    # yum install openssl-devel
 
 .. _installation-config-src:
 
