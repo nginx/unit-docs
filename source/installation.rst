@@ -24,8 +24,7 @@ Architectures:
 * powerpc
 * arm
 
-For applications running in NGINX Unit you need the respective programming
-languages:
+The following application platforms and versions are supported:
 
 * Go 1.6 or later
 * Node.js 8.11 or later
