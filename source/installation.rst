@@ -417,7 +417,7 @@ Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
 
 .. code-block:: console
 
-    # npm install -g unit-http
+    # npm install -g --unsafe-perm unit-http
 
 .. warning::
 
@@ -435,7 +435,7 @@ If you update Unit later, make sure to update the NPM package as well:
 
 .. code-block:: console
 
-    # npm update -g unit-http
+    # npm update -g --unsafe-perm unit-http
 
 .. note::
 
