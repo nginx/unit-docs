@@ -31,7 +31,7 @@ Supported Application Languages
 - Perl
 - Ruby
 - :ref:`JavaScript (Node.js) <installation-nodejs-package>`
-- Java *(coming soon)*
+- Java (`coming soon <https://github.com/mar0x/unit>`_)
 
 Demo
 ****
