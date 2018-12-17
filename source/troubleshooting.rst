@@ -88,7 +88,7 @@ Getting Support
 Post your questions to our mailing list at unit@nginx.org; to subscribe, email
 unit-subscribe@nginx.org or sign up `here
 <https://mailman.nginx.org/mailman/listinfo/unit>`_.  You can also visit our
-`GitHub repos <https://github.com/nginx/unit>`_ to report an issue, suggest a
+`GitHub repo <https://github.com/nginx/unit>`_ to report an issue, suggest a
 feature, or share a problem.
 
 In addition, we offer `commercial support <https://www.nginx.com/support/>`_.
