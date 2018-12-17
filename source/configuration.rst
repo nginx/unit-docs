@@ -778,6 +778,8 @@ Example::
         "script": "/www/cms/config.ru"
     }
 
+.. _configuration-access-log:
+
 Access log
 **********
 
