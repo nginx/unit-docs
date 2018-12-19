@@ -79,6 +79,16 @@ body > div {
     margin-left: 18em;
     padding: 1.6em 0 0 2em;
 }
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    position: relative;
+    left: -.8em;
+    padding-left: .8em;
+}
 #content h1 {
     margin: .8em 0;
     color: #00974d;
@@ -102,11 +112,15 @@ body > div {
     font-size: 1em;
 }
 #content .headerlink {
-    display: none;
+    visibility: hidden;
+    display: inline-block;
+    position: absolute;
+    top: -.2em;
+    left: -.2em;
+    padding: .2em;
 }
 #content *:hover > .headerlink {
-    display: inline-block;
-    margin-left: .3em;
+    visibility: visible;
 }
 #content p {
     margin: 1em 0;
