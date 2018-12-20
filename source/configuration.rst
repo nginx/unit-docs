@@ -729,8 +729,14 @@ Python Application
     * - ``module``
       - WSGI module name.
 
+        .. note::
+
+           To run the app, Unit looks for an :samp:`application` object in the
+           WSGI module you supply.
+
     * - ``path`` (optional)
-      - Path to search for the WSGI module file.
+      - Additional lookup path for Python modules; this string is inserted into
+        :samp:`sys.path`.
 
     * - ``home`` (optional)
       - Path to Python `virtual environment <https://packaging.python.org/
