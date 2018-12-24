@@ -11,12 +11,12 @@ EXCLUDE = \
 	--exclude='*/pygments.css' \
 	--exclude='/contents'
 
-COMPRESS = \
-	-name '*.html' \
+COMPRESS = -size +1000c \
+	\( -name '*.html' \
 	-o -name '*.css' \
 	-o -name '*.js' \
 	-o -name '*.svg' \
-	-o -name '*.txt'
+	-o -name '*.txt' \)
 
 
 .PHONY: site serve check clean deploy do_gzip
