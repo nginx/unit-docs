@@ -59,9 +59,9 @@ Next, specify the static files directory and the upstream in :samp:`server` and
 For details, see the `NGINX documentation <https://nginx.org>`_.  Commercial
 support and advanced features are `also available <https://www.nginx.com>`_.
 
-*********************
-Securing and Proxying
-*********************
+**************************
+Securely Proxying Unit API
+**************************
 
 By default, Unit exposes its API via a Unix domain socket.  For remote access,
 use NGINX as a reverse proxy.

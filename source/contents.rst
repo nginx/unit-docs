@@ -1,8 +1,9 @@
 .. toctree::
+   :includehidden:
 
    index
    installation
    configuration
-   integration
+   howto
    contribution
    troubleshooting
