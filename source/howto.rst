@@ -11,5 +11,7 @@ experience with Unit.
 
     howto/*
 
-:doc:`howto/integration`: Run Unit with load balancing, proxying, and enhanced
-security.
+- :doc:`howto/django`: Migrate your Django projects and apps to Unit almost
+  seamlessly.
+- :doc:`howto/integration`: Run Unit with load balancing, proxying, and
+  enhanced security.

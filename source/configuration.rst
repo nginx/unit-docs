@@ -717,6 +717,8 @@ Example:
         }
     }
 
+.. _configuration-python:
+
 Python Application
 ==================
 
