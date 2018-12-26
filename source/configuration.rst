@@ -729,12 +729,11 @@ Python Application
       - Description
 
     * - ``module``
-      - WSGI module name.
-
-        .. note::
-
-           To run the app, Unit looks for an :samp:`application` object in the
-           WSGI module you supply.
+      - `WSGI <https://www.python.org/dev/peps/pep-3333/>`_ module name.  To
+        run the app, Unit looks for an :samp:`application` callable in the
+        module you supply; the :samp:`module` itself is `imported
+        <https://docs.python.org/3/reference/import.html>`_ just like in
+        Python.
 
     * - ``path`` (optional)
       - Additional lookup path for Python modules; this string is inserted into
