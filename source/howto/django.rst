@@ -1,6 +1,6 @@
-###################
-Django Applications
-###################
+###########
+Django Apps
+###########
 
 To run your Django projects and apps in Unit:
 

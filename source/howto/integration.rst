@@ -1,6 +1,6 @@
-######################
-Integration with NGINX
-######################
+#################
+NGINX Integration
+#################
 
 *****************
 Configuring NGINX
