@@ -5,10 +5,10 @@
 body {
     background: white;
     color: #333;
-    font: 1em/1.5em 'Open Sans', Arial, sans-serif;
+    font: 1em/1.5 'Open Sans', Arial, sans-serif;
 }
 pre {
-    font: 1em/1.2em monospace;
+    font: 1em/1.2 monospace;
 }
 a {
     color: #333;
@@ -30,7 +30,7 @@ body > div {
 #side h1 {
     display: block;
     box-sizing: border-box;
-    padding: 1em 1em 1em .6em;
+    padding: .8em 1em .6em .6em;
     width: 100%;
 }
 #side img {
@@ -90,10 +90,10 @@ body > div {
     padding-left: .8em;
 }
 #content h1 {
-    margin: .8em 0;
     color: #00974d;
     font-size: 2.4em;
     font-weight: normal;
+    line-height: 1.1;
 }
 #content h1 .headerlink {
     color: #00974d;
@@ -103,6 +103,7 @@ body > div {
     color: #00974d;
     font-size: 1.4em;
     font-weight: normal;
+    line-height: normal;
 }
 #content h2 .headerlink {
     color: #00974d;
