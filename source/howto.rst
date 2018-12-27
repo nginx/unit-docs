@@ -13,5 +13,6 @@ experience with Unit.
 
 - :doc:`howto/django`: Migrate your Django projects and apps to Unit almost
   seamlessly.
+- :doc:`howto/flask`: Run your Flask apps in Unit with little to no change.
 - :doc:`howto/integration`: Run Unit with load balancing, proxying, and
   enhanced security.
