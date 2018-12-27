@@ -99,7 +99,7 @@ body > div {
     color: #00974d;
 }
 #content h2 {
-    margin-top: 1.2em;
+    margin: 1rem 0;
     color: #00974d;
     font-size: 1.4em;
     font-weight: normal;
@@ -109,7 +109,7 @@ body > div {
     color: #00974d;
 }
 #content h3 {
-    margin-top: 1em;
+    margin: 1rem 0;
     font-size: 1em;
 }
 #content .headerlink {
