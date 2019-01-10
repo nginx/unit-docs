@@ -35,11 +35,11 @@ To run your Django projects and apps in Unit:
 
       project/
       |-- manage.py
-      |-- app1
+      |-- app1/
       |   |-- ...
-      |-- app2
+      |-- app2/
       |   |-- ...
-      `-- project
+      `-- project/
           |-- ...
           `-- wsgi.py
 
