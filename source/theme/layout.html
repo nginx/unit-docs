@@ -26,7 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {%- if next %}
 <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
 {%- endif %}
-{%- if prev %}
+{%- if prev and pagename != "index" %}
 <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
 {%- endif %}
 
