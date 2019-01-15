@@ -82,6 +82,8 @@ Precompiled binaries for Unit are available for:
  * Ubuntu 16.04, 17.10, 18.04, 18.10
  * Debian 8, 9
 
+.. _installation-precomp-centos:
+
 CentOS Packages
 ===============
 
@@ -103,6 +105,8 @@ CentOS Packages
 3. Install additional module packages you would like to use, e.g.::
 
     # yum install unit-php unit-python unit-go unit-perl unit-devel
+
+.. _installation-precomp-rhel:
 
 RHEL Packages
 =============
@@ -414,6 +418,29 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
     # emerge --sync
     # emerge www-servers/nginx-unit
+
+.. _installation-remirepo:
+
+Remi's RPM Repo
+===============
+
+`Remi's RPM repository
+<https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
+which hosts the latest versions of the PHP stack for several Linux distros,
+also has Unit language modules for specific PHP versions (currently on CentOS
+and RHEL).
+
+To use them, you need the repositories configured:
+
+#. NGINX's own repo for :ref:`CentOS <installation-precomp-centos>` or
+   :ref:`RHEL <installation-precomp-rhel>`
+#. `Remi's RPM repo <https://blog.remirepo.net/pages/Config-en>`_
+
+Next, install Unit and the PHP modules you want:
+
+.. code-block:: console
+
+   # yum install --enablerepo=remi unit php71-unit-php php72-unit-php php73-unit-php
 
 .. _installation-nodejs-package:
 
