@@ -426,21 +426,20 @@ Remi's RPM Repo
 
 `Remi's RPM repository
 <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
-which hosts the latest versions of the PHP stack for several Linux distros,
-also has Unit language modules for specific PHP versions (currently on CentOS
-and RHEL).
+which hosts the latest versions of the PHP stack for CentOS, Fedora, and RHEL,
+also has the base Unit package and the PHP modules.
 
-To use them, you need the repositories configured:
-
-#. NGINX's own repo for :ref:`CentOS <installation-precomp-centos>` or
-   :ref:`RHEL <installation-precomp-rhel>`
-#. `Remi's RPM repo <https://blog.remirepo.net/pages/Config-en>`_
+To use Remi's versions of Unit packages, configure `Remi's RPM repo
+<https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
+modules also work with the base Unit package from :ref:`our own repository
+<installation-precomp-pkgs>`.
 
 Next, install Unit and the PHP modules you want:
 
 .. code-block:: console
 
-   # yum install --enablerepo=remi unit php71-unit-php php72-unit-php php73-unit-php
+   # yum install --enablerepo=remi unit php54-unit-php php55-unit-php php56-unit-php \
+         php70-unit-php php71-unit-php php72-unit-php php73-unit-php
 
 .. _installation-nodejs-package:
 
