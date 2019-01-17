@@ -641,6 +641,8 @@ Example::
         "group": "www"
     }
 
+.. _configuration-php:
+
 PHP Application
 ===============
 
