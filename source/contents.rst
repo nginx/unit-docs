@@ -5,5 +5,5 @@
    installation
    configuration
    howto
-   contribution
    troubleshooting
+   contribution
