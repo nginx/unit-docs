@@ -7,7 +7,7 @@ Configuring NGINX
 *****************
 
 Essentially, NGINX works as a static web server and reverse proxy in front of
-Unit, serving static files directly from the file system and proxying
+Unit, serving static files directly from the filesystem and proxying
 application-related requests to Unit.
 
 For a simple NGINX setup, create an upstream in the :samp:`http` configuration
