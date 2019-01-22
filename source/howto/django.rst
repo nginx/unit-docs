@@ -46,7 +46,10 @@ To run your Django projects and apps in Unit:
    Edit the JSON file, adding a :ref:`listener <configuration-listeners>` in
    :samp:`listeners` and pointing it to your project's :file:`wsgi.py` file in
    :samp:`applications`.  Your project and apps will run on the listener's IP
-   and port at their respective URL paths.
+   and port at their respective URL paths.  If you use a `virtual environment
+   <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_
+   for your project, reference it as :samp:`home` within your app definition
+   object.
 
    .. code-block:: json
 
@@ -61,6 +64,7 @@ To run your Django projects and apps in Unit:
               "django_project": {
                   "type": "python 3",
                   "path": "/home/django/project/",
+                  "home": "/home/django/venv/",
                   "module": "project.wsgi"
               }
           }
