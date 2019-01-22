@@ -10,18 +10,7 @@ To run your Flask apps in Unit:
 #. If you haven’t already done so, create your `Flask app
    <http://flask.pocoo.org/docs/1.0/quickstart/>`_.
 
-#. Prepare Unit configuration for your project.  To obtain an initial template,
-   query the control API:
-
-   .. code-block:: console
-
-      $ curl --unix-socket /path/to/control.unit.sock \
-             http://localhost/config/ > config.json
-
-   .. note::
-
-      Control socket path may vary; run :command:`unitd --help` or see
-      :ref:`installation-startup` for details.
+#. .. include:: ../include/get-config.rst
 
    This creates a JSON file with Unit's current settings.  Add a :ref:`listener
    <configuration-listeners>` for your project in :samp:`listeners` and point

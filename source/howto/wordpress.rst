@@ -46,13 +46,7 @@ To run WordPress in Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
 
-#. Prepare Unit configuration for your project.  To obtain an initial template,
-   query the control API:
-
-   .. code-block:: console
-
-      # curl --unix-socket /path/to/control.unit.sock \
-             http://localhost/config/ > config.json
+#. .. include:: ../include/get-config.rst
 
 #. Edit the file, adding two apps and their listeners to serve direct and
    indirect WordPress URLs:

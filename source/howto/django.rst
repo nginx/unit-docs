@@ -11,18 +11,7 @@ To run your Django projects and apps in Unit:
    <https://docs.djangoproject.com/en/stable/intro/overview/>`_ where you
    usually store them.
 
-#. Prepare Unit configuration for your project.  To obtain an initial template,
-   query the control API:
-
-   .. code-block:: console
-
-      # curl --unix-socket /path/to/control.unit.sock \
-             http://localhost/config/ > config.json
-
-   .. note::
-
-      Control socket path may vary; run :command:`unitd --help` or see
-      :ref:`installation-startup` for details.
+#. .. include:: ../include/get-config.rst
 
    This creates a JSON file with Unit's current settings; update it with your
    project settings as follows.
