@@ -1,15 +1,19 @@
-SPHINX		= sphinx-build
-SERVER		= python3 -mhttp.server
-SOURCEDIR	= source
-BUILDDIR	= build
-DEPLOYDIR	= deploy
+SPHINX		?= sphinx-build
+SERVER		?= python3 -mhttp.server
+
+# https://github.com/tdewolff/minify/tree/master/cmd/minify
+MINIFY		?= minify
+
+BUILDDIR	?= build
+DEPLOYDIR	?= deploy
 
 EXCLUDE = \
 	--exclude='.*' \
 	--exclude='*.inv' \
-	--exclude='*.gz' \
 	--exclude='*/pygments.css' \
-	--exclude='/contents'
+	--exclude='/contents' \
+	--exclude='searchindex.js' \
+	--exclude='/search'
 
 COMPRESS = -size +1000c \
 	\( -name '*.html' \
@@ -22,7 +26,7 @@ COMPRESS = -size +1000c \
 .PHONY: site serve check clean deploy do_gzip
 
 site: $(BUILDDIR)
-	@$(SPHINX) -b dirhtml "$(SOURCEDIR)" "$(BUILDDIR)"
+	@$(SPHINX) -b dirhtml source "$(BUILDDIR)"
 
 $(BUILDDIR):
 	mkdir "$(BUILDDIR)"
@@ -31,13 +35,17 @@ serve: site
 	@cd "$(BUILDDIR)" && $(SERVER)
 
 check:
-	@$(SPHINX) -b linkcheck -d "$(BUILDDIR)/.doctrees" "$(SOURCEDIR)" .
+	@$(SPHINX) -b linkcheck -d "$(BUILDDIR)/.doctrees" source .
 
 clean:
 	rm -rf $(BUILDDIR)
 
 deploy: site
-	rsync -rcv --delete $(EXCLUDE) "$(BUILDDIR)/" "$(DEPLOYDIR)"
+	$(eval TMP := $(shell mktemp -d))
+	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
+	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
+	rsync -rcv --delete --exclude='*.gz' "$(TMP)/" "$(DEPLOYDIR)"
+	-rm -rf "$(TMP)"
 	$(MAKE) do_gzip
 	chmod -R g=u "$(DEPLOYDIR)"
 
