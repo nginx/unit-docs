@@ -106,6 +106,8 @@ CentOS Packages
 
     # yum install unit-php unit-python unit-go unit-perl unit-devel
 
+.. include:: include/socket-note.rst
+
 .. _installation-precomp-rhel:
 
 RHEL Packages
@@ -135,6 +137,8 @@ RHEL Packages
    For RHEL 7::
 
     # yum install unit-php unit-python unit-go unit-perl unit-devel
+
+.. include:: include/socket-note.rst
 
 Amazon Linux Packages
 =====================
@@ -172,6 +176,8 @@ Amazon Linux Packages
    For Amazon Linux 2 LTS::
 
     # yum install unit-php unit-python unit-go unit-perl unit-devel
+
+.. include:: include/socket-note.rst
 
 Ubuntu Packages
 ===============
@@ -241,6 +247,8 @@ Ubuntu Packages
       # apt-get install unit-php unit-python2.7 unit-python3.6 unit-python3.7 \
             unit-go1.9 unit-go1.10 unit-perl unit-ruby unit-dev
 
+.. include:: include/socket-note.rst
+
 Debian Packages
 ===============
 
@@ -284,6 +292,8 @@ Debian Packages
 
     # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
           unit-go1.8 unit-perl unit-ruby unit-dev
+
+.. include:: include/socket-note.rst
 
 .. _installation-precomp-pkgs-startup:
 
@@ -346,6 +356,10 @@ To install service manager files and specific language modules:
 
     # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
 
+.. note::
+
+   Control socket is located here: :file:`/run/control.unit.sock`.
+
 .. _installation-archlinux-aur:
 
 Arch Linux
@@ -370,6 +384,10 @@ To install Unit using the `Arch User Repository (AUR)
 
     $ makepkg -si
 
+.. note::
+
+   Control socket is located here: :file:`/run/nginx-unit.control.sock`.
+
 .. _installation-freebsd-pkgs-prts:
 
 FreeBSD
@@ -382,6 +400,10 @@ freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
 repository and install the package::
 
     # pkg install -y unit
+
+.. note::
+
+   Control socket is located here: :file:`/var/run/unit/control.unit.sock`.
 
 .. _installation-freebsd-prts:
 
@@ -407,6 +429,10 @@ Warning: ``make`` here is used in port configuration.  For ``make`` commands
 to build Unit from the code in our repositories, see
 :ref:`installation-bld-src`.
 
+.. note::
+
+   Control socket is located here: :file:`/var/run/unit/control.unit.sock`.
+
 .. _installation-gnt-prtg:
 
 Gentoo
@@ -418,6 +444,10 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
     # emerge --sync
     # emerge www-servers/nginx-unit
+
+.. note::
+
+   Control socket is located here: :file:`/run/nginx-unit.sock`.
 
 .. _installation-remirepo:
 
@@ -440,6 +470,10 @@ Next, install Unit and the PHP modules you want:
 
    # yum install --enablerepo=remi unit php54-unit-php php55-unit-php php56-unit-php \
          php70-unit-php php71-unit-php php72-unit-php php73-unit-php
+
+.. note::
+
+   Control socket is located here: :file:`/var/run/unit/control.sock`.
 
 .. _installation-nodejs-package:
 
