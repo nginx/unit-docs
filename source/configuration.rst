@@ -51,8 +51,13 @@ application::
 For complete details about the JSON objects for each language, see
 `Application Objects`_.
 
+.. _configuration-mgmt:
+
+Configuration Management
+************************
+
 Minimum Configuration
-*********************
+=====================
 
 In order to run an application, configuration must include at least one
 listener and associated application, as in this example::
@@ -74,16 +79,12 @@ listener and associated application, as in this example::
         }
     }
 
-Creating Configuration Objects
-******************************
+Creating Objects
+================
 
 To create a configuration object, specify the JSON data for it in the body of
 a ``PUT`` request.  To reduce errors, it makes sense to write the JSON data in a
 file and specify the file path with the ``-d`` option to the ``curl`` command.
-
-
-Example: Create a Full Configuration
-====================================
 
 Create an initial configuration by uploading the contents of the **start.json**
 file:
@@ -93,17 +94,12 @@ file:
     # curl -X PUT -d @/path/to/start.json  \
            --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-
-Example: Create an Application Object
-=====================================
-
 Create a new application object called **wiki** from the file **wiki.json**:
 
 .. code-block:: none
 
     # curl -X PUT -d @/path/to/wiki.json  \
            --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
-
 
 The contents of **wiki.json** are::
 
@@ -116,13 +112,10 @@ The contents of **wiki.json** are::
         "path": "/www/wiki"
     }
 
-Displaying Configuration Objects
-********************************
+Displaying Objects
+==================
 
 To display a configuration object, append its path to the ``curl`` URL.
-
-Example: Display the Full Configuration
-=======================================
 
 Display the complete configuration:
 
@@ -147,9 +140,6 @@ Display the complete configuration:
         }
     }
 
-Example: Display One Object
-===========================
-
 Display the data for the **wiki** application:
 
 .. code-block:: none
@@ -164,14 +154,11 @@ Display the data for the **wiki** application:
         "path": "/www/wiki"
     }
 
-Modifying Configuration Objects
-*******************************
+Modifying Objects
+=================
 
 To change a configuration object, use the ``-d`` option to the ``curl`` command
 to specify the object's JSON data in the body of a ``PUT`` request.
-
-Example: Change the Application for a Listener
-==============================================
 
 Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
 
@@ -182,9 +169,6 @@ Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
     {
         "success": "Reconfiguration done."
     }
-
-Example: Change the File Path for an Application
-================================================
 
 Change the ``root`` object for the **blogs** application to
 **/www/blogs-dev/scripts**:
@@ -198,14 +182,11 @@ Change the ``root`` object for the **blogs** application to
         "success": "Reconfiguration done."
     }
 
-Deleting Configuration Objects
-******************************
+Deleting Objects
+================
 
 To delete a configuration object, make a ``DELETE`` request and append the
 object's path to the ``curl`` URL.
-
-Example: Delete a Listener
-==========================
 
 Delete the listener on \*:8400:
 
