@@ -16,6 +16,9 @@ a {
 a:hover {
     text-decoration: none;
 }
+iframe {
+    border: none;
+}
 body > div {
     margin: 0 auto;
     padding: 0 1.5em;

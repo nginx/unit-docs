@@ -39,8 +39,7 @@ Demo
 .. raw:: html
 
     <div class="video">
-    <iframe type="text/html"
-            src="https://www.youtube.com/embed/I4IWEz2lBWU?modestbranding=1&amp;rel=0&amp;showinfo=0&amp;color=white"
-            frameborder="0" allowfullscreen="1">
+    <iframe src="https://www.youtube.com/embed/I4IWEz2lBWU?modestbranding=1&amp;rel=0&amp;showinfo=0&amp;color=white"
+            allowfullscreen>
     </iframe>
     </div>
