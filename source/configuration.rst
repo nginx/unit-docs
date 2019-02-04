@@ -271,7 +271,7 @@ Listener Objects
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``application``
@@ -305,7 +305,7 @@ The common options are follows:
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``type``
@@ -477,7 +477,7 @@ application configuration:
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - :samp:`executable` (required)
@@ -605,7 +605,7 @@ Perl Application
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``script``
@@ -630,7 +630,7 @@ PHP Application
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``root``
@@ -649,7 +649,7 @@ You can also customize :file:`php.ini` using the following options
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - :samp:`file`
@@ -708,7 +708,7 @@ Python Application
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``module``
@@ -752,7 +752,7 @@ Ruby Application
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - ``script``
