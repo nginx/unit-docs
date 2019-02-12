@@ -72,7 +72,7 @@ To run your Django projects and apps in Unit:
       # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
-   After successful update, your project and apps should be available
+   After a successful update, your project and apps should be available
    on the listener's IP address and port:
 
    .. code-block:: console

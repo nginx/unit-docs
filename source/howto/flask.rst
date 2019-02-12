@@ -46,7 +46,7 @@ To run your Flask apps in Unit:
       $ curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
-   After successful update, your app should be available on the
+   After a successful update, your app should be available on the
    listener's IP address and port:
 
    .. code-block:: console
