@@ -16,6 +16,7 @@ experience with Unit.
 - :doc:`howto/flask`: Run your Flask apps in Unit with little to no change.
 - :doc:`howto/integration`: Run Unit with load balancing, proxying, and
   enhanced security.
+- :doc:`howto/jira`: Run a new Jira installation on Unit.
 - :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
 
 If you are interested in a specific use case not yet listed here, please `post
