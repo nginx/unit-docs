@@ -577,8 +577,8 @@ The common options are follows:
       - Description
 
     * - ``type``
-      - Type of the application: ``external`` (Go and Node.js), ``perl``,
-        ``php``, ``python``, or ``ruby``.
+      - Type of the application: ``external`` (Go and Node.js), ``java``,
+        ``perl``, ``php``, ``python``, or ``ruby``.
 
         Except with ``external``, you can detail the runtime version: ``"type":
         "python 3"``, ``"type": "python 3.4"``, or even ``"type": "python
@@ -866,6 +866,36 @@ rewire it like this:
     })
 
     createServer(app).listen()
+
+.. _configuration-java:
+
+Java Application
+================
+
+.. list-table::
+    :header-rows: 1
+
+    * - Object
+      - Description
+
+    * - ``classpath``
+      - Array of paths to your app's required libraries (may point to
+        directories or :file:`.jar` files).
+
+    * - ``options``
+      - Array of strings defining JVM runtime options.
+
+    * - ``webapp``
+      - Pathname of the application's packaged or unpackaged :file:`.war` file.
+
+Example::
+
+    {
+        "type": "java",
+        "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
+        "options": ["-Dlog_path=/var/log/qwk2mart.log"],
+        "webapp": "/www/qwk2mart/qwk2mart.war"
+    }
 
 Perl Application
 ================
@@ -1349,6 +1379,10 @@ Full Example
 
                 "127.0.0.1:8601": {
                     "pass": "routes/cms"
+                },
+
+                "*:8700": {
+                    "pass": "applications/qwk2mart"
                 }
             },
 
@@ -1440,6 +1474,13 @@ Full Example
                     "type": "ruby",
                     "processes": 1,
                     "script": "/www/cms/admin.ru"
+                },
+
+                "qwk2mart": {
+                    "type": "java",
+                    "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
+                    "options": ["-Dlog_path=/var/log/qwk2mart.log"],
+                    "webapp": "/www/qwk2mart/qwk2mart.war"
                 }
             },
 

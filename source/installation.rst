@@ -27,6 +27,7 @@ Architectures:
 The following application platforms and versions are supported:
 
 * Go 1.6 or later
+* Java 8 or later
 * Node.js 8.11 or later
 * PHP 5, 7
 * Perl 5.12 or later
@@ -104,7 +105,8 @@ CentOS Packages
 
 3. Install additional module packages you would like to use, e.g.::
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel
+    # yum install unit-php unit-python unit-go unit-perl unit-devel \
+                  unit-jsc-common unit-jsc8
 
 .. include:: include/socket-note.rst
 
@@ -132,11 +134,13 @@ RHEL Packages
 
    For RHEL 6::
 
-    # yum install unit-php unit-python unit-perl unit-devel
+    # yum install unit-php unit-python unit-perl unit-devel \
+                  unit-jsc-common unit-jsc8 unit-jsc11
 
    For RHEL 7::
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel
+    # yum install unit-php unit-python unit-go unit-perl unit-devel \
+                  unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
 
@@ -171,11 +175,13 @@ Amazon Linux Packages
 3. Install additional module packages you would like to use, e.g.::
 
     # yum install unit-php unit-python27 unit-python34 unit-python35 \
-          unit-python36 unit-go unit-perl unit-devel
+          unit-python36 unit-go unit-perl unit-devel unit-jsc-common \
+          unit-jsc8 unit-jsc11
 
    For Amazon Linux 2 LTS::
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel
+    # yum install unit-php unit-python unit-go unit-perl unit-devel \
+                  unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
 
@@ -223,19 +229,21 @@ Ubuntu Packages
    For Ubuntu 16.04::
 
     # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go \
-          unit-perl unit-ruby unit-dev
+          unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8
 
    For Ubuntu 18.04::
 
     # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 \
-          unit-go1.10 unit-perl unit-ruby unit-dev
+          unit-go1.10 unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8 \
+          unit-jsc10
 
    For Ubuntu 18.10:
 
    .. code-block:: console
 
       # apt-get install unit-php unit-python2.7 unit-python3.6 unit-python3.7 \
-            unit-go1.9 unit-go1.10 unit-perl unit-ruby unit-dev
+            unit-go1.9 unit-go1.10 unit-perl unit-ruby unit-dev \
+            unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
 
@@ -573,6 +581,7 @@ Debian, Ubuntu
     # apt-get install libperl-dev
     # apt-get install python-dev
     # apt-get install ruby-dev
+    # apt-get install openjdk-8-jdk
     # apt-get install libssl-dev
 
 Amazon Linux, CentOS, RHEL
@@ -587,6 +596,7 @@ Amazon Linux, CentOS, RHEL
     # yum install perl-devel perl-libs
     # yum install python-devel
     # yum install ruby-devel
+    # yum install java-1.8.0-openjdk-devel
     # yum install openssl-devel
 
 .. _installation-config-src:
@@ -821,6 +831,56 @@ Go environment.  Available configuration options:
     compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
     the Unit package.
 
+.. _installation-java:
+
+Configuring Java
+----------------
+
+When you run :command:`./configure java`, the script configures a module to
+support running `Java Web Applications
+<https://download.oracle.com/otndocs/jcp/servlet-3_1-fr-spec/index.html>`_ in
+Unit.  Available command options:
+
+--home=directory
+    Directory path for Java utilities and header files (required to build the
+    module).
+
+    The default value is the :samp:`java.home` setting.
+
+--jars=directory
+    Directory path for Unit's custom :file:`.jar` files.
+
+    The default value is the Java module path.
+
+--lib-path=directory
+    Directory path for the :file:`libjvm.so` library.
+
+    The default value is derived from JDK settings.
+
+--local-repo=directory
+    Directory path for local :file:`.jar` repository.
+
+    The default value is :samp:`$HOME/.m2/repository/`.
+
+--repo=directory
+    URL path for remote Maven repository.
+
+    The default value is :samp:`http://central.maven.org/maven2/`.
+
+--module=filename
+    Target name for the Java module that Unit will build
+    (:file:`<module>.unit.so`).  Also used for :ref:`build and install
+    <installation-bld-src-emb>` commands.
+
+    The default value is :samp:`java`.
+
+To configure a module called :file:`java11.unit.so` with OpenJDK 11.0.1:
+
+.. code-block:: console
+
+    # ./configure java --module=java11 \
+                       --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+
 .. _installation-nodejs:
 
 Configuring Node.js
@@ -1010,7 +1070,7 @@ externally.
 Embedded Language Modules
 -------------------------
 
-To build and install Unit modules for PHP, Perl, Python, or Ruby after
+To build and install Unit modules for Java, PHP, Perl, Python, or Ruby after
 configuration, run :command:`make <module>` and :command:`make
 <module>-install`, for example:
 
