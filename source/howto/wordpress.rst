@@ -56,11 +56,15 @@ To run WordPress in Unit:
       {
           "listeners": {
               "127.0.0.1:8090": {
-                  "application": "wp_index"
+                  "action": {
+                      "pass": "applications/wp_index"
+                  }
               },
 
               "127.0.0.1:8091": {
-                  "application": "wp_direct"
+                  "action": {
+                      "pass": "applications/wp_direct"
+                  }
               }
           },
 

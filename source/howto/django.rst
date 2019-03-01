@@ -45,7 +45,9 @@ To run your Django projects and apps in Unit:
       {
           "listeners": {
               "127.0.0.1:8080": {
-                  "application": "django_project"
+                  "action": {
+                      "pass": "applications/django_project"
+                  }
               }
           },
 

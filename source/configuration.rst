@@ -43,7 +43,7 @@ application::
 
     {
         "*:8300": {
-            "application": "blogs"
+            "pass": "applications/blogs"
         }
     }
 
@@ -65,7 +65,7 @@ listener and associated application, as in this example::
     {
         "listeners": {
             "*:8300": {
-                "application": "blogs"
+                "pass": "applications/blogs"
             }
         },
 
@@ -125,7 +125,7 @@ Display the complete configuration:
     {
         "listeners": {
             "*:8300": {
-                "application": "blogs"
+                "pass": applications/blogs"
             }
         },
 
@@ -265,6 +265,8 @@ Example::
         }
     }
 
+.. _configuration-lstnr:
+
 Listener Objects
 ****************
 
@@ -274,8 +276,19 @@ Listener Objects
     * - Option
       - Description
 
-    * - ``application``
-      - Application name.
+    * - :samp:`application`
+      - App name: :samp:`"application": "qwk2mart"`.  Mutually exclusive with
+        :samp:`pass`.
+
+        .. warning::
+
+           This object is deprecated.  Please update your configurations to use
+           :samp:`pass` instead.
+
+    * - :samp:`pass`
+      - Qualified app or route name: :samp:`"pass": "routes/route66"`,
+        :samp:`"pass": "applications/qwk2mart"`.  Mutually exclusive with
+        :samp:`application`.
 
     * - :samp:`tls` (optional)
       - SSL/TLS configuration.  Set its only option, :samp:`certificate`, to
@@ -288,11 +301,266 @@ Example:
 .. code-block:: json
 
     {
-        "application": "blogs",
+        "pass": "applications/blogs",
         "tls": {
             "certificate": "blogs-cert"
         }
     }
+
+.. _configuration-routes:
+
+Routes
+******
+
+Unit configuration offers a :samp:`routes` object to enable elaborate internal
+routing between listeners and apps.  Listeners :samp:`pass` requests to routes
+or directly to apps.  Requests are matched against route step conditions; a
+request fully matching a step's condition is passed to the app or the route
+that the step specifies.
+
+The :samp:`routes` object may contain a single anonymous route array:
+
+.. code-block:: json
+
+   {
+        "listeners": {
+            "*:8300": {
+                "pass": "routes"
+            }
+        },
+
+        "routes": [ "simply referred to as routes" ]
+   }
+
+Another option is one or more named route arrays:
+
+.. code-block:: json
+
+   {
+        "listeners": {
+            "*:8300": {
+                "pass": "routes/main"
+            }
+        },
+
+        "routes": {
+            "main": [ "named route, qualified name: routes/main" ],
+            "route66": [ "named route, qualified name: routes/route66" ]
+        }
+   }
+
+Route Object
+============
+
+Route array contains anonymous objects, or steps; a request passed to a route
+traverses them sequentially.  Steps have the following options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - :samp:`match` (optional)
+     - Object that defines the step condition.
+
+       - If the request fits the :samp:`match` condition, the step's
+         :samp:`pass` is followed.
+
+       - If the request doesn't match a step, Unit proceeds to the next
+         step of the route.
+
+       - If the request doesn't match any steps, a 404 "Not Found" response is
+         returned.
+
+       See :ref:`below <configuration-routes-cond>` for condition matching
+       details.
+
+   * - :samp:`action` and :samp:`pass`
+     - Route's destination; identical to :samp:`pass` in a :ref:`listener
+       <configuration-lstnr>`.  If you omit :samp:`match`, requests are passed
+       unconditionally; to avoid issues, use no more than one such step per
+       route, placing it last.
+
+An example:
+
+.. code-block:: json
+
+   {
+       "routes": [
+           {
+               "match": {
+                   "host": "example.com",
+                   "uri": "/admin/*"
+               },
+
+               "action": {
+                   "pass": "applications/php5_app"
+                }
+           },
+           {
+               "action": {
+                   "pass": "applications/php7_app"
+                }
+           }
+        ]
+   }
+
+A more elaborate example with chained routes:
+
+.. code-block:: json
+
+    {
+        "routes": {
+            "main": [
+                {
+                    "match": {
+                        "host": [ "www.example.com", "example.com" ]
+                    },
+
+                    "action": {
+                        "pass": "routes/site"
+                    }
+                },
+                {
+                    "match": {
+                        "host": "blog.example.com"
+                    },
+
+                    "action": {
+                        "pass": "applications/blog"
+                    }
+                }
+            ],
+
+            "site": [ "..." ]
+        }
+    }
+
+.. _configuration-routes-cond:
+
+Condition Matching
+==================
+
+The :samp:`match` condition in a step comprises request property names and
+corresponding patterns:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "request_property1": "pattern",
+           "request_property2": ["pattern", "pattern", "..." ]
+       },
+
+       "action": {
+           "pass": "..."
+        }
+   }
+
+To fit a step's condition, the request must match all properties listed in it.
+Available options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - :samp:`host`
+     - Request host from the :samp:`Host` header field without port number,
+       normalized by removing the trailing period (if any); case-insensitive.
+
+   * - :samp:`method`
+     - Request method from the request line; case-insensitive.
+
+   * - :samp:`uri`
+     - Request URI path without arguments, normalized by decoding the "%XX"
+       sequences, resolving relative path references ("." and ".."), and
+       compressing adjacent slashes into one; case-sensitive.
+
+Patterns must be exact matches; they also support wildcards (:samp:`*`) and
+negations (:samp:`!`):
+
+- A wildcard matches zero or more arbitrary characters; pattern can start with
+  it, end with it, or both.
+
+- A negation restricts specific patterns; pattern can only start with it.
+
+To be a match against the patterns listed in a condition, the property must
+meet two requirements:
+
+- If there are patterns without negation, at least one of them matches.
+
+- No negation-based patterns match.
+
+.. note::
+
+   This type of matching can be explained with set operations.  Suppose set *U*
+   comprises all possible values of a property; set *P* comprises strings that
+   match any patterns without negation; set *N* comprises strings that match
+   any negation-based patterns.  In this scheme, the matching set will be:
+
+   | *U* ∩ *P* \\ *N* if *P* ≠ ∅
+   | *U* \\ *N* if *P* = ∅
+
+A few examples:
+
+.. code-block:: json
+
+   {
+       "host": "*.example.com"
+   }
+
+Only subdomains of :samp:`example.com` will match.
+
+.. code-block:: json
+
+   {
+       "host": ["*.example.com", "!www.example.com"]
+   }
+
+Here, any subdomains of :samp:`example.com` will match except
+:samp:`www.example.com`.
+
+.. code-block:: json
+
+   {
+       "method": ["!HEAD", "!GET"]
+   }
+
+Any methods will match except :samp:`HEAD` and :samp:`GET`.
+
+You can also combine special characters in a pattern:
+
+.. code-block:: json
+
+   {
+       "uri": "!*/api/*"
+   }
+
+Here, any URIs will match except ones containing :samp:`/api/`.
+
+If all properties match or you omit the condition, Unit routes the request
+where :samp:`pass` points to:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "host": [ "*.example.com", "!php7.example.com" ],
+           "uri": [ "/admin/*", "/store/*" ],
+           "method": "POST"
+       },
+
+       "action": {
+           "pass": "applications/php5_app"
+        }
+   }
+
+Here, all :samp:`POST` requests for URIs prefixed with :samp:`/admin/` or
+:samp:`/store/` within any subdomains of :samp:`example.com` (except
+:samp:`php7`) are routed to :samp:`php5_app`.
 
 Application Objects
 *******************
@@ -911,7 +1179,7 @@ uploaded bundle's name in :samp:`certificate`:
     {
         "listeners": {
             "127.0.0.1:8080": {
-                "application": "wsgi-app",
+                "pass": "applications/wsgi-app",
                 "tls": {
                     "certificate": "<bundle>"
                 }
@@ -934,7 +1202,7 @@ The resulting control API configuration may look like this:
         "config": {
             "listeners": {
                 "127.0.0.1:8080": {
-                    "application": "wsgi-app",
+                    "pass": "applications/wsgi-app",
                     "tls": {
                         "certificate": "<bundle>"
                     }
@@ -1061,27 +1329,46 @@ Full Example
 
             "listeners": {
                 "*:8300": {
-                    "application": "blogs",
+                    "pass": "applications/blogs",
                     "tls": {
                         "certificate": "bundle"
                     }
                 },
 
                 "*:8400": {
-                    "application": "wiki"
+                    "pass": "applications/wiki"
                 },
 
                 "*:8500": {
-                    "application": "go_chat_app"
+                    "pass": "applications/go_chat_app"
                 },
 
                 "127.0.0.1:8600": {
-                    "application": "bugtracker"
+                    "pass": "applications/bugtracker"
                 },
 
                 "127.0.0.1:8601": {
-                    "application": "cms"
+                    "pass": "routes/cms"
                 }
+            },
+
+            "routes" {
+                "cms": [
+                    {
+                        "match": {
+                            "uri": "!/admin/*"
+                        },
+                        "action": {
+                            "pass": "applications/cms_main"
+                        }
+                    },
+
+                    {
+                        "action": {
+                            "pass": "applications/cms_admin"
+                        }
+                    }
+                ]
             },
 
             "applications": {
@@ -1143,10 +1430,16 @@ Full Example
                     "script": "app.psgi"
                 },
 
-                "cms": {
+                "cms_main": {
                     "type": "ruby",
                     "processes": 5,
-                    "script": "/www/cms/config.ru"
+                    "script": "/www/cms/main.ru"
+                },
+
+                "cms_admin": {
+                    "type": "ruby",
+                    "processes": 1,
+                    "script": "/www/cms/admin.ru"
                 }
             },
 
