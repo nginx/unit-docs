@@ -931,18 +931,33 @@ PHP Application
     * - Option
       - Description
 
-    * - ``root``
-      - Directory to search for PHP files.
+    * - ``index`` (optional)
+      - Filename appended to any URI paths ending with a slash; applies if
+        :samp:`script` is omitted.
 
-    * - ``index``
-      - Default launch file when the PHP file name is not specified in the URL.
+        Default value is :samp:`index.php`.
+
+    * - ``options`` (optional)
+      - Object that defines :file:`php.ini` location and options.  For details,
+        see below.
+
+    * - ``root``
+      - Base directory of your PHP app's file structure.  All URI paths are
+        relative to this value.
 
     * - ``script`` (optional)
-      - File that Unit runs for every URL, instead of searching for a file in
-        the filesystem.  The location is relative to the root.
+      - Filename of a PHP script; if set, Unit uses this script to serve any
+        requests to this application.  Relative to :samp:`root`.
 
-You can also customize :file:`php.ini` using the following options
-(available in the :samp:`options` object):
+The :samp:`index` and :samp:`script` options enable two modes of operation:
+
+- If :samp:`script` is set, all requests to the application are handled by
+  the script you provide.
+
+- Otherwise, the requests are served according to their URI paths; if script
+  name is omitted, :samp:`index` is used.
+
+You can customize :file:`php.ini` via the :samp:`options` object:
 
 .. list-table::
     :header-rows: 1
