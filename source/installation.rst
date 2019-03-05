@@ -750,7 +750,7 @@ One common scenario is installation based on absolute paths.
    .. code-block:: console
 
        # ./configure --state=/var/lib/unit --log=/var/log/unit.log \
-                     --control=unix:/run/unit.control.sock --prefix=/usr/local/
+                     --control=unix:/run/control.unit.sock --prefix=/usr/local/
 
    This configuration will access its state, log, and control socket at custom
    locations; other files will be accessed by default prefix-based paths:
@@ -769,7 +769,7 @@ An alternative scenario is a build that you can move around the filesystem.
    .. code-block:: console
 
        # ./configure --state=config --log=log/unit.log \
-                     --control=unix:control/unit.control.sock --prefix=movable
+                     --control=unix:control/control.unit.sock --prefix=movable
 
    This configuration will access its files by prefix-based paths (both default
    and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
