@@ -2,7 +2,8 @@
 Jira
 ####
 
-To run Jira on Unit, follow these steps.
+To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ on Unit,
+follow these steps.
 
 .. note::
 
