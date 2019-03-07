@@ -840,33 +840,6 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 
     var http = require('unit-http');
 
-If your application uses the `Express framework <https://expressjs.com>`_,
-rewire it like this:
-
-.. code-block:: javascript
-
-    #!/usr/bin/env node
-
-    const {
-      createServer,
-      IncomingMessage,
-      ServerResponse,
-    } = require('unit-http')
-
-    require('http').ServerResponse = ServerResponse
-    require('http').IncomingMessage = IncomingMessage
-
-    const express = require('express')
-
-    const app = express()
-
-    app.get('/', (req, res) => {
-      res.set('X-Unit-Type', 'Absolute')
-      res.send('Hello, Unit!')
-    })
-
-    createServer(app).listen()
-
 .. _configuration-java:
 
 Java Application

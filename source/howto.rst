@@ -5,19 +5,28 @@ Howto
 This section describes various real-life situations and issues that you may
 experience with Unit.
 
-.. toctree::
-    :glob:
-    :hidden:
-
-    howto/*
+**************
+App Frameworks
+**************
 
 - :doc:`howto/django`: Migrate your Django projects and apps to Unit almost
   seamlessly.
+- :doc:`howto/express`: Launch Express apps in Unit with minimal adjustments.
 - :doc:`howto/flask`: Run your Flask apps in Unit with little to no change.
-- :doc:`howto/integration`: Run Unit with load balancing, proxying, and
-  enhanced security.
+
+************
+Applications
+************
+
 - :doc:`howto/jira`: Run a new Jira installation on Unit.
 - :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
+
+*************
+Miscellaneous
+*************
+
+- :doc:`howto/integration`: Run Unit with load balancing, proxying, and
+  enhanced security.
 
 If you are interested in a specific use case not yet listed here, please `post
 a feature request <https://github.com/nginx/unit-docs/issues>`_ on GitHub.
