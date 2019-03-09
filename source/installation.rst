@@ -67,8 +67,10 @@ docker.com/r/nginx/unit/tags/>`_ available:
       - Specific language module only, for example ``1.3-ruby2.3`` or
         ``1.2-python2.7``.
 
+.. include:: include/socket-note.rst
+
 For further details, see the `repository page <https://hub.docker.com/r/
-nginx/unit/>`_.
+nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 
 .. _installation-precomp-pkgs:
 
