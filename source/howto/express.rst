@@ -58,9 +58,7 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
       {
           "listeners": {
               "127.0.0.1:8080": {
-                  "action": {
-                      "pass": "applications/express_app"
-                  }
+                  "pass": "applications/express_app"
               }
           },
 
