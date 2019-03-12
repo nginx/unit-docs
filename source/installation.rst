@@ -79,11 +79,12 @@ Precompiled Packages
 
 Precompiled binaries for Unit are available for:
 
- * CentOS 6, 7
- * RHEL 6, 7
  * Amazon Linux
- * Ubuntu 16.04, 18.04, 18.10
+ * CentOS 6, 7
  * Debian 8, 9
+ * Fedora 28, 29
+ * RHEL 6, 7
+ * Ubuntu 16.04, 18.04, 18.10
 
 .. _installation-precomp-centos:
 
@@ -145,6 +146,46 @@ RHEL Packages
                   unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
+
+Fedora Packages
+===============
+
+1. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
+   contents:
+
+   .. code-block:: ini
+
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
+
+2. Install Unit base package:
+
+   .. code-block:: console
+
+      # yum install unit
+
+3. Install additional module packages you would like to use.
+
+   For Fedora 28:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python27 unit-python36 unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+   For Fedora 29:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python27 unit-python37 unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+.. note::
+
+   Control socket is located here: :file:`/var/run/unit/control.sock`.
 
 Amazon Linux Packages
 =====================
