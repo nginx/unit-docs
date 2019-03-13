@@ -42,10 +42,12 @@ system.
 Docker Images
 *************
 
-To install and run Unit from our Docker image repository::
+To install and run Unit from our Docker image repository:
 
-    # docker pull nginx/unit
-    # docker run -d nginx/unit
+.. code-block:: none
+
+   # docker pull nginx/unit
+   # docker run -d nginx/unit
 
 By default, the ``:latest`` image tag is used that resolves into a
 ``-full`` configuration of the latest Unit version.  Other `tags <https://hub.
@@ -102,14 +104,18 @@ CentOS Packages
     gpgcheck=0
     enabled=1
 
-2. Install Unit base package::
+2. Install Unit base package:
 
-    # yum install unit
+   .. code-block:: console
 
-3. Install additional module packages you would like to use, e.g.::
+      # yum install unit
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel \
-                  unit-jsc-common unit-jsc8
+3. Install additional module packages you would like to use, e.g.:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-go unit-perl unit-devel \
+            unit-jsc-common unit-jsc8
 
 .. include:: include/socket-note.rst
 
@@ -123,27 +129,33 @@ RHEL Packages
 
    .. code-block:: ini
 
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
 
-2. Install Unit base package::
+2. Install Unit base package:
 
-    # yum install unit
+   .. code-block:: console
+
+      # yum install unit
 
 3. Install additional module packages you would like to use.
 
-   For RHEL 6::
+   For RHEL 6:
 
-    # yum install unit-php unit-python unit-perl unit-devel \
-                  unit-jsc-common unit-jsc8 unit-jsc11
+   .. code-block:: console
 
-   For RHEL 7::
+      # yum install unit-php unit-python unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel \
-                  unit-jsc-common unit-jsc8 unit-jsc11
+   For RHEL 7:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-go unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
 
@@ -195,36 +207,42 @@ Amazon Linux Packages
 
    .. code-block:: ini
 
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/amzn/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/amzn/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
 
    For Amazon Linux 2 LTS:
 
    .. code-block:: ini
 
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/amzn2/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/amzn2/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
 
-2. Install Unit base package::
+2. Install Unit base package:
 
-    # yum install unit
+   .. code-block:: console
 
-3. Install additional module packages you would like to use, e.g.::
+      # yum install unit
 
-    # yum install unit-php unit-python27 unit-python34 unit-python35 \
-          unit-python36 unit-go unit-perl unit-devel unit-jsc-common \
-          unit-jsc8 unit-jsc11
+3. Install additional module packages you would like to use, e.g.:
 
-   For Amazon Linux 2 LTS::
+   .. code-block:: console
 
-    # yum install unit-php unit-python unit-go unit-perl unit-devel \
-                  unit-jsc-common unit-jsc8 unit-jsc11
+      # yum install unit-php unit-python27 unit-python34 unit-python35 \
+            unit-python36 unit-go unit-perl unit-devel unit-jsc-common \
+            unit-jsc8 unit-jsc11
+
+   For Amazon Linux 2 LTS:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-go unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
 
 .. include:: include/socket-note.rst
 
@@ -234,9 +252,11 @@ Ubuntu Packages
 1. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
    the NGINX, |_| Inc. repository and packages.
 
-2. Add the key to the ``apt`` program's keyring::
+2. Add the key to the ``apt`` program's keyring:
 
-    # apt-key add nginx_signing.key
+   .. code-block:: console
+
+      # apt-key add nginx_signing.key
 
    The program can then authenticate the NGINX repository signature,
    which eliminates warnings about a missing PGP key during installation
@@ -245,40 +265,50 @@ Ubuntu Packages
 3. Create the **/etc/apt/sources.list.d/unit.list** file with the
    following contents.
 
-   For Ubuntu 16.04::
+   For Ubuntu 16.04:
 
-    deb https://packages.nginx.org/unit/ubuntu/ xenial unit
-    deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
+   .. code-block:: none
 
-   For Ubuntu 18.04::
+      deb https://packages.nginx.org/unit/ubuntu/ xenial unit
+      deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-    deb https://packages.nginx.org/unit/ubuntu/ bionic unit
-    deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
+   For Ubuntu 18.04:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/ubuntu/ bionic unit
+      deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
    For Ubuntu 18.10:
 
    .. code-block:: none
 
-        deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
-        deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
+      deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
+      deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-4. Install Unit base package::
+4. Install Unit base package:
 
-    # apt-get update
-    # apt-get install unit
+   .. code-block:: console
+
+      # apt-get update
+      # apt-get install unit
 
 5. Install additional module packages you would like to use.
 
-   For Ubuntu 16.04::
+   For Ubuntu 16.04:
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go \
-          unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8
+   .. code-block:: console
 
-   For Ubuntu 18.04::
+      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go \
+                unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8
 
-    # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 \
-          unit-go1.10 unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8 \
-          unit-jsc10
+   For Ubuntu 18.04:
+
+   .. code-block:: console
+
+      # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 \
+                unit-go1.10 unit-perl unit-ruby unit-dev unit-jsc-common \
+                unit-jsc8 unit-jsc10
 
    For Ubuntu 18.10:
 
@@ -296,9 +326,11 @@ Debian Packages
 1. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
    the NGINX, |_| Inc. repository and packages.
 
-2. Add the key to the ``apt`` program's keyring::
+2. Add the key to the ``apt`` program's keyring:
 
-    # apt-key add nginx_signing.key
+   .. code-block:: console
+
+      # apt-key add nginx_signing.key
 
    The program can then authenticate the NGINX repository signature,
    which eliminates warnings about a missing PGP key during installation
@@ -307,32 +339,42 @@ Debian Packages
 3. Create the **/etc/apt/sources.list.d/unit.list** file with the
    following contents.
 
-   For Debian 8::
+   For Debian 8:
 
-    deb https://packages.nginx.org/unit/debian/ jessie unit
-    deb-src https://packages.nginx.org/unit/debian/ jessie unit
+   .. code-block:: none
 
-   For Debian 9::
+      deb https://packages.nginx.org/unit/debian/ jessie unit
+      deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-    deb https://packages.nginx.org/unit/debian/ stretch unit
-    deb-src https://packages.nginx.org/unit/debian/ stretch unit
+   For Debian 9:
 
-4. Install Unit base package::
+   .. code-block:: console
 
-    # apt-get update
-    # apt-get install unit
+      deb https://packages.nginx.org/unit/debian/ stretch unit
+      deb-src https://packages.nginx.org/unit/debian/ stretch unit
+
+4. Install Unit base package:
+
+   .. code-block:: console
+
+      # apt-get update
+      # apt-get install unit
 
 5. Install additional module packages you would like to use.
 
-   For Debian 8::
+   For Debian 8:
 
-    # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
-          unit-ruby unit-dev
+   .. code-block:: console
 
-   For Debian 9::
+      # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
+                unit-ruby unit-dev
 
-    # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
-          unit-go1.8 unit-perl unit-ruby unit-dev
+   For Debian 9:
+
+   .. code-block:: console
+
+      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
+                unit-go1.8 unit-perl unit-ruby unit-dev
 
 .. include:: include/socket-note.rst
 
@@ -346,25 +388,25 @@ packages:
 
     .. code-block:: console
 
-        # systemctl enable unit.service
+       # systemctl enable unit.service
 
 To start or restart Unit immediately:
 
     .. code-block:: console
 
-        # systemctl restart unit.service
+       # systemctl restart unit.service
 
 To stop Unit immediately:
 
     .. code-block:: console
 
-        # systemctl stop unit.service
+       # systemctl stop unit.service
 
 To disable automatic startup for Unit:
 
     .. code-block:: console
 
-        # systemctl disable unit.service
+       # systemctl disable unit.service
 
 .. _installation-community-repos:
 
@@ -387,15 +429,15 @@ To install core Unit executables using `Alpine Linux packages
 
 .. code-block:: console
 
-    # apk update
-    # apk upgrade
-    # apk add unit
+   # apk update
+   # apk upgrade
+   # apk add unit
 
 To install service manager files and specific language modules:
 
 .. code-block:: console
 
-    # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
+   # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
 
 .. note::
 
@@ -411,9 +453,9 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. code-block:: console
 
-    $ sudo pacman -S git
-    $ git clone https://aur.archlinux.org/nginx-unit.git
-    $ cd nginx-unit
+   $ sudo pacman -S git
+   $ git clone https://aur.archlinux.org/nginx-unit.git
+   $ cd nginx-unit
 
 .. warning::
 
@@ -423,7 +465,7 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. code-block:: console
 
-    $ makepkg -si
+   $ makepkg -si
 
 .. note::
 
@@ -438,9 +480,11 @@ FreeBSD
 
 To install Unit using `FreeBSD packages <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
-repository and install the package::
+repository and install the package:
 
-    # pkg install -y unit
+.. code-block:: console
+
+   # pkg install -y unit
 
 .. note::
 
@@ -452,19 +496,25 @@ To install Unit using `FreeBSD ports <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_, update your
 port collection.
 
-For ``portsnap``::
+For ``portsnap``:
 
-    # portsnap fetch update
+.. code-block:: console
 
-For ``svn``::
+   # portsnap fetch update
 
-    # svn update /usr/ports
+For ``svn``:
 
-Next, browse to the port path to build and install the port::
+.. code-block:: console
 
-    # cd /usr/ports/www/unit
-    # make
-    # make install
+   # svn update /usr/ports
+
+Next, browse to the port path to build and install the port:
+
+.. code-block:: console
+
+   # cd /usr/ports/www/unit
+   # make
+   # make install
 
 Warning: ``make`` here is used in port configuration.  For ``make`` commands
 to build Unit from the code in our repositories, see
@@ -481,10 +531,12 @@ Gentoo
 
 To install Unit using `Portage <https://wiki.gentoo.org/wiki/
 Handbook:X86/Full/Portage>`_, update the repository and install the `package
-<https://packages.gentoo.org/packages/www-servers/nginx-unit>`_::
+<https://packages.gentoo.org/packages/www-servers/nginx-unit>`_:
 
-    # emerge --sync
-    # emerge www-servers/nginx-unit
+.. code-block:: console
+
+   # emerge --sync
+   # emerge www-servers/nginx-unit
 
 .. note::
 
@@ -509,8 +561,8 @@ Next, install Unit and the PHP modules you want:
 
 .. code-block:: console
 
-   # yum install --enablerepo=remi unit php54-unit-php php55-unit-php php56-unit-php \
-         php70-unit-php php71-unit-php php72-unit-php php73-unit-php
+   # yum install --enablerepo=remi unit php54-unit-php php55-unit-php \
+         php56-unit-php php70-unit-php php71-unit-php php72-unit-php php73-unit-php
 
 .. note::
 
@@ -532,7 +584,7 @@ Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
 
 .. code-block:: console
 
-    # npm install -g --unsafe-perm unit-http
+   # npm install -g --unsafe-perm unit-http
 
 .. warning::
 
@@ -550,7 +602,7 @@ If you update Unit later, make sure to update the NPM package as well:
 
 .. code-block:: console
 
-    # npm update -g --unsafe-perm unit-http
+   # npm update -g --unsafe-perm unit-http
 
 .. note::
 
@@ -577,13 +629,17 @@ Mercurial Repository
 --------------------
 
 1. If you don't already have the Mercurial software, download and install it.
-   For example, on Ubuntu systems, run this command::
+   For example, on Ubuntu systems, run this command:
 
-    # apt-get install mercurial
+   .. code-block:: console
 
-2. Download the Unit sources::
+      # apt-get install mercurial
 
-    # hg clone https://hg.nginx.org/unit
+2. Download the Unit sources:
+
+   .. code-block:: console
+
+      # hg clone https://hg.nginx.org/unit
 
 GitHub Repository
 -----------------
@@ -591,9 +647,11 @@ GitHub Repository
 1. If you don't already have the Git software, download it.
    See the `GitHub documentation <https://help.github.com/>`_.
 
-2. Download the Unit sources::
+2. Download the Unit sources:
 
-    # git clone https://github.com/nginx/unit
+   .. code-block:: console
+
+      # git clone https://github.com/nginx/unit
 
 Tarball
 -------
@@ -617,30 +675,30 @@ Debian, Ubuntu
 
 .. code-block:: console
 
-    # apt-get install build-essential
-    # apt-get install golang
-    # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt-get install nodejs
-    # apt-get install php-dev libphp-embed
-    # apt-get install libperl-dev
-    # apt-get install python-dev
-    # apt-get install ruby-dev
-    # apt-get install openjdk-8-jdk
-    # apt-get install libssl-dev
+   # apt-get install build-essential
+   # apt-get install golang
+   # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt-get install nodejs
+   # apt-get install php-dev libphp-embed
+   # apt-get install libperl-dev
+   # apt-get install python-dev
+   # apt-get install ruby-dev
+   # apt-get install openjdk-8-jdk
+   # apt-get install libssl-dev
 
 Amazon Linux, CentOS, RHEL
 --------------------------
 
 .. code-block:: console
 
-    # yum install gcc make
-    # yum install golang
-    # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -; yum install nodejs
-    # yum install php-devel php-embedded
-    # yum install perl-devel perl-libs
-    # yum install python-devel
-    # yum install ruby-devel
-    # yum install java-1.8.0-openjdk-devel
-    # yum install openssl-devel
+   # yum install gcc make
+   # yum install golang
+   # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -; yum install nodejs
+   # yum install php-devel php-embedded
+   # yum install perl-devel perl-libs
+   # yum install python-devel
+   # yum install ruby-devel
+   # yum install java-1.8.0-openjdk-devel
+   # yum install openssl-devel
 
 .. _installation-config-src:
 
@@ -652,7 +710,7 @@ during language module setup:
 
 .. code-block:: console
 
-    # ./configure <command-line options>
+   # ./configure <command-line options>
 
 General :program:`./configure` options:
 
@@ -679,7 +737,7 @@ The following option pair controls Unit's runtime privileges:
 --group=name, --user=name
     Group name and username to run Unit's non-privileged processes.
 
-    The default values are :option:`!<user>`'s primary group and
+    The default values are :option:`!user`'s primary group and
     :samp:`nobody`, respectively.
 
 These flags enable or disable support of certain features:
@@ -792,8 +850,8 @@ One common scenario is installation based on absolute paths.
 
    .. code-block:: console
 
-       # ./configure --state=/var/lib/unit --log=/var/log/unit.log \
-                     --control=unix:/run/control.unit.sock --prefix=/usr/local/
+      # ./configure --state=/var/lib/unit --log=/var/log/unit.log \
+                    --control=unix:/run/control.unit.sock --prefix=/usr/local/
 
    This configuration will access its state, log, and control socket at custom
    locations; other files will be accessed by default prefix-based paths:
@@ -811,8 +869,8 @@ An alternative scenario is a build that you can move around the filesystem.
 
    .. code-block:: console
 
-       # ./configure --state=config --log=log/unit.log \
-                     --control=unix:control/control.unit.sock --prefix=movable
+      # ./configure --state=config --log=log/unit.log \
+                    --control=unix:control/control.unit.sock --prefix=movable
 
    This configuration will access its files by prefix-based paths (both default
    and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
@@ -825,8 +883,8 @@ An alternative scenario is a build that you can move around the filesystem.
 
    .. code-block:: console
 
-       # cd <DESTDIR>
-       # movable/sbin/unitd <command-line options>
+      # cd <DESTDIR>
+      # movable/sbin/unitd <command-line options>
 
 You can also combine these two approaches as you see fit; nevertheless, always
 take care to understand how your settings actually work together.
@@ -921,8 +979,8 @@ To configure a module called :file:`java11.unit.so` with OpenJDK 11.0.1:
 
 .. code-block:: console
 
-    # ./configure java --module=java11 \
-                       --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+   # ./configure java --module=java11 \
+                      --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 
 .. _installation-nodejs:
 
@@ -967,7 +1025,7 @@ options:
 --include=directory
         Directory path to Perl headers (required to build the module).
 
-        The default is Perl's `$Config{archlib}/CORE <https://perldoc.perl.
+        The default is Perl's `$Config<archlib>/CORE <https://perldoc.perl.
         org/Config.html>`_ directory.
 
 --perl=pathname
@@ -980,14 +1038,14 @@ options:
         (:file:`<module>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
-        The default value is the filename of the :option:`!<perl>` executable.
+        The default value is the filename of the :option:`!perl` executable.
 
 To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
 .. code-block:: console
 
-    # ./configure perl --module=perl-5.20 \
-                       --perl=perl5.20.2
+   # ./configure perl --module=perl-5.20 \
+                      --perl=perl5.20.2
 
 .. _installation-php:
 
@@ -1018,7 +1076,7 @@ Available command options:
     (:file:`<module>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
-    The default value is :option:`!<config>`'s filename without the
+    The default value is :option:`!config`'s filename without the
     `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
     :samp:`php7`).
 
@@ -1026,9 +1084,9 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
 .. code-block:: console
 
-    # ./configure php --module=php70  \
-                      --config=/usr/lib64/php7.0/bin/php-config  \
-                      --lib-path=/usr/lib64/php7.0/lib64
+   # ./configure php --module=php70  \
+                     --config=/usr/lib64/php7.0/bin/php-config  \
+                     --lib-path=/usr/lib64/php7.0/lib64
 
 .. _installation-python:
 
@@ -1053,15 +1111,15 @@ options:
     (:samp:`<module>.unit.so`).  Also used for :ref:`build and install
     <installation-bld-src-emb>` commands.
 
-    The default value is :option:`!<config>`'s filename without the `-config`
+    The default value is :option:`!config`'s filename without the `-config`
     suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
 
 To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
 .. code-block:: console
 
-    # ./configure python --module=py33  \
-                         --config=python-config-3.3
+   # ./configure python --module=py33  \
+                        --config=python-config-3.3
 
 .. _installation-ruby:
 
@@ -1077,7 +1135,7 @@ options:
         (:file:`<module>.unit.so`).  Also used for :ref:`build and install
         <installation-bld-src-emb>` commands.
 
-        The default value is the filename of the :option:`!<ruby>` executable.
+        The default value is the filename of the :option:`!ruby` executable.
 
 --ruby=pathname
         Specific Ruby executable pathname.
@@ -1088,8 +1146,8 @@ To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
 .. code-block:: console
 
-    # ./configure ruby --module=ru23  \
-                       --ruby=ruby23
+   # ./configure ruby --module=ru23  \
+                      --ruby=ruby23
 
 .. _installation-bld-src:
 
@@ -1101,8 +1159,8 @@ To build Unit executables and language modules that you have
 
 .. code-block:: console
 
-    # make
-    # make install
+   # make
+   # make install
 
 You can also build and install language modules individually; the specific
 method depends on whether the language module is embedded in Unit or packaged
@@ -1119,8 +1177,8 @@ configuration, run :command:`make <module>` and :command:`make
 
 .. code-block:: console
 
-    # make perl-5.20
-    # make perl-5.20-install
+   # make perl-5.20
+   # make perl-5.20-install
 
 .. _installation-bld-src-ext:
 
@@ -1132,8 +1190,8 @@ To build and install Unit packages for Go and Node.js after configuration, run
 
 .. code-block:: console
 
-    # make go-install
-    # make node-install
+   # make go-install
+   # make node-install
 
 .. note::
 
@@ -1142,25 +1200,25 @@ To build and install Unit packages for Go and Node.js after configuration, run
 
     .. code-block:: console
 
-        # make node-local-install
+       # make node-local-install
 
-    If you haven't specified the :option:`!<local>` :ref:`directory
+    If you haven't specified the :option:`!local` :ref:`directory
     <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
     it here: :command:`DESTDIR=/your/project/directory`.  If both options are
-    specified, :option:`!DESTDIR` prefixes the :option:`!<local>` value.
+    specified, :option:`!DESTDIR` prefixes the :option:`!local` value.
     However, the recommended method is :ref:`global installation
     <installation-nodejs-package>`.
 
-If you customize the executable pathname with :option:`!--go` or
-:option:`!--node`, use the following pattern:
+If you customize the executable pathname with :option:`!go` or
+:option:`!node`, use the following pattern:
 
 .. code-block:: console
 
-    # ./configure nodejs --node=/usr/local/bin/node8.12
-    # make /usr/local/bin/node8.12-install
+   # ./configure nodejs --node=/usr/local/bin/node8.12
+   # make /usr/local/bin/node8.12-install
 
-    # ./configure go --go=/usr/local/bin/go1.7
-    # make /usr/local/bin/go1.7-install
+   # ./configure go --go=/usr/local/bin/go1.7
+   # make /usr/local/bin/go1.7-install
 
 .. _installation-startup:
 
@@ -1198,22 +1256,22 @@ General options:
 
 The following options override compile-time settings:
 
---control <socket>
+--control socket
     Address of the control API socket.  IPv4, IPv6, and Unix domain sockets
     are supported.
 
---group=name, --user=name
+--group name, --user name
     Group name and user name used to run Unit's non-privileged processes.
 
---log <pathname>
+--log pathname
     Pathname for the Unit log.
 
---modules <directory>
+--modules directory
     Directory path for Unit language modules
     (:file:`<module>.unit.so` files).
 
---pid <pathname>
+--pid pathname
     Pathname for the PID file of Unit's :program:`main` process.
 
---state <directory>
+--state directory
     Directory path for Unit state storage.
