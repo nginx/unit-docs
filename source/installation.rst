@@ -415,9 +415,9 @@ Community Repositories
 
 .. warning::
 
-    Distributions listed in this section are maintained by their respective
-    communities.  NGINX has no control or responsibility over these resources.
-    Proceed at your own consideration.
+   Distributions listed in this section are maintained by their respective
+   communities.  NGINX has no control or responsibility over these resources.
+   Proceed at your own consideration.
 
 .. _installation-alpine-apk:
 
@@ -459,9 +459,9 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. warning::
 
-    Verify that the :file:`PKGBUILD` and accompanying files are not malicious
-    or untrustworthy.  AUR packages are entirely user produced without
-    pre-moderation; you use them at your own risk.
+   Verify that the :file:`PKGBUILD` and accompanying files are not malicious
+   or untrustworthy.  AUR packages are entirely user produced without
+   pre-moderation; you use them at your own risk.
 
 .. code-block:: console
 
@@ -588,11 +588,11 @@ Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
 
 .. warning::
 
-    The :program:`unit-http` package is platform and architecture dependent due
-    to performance optimizations.  It can't be moved across different systems
-    with the rest of the :file:`node-modules` directory (for example, during
-    application migration).  Global installation avoids such scenarios; just
-    :ref:`relink the migrated application <configuration-external-nodejs>`.
+   The :program:`unit-http` package is platform and architecture dependent due
+   to performance optimizations.  It can't be moved across different systems
+   with the rest of the :file:`node-modules` directory (for example, during
+   application migration).  Global installation avoids such scenarios; just
+   :ref:`relink the migrated application <configuration-external-nodejs>`.
 
 This should suit most of your needs.  Use the package in your :ref:`Unit-hosted
 application <configuration-external-nodejs>` as you would use the built-in
@@ -606,8 +606,8 @@ If you update Unit later, make sure to update the NPM package as well:
 
 .. note::
 
-    You can also build and install :program:`unit-http` :ref:`manually
-    <installation-nodejs>`.
+   You can also build and install :program:`unit-http` :ref:`manually
+   <installation-nodejs>`.
 
 .. _installation-src:
 
@@ -791,8 +791,8 @@ structure <installation-src-dir>`:
 
     .. warning::
 
-        For security reasons, avoid opening sockets on public interfaces in
-        production.
+       For security reasons, avoid opening sockets on public interfaces in
+       production.
 
 --incdir=directory, --libdir=directory
     Directory paths for :program:`libunit` header files and libraries.
@@ -819,10 +819,10 @@ structure <installation-src-dir>`:
 
     .. warning::
 
-        Unit state includes its runtime configuration, certificates, and other
-        private records.  It can be copied as is when you migrate your Unit
-        installation; however, mind that it contains sensitive data and must be
-        available only to :samp:`root` with :samp:`700` permissions.
+       Unit state includes its runtime configuration, certificates, and other
+       private records.  It can be copied as is when you migrate your Unit
+       installation; however, mind that it contains sensitive data and must be
+       available only to :samp:`root` with :samp:`700` permissions.
 
     The default value is :samp:`state`.
 
@@ -900,9 +900,9 @@ and place module-specific instructions in the :file:`Makefile`.
 
 .. note::
 
-    Unit can run applications in several versions of a supported language side
-    by side: you need to configure, build, and install a separate module for
-    each version.
+   Unit can run applications in several versions of a supported language side
+   by side: you need to configure, build, and install a separate module for
+   each version.
 
 .. _installation-go:
 
@@ -926,11 +926,11 @@ Go environment.  Available configuration options:
 
 .. note::
 
-    The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
-    `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. Make
-    sure these two paths, the configuration-time :option:`!--go-path` and
-    compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
-    the Unit package.
+   The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
+   `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. Make
+   sure these two paths, the configuration-time :option:`!--go-path` and
+   compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
+   the Unit package.
 
 .. _installation-java:
 
@@ -1195,19 +1195,19 @@ To build and install Unit packages for Go and Node.js after configuration, run
 
 .. note::
 
-    To install the Node.js package locally, run :command:`make
-    <node>-local-install`:
+   To install the Node.js package locally, run :command:`make
+   <node>-local-install`:
 
-    .. code-block:: console
+   .. code-block:: console
 
-       # make node-local-install
+      # make node-local-install
 
-    If you haven't specified the :option:`!local` :ref:`directory
-    <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
-    it here: :command:`DESTDIR=/your/project/directory`.  If both options are
-    specified, :option:`!DESTDIR` prefixes the :option:`!local` value.
-    However, the recommended method is :ref:`global installation
-    <installation-nodejs-package>`.
+   If you haven't specified the :option:`!local` :ref:`directory
+   <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
+   it here: :command:`DESTDIR=/your/project/directory`.  If both options are
+   specified, :option:`!DESTDIR` prefixes the :option:`!local` value.
+   However, the recommended method is :ref:`global installation
+   <installation-nodejs-package>`.
 
 If you customize the executable pathname with :option:`!go` or
 :option:`!node`, use the following pattern:
