@@ -213,14 +213,14 @@ the clients:
     * - Option
       - Description
 
-    * - ``header_read_timeout`` (optional)
+    * - ``header_read_timeout``
       - Maximum number of seconds to read the header of a client's request.
         If Unit doesn't receive the entire header from the client within this
         interval, it responds with a 408 Request Timeout error.
 
         The default value is 30.
 
-    * - ``body_read_timeout`` (optional)
+    * - ``body_read_timeout``
       - Maximum number of seconds to read data from the body of a client's
         request.  It limits the interval between consecutive read operations,
         not the time to read the entire body.  If Unit doesn't receive any
@@ -229,7 +229,7 @@ the clients:
 
         The default value is 30.
 
-    * - ``send_timeout`` (optional)
+    * - ``send_timeout``
       - Maximum number of seconds to transmit data in the response to a client.
         It limits the interval between consecutive transmissions, not the
         entire response transmission.  If the client doesn't receive any data
@@ -237,14 +237,14 @@ the clients:
 
         The default value is 30.
 
-    * - ``idle_timeout`` (optional)
+    * - ``idle_timeout``
       - Maximum number of seconds between requests in a keep-alive connection.
         If no new requests arrive within this interval, Unit responds with a
         408 Request Timeout error and closes the connection.
 
         The default value is 180.
 
-    * - ``max_body_size`` (optional)
+    * - ``max_body_size``
       - Maximum number of bytes in the body of a client's request.  If the body
         size exceeds this value, Unit responds with a 413 Payload Too Large
         error and closes the connection.
@@ -276,7 +276,7 @@ Listener Objects
     * - Option
       - Description
 
-    * - :samp:`application`
+    * - :samp:`application` (deprecated)
       - App name: :samp:`"application": "qwk2mart"`.  Mutually exclusive with
         :samp:`pass`.
 
@@ -285,12 +285,12 @@ Listener Objects
            This object is deprecated.  Please update your configurations to use
            :samp:`pass` instead.
 
-    * - :samp:`pass`
+    * - :samp:`pass` (required)
       - Qualified app or route name: :samp:`"pass": "routes/route66"`,
         :samp:`"pass": "applications/qwk2mart"`.  Mutually exclusive with
         :samp:`application`.
 
-    * - :samp:`tls` (optional)
+    * - :samp:`tls`
       - SSL/TLS configuration.  Set its only option, :samp:`certificate`, to
         enable secure communication via the listener.  The value must reference
         a certificate chain that you have uploaded earlier.  For details, see
@@ -361,7 +361,7 @@ traverses them sequentially.  Steps have the following options:
    * - Option
      - Description
 
-   * - :samp:`match` (optional)
+   * - :samp:`match`
      - Object that defines the step condition.
 
        - If the request fits the :samp:`match` condition, the step's
@@ -376,7 +376,7 @@ traverses them sequentially.  Steps have the following options:
        See :ref:`below <configuration-routes-cond>` for condition matching
        details.
 
-   * - :samp:`action` and :samp:`pass`
+   * - :samp:`action`/:samp:`pass` (required)
      - Route's destination; identical to :samp:`pass` in a :ref:`listener
        <configuration-lstnr>`.  If you omit :samp:`match`, requests are passed
        unconditionally; to avoid issues, use no more than one such step per
@@ -576,7 +576,7 @@ The common options are follows:
     * - Option
       - Description
 
-    * - ``type``
+    * - ``type`` (required)
       - Type of the application: ``external`` (Go and Node.js), ``java``,
         ``perl``, ``php``, ``python``, or ``ruby``.
 
@@ -591,12 +591,12 @@ The common options are follows:
         and prefer to use 7.0.2, set ``"type": "php 7.0.2"``.  If you supply
         ``"php 7"``, PHP 7.0.23 will be used as the latest version available.
 
-    * - ``limits`` (optional)
+    * - ``limits``
       - An object that accepts two integer options, ``timeout`` and
         ``requests``.  Their values restrict the life cycle of an application
         process.  For details, see :ref:`configuration-proc-mgmt-lmts`.
 
-    * - ``processes`` (optional)
+    * - ``processes``
       - An integer or an object.  Integer value configures a static number
         of application processes.  Object accepts dynamic process management
         settings: ``max``, ``spare``, and ``idle_timeout``.  For details, see
@@ -604,19 +604,19 @@ The common options are follows:
 
         The default value is 1.
 
-    * - ``working_directory`` (optional)
+    * - ``working_directory``
       - Working directory for the application.
         If not specified, the working directory of Unit daemon is used.
 
-    * - ``user`` (optional)
+    * - ``user``
       - Username that runs the app process.
         If not specified, ``nobody`` is used.
 
-    * - ``group`` (optional)
+    * - ``group``
       - Group name that runs the app process.
         If not specified, user's primary group is used.
 
-    * - ``environment`` (optional)
+    * - ``environment``
       - Environment variables to be used by the application.
 
 Example::
@@ -666,12 +666,12 @@ The ``limits`` object accepts two options:
     * - Option
       - Description
 
-    * - ``timeout`` (optional)
+    * - ``timeout``
       - Request timeout in seconds.  If an application process exceeds this
         limit while processing a request, Unit terminates the process and
         returns an HTTP error to the client.
 
-    * - ``requests`` (optional)
+    * - ``requests``
       - Maximum number of requests Unit allows an application process to serve.
         If this limit is reached, Unit terminates and restarts the application
         process.  This allows to mitigate application memory leaks or other
@@ -858,7 +858,7 @@ Java Application
     * - ``options``
       - Array of strings defining JVM runtime options.
 
-    * - ``webapp``
+    * - ``webapp`` (required)
       - Pathname of the application's packaged or unpackaged :file:`.war` file.
 
 Example::
@@ -879,7 +879,7 @@ Perl Application
     * - Option
       - Description
 
-    * - ``script``
+    * - ``script`` (required)
       - PSGI script path.
 
 Example::
@@ -904,21 +904,21 @@ PHP Application
     * - Option
       - Description
 
-    * - ``index`` (optional)
+    * - ``index``
       - Filename appended to any URI paths ending with a slash; applies if
         :samp:`script` is omitted.
 
         Default value is :samp:`index.php`.
 
-    * - ``options`` (optional)
+    * - ``options``
       - Object that defines :file:`php.ini` location and options.  For details,
         see below.
 
-    * - ``root``
+    * - ``root`` (required)
       - Base directory of your PHP app's file structure.  All URI paths are
         relative to this value.
 
-    * - ``script`` (optional)
+    * - ``script``
       - Filename of a PHP script; if set, Unit uses this script to serve any
         requests to this application.  Relative to :samp:`root`.
 
@@ -997,18 +997,18 @@ Python Application
     * - Option
       - Description
 
-    * - ``module``
+    * - ``module`` (required)
       - `WSGI <https://www.python.org/dev/peps/pep-3333/>`_ module name.  To
         run the app, Unit looks for an :samp:`application` callable in the
         module you supply; the :samp:`module` itself is `imported
         <https://docs.python.org/3/reference/import.html>`_ just like in
         Python.
 
-    * - ``path`` (optional)
+    * - ``path``
       - Additional lookup path for Python modules; this string is inserted into
         :samp:`sys.path`.
 
-    * - ``home`` (optional)
+    * - ``home``
       - Path to Python `virtual environment <https://packaging.python.org/
         tutorials/installing-packages/#creating-virtual-environments>`_
         for the application.  You can set this value relative to the
@@ -1041,7 +1041,7 @@ Ruby Application
     * - Option
       - Description
 
-    * - ``script``
+    * - ``script`` (required)
       - Rack script path.
 
 Example::
