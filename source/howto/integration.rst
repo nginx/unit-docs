@@ -70,9 +70,9 @@ use NGINX as a reverse proxy.
 
 .. warning::
 
-    Use NGINX for robust security, authentication, and access control in
-    production scenarios.  We strongly recommend against exposing an unsecured
-    Unit API.
+   Use NGINX for robust security, authentication, and access control in
+   production scenarios.  We strongly recommend against exposing an unsecured
+   Unit API.
 
 Use the following configuration template for NGINX:
 
