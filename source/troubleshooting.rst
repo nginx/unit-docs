@@ -45,8 +45,8 @@ vary by install method.
 
 .. warning::
 
-    Debug log is meant for developers; it grows rapidly, so enable it only for
-    detailed reports and inspection.
+   Debug log is meant for developers; it grows rapidly, so enable it only for
+   detailed reports and inspection.
 
 ==================================
 Installation From Our Repositories
@@ -62,8 +62,8 @@ package:
 
 .. note::
 
-    Also, there are debug symbol packages for core dump analysis; their names
-    end in :samp:`-dbg`, like :samp:`unit-dbg`.
+   Also, there are debug symbol packages for core dump analysis; their names
+   end in :samp:`-dbg`, like :samp:`unit-dbg`.
 
 ========================
 Installation From Source
