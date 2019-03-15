@@ -15,21 +15,21 @@ your system:
 
 .. code-block:: console
 
-    # unitd --help
+   # unitd --help
 
-        unit options:
-        ...
-        --log FILE           set log filename
-                             default: "/home/user/unit.log"
+       unit options:
+       ...
+       --log FILE           set log filename
+                            default: "/path/to/unit.log"
 
 Use :command:`unitd --log <filename>` to set the location at startup.  To
 check the settings of a running :program:`unitd`:
 
 .. code-block:: console
 
-    # ps ax | grep unitd
-        ...
-        unit: main v1.6 [/usr/sbin/unitd --log /var/log/unit.log --pid /run/unit.pid]
+   $ ps ax | grep unitd
+       ...
+       unit: main v1.8 [/path/to/unitd --log /path/to/unit.log --pid /path/to/unit.pid]
 
 If Unit's not running, see its startup scripts or configuration files in your
 system to discover the log location.
@@ -58,7 +58,7 @@ package:
 
 .. code-block:: console
 
-    # unitd-debug <command line options>
+   # unitd-debug <command line options>
 
 .. note::
 
@@ -74,7 +74,7 @@ To enable debug-level logging when :ref:`installing from source
 
 .. code-block:: console
 
-    # ./configure --debug <other options>
+   # ./configure --debug <other options>
 
 Then recompile and reinstall Unit and your specific :ref:`language modules
 <installation-src-modules>`.
