@@ -976,12 +976,12 @@ Directives from :file:`php.ini` are applied first; next, :samp:`admin` and
 
 .. note::
 
-    Provide string values for any directives you specify in :samp:`options`
-    (for example, :samp:`"max_file_uploads": "64"` instead of
-    :samp:`"max_file_uploads": 64`).  For flags, use :samp:`"0"` and
-    :samp:`"1"` only.  For more information about :samp:`PHP_INI_*` modes, see
-    the `PHP documentation
-    <http://php.net/manual/en/configuration.changes.modes.php>`_.
+   Provide string values for any directives you specify in :samp:`options`
+   (for example, :samp:`"max_file_uploads": "64"` instead of
+   :samp:`"max_file_uploads": 64`).  For flags, use :samp:`"0"` and
+   :samp:`"1"` only.  For more information about :samp:`PHP_INI_*` modes, see
+   the `PHP documentation
+   <http://php.net/manual/en/configuration.changes.modes.php>`_.
 
 Example:
 
@@ -1036,10 +1036,12 @@ Python Application
         for the application.  You can set this value relative to the
         ``working_directory`` of the application.
 
-        Note: The Python version used by Unit to run the application is
-        controlled by the ``type`` of the application.  Unit doesn't use
-        command line Python interpreter within the virtual environment due to
-        performance considerations.
+        .. note::
+
+           The Python version used by Unit to run the application is controlled
+           by the ``type`` of the application.  Unit doesn't use command line
+           Python interpreter within the virtual environment due to performance
+           considerations.
 
 Example:
 
@@ -1124,9 +1126,9 @@ First, create a :file:`.pem` file with your certificate chain and private key:
 
 .. note::
 
-    Usually, your website's certificate (optionally followed by the
-    intermediate CA certificate) is enough to build a certificate chain.  If
-    you add more certificates to your chain, order them leaf to root.
+   Usually, your website's certificate (optionally followed by the
+   intermediate CA certificate) is enough to build a certificate chain.  If
+   you add more certificates to your chain, order them leaf to root.
 
 Upload the resulting file to Unit's certificate storage under a suitable name:
 
@@ -1140,9 +1142,9 @@ Upload the resulting file to Unit's certificate storage under a suitable name:
 
 .. warning::
 
-    Don't use :option:`!-d` for file upload; this option damages :file:`.pem`
-    files.  Use the :option:`!--data-binary` option when uploading file-based
-    data with :program:`curl` to avoid data corruption.
+   Don't use :option:`!-d` for file upload; this option damages :file:`.pem`
+   files.  Use the :option:`!--data-binary` option when uploading file-based
+   data with :program:`curl` to avoid data corruption.
 
 Internally, Unit stores uploaded certificate bundles along with other
 configuration data in its :file:`state` subdirectory; Unit's control API maps
@@ -1295,9 +1297,9 @@ anymore from the storage:
 
 .. note::
 
-    You can't delete certificate bundles still referenced in your
-    configuration, overwrite existing bundles using :samp:`PUT`, or (obviously)
-    delete non-existent ones.
+   You can't delete certificate bundles still referenced in your
+   configuration, overwrite existing bundles using :samp:`PUT`, or (obviously)
+   delete non-existent ones.
 
 Happy SSLing!
 
