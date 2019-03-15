@@ -18,30 +18,30 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
 
    .. code-block:: console
 
-       # npm link unit-http
+      # npm link unit-http
 
 #. In your app, use a custom HTTP server instead of an Express-provided one
    (note use of :samp:`createServer`):
 
    .. code-block:: javascript
 
-       #!/usr/bin/env node
+      #!/usr/bin/env node
 
-       const {
-         createServer,
-         IncomingMessage,
-         ServerResponse,
-       } = require('unit-http')
+      const {
+        createServer,
+        IncomingMessage,
+        ServerResponse,
+      } = require('unit-http')
 
-       require('http').ServerResponse = ServerResponse
-       require('http').IncomingMessage = IncomingMessage
+      require('http').ServerResponse = ServerResponse
+      require('http').IncomingMessage = IncomingMessage
 
-       const express = require('express')
-       const app = express()
+      const express = require('express')
+      const app = express()
 
-       app.get('/', (req, res) => res.send('Hello, Unit!'))
+      app.get('/', (req, res) => res.send('Hello, Unit!'))
 
-       createServer(app).listen()
+      createServer(app).listen()
 
 #. .. include:: ../include/get-config.rst
 
