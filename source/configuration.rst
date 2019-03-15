@@ -16,16 +16,17 @@ This example runs 20 processes of the PHP application named **blogs** using the
 files found in the **/www/blogs/scripts** directory.  The default launch file
 when the URL doesn't specify the PHP file is **index.php**.
 
-::
 
-    {
-        "blogs": {
-            "type": "php",
-            "processes": 20,
-            "root": "/www/blogs/scripts",
-            "index": "index.php"
-        }
-    }
+.. code-block:: json
+
+   {
+       "blogs": {
+           "type": "php",
+           "processes": 20,
+           "root": "/www/blogs/scripts",
+           "index": "index.php"
+       }
+   }
 
 .. _configuration-listeners:
 
@@ -39,13 +40,15 @@ to a named application.  The IP address can be either a full address (for
 example, ``127.0.0.1:8300``) or a wildcard (for example, ``*:8300``).
 
 In this example, requests received on port 8300 are sent to the **blogs**
-application::
+application:
 
-    {
-        "*:8300": {
-            "pass": "applications/blogs"
-        }
-    }
+.. code-block:: json
+
+   {
+       "*:8300": {
+           "pass": "applications/blogs"
+       }
+   }
 
 
 For complete details about the JSON objects for each language, see
@@ -60,24 +63,26 @@ Minimum Configuration
 =====================
 
 In order to run an application, configuration must include at least one
-listener and associated application, as in this example::
+listener and associated application, as in this example:
 
-    {
-        "listeners": {
-            "*:8300": {
-                "pass": "applications/blogs"
-            }
-        },
+.. code-block:: json
 
-        "applications": {
-            "blogs": {
-                "type": "php",
-                "processes": 20,
-                "root": "/www/blogs/scripts",
-                "index": "index.php"
-            }
-        }
-    }
+   {
+       "listeners": {
+           "*:8300": {
+               "pass": "applications/blogs"
+           }
+       },
+
+       "applications": {
+           "blogs": {
+               "type": "php",
+               "processes": 20,
+               "root": "/www/blogs/scripts",
+               "index": "index.php"
+           }
+       }
+   }
 
 Creating Objects
 ================
@@ -89,28 +94,30 @@ file and specify the file path with the ``-d`` option to the ``curl`` command.
 Create an initial configuration by uploading the contents of the **start.json**
 file:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT -d @/path/to/start.json  \
-           --unix-socket /path/to/control.unit.sock http://localhost/config/
+   # curl -X PUT -d @/path/to/start.json  \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/
 
 Create a new application object called **wiki** from the file **wiki.json**:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT -d @/path/to/wiki.json  \
-           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
+   # curl -X PUT -d @/path/to/wiki.json  \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
-The contents of **wiki.json** are::
+The contents of **wiki.json** are:
 
-    {
-        "type": "python",
-        "processes": 10,
-        "module": "wsgi",
-        "user": "www-wiki",
-        "group": "www-wiki",
-        "path": "/www/wiki"
-    }
+.. code-block:: json
+
+   {
+       "type": "python",
+       "processes": 10,
+       "module": "wsgi",
+       "user": "www-wiki",
+       "group": "www-wiki",
+       "path": "/www/wiki"
+   }
 
 Displaying Objects
 ==================
@@ -119,40 +126,42 @@ To display a configuration object, append its path to the ``curl`` URL.
 
 Display the complete configuration:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
-    {
-        "listeners": {
-            "*:8300": {
-                "pass": applications/blogs"
-            }
-        },
+   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-        "applications": {
-            "blogs": {
-                "type": "php",
-                "user": "nobody",
-                "group": "nobody",
-                "root": "/www/blogs/scripts",
-                "index": "index.php"
-            }
-        }
-    }
+       {
+           "listeners": {
+               "*:8300": {
+                   "pass": applications/blogs"
+               }
+           },
+
+           "applications": {
+               "blogs": {
+                   "type": "php",
+                   "user": "nobody",
+                   "group": "nobody",
+                   "root": "/www/blogs/scripts",
+                   "index": "index.php"
+               }
+           }
+       }
 
 Display the data for the **wiki** application:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
-    {
-        "type": "python",
-        "processes": 10,
-        "module": "wsgi",
-        "user": "www",
-        "group": "www",
-        "path": "/www/wiki"
-    }
+   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
+
+       {
+           "type": "python",
+           "processes": 10,
+           "module": "wsgi",
+           "user": "www",
+           "group": "www",
+           "path": "/www/wiki"
+       }
 
 Modifying Objects
 =================
@@ -162,25 +171,27 @@ to specify the object's JSON data in the body of a ``PUT`` request.
 
 Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
-           'http://localhost/config/listeners/*:8400/application'
-    {
-        "success": "Reconfiguration done."
-    }
+   # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
+          'http://localhost/config/listeners/*:8400/application'
+
+       {
+           "success": "Reconfiguration done."
+       }
 
 Change the ``root`` object for the **blogs** application to
 **/www/blogs-dev/scripts**:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
-           --unix-socket /path/to/control.unit.sock  \
-           http://localhost/config/applications/blogs/root
-    {
-        "success": "Reconfiguration done."
-    }
+   # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
+          --unix-socket /path/to/control.unit.sock  \
+          http://localhost/config/applications/blogs/root
+
+       {
+           "success": "Reconfiguration done."
+       }
 
 Deleting Objects
 ================
@@ -190,13 +201,14 @@ object's path to the ``curl`` URL.
 
 Delete the listener on \*:8400:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
-           'http://localhost/config/listeners/*:8400'
-    {
-        "success": "Reconfiguration done."
-    }
+   # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
+          'http://localhost/config/listeners/*:8400'
+
+       {
+           "success": "Reconfiguration done."
+       }
 
 .. _configuration-stngs:
 
@@ -251,19 +263,21 @@ the clients:
 
         The default value is 8388608 (8 MB).
 
-Example::
+Example:
 
-    {
-        "settings": {
-            "http": {
-                "header_read_timeout": 10,
-                "body_read_timeout": 10,
-                "send_timeout": 10,
-                "idle_timeout": 120,
-                "max_body_size": 6291456
-            }
-        }
-    }
+.. code-block:: json
+
+   {
+       "settings": {
+           "http": {
+               "header_read_timeout": 10,
+               "body_read_timeout": 10,
+               "send_timeout": 10,
+               "idle_timeout": 120,
+               "max_body_size": 6291456
+           }
+       }
+   }
 
 .. _configuration-lstnr:
 
@@ -300,12 +314,12 @@ Example:
 
 .. code-block:: json
 
-    {
-        "pass": "applications/blogs",
-        "tls": {
-            "certificate": "blogs-cert"
-        }
-    }
+   {
+       "pass": "applications/blogs",
+       "tls": {
+           "certificate": "blogs-cert"
+       }
+   }
 
 .. _configuration-routes:
 
@@ -410,32 +424,32 @@ A more elaborate example with chained routes:
 
 .. code-block:: json
 
-    {
-        "routes": {
-            "main": [
-                {
-                    "match": {
-                        "host": [ "www.example.com", "example.com" ]
-                    },
+   {
+       "routes": {
+           "main": [
+               {
+                   "match": {
+                       "host": [ "www.example.com", "example.com" ]
+                   },
 
-                    "action": {
-                        "pass": "routes/site"
-                    }
-                },
-                {
-                    "match": {
-                        "host": "blog.example.com"
-                    },
+                   "action": {
+                       "pass": "routes/site"
+                   }
+               },
+               {
+                   "match": {
+                       "host": "blog.example.com"
+                   },
 
-                    "action": {
-                        "pass": "applications/blog"
-                    }
-                }
-            ],
+                   "action": {
+                       "pass": "applications/blog"
+                   }
+               }
+           ],
 
-            "site": [ "..." ]
-        }
-    }
+           "site": [ "..." ]
+       }
+   }
 
 .. _configuration-routes-cond:
 
@@ -619,29 +633,31 @@ The common options are follows:
     * - ``environment``
       - Environment variables to be used by the application.
 
-Example::
+Example:
 
-    {
-        "type": "python 3.6",
-        "processes": 16,
-        "working_directory": "/www/python-apps",
-        "path": "blog",
-        "module": "blog.wsgi",
-        "user": "blog",
-        "group": "blog",
-        "limits": {
-            "timeout": 10,
-            "requests": 1000
-        },
+.. code-block:: json
 
-        "environment": {
-            "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
-            "DB_ENGINE": "django.db.backends.postgresql",
-            "DB_NAME": "blog",
-            "DB_HOST": "127.0.0.1",
-            "DB_PORT": "5432"
-        }
-    }
+   {
+       "type": "python 3.6",
+       "processes": 16,
+       "working_directory": "/www/python-apps",
+       "path": "blog",
+       "module": "blog.wsgi",
+       "user": "blog",
+       "group": "blog",
+       "limits": {
+           "timeout": 10,
+           "requests": 1000
+       },
+
+       "environment": {
+           "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
+           "DB_ENGINE": "django.db.backends.postgresql",
+           "DB_NAME": "blog",
+           "DB_HOST": "127.0.0.1",
+           "DB_PORT": "5432"
+       }
+   }
 
 Depending on the ``type`` of the application, you may need to configure
 a number of additional options.
@@ -725,13 +741,15 @@ parameter values is assumed.
 
 In the following example, Unit tries to keep 5 idle processes, no more than 10
 processes in total, and terminates extra idle processes after 20 seconds of
-inactivity::
+inactivity:
 
-    {
-        "max": 10,
-        "spare": 5,
-        "idle_timeout": 20
-    }
+.. code-block:: json
+
+   {
+       "max": 10,
+       "spare": 5,
+       "idle_timeout": 20
+   }
 
 .. _configuration-external:
 
@@ -768,14 +786,14 @@ Example:
 
 .. code-block:: json
 
-    {
-        "type": "external",
-        "working_directory": "/www/chat",
-        "executable": "bin/chat_app",
-        "user": "www-go",
-        "group": "www-go",
-        "arguments": ["--tmp-files", "/tmp/go-cache"]
-    }
+   {
+       "type": "external",
+       "working_directory": "/www/chat",
+       "executable": "bin/chat_app",
+       "user": "www-go",
+       "group": "www-go",
+       "arguments": ["--tmp-files", "/tmp/go-cache"]
+   }
 
 Before applying the configuration, update the application itself.
 
@@ -789,25 +807,25 @@ you have installed earlier:
 
 .. code-block:: go
 
-    import (
-        ...
-        "nginx/unit"
-        ...
-    )
+   import (
+       ...
+       "nginx/unit"
+       ...
+   )
 
 In the :samp:`main()` function, replace the :samp:`http.ListenandServe` call
 with :samp:`unit.ListenAndServe`:
 
 .. code-block:: go
 
-    func main() {
-        ...
-        http.HandleFunc("/", handler)
-        ...
-        //http.ListenAndServe(":8080", nil)
-        unit.ListenAndServe(":8080", nil)
-        ...
-    }
+   func main() {
+       ...
+       http.HandleFunc("/", handler)
+       ...
+       //http.ListenAndServe(":8080", nil)
+       unit.ListenAndServe(":8080", nil)
+       ...
+   }
 
 The resulting application works as follows:
 
@@ -829,7 +847,7 @@ directory:
 
 .. code-block:: console
 
-    # npm link unit-http
+   # npm link unit-http
 
 Do the same if you move a Unit-hosted application to a new system where
 :program:`unit-http` is installed globally.
@@ -838,7 +856,7 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 
 .. code-block:: javascript
 
-    var http = require('unit-http');
+   var http = require('unit-http');
 
 .. _configuration-java:
 
@@ -861,14 +879,16 @@ Java Application
     * - ``webapp`` (required)
       - Pathname of the application's packaged or unpackaged :file:`.war` file.
 
-Example::
+Example:
 
-    {
-        "type": "java",
-        "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
-        "options": ["-Dlog_path=/var/log/qwk2mart.log"],
-        "webapp": "/www/qwk2mart/qwk2mart.war"
-    }
+.. code-block:: json
+
+   {
+       "type": "java",
+       "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
+       "options": ["-Dlog_path=/var/log/qwk2mart.log"],
+       "webapp": "/www/qwk2mart/qwk2mart.war"
+   }
 
 Perl Application
 ================
@@ -882,16 +902,18 @@ Perl Application
     * - ``script`` (required)
       - PSGI script path.
 
-Example::
+Example:
 
-    {
-        "type": "perl",
-        "script": "/www/bugtracker/app.psgi",
-        "working_directory": "/www/bugtracker",
-        "processes": 10,
-        "user": "www",
-        "group": "www"
-    }
+.. code-block:: json
+
+   {
+       "type": "perl",
+       "script": "/www/bugtracker/app.psgi",
+       "working_directory": "/www/bugtracker",
+       "processes": 10,
+       "user": "www",
+       "group": "www"
+   }
 
 .. _configuration-php:
 
@@ -965,26 +987,26 @@ Example:
 
 .. code-block:: json
 
-    {
-        "type": "php",
-        "processes": 20,
-        "root": "/www/blogs/scripts",
-        "index": "index.php",
-        "user": "www-blogs",
-        "group": "www-blogs",
+   {
+       "type": "php",
+       "processes": 20,
+       "root": "/www/blogs/scripts",
+       "index": "index.php",
+       "user": "www-blogs",
+       "group": "www-blogs",
 
-        "options": {
-            "file": "/etc/php.ini",
-            "admin": {
-                "memory_limit": "256M",
-                "variables_order": "EGPCS",
-                "expose_php": "0"
-            },
-            "user": {
-                "display_errors": "0"
-            }
-        }
-    }
+       "options": {
+           "file": "/etc/php.ini",
+           "admin": {
+               "memory_limit": "256M",
+               "variables_order": "EGPCS",
+               "expose_php": "0"
+           },
+           "user": {
+               "display_errors": "0"
+           }
+       }
+   }
 
 .. _configuration-python:
 
@@ -1019,18 +1041,20 @@ Python Application
         command line Python interpreter within the virtual environment due to
         performance considerations.
 
-Example::
+Example:
 
-    {
-        "type": "python 3.6",
-        "processes": 10,
-        "working_directory": "/www/store/",
-        "path": "/www/store/cart/",
-        "home": "/www/store/.virtualenv/",
-        "module": "wsgi",
-        "user": "www",
-        "group": "www"
-    }
+.. code-block:: json
+
+   {
+       "type": "python 3.6",
+       "processes": 10,
+       "working_directory": "/www/store/",
+       "path": "/www/store/cart/",
+       "home": "/www/store/.virtualenv/",
+       "module": "wsgi",
+       "user": "www",
+       "group": "www"
+   }
 
 Ruby Application
 ==================
@@ -1044,15 +1068,17 @@ Ruby Application
     * - ``script`` (required)
       - Rack script path.
 
-Example::
+Example:
 
-    {
-        "type": "ruby",
-        "processes": 5,
-        "user": "www",
-        "group": "www",
-        "script": "/www/cms/config.ru"
-    }
+.. code-block:: json
+
+   {
+       "type": "ruby",
+       "processes": 5,
+       "user": "www",
+       "group": "www",
+       "script": "/www/cms/config.ru"
+   }
 
 .. _configuration-access-log:
 
@@ -1064,20 +1090,21 @@ object to specify the path to the log file.
 
 In the example below, all requests will be logged to **/var/log/access.log**:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT -d '"/var/log/access.log"'  \
-           --unix-socket /path/to/control.unit.sock  \
-           http://localhost/config/access_log
-    {
-        "success": "Reconfiguration done."
-    }
+   # curl -X PUT -d '"/var/log/access.log"'  \
+          --unix-socket /path/to/control.unit.sock  \
+          http://localhost/config/access_log
+
+       {
+           "success": "Reconfiguration done."
+       }
 
 The log is written in the Combined Log Format.  Example of a log line:
 
 .. code-block:: none
 
-    127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
+   127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
 
 .. _configuration-ssl:
 
@@ -1091,9 +1118,9 @@ application becomes accessible via SSL/TLS.
 
 First, create a :file:`.pem` file with your certificate chain and private key:
 
-.. code-block:: none
+.. code-block:: console
 
-    # cat cert.pem ca.pem key.pem > bundle.pem
+   # cat cert.pem ca.pem key.pem > bundle.pem
 
 .. note::
 
@@ -1103,13 +1130,13 @@ First, create a :file:`.pem` file with your certificate chain and private key:
 
 Upload the resulting file to Unit's certificate storage under a suitable name:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
+   # curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
 
-        {
-            "success": "Certificate chain uploaded."
-        }
+       {
+           "success": "Certificate chain uploaded."
+       }
 
 .. warning::
 
@@ -1123,148 +1150,148 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
 .. code-block:: json
 
-    {
-        "certificates": {
-            "<bundle>": {
-                "key": "RSA (4096 bits)",
-                "chain": [
-                    {
-                        "subject": {
-                            "common_name": "example.com",
-                            "alt_names": [
-                                "example.com",
-                                "www.example.com"
-                            ],
+   {
+       "certificates": {
+           "<bundle>": {
+               "key": "RSA (4096 bits)",
+               "chain": [
+                   {
+                       "subject": {
+                           "common_name": "example.com",
+                           "alt_names": [
+                               "example.com",
+                               "www.example.com"
+                           ],
 
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme, Inc."
-                        },
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme, Inc."
+                       },
 
-                        "issuer": {
-                            "common_name": "intermediate.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Certification Authority"
-                        },
+                       "issuer": {
+                           "common_name": "intermediate.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
 
-                        "validity": {
-                            "since": "Sep 18 19:46:19 2018 GMT",
-                            "until": "Jun 15 19:46:19 2021 GMT"
-                        }
-                    },
+                       "validity": {
+                           "since": "Sep 18 19:46:19 2018 GMT",
+                           "until": "Jun 15 19:46:19 2021 GMT"
+                       }
+                   },
 
-                    {
-                        "subject": {
-                            "common_name": "intermediate.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Certification Authority"
-                        },
+                   {
+                       "subject": {
+                           "common_name": "intermediate.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
 
-                        "issuer": {
-                            "common_name": "root.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Root Certification Authority"
-                        },
+                       "issuer": {
+                           "common_name": "root.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Root Certification Authority"
+                       },
 
-                        "validity": {
-                            "since": "Feb 22 22:45:55 2016 GMT",
-                            "until": "Feb 21 22:45:55 2019 GMT"
-                        }
-                    },
-                ]
-            }
-        }
-    }
+                       "validity": {
+                           "since": "Feb 22 22:45:55 2016 GMT",
+                           "until": "Feb 21 22:45:55 2019 GMT"
+                       }
+                   },
+               ]
+           }
+       }
+   }
 
 .. note::
 
     You can access individual certificates in your chain, as well as specific
     alternative names, by their indexes:
 
-    .. code-block:: none
+    .. code-block:: console
 
-     # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
-     # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
+       # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
+       # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
 
 Next, add a :samp:`tls` object to your listener configuration, referencing the
 uploaded bundle's name in :samp:`certificate`:
 
 .. code-block:: json
 
-    {
-        "listeners": {
-            "127.0.0.1:8080": {
-                "pass": "applications/wsgi-app",
-                "tls": {
-                    "certificate": "<bundle>"
-                }
-            }
-        }
-    }
+   {
+       "listeners": {
+           "127.0.0.1:8080": {
+               "pass": "applications/wsgi-app",
+               "tls": {
+                   "certificate": "<bundle>"
+               }
+           }
+       }
+   }
 
 The resulting control API configuration may look like this:
 
 .. code-block:: json
 
-    {
-        "certificates": {
-            "<bundle>": {
-                "key": "<key type>",
-                "chain": ["<certificate chain, omitted for brevity>"]
-            }
-        },
+   {
+       "certificates": {
+           "<bundle>": {
+               "key": "<key type>",
+               "chain": ["<certificate chain, omitted for brevity>"]
+           }
+       },
 
-        "config": {
-            "listeners": {
-                "127.0.0.1:8080": {
-                    "pass": "applications/wsgi-app",
-                    "tls": {
-                        "certificate": "<bundle>"
-                    }
-                }
-            },
+       "config": {
+           "listeners": {
+               "127.0.0.1:8080": {
+                   "pass": "applications/wsgi-app",
+                   "tls": {
+                       "certificate": "<bundle>"
+                   }
+               }
+           },
 
-            "applications": {
-                "wsgi-app": {
-                    "type": "python",
-                    "module": "wsgi",
-                    "path": "/usr/www/wsgi-app/"
-                }
-            }
-        }
-    }
+           "applications": {
+               "wsgi-app": {
+                   "type": "python",
+                   "module": "wsgi",
+                   "path": "/usr/www/wsgi-app/"
+               }
+           }
+       }
+   }
 
 Now you're solid.  The application is accessible via SSL/TLS:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -v https://127.0.0.1:8080
-        ...
-        * TLSv1.2 (OUT), TLS handshake, Client hello (1):
-        * TLSv1.2 (IN), TLS handshake, Server hello (2):
-        * TLSv1.2 (IN), TLS handshake, Certificate (11):
-        * TLSv1.2 (IN), TLS handshake, Server finished (14):
-        * TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
-        * TLSv1.2 (OUT), TLS change cipher, Client hello (1):
-        * TLSv1.2 (OUT), TLS handshake, Finished (20):
-        * TLSv1.2 (IN), TLS change cipher, Client hello (1):
-        * TLSv1.2 (IN), TLS handshake, Finished (20):
-        * SSL connection using TLSv1.2 / AES256-GCM-SHA384
-        ...
+   # curl -v https://127.0.0.1:8080
+       ...
+       * TLSv1.2 (OUT), TLS handshake, Client hello (1):
+       * TLSv1.2 (IN), TLS handshake, Server hello (2):
+       * TLSv1.2 (IN), TLS handshake, Certificate (11):
+       * TLSv1.2 (IN), TLS handshake, Server finished (14):
+       * TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+       * TLSv1.2 (OUT), TLS change cipher, Client hello (1):
+       * TLSv1.2 (OUT), TLS handshake, Finished (20):
+       * TLSv1.2 (IN), TLS change cipher, Client hello (1):
+       * TLSv1.2 (IN), TLS handshake, Finished (20):
+       * SSL connection using TLSv1.2 / AES256-GCM-SHA384
+       ...
 
 Finally, you can :samp:`DELETE` a certificate bundle that you don't need
 anymore from the storage:
 
-.. code-block:: none
+.. code-block:: console
 
-    # curl -X DELETE 127.1:8443/certificates/<bundle>
+   # curl -X DELETE 127.1:8443/certificates/<bundle>
 
-        {
-            "success": "Certificate deleted."
-        }
+       {
+           "success": "Certificate deleted."
+       }
 
 .. note::
 
@@ -1279,199 +1306,199 @@ Full Example
 
 .. code-block:: json
 
-    {
-        "certificates": {
-            "bundle": {
-                "key": "RSA (4096 bits)",
-                "chain": [
-                    {
-                        "subject": {
-                            "common_name": "example.com",
-                            "alt_names": [
-                                "example.com",
-                                "www.example.com"
-                            ],
+   {
+       "certificates": {
+           "bundle": {
+               "key": "RSA (4096 bits)",
+               "chain": [
+                   {
+                       "subject": {
+                           "common_name": "example.com",
+                           "alt_names": [
+                               "example.com",
+                               "www.example.com"
+                           ],
 
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme, Inc."
-                        },
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme, Inc."
+                       },
 
-                        "issuer": {
-                            "common_name": "intermediate.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Certification Authority"
-                        },
+                       "issuer": {
+                           "common_name": "intermediate.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
 
-                        "validity": {
-                            "since": "Sep 18 19:46:19 2018 GMT",
-                            "until": "Jun 15 19:46:19 2021 GMT"
-                        }
-                    },
+                       "validity": {
+                           "since": "Sep 18 19:46:19 2018 GMT",
+                           "until": "Jun 15 19:46:19 2021 GMT"
+                       }
+                   },
 
-                    {
-                        "subject": {
-                            "common_name": "intermediate.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Certification Authority"
-                        },
+                   {
+                       "subject": {
+                           "common_name": "intermediate.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
 
-                        "issuer": {
-                            "common_name": "root.ca.example.com",
-                            "country": "US",
-                            "state_or_province": "CA",
-                            "organization": "Acme Root Certification Authority"
-                        },
+                       "issuer": {
+                           "common_name": "root.ca.example.com",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Root Certification Authority"
+                       },
 
-                        "validity": {
-                            "since": "Feb 22 22:45:55 2016 GMT",
-                            "until": "Feb 21 22:45:55 2019 GMT"
-                        }
-                    }
-                ]
-            }
-        },
+                       "validity": {
+                           "since": "Feb 22 22:45:55 2016 GMT",
+                           "until": "Feb 21 22:45:55 2019 GMT"
+                       }
+                   }
+               ]
+           }
+       },
 
-        "config": {
-            "settings": {
-                "http": {
-                    "header_read_timeout": 10,
-                    "body_read_timeout": 10,
-                    "send_timeout": 10,
-                    "idle_timeout": 120,
-                    "max_body_size": 6291456
-                }
-            },
+       "config": {
+           "settings": {
+               "http": {
+                   "header_read_timeout": 10,
+                   "body_read_timeout": 10,
+                   "send_timeout": 10,
+                   "idle_timeout": 120,
+                   "max_body_size": 6291456
+               }
+           },
 
-            "listeners": {
-                "*:8300": {
-                    "pass": "applications/blogs",
-                    "tls": {
-                        "certificate": "bundle"
-                    }
-                },
+           "listeners": {
+               "*:8300": {
+                   "pass": "applications/blogs",
+                   "tls": {
+                       "certificate": "bundle"
+                   }
+               },
 
-                "*:8400": {
-                    "pass": "applications/wiki"
-                },
+               "*:8400": {
+                   "pass": "applications/wiki"
+               },
 
-                "*:8500": {
-                    "pass": "applications/go_chat_app"
-                },
+               "*:8500": {
+                   "pass": "applications/go_chat_app"
+               },
 
-                "127.0.0.1:8600": {
-                    "pass": "applications/bugtracker"
-                },
+               "127.0.0.1:8600": {
+                   "pass": "applications/bugtracker"
+               },
 
-                "127.0.0.1:8601": {
-                    "pass": "routes/cms"
-                },
+               "127.0.0.1:8601": {
+                   "pass": "routes/cms"
+               },
 
-                "*:8700": {
-                    "pass": "applications/qwk2mart"
-                }
-            },
+               "*:8700": {
+                   "pass": "applications/qwk2mart"
+               }
+           },
 
-            "routes" {
-                "cms": [
-                    {
-                        "match": {
-                            "uri": "!/admin/*"
-                        },
-                        "action": {
-                            "pass": "applications/cms_main"
-                        }
-                    },
+           "routes" {
+               "cms": [
+                   {
+                       "match": {
+                           "uri": "!/admin/*"
+                       },
+                       "action": {
+                           "pass": "applications/cms_main"
+                       }
+                   },
 
-                    {
-                        "action": {
-                            "pass": "applications/cms_admin"
-                        }
-                    }
-                ]
-            },
+                   {
+                       "action": {
+                           "pass": "applications/cms_admin"
+                       }
+                   }
+               ]
+           },
 
-            "applications": {
-                "blogs": {
-                    "type": "php",
-                    "processes": 20,
-                    "root": "/www/blogs/scripts",
-                    "index": "index.php",
-                    "limits": {
-                        "timeout": 10,
-                        "requests": 1000
-                    },
+           "applications": {
+               "blogs": {
+                   "type": "php",
+                   "processes": 20,
+                   "root": "/www/blogs/scripts",
+                   "index": "index.php",
+                   "limits": {
+                       "timeout": 10,
+                       "requests": 1000
+                   },
 
-                    "options": {
-                        "file": "/etc/php.ini",
-                        "admin": {
-                            "memory_limit": "256M",
-                            "variables_order": "EGPCS",
-                            "expose_php": "0"
-                        },
+                   "options": {
+                       "file": "/etc/php.ini",
+                       "admin": {
+                           "memory_limit": "256M",
+                           "variables_order": "EGPCS",
+                           "expose_php": "0"
+                       },
 
-                        "user": {
-                            "display_errors": "0"
-                        }
-                    }
-                },
+                       "user": {
+                           "display_errors": "0"
+                       }
+                   }
+               },
 
-                "wiki": {
-                    "type": "python",
-                    "processes": 10,
-                    "path": "/www/wiki",
-                    "module": "wsgi",
-                    "environment": {
-                        "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
-                        "DB_ENGINE": "django.db.backends.postgresql",
-                        "DB_NAME": "blog",
-                        "DB_HOST": "127.0.0.1",
-                        "DB_PORT": "5432"
-                    }
-                },
+               "wiki": {
+                   "type": "python",
+                   "processes": 10,
+                   "path": "/www/wiki",
+                   "module": "wsgi",
+                   "environment": {
+                       "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
+                       "DB_ENGINE": "django.db.backends.postgresql",
+                       "DB_NAME": "blog",
+                       "DB_HOST": "127.0.0.1",
+                       "DB_PORT": "5432"
+                   }
+               },
 
-                "go_chat_app": {
-                    "type": "external",
-                    "user": "www-chat",
-                    "group": "www-chat",
-                    "working_directory": "/www/chat",
-                    "executable": "bin/chat_app"
-                },
+               "go_chat_app": {
+                   "type": "external",
+                   "user": "www-chat",
+                   "group": "www-chat",
+                   "working_directory": "/www/chat",
+                   "executable": "bin/chat_app"
+               },
 
-                "bugtracker": {
-                    "type": "perl",
-                    "processes": {
-                        "max": 10,
-                        "spare": 5,
-                        "idle_timeout": 20
-                    },
+               "bugtracker": {
+                   "type": "perl",
+                   "processes": {
+                       "max": 10,
+                       "spare": 5,
+                       "idle_timeout": 20
+                   },
 
-                    "working_directory": "/www/bugtracker",
-                    "script": "app.psgi"
-                },
+                   "working_directory": "/www/bugtracker",
+                   "script": "app.psgi"
+               },
 
-                "cms_main": {
-                    "type": "ruby",
-                    "processes": 5,
-                    "script": "/www/cms/main.ru"
-                },
+               "cms_main": {
+                   "type": "ruby",
+                   "processes": 5,
+                   "script": "/www/cms/main.ru"
+               },
 
-                "cms_admin": {
-                    "type": "ruby",
-                    "processes": 1,
-                    "script": "/www/cms/admin.ru"
-                },
+               "cms_admin": {
+                   "type": "ruby",
+                   "processes": 1,
+                   "script": "/www/cms/admin.ru"
+               },
 
-                "qwk2mart": {
-                    "type": "java",
-                    "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
-                    "options": ["-Dlog_path=/var/log/qwk2mart.log"],
-                    "webapp": "/www/qwk2mart/qwk2mart.war"
-                }
-            },
+               "qwk2mart": {
+                   "type": "java",
+                   "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
+                   "options": ["-Dlog_path=/var/log/qwk2mart.log"],
+                   "webapp": "/www/qwk2mart/qwk2mart.war"
+               }
+           },
 
-            "access_log": "/var/log/access.log"
-        }
-    }
+           "access_log": "/var/log/access.log"
+       }
+   }
