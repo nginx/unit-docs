@@ -18,27 +18,27 @@ follow these steps.
 
    .. code-block:: console
 
-      # cd /path/to/jira
-      # mkdir -p lib
-      # cd lib
-      # curl http://central.maven.org/maven2/com/atomikos/atomikos-util/3.9.1/atomikos-util-3.9.1.jar -O -C -
-      # curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-jndi/9.4.12.v20180830/jetty-jndi-9.4.12.v20180830.jar -O -C -
-      # curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-plus/9.4.12.v20180830/jetty-plus-9.4.12.v20180830.jar -O -C -
-      # curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-util/9.4.12.v20180830/jetty-util-9.4.12.v20180830.jar -O -C -
-      # curl http://central.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar -O -C -
-      # curl http://central.maven.org/maven2/com/atomikos/transactions/3.9.1/transactions-3.9.1.jar -O -C -
-      # curl http://central.maven.org/maven2/com/atomikos/transactions-api/3.9.1/transactions-api-3.9.1.jar -O -C -
-      # curl http://central.maven.org/maven2/com/atomikos/transactions-jdbc/3.9.1/transactions-jdbc-3.9.1.jar -O -C -
-      # curl http://central.maven.org/maven2/com/atomikos/transactions-jta/3.9.1/transactions-jta-3.9.1.jar -O -C -
-      # curl https://github.com/mar0x/unit-transaction-init/releases/download/1.0/transaction-init-1.0.jar -O -C - -L
+      $ cd /path/to/jira
+      $ mkdir -p lib
+      $ cd lib
+      $ curl http://central.maven.org/maven2/com/atomikos/atomikos-util/3.9.1/atomikos-util-3.9.1.jar -O -C -
+      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-jndi/9.4.12.v20180830/jetty-jndi-9.4.12.v20180830.jar -O -C -
+      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-plus/9.4.12.v20180830/jetty-plus-9.4.12.v20180830.jar -O -C -
+      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-util/9.4.12.v20180830/jetty-util-9.4.12.v20180830.jar -O -C -
+      $ curl http://central.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar -O -C -
+      $ curl http://central.maven.org/maven2/com/atomikos/transactions/3.9.1/transactions-3.9.1.jar -O -C -
+      $ curl http://central.maven.org/maven2/com/atomikos/transactions-api/3.9.1/transactions-api-3.9.1.jar -O -C -
+      $ curl http://central.maven.org/maven2/com/atomikos/transactions-jdbc/3.9.1/transactions-jdbc-3.9.1.jar -O -C -
+      $ curl http://central.maven.org/maven2/com/atomikos/transactions-jta/3.9.1/transactions-jta-3.9.1.jar -O -C -
+      $ curl https://github.com/mar0x/unit-transaction-init/releases/download/1.0/transaction-init-1.0.jar -O -C - -L
 
 #. `Download <https://www.atlassian.com/software/jira/download>`_ and extract
    Jira files:
 
    .. code-block:: console
 
-      # cd /path/to/jira
-      # tar -xzf atlassian-jira-core-7.13.0.tar.gz
+      $ cd /path/to/jira
+      $ tar -xzf atlassian-jira-core-7.13.0.tar.gz
 
 #. Patch your Jira configuration, dropping :samp:`env` from the
    :samp:`comp/env/UserTransaction` object path.  This ensures the
@@ -46,7 +46,7 @@ follow these steps.
 
    .. code-block:: console
 
-      # sed -i -e 's#comp/env/UserTransaction#comp/UserTransaction#g' \
+      $ sed -i -e 's#comp/env/UserTransaction#comp/UserTransaction#g' \
             atlassian-jira-core-7.13.0-standalone/atlassian-jira/WEB-INF/classes/entityengine.xml
 
 #. .. include:: ../include/get-config.rst

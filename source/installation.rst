@@ -453,7 +453,7 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. code-block:: console
 
-   $ sudo pacman -S git
+   # pacman -S git
    $ git clone https://aur.archlinux.org/nginx-unit.git
    $ cd nginx-unit
 
@@ -639,7 +639,7 @@ Mercurial Repository
 
    .. code-block:: console
 
-      # hg clone https://hg.nginx.org/unit
+      $ hg clone https://hg.nginx.org/unit
 
 GitHub Repository
 -----------------
@@ -651,7 +651,7 @@ GitHub Repository
 
    .. code-block:: console
 
-      # git clone https://github.com/nginx/unit
+      $ git clone https://github.com/nginx/unit
 
 Tarball
 -------
@@ -710,7 +710,7 @@ during language module setup:
 
 .. code-block:: console
 
-   # ./configure <command-line options>
+   $ ./configure <command-line options>
 
 General :program:`./configure` options:
 
@@ -850,7 +850,7 @@ One common scenario is installation based on absolute paths.
 
    .. code-block:: console
 
-      # ./configure --state=/var/lib/unit --log=/var/log/unit.log \
+      $ ./configure --state=/var/lib/unit --log=/var/log/unit.log \
                     --control=unix:/run/control.unit.sock --prefix=/usr/local/
 
    This configuration will access its state, log, and control socket at custom
@@ -869,7 +869,7 @@ An alternative scenario is a build that you can move around the filesystem.
 
    .. code-block:: console
 
-      # ./configure --state=config --log=log/unit.log \
+      $ ./configure --state=config --log=log/unit.log \
                     --control=unix:control/control.unit.sock --prefix=movable
 
    This configuration will access its files by prefix-based paths (both default
@@ -883,7 +883,7 @@ An alternative scenario is a build that you can move around the filesystem.
 
    .. code-block:: console
 
-      # cd <DESTDIR>
+      $ cd <DESTDIR>
       # movable/sbin/unitd <command-line options>
 
 You can also combine these two approaches as you see fit; nevertheless, always
@@ -979,7 +979,7 @@ To configure a module called :file:`java11.unit.so` with OpenJDK 11.0.1:
 
 .. code-block:: console
 
-   # ./configure java --module=java11 \
+   $ ./configure java --module=java11 \
                       --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 
 .. _installation-nodejs:
@@ -1044,7 +1044,7 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
 .. code-block:: console
 
-   # ./configure perl --module=perl-5.20 \
+   $ ./configure perl --module=perl-5.20 \
                       --perl=perl5.20.2
 
 .. _installation-php:
@@ -1084,7 +1084,7 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
 .. code-block:: console
 
-   # ./configure php --module=php70  \
+   $ ./configure php --module=php70  \
                      --config=/usr/lib64/php7.0/bin/php-config  \
                      --lib-path=/usr/lib64/php7.0/lib64
 
@@ -1118,7 +1118,7 @@ To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
 .. code-block:: console
 
-   # ./configure python --module=py33  \
+   $ ./configure python --module=py33  \
                         --config=python-config-3.3
 
 .. _installation-ruby:
@@ -1146,7 +1146,7 @@ To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
 .. code-block:: console
 
-   # ./configure ruby --module=ru23  \
+   $ ./configure ruby --module=ru23  \
                       --ruby=ruby23
 
 .. _installation-bld-src:
@@ -1159,7 +1159,7 @@ To build Unit executables and language modules that you have
 
 .. code-block:: console
 
-   # make
+   $ make
    # make install
 
 You can also build and install language modules individually; the specific
@@ -1177,7 +1177,7 @@ configuration, run :command:`make <module>` and :command:`make
 
 .. code-block:: console
 
-   # make perl-5.20
+   $ make perl-5.20
    # make perl-5.20-install
 
 .. _installation-bld-src-ext:
@@ -1214,10 +1214,10 @@ If you customize the executable pathname with :option:`!go` or
 
 .. code-block:: console
 
-   # ./configure nodejs --node=/usr/local/bin/node8.12
+   $ ./configure nodejs --node=/usr/local/bin/node8.12
    # make /usr/local/bin/node8.12-install
 
-   # ./configure go --go=/usr/local/bin/go1.7
+   $ ./configure go --go=/usr/local/bin/go1.7
    # make /usr/local/bin/go1.7-install
 
 .. _installation-startup:

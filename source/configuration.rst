@@ -96,14 +96,14 @@ file:
 
 .. code-block:: console
 
-   # curl -X PUT -d @/path/to/start.json  \
+   $ curl -X PUT -d @/path/to/start.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/
 
 Create a new application object called **wiki** from the file **wiki.json**:
 
 .. code-block:: console
 
-   # curl -X PUT -d @/path/to/wiki.json  \
+   $ curl -X PUT -d @/path/to/wiki.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
 The contents of **wiki.json** are:
@@ -128,7 +128,7 @@ Display the complete configuration:
 
 .. code-block:: console
 
-   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
+   $ curl --unix-socket /path/to/control.unit.sock http://localhost/config/
 
        {
            "listeners": {
@@ -152,7 +152,7 @@ Display the data for the **wiki** application:
 
 .. code-block:: console
 
-   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
+   $ curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
        {
            "type": "python",
@@ -173,7 +173,7 @@ Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
 
 .. code-block:: console
 
-   # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
+   $ curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
           'http://localhost/config/listeners/*:8400/application'
 
        {
@@ -185,7 +185,7 @@ Change the ``root`` object for the **blogs** application to
 
 .. code-block:: console
 
-   # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
+   $ curl -X PUT -d '"/www/blogs-dev/scripts"'  \
           --unix-socket /path/to/control.unit.sock  \
           http://localhost/config/applications/blogs/root
 
@@ -203,7 +203,7 @@ Delete the listener on \*:8400:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
+   $ curl -X DELETE --unix-socket /path/to/control.unit.sock  \
           'http://localhost/config/listeners/*:8400'
 
        {
@@ -1094,7 +1094,7 @@ In the example below, all requests will be logged to **/var/log/access.log**:
 
 .. code-block:: console
 
-   # curl -X PUT -d '"/var/log/access.log"'  \
+   $ curl -X PUT -d '"/var/log/access.log"'  \
           --unix-socket /path/to/control.unit.sock  \
           http://localhost/config/access_log
 
@@ -1122,7 +1122,7 @@ First, create a :file:`.pem` file with your certificate chain and private key:
 
 .. code-block:: console
 
-   # cat cert.pem ca.pem key.pem > bundle.pem
+   $ cat cert.pem ca.pem key.pem > bundle.pem
 
 .. note::
 
@@ -1134,7 +1134,7 @@ Upload the resulting file to Unit's certificate storage under a suitable name:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
+   $ curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
 
        {
            "success": "Certificate chain uploaded."
@@ -1215,8 +1215,8 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
     .. code-block:: console
 
-       # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
-       # curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
+       $ curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
+       $ curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
 
 Next, add a :samp:`tls` object to your listener configuration, referencing the
 uploaded bundle's name in :samp:`certificate`:
@@ -1270,7 +1270,7 @@ Now you're solid.  The application is accessible via SSL/TLS:
 
 .. code-block:: console
 
-   # curl -v https://127.0.0.1:8080
+   $ curl -v https://127.0.0.1:8080
        ...
        * TLSv1.2 (OUT), TLS handshake, Client hello (1):
        * TLSv1.2 (IN), TLS handshake, Server hello (2):
@@ -1289,7 +1289,7 @@ anymore from the storage:
 
 .. code-block:: console
 
-   # curl -X DELETE 127.1:8443/certificates/<bundle>
+   $ curl -X DELETE 127.1:8443/certificates/<bundle>
 
        {
            "success": "Certificate deleted."

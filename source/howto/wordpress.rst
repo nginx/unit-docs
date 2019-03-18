@@ -16,9 +16,9 @@ you haven't already done so:
 
    .. code-block:: console
 
-      # cd /path/to/
-      # wget https://wordpress.org/latest.tar.gz
-      # tar xzvf latest.tar.gz
+      $ cd /path/to/
+      $ wget https://wordpress.org/latest.tar.gz
+      $ tar xzvf latest.tar.gz
 
    In this example, the files will be stored in :file:`/path/to/wordpress/`.
 
@@ -100,7 +100,7 @@ To run WordPress in Unit:
 
    .. code-block:: console
 
-      # curl -X PUT --data-binary @config.json --unix-socket \
+      $ curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
 #. Configure NGINX to serve static files and route requests between the apps

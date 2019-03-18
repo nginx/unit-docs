@@ -15,7 +15,7 @@ your system:
 
 .. code-block:: console
 
-   # unitd --help
+   $ unitd --help
 
        unit options:
        ...
@@ -74,7 +74,7 @@ To enable debug-level logging when :ref:`installing from source
 
 .. code-block:: console
 
-   # ./configure --debug <other options>
+   $ ./configure --debug <other options>
 
 Then recompile and reinstall Unit and your specific :ref:`language modules
 <installation-src-modules>`.
