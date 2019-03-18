@@ -348,7 +348,7 @@ Debian Packages
 
    For Debian 9:
 
-   .. code-block:: console
+   .. code-block:: none
 
       deb https://packages.nginx.org/unit/debian/ stretch unit
       deb-src https://packages.nginx.org/unit/debian/ stretch unit
