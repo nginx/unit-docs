@@ -22,8 +22,8 @@ Key Features
 - :ref:`SSL/TLS support (OpenSSL 1.0.1 and later) <configuration-ssl>`
 - TCP, HTTP, HTTPS, HTTP/2 routing and proxying *(coming soon)*
 
-Supported Application Languages
-*******************************
+Supported App Languages
+***********************
 
 - Python
 - PHP
