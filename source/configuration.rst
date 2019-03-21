@@ -3,18 +3,19 @@
 Configuration
 #############
 
+************
 Applications
 ************
 
 For each application, you use the API to define a JSON object in the
-``applications`` section of the Unit configuration.  The JSON object defines
-several characteristics of the application, including the language it's written
-in, the number of application processes to run, the directory with the file or
-files for the application, and parameters that vary by language.
+:samp:`applications` section of the Unit configuration.  The JSON object
+defines several characteristics of the application, including the language it's
+written in, the number of application processes to run, the directory with the
+file or files for the application, and parameters that vary by language.
 
-This example runs 20 processes of the PHP application named **blogs** using the
-files found in the **/www/blogs/scripts** directory.  The default launch file
-when the URL doesn't specify the PHP file is **index.php**.
+This example runs 20 processes of the PHP application named :samp:`blogs` using
+the files found in the :file:`/www/blogs/scripts` directory.  The default
+launch file when the URL doesn't specify the PHP file is :file:`index.php`.
 
 
 .. code-block:: json
@@ -30,16 +31,17 @@ when the URL doesn't specify the PHP file is **index.php**.
 
 .. _configuration-listeners:
 
+*********
 Listeners
 *********
 
-For an application to be accessible via HTTP, you must define at least
-one listener for it in the ``listeners`` section of the Unit configuration.
-A listener is an IP address and port on which Unit listens for client requests
-to a named application.  The IP address can be either a full address (for
-example, ``127.0.0.1:8300``) or a wildcard (for example, ``*:8300``).
+For an application to be accessible via HTTP, you must define at least one
+listener for it in the :samp:`listeners` section of the Unit configuration.  A
+listener is an IP address and port on which Unit listens for client requests to
+a named application.  The IP address can be either a full address (for example,
+:samp:`127.0.0.1:8300`) or a wildcard (for example, :samp:`*:8300`).
 
-In this example, requests received on port 8300 are sent to the **blogs**
+In this example, requests received on port 8300 are sent to the :samp:`blogs`
 application:
 
 .. code-block:: json
@@ -56,9 +58,11 @@ For complete details about the JSON objects for each language, see
 
 .. _configuration-mgmt:
 
+************************
 Configuration Management
 ************************
 
+=====================
 Minimum Configuration
 =====================
 
@@ -84,29 +88,32 @@ listener and associated application, as in this example:
        }
    }
 
+================
 Creating Objects
 ================
 
-To create a configuration object, specify the JSON data for it in the body of
-a ``PUT`` request.  To reduce errors, it makes sense to write the JSON data in a
-file and specify the file path with the ``-d`` option to the ``curl`` command.
+To create a configuration object, specify the JSON data for it in the body of a
+:samp:`PUT` request.  To reduce errors, it makes sense to write the JSON data
+in a file and specify the file path with the :option:`!-d` option to the
+:program:`curl` command.
 
-Create an initial configuration by uploading the contents of the **start.json**
-file:
+Create an initial configuration by uploading the contents of the
+:file:`start.json` file:
 
 .. code-block:: console
 
    $ curl -X PUT -d @/path/to/start.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-Create a new application object called **wiki** from the file **wiki.json**:
+Create a new application object called :samp:`wiki` from the file
+:file:`wiki.json`:
 
 .. code-block:: console
 
    $ curl -X PUT -d @/path/to/wiki.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
-The contents of **wiki.json** are:
+The contents of :file:`wiki.json` are:
 
 .. code-block:: json
 
@@ -119,10 +126,11 @@ The contents of **wiki.json** are:
        "path": "/www/wiki"
    }
 
+==================
 Displaying Objects
 ==================
 
-To display a configuration object, append its path to the ``curl`` URL.
+To display a configuration object, append its path to the :samp:`curl` URL.
 
 Display the complete configuration:
 
@@ -148,7 +156,7 @@ Display the complete configuration:
            }
        }
 
-Display the data for the **wiki** application:
+Display the data for the :samp:`wiki` application:
 
 .. code-block:: console
 
@@ -163,13 +171,16 @@ Display the data for the **wiki** application:
            "path": "/www/wiki"
        }
 
+=================
 Modifying Objects
 =================
 
-To change a configuration object, use the ``-d`` option to the ``curl`` command
-to specify the object's JSON data in the body of a ``PUT`` request.
+To change a configuration object, use the :option:`!-d` option to the
+:program:`curl` command to specify the object's JSON data in the body of a
+:samp:`PUT` request.
 
-Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
+Change the :samp:`application` object to :samp:`wiki-dev` for the listener on
+:samp:`\*:8400`:
 
 .. code-block:: console
 
@@ -180,8 +191,8 @@ Change the ``application`` object to **wiki-dev** for the listener on \*:8400:
            "success": "Reconfiguration done."
        }
 
-Change the ``root`` object for the **blogs** application to
-**/www/blogs-dev/scripts**:
+Change the :samp:`root` object for the :samp:`blogs` application to
+:file:`/www/blogs-dev/scripts`:
 
 .. code-block:: console
 
@@ -193,13 +204,14 @@ Change the ``root`` object for the **blogs** application to
            "success": "Reconfiguration done."
        }
 
+================
 Deleting Objects
 ================
 
-To delete a configuration object, make a ``DELETE`` request and append the
-object's path to the ``curl`` URL.
+To delete a configuration object, make a :samp:`DELETE` request and append the
+object's path to the :program:`curl` URL.
 
-Delete the listener on \*:8400:
+Delete the listener on :samp:`\*:8400`:
 
 .. code-block:: console
 
@@ -212,12 +224,13 @@ Delete the listener on \*:8400:
 
 .. _configuration-stngs:
 
+***************
 Settings Object
 ***************
 
-Unit has a global ``settings`` configuration object that stores instance-wide
-preferences.  Its ``http`` option fine-tunes the handling of HTTP requests from
-the clients:
+Unit has a global :samp:`settings` configuration object that stores
+instance-wide preferences.  Its :samp:`http` option fine-tunes the handling of
+HTTP requests from the clients:
 
 .. list-table::
     :header-rows: 1
@@ -225,14 +238,14 @@ the clients:
     * - Option
       - Description
 
-    * - ``header_read_timeout``
+    * - :samp:`header_read_timeout`
       - Maximum number of seconds to read the header of a client's request.
         If Unit doesn't receive the entire header from the client within this
         interval, it responds with a 408 Request Timeout error.
 
         The default value is 30.
 
-    * - ``body_read_timeout``
+    * - :samp:`body_read_timeout`
       - Maximum number of seconds to read data from the body of a client's
         request.  It limits the interval between consecutive read operations,
         not the time to read the entire body.  If Unit doesn't receive any
@@ -241,7 +254,7 @@ the clients:
 
         The default value is 30.
 
-    * - ``send_timeout``
+    * - :samp:`send_timeout`
       - Maximum number of seconds to transmit data in the response to a client.
         It limits the interval between consecutive transmissions, not the
         entire response transmission.  If the client doesn't receive any data
@@ -249,14 +262,14 @@ the clients:
 
         The default value is 30.
 
-    * - ``idle_timeout``
+    * - :samp:`idle_timeout`
       - Maximum number of seconds between requests in a keep-alive connection.
         If no new requests arrive within this interval, Unit responds with a
         408 Request Timeout error and closes the connection.
 
         The default value is 180.
 
-    * - ``max_body_size``
+    * - :samp:`max_body_size`
       - Maximum number of bytes in the body of a client's request.  If the body
         size exceeds this value, Unit responds with a 413 Payload Too Large
         error and closes the connection.
@@ -281,6 +294,7 @@ Example:
 
 .. _configuration-lstnr:
 
+****************
 Listener Objects
 ****************
 
@@ -323,6 +337,7 @@ Example:
 
 .. _configuration-routes:
 
+******
 Routes
 ******
 
@@ -363,6 +378,7 @@ Another option is one or more named route arrays:
         }
    }
 
+============
 Route Object
 ============
 
@@ -453,6 +469,7 @@ A more elaborate example with chained routes:
 
 .. _configuration-routes-cond:
 
+==================
 Condition Matching
 ==================
 
@@ -576,6 +593,7 @@ Here, all :samp:`POST` requests for URIs prefixed with :samp:`/admin/` or
 :samp:`/store/` within any subdomains of :samp:`example.com` (except
 :samp:`php7`) are routed to :samp:`php5_app`.
 
+*******************
 Application Objects
 *******************
 
@@ -590,47 +608,50 @@ The common options are follows:
     * - Option
       - Description
 
-    * - ``type`` (required)
-      - Type of the application: ``external`` (Go and Node.js), ``java``,
-        ``perl``, ``php``, ``python``, or ``ruby``.
+    * - :samp:`type` (required)
+      - Type of the application: :samp:`external` (Go and Node.js),
+        :samp:`java`, :samp:`perl`, :samp:`php`, :samp:`python`, or
+        :samp:`ruby`.
 
-        Except with ``external``, you can detail the runtime version: ``"type":
-        "python 3"``, ``"type": "python 3.4"``, or even ``"type": "python
-        3.4.9rc1"``.  Unit searches its modules and uses the latest matching
-        one, reporting an error if none match.
+        Except with :samp:`external`, you can detail the runtime version:
+        :samp:`"type": "python 3"`, :samp:`"type": "python 3.4"`, or even
+        :samp:`"type": "python 3.4.9rc1"`.  Unit searches its modules and uses
+        the latest matching one, reporting an error if none match.
 
-        For example, if you have installed only one PHP 7 module, 7.1.9,
-        it will match ``"php"``, ``"php 7"``, ``"php 7.1"``, and
-        ``"php 7.1.9"``.  If you install two PHP modules, 7.0.2 and 7.0.23,
-        and prefer to use 7.0.2, set ``"type": "php 7.0.2"``.  If you supply
-        ``"php 7"``, PHP 7.0.23 will be used as the latest version available.
+        For example, if you have installed only one PHP 7 module, 7.1.9, it
+        will match :samp:`"php"`, :samp:`"php 7"`, :samp:`"php 7.1"`, and
+        :samp:`"php 7.1.9"`.  If you install two PHP modules, 7.0.2 and 7.0.23,
+        and prefer to use 7.0.2, set :samp:`"type": "php 7.0.2"`.  If you
+        supply :samp:`"php 7"`, PHP 7.0.23 will be used as the latest version
+        available.
 
-    * - ``limits``
-      - An object that accepts two integer options, ``timeout`` and
-        ``requests``.  Their values restrict the life cycle of an application
-        process.  For details, see :ref:`configuration-proc-mgmt-lmts`.
+    * - :samp:`limits`
+      - An object that accepts two integer options, :samp:`timeout` and
+        :samp:`requests`.  Their values restrict the life cycle of an
+        application process.  For details, see
+        :ref:`configuration-proc-mgmt-lmts`.
 
-    * - ``processes``
-      - An integer or an object.  Integer value configures a static number
-        of application processes.  Object accepts dynamic process management
-        settings: ``max``, ``spare``, and ``idle_timeout``.  For details, see
-        :ref:`configuration-proc-mgmt-prcs`.
+    * - :samp:`processes`
+      - An integer or an object.  Integer value configures a static number of
+        application processes.  Object accepts dynamic process management
+        settings: :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`.  For
+        details, see :ref:`configuration-proc-mgmt-prcs`.
 
         The default value is 1.
 
-    * - ``working_directory``
+    * - :samp:`working_directory`
       - Working directory for the application.
         If not specified, the working directory of Unit daemon is used.
 
-    * - ``user``
+    * - :samp:`user`
       - Username that runs the app process.
-        If not specified, ``nobody`` is used.
+        If not specified, :samp:`nobody` is used.
 
-    * - ``group``
+    * - :samp:`group`
       - Group name that runs the app process.
         If not specified, user's primary group is used.
 
-    * - ``environment``
+    * - :samp:`environment`
       - Environment variables to be used by the application.
 
 Example:
@@ -659,22 +680,23 @@ Example:
        }
    }
 
-Depending on the ``type`` of the application, you may need to configure
-a number of additional options.
-In the example above, Python-specific options ``path`` and ``module`` are used.
+Depending on the :samp:`type` of the application, you may need to configure a
+number of additional options.  In the example above, Python-specific options
+:samp:`path` and :samp:`module` are used.
 
+=============================
 Process Management and Limits
 =============================
 
 Application process behavior in Unit is described by two configuration options,
-``limits`` and ``processes``.
+:samp:`limits` and :samp:`processes`.
 
 .. _configuration-proc-mgmt-lmts:
 
 Request Limits
---------------
+**************
 
-The ``limits`` object accepts two options:
+The :samp:`limits` object accepts two options:
 
  .. list-table::
     :header-rows: 1
@@ -682,12 +704,12 @@ The ``limits`` object accepts two options:
     * - Option
       - Description
 
-    * - ``timeout``
+    * - :samp:`timeout`
       - Request timeout in seconds.  If an application process exceeds this
         limit while processing a request, Unit terminates the process and
         returns an HTTP error to the client.
 
-    * - ``requests``
+    * - :samp:`requests`
       - Maximum number of requests Unit allows an application process to serve.
         If this limit is reached, Unit terminates and restarts the application
         process.  This allows to mitigate application memory leaks or other
@@ -696,14 +718,14 @@ The ``limits`` object accepts two options:
 .. _configuration-proc-mgmt-prcs:
 
 Process Management
-------------------
+******************
 
-The ``processes`` option offers choice between static and dynamic process
+The :samp:`processes` option offers choice between static and dynamic process
 management model.  If you provide an integer value, Unit immediately launches
 the given number of application processes and maintains them statically without
 scaling.
 
-Unit also supports a dynamic prefork model for ``processes`` that is
+Unit also supports a dynamic prefork model for :samp:`processes` that is
 enabled and configured with the following parameters:
 
 .. list-table::
@@ -712,32 +734,34 @@ enabled and configured with the following parameters:
     * - Option
       - Description
 
-    * - ``max``
+    * - :samp:`max`
       - Maximum number of application processes that Unit will maintain
         (busy and idle).
 
         The default value is 1.
 
-    * - ``spare``
+    * - :samp:`spare`
       - Minimum number of idle processes that Unit will reserve for the
-        application when possible.  When Unit starts an application, ``spare``
-        idle processes are launched.  As requests arrive, Unit assigns them to
-        existing idle processes and forks new idle ones to maintain the
-        ``spare`` level if ``max`` permits.  When processes complete requests
-        and turn idle, Unit terminates extra ones after a timeout.
+        application when possible.  When Unit starts an application,
+        :samp:`spare` idle processes are launched.  As requests arrive, Unit
+        assigns them to existing idle processes and forks new idle ones to
+        maintain the :samp:`spare` level if :samp:`max` permits.  When
+        processes complete requests and turn idle, Unit terminates extra ones
+        after a timeout.
 
-        The default value is 0.  The value of ``spare`` cannot exceed ``max``.
+        The default value is 0.  The value of :samp:`spare` cannot exceed
+        :samp:`max`.
 
 
-    * - ``idle_timeout``
+    * - :samp:`idle_timeout`
       - Number of seconds for Unit to wait before it terminates an extra idle
-        process, when the count of idle processes exceeds ``spare``.
+        process, when the count of idle processes exceeds :samp:`spare`.
 
         The default value is 15.
 
-If ``processes`` is omitted entirely, Unit creates 1 static process.  If empty
-object is provided: ``"processes": {}``, dynamic behavior with default
-parameter values is assumed.
+If :samp:`processes` is omitted entirely, Unit creates 1 static process.  If
+empty object is provided: :samp:`"processes": {}`, dynamic behavior with
+default parameter values is assumed.
 
 In the following example, Unit tries to keep 5 idle processes, no more than 10
 processes in total, and terminates extra idle processes after 20 seconds of
@@ -753,6 +777,7 @@ inactivity:
 
 .. _configuration-external:
 
+=======================
 Go/Node.js Applications
 =======================
 
@@ -800,7 +825,7 @@ Before applying the configuration, update the application itself.
 .. _configuration-external-go:
 
 Modifying Go Sources
---------------------
+********************
 
 In the :samp:`import` section, reference the :samp:`"nginx/unit"` package that
 you have installed earlier:
@@ -839,7 +864,7 @@ The resulting application works as follows:
 .. _configuration-external-nodejs:
 
 Modifying Node.js Sources
--------------------------
+*************************
 
 First, you need to have the :program:`unit-http` package :ref:`installed
 <installation-nodejs-package>`.  If it's global, symlink it in your project
@@ -860,6 +885,7 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 
 .. _configuration-java:
 
+================
 Java Application
 ================
 
@@ -869,14 +895,14 @@ Java Application
     * - Object
       - Description
 
-    * - ``classpath``
+    * - :samp:`classpath`
       - Array of paths to your app's required libraries (may point to
         directories or :file:`.jar` files).
 
-    * - ``options``
+    * - :samp:`options`
       - Array of strings defining JVM runtime options.
 
-    * - ``webapp`` (required)
+    * - :samp:`webapp` (required)
       - Pathname of the application's packaged or unpackaged :file:`.war` file.
 
 Example:
@@ -890,6 +916,7 @@ Example:
        "webapp": "/www/qwk2mart/qwk2mart.war"
    }
 
+================
 Perl Application
 ================
 
@@ -899,7 +926,7 @@ Perl Application
     * - Option
       - Description
 
-    * - ``script`` (required)
+    * - :samp:`script` (required)
       - PSGI script path.
 
 Example:
@@ -917,6 +944,7 @@ Example:
 
 .. _configuration-php:
 
+===============
 PHP Application
 ===============
 
@@ -926,21 +954,21 @@ PHP Application
     * - Option
       - Description
 
-    * - ``index``
+    * - :samp:`index`
       - Filename appended to any URI paths ending with a slash; applies if
         :samp:`script` is omitted.
 
         Default value is :samp:`index.php`.
 
-    * - ``options``
+    * - :samp:`options`
       - Object that defines :file:`php.ini` location and options.  For details,
         see below.
 
-    * - ``root`` (required)
+    * - :samp:`root` (required)
       - Base directory of your PHP app's file structure.  All URI paths are
         relative to this value.
 
-    * - ``script``
+    * - :samp:`script`
       - Filename of a PHP script; if set, Unit uses this script to serve any
         requests to this application.  Relative to :samp:`root`.
 
@@ -1010,6 +1038,7 @@ Example:
 
 .. _configuration-python:
 
+==================
 Python Application
 ==================
 
@@ -1019,29 +1048,29 @@ Python Application
     * - Option
       - Description
 
-    * - ``module`` (required)
+    * - :samp:`module` (required)
       - `WSGI <https://www.python.org/dev/peps/pep-3333/>`_ module name.  To
         run the app, Unit looks for an :samp:`application` callable in the
         module you supply; the :samp:`module` itself is `imported
         <https://docs.python.org/3/reference/import.html>`_ just like in
         Python.
 
-    * - ``path``
+    * - :samp:`path`
       - Additional lookup path for Python modules; this string is inserted into
         :samp:`sys.path`.
 
-    * - ``home``
+    * - :samp:`home`
       - Path to Python `virtual environment <https://packaging.python.org/
         tutorials/installing-packages/#creating-virtual-environments>`_
         for the application.  You can set this value relative to the
-        ``working_directory`` of the application.
+        :samp:`working_directory` of the application.
 
         .. note::
 
            The Python version used by Unit to run the application is controlled
-           by the ``type`` of the application.  Unit doesn't use command line
-           Python interpreter within the virtual environment due to performance
-           considerations.
+           by the :samp:`type` of the application.  Unit doesn't use command
+           line Python interpreter within the virtual environment due to
+           performance considerations.
 
 Example:
 
@@ -1058,8 +1087,9 @@ Example:
        "group": "www"
    }
 
+================
 Ruby Application
-==================
+================
 
 .. list-table::
     :header-rows: 1
@@ -1067,7 +1097,7 @@ Ruby Application
     * - Option
       - Description
 
-    * - ``script`` (required)
+    * - :samp:`script` (required)
       - Rack script path.
 
 Example:
@@ -1084,13 +1114,15 @@ Example:
 
 .. _configuration-access-log:
 
+**********
 Access log
 **********
 
-To configure access logging, use the ``access_log`` parameter in a configuration
-object to specify the path to the log file.
+To configure access logging, use the :samp:`access_log` parameter in a
+configuration object to specify the path to the log file.
 
-In the example below, all requests will be logged to **/var/log/access.log**:
+In the example below, all requests will be logged to
+:file:`/var/log/access.log`:
 
 .. code-block:: console
 
@@ -1110,6 +1142,7 @@ The log is written in the Combined Log Format.  Example of a log line:
 
 .. _configuration-ssl:
 
+************************
 SSL/TLS and Certificates
 ************************
 
@@ -1303,6 +1336,7 @@ anymore from the storage:
 
 Happy SSLing!
 
+************
 Full Example
 ************
 
