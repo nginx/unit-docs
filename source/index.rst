@@ -13,6 +13,7 @@ specific application parameters as needed by the engineering or operations.
 
 The sources are distributed under the Apache 2.0 license.
 
+************
 Key Features
 ************
 
@@ -22,6 +23,7 @@ Key Features
 - :ref:`SSL/TLS support (OpenSSL 1.0.1 and later) <configuration-ssl>`
 - TCP, HTTP, HTTPS, HTTP/2 routing and proxying *(coming soon)*
 
+***********************
 Supported App Languages
 ***********************
 
@@ -33,6 +35,7 @@ Supported App Languages
 - :ref:`JavaScript (Node.js) <installation-nodejs-package>`
 - :ref:`Java <configuration-java>`
 
+****
 Demo
 ****
 
