@@ -685,8 +685,8 @@ Debian, Ubuntu
    # apt-get install openjdk-8-jdk
    # apt-get install libssl-dev
 
-Amazon Linux, CentOS, RHEL
---------------------------
+Amazon Linux, CentOS, Fedora, RHEL
+----------------------------------
 
 .. code-block:: console
 
