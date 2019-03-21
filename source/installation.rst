@@ -69,7 +69,7 @@ docker.com/r/nginx/unit/tags/>`_ available:
       - Specific language module only, for example ``1.3-ruby2.3`` or
         ``1.2-python2.7``.
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-deb.rst
 
 For further details, see the `repository page <https://hub.docker.com/r/
 nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
@@ -117,7 +117,7 @@ CentOS Packages
       # yum install unit-php unit-python unit-go unit-perl unit-devel \
             unit-jsc-common unit-jsc8
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-rpm.rst
 
 .. _installation-precomp-rhel:
 
@@ -157,7 +157,7 @@ RHEL Packages
       # yum install unit-php unit-python unit-go unit-perl unit-devel \
             unit-jsc-common unit-jsc8 unit-jsc11
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-rpm.rst
 
 Fedora Packages
 ===============
@@ -244,7 +244,7 @@ Amazon Linux Packages
       # yum install unit-php unit-python unit-go unit-perl unit-devel \
             unit-jsc-common unit-jsc8 unit-jsc11
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-rpm.rst
 
 Ubuntu Packages
 ===============
@@ -318,7 +318,7 @@ Ubuntu Packages
             unit-go1.9 unit-go1.10 unit-perl unit-ruby unit-dev \
             unit-jsc-common unit-jsc8 unit-jsc11
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-deb.rst
 
 Debian Packages
 ===============
@@ -376,7 +376,7 @@ Debian Packages
       # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
                 unit-go1.8 unit-perl unit-ruby unit-dev
 
-.. include:: include/socket-note.rst
+.. include:: include/socket-note-deb.rst
 
 .. _installation-precomp-pkgs-startup:
 
