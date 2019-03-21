@@ -7,38 +7,40 @@
 Installation
 ############
 
+*******************
 System Requirements
 *******************
 
 NGINX Unit is tested to compile and run on the following systems:
 
-* Linux 2.6 or later
-* FreeBSD 9 or later
-* MacOS X
-* Solaris 11
+- Linux 2.6 or later
+- FreeBSD 9 or later
+- MacOS X
+- Solaris 11
 
 Architectures:
 
-* i386
-* amd64
-* powerpc
-* arm
+- i386
+- amd64
+- powerpc
+- arm
 
 The following application platforms and versions are supported:
 
-* Go 1.6 or later
-* Java 8 or later
-* Node.js 8.11 or later
-* PHP 5, 7
-* Perl 5.12 or later
-* Python 2.6, 2.7, 3
-* Ruby 2.0 or later
+- Go 1.6 or later
+- Java 8 or later
+- Node.js 8.11 or later
+- PHP 5, 7
+- Perl 5.12 or later
+- Python 2.6, 2.7, 3
+- Ruby 2.0 or later
 
 You can run multiple versions of the same language installed on the same
 system.
 
 .. _installation-docker:
 
+*************
 Docker Images
 *************
 
@@ -49,9 +51,9 @@ To install and run Unit from our Docker image repository:
    # docker pull nginx/unit
    # docker run -d nginx/unit
 
-By default, the ``:latest`` image tag is used that resolves into a
-``-full`` configuration of the latest Unit version.  Other `tags <https://hub.
-docker.com/r/nginx/unit/tags/>`_ available:
+By default, the :samp:`:latest` image tag is used that resolves into a
+:samp:`-full` configuration of the latest Unit version.  Other `tags
+<https://hub.  docker.com/r/nginx/unit/tags/>`_ available:
 
 .. list-table::
     :header-rows: 1
@@ -59,15 +61,15 @@ docker.com/r/nginx/unit/tags/>`_ available:
     * - Tag
       - Description
 
-    * - ``<version>-full``
+    * - :samp:`<version>-full`
       - Modules for all supported languages.
 
-    * - ``<version>-minimal``
+    * - :samp:`<version>-minimal`
       - No language modules.
 
-    * - ``<version>-<language>``
-      - Specific language module only, for example ``1.3-ruby2.3`` or
-        ``1.2-python2.7``.
+    * - :samp:`<version>-<language>`
+      - Specific language module only, for example :samp:`1.3-ruby2.3` or
+        :samp:`1.2-python2.7`.
 
 .. include:: include/socket-note-deb.rst
 
@@ -76,24 +78,26 @@ nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 
 .. _installation-precomp-pkgs:
 
+********************
 Precompiled Packages
 ********************
 
 Precompiled binaries for Unit are available for:
 
- * Amazon Linux
- * CentOS 6, 7
- * Debian 8, 9
- * Fedora 28, 29
- * RHEL 6, 7
- * Ubuntu 16.04, 18.04, 18.10
+ - Amazon Linux
+ - CentOS 6, 7
+ - Debian 8, 9
+ - Fedora 28, 29
+ - RHEL 6, 7
+ - Ubuntu 16.04, 18.04, 18.10
 
 .. _installation-precomp-centos:
 
+===============
 CentOS Packages
 ===============
 
-1. Create the file **/etc/yum.repos.d/unit.repo** with the following
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
    contents:
 
    .. code-block:: ini
@@ -104,13 +108,13 @@ CentOS Packages
     gpgcheck=0
     enabled=1
 
-2. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # yum install unit
 
-3. Install additional module packages you would like to use, e.g.:
+#. Install additional module packages you would like to use, e.g.:
 
    .. code-block:: console
 
@@ -121,10 +125,11 @@ CentOS Packages
 
 .. _installation-precomp-rhel:
 
+=============
 RHEL Packages
 =============
 
-1. Create the file **/etc/yum.repos.d/unit.repo** with the following
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
    contents:
 
    .. code-block:: ini
@@ -135,13 +140,13 @@ RHEL Packages
       gpgcheck=0
       enabled=1
 
-2. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # yum install unit
 
-3. Install additional module packages you would like to use.
+#. Install additional module packages you would like to use.
 
    For RHEL 6:
 
@@ -159,10 +164,11 @@ RHEL Packages
 
 .. include:: include/socket-note-rpm.rst
 
+===============
 Fedora Packages
 ===============
 
-1. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
    contents:
 
    .. code-block:: ini
@@ -173,13 +179,13 @@ Fedora Packages
       gpgcheck=0
       enabled=1
 
-2. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # yum install unit
 
-3. Install additional module packages you would like to use.
+#. Install additional module packages you would like to use.
 
    For Fedora 28:
 
@@ -199,10 +205,11 @@ Fedora Packages
 
    Control socket is located here: :file:`/var/run/unit/control.sock`.
 
+=====================
 Amazon Linux Packages
 =====================
 
-1. Create the file **/etc/yum.repos.d/unit.repo** with the following
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
    contents:
 
    .. code-block:: ini
@@ -223,13 +230,13 @@ Amazon Linux Packages
       gpgcheck=0
       enabled=1
 
-2. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # yum install unit
 
-3. Install additional module packages you would like to use, e.g.:
+#. Install additional module packages you would like to use, e.g.:
 
    .. code-block:: console
 
@@ -246,13 +253,14 @@ Amazon Linux Packages
 
 .. include:: include/socket-note-rpm.rst
 
+===============
 Ubuntu Packages
 ===============
 
-1. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
+#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
    the NGINX, |_| Inc. repository and packages.
 
-2. Add the key to the ``apt`` program's keyring:
+#. Add the key to the :program:`apt` program's keyring:
 
    .. code-block:: console
 
@@ -262,7 +270,7 @@ Ubuntu Packages
    which eliminates warnings about a missing PGP key during installation
    of the Unit package.
 
-3. Create the **/etc/apt/sources.list.d/unit.list** file with the
+#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
    following contents.
 
    For Ubuntu 16.04:
@@ -286,14 +294,14 @@ Ubuntu Packages
       deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-4. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # apt-get update
       # apt-get install unit
 
-5. Install additional module packages you would like to use.
+#. Install additional module packages you would like to use.
 
    For Ubuntu 16.04:
 
@@ -320,13 +328,14 @@ Ubuntu Packages
 
 .. include:: include/socket-note-deb.rst
 
+===============
 Debian Packages
 ===============
 
-1. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
+#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
    the NGINX, |_| Inc. repository and packages.
 
-2. Add the key to the ``apt`` program's keyring:
+#. Add the key to the :program:`apt` program's keyring:
 
    .. code-block:: console
 
@@ -336,7 +345,7 @@ Debian Packages
    which eliminates warnings about a missing PGP key during installation
    of the Unit package.
 
-3. Create the **/etc/apt/sources.list.d/unit.list** file with the
+#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
    following contents.
 
    For Debian 8:
@@ -353,14 +362,14 @@ Debian Packages
       deb https://packages.nginx.org/unit/debian/ stretch unit
       deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-4. Install Unit base package:
+#. Install Unit base package:
 
    .. code-block:: console
 
       # apt-get update
       # apt-get install unit
 
-5. Install additional module packages you would like to use.
+#. Install additional module packages you would like to use.
 
    For Debian 8:
 
@@ -380,6 +389,7 @@ Debian Packages
 
 .. _installation-precomp-pkgs-startup:
 
+====================
 Startup and Shutdown
 ====================
 
@@ -410,6 +420,7 @@ To disable automatic startup for Unit:
 
 .. _installation-community-repos:
 
+**********************
 Community Repositories
 **********************
 
@@ -421,6 +432,7 @@ Community Repositories
 
 .. _installation-alpine-apk:
 
+============
 Alpine Linux
 ============
 
@@ -445,6 +457,7 @@ To install service manager files and specific language modules:
 
 .. _installation-archlinux-aur:
 
+==========
 Arch Linux
 ==========
 
@@ -473,6 +486,7 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. _installation-freebsd-pkgs-prts:
 
+=======
 FreeBSD
 =======
 
@@ -496,13 +510,13 @@ To install Unit using `FreeBSD ports <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_, update your
 port collection.
 
-For ``portsnap``:
+For :program:`portsnap`:
 
 .. code-block:: console
 
    # portsnap fetch update
 
-For ``svn``:
+For :program:`svn`:
 
 .. code-block:: console
 
@@ -516,9 +530,11 @@ Next, browse to the port path to build and install the port:
    # make
    # make install
 
-Warning: ``make`` here is used in port configuration.  For ``make`` commands
-to build Unit from the code in our repositories, see
-:ref:`installation-bld-src`.
+.. warning::
+
+   :program:`Make` here is used in port configuration.  For :program:`make`
+   commands to build Unit from the code in our repositories, see
+   :ref:`installation-bld-src`.
 
 .. note::
 
@@ -526,6 +542,7 @@ to build Unit from the code in our repositories, see
 
 .. _installation-gnt-prtg:
 
+======
 Gentoo
 ======
 
@@ -544,6 +561,7 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
 .. _installation-remirepo:
 
+===============
 Remi's RPM Repo
 ===============
 
@@ -570,6 +588,7 @@ Next, install Unit and the PHP modules you want:
 
 .. _installation-nodejs-package:
 
+***************
 Node.js Package
 ***************
 
@@ -611,53 +630,56 @@ If you update Unit later, make sure to update the NPM package as well:
 
 .. _installation-src:
 
+***********
 Source Code
 ***********
 
 This section explains how to compile and install Unit from the source code.
 
+===============
 Getting Sources
 ===============
 
 There are three ways to obtain the Unit source code: from the NGINX, |_| Inc.
 Mercurial repository, from GitHub, or in a tarball.
 
-In each case, the sources are placed in the **unit** subdirectory of the
+In each case, the sources are placed in the :file:`unit` subdirectory of the
 current working directory.
 
 Mercurial Repository
---------------------
+********************
 
-1. If you don't already have the Mercurial software, download and install it.
+#. If you don't already have the Mercurial software, download and install it.
    For example, on Ubuntu systems, run this command:
 
    .. code-block:: console
 
       # apt-get install mercurial
 
-2. Download the Unit sources:
+#. Download the Unit sources:
 
    .. code-block:: console
 
       $ hg clone https://hg.nginx.org/unit
 
 GitHub Repository
------------------
+*****************
 
-1. If you don't already have the Git software, download it.
+#. If you don't already have the Git software, download it.
    See the `GitHub documentation <https://help.github.com/>`_.
 
-2. Download the Unit sources:
+#. Download the Unit sources:
 
    .. code-block:: console
 
       $ git clone https://github.com/nginx/unit
 
 Tarball
--------
+*******
 
 Unit source code tarballs are available at https://unit.nginx.org/download/.
 
+============================
 Installing Required Software
 ============================
 
@@ -671,7 +693,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 .. _installation-prereq-build:
 
 Debian, Ubuntu
---------------
+**************
 
 .. code-block:: console
 
@@ -686,7 +708,7 @@ Debian, Ubuntu
    # apt-get install libssl-dev
 
 Amazon Linux, CentOS, Fedora, RHEL
-----------------------------------
+**********************************
 
 .. code-block:: console
 
@@ -702,6 +724,7 @@ Amazon Linux, CentOS, Fedora, RHEL
 
 .. _installation-config-src:
 
+===================
 Configuring Sources
 ===================
 
@@ -829,7 +852,7 @@ structure <installation-src-dir>`:
 .. _installation-src-dir:
 
 Directory Structure
--------------------
+*******************
 
 To customize Unit installation and runtime directories, you can both:
 
@@ -846,7 +869,7 @@ To customize Unit installation and runtime directories, you can both:
 Coordinate these two options as necessary to customize the directory structure.
 One common scenario is installation based on absolute paths.
 
-1. Set absolute runtime paths with :option:`!--prefix` and path options:
+#. Set absolute runtime paths with :option:`!--prefix` and path options:
 
    .. code-block:: console
 
@@ -857,7 +880,7 @@ One common scenario is installation based on absolute paths.
    locations; other files will be accessed by default prefix-based paths:
    :file:`/usr/local/sbin/`, :file:`/usr/local/modules/`, and so on.
 
-2. If you're building Unit on the system where you intend to run it, omit
+#. If you're building Unit on the system where you intend to run it, omit
    :option:`!DESTDIR` during installation; the files will be placed at the
    specified paths.  If you're building Unit for further packaging or
    containerization, specify :option:`!DESTDIR` to place the files in a staging
@@ -865,7 +888,7 @@ One common scenario is installation based on absolute paths.
 
 An alternative scenario is a build that you can move around the filesystem.
 
-1. Set relative runtime paths with :option:`!--prefix` and path options:
+#. Set relative runtime paths with :option:`!--prefix` and path options:
 
    .. code-block:: console
 
@@ -876,7 +899,7 @@ An alternative scenario is a build that you can move around the filesystem.
    and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
    directory>/movable/config/`, and so on.
 
-2. Specify :option:`!DESTDIR` during installation to place the build where
+#. Specify :option:`!DESTDIR` during installation to place the build where
    needed.  You can move it around your system or across compatible systems;
    however, make sure to relocate the entire file structure and start Unit
    binaries from the base directory so that the relative paths remain valid:
@@ -891,6 +914,7 @@ take care to understand how your settings actually work together.
 
 .. _installation-src-modules:
 
+===================
 Configuring Modules
 ===================
 
@@ -907,7 +931,7 @@ and place module-specific instructions in the :file:`Makefile`.
 .. _installation-go:
 
 Configuring Go
---------------
+**************
 
 When you run :command:`./configure go`, Unit sets up the Go package that your
 applications will use to run in Unit.  To use the package, install it in your
@@ -935,7 +959,7 @@ Go environment.  Available configuration options:
 .. _installation-java:
 
 Configuring Java
-----------------
+****************
 
 When you run :command:`./configure java`, the script configures a module to
 support running `Java Web Applications
@@ -985,7 +1009,7 @@ To configure a module called :file:`java11.unit.so` with OpenJDK 11.0.1:
 .. _installation-nodejs:
 
 Configuring Node.js
--------------------
+*******************
 
 When you run :command:`./configure nodejs`, Unit sets up the
 :program:`unit-http` package that your applications will use to :ref:`run in
@@ -1016,7 +1040,7 @@ Unit <configuration-external-nodejs>`.  Available configuration options:
 .. _installation-perl:
 
 Configuring Perl
-----------------
+****************
 
 When you run :command:`./configure perl`, the script configures a module to
 support running Perl scripts as applications in Unit.  Available command
@@ -1050,7 +1074,7 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 .. _installation-php:
 
 Configuring PHP
----------------
+***************
 
 When you run :command:`./configure php`, the script configures a module to
 support running PHP applications in Unit via PHP's :program:`embed` SAPI.
@@ -1091,7 +1115,7 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 .. _installation-python:
 
 Configuring Python
-------------------
+******************
 
 When you run :command:`./configure python`, the script configures a module to
 support running Python scripts as applications in Unit.  Available command
@@ -1124,7 +1148,7 @@ To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 .. _installation-ruby:
 
 Configuring Ruby
-----------------
+****************
 
 When you run :program:`./configure ruby`, the script configures a module to
 support running Ruby scripts as applications in Unit.  Available command
@@ -1151,6 +1175,7 @@ To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
 .. _installation-bld-src:
 
+============================
 Building and Installing Unit
 ============================
 
@@ -1169,7 +1194,7 @@ externally.
 .. _installation-bld-src-emb:
 
 Embedded Language Modules
--------------------------
+*************************
 
 To build and install Unit modules for Java, PHP, Perl, Python, or Ruby after
 configuration, run :command:`make <module>` and :command:`make
@@ -1183,7 +1208,7 @@ configuration, run :command:`make <module>` and :command:`make
 .. _installation-bld-src-ext:
 
 External Language Packages
---------------------------
+**************************
 
 To build and install Unit packages for Go and Node.js after configuration, run
 :command:`make <go>-install` and :command:`make <node>-install`, for example:
@@ -1222,6 +1247,7 @@ If you customize the executable pathname with :option:`!go` or
 
 .. _installation-startup:
 
+=======
 Startup
 =======
 
