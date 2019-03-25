@@ -1167,7 +1167,8 @@ Upload the resulting file to Unit's certificate storage under a suitable name:
 
 .. code-block:: console
 
-   $ curl -X PUT --data-binary @bundle.pem 127.1:8443/certificates/<bundle>
+   $ curl -X PUT --data-binary @bundle.pem --unix-socket /path/to/control.unit.sock \
+          http://localhost/certificates/<bundle>
 
        {
            "success": "Certificate chain uploaded."
@@ -1248,8 +1249,10 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
     .. code-block:: console
 
-       $ curl -X GET 127.1:8443/certificates/<bundle>/chain/0/
-       $ curl -X GET 127.1:8443/certificates/<bundle>/chain/0/subject/alt_names/0/
+       $ curl -X GET --unix-socket /path/to/control.unit.sock \
+              http://localhost/certificates/<bundle>/chain/0/
+       $ curl -X GET --unix-socket /path/to/control.unit.sock \
+              http://localhost/certificates/<bundle>/chain/0/subject/alt_names/0/
 
 Next, add a :samp:`tls` object to your listener configuration, referencing the
 uploaded bundle's name in :samp:`certificate`:
@@ -1322,7 +1325,8 @@ anymore from the storage:
 
 .. code-block:: console
 
-   $ curl -X DELETE 127.1:8443/certificates/<bundle>
+   $ curl -X DELETE --unix-socket /path/to/control.unit.sock \
+          http://localhost/certificates/<bundle>
 
        {
            "success": "Certificate deleted."
