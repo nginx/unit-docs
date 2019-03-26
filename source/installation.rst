@@ -484,6 +484,36 @@ To install Unit using the `Arch User Repository (AUR)
 
    Control socket is located here: :file:`/run/nginx-unit.control.sock`.
 
+.. _installation-scls:
+
+================
+CentOS/RHEL SCLs
+================
+
+If you use `SCLo Software Collections
+<https://wiki.centos.org/SpecialInterestGroup/SCLo>`_ in your environment, you
+can install Unit's PHP modules as packages from the corresponding repo.
+Besides other dependencies, the packages require :ref:`core Unit installation
+<installation-precomp-pkgs>`.
+
+CentOS:
+
+.. code-block:: console
+
+   # yum install centos-release-scl
+   # yum install --enablerepo=centos-sclo-sclo-testing \
+         sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+
+RHEL:
+
+.. code-block:: console
+
+   # cd /etc/yum.repos.d/
+   # wget https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
+   # yum install centos-release-scl
+   # yum install --enablerepo=centos-sclo-sclo-testing \
+         sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+
 .. _installation-freebsd-pkgs-prts:
 
 =======
