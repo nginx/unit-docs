@@ -102,7 +102,7 @@ Create an initial configuration by uploading the contents of the
 
 .. code-block:: console
 
-   $ curl -X PUT -d @/path/to/start.json  \
+   # curl -X PUT -d @/path/to/start.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/
 
 Create a new application object called :samp:`wiki` from the file
@@ -110,7 +110,7 @@ Create a new application object called :samp:`wiki` from the file
 
 .. code-block:: console
 
-   $ curl -X PUT -d @/path/to/wiki.json  \
+   # curl -X PUT -d @/path/to/wiki.json  \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
 
 The contents of :file:`wiki.json` are:
@@ -136,7 +136,7 @@ Display the complete configuration:
 
 .. code-block:: console
 
-   $ curl --unix-socket /path/to/control.unit.sock http://localhost/config/
+   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
 
        {
            "listeners": {
@@ -160,7 +160,8 @@ Display the data for the :samp:`wiki` application:
 
 .. code-block:: console
 
-   $ curl --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
+   # curl --unix-socket /path/to/control.unit.sock \
+          http://localhost/config/applications/wiki
 
        {
            "type": "python",
@@ -184,7 +185,7 @@ Change the :samp:`application` object to :samp:`wiki-dev` for the listener on
 
 .. code-block:: console
 
-   $ curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
+   # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
           'http://localhost/config/listeners/*:8400/application'
 
        {
@@ -196,7 +197,7 @@ Change the :samp:`root` object for the :samp:`blogs` application to
 
 .. code-block:: console
 
-   $ curl -X PUT -d '"/www/blogs-dev/scripts"'  \
+   # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
           --unix-socket /path/to/control.unit.sock  \
           http://localhost/config/applications/blogs/root
 
@@ -215,7 +216,7 @@ Delete the listener on :samp:`\*:8400`:
 
 .. code-block:: console
 
-   $ curl -X DELETE --unix-socket /path/to/control.unit.sock  \
+   # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
           'http://localhost/config/listeners/*:8400'
 
        {
@@ -1126,7 +1127,7 @@ In the example below, all requests will be logged to
 
 .. code-block:: console
 
-   $ curl -X PUT -d '"/var/log/access.log"'  \
+   # curl -X PUT -d '"/var/log/access.log"'  \
           --unix-socket /path/to/control.unit.sock  \
           http://localhost/config/access_log
 
@@ -1167,7 +1168,7 @@ Upload the resulting file to Unit's certificate storage under a suitable name:
 
 .. code-block:: console
 
-   $ curl -X PUT --data-binary @bundle.pem --unix-socket /path/to/control.unit.sock \
+   # curl -X PUT --data-binary @bundle.pem --unix-socket /path/to/control.unit.sock \
           http://localhost/certificates/<bundle>
 
        {
@@ -1249,9 +1250,9 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
     .. code-block:: console
 
-       $ curl -X GET --unix-socket /path/to/control.unit.sock \
+       # curl -X GET --unix-socket /path/to/control.unit.sock \
               http://localhost/certificates/<bundle>/chain/0/
-       $ curl -X GET --unix-socket /path/to/control.unit.sock \
+       # curl -X GET --unix-socket /path/to/control.unit.sock \
               http://localhost/certificates/<bundle>/chain/0/subject/alt_names/0/
 
 Next, add a :samp:`tls` object to your listener configuration, referencing the
@@ -1325,7 +1326,7 @@ anymore from the storage:
 
 .. code-block:: console
 
-   $ curl -X DELETE --unix-socket /path/to/control.unit.sock \
+   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
           http://localhost/certificates/<bundle>
 
        {

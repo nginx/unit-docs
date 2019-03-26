@@ -100,7 +100,7 @@ To run WordPress in Unit:
 
    .. code-block:: console
 
-      $ curl -X PUT --data-binary @config.json --unix-socket \
+      # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
 #. Configure NGINX to serve static files and route requests between the apps

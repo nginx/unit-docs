@@ -111,7 +111,7 @@ follow these steps.
 
    .. code-block:: console
 
-      $ curl -X PUT --data-binary @config.json --unix-socket \
+      # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
    After a successful update, Jira should be available on the listener's IP

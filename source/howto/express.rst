@@ -75,7 +75,7 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
 
    .. code-block:: console
 
-      $ curl -X PUT --data-binary @config.json --unix-socket \
+      # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
    After a successful update, your app should be available on the listener's IP
