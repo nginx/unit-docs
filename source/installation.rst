@@ -1,31 +1,33 @@
 .. |_| unicode:: 0xA0
    :trim:
 
-.. highlight:: none
-
 ############
 Installation
 ############
 
-*******************
-System Requirements
-*******************
+*************
+Prerequisites
+*************
 
-NGINX Unit is tested to compile and run on the following systems:
+NGINX Unit is verified to compile and run on various Unix-like operating
+systems, including:
 
-- Linux 2.6 or later
 - FreeBSD 9 or later
+- Linux 2.6 or later
 - MacOS X
 - Solaris 11
 
-Architectures:
+Most modern instruction set architectures are supported, such as:
 
-- i386
-- amd64
-- powerpc
-- arm
+- ARM
+- IA-32
+- PowerPC
+- MIPS
+- S390X
+- x86-64
 
-The following application platforms and versions are supported:
+App languages and platforms that Unit can run (including multiple versions of
+the same language):
 
 - Go 1.6 or later
 - Java 8 or later
@@ -35,8 +37,10 @@ The following application platforms and versions are supported:
 - Python 2.6, 2.7, 3
 - Ruby 2.0 or later
 
-You can run multiple versions of the same language installed on the same
-system.
+.. note::
+
+   To build Unit from source, you also need :ref:`build tools and
+   language development packages <installation-prereq-build>`.
 
 .. _installation-docker:
 
@@ -709,6 +713,8 @@ Tarball
 
 Unit source code tarballs are available at https://unit.nginx.org/download/.
 
+.. _installation-prereq-build:
+
 ============================
 Installing Required Software
 ============================
@@ -719,8 +725,6 @@ Ruby) and the other features you want Unit to support.
 
 The commands below assume you are configuring Unit with all supported
 languages and features; otherwise, skip the packages you aren’t going to use.
-
-.. _installation-prereq-build:
 
 Debian, Ubuntu
 **************
