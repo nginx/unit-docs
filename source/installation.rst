@@ -12,7 +12,7 @@ Prerequisites
 NGINX Unit is verified to compile and run on various Unix-like operating
 systems, including:
 
-- FreeBSD 9 or later
+- FreeBSD 10 or later
 - Linux 2.6 or later
 - MacOS X
 - Solaris 11
