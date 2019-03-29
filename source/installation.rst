@@ -14,7 +14,7 @@ systems, including:
 
 - FreeBSD 10 or later
 - Linux 2.6 or later
-- MacOS X
+- macOS 10.6 or later
 - Solaris 11
 
 Most modern instruction set architectures are supported, such as:
