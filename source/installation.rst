@@ -86,132 +86,21 @@ nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 Precompiled Packages
 ********************
 
-Precompiled binaries for Unit are available for:
+Installing a precompiled Unit binary package is best for most occasions;
+binaries are available for:
 
- - Amazon Linux
- - CentOS 6, 7
- - Debian 8, 9
- - Fedora 28, 29
- - RHEL 6, 7
- - Ubuntu 16.04, 18.04, 18.10
+- Amazon Linux, Amazon Linux 2
+- CentOS 6, 7, 8
+- Debian 8, 9
+- Fedora 28, 29
+- RHEL 6, 7, 8
+- Ubuntu 16.04, 18.04, 18.10
 
-.. _installation-precomp-centos:
+.. _installation-precomp-amazon:
 
-===============
-CentOS Packages
-===============
-
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
-
-   .. code-block:: ini
-
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
-
-#. Install Unit base package:
-
-   .. code-block:: console
-
-      # yum install unit
-
-#. Install additional module packages you would like to use, e.g.:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-go unit-perl unit-devel \
-            unit-jsc-common unit-jsc8
-
-.. include:: include/socket-note-rpm.rst
-
-.. _installation-precomp-rhel:
-
-=============
-RHEL Packages
-=============
-
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
-
-   .. code-block:: ini
-
-      [unit]
-      name=unit repo
-      baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-      gpgcheck=0
-      enabled=1
-
-#. Install Unit base package:
-
-   .. code-block:: console
-
-      # yum install unit
-
-#. Install additional module packages you would like to use.
-
-   For RHEL 6:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-   For RHEL 7:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-go unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-.. include:: include/socket-note-rpm.rst
-
-===============
-Fedora Packages
-===============
-
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
-
-   .. code-block:: ini
-
-      [unit]
-      name=unit repo
-      baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-      gpgcheck=0
-      enabled=1
-
-#. Install Unit base package:
-
-   .. code-block:: console
-
-      # yum install unit
-
-#. Install additional module packages you would like to use.
-
-   For Fedora 28:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python27 unit-python36 unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-   For Fedora 29:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python27 unit-python37 unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-.. note::
-
-   Control socket is located here: :file:`/var/run/unit/control.sock`.
-
-=====================
-Amazon Linux Packages
-=====================
+============
+Amazon Linux
+============
 
 #. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
    contents:
@@ -257,9 +146,186 @@ Amazon Linux Packages
 
 .. include:: include/socket-note-rpm.rst
 
-===============
-Ubuntu Packages
-===============
+.. _installation-precomp-centos:
+
+======
+CentOS
+======
+
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
+   contents:
+
+   .. code-block:: ini
+
+    [unit]
+    name=unit repo
+    baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
+    gpgcheck=0
+    enabled=1
+
+#. Install Unit base package:
+
+   .. code-block:: console
+
+      # yum install unit
+
+#. Install additional module packages you would like to use, e.g.:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-go unit-perl unit-devel \
+            unit-jsc-common unit-jsc8
+
+.. include:: include/socket-note-rpm.rst
+
+.. _installation-precomp-deb:
+
+======
+Debian
+======
+
+#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
+   the NGINX, |_| Inc. repository and packages.
+
+#. Add the key to the :program:`apt` program's keyring:
+
+   .. code-block:: console
+
+      # apt-key add nginx_signing.key
+
+   The program can then authenticate the NGINX repository signature,
+   which eliminates warnings about a missing PGP key during installation
+   of the Unit package.
+
+#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
+   following contents.
+
+   For Debian 8:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/debian/ jessie unit
+      deb-src https://packages.nginx.org/unit/debian/ jessie unit
+
+   For Debian 9:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/debian/ stretch unit
+      deb-src https://packages.nginx.org/unit/debian/ stretch unit
+
+#. Install Unit base package:
+
+   .. code-block:: console
+
+      # apt-get update
+      # apt-get install unit
+
+#. Install additional module packages you would like to use.
+
+   For Debian 8:
+
+   .. code-block:: console
+
+      # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
+                unit-ruby unit-dev
+
+   For Debian 9:
+
+   .. code-block:: console
+
+      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
+                unit-go1.8 unit-perl unit-ruby unit-dev
+
+.. include:: include/socket-note-deb.rst
+
+.. _installation-precomp-fedora:
+
+======
+Fedora
+======
+
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
+   contents:
+
+   .. code-block:: ini
+
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
+
+#. Install Unit base package:
+
+   .. code-block:: console
+
+      # yum install unit
+
+#. Install additional module packages you would like to use.
+
+   For Fedora 28:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python27 unit-python36 unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+   For Fedora 29:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python27 unit-python37 unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+.. note::
+
+   Control socket is located here: :file:`/var/run/unit/control.sock`.
+
+.. _installation-precomp-rhel:
+
+====
+RHEL
+====
+
+#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
+   contents:
+
+   .. code-block:: ini
+
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
+
+#. Install Unit base package:
+
+   .. code-block:: console
+
+      # yum install unit
+
+#. Install additional module packages you would like to use.
+
+   For RHEL 6:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+   For RHEL 7:
+
+   .. code-block:: console
+
+      # yum install unit-php unit-python unit-go unit-perl unit-devel \
+            unit-jsc-common unit-jsc8 unit-jsc11
+
+.. include:: include/socket-note-rpm.rst
+
+======
+Ubuntu
+======
 
 #. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
    the NGINX, |_| Inc. repository and packages.
@@ -332,95 +398,20 @@ Ubuntu Packages
 
 .. include:: include/socket-note-deb.rst
 
-===============
-Debian Packages
-===============
-
-#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
-   the NGINX, |_| Inc. repository and packages.
-
-#. Add the key to the :program:`apt` program's keyring:
-
-   .. code-block:: console
-
-      # apt-key add nginx_signing.key
-
-   The program can then authenticate the NGINX repository signature,
-   which eliminates warnings about a missing PGP key during installation
-   of the Unit package.
-
-#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
-   following contents.
-
-   For Debian 8:
-
-   .. code-block:: none
-
-      deb https://packages.nginx.org/unit/debian/ jessie unit
-      deb-src https://packages.nginx.org/unit/debian/ jessie unit
-
-   For Debian 9:
-
-   .. code-block:: none
-
-      deb https://packages.nginx.org/unit/debian/ stretch unit
-      deb-src https://packages.nginx.org/unit/debian/ stretch unit
-
-#. Install Unit base package:
-
-   .. code-block:: console
-
-      # apt-get update
-      # apt-get install unit
-
-#. Install additional module packages you would like to use.
-
-   For Debian 8:
-
-   .. code-block:: console
-
-      # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
-                unit-ruby unit-dev
-
-   For Debian 9:
-
-   .. code-block:: console
-
-      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
-                unit-go1.8 unit-perl unit-ruby unit-dev
-
-.. include:: include/socket-note-deb.rst
-
-.. _installation-precomp-pkgs-startup:
-
 ====================
 Startup and Shutdown
 ====================
 
-To enable automatic startup for Unit after you install it from precompiled
-packages:
+Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
+installed and see the configuration details.  Use the following commands to
+manage your installation:
 
     .. code-block:: console
 
-       # systemctl enable unit.service
-
-To start or restart Unit immediately:
-
-    .. code-block:: console
-
-       # systemctl restart unit.service
-
-To stop Unit immediately:
-
-    .. code-block:: console
-
-       # systemctl stop unit.service
-
-To disable automatic startup for Unit:
-
-    .. code-block:: console
-
-       # systemctl disable unit.service
+       # systemctl enable unit  # Enable auto startup after installation
+       # systemctl restart unit # Start or restart Unit
+       # systemctl stop unit    # Stop a running Unit
+       # systemctl disable unit # Disable auto startup
 
 .. _installation-community-repos:
 
