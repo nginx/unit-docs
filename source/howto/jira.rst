@@ -119,6 +119,5 @@ follow these steps.
    address}:{port}/jira`) to continue setup in your browser:
 
    .. image:: ../images/jira.png
-      :width: 504pt
-      :align: center
+      :width: 100%
       :alt: Jira on Unit - Setup Screen
