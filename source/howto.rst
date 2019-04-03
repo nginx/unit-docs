@@ -18,6 +18,7 @@ App Frameworks
 Applications
 ************
 
+- :doc:`howto/bugzilla`: Launch Bugzilla with NGINX and Unit using PSGI.
 - :doc:`howto/jira`: Run a new Jira installation on Unit.
 - :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
 
