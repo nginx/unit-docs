@@ -225,9 +225,9 @@ Delete the listener on :samp:`\*:8400`:
 
 .. _configuration-stngs:
 
-***************
-Settings Object
-***************
+********
+Settings
+********
 
 Unit has a global :samp:`settings` configuration object that stores
 instance-wide preferences.  Its :samp:`http` option fine-tunes the handling of
@@ -1116,7 +1116,7 @@ Example:
 .. _configuration-access-log:
 
 **********
-Access log
+Access Log
 **********
 
 To configure access logging, use the :samp:`access_log` parameter in a
