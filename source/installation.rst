@@ -102,8 +102,10 @@ binaries are available for:
 Amazon Linux
 ============
 
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
+#. To configure Unit repository, create the following file named
+   :file:`/etc/yum.repos.d/unit.repo`:
+
+   Amazon Linux:
 
    .. code-block:: ini
 
@@ -113,7 +115,7 @@ Amazon Linux
       gpgcheck=0
       enabled=1
 
-   For Amazon Linux 2 LTS:
+   Amazon Linux 2 LTS:
 
    .. code-block:: ini
 
@@ -123,26 +125,23 @@ Amazon Linux
       gpgcheck=0
       enabled=1
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
+
+   Amazon Linux:
 
    .. code-block:: console
 
       # yum install unit
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python27 unit-python34 unit-python35 unit-python36
 
-#. Install additional module packages you would like to use, e.g.:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python27 unit-python34 unit-python35 \
-            unit-python36 unit-go unit-perl unit-devel unit-jsc-common \
-            unit-jsc8 unit-jsc11
-
-   For Amazon Linux 2 LTS:
+   Amazon Linux 2 LTS:
 
    .. code-block:: console
 
-      # yum install unit-php unit-python unit-go unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
+      # yum install unit
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python
 
 .. include:: include/socket-note-rpm.rst
 
@@ -152,8 +151,8 @@ Amazon Linux
 CentOS
 ======
 
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
+#. To configure Unit repository, create the following file named
+   :file:`/etc/yum.repos.d/unit.repo`:
 
    .. code-block:: ini
 
@@ -163,18 +162,13 @@ CentOS
     gpgcheck=0
     enabled=1
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
 
    .. code-block:: console
 
       # yum install unit
-
-#. Install additional module packages you would like to use, e.g.:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-go unit-perl unit-devel \
-            unit-jsc-common unit-jsc8
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python
 
 .. include:: include/socket-note-rpm.rst
 
@@ -184,58 +178,55 @@ CentOS
 Debian
 ======
 
-#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
-   the NGINX, |_| Inc. repository and packages.
-
-#. Add the key to the :program:`apt` program's keyring:
+#. Download the NGINX `signing key <https://nginx.org/keys/nginx_signing.key>`_
+   used for our repositories and packages and add it to :program:`apt`'s
+   keyring:
 
    .. code-block:: console
 
+      # curl -O https://nginx.org/keys/nginx_signing.key
       # apt-key add nginx_signing.key
 
-   The program can then authenticate the NGINX repository signature,
-   which eliminates warnings about a missing PGP key during installation
-   of the Unit package.
+   This eliminates the 'packages cannot be authenticated' warnings during
+   installation.
 
-#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
-   following contents.
+#. To configure Unit repository, create the following file named
+   :file:`/etc/apt/sources.list.d/unit.list`:
 
-   For Debian 8:
+   Debian 8:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/debian/ jessie unit
       deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-   For Debian 9:
+   Debian 9:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/debian/ stretch unit
       deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
+
+   Debian 8:
 
    .. code-block:: console
 
       # apt-get update
       # apt-get install unit
+      # apt-get install unit-dev unit-php unit-perl unit-python2.7 \
+                unit-python3.4 unit-ruby
 
-#. Install additional module packages you would like to use.
-
-   For Debian 8:
-
-   .. code-block:: console
-
-      # apt-get install unit-php unit-python2.7 unit-python3.4 unit-perl \
-                unit-ruby unit-dev
-
-   For Debian 9:
+   Debian 9:
 
    .. code-block:: console
 
-      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go1.7 \
-                unit-go1.8 unit-perl unit-ruby unit-dev
+      # apt-get update
+      # apt-get install unit
+      # apt-get install unit-dev unit-go1.7 unit-go1.8 \
+                unit-jsc8 unit-php unit-perl unit-python2.7 unit-python3.5 \
+                unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -245,8 +236,8 @@ Debian
 Fedora
 ======
 
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
+#. To configure Unit repository, create the following file named
+   :file:`/etc/yum.repos.d/unit.repo`:
 
    .. code-block:: ini
 
@@ -256,27 +247,23 @@ Fedora
       gpgcheck=0
       enabled=1
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
+
+   Fedora 28:
 
    .. code-block:: console
 
       # yum install unit
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python27 unit-python36 unit-ruby
 
-#. Install additional module packages you would like to use.
-
-   For Fedora 28:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python27 unit-python36 unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-   For Fedora 29:
+   Fedora 29:
 
    .. code-block:: console
 
-      # yum install unit-php unit-python27 unit-python37 unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
+      # yum install unit
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python27 unit-python37 unit-ruby
 
 .. note::
 
@@ -288,8 +275,8 @@ Fedora
 RHEL
 ====
 
-#. Create the file :file:`/etc/yum.repos.d/unit.repo` with the following
-   contents:
+#. To configure Unit repository, create the following file named
+   :file:`/etc/yum.repos.d/unit.repo`:
 
    .. code-block:: ini
 
@@ -299,27 +286,13 @@ RHEL
       gpgcheck=0
       enabled=1
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
 
    .. code-block:: console
 
       # yum install unit
-
-#. Install additional module packages you would like to use.
-
-   For RHEL 6:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
-
-   For RHEL 7:
-
-   .. code-block:: console
-
-      # yum install unit-php unit-python unit-go unit-perl unit-devel \
-            unit-jsc-common unit-jsc8 unit-jsc11
+      # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python
 
 .. include:: include/socket-note-rpm.rst
 
@@ -327,74 +300,72 @@ RHEL
 Ubuntu
 ======
 
-#. Download the `key <https://nginx.org/keys/nginx_signing.key>`_ used to sign
-   the NGINX, |_| Inc. repository and packages.
-
-#. Add the key to the :program:`apt` program's keyring:
+#. Download the NGINX `signing key <https://nginx.org/keys/nginx_signing.key>`_
+   used for our repositories and packages and add it to :program:`apt`'s
+   keyring:
 
    .. code-block:: console
 
+      # curl -O https://nginx.org/keys/nginx_signing.key
       # apt-key add nginx_signing.key
 
-   The program can then authenticate the NGINX repository signature,
-   which eliminates warnings about a missing PGP key during installation
-   of the Unit package.
+   This eliminates the 'packages cannot be authenticated' warnings during
+   installation.
 
-#. Create the :file:`/etc/apt/sources.list.d/unit.list` file with the
-   following contents.
+#. To configure Unit repository, create the following file named
+   :file:`/etc/apt/sources.list.d/unit.list`:
 
-   For Ubuntu 16.04:
+   Ubuntu 16.04:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ xenial unit
       deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-   For Ubuntu 18.04:
+   Ubuntu 18.04:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ bionic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
-   For Ubuntu 18.10:
+   Ubuntu 18.10:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-#. Install Unit base package:
+#. Install Unit base package and additional packages you would like to use.
+
+   Ubuntu 16.04:
 
    .. code-block:: console
 
       # apt-get update
       # apt-get install unit
+      # apt-get install unit-dev unit-go unit-jsc8 unit-php \
+                unit-perl unit-python2.7 unit-python3.5 unit-ruby
 
-#. Install additional module packages you would like to use.
-
-   For Ubuntu 16.04:
-
-   .. code-block:: console
-
-      # apt-get install unit-php unit-python2.7 unit-python3.5 unit-go \
-                unit-perl unit-ruby unit-dev unit-jsc-common unit-jsc8
-
-   For Ubuntu 18.04:
+   Ubuntu 18.04:
 
    .. code-block:: console
 
-      # apt-get install unit-php unit-python2.7 unit-python3.6 unit-go1.9 \
-                unit-go1.10 unit-perl unit-ruby unit-dev unit-jsc-common \
-                unit-jsc8 unit-jsc10
+      # apt-get update
+      # apt-get install unit
+      # apt-get install unit-dev unit-go1.9 unit-go1.10 \
+                unit-jsc8 unit-jsc10 unit-php unit-perl unit-python2.7 \
+                unit-python3.6 unit-ruby
 
-   For Ubuntu 18.10:
+   Ubuntu 18.10:
 
    .. code-block:: console
 
-      # apt-get install unit-php unit-python2.7 unit-python3.6 unit-python3.7 \
-            unit-go1.9 unit-go1.10 unit-perl unit-ruby unit-dev \
-            unit-jsc-common unit-jsc8 unit-jsc11
+      # apt-get update
+      # apt-get install unit
+      # apt-get install unit-dev unit-go1.9 unit-go1.10 \
+                unit-jsc8 unit-jsc11 unit-php unit-perl unit-python2.7 \
+                unit-python3.6 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -402,7 +373,7 @@ Ubuntu
 Startup and Shutdown
 ====================
 
-Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
+Run :command:`unitd -h` or :command:`unitd --version` to verify that Unit is
 installed and see the configuration details.  Use the following commands to
 manage your installation:
 
