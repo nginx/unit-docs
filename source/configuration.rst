@@ -47,7 +47,7 @@ section of the API:
        > EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock 'http://localhost/config/listeners/127.0.0.1:8300'
+          /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
 
        {
 	       "success": "Reconfiguration done."
