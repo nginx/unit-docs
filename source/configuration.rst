@@ -3,6 +3,86 @@
 Configuration
 #############
 
+.. _configuration-quickstart:
+
+***********
+Quick Start
+***********
+
+To run an application in Unit, first set up an :ref:`application
+<configuration-applications>` object.  Let's store it in a file to :samp:`PUT`
+it into the :samp:`config/applications` section of Unit's control API,
+available via the :ref:`control socket <installation-startup>` at
+:samp:`http://localhost/`:
+
+.. code-block:: console
+
+   # cat << EOF > config.json
+
+       >{
+       >    "type": "php",
+       >    "root": "/www/blogs/scripts"
+       >}
+       > EOF
+
+   # curl -X PUT --data-binary @config.json --unix-socket \
+          /path/to/control.unit.sock http://localhost/config/applications/blogs/
+
+       {
+	       "success": "Reconfiguration done."
+       }
+
+Unit starts the application process.  Next, reference the application object
+from a :ref:`listener <configuration-listeners>` object, comprising an IP (or a
+wildcard to match any IPs) and a port number, in the :samp:`config/listeners`
+section of the API:
+
+.. code-block:: console
+
+   # cat << EOF > config.json
+
+       > {
+       >     "pass": "applications/blogs"
+       > }
+       > EOF
+
+   # curl -X PUT --data-binary @config.json --unix-socket \
+          /path/to/control.unit.sock 'http://localhost/config/listeners/127.0.0.1:8300'
+
+       {
+	       "success": "Reconfiguration done."
+       }
+
+Unit accepts requests at the specified IP and port, passing them to the
+application process.  Your app works!
+
+Finally, check the resulting configuration:
+
+.. code-block:: console
+
+   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
+
+       {
+           "listeners": {
+               "127.0.0.1:8300": {
+                   "pass": "applications/blogs"
+               }
+           },
+
+           "applications": {
+               "blogs": {
+                   "type": "php",
+                   "root": "/www/blogs/scripts/"
+               }
+           }
+       }
+
+You can upload the entire configuration at once or update it in portions.  For
+details of configuration techniques, see :ref:`here <configuration-mgmt>`.  For
+a full configuration sample, see :ref:`here <configuration-full-example>`.
+
+.. _configuration-applications:
+
 ************
 Applications
 ************
@@ -61,32 +141,6 @@ For complete details about the JSON objects for each language, see
 ************************
 Configuration Management
 ************************
-
-=====================
-Minimum Configuration
-=====================
-
-In order to run an application, configuration must include at least one
-listener and associated application, as in this example:
-
-.. code-block:: json
-
-   {
-       "listeners": {
-           "*:8300": {
-               "pass": "applications/blogs"
-           }
-       },
-
-       "applications": {
-           "blogs": {
-               "type": "php",
-               "processes": 20,
-               "root": "/www/blogs/scripts",
-               "index": "index.php"
-           }
-       }
-   }
 
 ================
 Creating Objects
@@ -1340,6 +1394,8 @@ anymore from the storage:
    delete non-existent ones.
 
 Happy SSLing!
+
+.. _configuration-full-example:
 
 ************
 Full Example
