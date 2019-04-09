@@ -718,6 +718,36 @@ Amazon Linux, CentOS, Fedora, RHEL
    # yum install java-1.8.0-openjdk-devel
    # yum install openssl-devel
 
+FreeBSD
+*******
+
+Ports:
+
+.. code-block:: console
+
+   # cd /usr/ports/lang/go/ && make install clean
+   # cd /usr/ports/www/node/ && make install clean
+   # cd /usr/ports/www/npm/ && make install clean && npm i -g node-gyp
+   # cd /usr/ports/lang/php73/ && make install clean
+   # cd /usr/ports/lang/perl5.28/ && make install clean
+   # cd /usr/ports/lang/python/ && make install clean
+   # cd /usr/ports/lang/ruby25/ && make install clean
+   # cd /usr/ports/java/openjdk8/ && make install clean
+   # cd /usr/ports/security/openssl/ && make install clean
+
+Packages:
+
+.. code-block:: console
+
+   # pkg install go
+   # pkg install node && pkg install npm && npm i -g node-gyp
+   # pkg install php73
+   # pkg install perl5
+   # pkg install python
+   # pkg install ruby25
+   # pkg install openjdk8
+   # pkg install openssl
+
 .. _installation-config-src:
 
 ===================
