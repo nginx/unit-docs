@@ -94,26 +94,26 @@ body > div {
 }
 #content h1 {
     color: #00974d;
-    font-size: 2.4em;
+    font-size: 2.5em;
     font-weight: normal;
     line-height: 1.1;
-}
-#content h1 .headerlink {
-    color: #00974d;
 }
 #content h2 {
     margin: 1rem 0;
     color: #00974d;
-    font-size: 1.4em;
+    font-size: 1.6em;
     font-weight: normal;
-    line-height: normal;
-}
-#content h2 .headerlink {
-    color: #00974d;
 }
 #content h3 {
     margin: 1rem 0;
-    font-size: 1em;
+    color: #00974d;
+    font-size: 1.25em;
+    font-weight: normal;
+}
+#content h1 .headerlink,
+#content h2 .headerlink,
+#content h3 .headerlink {
+    color: #00974d;
 }
 #content .headerlink {
     visibility: hidden;
