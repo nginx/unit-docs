@@ -369,6 +369,8 @@ Ubuntu
 
 .. include:: include/socket-note-deb.rst
 
+.. _installation-precomp-startup:
+
 ====================
 Startup and Shutdown
 ====================
@@ -1277,9 +1279,9 @@ If you customize the executable pathname with :option:`!go` or
 Startup
 =======
 
-We advise installing Unit from :ref:`preconfigured packages
-<installation-precomp-pkgs>`; in this case, startup is configured
-automatically.
+We advise installing Unit from :ref:`precompiled packages
+<installation-precomp-pkgs>`; in this case, startup is :ref:`configured
+<installation-precomp-startup>` automatically.
 
 Even if you install Unit otherwise, manual startup is not recommended.
 Instead, configure a service manager such as :program:`OpenRC` or
