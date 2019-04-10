@@ -213,20 +213,18 @@ Debian
 
    .. code-block:: console
 
-      # apt-get update
-      # apt-get install unit
-      # apt-get install unit-dev unit-php unit-perl unit-python2.7 \
-                unit-python3.4 unit-ruby
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-php unit-perl unit-python2.7 unit-python3.4 unit-ruby
 
    Debian 9:
 
    .. code-block:: console
 
-      # apt-get update
-      # apt-get install unit
-      # apt-get install unit-dev unit-go1.7 unit-go1.8 \
-                unit-jsc8 unit-php unit-perl unit-python2.7 unit-python3.5 \
-                unit-ruby
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-php unit-perl \
+            unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -342,30 +340,28 @@ Ubuntu
 
    .. code-block:: console
 
-      # apt-get update
-      # apt-get install unit
-      # apt-get install unit-dev unit-go unit-jsc8 unit-php \
-                unit-perl unit-python2.7 unit-python3.5 unit-ruby
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go unit-jsc8 unit-php unit-perl unit-python2.7 \
+            unit-python3.5 unit-ruby
 
    Ubuntu 18.04:
 
    .. code-block:: console
 
-      # apt-get update
-      # apt-get install unit
-      # apt-get install unit-dev unit-go1.9 unit-go1.10 \
-                unit-jsc8 unit-jsc10 unit-php unit-perl unit-python2.7 \
-                unit-python3.6 unit-ruby
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc10 unit-php \
+            unit-perl unit-python2.7 unit-python3.6 unit-ruby
 
    Ubuntu 18.10:
 
    .. code-block:: console
 
-      # apt-get update
-      # apt-get install unit
-      # apt-get install unit-dev unit-go1.9 unit-go1.10 \
-                unit-jsc8 unit-jsc11 unit-php unit-perl unit-python2.7 \
-                unit-python3.6 unit-python3.7 unit-ruby
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-php \
+            unit-perl unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -652,7 +648,7 @@ Mercurial Repository
 
    .. code-block:: console
 
-      # apt-get install mercurial
+      # apt install mercurial
 
 #. Download the Unit sources:
 
@@ -695,15 +691,15 @@ Debian, Ubuntu
 
 .. code-block:: console
 
-   # apt-get install build-essential
-   # apt-get install golang
-   # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt-get install nodejs
-   # apt-get install php-dev libphp-embed
-   # apt-get install libperl-dev
-   # apt-get install python-dev
-   # apt-get install ruby-dev
-   # apt-get install openjdk-8-jdk
-   # apt-get install libssl-dev
+   # apt install build-essential
+   # apt install golang
+   # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt install nodejs
+   # apt install php-dev libphp-embed
+   # apt install libperl-dev
+   # apt install python-dev
+   # apt install ruby-dev
+   # apt install openjdk-8-jdk
+   # apt install libssl-dev
 
 Amazon Linux, CentOS, Fedora, RHEL
 **********************************
