@@ -78,59 +78,8 @@ Finally, check the resulting configuration:
        }
 
 You can upload the entire configuration at once or update it in portions.  For
-details of configuration techniques, see :ref:`here <configuration-mgmt>`.  For
-a full configuration sample, see :ref:`here <configuration-full-example>`.
-
-.. _configuration-applications:
-
-************
-Applications
-************
-
-Each app that Unit runs is defined as an object in the
-:samp:`config/applications` section of the control API; it lists the app's
-language and settings, its runtime limits, process model, and various
-language-specific options.
-
-Here, Unit runs 20 processes of a PHP app called :samp:`blogs`, stored in
-the :file:`/www/blogs/scripts/` directory:
-
-.. code-block:: json
-
-   {
-       "blogs": {
-           "type": "php",
-           "processes": 20,
-           "root": "/www/blogs/scripts/"
-       }
-   }
-
-.. _configuration-listeners:
-
-*********
-Listeners
-*********
-
-For an application to be accessible via HTTP, you must define at least one
-listener for it in the :samp:`listeners` section of the Unit configuration.  A
-listener is an IP address and port on which Unit listens for client requests to
-a named application.  The IP address can be either a full address (for example,
-:samp:`127.0.0.1:8300`) or a wildcard (for example, :samp:`*:8300`).
-
-In this example, requests received on port 8300 are sent to the :samp:`blogs`
-application:
-
-.. code-block:: json
-
-   {
-       "*:8300": {
-           "pass": "applications/blogs"
-       }
-   }
-
-
-For complete details about the JSON objects for each language, see
-`Application Objects`_.
+details of configuration techniques, see :ref:`below <configuration-mgmt>`.
+For a full configuration sample, see :ref:`here <configuration-full-example>`.
 
 .. _configuration-mgmt:
 
@@ -272,81 +221,17 @@ Delete the listener on :samp:`\*:8400`:
            "success": "Reconfiguration done."
        }
 
-.. _configuration-stngs:
+.. _configuration-listeners:
 
-********
-Settings
-********
+*********
+Listeners
+*********
 
-Unit has a global :samp:`settings` configuration object that stores
-instance-wide preferences.  Its :samp:`http` option fine-tunes the handling of
-HTTP requests from the clients:
-
-.. list-table::
-    :header-rows: 1
-
-    * - Option
-      - Description
-
-    * - :samp:`header_read_timeout`
-      - Maximum number of seconds to read the header of a client's request.
-        If Unit doesn't receive the entire header from the client within this
-        interval, it responds with a 408 Request Timeout error.
-
-        The default value is 30.
-
-    * - :samp:`body_read_timeout`
-      - Maximum number of seconds to read data from the body of a client's
-        request.  It limits the interval between consecutive read operations,
-        not the time to read the entire body.  If Unit doesn't receive any
-        data from the client within this interval, it responds with a 408
-        Request Timeout error.
-
-        The default value is 30.
-
-    * - :samp:`send_timeout`
-      - Maximum number of seconds to transmit data in the response to a client.
-        It limits the interval between consecutive transmissions, not the
-        entire response transmission.  If the client doesn't receive any data
-        within this interval, Unit closes the connection.
-
-        The default value is 30.
-
-    * - :samp:`idle_timeout`
-      - Maximum number of seconds between requests in a keep-alive connection.
-        If no new requests arrive within this interval, Unit responds with a
-        408 Request Timeout error and closes the connection.
-
-        The default value is 180.
-
-    * - :samp:`max_body_size`
-      - Maximum number of bytes in the body of a client's request.  If the body
-        size exceeds this value, Unit responds with a 413 Payload Too Large
-        error and closes the connection.
-
-        The default value is 8388608 (8 MB).
-
-Example:
-
-.. code-block:: json
-
-   {
-       "settings": {
-           "http": {
-               "header_read_timeout": 10,
-               "body_read_timeout": 10,
-               "send_timeout": 10,
-               "idle_timeout": 120,
-               "max_body_size": 6291456
-           }
-       }
-   }
-
-.. _configuration-lstnr:
-
-****************
-Listener Objects
-****************
+For an application to be accessible via HTTP, you must define at least one
+listener for it in the :samp:`listeners` section of the Unit configuration.  A
+listener is an IP address and port on which Unit listens for client requests to
+a named application.  The IP address can be either a full address (for example,
+:samp:`127.0.0.1:8300`) or a wildcard (for example, :samp:`*:8300`).
 
 .. list-table::
     :header-rows: 1
@@ -374,7 +259,8 @@ Listener Objects
         a certificate chain that you have uploaded earlier.  For details, see
         :ref:`configuration-ssl`.
 
-Example:
+In this example, requests received on port 8300 are sent to the :samp:`blogs`
+application:
 
 .. code-block:: json
 
@@ -458,9 +344,9 @@ traverses them sequentially.  Steps have the following options:
 
    * - :samp:`action`/:samp:`pass` (required)
      - Route's destination; identical to :samp:`pass` in a :ref:`listener
-       <configuration-lstnr>`.  If you omit :samp:`match`, requests are passed
-       unconditionally; to avoid issues, use no more than one such step per
-       route, placing it last.
+       <configuration-listeners>`.  If you omit :samp:`match`, requests are
+       passed unconditionally; to avoid issues, use no more than one such step
+       per route, placing it last.
 
 An example:
 
@@ -643,14 +529,32 @@ Here, all :samp:`POST` requests for URIs prefixed with :samp:`/admin/` or
 :samp:`/store/` within any subdomains of :samp:`example.com` (except
 :samp:`php7`) are routed to :samp:`php5_app`.
 
-*******************
-Application Objects
-*******************
+.. _configuration-applications:
+
+************
+Applications
+************
+
+Each app that Unit runs is defined as an object in the
+:samp:`config/applications` section of the control API; it lists the app's
+language and settings, its runtime limits, process model, and various
+language-specific options.
+
+Here, Unit runs 20 processes of a PHP app called :samp:`blogs`, stored in
+the :file:`/www/blogs/scripts/` directory:
+
+.. code-block:: json
+
+   {
+       "blogs": {
+           "type": "php",
+           "processes": 20,
+           "root": "/www/blogs/scripts/"
+       }
+   }
 
 Each application object has a number of common options that can be specified
-for any application regardless of its type.
-
-The common options are follows:
+for any application regardless of its type:
 
 .. list-table::
     :header-rows: 1
@@ -1159,6 +1063,76 @@ Example:
        "user": "www",
        "group": "www",
        "script": "/www/cms/config.ru"
+   }
+
+.. _configuration-stngs:
+
+********
+Settings
+********
+
+Unit has a global :samp:`settings` configuration object that stores
+instance-wide preferences.  Its :samp:`http` option fine-tunes the handling of
+HTTP requests from the clients:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`header_read_timeout`
+      - Maximum number of seconds to read the header of a client's request.
+        If Unit doesn't receive the entire header from the client within this
+        interval, it responds with a 408 Request Timeout error.
+
+        The default value is 30.
+
+    * - :samp:`body_read_timeout`
+      - Maximum number of seconds to read data from the body of a client's
+        request.  It limits the interval between consecutive read operations,
+        not the time to read the entire body.  If Unit doesn't receive any
+        data from the client within this interval, it responds with a 408
+        Request Timeout error.
+
+        The default value is 30.
+
+    * - :samp:`send_timeout`
+      - Maximum number of seconds to transmit data in the response to a client.
+        It limits the interval between consecutive transmissions, not the
+        entire response transmission.  If the client doesn't receive any data
+        within this interval, Unit closes the connection.
+
+        The default value is 30.
+
+    * - :samp:`idle_timeout`
+      - Maximum number of seconds between requests in a keep-alive connection.
+        If no new requests arrive within this interval, Unit responds with a
+        408 Request Timeout error and closes the connection.
+
+        The default value is 180.
+
+    * - :samp:`max_body_size`
+      - Maximum number of bytes in the body of a client's request.  If the body
+        size exceeds this value, Unit responds with a 413 Payload Too Large
+        error and closes the connection.
+
+        The default value is 8388608 (8 MB).
+
+Example:
+
+.. code-block:: json
+
+   {
+       "settings": {
+           "http": {
+               "header_read_timeout": 10,
+               "body_read_timeout": 10,
+               "send_timeout": 10,
+               "idle_timeout": 120,
+               "max_body_size": 6291456
+           }
+       }
    }
 
 .. _configuration-access-log:
