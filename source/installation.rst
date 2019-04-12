@@ -628,50 +628,35 @@ If you update Unit later, make sure to update the NPM package as well:
 Source Code
 ***********
 
-This section explains how to compile and install Unit from the source code.
-
 ===============
 Getting Sources
 ===============
 
-There are three ways to obtain the Unit source code: from the NGINX, |_| Inc.
-Mercurial repository, from GitHub, or in a tarball.
+You can obtain Unit source code from our official Mercurial repository, its
+GitHub mirror, or in a tarball.
 
-In each case, the sources are placed in the :file:`unit` subdirectory of the
-current working directory.
-
-Mercurial Repository
-********************
-
-#. If you don't already have the Mercurial software, download and install it.
-   For example, on Ubuntu systems, run this command:
-
-   .. code-block:: console
-
-      # apt install mercurial
-
-#. Download the Unit sources:
+If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
 
    .. code-block:: console
 
       $ hg clone https://hg.nginx.org/unit
+      $ cd unit
 
-GitHub Repository
-*****************
-
-#. If you don't already have the Git software, download it.
-   See the `GitHub documentation <https://help.github.com/>`_.
-
-#. Download the Unit sources:
+If you prefer `Git <https://git-scm.com/downloads>`_:
 
    .. code-block:: console
 
       $ git clone https://github.com/nginx/unit
+      $ cd unit
 
-Tarball
-*******
+To download sources directly from `our site
+<https://unit.nginx.org/download/>`_:
 
-Unit source code tarballs are available at https://unit.nginx.org/download/.
+   .. code-block:: console
+
+      $ curl -O https://unit.nginx.org/download/unit-1.8.0.tar.gz
+      $ tar xzf unit-1.8.0.tar.gz
+      $ cd unit-1.8.0
 
 .. _installation-prereq-build:
 
