@@ -87,16 +87,13 @@ a full configuration sample, see :ref:`here <configuration-full-example>`.
 Applications
 ************
 
-For each application, you use the API to define a JSON object in the
-:samp:`applications` section of the Unit configuration.  The JSON object
-defines several characteristics of the application, including the language it's
-written in, the number of application processes to run, the directory with the
-file or files for the application, and parameters that vary by language.
+Each app that Unit runs is defined as an object in the
+:samp:`config/applications` section of the control API; it lists the app's
+language and settings, its runtime limits, process model, and various
+language-specific options.
 
-This example runs 20 processes of the PHP application named :samp:`blogs` using
-the files found in the :file:`/www/blogs/scripts` directory.  The default
-launch file when the URL doesn't specify the PHP file is :file:`index.php`.
-
+Here, Unit runs 20 processes of a PHP app called :samp:`blogs`, stored in
+the :file:`/www/blogs/scripts/` directory:
 
 .. code-block:: json
 
@@ -104,8 +101,7 @@ launch file when the URL doesn't specify the PHP file is :file:`index.php`.
        "blogs": {
            "type": "php",
            "processes": 20,
-           "root": "/www/blogs/scripts",
-           "index": "index.php"
+           "root": "/www/blogs/scripts/"
        }
    }
 
