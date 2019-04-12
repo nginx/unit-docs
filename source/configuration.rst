@@ -200,8 +200,7 @@ Display the complete configuration:
                    "type": "php",
                    "user": "nobody",
                    "group": "nobody",
-                   "root": "/www/blogs/scripts",
-                   "index": "index.php"
+                   "root": "/www/blogs/scripts/"
                }
            }
        }
@@ -1069,8 +1068,7 @@ Example:
    {
        "type": "php",
        "processes": 20,
-       "root": "/www/blogs/scripts",
-       "index": "index.php",
+       "root": "/www/blogs/scripts/",
        "user": "www-blogs",
        "group": "www-blogs",
 
@@ -1517,8 +1515,7 @@ Full Example
                "blogs": {
                    "type": "php",
                    "processes": 20,
-                   "root": "/www/blogs/scripts",
-                   "index": "index.php",
+                   "root": "/www/blogs/scripts/",
                    "limits": {
                        "timeout": 10,
                        "requests": 1000

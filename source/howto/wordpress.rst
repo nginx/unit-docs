@@ -79,8 +79,7 @@ To run WordPress in Unit:
                   "type": "php",
                   "user": "wpuser",
                   "group": "www-data",
-                  "root": "/path/to/wordpress/",
-                  "index": "index.php"
+                  "root": "/path/to/wordpress/"
               }
           }
       }
