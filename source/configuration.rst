@@ -227,11 +227,22 @@ Delete the listener on :samp:`\*:8400`:
 Listeners
 *********
 
-For an application to be accessible via HTTP, you must define at least one
-listener for it in the :samp:`listeners` section of the Unit configuration.  A
-listener is an IP address and port on which Unit listens for client requests to
-a named application.  The IP address can be either a full address (for example,
-:samp:`127.0.0.1:8300`) or a wildcard (for example, :samp:`*:8300`).
+To start serving HTTP requests with Unit, define a listener in the
+:samp:`config/listeners` section of the API.  A listener uniquely combines a
+host IP (or a wildcard to match all host IPs) and a port that Unit binds to.
+
+.. note::
+
+   On Linux-based systems, wildcard listeners can't overlap with other
+   listeners on the same port due to kernel-imposed limitations; for example,
+   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`.
+
+Unit dispatches the requests it receives to :ref:`applications
+<configuration-applications>` or :ref:`routes <configuration-routes>`
+referenced by listeners.  You can plug several listeners into one app or route,
+or use a single listener for hot-swapping during testing or staging.
+
+Available options:
 
 .. list-table::
     :header-rows: 1
@@ -254,22 +265,28 @@ a named application.  The IP address can be either a full address (for example,
         :samp:`application`.
 
     * - :samp:`tls`
-      - SSL/TLS configuration.  Set its only option, :samp:`certificate`, to
-        enable secure communication via the listener.  The value must reference
-        a certificate chain that you have uploaded earlier.  For details, see
-        :ref:`configuration-ssl`.
+      - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
+        enables secure communication via the listener; it must name a
+        certificate chain that you have :ref:`configured <configuration-ssl>`
+        earlier.
 
-In this example, requests received on port 8300 are sent to the :samp:`blogs`
-application:
+Here, local requests at port :samp:`8300` are passed to the :samp:`blogs` app;
+all requests at :samp:`8400` follow the :samp:`main` route:
 
 .. code-block:: json
 
-   {
-       "pass": "applications/blogs",
-       "tls": {
-           "certificate": "blogs-cert"
-       }
-   }
+    {
+        "127.0.0.1:8300": {
+            "pass": "applications/blogs",
+            "tls": {
+                "certificate": "blogs-cert"
+            }
+        },
+
+        "*:8400": {
+            "pass": "routes/main"
+        }
+    }
 
 .. _configuration-routes:
 
