@@ -245,7 +245,7 @@ a named application.  The IP address can be either a full address (for example,
 
         .. warning::
 
-           This object is deprecated.  Please update your configurations to use
+           This option is deprecated.  Please update your configurations to use
            :samp:`pass` instead.
 
     * - :samp:`pass` (required)
@@ -283,7 +283,7 @@ or directly to apps.  Requests are matched against route step conditions; a
 request fully matching a step's condition is passed to the app or the route
 that the step specifies.
 
-The :samp:`routes` object may contain a single anonymous route array:
+In its simplest form, :samp:`routes` can be a single route array:
 
 .. code-block:: json
 
@@ -297,7 +297,7 @@ The :samp:`routes` object may contain a single anonymous route array:
         "routes": [ "simply referred to as routes" ]
    }
 
-Another option is one or more named route arrays:
+Another form is an object with one or more named route arrays as members:
 
 .. code-block:: json
 
@@ -318,8 +318,10 @@ Another option is one or more named route arrays:
 Route Object
 ============
 
-Route array contains anonymous objects, or steps; a request passed to a route
-traverses them sequentially.  Steps have the following options:
+A route array contains step objects as elements; a request passed to a route
+traverses them sequentially.
+
+Steps have the following options:
 
 .. list-table::
    :header-rows: 1
@@ -588,7 +590,7 @@ for any application regardless of its type:
     * - :samp:`processes`
       - An integer or an object.  Integer value configures a static number of
         application processes.  Object accepts dynamic process management
-        settings: :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`.  For
+        options: :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`.  For
         details, see :ref:`configuration-proc-mgmt-prcs`.
 
         The default value is 1.
@@ -650,7 +652,7 @@ Application process behavior in Unit is described by two configuration options,
 Request Limits
 **************
 
-The :samp:`limits` object accepts two options:
+The :samp:`limits` object has two options:
 
  .. list-table::
     :header-rows: 1
@@ -714,7 +716,7 @@ enabled and configured with the following parameters:
         The default value is 15.
 
 If :samp:`processes` is omitted entirely, Unit creates 1 static process.  If
-empty object is provided: :samp:`"processes": {}`, dynamic behavior with
+an empty object is provided: :samp:`"processes": {}`, dynamic behavior with
 default parameter values is assumed.
 
 In the following example, Unit tries to keep 5 idle processes, no more than 10
@@ -1141,8 +1143,8 @@ Example:
 Access Log
 **********
 
-To configure access logging, use the :samp:`access_log` parameter in a
-configuration object to specify the path to the log file.
+To enable access logging, specify the log file path in the :samp:`access_log`
+option of the :samp:`config` object.
 
 In the example below, all requests will be logged to
 :file:`/var/log/access.log`:
