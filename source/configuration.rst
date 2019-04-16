@@ -87,51 +87,165 @@ For a full configuration sample, see :ref:`here <configuration-full-example>`.
 Configuration Management
 ************************
 
-================
-Creating Objects
-================
+Unit's configuration is JSON-based, accessed via the :ref:`control socket
+<installation-startup>`, and entirely manageable over HTTP.
 
-To create a configuration object, specify the JSON data for it in the body of a
-:samp:`PUT` request.  To reduce errors, it makes sense to write the JSON data
-in a file and specify the file path with the :option:`!-d` option to the
-:program:`curl` command.
+.. note::
 
-Create an initial configuration by uploading the contents of the
-:file:`start.json` file:
+   Here, we use :program:`curl` to query Unit's control API, prefixing URIs
+   with :samp:`http://localhost` as expected by this utility.  You can use any
+   tool capable of making HTTP requests; also, the hostname is irrelevant for
+   Unit.
+
+To address parts of the configuration, query the control socket over HTTP; URI
+path segments of your requests to the API must be names of its `JSON object
+members <https://tools.ietf.org/html/rfc8259#section-4>`_ or indexes of its
+`array elements <https://tools.ietf.org/html/rfc8259#section-5>`_.
+
+You can manipulate the API with the following HTTP methods:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Method
+     - Action
+
+   * - :samp:`GET`
+     - Returns the entity at the request URI as JSON value in the HTTP response
+       body.
+
+   * - :samp:`PUT`
+     - Replaces the entity at the request URI and returns status message in the
+       HTTP response body.
+
+   * - :samp:`DELETE`
+     - Deletes the entity at the request URI and returns status message in the
+       HTTP response body.
+
+Before a change, Unit evaluates the difference it causes in the entire
+configuration; if there's none, nothing is done. For example, you can't restart
+an app by uploading the same configuration it already has.
+
+After a change in the control API, Unit performs actual reconfiguration steps
+as gracefully as possible: running tasks expire naturally, connections are
+properly closed, processes end smoothly.
+
+Any type of update can be done with different URIs, provided you supply the
+right JSON:
 
 .. code-block:: console
 
-   # curl -X PUT -d @/path/to/start.json  \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/
+   # curl -X PUT -d '{ "pass": "applications/blogs" }' --unix-socket \
+          /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
 
-Create a new application object called :samp:`wiki` from the file
-:file:`wiki.json`:
+   # curl -X PUT -d '"applications/blogs"' --unix-socket /path/to/control.unit.sock \
+          http://localhost/config/listeners/127.0.0.1:8300/pass
 
-.. code-block:: console
+However, mind that the first command replaces the *entire* listener, dropping
+any other options you could have configured, whereas the second one replaces
+only the :samp:`pass` value and leaves other options intact.
 
-   # curl -X PUT -d @/path/to/wiki.json  \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki
+========
+Examples
+========
 
-The contents of :file:`wiki.json` are:
+To minimize typos and effort, avoid embedding JSON payload in your commands;
+instead, consider storing your configuration snippets for review and reuse.
+Suppose you save your application object as :file:`wiki.json`:
 
 .. code-block:: json
 
    {
        "type": "python",
-       "processes": 10,
        "module": "wsgi",
        "user": "www-wiki",
        "group": "www-wiki",
-       "path": "/www/wiki"
+       "path": "/www/wiki/"
    }
 
-==================
-Displaying Objects
-==================
+Use it to set up an application called :samp:`wiki-prod`:
 
-To display a configuration object, append its path to the :samp:`curl` URL.
+.. code-block:: console
 
-Display the complete configuration:
+   # curl -X PUT --data-binary @/path/to/wiki.json \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod
+
+Use it again to set up a development version of the same app called
+:samp:`wiki-dev`:
+
+.. code-block:: console
+
+   # curl -X PUT --data-binary @/path/to/wiki.json \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev
+
+Toggle the :samp:`wiki-dev` app to another source code directory:
+
+.. code-block:: console
+
+   # curl -X PUT -d '"/www/wiki-dev/"' \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev/path
+
+Next, boost the process count for the production app to warm it up a bit:
+
+.. code-block:: console
+
+   # curl -X PUT -d '5' \
+          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod/processes
+
+Add a listener for the :samp:`wiki-prod` app to accept requests at all host
+IPs:
+
+.. code-block:: console
+
+   # curl -X PUT -d '{ "pass": "applications/wiki-prod" }' \
+          --unix-socket /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400'
+
+Plug the :samp:`wiki-dev` app into the listener to test it:
+
+.. code-block:: console
+
+   # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
+          'http://localhost/config/listeners/*:8400/pass'
+
+Then rewire the listener, adding a route to distinguish the apps by the URI:
+
+.. code-block:: console
+
+   # cat << EOF > config.json
+
+       > [
+       >     {
+       >         "match": {
+       >             "uri": "/dev/*"
+       >         },
+       >
+       >         "action": {
+       >             "pass": "applications/wiki-dev"
+       >         }
+       >     },
+       >     {
+       >         "action": {
+       >             "pass": "applications/wiki-prod"
+       >         }
+       >     }
+       > ]
+       > EOF
+
+   # curl -X PUT --data-binary @config.json --unix-socket \
+          /path/to/control.unit.sock http://localhost/config/routes
+
+   # curl -X PUT -d '"routes"' --unix-socket \
+          /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
+
+Change the :samp:`wiki-dev` app path prefix in the :samp:`routes` array using
+its index number:
+
+.. code-block:: console
+
+   # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
+          http://localhost/config/routes/0/match/uri
+
+To get the complete :samp:`config` section:
 
 .. code-block:: console
 
@@ -139,86 +253,89 @@ Display the complete configuration:
 
        {
            "listeners": {
-               "*:8300": {
-                   "pass": applications/blogs"
+               "*:8400": {
+                   "pass": "routes"
                }
            },
 
            "applications": {
-               "blogs": {
-                   "type": "php",
-                   "user": "nobody",
-                   "group": "nobody",
-                   "root": "/www/blogs/scripts/"
+               "wiki-dev": {
+                   "type": "python",
+                   "module": "wsgi",
+                   "user": "www-wiki",
+                   "group": "www-wiki",
+                   "path": "/www/wiki-dev/"
+               },
+
+               "wiki-prod": {
+                   "type": "python",
+                   "processes": 5,
+                   "module": "wsgi",
+                   "user": "www-wiki",
+                   "group": "www-wiki",
+                   "path": "/www/wiki/"
                }
-           }
+           },
+
+           "routes": [
+               {
+                   "match": {
+                       "uri": "/development/*"
+                   },
+
+                   "action": {
+                       "pass": "applications/wiki-dev"
+                   }
+               },
+               {
+                   "action": {
+                       "pass": "applications/wiki-prod"
+                   }
+               }
+           ]
        }
 
-Display the data for the :samp:`wiki` application:
+To obtain the :samp:`wiki-dev` application object:
 
 .. code-block:: console
 
    # curl --unix-socket /path/to/control.unit.sock \
-          http://localhost/config/applications/wiki
+          http://localhost/config/applications/wiki-dev
 
        {
            "type": "python",
-           "processes": 10,
            "module": "wsgi",
-           "user": "www",
-           "group": "www",
-           "path": "/www/wiki"
+           "user": "www-wiki",
+           "group": "www-wiki",
+           "path": "/www/wiki-dev/"
        }
 
-=================
-Modifying Objects
-=================
-
-To change a configuration object, use the :option:`!-d` option to the
-:program:`curl` command to specify the object's JSON data in the body of a
-:samp:`PUT` request.
-
-Change the :samp:`application` object to :samp:`wiki-dev` for the listener on
-:samp:`\*:8400`:
+You can save JSON returned by such requests as :file:`.json` files for update
+or review:
 
 .. code-block:: console
 
-   # curl -X PUT -d '"wiki-dev"' --unix-socket /path/to/control.unit.sock  \
-          'http://localhost/config/listeners/*:8400/application'
+   # curl --unix-socket /path/to/control.unit.sock \
+          http://localhost/config/ > config.json
 
-       {
-           "success": "Reconfiguration done."
-       }
-
-Change the :samp:`root` object for the :samp:`blogs` application to
-:file:`/www/blogs-dev/scripts`:
-
-.. code-block:: console
-
-   # curl -X PUT -d '"/www/blogs-dev/scripts"'  \
-          --unix-socket /path/to/control.unit.sock  \
-          http://localhost/config/applications/blogs/root
-
-       {
-           "success": "Reconfiguration done."
-       }
-
-================
-Deleting Objects
-================
-
-To delete a configuration object, make a :samp:`DELETE` request and append the
-object's path to the :program:`curl` URL.
-
-Delete the listener on :samp:`\*:8400`:
+To drop the listener on :samp:`\*:8400`:
 
 .. code-block:: console
 
    # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
           'http://localhost/config/listeners/*:8400'
 
+Mind that you can't delete objects that other objects rely on, such as a route
+still referenced by a listener:
+
+.. code-block:: console
+
+   # curl -X DELETE --unix-socket /var/run/unit/control.sock \
+          http://localhost/config/routes
+
        {
-           "success": "Reconfiguration done."
+           "error": "Invalid configuration.",
+           "detail": "Request \"pass\" points to invalid location \"routes\"."
        }
 
 .. _configuration-listeners:
