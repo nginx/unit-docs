@@ -19,10 +19,10 @@ available via the :ref:`control socket <installation-startup>` at
 
    # cat << EOF > config.json
 
-       >{
-       >    "type": "php",
-       >    "root": "/www/blogs/scripts"
-       >}
+       > {
+       >     "type": "php",
+       >     "root": "/www/blogs/scripts"
+       > }
        > EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
