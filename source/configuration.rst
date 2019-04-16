@@ -322,7 +322,7 @@ To drop the listener on :samp:`\*:8400`:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock  \
+   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
           'http://localhost/config/listeners/*:8400'
 
 Mind that you can't delete objects that other objects rely on, such as a route
@@ -1285,8 +1285,8 @@ In the example below, all requests will be logged to
 
 .. code-block:: console
 
-   # curl -X PUT -d '"/var/log/access.log"'  \
-          --unix-socket /path/to/control.unit.sock  \
+   # curl -X PUT -d '"/var/log/access.log"' \
+          --unix-socket /path/to/control.unit.sock \
           http://localhost/config/access_log
 
        {
