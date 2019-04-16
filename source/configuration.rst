@@ -126,9 +126,9 @@ Before a change, Unit evaluates the difference it causes in the entire
 configuration; if there's none, nothing is done. For example, you can't restart
 an app by uploading the same configuration it already has.
 
-After a change in the control API, Unit performs actual reconfiguration steps
-as gracefully as possible: running tasks expire naturally, connections are
-properly closed, processes end smoothly.
+Unit performs actual reconfiguration steps as gracefully as possible: running
+tasks expire naturally, connections are properly closed, processes end
+smoothly.
 
 Any type of update can be done with different URIs, provided you supply the
 right JSON:
