@@ -1117,8 +1117,8 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
 .. code-block:: console
 
-   $ ./configure php --module=php70  \
-                     --config=/usr/lib64/php7.0/bin/php-config  \
+   $ ./configure php --module=php70 \
+                     --config=/usr/lib64/php7.0/bin/php-config \
                      --lib-path=/usr/lib64/php7.0/lib64
 
 .. _installation-python:
@@ -1151,7 +1151,7 @@ To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
 .. code-block:: console
 
-   $ ./configure python --module=py33  \
+   $ ./configure python --module=py33 \
                         --config=python-config-3.3
 
 .. _installation-ruby:
@@ -1179,7 +1179,7 @@ To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
 .. code-block:: console
 
-   $ ./configure ruby --module=ru23  \
+   $ ./configure ruby --module=ru23 \
                       --ruby=ruby23
 
 .. _installation-bld-src:
