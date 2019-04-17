@@ -371,9 +371,8 @@ Ubuntu
 Startup and Shutdown
 ====================
 
-Run :command:`unitd -h` or :command:`unitd --version` to verify that Unit is
-installed and see the configuration details.  Use the following commands to
-manage your installation:
+Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
+installed or check its settings.  To manage the installation:
 
     .. code-block:: console
 
@@ -390,9 +389,8 @@ Community Repositories
 
 .. warning::
 
-   Distributions listed in this section are maintained by their respective
-   communities.  NGINX has no control or responsibility over these resources.
-   Proceed at your own consideration.
+   Distributions listed here are maintained by respective communities, not
+   NGINX.  Proceed with caution.
 
 .. _installation-alpine-apk:
 
@@ -526,9 +524,8 @@ Next, browse to the port path to build and install the port:
 
 .. warning::
 
-   :program:`Make` here is used in port configuration.  For :program:`make`
-   commands to build Unit from the code in our repositories, see
-   :ref:`installation-bld-src`.
+   Here, :program:`make` is used in port configuration.  To :program:`make` a
+   Unit build using our repositories, see :ref:`below <installation-bld-src>`.
 
 .. note::
 
@@ -601,15 +598,13 @@ Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
 
 .. warning::
 
-   The :program:`unit-http` package is platform and architecture dependent due
-   to performance optimizations.  It can't be moved across different systems
-   with the rest of the :file:`node-modules` directory (for example, during
-   application migration).  Global installation avoids such scenarios; just
-   :ref:`relink the migrated application <configuration-external-nodejs>`.
+   The :program:`unit-http` package is platform dependent due to optimizations;
+   you can't move it across systems with the :file:`node-modules` directory.
+   Global installation avoids such scenarios; just :ref:`relink
+   <configuration-external-nodejs>` the migrated app.
 
-This should suit most of your needs.  Use the package in your :ref:`Unit-hosted
-application <configuration-external-nodejs>` as you would use the built-in
-:program:`http` package in common Node.js web applications.
+Next, simply :ref:`use the package <configuration-external-nodejs>` in your
+Unit-hosted app instead of the built-in :program:`http`.
 
 If you update Unit later, make sure to update the NPM package as well:
 
@@ -801,11 +796,11 @@ structure <installation-src-dir>`:
 
 --prefix=prefix
 
-    Destination directory prefix for so-called *path options*:
-    :option:`!--bindir`, :option:`!--sbindir`, :option:`!--libdir`,
-    :option:`!--incdir`, :option:`!--modules`, :option:`!--state`,
-    :option:`!--pid`, :option:`!--log`, and :option:`!--control`.  Their
-    relative settings are prefix-based.
+    Destination directory prefix for :ref:`path options
+    <installation-src-dir>`: :option:`!--bindir`, :option:`!--sbindir`,
+    :option:`!--libdir`, :option:`!--incdir`, :option:`!--modules`,
+    :option:`!--state`, :option:`!--pid`, :option:`!--log`, and
+    :option:`!--control`.
 
     The default value is an empty string.
 
@@ -815,16 +810,16 @@ structure <installation-src-dir>`:
     The default values are :samp:`bin` and :samp:`sbin`, respectively.
 
 --control=socket
-    Address of the control API socket; Unix sockets (starting with
-    :samp:`unix:`), IPv4, and IPv6 sockets are valid here.
-
-    The default value is :samp:`unix:control.unit.sock`, created as
-    :samp:`root` with :samp:`600` permissions.
+    Control API socket address; Unix (with :samp:`unix:` prefix), IPv4,
+    or IPv6 socket can be used.
 
     .. warning::
 
        For security reasons, avoid opening sockets on public interfaces in
        production.
+
+    The default value is :samp:`unix:control.unit.sock`, created as
+    :samp:`root` with :samp:`600` permissions.
 
 --incdir=directory, --libdir=directory
     Directory paths for :program:`libunit` header files and libraries.
@@ -847,14 +842,14 @@ structure <installation-src-dir>`:
     The default value is :samp:`unit.pid`.
 
 --state=directory
-    Directory path for Unit's state storage.
+    Directory path for Unit's state storage.  It contains runtime
+    configuration, certificates, and other records; if you migrate your
+    installation, simply copy the entire directory.
 
     .. warning::
 
-       Unit state includes its runtime configuration, certificates, and other
-       private records.  It can be copied as is when you migrate your Unit
-       installation; however, mind that it contains sensitive data and must be
-       available only to :samp:`root` with :samp:`700` permissions.
+       Unit state includes sensitive data; it must be owned by :samp:`root`
+       with :samp:`700` permissions.
 
     The default value is :samp:`state`.
 
@@ -865,9 +860,10 @@ Directory Structure
 
 To customize Unit installation and runtime directories, you can both:
 
-- Set the :option:`!--prefix` and path options during :ref:`configuration
-  <installation-config-src-prefix>` to set up the runtime file structure: Unit
-  will use these settings to locate its modules, state, and other files.
+- Set the :option:`!--prefix` and path options (their relative settings are
+  prefix-based) during :ref:`configuration <installation-config-src-prefix>` to
+  set up the runtime file structure: Unit will use these settings to locate its
+  modules, state, and other files.
 
 - Set the :envvar:`DESTDIR` `variable
   <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
@@ -889,11 +885,10 @@ One common scenario is installation based on absolute paths.
    locations; other files will be accessed by default prefix-based paths:
    :file:`/usr/local/sbin/`, :file:`/usr/local/modules/`, and so on.
 
-#. If you're building Unit on the system where you intend to run it, omit
-   :option:`!DESTDIR` during installation; the files will be placed at the
-   specified paths.  If you're building Unit for further packaging or
-   containerization, specify :option:`!DESTDIR` to place the files in a staging
-   location, preserving their relative structure.
+#. For further packaging or containerization, specify :option:`!DESTDIR` at
+   installation to place the files in a staging location while preserving their
+   relative structure.  Otherwise, omit :option:`!DESTDIR` for direct
+   installation.
 
 An alternative scenario is a build that you can move around the filesystem.
 
@@ -908,18 +903,17 @@ An alternative scenario is a build that you can move around the filesystem.
    and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
    directory>/movable/config/`, and so on.
 
-#. Specify :option:`!DESTDIR` during installation to place the build where
-   needed.  You can move it around your system or across compatible systems;
-   however, make sure to relocate the entire file structure and start Unit
-   binaries from the base directory so that the relative paths remain valid:
+#. Specify :option:`!DESTDIR` while installing the build.  You can relocate
+   such builds when needed, making sure to move the entire file structure and
+   start binaries from the *base* directory so that relative paths stay valid:
 
    .. code-block:: console
 
       $ cd <DESTDIR>
       # movable/sbin/unitd <command-line options>
 
-You can also combine these two approaches as you see fit; nevertheless, always
-take care to understand how your settings actually work together.
+You can combine these approaches; however, take care to understand how your
+settings work together.
 
 .. _installation-src-modules:
 
@@ -933,9 +927,8 @@ and place module-specific instructions in the :file:`Makefile`.
 
 .. note::
 
-   Unit can run applications in several versions of a supported language side
-   by side: you need to configure, build, and install a separate module for
-   each version.
+   Unit can run apps in several versions of a language if you build and
+   install a module for each version.
 
 .. _installation-go:
 
@@ -947,7 +940,7 @@ applications will use to run in Unit.  To use the package, install it in your
 Go environment.  Available configuration options:
 
 --go=pathname
-    Specific Go executable pathname.  Also used for :ref:`build and install
+    Specific Go executable pathname, also used for targets in :ref:`make
     <installation-bld-src-ext>` commands.
 
     The default value is :samp:`go`.
@@ -960,10 +953,10 @@ Go environment.  Available configuration options:
 .. note::
 
    The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
-   `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. Make
-   sure these two paths, the configuration-time :option:`!--go-path` and
-   compile-time :envvar:`GOPATH`, are coherent so that Go can import and use
-   the Unit package.
+   `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. The
+   two paths (configuration-time :option:`!--go-path` and compile-time
+   :envvar:`GOPATH`) must be coherent at build time for Go to locate the Unit
+   package.
 
 .. _installation-java:
 
@@ -1002,9 +995,8 @@ Unit.  Available command options:
     The default value is :samp:`http://central.maven.org/maven2/`.
 
 --module=filename
-    Target name for the Java module that Unit will build
-    (:file:`<module>.unit.so`).  Also used for :ref:`build and install
-    <installation-bld-src-emb>` commands.
+    Name of the Java module to be built (:file:`<module>.unit.so`), also
+    used for targets in :ref:`make <installation-bld-src-emb>` commands.
 
     The default value is :samp:`java`.
 
@@ -1031,8 +1023,8 @@ Unit <configuration-external-nodejs>`.  Available configuration options:
     <installation-nodejs-package>`.
 
 --node=pathname
-    Specific Node.js executable pathname.  Also used for
-    :ref:`build and install <installation-bld-src-ext>` commands.
+    Specific Node.js executable pathname, also used for targets in
+    :ref:`make <installation-bld-src-ext>` commands.
 
     The default value is :samp:`node`.
 
@@ -1067,8 +1059,8 @@ options:
         The default value is :samp:`perl`.
 
 --module=filename
-        Target name for the Perl module that Unit will build
-        (:file:`<module>.unit.so`).  Also used for :ref:`build and install
+        Name of the Perl module to be built
+        (:file:`<module>.unit.so`), also used for targets in :ref:`make
         <installation-bld-src-emb>` commands.
 
         The default value is the filename of the :option:`!perl` executable.
@@ -1097,17 +1089,16 @@ Available command options:
 
 --lib-path=directory
     Directory path of PHP's :program:`embed` SAPI library file
-    (:file:`libphp<version>.so` or :file:`libphp<version>.a`).
+    (:file:`libphp<version>.so` or :file:`.a`).
 
 --lib-static
-    Enables linking with the static :program:`embed` SAPI library
-    (:file:`libphp<version>.a`).  If this option is specified,
-    :option:`!--lib-path` is also required.
+    Links the static :program:`embed` SAPI library (:file:`libphp<version>.a`);
+    requires :option:`!--lib-path`.  If this option is omitted, dynamic SAPI
+    library (:file:`libphp<version>.so`) is used.
 
 --module=filename
-    Target name for the PHP module that Unit will build
-    (:file:`<module>.unit.so`).  Also used for :ref:`build and install
-    <installation-bld-src-emb>` commands.
+    Name of the PHP module to be built (:file:`<module>.unit.so`), also used
+    for targets in :ref:`make <installation-bld-src-emb>` commands.
 
     The default value is :option:`!config`'s filename without the
     `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
@@ -1140,9 +1131,8 @@ options:
     Custom directory path of the Python runtime library to use with Unit.
 
 --module=filename
-    Target name for the Python module that Unit will build
-    (:samp:`<module>.unit.so`).  Also used for :ref:`build and install
-    <installation-bld-src-emb>` commands.
+    Name of the Python module to be built (:samp:`<module>.unit.so`), also used
+    for targets in :ref:`make <installation-bld-src-emb>` commands.
 
     The default value is :option:`!config`'s filename without the `-config`
     suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
@@ -1164,16 +1154,15 @@ support running Ruby scripts as applications in Unit.  Available command
 options:
 
 --module=filename
-        Target name for the Ruby module that Unit will build
-        (:file:`<module>.unit.so`).  Also used for :ref:`build and install
-        <installation-bld-src-emb>` commands.
+    Name of the Ruby module to be built (:file:`<module>.unit.so`), also used
+    for targets in :ref:`make <installation-bld-src-emb>` commands.
 
-        The default value is the filename of the :option:`!ruby` executable.
+    The default value is the filename of the :option:`!ruby` executable.
 
 --ruby=pathname
-        Specific Ruby executable pathname.
+    Specific Ruby executable pathname.
 
-        The default value is :samp:`ruby`.
+    The default value is :samp:`ruby`.
 
 To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
@@ -1240,6 +1229,7 @@ To build and install Unit packages for Go and Node.js after configuration, run
    <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
    it here: :command:`DESTDIR=/your/project/directory`.  If both options are
    specified, :option:`!DESTDIR` prefixes the :option:`!local` value.
+
    However, the recommended method is :ref:`global installation
    <installation-nodejs-package>`.
 
@@ -1264,17 +1254,15 @@ We advise installing Unit from :ref:`precompiled packages
 <installation-precomp-pkgs>`; in this case, startup is :ref:`configured
 <installation-precomp-startup>` automatically.
 
-Even if you install Unit otherwise, manual startup is not recommended.
-Instead, configure a service manager such as :program:`OpenRC` or
-:program:`systemd` or create an :program:`rc.d` script to launch the Unit
-daemon using the options below; refer to your system guides for detailed
-instructions.
+Even if you install Unit otherwise, manual startup isn't recommended.  Instead,
+configure a service manager such as :program:`OpenRC` or :program:`systemd` or
+create an :program:`rc.d` script to launch the Unit daemon using the options
+below.
 
-To start the daemon, run :program:`unitd` as :samp:`root` from the :samp:`sbin`
-installation subdirectory.  Usually, there's no need to override compile-time
-settings; use the :option:`!--help` command-line option to review their
-values.  For details and security notes, refer to
-:ref:`installation-config-src`.
+Run :program:`unitd` as :samp:`root` from the :samp:`sbin` installation
+subdirectory.  Usually, default compile-time settings don't require override;
+use the :option:`!--help` option to review their values.  For details and
+security notes, see :ref:`here <installation-config-src>`.
 
 General options:
 
