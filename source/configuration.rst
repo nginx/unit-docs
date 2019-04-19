@@ -867,9 +867,9 @@ inactivity:
 
 .. _configuration-external:
 
-=======================
-Go/Node.js Applications
-=======================
+==========
+Go/Node.js
+==========
 
 To run your Go or Node.js applications in Unit, you need to configure
 them `and` modify their source code as suggested below.  Let's start with the
@@ -975,9 +975,9 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 
 .. _configuration-java:
 
-================
-Java Application
-================
+====
+Java
+====
 
 .. list-table::
     :header-rows: 1
@@ -1006,9 +1006,9 @@ Example:
        "webapp": "/www/qwk2mart/qwk2mart.war"
    }
 
-================
-Perl Application
-================
+====
+Perl
+====
 
 .. list-table::
     :header-rows: 1
@@ -1034,9 +1034,9 @@ Example:
 
 .. _configuration-php:
 
-===============
-PHP Application
-===============
+===
+PHP
+===
 
 .. list-table::
     :header-rows: 1
@@ -1127,9 +1127,9 @@ Example:
 
 .. _configuration-python:
 
-==================
-Python Application
-==================
+======
+Python
+======
 
 .. list-table::
     :header-rows: 1
@@ -1176,9 +1176,9 @@ Example:
        "group": "www"
    }
 
-================
-Ruby Application
-================
+====
+Ruby
+====
 
 .. list-table::
     :header-rows: 1
