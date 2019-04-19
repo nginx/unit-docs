@@ -90,10 +90,10 @@ Installing a precompiled Unit binary package is best for most occasions;
 binaries are available for:
 
 - Amazon Linux, Amazon Linux 2
-- CentOS 6, 7, 8
+- CentOS 6, 7
 - Debian 8, 9
 - Fedora 28, 29
-- RHEL 6, 7, 8
+- RHEL 6, 7
 - Ubuntu 16.04, 18.04, 18.10
 
 .. _installation-precomp-amazon:
