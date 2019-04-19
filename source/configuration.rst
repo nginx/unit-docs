@@ -478,7 +478,7 @@ Steps have the following options:
        See :ref:`below <configuration-routes-cond>` for condition matching
        details.
 
-   * - :samp:`action`/:samp:`pass` (required)
+   * - :samp:`action/pass` (required)
      - Route's destination; identical to :samp:`pass` in a :ref:`listener
        <configuration-listeners>`.  If you omit :samp:`match`, requests are
        passed unconditionally; to avoid issues, use no more than one such step
