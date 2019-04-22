@@ -1181,7 +1181,7 @@ Example:
 .. code-block:: json
 
    {
-       "type": "python 3.6",
+       "type": "python",
        "processes": 10,
        "working_directory": "/www/store/",
        "path": "/www/store/cart/",
