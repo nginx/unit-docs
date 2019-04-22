@@ -689,6 +689,8 @@ the :file:`/www/blogs/scripts/` directory:
        }
    }
 
+.. _configuration-apps-common:
+
 Each application object has a number of common options that can be specified
 for any application regardless of its type:
 
@@ -871,9 +873,10 @@ inactivity:
 Go/Node.js
 ==========
 
-To run your Go or Node.js applications in Unit, you need to configure
-them `and` modify their source code as suggested below.  Let's start with the
-application configuration:
+To run your Go or Node.js applications in Unit, you need to configure them
+`and` modify their source code as suggested below.  Let's start with the app
+configuration; besides :ref:`common options <configuration-apps-common>`, you
+have the following:
 
 .. list-table::
     :header-rows: 1
@@ -979,6 +982,9 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 Java
 ====
 
+Besides :ref:`common options <configuration-apps-common>`, you have the
+following:
+
 .. list-table::
     :header-rows: 1
 
@@ -1010,6 +1016,9 @@ Example:
 Perl
 ====
 
+Besides :ref:`common options <configuration-apps-common>`, you have the
+following:
+
 .. list-table::
     :header-rows: 1
 
@@ -1037,6 +1046,9 @@ Example:
 ===
 PHP
 ===
+
+Besides :ref:`common options <configuration-apps-common>`, you have the
+following:
 
 .. list-table::
     :header-rows: 1
@@ -1131,6 +1143,9 @@ Example:
 Python
 ======
 
+Besides :ref:`common options <configuration-apps-common>`, you have the
+following:
+
 .. list-table::
     :header-rows: 1
 
@@ -1179,6 +1194,9 @@ Example:
 ====
 Ruby
 ====
+
+Besides :ref:`common options <configuration-apps-common>`, you have the
+following:
 
 .. list-table::
     :header-rows: 1
