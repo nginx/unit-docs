@@ -988,7 +988,7 @@ following:
 .. list-table::
     :header-rows: 1
 
-    * - Object
+    * - Option
       - Description
 
     * - :samp:`classpath`
