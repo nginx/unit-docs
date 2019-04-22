@@ -726,6 +726,21 @@ Packages:
    # pkg install openjdk8
    # pkg install openssl
 
+Solaris
+*******
+
+.. code-block:: console
+
+   # pkg install gcc
+   # pkg install golang
+   # pkg install php-71
+   # pkg install ruby
+   # pkg install jdk-8
+   # pkg install openssl
+
+Also, use :program:`gmake` instead of :program:`make` when :ref:`building
+and installing <installation-bld-src>` Unit on Solaris.
+
 .. _installation-config-src:
 
 ===================
