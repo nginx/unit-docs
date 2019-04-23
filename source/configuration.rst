@@ -367,15 +367,6 @@ Available options:
     * - Option
       - Description
 
-    * - :samp:`application` (deprecated)
-      - App name: :samp:`"application": "qwk2mart"`.  Mutually exclusive with
-        :samp:`pass`.
-
-        .. warning::
-
-           This option is deprecated.  Please update your configurations to use
-           :samp:`pass` instead.
-
     * - :samp:`pass` (required)
       - Qualified app or route name: :samp:`"pass": "routes/route66"`,
         :samp:`"pass": "applications/qwk2mart"`.  Mutually exclusive with
@@ -386,6 +377,15 @@ Available options:
         enables secure communication via the listener; it must name a
         certificate chain that you have :ref:`configured <configuration-ssl>`
         earlier.
+
+    * - :samp:`application` (deprecated)
+      - App name: :samp:`"application": "qwk2mart"`.  Mutually exclusive with
+        :samp:`pass`.
+
+        .. warning::
+
+           This option is deprecated.  Please update your configurations to use
+           :samp:`pass` instead.
 
 Here, local requests at port :samp:`8300` are passed to the :samp:`blogs` app;
 all requests at :samp:`8400` follow the :samp:`main` route:
@@ -463,6 +463,10 @@ Steps have the following options:
    * - Option
      - Description
 
+   * - :samp:`action/pass` (required)
+     - Route's destination; identical to :samp:`pass` in a :ref:`listener
+       <configuration-listeners>`.
+
    * - :samp:`match`
      - Object that defines the step condition.
 
@@ -475,14 +479,9 @@ Steps have the following options:
        - If the request doesn't match any steps, a 404 "Not Found" response is
          returned.
 
-       See :ref:`below <configuration-routes-cond>` for condition matching
-       details.
-
-   * - :samp:`action/pass` (required)
-     - Route's destination; identical to :samp:`pass` in a :ref:`listener
-       <configuration-listeners>`.  If you omit :samp:`match`, requests are
-       passed unconditionally; to avoid issues, use no more than one such step
-       per route, placing it last.
+       If you omit :samp:`match`, requests are passed unconditionally; to avoid
+       issues, use no more than one such step per route, placing it last.  See
+       :ref:`below <configuration-routes-cond>` for condition matching details.
 
 An example:
 
@@ -991,15 +990,15 @@ following:
     * - Option
       - Description
 
+    * - :samp:`webapp` (required)
+      - Pathname of the application's packaged or unpackaged :file:`.war` file.
+
     * - :samp:`classpath`
       - Array of paths to your app's required libraries (may point to
         directories or :file:`.jar` files).
 
     * - :samp:`options`
       - Array of strings defining JVM runtime options.
-
-    * - :samp:`webapp` (required)
-      - Pathname of the application's packaged or unpackaged :file:`.war` file.
 
 Example:
 
@@ -1056,6 +1055,10 @@ following:
     * - Option
       - Description
 
+    * - :samp:`root` (required)
+      - Base directory of your PHP app's file structure.  All URI paths are
+        relative to this value.
+
     * - :samp:`index`
       - Filename appended to any URI paths ending with a slash; applies if
         :samp:`script` is omitted.
@@ -1065,10 +1068,6 @@ following:
     * - :samp:`options`
       - Object that defines :file:`php.ini` location and options.  For details,
         see below.
-
-    * - :samp:`root` (required)
-      - Base directory of your PHP app's file structure.  All URI paths are
-        relative to this value.
 
     * - :samp:`script`
       - Filename of a PHP script; if set, Unit uses this script to serve any
