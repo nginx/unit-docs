@@ -690,8 +690,7 @@ the :file:`/www/blogs/scripts/` directory:
 
 .. _configuration-apps-common:
 
-Each application object has a number of common options that can be specified
-for any application regardless of its type:
+App objects have a number of options shared between all application languages:
 
 .. list-table::
     :header-rows: 1
@@ -700,52 +699,52 @@ for any application regardless of its type:
       - Description
 
     * - :samp:`type` (required)
-      - Type of the application: :samp:`external` (Go and Node.js),
-        :samp:`java`, :samp:`perl`, :samp:`php`, :samp:`python`, or
-        :samp:`ruby`.
+      - Application type: :samp:`external` (Go and Node.js), :samp:`java`,
+        :samp:`perl`, :samp:`php`, :samp:`python`, or :samp:`ruby`.
 
         Except with :samp:`external`, you can detail the runtime version:
         :samp:`"type": "python 3"`, :samp:`"type": "python 3.4"`, or even
         :samp:`"type": "python 3.4.9rc1"`.  Unit searches its modules and uses
         the latest matching one, reporting an error if none match.
 
-        For example, if you have installed only one PHP 7 module, 7.1.9, it
-        will match :samp:`"php"`, :samp:`"php 7"`, :samp:`"php 7.1"`, and
-        :samp:`"php 7.1.9"`.  If you install two PHP modules, 7.0.2 and 7.0.23,
-        and prefer to use 7.0.2, set :samp:`"type": "php 7.0.2"`.  If you
-        supply :samp:`"php 7"`, PHP 7.0.23 will be used as the latest version
-        available.
+        For example, if you have only one PHP module, 7.1.9, it matches
+        :samp:`"php"`, :samp:`"php 7"`, :samp:`"php 7.1"`, and :samp:`"php
+        7.1.9"`.  If you have modules for versions 7.0.2 and 7.0.23, set
+        :samp:`"type": "php 7.0.2"` to specify the former; otherwise, PHP
+        7.0.23 will be used.
 
     * - :samp:`limits`
-      - An object that accepts two integer options, :samp:`timeout` and
-        :samp:`requests`.  Their values restrict the life cycle of an
+      - Object that accepts two integer options, :samp:`timeout` and
+        :samp:`requests`.  Their values govern the life cycle of an
         application process.  For details, see
-        :ref:`configuration-proc-mgmt-lmts`.
+        :ref:`here <configuration-proc-mgmt-lmts>`.
 
     * - :samp:`processes`
-      - An integer or an object.  Integer value configures a static number of
-        application processes.  Object accepts dynamic process management
-        options: :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`.  For
-        details, see :ref:`configuration-proc-mgmt-prcs`.
+      - Integer or object.  Integer sets a static number of app processes;
+        object options :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`
+        enable dynamic management.  For details, see :ref:`here
+        <configuration-proc-mgmt-prcs>`.
 
         The default value is 1.
 
     * - :samp:`working_directory`
-      - Working directory for the application.
-        If not specified, the working directory of Unit daemon is used.
+      - Working directory for the app.  If omitted, working directory of Unit
+        daemon is used.
 
     * - :samp:`user`
-      - Username that runs the app process.
-        If not specified, :samp:`nobody` is used.
+      - Username that runs the app process.  If omitted, :samp:`nobody` is
+        used.
 
     * - :samp:`group`
-      - Group name that runs the app process.
-        If not specified, user's primary group is used.
+      - Group name that runs the app process.  If omitted, user's primary group
+        is used.
 
     * - :samp:`environment`
-      - Environment variables to be used by the application.
+      - Environment variables to be passed to the application.
 
-Example:
+Also, you need to set :samp:`type`-specific :ref:`options
+<configuration-external>` to run the app.  This :ref:`Python app
+<configuration-python>` uses :samp:`path` and :samp:`module`:
 
 .. code-block:: json
 
@@ -757,11 +756,6 @@ Example:
        "module": "blog.wsgi",
        "user": "blog",
        "group": "blog",
-       "limits": {
-           "timeout": 10,
-           "requests": 1000
-       },
-
        "environment": {
            "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
            "DB_ENGINE": "django.db.backends.postgresql",
@@ -771,23 +765,20 @@ Example:
        }
    }
 
-Depending on the :samp:`type` of the application, you may need to configure a
-number of additional options.  In the example above, Python-specific options
-:samp:`path` and :samp:`module` are used.
+====================
+Processes and Limits
+====================
 
-=============================
-Process Management and Limits
-=============================
-
-Application process behavior in Unit is described by two configuration options,
-:samp:`limits` and :samp:`processes`.
+Apps have two options, :samp:`limits` and :samp:`processes`, that control how
+an app's processes are managed by Unit.
 
 .. _configuration-proc-mgmt-lmts:
 
 Request Limits
 **************
 
-The :samp:`limits` object has two options:
+The :samp:`limits` object controls request handling by the app process and has
+two integer options:
 
  .. list-table::
     :header-rows: 1
@@ -796,15 +787,28 @@ The :samp:`limits` object has two options:
       - Description
 
     * - :samp:`timeout`
-      - Request timeout in seconds.  If an application process exceeds this
-        limit while processing a request, Unit terminates the process and
-        returns an HTTP error to the client.
+      - Request timeout in seconds.  If an app process exceeds this limit while
+        handling a request, Unit alerts it to cancel the request and returns an
+        HTTP error to the client.
 
     * - :samp:`requests`
-      - Maximum number of requests Unit allows an application process to serve.
-        If this limit is reached, Unit terminates and restarts the application
-        process.  This allows to mitigate application memory leaks or other
-        issues that may accumulate over time.
+      - Maximum number of requests Unit allows an app process to serve.  If the
+        limit is reached, the process is restarted; this helps to mitigate
+        possible memory leaks or other cumulative issues.
+
+Example:
+
+.. code-block:: json
+
+   {
+       "type": "python",
+       "working_directory": "/www/python-apps",
+       "module": "blog.wsgi",
+       "limits": {
+           "timeout": 10,
+           "requests": 1000
+       }
+   }
 
 .. _configuration-proc-mgmt-prcs:
 
@@ -812,12 +816,11 @@ Process Management
 ******************
 
 The :samp:`processes` option offers choice between static and dynamic process
-management model.  If you provide an integer value, Unit immediately launches
-the given number of application processes and maintains them statically without
-scaling.
+management.  If you set it to an integer, Unit immediately launches the given
+number of app processes and keeps them without scaling.
 
-Unit also supports a dynamic prefork model for :samp:`processes` that is
-enabled and configured with the following parameters:
+To enable dynamic prefork model for your app, supply a :samp:`processes` object
+with the following options:
 
 .. list-table::
     :header-rows: 1
@@ -832,31 +835,23 @@ enabled and configured with the following parameters:
         The default value is 1.
 
     * - :samp:`spare`
-      - Minimum number of idle processes that Unit will reserve for the
-        application when possible.  When Unit starts an application,
-        :samp:`spare` idle processes are launched.  As requests arrive, Unit
-        assigns them to existing idle processes and forks new idle ones to
-        maintain the :samp:`spare` level if :samp:`max` permits.  When
+      - Minimum number of idle processes that Unit tries to reserve for an app.
+        When the app is started, :samp:`spare` idle processes are launched;
+        Unit assigns incoming requests to existing idle processes, forking new
+        idles to maintain the :samp:`spare` level if :samp:`max` allows.  As
         processes complete requests and turn idle, Unit terminates extra ones
-        after a timeout.
-
-        The default value is 0.  The value of :samp:`spare` cannot exceed
-        :samp:`max`.
-
+        after :samp:`idle_timeout`.
 
     * - :samp:`idle_timeout`
-      - Number of seconds for Unit to wait before it terminates an extra idle
-        process, when the count of idle processes exceeds :samp:`spare`.
-
-        The default value is 15.
+      - Time in seconds that Unit waits before terminating an idle process
+        which exceeds :samp:`spare`.
 
 If :samp:`processes` is omitted entirely, Unit creates 1 static process.  If
 an empty object is provided: :samp:`"processes": {}`, dynamic behavior with
-default parameter values is assumed.
+default option values is assumed.
 
-In the following example, Unit tries to keep 5 idle processes, no more than 10
-processes in total, and terminates extra idle processes after 20 seconds of
-inactivity:
+Here, Unit allows 10 processes maximum, keeps 5 idles, and terminates extra
+idles after 20 seconds:
 
 .. code-block:: json
 
