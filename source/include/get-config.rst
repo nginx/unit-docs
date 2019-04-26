@@ -1,4 +1,4 @@
-Prepare Unit configuration for your project.  To obtain an initial template,
+Prepare Unit configuration for your update.  To obtain an initial template,
 query the control API:
 
 .. code-block:: console

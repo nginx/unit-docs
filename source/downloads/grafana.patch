@@ -1,0 +1,59 @@
+diff --git a/conf/defaults.ini b/conf/defaults.ini
+--- a/conf/defaults.ini
++++ b/conf/defaults.ini
+@@ -28,8 +28,8 @@ provisioning = conf/provisioning
+ 
+ #################################### Server ##############################
+ [server]
+-# Protocol (http, https, socket)
+-protocol = http
++# Protocol (http, https, socket, unit)
++protocol = unit
+ 
+ # The ip address to bind to, empty will bind to all interfaces
+ http_addr =
+diff --git a/pkg/api/http_server.go b/pkg/api/http_server.go
+--- a/pkg/api/http_server.go
++++ b/pkg/api/http_server.go
+@@ -7,6 +7,7 @@ import (
+ 	"fmt"
+ 	"net"
+ 	"net/http"
++	"nginx/unit"
+ 	"os"
+ 	"path"
+ 	"time"
+@@ -123,6 +124,12 @@ func (hs *HTTPServer) Run(ctx context.Co
+ 			hs.log.Debug("server was shutdown gracefully")
+ 			return nil
+ 		}
++	case setting.UNIT:
++		err = unit.ListenAndServe(listenAddr, hs.macaron)
++		if err == http.ErrServerClosed {
++			hs.log.Debug("server was shutdown gracefully")
++			return nil
++		}
+ 	default:
+ 		hs.log.Error("Invalid protocol", "protocol", setting.Protocol)
+ 		err = errors.New("Invalid Protocol")
+diff --git a/pkg/setting/setting.go b/pkg/setting/setting.go
+--- a/pkg/setting/setting.go
++++ b/pkg/setting/setting.go
+@@ -30,6 +30,7 @@ const (
+ 	HTTP              Scheme = "http"
+ 	HTTPS             Scheme = "https"
+ 	SOCKET            Scheme = "socket"
++	UNIT              Scheme = "unit"
+ 	DEFAULT_HTTP_ADDR string = "0.0.0.0"
+ )
+ 
+@@ -624,6 +625,9 @@ func (cfg *Cfg) Load(args *CommandLineAr
+ 		Protocol = SOCKET
+ 		SocketPath = server.Key("socket").String()
+ 	}
++	if protocolStr == "unit" {
++		Protocol = UNIT
++	}
+ 
+ 	Domain, err = valueAsString(server, "domain", "localhost")
+ 	if err != nil {
