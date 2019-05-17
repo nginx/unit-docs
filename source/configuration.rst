@@ -915,7 +915,8 @@ Modifying Go Sources
 ********************
 
 In the :samp:`import` section, reference the :samp:`"nginx/unit"` package that
-you have installed earlier:
+you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
+<installation-go>` earlier:
 
 .. code-block:: go
 

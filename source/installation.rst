@@ -951,8 +951,9 @@ Configuring Go
 **************
 
 When you run :command:`./configure go`, Unit sets up the Go package that your
-applications will use to run in Unit.  To use the package, install it in your
-Go environment.  Available configuration options:
+applications will use to :ref:`run on Unit <configuration-external-go>`.  To
+use the package, :ref:`install <installation-bld-src-ext>` it in your Go
+environment.  Available configuration options:
 
 --go=pathname
     Specific Go executable pathname, also used for targets in :ref:`make
