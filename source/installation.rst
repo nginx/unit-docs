@@ -583,28 +583,29 @@ Next, install Unit and the PHP modules you want:
 Node.js Package
 ***************
 
-Unit's Node.js package is called :program:`unit-http`.  It uses Unit's
-:program:`libunit` library; your Node.js applications :samp:`require` the
-package to run in Unit.  You can install it from the NPM `repository
-<https://www.npmjs.com/package/unit-http>`_.
+Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js package
+is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
+run on Unit:
 
-Install :program:`libunit` from :program:`unit-dev/unit-devel` :ref:`packages
-<installation-precomp-pkgs>` or build it from :ref:`sources
-<installation-config-src>`.  Next, install :program:`unit-http` globally:
+#. First, install the :program:`unit-dev/unit-devel` :ref:`package
+   <installation-precomp-pkgs>`; it's used by :program:`unit-http`.
 
-.. code-block:: console
+#. Next, install :program:`unit-http` globally (this step requires
+   :program:`npm` and :program:`node-gyp`):
 
-   # npm install -g --unsafe-perm unit-http
+    .. code-block:: console
 
-.. warning::
+       # npm install -g --unsafe-perm unit-http
 
-   The :program:`unit-http` package is platform dependent due to optimizations;
-   you can't move it across systems with the :file:`node-modules` directory.
-   Global installation avoids such scenarios; just :ref:`relink
-   <configuration-external-nodejs>` the migrated app.
+    .. warning::
 
-Next, simply :ref:`use the package <configuration-external-nodejs>` in your
-Unit-hosted app instead of the built-in :program:`http`.
+       The :program:`unit-http` package is platform dependent due to
+       optimizations; you can't move it across systems with the rest of
+       :file:`node-modules`.  Global installation avoids such scenarios; just
+       :ref:`relink <configuration-external-nodejs>` the migrated app.
+
+#. After that, :ref:`use the package <configuration-external-nodejs>` in your
+   Node.js app instead of the built-in :program:`http` to run it on Unit.
 
 If you update Unit later, make sure to update the NPM package as well:
 
@@ -614,8 +615,8 @@ If you update Unit later, make sure to update the NPM package as well:
 
 .. note::
 
-   You can also build and install :program:`unit-http` :ref:`manually
-   <installation-nodejs>`.
+   You can also :ref:`configure <installation-nodejs>` and :ref:`install
+   <installation-bld-src-ext>` the :program:`unit-http` package from sources.
 
 .. _installation-src:
 
@@ -674,6 +675,7 @@ Debian, Ubuntu
    # apt install build-essential
    # apt install golang
    # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt install nodejs
+   # npm install -g node-gyp
    # apt install php-dev libphp-embed
    # apt install libperl-dev
    # apt install python-dev
@@ -689,6 +691,7 @@ Amazon Linux, CentOS, Fedora, RHEL
    # yum install gcc make
    # yum install golang
    # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -; yum install nodejs
+   # npm install -g node-gyp
    # yum install php-devel php-embedded
    # yum install perl-devel perl-libs
    # yum install python-devel
