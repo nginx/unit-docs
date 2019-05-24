@@ -4,7 +4,7 @@
 Jira
 ####
 
-To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ on Unit,
+To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ in Unit,
 follow these steps.
 
 .. note::
@@ -120,4 +120,4 @@ follow these steps.
 
    .. image:: ../images/jira.png
       :width: 100%
-      :alt: Jira on Unit - Setup Screen
+      :alt: Jira in Unit - Setup Screen

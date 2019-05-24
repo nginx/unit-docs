@@ -90,4 +90,4 @@ To run Bugzilla in Unit:
 
    .. image:: ../images/bugzilla.png
       :width: 100%
-      :alt: Bugzilla on Unit - Setup Screen
+      :alt: Bugzilla in Unit - Setup Screen

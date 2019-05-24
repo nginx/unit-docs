@@ -135,4 +135,4 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
    .. image:: ../images/grafana.png
       :width: 100%
-      :alt: Grafana on Unit - Setup Screen
+      :alt: Grafana in Unit - Setup Screen

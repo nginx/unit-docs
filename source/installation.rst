@@ -585,7 +585,7 @@ Node.js Package
 
 Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js package
 is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
-run on Unit:
+run in Unit:
 
 #. First, install the :program:`unit-dev/unit-devel` :ref:`package
    <installation-precomp-pkgs>`; it's used by :program:`unit-http`.
@@ -605,7 +605,7 @@ run on Unit:
        :ref:`relink <configuration-external-nodejs>` the migrated app.
 
 #. After that, :ref:`use the package <configuration-external-nodejs>` in your
-   Node.js app instead of the built-in :program:`http` to run it on Unit.
+   Node.js app instead of the built-in :program:`http` to run it in Unit.
 
 If you update Unit later, make sure to update the NPM package as well:
 
@@ -954,7 +954,7 @@ Configuring Go
 **************
 
 When you run :command:`./configure go`, Unit sets up the Go package that your
-applications will use to :ref:`run on Unit <configuration-external-go>`.  To
+applications will use to :ref:`run in Unit <configuration-external-go>`.  To
 use the package, :ref:`install <installation-bld-src-ext>` it in your Go
 environment.  Available configuration options:
 
