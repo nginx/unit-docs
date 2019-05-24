@@ -977,6 +977,9 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 Java
 ====
 
+First, make sure to install Unit along with the :ref:`Java language module
+<installation-precomp-pkgs>`.
+
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
 
@@ -1011,6 +1014,9 @@ Example:
 Perl
 ====
 
+First, make sure to install Unit along with the :ref:`Perl language module
+<installation-precomp-pkgs>`.
+
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
 
@@ -1041,6 +1047,9 @@ Example:
 ===
 PHP
 ===
+
+First, make sure to install Unit along with the :ref:`PHP language module
+<installation-precomp-pkgs>`.
 
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
@@ -1138,6 +1147,9 @@ Example:
 Python
 ======
 
+First, make sure to install Unit along with the :ref:`Python language module
+<installation-precomp-pkgs>`.
+
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
 
@@ -1189,6 +1201,9 @@ Example:
 ====
 Ruby
 ====
+
+First, make sure to install Unit along with the :ref:`Ruby language module
+<installation-precomp-pkgs>`.
 
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
