@@ -8,3 +8,5 @@ html_use_index = False
 html_add_permalinks = u'§'
 
 html_extra_path = ['robots.txt', 'CHANGES.txt']
+
+exclude_patterns = ['include']
