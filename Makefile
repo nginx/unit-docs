@@ -1,6 +1,9 @@
 SPHINX		?= sphinx-build
 SERVER		?= python3 -mhttp.server
 
+SITEMAP		?= python3 sitemaps.py
+URL		?= https://unit.nginx.org
+
 # https://github.com/tdewolff/minify/tree/master/cmd/minify
 MINIFY		?= minify
 
@@ -20,7 +23,8 @@ COMPRESS = -size +1000c \
 	-o -name '*.css' \
 	-o -name '*.js' \
 	-o -name '*.svg' \
-	-o -name '*.txt' \)
+	-o -name '*.txt' \
+	-o -name '*.xml' \)
 
 
 .PHONY: site serve check clean deploy do_gzip
@@ -44,7 +48,11 @@ deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
-	rsync -rcv --delete --exclude='*.gz' "$(TMP)/" "$(DEPLOYDIR)"
+	rsync -rcv --delete --exclude='*.gz' --exclude='/sitemap.xml' \
+		"$(TMP)/" "$(DEPLOYDIR)"
+	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" > "$(TMP)/sitemap.xml"
+	$(MINIFY) -v "$(TMP)/sitemap.xml" -o "$(TMP)/sitemap.xml"
+	rsync -rcv "$(TMP)/sitemap.xml" "$(DEPLOYDIR)"
 	-rm -rf "$(TMP)"
 	$(MAKE) do_gzip
 	chmod -R g=u "$(DEPLOYDIR)"
