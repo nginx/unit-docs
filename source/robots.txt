@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /_sources
 Host: unit.nginx.org
+Sitemap: https://unit.nginx.org/sitemap.xml
