@@ -3,6 +3,8 @@ SERVER		?= python3 -mhttp.server
 
 SITEMAP		?= python3 sitemaps.py
 URL		?= https://unit.nginx.org
+GOOGLE		?= https://www.google.com/webmasters/tools/ping?sitemap=
+BING		?= http://www.bing.com/ping?sitemap=
 
 # https://github.com/tdewolff/minify/tree/master/cmd/minify
 MINIFY		?= minify
@@ -43,6 +45,10 @@ check:
 
 clean:
 	rm -rf $(BUILDDIR)
+
+ping:
+	curl "$(GOOGLE)$(URL)/sitemap.xml"
+	curl "$(BING)$(URL)/sitemap.xml"
 
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
