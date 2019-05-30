@@ -631,8 +631,9 @@ To be a match against the condition, the property must meet two requirements:
 Patterns must match the value symbol by symbol, with the exception of wildcards
 (:samp:`*`) and negations (:samp:`!`):
 
-- A wildcard matches zero or more arbitrary characters; pattern can start with
-  it, end with it, or both.
+- A wildcard matches zero or more arbitrary characters; wildcards can only
+  :samp:`*prefix` exact patterns, :samp:`suffix*` them, :samp:`*enclose*` them,
+  or :samp:`split*them` in two.
 
 - A negation rejects all matches to the remainder of the pattern; pattern can
   only start with it.
@@ -660,11 +661,11 @@ Only subdomains of :samp:`example.com` will match.
 .. code-block:: json
 
    {
-       "host": ["*.example.com", "!www.example.com"]
+       "host": ["eu-*.example.com", "!eu-5.example.com"]
    }
 
-Here, any subdomains of :samp:`example.com` will match except
-:samp:`www.example.com`.
+Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
+:samp:`eu-5.example.com`.
 
 .. code-block:: json
 
