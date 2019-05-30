@@ -414,7 +414,7 @@ Routes
 Unit configuration offers a :samp:`routes` object to enable elaborate internal
 routing between listeners and apps.  Listeners :samp:`pass` requests to routes
 or directly to apps.  Requests are matched against route step conditions; a
-request fully matching a step's condition is passed to the app or the route
+request matching all conditions of a step is passed to the app or the route
 that the step specifies.
 
 In its simplest form, :samp:`routes` can be a single route array:
@@ -468,12 +468,12 @@ Steps have the following options:
        <configuration-listeners>`.
 
    * - :samp:`match`
-     - Object that defines the step condition.
+     - Object that defines the step conditions.
 
-       - If the request fits the :samp:`match` condition, the step's
+       - If the request fits all :samp:`match` conditions in a step, the step's
          :samp:`pass` is followed.
 
-       - If the request doesn't match a step, Unit proceeds to the next
+       - If the request doesn't match a condition, Unit proceeds to the next
          step of the route.
 
        - If the request doesn't match any steps, a 404 "Not Found" response is
@@ -481,7 +481,8 @@ Steps have the following options:
 
        If you omit :samp:`match`, requests are passed unconditionally; to avoid
        issues, use no more than one such step per route, placing it last.  See
-       :ref:`below <configuration-routes-cond>` for condition matching details.
+       :ref:`below <configuration-routes-matching>` for condition matching
+       details.
 
 An example:
 
@@ -516,7 +517,9 @@ A more elaborate example with chained routes:
            "main": [
                {
                    "match": {
-                       "host": [ "www.example.com", "example.com" ]
+                       "arguments": {
+                           "site_access": "yes"
+                       }
                    },
 
                    "action": {
@@ -538,30 +541,14 @@ A more elaborate example with chained routes:
        }
    }
 
-.. _configuration-routes-cond:
+.. _configuration-routes-matching:
 
 ==================
 Condition Matching
 ==================
 
-The :samp:`match` condition in a step comprises request property names and
-corresponding patterns:
-
-.. code-block:: json
-
-   {
-       "match": {
-           "request_property1": "pattern",
-           "request_property2": ["pattern", "pattern", "..." ]
-       },
-
-       "action": {
-           "pass": "..."
-        }
-   }
-
-To fit a step's condition, the request must match all properties listed in it.
-Available options:
+To route incoming requests, Unit applies pattern-based conditions to individual
+request properties:
 
 .. list-table::
    :header-rows: 1
@@ -569,32 +556,66 @@ Available options:
    * - Option
      - Description
 
+   * - :samp:`arguments`
+     - Parameter arguments supplied in the request URI; case-sensitive.
+
+   * - :samp:`cookies`
+     - Cookies supplied with the request; case-sensitive.
+
+   * - :samp:`headers`
+     - Header fields supplied with the request; case-sensitive.
+
    * - :samp:`host`
-     - Request host from the :samp:`Host` header field without port number,
-       normalized by removing the trailing period (if any); case-insensitive.
+     - Host from the :samp:`Host` header field without port number, normalized
+       by removing the trailing period (if any); case-insensitive.
 
    * - :samp:`method`
-     - Request method from the request line; case-insensitive.
+     - Method from the request line; case-insensitive.
 
    * - :samp:`uri`
-     - Request URI path without arguments, normalized by decoding the "%XX"
-       sequences, resolving relative path references ("." and ".."), and
-       compressing adjacent slashes into one; case-sensitive.
+     - URI path without arguments, normalized by decoding the "%XX" sequences,
+       resolving relative path references ("." and ".."), and compressing
+       adjacent slashes into one; case-sensitive.
 
-Patterns must be exact matches; they also support wildcards (:samp:`*`) and
-negations (:samp:`!`):
+For :samp:`host`, :samp:`method`, and :samp:`uri`, simple matching is used;
+other properties use :ref:`compound matching <configuration-routes-compound>`.
+
+.. _configuration-routes-simple:
+
+Simple Matching
+***************
+
+A simple property in a :samp:`match` object is matched against a string pattern
+or an array of patterns:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "simple_property1": "pattern",
+           "simple_property2": ["pattern", "pattern", "..." ]
+       },
+
+       "action": {
+           "pass": "..."
+        }
+   }
+
+To be a match against the condition, the property must meet two requirements:
+
+- If there are patterns without negation, at least one of them matches the
+  property value.
+
+- No negation-based patterns match the property value.
+
+Patterns must match the value symbol by symbol, with the exception of wildcards
+(:samp:`*`) and negations (:samp:`!`):
 
 - A wildcard matches zero or more arbitrary characters; pattern can start with
   it, end with it, or both.
 
-- A negation restricts specific patterns; pattern can only start with it.
-
-To be a match against the patterns listed in a condition, the property must
-meet two requirements:
-
-- If there are patterns without negation, at least one of them matches.
-
-- No negation-based patterns match.
+- A negation rejects all matches to the remainder of the pattern; pattern can
+  only start with it.
 
 .. note::
 
@@ -641,10 +662,98 @@ You can also combine special characters in a pattern:
        "uri": "!*/api/*"
    }
 
-Here, any URIs will match except ones containing :samp:`/api/`.
+Here, any URIs will match except the ones containing :samp:`/api/`.
 
-If all properties match or you omit the condition, Unit routes the request
-where :samp:`pass` points to:
+.. _configuration-routes-compound:
+
+Compound Matching
+*****************
+
+This type of matching is used for :samp:`arguments`, :samp:`cookies`, and
+:samp:`headers` properties.
+
+A compound property is matched against an object with names and patterns or an
+array of such objects:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "compound_property1": {
+               "name1": "pattern",
+               "name2": ["pattern", "..."]
+           },
+
+           "compound_property2": [
+               {
+                   "name1": "pattern",
+                   "name2": ["pattern", "pattern", "..."]
+               },
+
+               {
+                   "name1": "pattern",
+                   "name3": ["pattern", "pattern", "..."]
+               }
+           ]
+       },
+
+       "action": {
+           "pass": "..."
+       }
+   }
+
+To match a single condition object, the request must contain *all* items
+explicitly named in the object; their values are matched against patterns in
+the same manner as property values during :ref:`simple matching
+<configuration-routes-simple>`.
+
+To match an object array, it's sufficient to match *any* single one of its
+objects.
+
+A few examples:
+
+.. code-block:: json
+
+   {
+       "arguments": {
+           "mode": "strict",
+           "access": "!full"
+       }
+   }
+
+This requires :samp:`mode=strict` in the URI and allows any :samp:`access`
+argument other than :samp:`access=full`.
+
+.. code-block:: json
+
+   {
+       "headers": [
+           {
+               "Accept-Encoding": "*gzip*",
+               "User-Agent": "Mozilla/5.0*"
+           },
+
+           {
+               "User-Agent": "curl*"
+           }
+       ]
+   }
+
+This matches all requests that either use :samp:`gzip` and identify as
+:samp:`Mozilla/5.0` or list :program:`curl` as the user agent.
+
+.. note::
+
+   You can mix simple and compound properties in a :samp:`match` condition.
+
+================
+Passing Requests
+================
+
+To match a step, the request must fit *all* property conditions listed in it.
+
+If all properties match or you omit :samp:`match` entirely, Unit routes the
+request where :samp:`pass` points to:
 
 .. code-block:: json
 
@@ -1642,6 +1751,15 @@ Full Example
                    },
 
                    {
+                       "match": {
+                           "arguments": {
+                               "mode": "strict",
+                               "access": "!raw"
+                           },
+                           "cookies": {
+                               "user_hash": "admin_hash"
+                           }
+                       },
                        "action": {
                            "pass": "applications/cms_admin"
                        }
