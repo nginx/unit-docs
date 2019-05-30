@@ -114,6 +114,10 @@ You can manipulate the API with the following HTTP methods:
      - Returns the entity at the request URI as JSON value in the HTTP response
        body.
 
+   * - :samp:`POST`
+     - Updates the *array* at the request URI, appending the JSON value
+       from the HTTP request body.
+
    * - :samp:`PUT`
      - Replaces the entity at the request URI and returns status message in the
        HTTP response body.
@@ -207,7 +211,8 @@ Plug the :samp:`wiki-dev` app into the listener to test it:
    # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
           'http://localhost/config/listeners/*:8400/pass'
 
-Then rewire the listener, adding a route to distinguish the apps by the URI:
+Then rewire the listener, adding a URI-based route to the development version
+of the app:
 
 .. code-block:: console
 
@@ -222,11 +227,6 @@ Then rewire the listener, adding a route to distinguish the apps by the URI:
        >         "action": {
        >             "pass": "applications/wiki-dev"
        >         }
-       >     },
-       >     {
-       >         "action": {
-       >             "pass": "applications/wiki-prod"
-       >         }
        >     }
        > ]
        > EOF
@@ -237,13 +237,33 @@ Then rewire the listener, adding a route to distinguish the apps by the URI:
    # curl -X PUT -d '"routes"' --unix-socket \
           /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
 
-Change the :samp:`wiki-dev` app path prefix in the :samp:`routes` array using
-its index number:
+Next, let's change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes`
+array using its index (0):
 
 .. code-block:: console
 
    # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
           http://localhost/config/routes/0/match/uri
+
+Let's add a route to the prod app: :samp:`POST` always adds to the array end,
+so there's no need for an index:
+
+.. code-block:: console
+
+   # curl -X POST -d '{"match": {"uri": "/production/*"}, \
+          "action": {"pass": "applications/wiki-prod"}}'  \
+          --unix-socket=/path/to/control.unit.sock        \
+          http://localhost/config/routes/
+
+Otherwise, use :samp:`PUT` with the array's last index (0 in our sample) *plus
+one* to add the new item at the end:
+
+.. code-block:: console
+
+   # curl -X PUT -d '{"match": {"uri": "/production/*"}, \
+          "action": {"pass": "applications/wiki-prod"}}' \
+          --unix-socket=/path/to/control.unit.sock       \
+          http://localhost/config/routes/1/
 
 To get the complete :samp:`config` section:
 
