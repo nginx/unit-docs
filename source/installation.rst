@@ -94,7 +94,7 @@ binaries are available for:
 - Debian 8, 9
 - Fedora 28, 29
 - RHEL 6, 7
-- Ubuntu 16.04, 18.04, 18.10
+- Ubuntu 16.04, 18.04, 18.10, 19.04
 
 .. _installation-precomp-amazon:
 
@@ -334,6 +334,13 @@ Ubuntu
       deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
+   Ubuntu 19.04:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/ubuntu/ disco unit
+      deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
+
 #. Install Unit base package and additional packages you would like to use.
 
    Ubuntu 16.04:
@@ -362,6 +369,15 @@ Ubuntu
       # apt install unit
       # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-php \
             unit-perl unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
+
+   Ubuntu 19.04:
+
+   .. code-block:: console
+
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.10 unit-go1.11 unit-jsc11 unit-php \
+            unit-perl unit-python2.7 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
