@@ -8,7 +8,7 @@ in multiple languages.  Unit is lightweight, polyglot, and dynamically
 configured via API.  The design of the server allows reconfiguration of
 specific application parameters as needed by the engineering or operations.
 
-| Current latest version is 1.8.0, released on March 1, 2019.
+| Current latest version is 1.9.0, released on May 30, 2019.
 | See the changelog `here </CHANGES.txt>`_.
 
 The sources are distributed under the Apache 2.0 license.

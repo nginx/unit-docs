@@ -666,9 +666,9 @@ To download sources directly from `our site
 
    .. code-block:: console
 
-      $ curl -O https://unit.nginx.org/download/unit-1.8.0.tar.gz
-      $ tar xzf unit-1.8.0.tar.gz
-      $ cd unit-1.8.0
+      $ curl -O https://unit.nginx.org/download/unit-1.9.0.tar.gz
+      $ tar xzf unit-1.9.0.tar.gz
+      $ cd unit-1.9.0
 
 .. _installation-prereq-build:
 
