@@ -1,5 +1,4 @@
-.. |_| unicode:: 0xA0
-   :trim:
+.. include:: include/replace.rst
 
 ############
 Installation
@@ -664,11 +663,11 @@ If you prefer `Git <https://git-scm.com/downloads>`_:
 To download sources directly from `our site
 <https://unit.nginx.org/download/>`_:
 
-   .. code-block:: console
+   .. subs-code-block:: console
 
-      $ curl -O https://unit.nginx.org/download/unit-1.9.0.tar.gz
-      $ tar xzf unit-1.9.0.tar.gz
-      $ cd unit-1.9.0
+      $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
+      $ tar xzf unit-|version|.tar.gz
+      $ cd unit-|version|
 
 .. _installation-prereq-build:
 
