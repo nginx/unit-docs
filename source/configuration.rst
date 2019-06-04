@@ -1,3 +1,4 @@
+.. include:: include/replace.rst
 
 #############
 Configuration
@@ -575,27 +576,28 @@ request properties:
 
    * - Option
      - Description
-
+     - Case |-| Sensitive
    * - :samp:`arguments`
-     - Parameter arguments supplied in the request URI; case-sensitive.
-
+     - Parameter arguments supplied in the request URI.
+     - Yes
    * - :samp:`cookies`
-     - Cookies supplied with the request; case-sensitive.
-
+     - Cookies supplied with the request.
+     - Yes
    * - :samp:`headers`
-     - Header fields supplied with the request; case-sensitive.
-
+     - Header fields supplied with the request.
+     - No
    * - :samp:`host`
      - Host from the :samp:`Host` header field without port number, normalized
-       by removing the trailing period (if any); case-insensitive.
-
+       by removing the trailing period (if any).
+     - No
    * - :samp:`method`
-     - Method from the request line; case-insensitive.
-
+     - Method from the request line.
+     - No
    * - :samp:`uri`
      - URI path without arguments, normalized by decoding the "%XX" sequences,
        resolving relative path references ("." and ".."), and compressing
-       adjacent slashes into one; case-sensitive.
+       adjacent slashes into one.
+     - Yes
 
 For :samp:`host`, :samp:`method`, and :samp:`uri`, simple matching is used;
 other properties use :ref:`compound matching <configuration-routes-compound>`.
