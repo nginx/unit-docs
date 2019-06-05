@@ -744,8 +744,8 @@ A few examples:
        }
    }
 
-This requires :samp:`mode=strict` in the URI and allows any :samp:`access`
-argument other than :samp:`access=full`.
+This requires :samp:`mode=strict` and any :samp:`access` argument other than
+:samp:`access=full` in the URI.
 
 .. code-block:: json
 
