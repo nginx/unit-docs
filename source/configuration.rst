@@ -1207,8 +1207,8 @@ following:
         see below.
 
     * - :samp:`script`
-      - Filename of a PHP script; if set, Unit uses this script to serve any
-        requests to this application.  Relative to :samp:`root`.
+      - Filename of a :samp:`root`-based PHP script that Unit uses to serve all
+        requests to the app.
 
 The :samp:`index` and :samp:`script` options enable two modes of operation:
 
@@ -1227,26 +1227,24 @@ You can customize :file:`php.ini` via the :samp:`options` object:
       - Description
 
     * - :samp:`file`
-      - Pathname of the :file:`php.ini` file.
+      - Pathname of the :file:`php.ini` file with `PHP configuration directives
+        <http://php.net/manual/en/ini.list.php>`_.
 
     * - :samp:`admin`, :samp:`user`
-      - Objects with `PHP configuration directives
-        <http://php.net/manual/en/ini.list.php>`_.  Directives in :samp:`admin`
-        are set in :samp:`PHP_INI_SYSTEM` mode; it means that your application
-        can't alter them.  Directives in :samp:`user` are set in
-        :samp:`PHP_INI_USER` mode; your application is allowed to `update them
+      - Objects for extra directives.  Values in :samp:`admin` are set in
+        :samp:`PHP_INI_SYSTEM` mode, so the app can't alter them; :samp:`user`
+        values are set in :samp:`PHP_INI_USER` mode and may `be updated
         <http://php.net/manual/en/function.ini-set.php>`_ in runtime.
 
-Directives from :file:`php.ini` are applied first; next, :samp:`admin` and
-:samp:`user` objects are applied.
+Directives from :file:`php.ini` are overridden by settings supplied in
+:samp:`admin` and :samp:`user` objects.
 
 .. note::
 
-   Provide string values for any directives you specify in :samp:`options`
-   (for example, :samp:`"max_file_uploads": "64"` instead of
-   :samp:`"max_file_uploads": 64`).  For flags, use :samp:`"0"` and
-   :samp:`"1"` only.  For more information about :samp:`PHP_INI_*` modes, see
-   the `PHP documentation
+   Values in :samp:`options` must be strings (for example,
+   :samp:`"max_file_uploads": "4"`, not :samp:`"max_file_uploads": 4`); for
+   boolean flags, use :samp:`"0"` and :samp:`"1"` only.  For details about
+   :samp:`PHP_INI_*` modes, see the `PHP docs
    <http://php.net/manual/en/configuration.changes.modes.php>`_.
 
 Example:
@@ -1303,17 +1301,16 @@ following:
         :samp:`sys.path`.
 
     * - :samp:`home`
-      - Path to Python `virtual environment <https://packaging.python.org/
-        tutorials/installing-packages/#creating-virtual-environments>`_
-        for the application.  You can set this value relative to the
-        :samp:`working_directory` of the application.
+      - Path to Python's `virtual environment <https://packaging.python.org/
+        tutorials/installing-packages/#creating-virtual-environments>`_ for the
+        app.  Absolute or relative to :samp:`working_directory`.
+
 
         .. note::
 
-           The Python version used by Unit to run the application is controlled
-           by the :samp:`type` of the application.  Unit doesn't use command
-           line Python interpreter within the virtual environment due to
-           performance considerations.
+           The Python version used to run the app depends on the :samp:`type`
+           value; Unit ignores the command-line interpreter from the virtual
+           environment for performance considerations.
 
 Example:
 
@@ -1573,8 +1570,8 @@ them to a separate configuration section, aptly named :samp:`certificates`:
        # curl -X GET --unix-socket /path/to/control.unit.sock \
               http://localhost/certificates/<bundle>/chain/0/subject/alt_names/0/
 
-Next, add a :samp:`tls` object to your listener configuration, referencing the
-uploaded bundle's name in :samp:`certificate`:
+Next, add a :samp:`tls` object to the listener configuration, referencing the
+uploaded bundle in :samp:`certificate`:
 
 .. code-block:: json
 
