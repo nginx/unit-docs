@@ -91,7 +91,7 @@ binaries are available for:
 - Amazon Linux, Amazon Linux 2
 - CentOS 6, 7
 - Debian 8, 9
-- Fedora 28, 29
+- Fedora 28, 29, 30
 - RHEL 6, 7
 - Ubuntu 16.04, 18.04, 18.10, 19.04
 
@@ -260,6 +260,14 @@ Fedora
 
       # yum install unit
       # yum install unit-devel unit-go unit-jsc8 unit-php \
+            unit-perl unit-python27 unit-python37 unit-ruby
+
+   Fedora 30:
+
+   .. code-block:: console
+
+      # yum install unit
+      # yum install unit-devel unit-go unit-jsc11 unit-jsc8 unit-php \
             unit-perl unit-python27 unit-python37 unit-ruby
 
 .. note::
