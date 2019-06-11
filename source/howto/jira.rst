@@ -38,7 +38,7 @@ follow these steps.
    .. code-block:: console
 
       $ cd /path/to/jira
-      $ tar -xzf atlassian-jira-core-7.13.0.tar.gz
+      $ tar xzf atlassian-jira-core-7.13.0.tar.gz
 
 #. Patch your Jira configuration, dropping :samp:`env` from the
    :samp:`comp/env/UserTransaction` object path.  This ensures the
@@ -46,7 +46,7 @@ follow these steps.
 
    .. code-block:: console
 
-      $ sed -i -e 's#comp/env/UserTransaction#comp/UserTransaction#g' \
+      $ sed -i 's#comp/env/UserTransaction#comp/UserTransaction#g' \
             atlassian-jira-core-7.13.0-standalone/atlassian-jira/WEB-INF/classes/entityengine.xml
 
 #. .. include:: ../include/get-config.rst

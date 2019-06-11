@@ -27,7 +27,7 @@ available via the :ref:`control socket <installation-startup>` at
        > EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/applications/blogs/
+          /path/to/control.unit.sock http://localhost/config/applications/blogs
 
        {
 	       "success": "Reconfiguration done."
@@ -1019,7 +1019,7 @@ have the following:
 
         .. code-block:: javascript
 
-            #!/usr/bin/env node
+           #!/usr/bin/env node
 
     * - :samp:`arguments`
       - Command line arguments to be passed to the application.
@@ -1483,8 +1483,8 @@ Upload the resulting file to Unit's certificate storage under a suitable name:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary @bundle.pem --unix-socket /path/to/control.unit.sock \
-          http://localhost/certificates/<bundle>
+   # curl -X PUT --data-binary @bundle.pem --unix-socket \
+          /path/to/control.unit.sock http://localhost/certificates/<bundle>
 
        {
            "success": "Certificate chain uploaded."

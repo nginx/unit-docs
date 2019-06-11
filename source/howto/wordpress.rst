@@ -18,7 +18,7 @@ you haven't already done so:
 
       $ cd /path/to/
       $ wget https://wordpress.org/latest.tar.gz
-      $ tar xzvf latest.tar.gz
+      $ tar xzf latest.tar.gz
 
    In this example, the files will be stored in :file:`/path/to/wordpress/`.
 

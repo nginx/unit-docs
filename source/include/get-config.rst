@@ -3,7 +3,7 @@ query the control API:
 
 .. code-block:: console
 
-   $ curl --unix-socket /path/to/control.unit.sock \
+   # curl --unix-socket /path/to/control.unit.sock \
           http://localhost/config/ > config.json
 
 .. note::

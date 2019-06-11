@@ -131,16 +131,16 @@ Amazon Linux
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python27 unit-python34 unit-python35 unit-python36
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python27 unit-python34 unit-python35 unit-python36
 
    Amazon Linux 2 LTS:
 
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python
 
 .. include:: include/socket-note-rpm.rst
 
@@ -155,19 +155,19 @@ CentOS
 
    .. code-block:: ini
 
-    [unit]
-    name=unit repo
-    baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-    gpgcheck=0
-    enabled=1
+      [unit]
+      name=unit repo
+      baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
+      gpgcheck=0
+      enabled=1
 
 #. Install Unit base package and additional packages you would like to use.
 
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python
 
 .. include:: include/socket-note-rpm.rst
 
@@ -214,7 +214,8 @@ Debian
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-php unit-perl unit-python2.7 unit-python3.4 unit-ruby
+      # apt install unit-dev unit-perl unit-php unit-python2.7 \
+            unit-python3.4 unit-ruby
 
    Debian 9:
 
@@ -222,8 +223,8 @@ Debian
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-php unit-perl \
-            unit-python2.7 unit-python3.5 unit-ruby
+      # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-perl \
+            unit-php unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -251,24 +252,24 @@ Fedora
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python27 unit-python36 unit-ruby
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python27 unit-python36 unit-ruby
 
    Fedora 29:
 
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python27 unit-python37 unit-ruby
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python27 unit-python37 unit-ruby
 
    Fedora 30:
 
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc11 unit-jsc8 unit-php \
-            unit-perl unit-python27 unit-python37 unit-ruby
+      # yum install unit-devel unit-go unit-jsc11 unit-jsc8 unit-perl \
+            unit-php unit-python27 unit-python37 unit-ruby
 
 .. note::
 
@@ -298,8 +299,8 @@ RHEL
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-php \
-            unit-perl unit-python
+      # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            unit-php unit-python
 
    RHEL 7:
 
@@ -307,7 +308,7 @@ RHEL
 
       # yum install unit
       # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-            unit-php unit-perl unit-python
+            unit-perl unit-php unit-python
 
    RHEL 8:
 
@@ -315,7 +316,7 @@ RHEL
 
       # yum install unit
       # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-            unit-php unit-perl unit-python27 unit-python36
+            unit-perl unit-php unit-python27 unit-python36
 
 .. include:: include/socket-note-rpm.rst
 
@@ -374,8 +375,8 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go unit-jsc8 unit-php unit-perl unit-python2.7 \
-            unit-python3.5 unit-ruby
+      # apt install unit-dev unit-go unit-jsc8 unit-perl unit-php \
+            unit-python2.7 unit-python3.5 unit-ruby
 
    Ubuntu 18.04:
 
@@ -383,8 +384,8 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc10 unit-php \
-            unit-perl unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
+      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc10 unit-perl \
+            unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    Ubuntu 18.10:
 
@@ -392,8 +393,8 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-php \
-            unit-perl unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
+      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
+            unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    Ubuntu 19.04:
 
@@ -401,8 +402,8 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.10 unit-go1.11 unit-jsc11 unit-php \
-            unit-perl unit-python2.7 unit-python3.7 unit-ruby
+      # apt install unit-dev unit-go1.10 unit-go1.11 unit-jsc11 unit-perl \
+            unit-php unit-python2.7 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
@@ -417,10 +418,10 @@ installed or check its settings.  To manage the installation:
 
     .. code-block:: console
 
-       # systemctl enable unit  # Enable auto startup after installation
-       # systemctl restart unit # Start or restart Unit
-       # systemctl stop unit    # Stop a running Unit
-       # systemctl disable unit # Disable auto startup
+       # systemctl enable unit   # Enable auto startup after installation
+       # systemctl restart unit  # Start or restart Unit
+       # systemctl stop unit     # Stop a running Unit
+       # systemctl disable unit  # Disable auto startup
 
 .. _installation-community-repos:
 
@@ -715,7 +716,8 @@ Debian, Ubuntu
 
    # apt install build-essential
    # apt install golang
-   # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -; apt install nodejs
+   # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -
+   # apt install nodejs
    # npm install -g node-gyp
    # apt install php-dev libphp-embed
    # apt install libperl-dev
@@ -731,7 +733,8 @@ Amazon Linux, CentOS, Fedora, RHEL
 
    # yum install gcc make
    # yum install golang
-   # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -; yum install nodejs
+   # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
+   # yum install nodejs
    # npm install -g node-gyp
    # yum install php-devel php-embedded
    # yum install perl-devel perl-libs
