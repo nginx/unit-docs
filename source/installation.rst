@@ -513,7 +513,7 @@ RHEL:
 .. code-block:: console
 
    # cd /etc/yum.repos.d/
-   # wget https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
+   # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
    # yum install centos-release-scl
    # yum install --enablerepo=centos-sclo-sclo-testing \
          sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
