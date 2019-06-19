@@ -30,7 +30,7 @@ available via the :ref:`control socket <installation-startup>` at
           /path/to/control.unit.sock http://localhost/config/applications/blogs
 
        {
-	       "success": "Reconfiguration done."
+           "success": "Reconfiguration done."
        }
 
 Unit starts the application process.  Next, reference the application object
@@ -51,7 +51,7 @@ section of the API:
           /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
 
        {
-	       "success": "Reconfiguration done."
+           "success": "Reconfiguration done."
        }
 
 Unit accepts requests at the specified IP and port, passing them to the
