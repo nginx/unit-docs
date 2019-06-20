@@ -1731,66 +1731,82 @@ Full Example
            },
 
            "listeners": {
-               "*:8300": {
-                   "pass": "applications/blogs",
+               "*:8000": {
+                   "pass": "routes",
                    "tls": {
                        "certificate": "bundle"
                    }
                },
 
-               "*:8400": {
-                   "pass": "applications/wiki"
-               },
-
-               "*:8500": {
-                   "pass": "applications/go_chat_app"
-               },
-
-               "127.0.0.1:8600": {
-                   "pass": "applications/bugtracker"
-               },
-
-               "127.0.0.1:8601": {
-                   "pass": "routes/cms"
-               },
-
-               "*:8700": {
-                   "pass": "applications/qwk2mart"
+               "127.0.0.1:8001": {
+                   "pass": "applications/drive"
                }
            },
 
-           "routes" {
-               "cms": [
-                   {
-                       "match": {
-                           "uri": "!/admin/*"
+           "routes": [
+               {
+                   "match": {
+                       "uri": "/admin/*",
+                       "arguments": {
+                           "mode": "strict",
+                           "access": "!raw"
                        },
-                       "action": {
-                           "pass": "applications/cms_main"
+
+                       "cookies": {
+                           "user_role": "admin"
                        }
                    },
 
-                   {
-                       "match": {
-                           "arguments": {
-                               "mode": "strict",
-                               "access": "!raw"
-                           },
-                           "cookies": {
-                               "user_hash": "admin_hash"
-                           }
-                       },
-                       "action": {
-                           "pass": "applications/cms_admin"
-                       }
+                   "action": {
+                       "pass": "applications/cms"
                    }
-               ]
-           },
+               },
+
+               {
+                   "match": {
+                       "host": ["blog.example.com", "blog.*.org"]
+                   },
+
+                   "action": {
+                       "pass": "applications/blogs"
+                   }
+               },
+
+               {
+                   "match": {
+                       "host": "example.com",
+                       "uri": "/chat/*"
+                   },
+
+                   "action": {
+                       "pass": "applications/chat"
+                   }
+               },
+
+               {
+                   "match": {
+                       "host": "example.com"
+                   },
+
+                   "action": {
+                       "pass": "applications/store"
+                   }
+               },
+
+               {
+                   "match": {
+                       "host": "wiki.example.com"
+                   },
+
+                   "action": {
+                       "pass": "applications/wiki"
+                   }
+               }
+           ],
 
            "applications": {
                "blogs": {
                    "type": "php",
-                   "processes": 20,
                    "root": "/www/blogs/scripts/",
                    "limits": {
                        "timeout": 10,
@@ -1808,60 +1824,57 @@ Full Example
                        "user": {
                            "display_errors": "0"
                        }
-                   }
+                   },
+
+                   "processes": 4
                },
 
-               "wiki": {
-                   "type": "python",
-                   "processes": 10,
-                   "path": "/www/wiki",
-                   "module": "wsgi",
-                   "environment": {
-                       "DJANGO_SETTINGS_MODULE": "blog.settings.prod",
-                       "DB_ENGINE": "django.db.backends.postgresql",
-                       "DB_NAME": "blog",
-                       "DB_HOST": "127.0.0.1",
-                       "DB_PORT": "5432"
-                   }
-               },
-
-               "go_chat_app": {
+               "chat": {
                    "type": "external",
-                   "user": "www-chat",
+                   "executable": "bin/chat_app",
                    "group": "www-chat",
-                   "working_directory": "/www/chat",
-                   "executable": "bin/chat_app"
+                   "user": "www-chat",
+                   "working_directory": "/www/chat/"
                },
 
-               "bugtracker": {
+               "cms": {
+                   "type": "ruby",
+                   "script": "/www/cms/main.ru",
+                   "working_directory": "/www/cms/"
+               },
+
+               "drive": {
                    "type": "perl",
+                   "script": "app.psgi",
                    "processes": {
                        "max": 10,
                        "spare": 5,
                        "idle_timeout": 20
                    },
 
-                   "working_directory": "/www/bugtracker",
-                   "script": "app.psgi"
+                   "working_directory": "/www/drive/"
                },
 
-               "cms_main": {
-                   "type": "ruby",
-                   "processes": 5,
-                   "script": "/www/cms/main.ru"
-               },
-
-               "cms_admin": {
-                   "type": "ruby",
-                   "processes": 1,
-                   "script": "/www/cms/admin.ru"
-               },
-
-               "qwk2mart": {
+               "store": {
                    "type": "java",
-                   "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
-                   "options": ["-Dlog_path=/var/log/qwk2mart.log"],
-                   "webapp": "/www/qwk2mart/qwk2mart.war"
+                   "webapp": "/www/store/store.war",
+                   "classpath": ["/www/store/lib/store-2.0.0.jar"],
+                   "options": ["-Dlog_path=/var/log/store.log"]
+               },
+
+               "wiki": {
+                   "type": "python",
+                   "module": "wsgi",
+                   "environment": {
+                       "DJANGO_SETTINGS_MODULE": "wiki.settings.prod",
+                       "DB_ENGINE": "django.db.backends.postgresql",
+                       "DB_NAME": "wiki",
+                       "DB_HOST": "127.0.0.1",
+                       "DB_PORT": "5432"
+                   },
+
+                   "path": "/www/wiki/",
+                   "processes": 10
                }
            },
 
