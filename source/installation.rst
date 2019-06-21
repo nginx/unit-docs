@@ -647,7 +647,9 @@ run in Unit:
        :ref:`relink <configuration-external-nodejs>` the migrated app.
 
 #. After that, :ref:`use the package <configuration-external-nodejs>` in your
-   Node.js app instead of the built-in :program:`http` to run it in Unit.
+   Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
+   that such frameworks as Express may require
+   additional :doc:`changes in your code <howto/express>`.
 
 If you update Unit later, make sure to update the NPM package as well:
 
