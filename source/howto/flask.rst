@@ -25,7 +25,7 @@ To run your Flask apps in Unit:
       {
           "listeners": {
               "*:8080": {
-                  "pass": "/applications/flask_app"
+                  "pass": "applications/flask_app"
               }
           },
 
