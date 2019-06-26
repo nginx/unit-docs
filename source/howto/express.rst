@@ -20,7 +20,7 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
 
       # npm link unit-http
 
-#. In your app, create a custom HTTP server (note use of :samp:`createServer`,
+#. In your app, create a custom HTTP server (note :samp:`createServer`,
    :samp:`ServerResponse`, and :samp:`IncomingMessage`):
 
    .. code-block:: javascript
