@@ -875,7 +875,7 @@ App objects have a number of options shared between all application languages:
       - Environment variables to be passed to the application.
 
 Also, you need to set :samp:`type`-specific :ref:`options
-<configuration-external>` to run the app.  This :ref:`Python app
+<configuration-languages>` to run the app.  This :ref:`Python app
 <configuration-python>` uses :samp:`path` and :samp:`module`:
 
 .. code-block:: json
@@ -993,6 +993,7 @@ idles after 20 seconds:
        "idle_timeout": 20
    }
 
+.. _configuration-languages:
 .. _configuration-external:
 
 ==========
