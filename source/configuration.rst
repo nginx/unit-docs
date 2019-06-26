@@ -1081,6 +1081,11 @@ The resulting application works as follows:
   and relying on the :ref:`listener's settings <configuration-listeners>`
   instead.
 
+.. note::
+
+   For an example of Go app configuration, see our :doc:`Grafana
+   <howto/grafana>` howto.
+
 .. _configuration-external-nodejs:
 
 Modifying Node.js Sources
@@ -1102,6 +1107,11 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 .. code-block:: javascript
 
    var http = require('unit-http');
+
+.. note::
+
+   For an example of Node.js app configuration, see our :doc:`Express
+   <howto/express>` howto.
 
 .. _configuration-java:
 
@@ -1142,6 +1152,11 @@ Example:
        "webapp": "/www/qwk2mart/qwk2mart.war"
    }
 
+.. note::
+
+   For an example of Java app configuration, see our :doc:`Jira <howto/jira>`
+   howto.
+
 ====
 Perl
 ====
@@ -1173,6 +1188,11 @@ Example:
        "user": "www",
        "group": "www"
    }
+
+.. note::
+
+   For an example of Perl app configuration, see our :doc:`Bugzilla
+   <howto/bugzilla>` howto.
 
 .. _configuration-php:
 
@@ -1271,6 +1291,11 @@ Example:
        }
    }
 
+.. note::
+
+   For an example of PHP app configuration, see our :doc:`WordPress
+   <howto/wordpress>` howto.
+
 .. _configuration-python:
 
 ======
@@ -1326,6 +1351,11 @@ Example:
        "user": "www",
        "group": "www"
    }
+
+.. note::
+
+   For examples of Python app configuration, see our :doc:`Django
+   <howto/django>` and :doc:`Flask <howto/flask>` howtos.
 
 ====
 Ruby
