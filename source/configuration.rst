@@ -1022,6 +1022,11 @@ have the following:
 
            #!/usr/bin/env node
 
+        .. note::
+
+           Make sure to :command:`chmod +x` the file you list here so Unit can
+           start it.
+
     * - :samp:`arguments`
       - Command line arguments to be passed to the application.
         The example below is equivalent to
