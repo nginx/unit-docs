@@ -27,7 +27,8 @@ Applications
 Miscellaneous
 *************
 
-- :doc:`howto/docker`: Configure Unit in a Docker container.
+- :doc:`howto/docker`: Configure standalone Unit or a Unit-run app in a Docker
+  container.
 - :doc:`howto/integration`: Run Unit with load balancing, proxying, and
   enhanced security.
 

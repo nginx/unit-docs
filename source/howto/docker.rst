@@ -123,9 +123,9 @@ Everything is ready for a containerized Unit.  First, let's create a
 
    FROM nginx/unit:latest
    COPY config/requirements.txt /config/requirements.txt
-   RUN apt update && apt -y install python3-pip && \
-       pip3 install -r /config/requirements.txt && \
-       rm -rf /var/lib/apt/lists/*
+   RUN apt update && apt install -y python3-pip    \
+       && pip3 install -r /config/requirements.txt \
+       && rm -rf /var/lib/apt/lists/*
 
 .. code-block:: console
 
@@ -180,9 +180,9 @@ To switch your app to another Unit image, prepare a corresponding
 
    FROM nginx/unit:|version|-python3.5
    COPY config/requirements.txt /config/requirements.txt
-   RUN apt update && apt -y install python3-pip && \
-       pip3 install -r /config/requirements.txt && \
-       rm -rf /var/lib/apt/lists/*
+   RUN apt update && apt install -y python3-pip    \
+       && pip3 install -r /config/requirements.txt \
+       && rm -rf /var/lib/apt/lists/*
 
 .. code-block:: console
 
@@ -198,3 +198,116 @@ automatically:
                           --mount type=bind,src="$(pwd)/state",dst=/var/lib/unit \
                           --mount type=bind,src="$(pwd)/webapp",dst=/www \
                                       -p 8080:8000 unit-pruned-webapp)
+
+.. _docker-apps:
+
+Containerizing Apps
+###################
+
+Suppose you have a Unit-ready :doc:`Express <express>` app:
+
+   .. code-block:: javascript
+
+      #!/usr/bin/env node
+
+      const {
+        createServer,
+        IncomingMessage,
+        ServerResponse,
+      } = require('unit-http')
+
+      require('http').ServerResponse = ServerResponse
+      require('http').IncomingMessage = IncomingMessage
+
+      const express = require('express')
+      const app = express()
+
+      app.get('/', (req, res) => res.send('Hello, Unit!'))
+
+      createServer(app).listen()
+
+Its Unit configuration, stored as :file:`config.json`:
+
+   .. code-block:: json
+
+      {
+          "listeners": {
+              "*:8080": {
+                  "pass": "applications/express_app"
+              }
+          },
+
+          "applications": {
+              "express_app": {
+                  "type": "external",
+                  "working_directory": "/www/",
+                  "executable": "app.js"
+              }
+          }
+      }
+
+Resulting file structure:
+
+.. code-block:: none
+
+   myapp/
+   ├── app.js
+   └── config.json
+
+Let's prepare a :file:`Dockerfile` to install and configure the app in an
+image:
+
+.. subs-code-block:: docker
+
+   # keep our base image as small as possible
+   FROM nginx/unit:|version|-minimal
+
+   # same as "working_directory" in config.json
+   COPY myapp/ /www
+
+   # port used by the listener in config.json
+   EXPOSE 8080
+
+   # add NGINX Unit and Node.js repos
+   RUN apt update                                                             \
+       && apt install -y apt-transport-https gnupg1                           \
+       && curl https://nginx.org/keys/nginx_signing.key | apt-key add -       \
+       && echo "deb https://packages.nginx.org/unit/debian/ stretch unit"     \
+            > /etc/apt/sources.list.d/unit.list                               \
+       && echo "deb-src https://packages.nginx.org/unit/debian/ stretch unit" \
+            >> /etc/apt/sources.list.d/unit.list                              \
+       && curl https://deb.nodesource.com/setup_12.x | bash -                 \
+   # install build chain
+       && apt update                                                          \
+       && apt install -y build-essential nodejs unit-dev                      \
+   # add dependencies locally
+       && npm install -g --unsafe-perm unit-http                              \
+       && cd /www && npm link unit-http && npm install express                \
+   # launch Unit for initial config
+       && unitd --control unix:/var/run/control.unit.sock                     \
+   # configure the app in Unit
+       && curl -X PUT --data-binary @/www/config.json --unix-socket           \
+           /var/run/control.unit.sock http://localhost/config/                \
+   # app dir cleanup
+       && rm /www/config.json                                                 \
+   # final cleanup
+       && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
+       && apt clean && apt autoclean && apt autoremove --purge -y             \
+       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
+.. code-block:: console
+
+   $ docker build --tag=unit-expressapp .
+
+Subsequent start in a container will make Unit pick up the initial config
+you've uploaded during the build:
+
+.. code-block:: console
+
+   $ docker run -d -p 8080:8080 unit-expressapp
+   $ curl -X GET localhost:8080
+
+        Hello, Unit!
+
+The same approach is applicable to any Unit-supported apps with external
+dependencies.

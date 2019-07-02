@@ -1117,7 +1117,7 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 .. note::
 
    For an example of Node.js app configuration, see our :doc:`Express
-   <howto/express>` howto.
+   <howto/express>` and :ref:`Docker <docker-apps>` howtos.
 
 .. _configuration-java:
 
