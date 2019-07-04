@@ -1,3 +1,5 @@
+.. include:: include/replace.rst
+
 ###############
 Troubleshooting
 ###############
@@ -25,11 +27,11 @@ your system:
 Use :command:`unitd --log <filename>` to set the location at startup.  To
 check the settings of a running :program:`unitd`:
 
-.. code-block:: console
+.. subs-code-block:: console
 
    $ ps ax | grep unitd
        ...
-       unit: main v1.8 [/path/to/unitd --log /path/to/unit.log --pid /path/to/unit.pid]
+       unit: main v|version| [/path/to/unitd --log /path/to/unit.log --pid /path/to/unit.pid]
 
 If Unit's not running, see its startup scripts or configuration files in your
 system to discover the log location.
