@@ -21,6 +21,7 @@ Applications
 - :doc:`howto/bugzilla`: Launch Bugzilla with NGINX and Unit using PSGI.
 - :doc:`howto/grafana`: Use Unit to power Grafana's visual goodness.
 - :doc:`howto/jira`: Run a new Jira installation in Unit.
+- :doc:`howto/redmine`: Run your Redmine on Unit easily.
 - :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
 
 *************

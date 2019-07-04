@@ -1363,6 +1363,8 @@ Example:
    For examples of Python app configuration, see our :doc:`Django
    <howto/django>` and :doc:`Flask <howto/flask>` howtos.
 
+.. _configuration-ruby:
+
 ====
 Ruby
 ====
@@ -1393,6 +1395,11 @@ Example:
        "group": "www",
        "script": "/www/cms/config.ru"
    }
+
+.. note::
+
+   For an example of Ruby app configuration, see our :doc:`Redmine
+   <howto/redmine>` howto.
 
 .. _configuration-stngs:
 
