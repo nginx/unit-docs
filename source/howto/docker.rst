@@ -29,8 +29,8 @@ Next, you need to upload a configuration to Unit via the control socket:
 
 .. code-block:: console
 
-   $ docker exec -ti $UNIT curl -X PUT -d @/www/config.json --unix-socket
-                                /var/run/control.unit.sock http://localhost/config
+   $ docker exec -ti $UNIT curl -X PUT --data-binary @/www/config.json \
+                                --unix-socket var/run/control.unit.sock http://localhost/config
 
 This command assumes that your configuration is stored as :file:`config.json`
 in the container-mounted directory on the host.  If it has a listener on port
@@ -151,8 +151,8 @@ Now we can configure the app in Unit:
 
 .. code-block:: console
 
-   $ docker exec -ti $UNIT curl -X PUT -d @/config/config.json --unix-socket \
-                                /var/run/control.unit.sock http://localhost/config
+   $ docker exec -ti $UNIT curl -X PUT --data-binary @/config/config.json \
+                                --unix-socket /var/run/control.unit.sock http://localhost/config
 
        {
            "success": "Reconfiguration done."
@@ -255,18 +255,12 @@ Resulting file structure:
    └── config.json
 
 Let's prepare a :file:`Dockerfile` to install and configure the app in an
-image:
+image, layering it to benefit from caching:
 
 .. subs-code-block:: docker
 
    # keep our base image as small as possible
    FROM nginx/unit:|version|-minimal
-
-   # same as "working_directory" in config.json
-   COPY myapp/ /www
-
-   # port used by the listener in config.json
-   EXPOSE 8080
 
    # add NGINX Unit and Node.js repos
    RUN apt update                                                             \
@@ -280,20 +274,28 @@ image:
    # install build chain
        && apt update                                                          \
        && apt install -y build-essential nodejs unit-dev                      \
-   # add dependencies locally
+   # add global dependencies
        && npm install -g --unsafe-perm unit-http                              \
-       && cd /www && npm link unit-http && npm install express                \
-   # launch Unit for initial config
+   # final cleanup
+       && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
+       && apt clean && apt autoclean && apt autoremove --purge -y             \
+       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
+   # same as "working_directory" in config.json
+   COPY myapp/ /www
+
+   # port used by the listener in config.json
+   EXPOSE 8080
+
+   # add app dependencies locally
+   RUN cd /www && npm link unit-http && npm install express                   \
+   # launch Unit for initial app config
        && unitd --control unix:/var/run/control.unit.sock                     \
    # configure the app in Unit
        && curl -X PUT --data-binary @/www/config.json --unix-socket           \
            /var/run/control.unit.sock http://localhost/config/                \
    # app dir cleanup
-       && rm /www/config.json                                                 \
-   # final cleanup
-       && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
-       && apt clean && apt autoclean && apt autoremove --purge -y             \
-       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+       && rm /www/config.json
 
 .. code-block:: console
 
@@ -309,5 +311,16 @@ you've uploaded during the build:
 
         Hello, Unit!
 
-The same approach is applicable to any Unit-supported apps with external
+This approach is applicable to any Unit-supported apps with external
 dependencies.
+
+Finally, to reconfigure the app in an existing container, simply supply the
+config either as a file or explicitly:
+
+.. code-block:: console
+
+   $ export UNIT=$(docker run -d --mount type=bind,src="$(pwd)",dst=/cfg unit-expressapp)
+   $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/config.json \
+                                --unix-socket /var/run/control.unit.sock http://localhost/config
+   $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"' --unix-socket \
+                                /var/run/control.unit.sock http://localhost/config/applications/express_app/working_directory
