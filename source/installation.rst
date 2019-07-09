@@ -90,7 +90,7 @@ binaries are available for:
 
 - Amazon Linux, Amazon Linux 2
 - CentOS 6, 7
-- Debian 8, 9
+- Debian 8, 9, 10
 - Fedora 28, 29, 30
 - RHEL 6, 7, 8
 - Ubuntu 16.04, 18.04, 18.10, 19.04
@@ -206,6 +206,13 @@ Debian
       deb https://packages.nginx.org/unit/debian/ stretch unit
       deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
+   Debian 10:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/debian/ buster unit
+      deb-src https://packages.nginx.org/unit/debian/ buster unit
+
 #. Install Unit base package and additional packages you would like to use.
 
    Debian 8:
@@ -225,6 +232,15 @@ Debian
       # apt install unit
       # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-perl \
             unit-php unit-python2.7 unit-python3.5 unit-ruby
+
+   Debian 10:
+
+   .. code-block:: console
+
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.11 unit-jsc11 unit-perl \
+            unit-php unit-python2.7 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
