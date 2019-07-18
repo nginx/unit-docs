@@ -1128,12 +1128,6 @@ When you run :command:`./configure perl`, the script configures a module to
 support running Perl scripts as applications in Unit.  Available command
 options:
 
---include=directory
-        Directory path to Perl headers (required to build the module).
-
-        The default is Perl's `$Config<archlib>/CORE <https://perldoc.perl.
-        org/Config.html>`_ directory.
-
 --perl=pathname
         Specific Perl executable pathname.
 
