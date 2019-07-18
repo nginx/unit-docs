@@ -1064,6 +1064,11 @@ you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
        ...
    )
 
+.. note::
+
+   The package is required only to build the app; there's no need to install it
+   in the target environment.
+
 In the :samp:`main()` function, replace the :samp:`http.ListenandServe` call
 with :samp:`unit.ListenAndServe`:
 
