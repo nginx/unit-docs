@@ -4,12 +4,13 @@
 WordPress
 #########
 
-To `install WordPress <https://codex.wordpress.org/Installing_WordPress>`_ if
-you haven't already done so:
+To `install WordPress
+<https://wordpress.org/support/article/how-to-install-wordpress/>`_ if you
+haven't already done so:
 
-#. `Check <https://wordpress.org/about/requirements/>`_ prerequisites and
-   `configure
-   <https://codex.wordpress.org/Installing_WordPress#Step_2:_Create_the_Database_and_a_User>`_
+#. `Check <https://wordpress.org/support/article/before-you-install/>`_
+   prerequisites and `configure
+   <https://wordpress.org/support/article/creating-database-for-wordpress/>`_
    the WordPress database.
 
 #. Download and extract WordPress `files <https://wordpress.org/download/>`_:
@@ -22,12 +23,13 @@ you haven't already done so:
 
    In this example, the files will be stored in :file:`/path/to/wordpress/`.
 
-#. `Update <https://codex.wordpress.org/Editing_wp-config.php>`_ the
+#. `Update <https://wordpress.org/support/article/editing-wp-config-php/>`_ the
    :file:`wp-config.php` file with your database settings and other
    customizations.
 
 #. Set up proper `file permissions
-   <https://codex.wordpress.org/Changing_File_Permissions>`_ for WordPress:
+   <https://wordpress.org/support/article/changing-file-permissions/>`_ for
+   WordPress:
 
    .. code-block:: console
 
@@ -144,13 +146,13 @@ To run WordPress in Unit:
    <https://docs.nginx.com/nginx/admin-guide/>`_.
 
 Finally, browse to your WordPress site and `complete the installation
-<https://codex.wordpress.org/Installing_WordPress#Finishing_installation>`_.
+<https://wordpress.org/support/article/how-to-install-wordpress/#step-5-run-the-install-script>`_.
 
 .. note::
 
-   Resulting URL scheme will trickle into your WordPress configuration;
-   updates may require `extra steps
-   <https://codex.wordpress.org/Changing_The_Site_URL>`_.
+   Resulting URL scheme will trickle into your WordPress configuration; updates
+   may require `extra steps
+   <https://wordpress.org/support/article/changing-the-site-url/>`_.
 
 ***************
 Further Reading
