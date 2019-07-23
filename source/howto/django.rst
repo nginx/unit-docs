@@ -24,7 +24,7 @@ To run your Django projects and apps in Unit:
 
    .. code-block:: none
 
-      project/
+      /home/django/project/
       |-- manage.py
       |-- app1/
       |   |-- ...
@@ -34,13 +34,12 @@ To run your Django projects and apps in Unit:
           |-- ...
           `-- wsgi.py
 
-   Edit the JSON file, adding a :ref:`listener <configuration-listeners>` in
-   :samp:`listeners` and pointing it to your project's :file:`wsgi.py` file in
-   :samp:`applications`.  Your project and apps will run on the listener's IP
-   and port at their respective URL paths.  If you use a `virtual environment
-   <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_
-   for your project, reference it as :samp:`home` within your app definition
-   object.
+   Edit the JSON, adding a :ref:`listener <configuration-listeners>` entry to
+   point to a Unit :ref:`app <configuration-applications>` with your
+   *project*'s WSGI module; the project and its apps will run on the listener's
+   IP and port.  If you use a `virtual environment
+   <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_,
+   reference it as :samp:`home`:
 
    .. code-block:: json
 
@@ -60,6 +59,11 @@ To run your Django projects and apps in Unit:
               }
           }
       }
+
+   .. note::
+
+      Mind that Unit will look for an :samp:`application` callable in the WSGI
+      module to run the entire project.
 
    Here, the top-level :file:`project` directory becomes :samp:`path`; its
    child :file:`project` and the :file:`wsgi.py` in it are `imported
