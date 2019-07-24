@@ -807,6 +807,13 @@ Each app that Unit runs is defined as an object in the
 language and settings, its runtime limits, process model, and various
 language-specific options.
 
+.. note::
+
+   Our official :ref:`language support packages <installation-precomp-pkgs>`
+   include end-to-end examples of application configuration, available for your
+   reference at :file:`/usr/share/doc/<module name>/examples/` after package
+   installation.
+
 Here, Unit runs 20 processes of a PHP app called :samp:`blogs`, stored in
 the :file:`/www/blogs/scripts/` directory:
 
