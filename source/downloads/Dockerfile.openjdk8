@@ -1,0 +1,41 @@
+# keep our base image as small as possible
+FROM nginx/unit:1.9.0-minimal
+
+# port used by the listener in config.json
+EXPOSE 8080
+
+# add Java language and corresponding language module
+RUN apt update                                                             \
+    && apt install -y apt-transport-https gnupg1                           \
+    && curl https://nginx.org/keys/nginx_signing.key | apt-key add -       \
+    && echo "deb https://packages.nginx.org/unit/debian/ stretch unit"     \
+         > /etc/apt/sources.list.d/unit.list                               \
+    && echo "deb-src https://packages.nginx.org/unit/debian/ stretch unit" \
+         >> /etc/apt/sources.list.d/unit.list                              \
+    && apt update                                                          \
+    && mkdir -p /usr/share/man/man1/ \
+    && apt install -y openjdk-8-jdk unit-jsc8                              \
+# final cleanup
+    && apt remove -y apt-transport-https gnupg1                            \
+    && apt autoremove --purge -y                                           \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
+# application setup
+RUN mkdir /www/ && echo '<%@ page language="java" contentType="text/html"%>\
+    <html> <body> <%= "Hello, Unit!" %> </body> </html>' > /www/index.jsp  \
+# launch Unit
+    && unitd --control unix:/var/run/control.unit.sock                     \
+# upload the app config to Unit
+    && curl -X PUT --data-binary '{                                        \
+    "listeners": {                                                         \
+        "*:8080": {                                                        \
+            "pass": "applications/java_app"                                \
+        }                                                                  \
+    },                                                                     \
+    "applications": {                                                      \
+        "java_app": {                                                      \
+            "type": "java",                                                \
+            "webapp": "/www/"                                              \
+        }                                                                  \
+    }                                                                      \
+    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
