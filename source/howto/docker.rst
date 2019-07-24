@@ -124,9 +124,12 @@ Everything is ready for a containerized Unit.  First, let's create a
 
    FROM nginx/unit:latest
    COPY config/requirements.txt /config/requirements.txt
-   RUN apt update && apt install -y python3-pip    \
-       && pip3 install -r /config/requirements.txt \
-       && rm -rf /var/lib/apt/lists/*
+   RUN apt update && apt install -y python3-pip                               \
+       && pip3 install -r /config/requirements.txt                            \
+       && apt remove -y python3-pip                                           \
+       && apt autoremove --purge -y                                           \
+       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
 
 .. code-block:: console
 
@@ -279,7 +282,7 @@ image, layering it to benefit from caching:
        && npm install -g --unsafe-perm unit-http                              \
    # final cleanup
        && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
-       && apt clean && apt autoclean && apt autoremove --purge -y             \
+       && apt autoremove --purge -y                                           \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
    # same as "working_directory" in config.json
