@@ -7,8 +7,8 @@ Walkthrough
 ###########
 
 OK, so you've decided to give Unit a try with your web app of choice.  You may
-be looking for ways to run it faster with less config overhead, streamline your
-technology stack, or simply be tech-curious.  In any case:
+be looking for ways to run it faster with less config overhead, streamlining
+your technology stack, or simply be tech-curious.  In any case:
 
 .. list-table::
    :header-rows: 1
