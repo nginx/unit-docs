@@ -4,6 +4,8 @@
 Installation
 ############
 
+.. _installation-prereqs:
+
 *************
 Prerequisites
 *************

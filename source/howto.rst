@@ -32,6 +32,8 @@ Miscellaneous
   container.
 - :doc:`howto/integration`: Run Unit with load balancing, proxying, and
   enhanced security.
+- :doc:`howto/walkthrough`: A step-by-step guide to application configuration
+  in Unit.
 
 If you are interested in a specific use case not yet listed here, please `post
 a feature request <https://github.com/nginx/unit-docs/issues>`_ on GitHub.
