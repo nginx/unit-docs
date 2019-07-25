@@ -37,6 +37,18 @@ in the container-mounted directory on the host.  If it has a listener on port
 :samp:`8000`, your app is now accessible at port :samp:`8080` of the host.  For
 details of Unit configuration, see :ref:`configuration-mgmt`.
 
+.. note::
+
+   For app containerization examples, refer to our sample `Go
+   <../../_downloads/Dockerfile.go.txt>`_, `Java
+   <../../_downloads/Dockerfile.java.txt>`_, `Node.js
+   <../../_downloads/Dockerfile.nodejs.txt>`_, `Perl
+   <../../_downloads/Dockerfile.perl.txt>`_, `PHP
+   <../../_downloads/Dockerfile.php.txt>`_, `Python
+   <../../_downloads/Dockerfile.python.txt>`_, and `Ruby
+   <../../_downloads/Dockerfile.ruby.txt>`_ Dockerfiles; also, see a more
+   elaborate discussion :ref:`below <docker-apps>`.
+
 Now for a few detailed scenarios.
 
 Running Apps in Containerized Unit
