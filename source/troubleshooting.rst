@@ -12,8 +12,7 @@ Logging
 
 Unit maintains a single general-purpose log for diagnostics and troubleshooting
 (not to be confused with the :ref:`access log <configuration-access-log>`).
-Usually, the log file is found here: :file:`/var/log/unit.log`; to locate it in
-your system:
+To find out its default location in your Unit installation:
 
 .. code-block:: console
 
@@ -24,17 +23,17 @@ your system:
        --log FILE           set log filename
                             default: "/path/to/unit.log"
 
-Use :command:`unitd --log <filename>` to set the location at startup.  To
-check the settings of a running :program:`unitd`:
+The :option:`!--log` option overrides the default value; if Unit is already
+running, check whether this option is set:
 
 .. subs-code-block:: console
 
    $ ps ax | grep unitd
        ...
-       unit: main v|version| [/path/to/unitd --log /path/to/unit.log --pid /path/to/unit.pid]
+       unit: main v|version| [/path/to/unitd ... --log /path/to/unit.log ...]
 
-If Unit's not running, see its startup scripts or configuration files in your
-system to discover the log location.
+If Unit isn't running, see its system startup scripts or configuration files to
+check if :option:`!--log` is set, and how.
 
 .. _troubleshooting-dbg-log:
 
