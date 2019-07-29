@@ -1375,3 +1375,97 @@ The following options override compile-time settings:
 
 --state directory
     Directory path for Unit state storage.
+
+.. _installation-langs:
+
+****************
+Adding Languages
+****************
+
+The set of languages your Unit installation can run depends on language modules
+you have installed:
+
+.. subs-code-block:: console
+
+   $ unitd -h             # check the default module path
+         ...
+         --modules DIRECTORY  set modules directory name
+                              default: "/default/modules/path/"
+
+   $ ps ax | grep unitd   # check whether the default was overridden at launch
+         ...
+         unit: main v|version| [/path/to/unitd ... --modules /runtime/modules/path/ ... ]
+
+   $ ls /resulting/path/to/modules
+
+         java.unit.so  perl.unit.so  php.unit.so  python.unit.so  ruby.unit.so
+
+.. note::
+
+   For Go, Unit support is implemented with an external package that you
+   :ref:`build into <configuration-external-go>` your apps.
+
+   For Node.js, Unit is supported by a :ref:`package
+   <configuration-external-nodejs>` that your apps :samp:`require`; to check
+   whether it's installed:
+
+   .. subs-code-block:: console
+
+      $ npm list -g | grep unit-http  # check for global install (recommended)
+
+            `-- unit-http@|version|
+
+      $ npm list | grep unit-http     # check for local install
+
+If a language module is missing, Unit can't run apps in that language;
+however, you can add new modules:
+
+- If you installed the official Unit package, best use the official
+  :ref:`language packages <installation-precomp-pkgs>` for easy integration.
+
+- If you installed Unit via a :ref:`third-party repo
+  <installation-community-repos>`, check whether a suitable language package is
+  available there.
+
+- You can build the modules from source code.  :ref:`Configure
+  <installation-config-src>` the same options your Unit was built with:
+
+  .. code-block:: console
+
+     $ unitd --version
+
+           configured as ./configure <build flags> ...
+
+     $ ./configure <build flags>
+
+  After that you need to configure, build, and install the required modules as
+  described :ref:`earlier <installation-src-modules>`:
+
+  .. code-block:: console
+
+     $ ./configure <language> --module=<module name> <other options>
+     $ make <module-name>
+     $ make <module-name>-install
+
+.. note::
+
+   As noted above, Go apps have Unit support built in.  In contrast, Node.js
+   requires :ref:`custom installation <installation-nodejs-package>`.
+
+With the modules in place, restart Unit and check the :ref:`log
+<troubleshooting-log>` to make sure new modules were loaded:
+
+.. subs-code-block:: console
+
+   # less /path/to/unit.log
+         ...
+         discovery started
+         module: <language>   "/path/to/modules/<module name>.unit.so"
+         ...
+
+.. note::
+
+   External packages for Node.js and Go will not be listed; instead, they are
+   loaded by your app and interact with Unit processes from within it.  Make
+   sure your :ref:`application <configuration-external-go>` references these
+   packages.
