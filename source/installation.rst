@@ -83,12 +83,12 @@ nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 
 .. _installation-precomp-pkgs:
 
-********************
-Precompiled Packages
-********************
+*****************
+Official Packages
+*****************
 
 Installing a precompiled Unit binary package is best for most occasions;
-binaries are available for:
+we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 
 - Amazon Linux, Amazon Linux 2
 - CentOS 6, 7
@@ -96,6 +96,15 @@ binaries are available for:
 - Fedora 28, 29, 30
 - RHEL 6, 7, 8
 - Ubuntu 16.04, 18.04, 18.10, 19.04
+
+These include core Unit executables, developer files, and support packages for
+individual languages.
+
+.. note::
+
+   Unit's language support :ref:`package <installation-nodejs-package>` for
+   Node.js is available at the `npm <https://www.npmjs.com/package/unit-http>`_
+   registry.
 
 .. _installation-precomp-amazon:
 
@@ -425,6 +434,49 @@ Ubuntu
 
 .. include:: include/socket-note-deb.rst
 
+.. _installation-nodejs-package:
+
+==============
+Node.js at npm
+==============
+
+Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js package
+is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
+run in Unit:
+
+#. First, install the :program:`unit-dev/unit-devel` :ref:`package
+   <installation-precomp-pkgs>`; it's used by :program:`unit-http`.
+
+#. Next, install :program:`unit-http` globally (this step requires
+   :program:`npm` and :program:`node-gyp`):
+
+    .. code-block:: console
+
+       # npm install -g --unsafe-perm unit-http
+
+    .. warning::
+
+       The :program:`unit-http` package is platform dependent due to
+       optimizations; you can't move it across systems with the rest of
+       :file:`node-modules`.  Global installation avoids such scenarios; just
+       :ref:`relink <configuration-external-nodejs>` the migrated app.
+
+#. After that, :ref:`use the package <configuration-external-nodejs>` in your
+   Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
+   that such frameworks as Express may require
+   additional :doc:`changes in your code <howto/express>`.
+
+If you update Unit later, make sure to update the NPM package as well:
+
+.. code-block:: console
+
+   # npm update -g --unsafe-perm unit-http
+
+.. note::
+
+   You can also :ref:`configure <installation-nodejs>` and :ref:`install
+   <installation-bld-src-ext>` the :program:`unit-http` package from sources.
+
 .. _installation-precomp-startup:
 
 ====================
@@ -636,49 +688,6 @@ Next, install Unit and the PHP modules you want:
 .. note::
 
    Control socket is located here: :file:`/var/run/unit/control.sock`.
-
-.. _installation-nodejs-package:
-
-***************
-Node.js Package
-***************
-
-Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js package
-is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
-run in Unit:
-
-#. First, install the :program:`unit-dev/unit-devel` :ref:`package
-   <installation-precomp-pkgs>`; it's used by :program:`unit-http`.
-
-#. Next, install :program:`unit-http` globally (this step requires
-   :program:`npm` and :program:`node-gyp`):
-
-    .. code-block:: console
-
-       # npm install -g --unsafe-perm unit-http
-
-    .. warning::
-
-       The :program:`unit-http` package is platform dependent due to
-       optimizations; you can't move it across systems with the rest of
-       :file:`node-modules`.  Global installation avoids such scenarios; just
-       :ref:`relink <configuration-external-nodejs>` the migrated app.
-
-#. After that, :ref:`use the package <configuration-external-nodejs>` in your
-   Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
-   that such frameworks as Express may require
-   additional :doc:`changes in your code <howto/express>`.
-
-If you update Unit later, make sure to update the NPM package as well:
-
-.. code-block:: console
-
-   # npm update -g --unsafe-perm unit-http
-
-.. note::
-
-   You can also :ref:`configure <installation-nodejs>` and :ref:`install
-   <installation-bld-src-ext>` the :program:`unit-http` package from sources.
 
 .. _installation-src:
 
