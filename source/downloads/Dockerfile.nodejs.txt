@@ -23,20 +23,13 @@ RUN apt update                                                             \
 
 #application setup
 RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
-    const {                                                              \n\
-      createServer,                                                        \
-      IncomingMessage,                                                     \
-      ServerResponse,                                                      \
-    } = require("unit-http")                                             \n\
-    require("http").ServerResponse = ServerResponse                      \n\
-    require("http").IncomingMessage = IncomingMessage                    \n\
-    const express = require("express")                                   \n\
-    const app = express()                                                \n\
-    app.get("/", (req, res) => res.send("Hello, Unit!"))                 \n\
-    createServer(app).listen()' > /www/app.js                              \
-# make app.js executable; link unit-http and install prerequisites locally
+require("unit-http").createServer(function (req, res) {                    \
+  res.writeHead(200, {"Content-Type": "text/plain"});                      \
+  res.end("Hello, Unit!")                                                  \
+}).listen()' > /www/app.js                                                 \
+# make app.js executable; link unit-http locally
     && cd /www && chmod +x app.js                                          \
-    && npm link unit-http && npm install express                           \
+    && npm link unit-http                                                  \
 # launch Unit
     && unitd --control unix:/var/run/control.unit.sock                     \
 # upload the app config to Unit
