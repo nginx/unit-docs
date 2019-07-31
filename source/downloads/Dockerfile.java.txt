@@ -21,8 +21,9 @@ RUN apt update                                                             \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
-RUN mkdir /www/ && echo '<%@ page language="java" contentType="text/html"%>\
-    <html> <body> <%= "Hello, Unit!" %> </body> </html>' > /www/index.jsp  \
+RUN mkdir /www/ && echo                                                    \
+    '<%@page language="java" contentType="text/plain"%><%="Hello, Unit!"%>'\
+    > /www/index.jsp                                                       \
 # launch Unit
     && unitd --control unix:/var/run/control.unit.sock                     \
 # upload the app config to Unit

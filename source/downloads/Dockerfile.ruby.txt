@@ -20,13 +20,14 @@ RUN apt update                                                             \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
-RUN mkdir /www/ && echo '#!/usr/bin/env ruby                             \n\
+RUN mkdir /www/ && echo '                                                  \
     app = Proc.new do |env|                                                \
         ["200", {                                                          \
             "Content-Type" => "text/plain",                                \
         }, ["Hello, Unit!"]]                                               \
-    end                                                                  \n\
-    run app' > /www/config.ru                                              \
+    end;                                                                   \
+    run app                                                                \
+    ' > /www/config.ru                                                     \
 # launch Unit
     && unitd --control unix:/var/run/control.unit.sock                     \
 # upload the app config to Unit

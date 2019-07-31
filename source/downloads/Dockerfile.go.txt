@@ -20,18 +20,20 @@ RUN apt update                                                             \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
-RUN mkdir /www/ && echo 'package main                                    \n\
+RUN mkdir /www/ && echo '                                                  \
+    package main;                                                          \
     import (                                                               \
         "io";                                                              \
         "net/http";                                                        \
         "nginx/unit"                                                       \
-    )                                                                    \n\
+    );                                                                     \
     func main() {                                                          \
         http.HandleFunc("/",func (w http.ResponseWriter, r *http.Request) {\
             io.WriteString(w, "Hello, Unit!")                              \
-        })                                                               \n\
+        });                                                                \
         unit.ListenAndServe(":8080", nil)                                  \
-    }' > /www/app.go                                                       \
+    }                                                                      \
+    ' > /www/app.go                                                        \
 # make nginx/unit package available at $GOPATH to compile the app
     && cp -r /usr/share/gocode/src/* /usr/lib/go-1.8/src/                  \
     && /usr/lib/go-1.8/bin/go build -o /www/app /www/app.go                \

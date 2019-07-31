@@ -20,16 +20,15 @@ RUN apt update                                                             \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 #application setup
-RUN mkdir /www/ && echo '#!/usr/bin/env perl                             \n\
-    use strict;                                                            \
-    use warnings;                                                          \
+RUN mkdir /www/ && echo '                                                  \
     my $app = sub {                                                        \
-      return [                                                             \
-        "200",                                                             \
-        [ "Content-Type" => "text/plain" ],                                \
-        [ "Hello, Unit!" ],                                                \
-      ];                                                                   \
-    };' > /www/app.psgi                                                    \
+        return [                                                           \
+            "200",                                                         \
+            [ "Content-Type" => "text/plain" ],                            \
+            [ "Hello, Unit!" ],                                            \
+        ]                                                                  \
+    };                                                                     \
+    ' > /www/app.psgi                                                      \
 # launch Unit
     && unitd --control unix:/var/run/control.unit.sock                     \
 # upload the app config to Unit

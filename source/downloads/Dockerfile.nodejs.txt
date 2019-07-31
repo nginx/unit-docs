@@ -23,10 +23,11 @@ RUN apt update                                                             \
 
 #application setup
 RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
-require("unit-http").createServer(function (req, res) {                    \
-  res.writeHead(200, {"Content-Type": "text/plain"});                      \
-  res.end("Hello, Unit!")                                                  \
-}).listen()' > /www/app.js                                                 \
+    require("unit-http").createServer(function (req, res) {                \
+        res.writeHead(200, {"Content-Type": "text/plain"});                \
+        res.end("Hello, Unit!")                                            \
+    }).listen()                                                            \
+    ' > /www/app.js                                                        \
 # make app.js executable; link unit-http locally
     && cd /www && chmod +x app.js                                          \
     && npm link unit-http                                                  \

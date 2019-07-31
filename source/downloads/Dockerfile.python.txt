@@ -20,10 +20,11 @@ RUN apt update                                                             \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
-RUN mkdir /www/ && echo '#!/usr/bin/env python3                          \n\
+RUN mkdir /www/ && echo '                                                \n\
 def application(environ, start_response):                                \n\
     start_response("200 OK", [("Content-Type", "text/plain")])           \n\
-    return (b"Hello, Unit!")' > /www/wsgi.py                               \
+    return (b"Hello, Unit!")                                               \
+    ' > /www/wsgi.py                                                       \
 # launch Unit
     && unitd --control unix:/var/run/control.unit.sock                     \
 # upload the app config to Unit
