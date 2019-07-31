@@ -1102,8 +1102,7 @@ The resulting application works as follows:
 .. note::
 
    For an example of Go app configuration, see our :doc:`Grafana
-   <howto/grafana>` howto.  Also, see a sample `Dockerfile
-   <../_downloads/Dockerfile.go.txt>`_ for Go.
+   <howto/grafana>` howto.  Also, see a :ref:`sample <sample-go>` in Go.
 
 .. _configuration-external-nodejs:
 
@@ -1130,8 +1129,8 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 .. note::
 
    For examples of Node.js app configuration, see our :doc:`Express
-   <howto/express>` and :ref:`Docker <docker-apps>` howtos or a sample
-   `Dockerfile <../_downloads/Dockerfile.nodejs.txt>`_.
+   <howto/express>` and :ref:`Docker <docker-apps>` howtos or a
+   :ref:`sample <sample-nodejs>` in Node.js.
 
 .. _configuration-java:
 
@@ -1175,8 +1174,9 @@ Example:
 .. note::
 
    For an example of Java app configuration, see our :doc:`Jira <howto/jira>`
-   howto.  Also, see a sample `Dockerfile <../_downloads/Dockerfile.java.txt>`_
-   for Java.
+   howto.  Also, see a JSP :ref:`sample <sample-java>`.
+
+.. _configuration-perl:
 
 ====
 Perl
@@ -1213,8 +1213,8 @@ Example:
 .. note::
 
    For an example of Perl app configuration, see our :doc:`Bugzilla
-   <howto/bugzilla>` howto or a sample `Dockerfile
-   <../_downloads/Dockerfile.perl.txt>`_.
+   <howto/bugzilla>` howto.  Also, see a :ref:`sample
+   <sample-perl>` in Perl.
 
 .. _configuration-php:
 
@@ -1316,8 +1316,8 @@ Example:
 .. note::
 
    For an example of PHP app configuration, see our :doc:`WordPress
-   <howto/wordpress>` howto or a sample `Dockerfile
-   <../_downloads/Dockerfile.php.txt>`_.
+   <howto/wordpress>` howto.  Also, see a :ref:`sample
+   <sample-php>` in PHP.
 
 .. _configuration-python:
 
@@ -1378,8 +1378,8 @@ Example:
 .. note::
 
    For examples of Python app configuration, see our :doc:`Django
-   <howto/django>` and :doc:`Flask <howto/flask>` howtos or a sample
-   `Dockerfile <../_downloads/Dockerfile.python.txt>`_.
+   <howto/django>` and :doc:`Flask <howto/flask>` howtos or a
+   :ref:`sample <sample-python>` in Python.
 
 .. _configuration-ruby:
 
@@ -1417,8 +1417,8 @@ Example:
 .. note::
 
    For an example of Ruby app configuration, see our :doc:`Redmine
-   <howto/redmine>` howto or a sample `Dockerfile
-   <../_downloads/Dockerfile.ruby.txt>`_.
+   <howto/redmine>` howto.  Also, see a :ref:`sample
+   <sample-ruby>` in Ruby.
 
 .. _configuration-stngs:
 
