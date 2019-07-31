@@ -1270,13 +1270,13 @@ You can customize :file:`php.ini` via the :samp:`options` object:
 
     * - :samp:`file`
       - Pathname of the :file:`php.ini` file with `PHP configuration directives
-        <http://php.net/manual/en/ini.list.php>`_.
+        <https://php.net/manual/en/ini.list.php>`_.
 
     * - :samp:`admin`, :samp:`user`
       - Objects for extra directives.  Values in :samp:`admin` are set in
         :samp:`PHP_INI_SYSTEM` mode, so the app can't alter them; :samp:`user`
         values are set in :samp:`PHP_INI_USER` mode and may `be updated
-        <http://php.net/manual/en/function.ini-set.php>`_ in runtime.
+        <https://php.net/manual/en/function.ini-set.php>`_ in runtime.
 
 Directives from :file:`php.ini` are overridden by settings supplied in
 :samp:`admin` and :samp:`user` objects.
@@ -1287,7 +1287,7 @@ Directives from :file:`php.ini` are overridden by settings supplied in
    :samp:`"max_file_uploads": "4"`, not :samp:`"max_file_uploads": 4`); for
    boolean flags, use :samp:`"0"` and :samp:`"1"` only.  For details about
    :samp:`PHP_INI_*` modes, see the `PHP docs
-   <http://php.net/manual/en/configuration.changes.modes.php>`_.
+   <https://php.net/manual/en/configuration.changes.modes.php>`_.
 
 Example:
 
