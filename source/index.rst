@@ -4,12 +4,14 @@
 About
 #####
 
-NGINX Unit is a dynamic web and application server, designed to run applications
-in multiple languages.  Unit is lightweight, polyglot, and dynamically
-configured via API.  The design of the server allows reconfiguration of
-specific application parameters as needed by the engineering or operations.
+NGINX Unit is a lightweight, dynamic, open-source server for diverse web
+applications; to install it, see :ref:`here <installation-precomp-pkgs>`.
 
-| Current latest version is |version|, released on May 30, 2019.
+Built from scratch, Unit can run web apps in many language versions at once; it
+is also fully configurable in runtime with zero interruption, enabling
+on-the-fly granular management for engineering and operations.
+
+| The latest version is |version|, released on May 30, 2019.
 | See the changelog `here </CHANGES.txt>`_.
 
 The sources are distributed under the Apache 2.0 license.
@@ -18,22 +20,26 @@ The sources are distributed under the Apache 2.0 license.
 Key Features
 ************
 
-- Fully dynamic reconfiguration using RESTful JSON API
-- Multiple application languages and versions can run simultaneously
-- Dynamic application process management
-- :ref:`SSL/TLS support (OpenSSL 1.0.1 and later) <configuration-ssl>`
-- TCP, HTTP, HTTPS, HTTP/2 routing and proxying *(coming soon)*
+- Configuration :ref:`updates dynamically <configuration-mgmt>` via a RESTful
+  JSON API
+- Multiple :ref:`language versions <configuration-applications>` run
+  simultaneously
+- Application processes :ref:`scale on demand <configuration-proc-mgmt-prcs>`
+- :ref:`SSL/TLS <configuration-ssl>` support is built-in (OpenSSL 1.0.1 and
+  later)
+- Extensive :ref:`request routing <configuration-routes>` capabilities
+- **Coming next**: WebSockets support, static content, and proxying
 
 ***********************
 Supported App Languages
 ***********************
 
-- Python
-- PHP
-- Go
-- Perl
-- Ruby
-- :ref:`JavaScript (Node.js) <installation-nodejs-package>`
+- :ref:`Python <configuration-python>`
+- :ref:`PHP <configuration-php>`
+- :ref:`Go <configuration-external>`
+- :ref:`Perl <configuration-perl>`
+- :ref:`Ruby <configuration-ruby>`
+- :ref:`JavaScript (Node.js) <configuration-external>`
 - :ref:`Java <configuration-java>`
 
 ****
