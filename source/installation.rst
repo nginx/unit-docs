@@ -38,11 +38,6 @@ the same language):
 - Python 2.6, 2.7, 3
 - Ruby 2.0 or later
 
-.. note::
-
-   To build Unit from source, you also need :ref:`build tools and
-   language development packages <installation-prereq-build>`.
-
 .. _installation-docker:
 
 *************
