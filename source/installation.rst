@@ -13,10 +13,10 @@ Prerequisites
 NGINX Unit is verified to compile and run on various Unix-like operating
 systems, including:
 
-- FreeBSD 10 or later
-- Linux 2.6 or later
-- macOS 10.6 or later
-- Solaris 11
+- FreeBSD |_| 10 or later
+- Linux |_| 2.6 or later
+- macOS |_| 10.6 or later
+- Solaris |_| 11
 
 Most modern instruction set architectures are supported, such as:
 
@@ -30,13 +30,13 @@ Most modern instruction set architectures are supported, such as:
 App languages and platforms that Unit can run (including multiple versions of
 the same language):
 
-- Go 1.6 or later
-- Java 8 or later
-- Node.js 8.11 or later
-- PHP 5, 7
-- Perl 5.12 or later
-- Python 2.6, 2.7, 3
-- Ruby 2.0 or later
+- Go |_| 1.6 or later
+- Java |_| 8 or later
+- Node.js |_| 8.11 or later
+- PHP |_| 5, 7
+- Perl |_| 5.12 or later
+- Python |_| 2.6, 2.7, 3
+- Ruby |_| 2.0 or later
 
 .. _installation-docker:
 
@@ -85,12 +85,12 @@ Official Packages
 Installing a precompiled Unit binary package is best for most occasions;
 we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 
-- Amazon Linux, Amazon Linux 2
-- CentOS 6, 7
-- Debian 8, 9, 10
-- Fedora 28, 29, 30
-- RHEL 6, 7, 8
-- Ubuntu 16.04, 18.04, 18.10, 19.04
+- Amazon |_| Linux, Amazon |_| Linux |_| 2
+- CentOS |_| 6, 7
+- Debian |_| 8, 9, 10
+- Fedora |_| 28, 29, 30
+- RHEL |_| 6, 7, 8
+- Ubuntu |_| 16.04, 18.04, 18.10, 19.04
 
 These include core Unit executables, developer files, and support packages for
 individual languages.
@@ -115,7 +115,7 @@ Amazon Linux
 #. To configure Unit repository, create the following file named
    :file:`/etc/yum.repos.d/unit.repo`:
 
-   Amazon Linux:
+   Amazon |_| Linux:
 
    .. code-block:: ini
 
@@ -125,7 +125,7 @@ Amazon Linux
       gpgcheck=0
       enabled=1
 
-   Amazon Linux 2 LTS:
+   Amazon |_| Linux |_| 2 |_| LTS:
 
    .. code-block:: ini
 
@@ -137,7 +137,7 @@ Amazon Linux
 
 #. Install Unit base package and additional packages you would like to use.
 
-   Amazon Linux:
+   Amazon |_| Linux:
 
    .. code-block:: console
 
@@ -145,7 +145,7 @@ Amazon Linux
       # yum install unit-devel unit-go unit-jsc8 unit-perl \
             unit-php unit-python27 unit-python34 unit-python35 unit-python36
 
-   Amazon Linux 2 LTS:
+   Amazon |_| Linux |_| 2 |_| LTS:
 
    .. code-block:: console
 
@@ -202,21 +202,21 @@ Debian
 #. To configure Unit repository, create the following file named
    :file:`/etc/apt/sources.list.d/unit.list`:
 
-   Debian 8:
+   Debian |_| 8:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/debian/ jessie unit
       deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-   Debian 9:
+   Debian |_| 9:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/debian/ stretch unit
       deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-   Debian 10:
+   Debian |_| 10:
 
    .. code-block:: none
 
@@ -225,7 +225,7 @@ Debian
 
 #. Install Unit base package and additional packages you would like to use.
 
-   Debian 8:
+   Debian |_| 8:
 
    .. code-block:: console
 
@@ -234,7 +234,7 @@ Debian
       # apt install unit-dev unit-perl unit-php unit-python2.7 \
             unit-python3.4 unit-ruby
 
-   Debian 9:
+   Debian |_| 9:
 
    .. code-block:: console
 
@@ -243,7 +243,7 @@ Debian
       # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-perl \
             unit-php unit-python2.7 unit-python3.5 unit-ruby
 
-   Debian 10:
+   Debian |_| 10:
 
    .. code-block:: console
 
@@ -273,7 +273,7 @@ Fedora
 
 #. Install Unit base package and additional packages you would like to use.
 
-   Fedora 28:
+   Fedora |_| 28:
 
    .. code-block:: console
 
@@ -281,7 +281,7 @@ Fedora
       # yum install unit-devel unit-go unit-jsc8 unit-perl \
             unit-php unit-python27 unit-python36 unit-ruby
 
-   Fedora 29:
+   Fedora |_| 29:
 
    .. code-block:: console
 
@@ -289,7 +289,7 @@ Fedora
       # yum install unit-devel unit-go unit-jsc8 unit-perl \
             unit-php unit-python27 unit-python37 unit-ruby
 
-   Fedora 30:
+   Fedora |_| 30:
 
    .. code-block:: console
 
@@ -320,7 +320,7 @@ RHEL
 
 #. Install Unit base package and additional packages you would like to use.
 
-   RHEL 6:
+   RHEL |_| 6:
 
    .. code-block:: console
 
@@ -328,7 +328,7 @@ RHEL
       # yum install unit-devel unit-go unit-jsc8 unit-perl \
             unit-php unit-python
 
-   RHEL 7:
+   RHEL |_| 7:
 
    .. code-block:: console
 
@@ -336,7 +336,7 @@ RHEL
       # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
             unit-perl unit-php unit-python
 
-   RHEL 8:
+   RHEL |_| 8:
 
    .. code-block:: console
 
@@ -364,28 +364,28 @@ Ubuntu
 #. To configure Unit repository, create the following file named
    :file:`/etc/apt/sources.list.d/unit.list`:
 
-   Ubuntu 16.04:
+   Ubuntu |_| 16.04:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ xenial unit
       deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-   Ubuntu 18.04:
+   Ubuntu |_| 18.04:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ bionic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
-   Ubuntu 18.10:
+   Ubuntu |_| 18.10:
 
    .. code-block:: none
 
       deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
       deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-   Ubuntu 19.04:
+   Ubuntu |_| 19.04:
 
    .. code-block:: none
 
@@ -394,7 +394,7 @@ Ubuntu
 
 #. Install Unit base package and additional packages you would like to use.
 
-   Ubuntu 16.04:
+   Ubuntu |_| 16.04:
 
    .. code-block:: console
 
@@ -403,7 +403,7 @@ Ubuntu
       # apt install unit-dev unit-go unit-jsc8 unit-perl unit-php \
             unit-python2.7 unit-python3.5 unit-ruby
 
-   Ubuntu 18.04:
+   Ubuntu |_| 18.04:
 
    .. code-block:: console
 
@@ -412,7 +412,7 @@ Ubuntu
       # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc10 unit-perl \
             unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
-   Ubuntu 18.10:
+   Ubuntu |_| 18.10:
 
    .. code-block:: console
 
@@ -421,7 +421,7 @@ Ubuntu
       # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
             unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
-   Ubuntu 19.04:
+   Ubuntu |_| 19.04:
 
    .. code-block:: console
 
@@ -1090,7 +1090,7 @@ Unit.  Available command options:
 
     The default value is :samp:`java`.
 
-To configure a module called :file:`java11.unit.so` with OpenJDK 11.0.1:
+To configure a module called :file:`java11.unit.so` with OpenJDK |_| 11.0.1:
 
 .. code-block:: console
 

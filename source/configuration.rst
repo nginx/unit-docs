@@ -849,7 +849,7 @@ App objects have a number of options shared between all application languages:
         For example, if you have only one PHP module, 7.1.9, it matches
         :samp:`"php"`, :samp:`"php 7"`, :samp:`"php 7.1"`, and :samp:`"php
         7.1.9"`.  If you have modules for versions 7.0.2 and 7.0.23, set
-        :samp:`"type": "php 7.0.2"` to specify the former; otherwise, PHP
+        :samp:`"type": "php 7.0.2"` to specify the former; otherwise, PHP |_|
         7.0.23 will be used.
 
     * - :samp:`limits`

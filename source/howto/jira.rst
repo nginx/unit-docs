@@ -1,5 +1,7 @@
 :orphan:
 
+.. include:: ../include/replace.rst
+
 ####
 Jira
 ####
@@ -9,7 +11,7 @@ follow these steps.
 
 .. note::
 
-   Command samples below assume you're using Jira Core 7.13.0.
+   Command samples below assume you're using Jira |_| Core |_| 7.13.0.
 
 #. Install :ref:`Unit with Java support <installation-precomp-pkgs>`.
 

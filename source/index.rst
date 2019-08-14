@@ -14,7 +14,7 @@ on-the-fly granular management for engineering and operations.
 | The latest version is |version|, released on May 30, 2019.
 | See the changelog `here </CHANGES.txt>`_.
 
-The sources are distributed under the Apache 2.0 license.
+The sources are distributed under the Apache |_| 2.0 license.
 
 ************
 Key Features
@@ -25,7 +25,7 @@ Key Features
 - Multiple :ref:`language versions <configuration-applications>` run
   simultaneously
 - Application processes :ref:`scale on demand <configuration-proc-mgmt-prcs>`
-- :ref:`SSL/TLS <configuration-ssl>` support is built-in (OpenSSL 1.0.1 and
+- :ref:`SSL/TLS <configuration-ssl>` support is built-in (OpenSSL |_| 1.0.1 and
   later)
 - Extensive :ref:`request routing <configuration-routes>` capabilities
 - **Coming next**: WebSockets support, static content, and proxying

@@ -12,12 +12,12 @@ but still want to benefit from the convenience of a packaged installation.  In
 this case, you can build your own package to be installed alongside the
 official distribution, adding the latter as a prerequisite.
 
-Here, we are packaging a custom PHP 7.3 :ref:`module <installation-php>` to be
-installed next to the official Unit package; adjust the command samples to your
-scenario as needed.  For Debian, Ubuntu, and other :file:`.deb`-based
-distributions, see the steps :ref:`here <packaging-deb>`; for CentOS,
-Fedora, RHEL, and other :file:`.rpm`-based distributions, follow the steps
-:ref:`here <packaging-rpm>`.
+Here, we are packaging a custom PHP |_| 7.3 :ref:`module <installation-php>` to
+be installed next to the official Unit package; adjust the command samples to
+your scenario as needed.  For Debian, Ubuntu, and other :file:`.deb`-based
+distributions, see the steps :ref:`here <packaging-deb>`; for CentOS, Fedora,
+RHEL, and other :file:`.rpm`-based distributions, follow the steps :ref:`here
+<packaging-rpm>`.
 
 .. note::
 
@@ -34,7 +34,7 @@ Assuming you are packaging for the current system and have the official Unit
 package installed:
 
 #. Make sure to install the :ref:`prerequisites <installation-prereq-build>`
-   for the package.  In our example, it's PHP 7.3 on Debian 10:
+   for the package.  In our example, it's PHP |_| 7.3 on Debian |_| 10:
 
    .. code-block:: console
 
@@ -132,7 +132,7 @@ Assuming you are packaging for the current system and have the official Unit
 package installed:
 
 #. Make sure to install the :ref:`prerequisites <installation-prereq-build>`
-   for the package.  In our example, it's PHP 7.3 on Fedora 30:
+   for the package.  In our example, it's PHP |_| 7.3 on Fedora |_| 30:
 
    .. code-block:: console
 
