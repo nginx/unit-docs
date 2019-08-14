@@ -194,8 +194,7 @@ Debian
 
    .. code-block:: console
 
-      # curl -O https://nginx.org/keys/nginx_signing.key
-      # apt-key add nginx_signing.key
+      # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
    This eliminates the 'packages cannot be authenticated' warnings during
    installation.
@@ -357,8 +356,7 @@ Ubuntu
 
    .. code-block:: console
 
-      # curl -O https://nginx.org/keys/nginx_signing.key
-      # apt-key add nginx_signing.key
+      # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
    This eliminates the 'packages cannot be authenticated' warnings during
    installation.
