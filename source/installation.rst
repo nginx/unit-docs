@@ -106,6 +106,11 @@ individual languages.
    Node.js is available at the `npm <https://www.npmjs.com/package/unit-http>`_
    registry.
 
+.. note::
+
+   See :doc:`here <howto/packaging>` for instructions on building custom
+   modules that install alongside the official Unit packages.
+
 .. _installation-precomp-amazon:
 
 ============
