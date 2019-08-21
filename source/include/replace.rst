@@ -4,4 +4,4 @@
 .. |-| unicode:: 0x2011
    :trim:
 
-.. |version| replace:: 1.9.0
+.. |version| replace:: 1.10.0
