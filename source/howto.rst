@@ -32,8 +32,8 @@ Miscellaneous
   container.
 - :doc:`howto/integration`: Run Unit with load balancing, proxying, and
   enhanced security.
-- :doc:`howto/packaging`: Beef up the official Unit distributions with custom
-  language modules.
+- :doc:`howto/modules`: Building new modules and preparing custom packages for
+  Unit.
 - :doc:`howto/samples`: Sample app configuration instructions for all languages
   supported by Unit.
 - :doc:`howto/walkthrough`: A step-by-step guide to application configuration

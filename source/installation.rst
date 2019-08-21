@@ -97,14 +97,13 @@ individual languages.
 
 .. note::
 
-   Unit's language support :ref:`package <installation-nodejs-package>` for
-   Node.js is available at the `npm <https://www.npmjs.com/package/unit-http>`_
-   registry.
+   Unit's language :ref:`module <installation-nodejs-package>` for Node.js is
+   available at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
 .. note::
 
-   See :doc:`here <howto/packaging>` for instructions on building custom
-   modules that install alongside the official Unit packages.
+   For details of packaging custom modules that install alongside the official
+   Unit, see :ref:`here <modules-pkg>`.
 
 .. _installation-precomp-amazon:
 
@@ -438,7 +437,7 @@ Ubuntu
 Node.js at npm
 ==============
 
-Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js package
+Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
 is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
 run in Unit:
 
@@ -454,17 +453,17 @@ run in Unit:
 
     .. warning::
 
-       The :program:`unit-http` package is platform dependent due to
+       The :program:`unit-http` module is platform dependent due to
        optimizations; you can't move it across systems with the rest of
        :file:`node-modules`.  Global installation avoids such scenarios; just
        :ref:`relink <configuration-external-nodejs>` the migrated app.
 
-#. After that, :ref:`use the package <configuration-external-nodejs>` in your
+#. After that, :ref:`use <configuration-external-nodejs>` the module in your
    Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
    that such frameworks as Express may require
    additional :doc:`changes in your code <howto/express>`.
 
-If you update Unit later, make sure to update the NPM package as well:
+If you update Unit later, make sure to update the module as well:
 
 .. code-block:: console
 
@@ -473,7 +472,7 @@ If you update Unit later, make sure to update the NPM package as well:
 .. note::
 
    You can also :ref:`configure <installation-nodejs>` and :ref:`install
-   <installation-bld-src-ext>` the :program:`unit-http` package from sources.
+   <installation-bld-src-ext>` the :program:`unit-http` module from sources.
 
 .. _installation-precomp-startup:
 
@@ -1103,13 +1102,13 @@ Configuring Node.js
 *******************
 
 When you run :command:`./configure nodejs`, Unit sets up the
-:program:`unit-http` package that your applications will use to :ref:`run in
+:program:`unit-http` module that your applications will use to :ref:`run in
 Unit <configuration-external-nodejs>`.  Available configuration options:
 
 --local=directory
-    Local directory path for Node.js package installation.
+    Local directory path for Node.js module installation.
 
-    By default, the package is installed globally :ref:`(recommended)
+    By default, the module is installed globally :ref:`(recommended)
     <installation-nodejs-package>`.
 
 --node=pathname
@@ -1273,6 +1272,10 @@ You can also build and install language modules individually; the specific
 method depends on whether the language module is embedded in Unit or packaged
 externally.
 
+.. note::
+
+   For further details about Unit language modules, see :doc:`howto/modules`.
+
 .. _installation-bld-src-emb:
 
 Embedded Language Modules
@@ -1289,10 +1292,10 @@ configuration, run :command:`make <module>` and :command:`make
 
 .. _installation-bld-src-ext:
 
-External Language Packages
-**************************
+External Language Modules
+*************************
 
-To build and install Unit packages for Go and Node.js after configuration, run
+To build and install Unit modules for Go and Node.js after configuration, run
 :command:`make <go>-install` and :command:`make <node>-install`, for example:
 
 .. code-block:: console
@@ -1302,7 +1305,7 @@ To build and install Unit packages for Go and Node.js after configuration, run
 
 .. note::
 
-   To install the Node.js package locally, run :command:`make
+   To install the Node.js module locally, run :command:`make
    <node>-local-install`:
 
    .. code-block:: console
@@ -1382,97 +1385,3 @@ The following options override compile-time settings:
 
 --state directory
     Directory path for Unit state storage.
-
-.. _installation-langs:
-
-****************
-Adding Languages
-****************
-
-The set of languages your Unit installation can run depends on language modules
-you have installed:
-
-.. subs-code-block:: console
-
-   $ unitd -h             # check the default module path
-         ...
-         --modules DIRECTORY  set modules directory name
-                              default: "/default/modules/path/"
-
-   $ ps ax | grep unitd   # check whether the default was overridden at launch
-         ...
-         unit: main v|version| [/path/to/unitd ... --modules /runtime/modules/path/ ... ]
-
-   $ ls /resulting/path/to/modules
-
-         java.unit.so  perl.unit.so  php.unit.so  python.unit.so  ruby.unit.so
-
-.. note::
-
-   For Go, Unit support is implemented with an external package that you
-   :ref:`build into <configuration-external-go>` your apps.
-
-   For Node.js, Unit is supported by a :ref:`package
-   <configuration-external-nodejs>` that your apps :samp:`require`; to check
-   whether it's installed:
-
-   .. subs-code-block:: console
-
-      $ npm list -g | grep unit-http  # check for global install (recommended)
-
-            `-- unit-http@|version|
-
-      $ npm list | grep unit-http     # check for local install
-
-If a language module is missing, Unit can't run apps in that language;
-however, you can add new modules:
-
-- If you installed the official Unit package, best use the official
-  :ref:`language packages <installation-precomp-pkgs>` for easy integration.
-
-- If you installed Unit via a :ref:`third-party repo
-  <installation-community-repos>`, check whether a suitable language package is
-  available there.
-
-- You can build the modules from source code.  :ref:`Configure
-  <installation-config-src>` the same options your Unit was built with:
-
-  .. code-block:: console
-
-     $ unitd --version
-
-           configured as ./configure <build flags> ...
-
-     $ ./configure <build flags>
-
-  After that you need to configure, build, and install the required modules as
-  described :ref:`earlier <installation-src-modules>`:
-
-  .. code-block:: console
-
-     $ ./configure <language> --module=<module name> <other options>
-     $ make <module-name>
-     $ make <module-name>-install
-
-.. note::
-
-   As noted above, Go apps have Unit support built in.  In contrast, Node.js
-   requires :ref:`custom installation <installation-nodejs-package>`.
-
-With the modules in place, restart Unit and check the :ref:`log
-<troubleshooting-log>` to make sure new modules were loaded:
-
-.. subs-code-block:: console
-
-   # less /path/to/unit.log
-         ...
-         discovery started
-         module: <language>   "/path/to/modules/<module name>.unit.so"
-         ...
-
-.. note::
-
-   External packages for Node.js and Go will not be listed; instead, they are
-   loaded by your app and interact with Unit processes from within it.  Make
-   sure your :ref:`application <configuration-external-go>` references these
-   packages.

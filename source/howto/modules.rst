@@ -2,9 +2,96 @@
 
 .. include:: ../include/replace.rst
 
-########################
+#############################
+Working With Language Modules
+#############################
+
+Languages supported by Unit fall into these two categories:
+
+- :ref:`External <modules-ext>` (Go, Node.js): Run outside Unit and communicate
+  with it via wrapper packages.
+- :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby): Execute in
+  runtimes that Unit loads at startup.
+
+For any specific language and its version, Unit needs a language module.
+
+.. _modules-ext:
+
+*************************
+External Language Modules
+*************************
+
+External modules are regular language libraries or packages that you install
+like any other.  They provide common web functionality, communicating with Unit
+from the app's runspace.
+
+In Go, Unit support is implemented with a package that you :ref:`build into
+<configuration-external-go>` your apps.  The package is available from the
+official Unit repository; you can also build it with Unit sources for a custom
+version of Go.
+
+In Node.js, Unit is supported by an :program:`npm`-hosted :ref:`package
+<configuration-external-nodejs>` that your apps :samp:`require` in their code
+among other dependencies.  To make it available in your system, install it from
+the `npm <https://www.npmjs.com/package/unit-http>`_ repository.
+
+.. _modules-emb:
+
+*************************
+Embedded Language Modules
+*************************
+
+Embedded modules are shared libraries that Unit loads at startup.  Query Unit
+to find them in your system:
+
+.. subs-code-block:: console
+
+   # unitd -h             # Run as root to check default log and module paths
+          ...
+
+         --log FILE           set log filename
+                              default: "/default/path/to/unit.log"
+
+         --modules DIRECTORY  set modules directory name
+                              default: "/default/modules/path/"
+
+   $ ps ax | grep unitd   # Check whether the defaults were overridden at launch
+         ...
+         unit: main v|version| [unitd --log /runtime/path/to/unit.log --modules /runtime/modules/path/ ... ]
+
+   $ ls /path/to/modules
+
+         java.unit.so  perl.unit.so  php.unit.so  python.unit.so  ruby.unit.so
+
+To clarify the module versions, check the :ref:`Unit log <troubleshooting-log>`
+to see which modules were loaded at startup:
+
+.. subs-code-block:: console
+
+   # less /path/to/unit.log
+         ...
+         discovery started
+         module: <language> <version> "/path/to/modules/<module name>.unit.so"
+         ...
+
+If a language version is not listed, Unit can't run apps that rely on it;
+however, you can add new modules:
+
+- If possible, use the official :ref:`language packages
+  <installation-precomp-pkgs>` for easy integration and maintenance.
+
+- If you installed Unit via a :ref:`third-party repo
+  <installation-community-repos>`, check whether a suitable language package is
+  available there.
+
+- If you want a customized yet reusable solution, :ref:`prepare <modules-pkg>`
+  your own package to be installed beside Unit.
+
+.. _modules-pkg:
+
+========================
 Packaging Custom Modules
-########################
+========================
 
 There's always a chance that you need to run a language version that isn't yet
 available among the official Unit :ref:`packages <installation-precomp-pkgs>`
@@ -15,20 +102,19 @@ official distribution, adding the latter as a prerequisite.
 Here, we are packaging a custom PHP |_| 7.3 :ref:`module <installation-php>` to
 be installed next to the official Unit package; adjust the command samples to
 your scenario as needed.  For Debian, Ubuntu, and other :file:`.deb`-based
-distributions, see the steps :ref:`here <packaging-deb>`; for CentOS, Fedora,
+distributions, see the steps :ref:`here <modules-deb>`; for CentOS, Fedora,
 RHEL, and other :file:`.rpm`-based distributions, follow the steps :ref:`here
-<packaging-rpm>`.
+<modules-rpm>`.
 
 .. note::
 
    For elaborate Unit packaging examples, refer to our packaging system
    `sources <https://hg.nginx.org/unit/file/tip/pkg/>`_.
 
-.. _packaging-deb:
+.. _modules-deb:
 
-*************
 .deb Packages
-*************
+#############
 
 Assuming you are packaging for the current system and have the official Unit
 package installed:
@@ -110,23 +196,10 @@ package installed:
       $ dpkg-deb -b $UNITTMP/unit-php7.3
       # dpkg -i $UNITTMP/unit-7.3.deb
 
-#. Finally, restart Unit and check out the log to make sure your module was
-   loaded:
+.. _modules-rpm:
 
-   .. code-block:: console
-
-      # systemctl restart unit
-      # less /path/to/unit.log
-
-          ...
-         [info] discovery started
-         [notice] module: <module name and version> "<module path>/php7.3.unit.so"
-
-.. _packaging-rpm:
-
-*************
 .rpm Packages
-*************
+#############
 
 Assuming you are packaging for the current system and have the official Unit
 package installed:
@@ -147,8 +220,8 @@ package installed:
       $ rpmdev-setuptree
 
 #. Create a :file:`.spec` `file
-   <https://rpm-packaging-guide.github.io/#what-is-a-spec-file>`_ for your
-   custom package:
+   <https://rpm-packaging-guide.github.io/#what-is-a-spec-file>`_ to store
+   build commands for your custom package:
 
    .. code-block:: console
 
@@ -165,8 +238,9 @@ package installed:
           unit version: |version|
           configured as ./configure <./configure flags>
 
-#. Edit the :file:`unit-php7.3.spec` file as follows (see inline comments for
-   details):
+#. Edit the :file:`unit-php7.3.spec` file, adding the commands that download
+   Unit sources, :ref:`configure <installation-src-modules>` and build your
+   custom module, then put it where Unit will find it:
 
    .. subs-code-block:: spec
 
@@ -230,15 +304,3 @@ package installed:
           ...
 
       # yum install -y /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<version>.<arch>.rpm
-
-#. Finally, restart Unit and check out the log to make sure your module was
-   loaded:
-
-   .. code-block:: console
-
-      # systemctl restart unit
-      # less /path/to/unit.log
-
-          ...
-         [info] discovery started
-         [notice] module: <module name and version> "<module path>/php7.3.unit.so"

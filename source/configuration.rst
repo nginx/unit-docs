@@ -1109,7 +1109,7 @@ The resulting application works as follows:
 Modifying Node.js Sources
 *************************
 
-First, you need to have the :program:`unit-http` package :ref:`installed
+First, you need to have the :program:`unit-http` module :ref:`installed
 <installation-nodejs-package>`.  If it's global, symlink it in your project
 directory:
 
