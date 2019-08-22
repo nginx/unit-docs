@@ -514,6 +514,7 @@ An example:
            {
                "match": {
                    "host": "example.com",
+                   "scheme": "https",
                    "uri": "/admin/*"
                },
 
@@ -593,6 +594,11 @@ request properties:
    * - :samp:`method`
      - Method from the request line.
      - No
+   * - :samp:`scheme`
+     - URI `scheme
+       <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
+       Currently, :samp:`http` and :samp:`https` are supported.
+     - No
    * - :samp:`uri`
      - URI path without arguments, normalized by decoding the "%XX" sequences,
        resolving relative path references ("." and ".."), and compressing
@@ -601,6 +607,10 @@ request properties:
 
 For :samp:`host`, :samp:`method`, and :samp:`uri`, simple matching is used;
 other properties use :ref:`compound matching <configuration-routes-compound>`.
+
+.. note::
+
+   The :samp:`scheme` option value can either be :samp:`http` or :samp:`https`.
 
 .. _configuration-routes-simple:
 
@@ -784,6 +794,7 @@ request where :samp:`pass` points to:
        "match": {
            "host": [ "*.example.com", "!php7.example.com" ],
            "uri": [ "/admin/*", "/store/*" ],
+           "scheme": "https",
            "method": "POST"
        },
 
@@ -792,9 +803,9 @@ request where :samp:`pass` points to:
         }
    }
 
-Here, all :samp:`POST` requests for URIs prefixed with :samp:`/admin/` or
-:samp:`/store/` within any subdomains of :samp:`example.com` (except
-:samp:`php7`) are routed to :samp:`php5_app`.
+Here, all :samp:`POST` requests for HTTPS-schemed URIs prefixed with
+:samp:`/admin/` or :samp:`/store/` within any subdomains of :samp:`example.com`
+(except for :samp:`php7.example.com`) are routed to :samp:`php5_app`.
 
 .. _configuration-applications:
 
@@ -1816,6 +1827,7 @@ Full Example
                {
                    "match": {
                        "uri": "/admin/*",
+                       "scheme": "https",
                        "arguments": {
                            "mode": "strict",
                            "access": "!raw"
