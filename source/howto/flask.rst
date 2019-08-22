@@ -14,10 +14,10 @@ To run your Flask apps in Unit:
 
 #. .. include:: ../include/get-config.rst
 
-   This creates a JSON file with Unit's current settings.  Edit it, adding a
-   :ref:`listener <configuration-listeners>` entry to point to a Unit :ref:`app
-   <configuration-applications>` that references your application’s WSGI module
-   as :samp:`module` and `virtual environment
+   This creates a JSON file with Unit's current settings.  Edit the file,
+   adding a :ref:`listener <configuration-listeners>` entry to point to a Unit
+   :ref:`app <configuration-applications>` that references your application’s
+   WSGI module as :samp:`module` and `virtual environment
    <http://flask.pocoo.org/docs/1.0/installation/#virtual-environments>`_ as
    :samp:`home`:
 

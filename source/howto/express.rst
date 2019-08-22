@@ -45,13 +45,11 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
 
 #. .. include:: ../include/get-config.rst
 
-   This creates a JSON file with Unit's current settings; update it with your
-   project settings as follows.
-
-#. Edit the JSON file, adding a :ref:`listener <configuration-listeners>` in
-   :samp:`listeners` and pointing it to your app's :file:`.js` file in
-   :samp:`applications`.  Your project and apps will run on the listener's IP
-   and port at their respective URL paths.
+   This creates a JSON file with Unit's current settings.  Edit the file,
+   adding a :ref:`listener <configuration-listeners>` in :samp:`listeners` and
+   pointing it to your app's :file:`.js` file in :samp:`applications`.  Your
+   project and apps will run on the listener's IP and port at their respective
+   URL paths.
 
    .. code-block:: json
 
