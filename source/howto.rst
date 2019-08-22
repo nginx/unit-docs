@@ -9,6 +9,7 @@ experience with Unit.
 App Frameworks
 **************
 
+- :doc:`howto/catalyst`: Empower your Catalyst applications with Unit.
 - :doc:`howto/django`: Migrate your Django projects and apps to Unit almost
   seamlessly.
 - :doc:`howto/express`: Launch Express apps in Unit with minimal adjustments.

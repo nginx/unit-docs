@@ -1213,8 +1213,8 @@ Example:
 .. note::
 
    For an example of Perl app configuration, see our :doc:`Bugzilla
-   <howto/bugzilla>` howto.  Also, see a :ref:`sample
-   <sample-perl>` in Perl.
+   <howto/bugzilla>` and :doc:`Catalyst <howto/catalyst>` howtos or a
+   :ref:`sample <sample-perl>` in Perl.
 
 .. _configuration-php:
 
