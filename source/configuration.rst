@@ -1126,6 +1126,13 @@ Next, use :samp:`unit-http` instead of :samp:`http` in your code:
 
    var http = require('unit-http');
 
+Unit also supports the WebSocket protocol; your Node.js app only needs to
+replace the default :samp:`websocket`:
+
+.. code-block:: javascript
+
+  var webSocketServer = require('unit-http/websocket').server;
+
 .. note::
 
    For examples of Node.js app configuration, see our :doc:`Express

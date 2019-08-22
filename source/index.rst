@@ -28,7 +28,9 @@ Key Features
 - :ref:`SSL/TLS <configuration-ssl>` support is built-in (OpenSSL |_| 1.0.1 and
   later)
 - Extensive :ref:`request routing <configuration-routes>` capabilities
-- **Coming next**: WebSockets support, static content, and proxying
+- Built-in WebSocket server implementation for
+  :ref:`Node.js <configuration-external>`
+- **Coming next**: WebSocket support for Java, static content and proxying
 
 ***********************
 Supported App Languages
