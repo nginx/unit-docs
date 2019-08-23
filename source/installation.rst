@@ -899,7 +899,13 @@ structure <installation-src-dir>`:
 
 --control=socket
     Control API socket address; Unix (with :samp:`unix:` prefix), IPv4,
-    or IPv6 socket can be used.
+    or IPv6 socket can be used:
+
+    .. code-block:: console
+
+       # unitd --control unix:/path/to/control.unit.sock
+       # unitd --control 127.0.0.1:8080
+       # unitd --control [::1]:8080
 
     .. warning::
 
@@ -1364,11 +1370,18 @@ General options:
     Displays Unit version and :program:`./configure` settings it was built
     with.
 
-The following options override compile-time settings:
+The following options override :ref:`compile-time settings
+<installation-config-src>`:
 
 --control socket
     Address of the control API socket.  IPv4, IPv6, and Unix domain sockets
-    are supported.
+    are supported:
+
+    .. code-block:: console
+
+       # unitd --control unix:/path/to/control.unit.sock
+       # unitd --control 127.0.0.1:8080
+       # unitd --control [::1]:8080
 
 --group name, --user name
     Group name and user name used to run Unit's non-privileged processes.
