@@ -31,6 +31,8 @@ Applications
 
 - :doc:`howto/jira`: Run a new Jira installation in Unit.
 
+- :doc:`howto/nextcloud`: Deploy a NextCloud site using NGINX and Unit.
+
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
 
 - :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
