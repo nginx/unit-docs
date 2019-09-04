@@ -145,7 +145,8 @@ package installed:
    :file:`DEBIAN` folder will store the package definition.
 
 #. Run :program:`unitd --version` as root and note the :program:`./configure`
-   :ref:`flags <installation-config-src>` for later use:
+   :ref:`flags <installation-config-src>` for later use, omitting
+   :option:`!--ld-opt`:
 
    .. subs-code-block:: console
 
@@ -160,9 +161,9 @@ package installed:
    .. subs-code-block:: console
 
       $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
-      $ tar xzf unit-|version|.tar.gz                                  # Puts Unit sources in the unit-|version| subdirectory
+      $ tar xzf unit-|version|.tar.gz                                 # Puts Unit sources in the unit-|version| subdirectory
       $ cd unit-|version|
-      $ ./configure <./configure flags>                            # Configures the build; use the ./configure flags from unitd output
+      $ ./configure <./configure flags w/o --ld-opt>               # Configures the build; use the ./configure flags from unitd output
       $ ./configure php --module=php7.3 --config=php-config        # Configures the module itself
       $ make php7.3                                                # Builds the module in the build/ subdirectory
       $ mkdir -p $UNITTMP/unit-php7.3/<module path>                # Use the module path from the ./configure flags
@@ -229,7 +230,8 @@ package installed:
       $ rpmdev-newspec unit-php7.3
 
 #. Run :program:`unitd --version` as root and note the :program:`./configure`
-   :ref:`flags <installation-config-src>` for later use:
+   :ref:`flags <installation-config-src>` for later use, omitting
+   :option:`!--ld-opt`:
 
    .. subs-code-block:: console
 
@@ -275,7 +277,7 @@ package installed:
       # Extracts them locally for compilation steps in the %build section
 
       %build
-      ./configure <./configure flags>
+      ./configure <./configure flags w/o --ld-opt>
       # Configures the build; use the ./configure flags from unitd output
       ./configure php --module=php7.3 --config=php-config
       # Configures the module itself
