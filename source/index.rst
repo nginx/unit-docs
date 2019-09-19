@@ -11,7 +11,7 @@ Built from scratch, Unit can run web apps in many language versions at once; it
 is also fully configurable in runtime with zero interruption, enabling
 on-the-fly granular management for engineering and operations.
 
-| The latest version is |version|, released on August 22, 2019.
+| The latest version is |version|, released on September 19, 2019.
 | See the changelog `here </CHANGES.txt>`_.
 
 The sources are distributed under the Apache |_| 2.0 license.
@@ -27,10 +27,12 @@ Key Features
 - Application processes :ref:`scale on demand <configuration-proc-mgmt-prcs>`
 - :ref:`SSL/TLS <configuration-ssl>` support is built-in (OpenSSL |_| 1.0.1 and
   later)
-- Extensive :ref:`request routing <configuration-routes>` capabilities
+- Extensive :ref:`request routing <configuration-routes>` capabilities and
+  static content :ref:`support <configuration-static>`
 - Built-in WebSocket server implementation for
-  :ref:`Node.js <configuration-external>`
-- **Coming next**: WebSocket support for Java, static content and proxying
+  :ref:`Node.js <configuration-external>` and Java
+- Application namespace :ref:`isolation <configuration-proc-mgmt-isolation>`
+- **Coming next**: proxying features
 
 ***********************
 Supported App Languages
