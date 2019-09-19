@@ -915,12 +915,134 @@ Also, you need to set :samp:`type`-specific :ref:`options
        }
    }
 
-====================
-Processes and Limits
-====================
+==================
+Process Management
+==================
 
-Apps have two options, :samp:`limits` and :samp:`processes`, that control how
-an app's processes are managed by Unit.
+Unit supports three per-app options that control the app's processes:
+:samp:`isolation`, :samp:`limits`, and :samp:`processes`.
+
+.. _configuration-proc-mgmt-isolation:
+
+Process Isolation
+*****************
+
+You can use namespace isolation `features
+<http://man7.org/linux/man-pages/man7/namespaces.7.html>`_ for your apps if
+Unit's underlying OS supports them:
+
+.. code-block:: console
+
+   $ ls /proc/self/ns/
+
+       cgroup  ipc  mnt  net  pid  ...  user  uts
+
+The :samp:`isolation` application option has the following members:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - :samp:`namespaces`
+     - Object that configures namespace isolation scheme for the application.
+
+       Available options (system-dependent; check your OS manual for guidance):
+
+       .. list-table::
+
+          * - :samp:`cgroup`
+            - Creates a new `cgroup
+              <http://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html>`_
+              namespace for the app.
+
+          * - :samp:`credential`
+            - Creates a new `user
+              <http://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
+              namespace for the app.
+
+          * - :samp:`mount`
+            - Creates a new `mount
+              <http://man7.org/linux/man-pages/man7/mount_namespaces.7.html>`_
+              namespace for the app.
+
+          * - :samp:`network`
+            - Creates a new `network
+              <http://man7.org/linux/man-pages/man7/network_namespaces.7.html>`_
+              namespace for the app.
+
+          * - :samp:`pid`
+            - Creates a new `PID
+              <http://man7.org/linux/man-pages/man7/pid_namespaces.7.html>`_
+              namespace for the app.
+
+          * - :samp:`uname`
+            - Creates a new `UTS
+              <http://man7.org/linux/man-pages/man7/namespaces.7.html>`_
+              namespace for the app.
+
+       All options listed above are Boolean; to isolate the app, set the
+       corresponding namespace option to :samp:`true`; to disable isolation,
+       set the option to :samp:`false` (default).
+
+   * - :samp:`uidmap`
+     - Array of `ID mapping
+       <http://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_ objects;
+       each array item must define the following:
+
+       .. list-table::
+
+          * - :samp:`container`
+            - Integer that starts the user ID mapping range in the app's
+              namespace.
+
+          * - :samp:`host`
+            - Integer that starts the user ID mapping range in the OS
+              namespace.
+
+          * - :samp:`size`
+            - Integer size of the ID range in both namespaces.
+
+   * - :samp:`gidmap`
+     - Same as :samp:`uidmap`, but configures group IDs instead of user IDs.
+
+.. note::
+
+   The :samp:`uidmap` and :samp:`gidmap` options are available only if the OS
+   supports user namespaces.
+
+Example of an :samp:`isolation` object that enables all namespaces and sets
+mappings for user and group IDs:
+
+.. code-block:: json
+
+    {
+        "namespaces": {
+            "cgroup": true,
+            "credential": true,
+            "mount": true,
+            "network": true,
+            "pid": true,
+            "uname": true
+        },
+
+        "uidmap": [
+            {
+                "host": 1000,
+                "container": 0,
+                "size": 1000
+            }
+        ],
+
+        "gidmap": [
+            {
+                "host": 1000,
+                "container": 0,
+                "size": 1000
+            }
+        ]
+    }
 
 .. _configuration-proc-mgmt-lmts:
 
@@ -930,21 +1052,21 @@ Request Limits
 The :samp:`limits` object controls request handling by the app process and has
 two integer options:
 
- .. list-table::
-    :header-rows: 1
+.. list-table::
+   :header-rows: 1
 
-    * - Option
-      - Description
+   * - Option
+     - Description
 
-    * - :samp:`timeout`
-      - Request timeout in seconds.  If an app process exceeds this limit while
-        handling a request, Unit alerts it to cancel the request and returns an
-        HTTP error to the client.
+   * - :samp:`timeout`
+     - Request timeout in seconds.  If an app process exceeds this limit while
+       handling a request, Unit alerts it to cancel the request and returns an
+       HTTP error to the client.
 
-    * - :samp:`requests`
-      - Maximum number of requests Unit allows an app process to serve.  If the
-        limit is reached, the process is restarted; this helps to mitigate
-        possible memory leaks or other cumulative issues.
+   * - :samp:`requests`
+     - Maximum number of requests Unit allows an app process to serve.  If the
+       limit is reached, the process is restarted; this helps to mitigate
+       possible memory leaks or other cumulative issues.
 
 Example:
 
@@ -1915,7 +2037,33 @@ Full Example
                    "executable": "bin/chat_app",
                    "group": "www-chat",
                    "user": "www-chat",
-                   "working_directory": "/www/chat/"
+                   "working_directory": "/www/chat/",
+                   "isolation": {
+                       "namespaces": {
+                           "cgroup": false,
+                           "credential": true,
+                           "mount": false,
+                           "network": false,
+                           "pid": false,
+                           "uname": false
+                       },
+
+                       "uidmap": [
+                           {
+                               "host": 1000,
+                               "container": 0,
+                               "size": 1000
+                           }
+                       ],
+
+                       "gidmap": [
+                           {
+                               "host": 1000,
+                               "container": 0,
+                               "size": 1000
+                           }
+                       ]
+                   }
                },
 
                "cms": {
