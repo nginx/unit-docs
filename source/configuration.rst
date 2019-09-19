@@ -377,8 +377,9 @@ host IP (or a wildcard to match all host IPs) and a port that Unit binds to.
 
 Unit dispatches the requests it receives to :ref:`applications
 <configuration-applications>` or :ref:`routes <configuration-routes>`
-referenced by listeners.  You can plug several listeners into one app or route,
-or use a single listener for hot-swapping during testing or staging.
+referenced by listeners; it also can serve requests for :ref:`static files
+<configuration-static>` directly.  You can plug several listeners into one app
+or route, or use a single listener for hot-swapping during testing or staging.
 
 Available options:
 
@@ -388,25 +389,26 @@ Available options:
     * - Option
       - Description
 
-    * - :samp:`pass` (required)
-      - Qualified app or route name: :samp:`"pass": "routes/route66"`,
-        :samp:`"pass": "applications/qwk2mart"`.  Mutually exclusive with
-        :samp:`application`.
+    * - :samp:`pass`
+      - Listener's target; possible values and respective actions:
+
+        .. list-table::
+
+           * - App name
+             - :samp:`applications/qwk2mart`
+             - Listener passes incoming requests to the
+               :ref:`app <configuration-applications>`.
+
+           * - Route name
+             - :samp:`routes/route66`, :samp:`routes`
+             - Listener relays incoming requests to the
+               :ref:`route <configuration-routes>`.
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
         enables secure communication via the listener; it must name a
         certificate chain that you have :ref:`configured <configuration-ssl>`
         earlier.
-
-    * - :samp:`application` (deprecated)
-      - App name: :samp:`"application": "qwk2mart"`.  Mutually exclusive with
-        :samp:`pass`.
-
-        .. warning::
-
-           This option is deprecated.  Please update your configurations to use
-           :samp:`pass` instead.
 
 Here, local requests at port :samp:`8300` are passed to the :samp:`blogs` app;
 all requests at :samp:`8400` follow the :samp:`main` route:
@@ -425,6 +427,7 @@ all requests at :samp:`8400` follow the :samp:`main` route:
             "pass": "routes/main"
         }
     }
+
 
 .. _configuration-routes:
 
@@ -484,15 +487,19 @@ Steps have the following options:
    * - Option
      - Description
 
-   * - :samp:`action/pass` (required)
-     - Route's destination; identical to :samp:`pass` in a :ref:`listener
+   * - :samp:`action/pass`
+     - Route's target; identical to :samp:`pass` in a :ref:`listener
        <configuration-listeners>`.
+
+   * - :samp:`action/share`
+     - Static asset path: :samp:`/www/files/`.  In case of a match, Unit serves
+       the :ref:`files<configuration-static>` at this path.
 
    * - :samp:`match`
      - Object that defines the step conditions.
 
        - If the request fits all :samp:`match` conditions in a step, the step's
-         :samp:`pass` is followed.
+         :samp:`pass` or :samp:`share` is followed.
 
        - If the request doesn't match a condition, Unit proceeds to the next
          step of the route.
@@ -505,6 +512,10 @@ Steps have the following options:
        :ref:`below <configuration-routes-matching>` for condition matching
        details.
 
+.. note::
+
+   A route step must define either :samp:`pass` or :samp:`share`, but not both.
+
 An example:
 
 .. code-block:: json
@@ -515,16 +526,16 @@ An example:
                "match": {
                    "host": "example.com",
                    "scheme": "https",
-                   "uri": "/admin/*"
+                   "uri": "/php/*"
                },
 
                "action": {
-                   "pass": "applications/php5_app"
+                   "pass": "applications/php_version"
                 }
            },
            {
                "action": {
-                   "pass": "applications/php7_app"
+                   "share": "/www/static_version/"
                 }
            }
         ]
@@ -555,6 +566,11 @@ A more elaborate example with chained routes:
 
                    "action": {
                        "pass": "applications/blog"
+                   }
+               },
+               {
+                   "action": {
+                       "share": "/www/static_fallthrough/"
                    }
                }
            ],
@@ -786,26 +802,112 @@ Passing Requests
 To match a step, the request must fit *all* property conditions listed in it.
 
 If all properties match or you omit :samp:`match` entirely, Unit routes the
-request where :samp:`pass` points to:
+request where :samp:`pass` or :samp:`share` points to:
 
 .. code-block:: json
 
    {
-       "match": {
-           "host": [ "*.example.com", "!php7.example.com" ],
-           "uri": [ "/admin/*", "/store/*" ],
-           "scheme": "https",
-           "method": "POST"
-       },
+      "routes": [
+          {
+              "match": {
+                  "host": [ "*.example.com", "!static.example.com" ],
+                  "uri": [ "/admin/*", "/store/*" ],
+                  "scheme": "https",
+                  "method": "POST"
+              },
 
-       "action": {
-           "pass": "applications/php5_app"
-        }
+              "action": {
+                  "pass": "applications/php5_app"
+              }
+          },
+          {
+              "action": {
+                  "share": "/www/static_site/"
+              }
+          }
+      ]
    }
 
 Here, all :samp:`POST` requests for HTTPS-schemed URIs prefixed with
-:samp:`/admin/` or :samp:`/store/` within any subdomains of :samp:`example.com`
-(except for :samp:`php7.example.com`) are routed to :samp:`php5_app`.
+:samp:`/admin/` or :samp:`/store/` within subdomains of :samp:`example.com`
+(except for :samp:`static.example.com`) are routed to :samp:`php5_app`; any
+other requests are served with static content at :file:`/www/static_site/`.
+
+.. _configuration-static:
+
+************
+Static Files
+************
+
+Unit is capable of acting as a standalone web server, serving requests for
+static assets from directories you configure; to use the feature, supply the
+directory path in the :samp:`share` option of a route step:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "127.0.0.1:8300": {
+               "pass": "routes"
+           }
+        },
+
+       "routes": [
+           {
+               "action": {
+                   "share": "/www/data/static/"
+                }
+           }
+       ]
+   }
+
+Suppose the :file:`/www/data/static/` directory has the following structure:
+
+.. code-block:: none
+
+   /www/data/static/
+   ├── stylesheet.css
+   ├── html
+   │   └──index.html
+   └── js files
+       └──page.js
+
+In the above configuration, you can request specific files by these URIs:
+
+.. code-block:: console
+
+   $ curl 127.0.0.1:8300/html/index.html
+   $ curl 127.0.0.1:8300/stylesheet.css
+   $ curl '127.0.0.1:8300/js files/page.js'
+
+.. note::
+
+   Unit supports encoded symbols in URIs as the last query above suggests.
+
+If your query specifies only the directory name, Unit will attempt to serve
+:file:`index.html` from this directory:
+
+.. subs-code-block:: console
+
+   $ curl -vL 127.0.0.1:8300/html/
+
+    ...
+    < HTTP/1.1 200 OK
+    < Last-Modified: Fri, 20 Sep 2019 04:14:43 GMT
+    < ETag: "5d66459d-d"
+    < Content-Type: text/html
+    < Server: Unit/|version|
+    ...
+
+.. note::
+
+   Unit's ETag response header fields use the following format:
+   :samp:`%MTIME_HEX%-%FILESIZE_HEX%`.
+
+Unit maintains a number of :ref:`built-in MIME types <configuration-mime>` like
+:samp:`text/plain` or :samp:`text/html`; also, you can add extra types and
+override built-ins in the :samp:`/config/settings/http/static/mime_types`
+section.
 
 .. _configuration-applications:
 
@@ -1613,6 +1715,12 @@ HTTP requests from the clients:
         error and closes the connection.
 
         The default value is 8388608 (8 MB).
+    * - :samp:`static`
+      - An object that configures static asset handling, containing a single
+        object named :samp:`mime_types`.  In turn, :samp:`mime_types`
+        defines specific MIME types as options.  An option's value can be a
+        string or an array of strings; each string must specify a filename
+        extension or a specific filename that is included in the MIME type.
 
 Example:
 
@@ -1625,10 +1733,44 @@ Example:
                "body_read_timeout": 10,
                "send_timeout": 10,
                "idle_timeout": 120,
-               "max_body_size": 6291456
+               "max_body_size": 6291456,
+               "static": {
+                   "mime_types": {
+                       "text/plain": [
+                            ".log",
+                            "README",
+                            "CHANGES"
+                       ]
+                   }
+               }
            }
        }
    }
+
+.. _configuration-mime:
+
+.. note::
+
+   Built-in support for MIME types includes :file:`.aac`, :file:`.atom`,
+   :file:`.avi`, :file:`.bin`, :file:`.css`, :file:`.deb`, :file:`.dll`,
+   :file:`.exe`, :file:`.flac`, :file:`.gif`, :file:`.htm`, :file:`.html`,
+   :file:`.ico`, :file:`.img`, :file:`.iso`, :file:`.jpeg`, :file:`.jpg`,
+   :file:`.js`, :file:`.json`, :file:`.md`, :file:`.mid`, :file:`.midi`,
+   :file:`.mp3`, :file:`.mp4`, :file:`.mpeg`, :file:`.mpg`, :file:`.msi`,
+   :file:`.ogg`, :file:`.otf`, :file:`.pdf`, :file:`.png`, :file:`.rpm`,
+   :file:`.rss`, :file:`.rst`, :file:`.svg`, :file:`.ttf`, :file:`.txt`,
+   :file:`.wav`, :file:`.webm`, :file:`.webp`, :file:`.woff2`, :file:`.woff`,
+   :file:`.xml`, and :file:`.zip`.  Built-ins can be overridden, and new types
+   can be added:
+
+   .. code-block:: console
+
+      # curl -X PUT -d '{"text/x-code": [".c", ".h"]}' /path/to/control.unit.sock \
+             http://localhost/config/settings/http/static/mime_types
+      {
+             "success": "Reconfiguration done."
+      }
+
 
 .. _configuration-access-log:
 
@@ -1928,7 +2070,16 @@ Full Example
                    "body_read_timeout": 10,
                    "send_timeout": 10,
                    "idle_timeout": 120,
-                   "max_body_size": 6291456
+                   "max_body_size": 6291456,
+                   "static": {
+                       "mime_types": {
+                           "text/plain": [
+                                ".log",
+                                "README",
+                                "CHANGES"
+                           ]
+                       }
+                   }
                }
            },
 
@@ -2003,6 +2154,12 @@ Full Example
 
                    "action": {
                        "pass": "applications/wiki"
+                   }
+               },
+
+               {
+                   "action" {
+                       "share": "/www/not_found/"
                    }
                }
            ],
