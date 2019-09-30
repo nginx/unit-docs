@@ -408,7 +408,7 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc10 unit-perl \
+      # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
             unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    Ubuntu |_| 18.10:
