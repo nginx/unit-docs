@@ -239,7 +239,7 @@ Debian
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.7 unit-go1.8 unit-jsc8 unit-perl \
+      # apt install unit-dev unit-go1.8 unit-jsc8 unit-perl \
             unit-php unit-python2.7 unit-python3.5 unit-ruby
 
    Debian |_| 10:
@@ -408,7 +408,7 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc10 unit-perl \
+      # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc10 unit-perl \
             unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    Ubuntu |_| 18.10:
@@ -417,7 +417,7 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.9 unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
+      # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
             unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    Ubuntu |_| 19.04:
@@ -426,7 +426,7 @@ Ubuntu
 
       # apt update
       # apt install unit
-      # apt install unit-dev unit-go1.10 unit-go1.11 unit-jsc11 unit-perl \
+      # apt install unit-dev unit-go1.11 unit-jsc11 unit-perl \
             unit-php unit-python2.7 unit-python3.7 unit-ruby
 
 .. include:: include/socket-note-deb.rst
