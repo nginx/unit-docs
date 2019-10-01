@@ -20,11 +20,11 @@ available via the :ref:`control socket <installation-startup>` at
 
    # cat << EOF > config.json
 
-       > {
-       >     "type": "php",
-       >     "root": "/www/blogs/scripts"
-       > }
-       > EOF
+       {
+           "type": "php",
+           "root": "/www/blogs/scripts"
+       }
+       EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
           /path/to/control.unit.sock http://localhost/config/applications/blogs
@@ -42,10 +42,10 @@ section of the API:
 
    # cat << EOF > config.json
 
-       > {
-       >     "pass": "applications/blogs"
-       > }
-       > EOF
+       {
+           "pass": "applications/blogs"
+       }
+       EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
           /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
@@ -219,18 +219,18 @@ of the app:
 
    # cat << EOF > config.json
 
-       > [
-       >     {
-       >         "match": {
-       >             "uri": "/dev/*"
-       >         },
-       >
-       >         "action": {
-       >             "pass": "applications/wiki-dev"
-       >         }
-       >     }
-       > ]
-       > EOF
+       [
+           {
+               "match": {
+                   "uri": "/dev/*"
+               },
+
+               "action": {
+                   "pass": "applications/wiki-dev"
+               }
+           }
+       ]
+       EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
           /path/to/control.unit.sock http://localhost/config/routes

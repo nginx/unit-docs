@@ -63,14 +63,14 @@ official :samp:`hello world` app:
    $ mkdir webapp
    $ cat << EOF > webapp/app.py
 
-       > from flask import Flask
-       > app = Flask(__name__)
-       > application = app
-       >
-       > @app.route('/')
-       > def hello_world():
-       >     return 'Hello, World!'
-       > EOF
+       from flask import Flask
+       app = Flask(__name__)
+       application = app
+
+       @app.route('/')
+       def hello_world():
+           return 'Hello, World!'
+       EOF
 
 However basic it is, there's already a dependency, so let's put it into a file
 called :file:`requirements.txt`:
@@ -80,8 +80,8 @@ called :file:`requirements.txt`:
    $ mkdir config
    $ cat << EOF > config/requirements.txt
 
-       > flask
-       > EOF
+       flask
+       EOF
 
 Next, create a simple Unit :ref:`configuration <configuration-python>` for the
 app:
@@ -90,21 +90,21 @@ app:
 
    # cat << EOF > config/config.json
 
-       > {
-       >    "listeners":{
-       >       "*:8000":{
-       >          "pass":"applications/webapp"
-       >       }
-       >    },
-       >    "applications":{
-       >       "webapp":{
-       >          "type":"python 3",
-       >          "path":"/www/",
-       >          "module":"app"
-       >       }
-       >    }
-       > }
-       > EOF
+       {
+          "listeners":{
+             "*:8000":{
+                "pass":"applications/webapp"
+             }
+          },
+          "applications":{
+             "webapp":{
+                "type":"python 3",
+                "path":"/www/",
+                "module":"app"
+             }
+          }
+       }
+       EOF
 
 Finally, let's create :file:`log` and :file:`state` directories to store Unit
 :ref:`log and state<installation-startup>` respectively:
