@@ -909,6 +909,82 @@ Unit maintains a number of :ref:`built-in MIME types <configuration-mime>` like
 override built-ins in the :samp:`/config/settings/http/static/mime_types`
 section.
 
+========
+Examples
+========
+
+One common use case that this feature enables is the separation of requests for
+static and dynamic content into independent routes.  The following
+example relays all requests that target :file:`.php` files to an application
+and uses a static :samp:`share` as the catch-all fallback:
+
+.. code-block:: json
+
+   {
+       "routes": [
+           {
+               "match": {
+                   "uri": "*.php"
+               },
+               "action": {
+                   "pass": "applications/php-app"
+               }
+           },
+           {
+               "action": {
+                   "share": "/www/php-app/assets/files/"
+               }
+           }
+
+       ],
+
+       "applications": {
+           "php-app": {
+               "type": "php",
+               "root": "/www/php-app/scripts/"
+           }
+       }
+   }
+
+You can reverse this scheme for apps that avoid filenames in dynamic URIs,
+listing all types of static content to be served from a :samp:`share` in a
+:samp:`match` condition and adding an unconditional fallback application path:
+
+.. code-block:: json
+
+   {
+       "routes": [
+           {
+               "match": {
+                   "uri": [
+                       "*.css",
+                       "*.ico",
+                       "*.jpg",
+                       "*.js",
+                       "*.png",
+                       "*.xml"
+                   ]
+               },
+               "action": {
+                   "share": "/www/php-app/assets/files/"
+               }
+           },
+           {
+               "action": {
+                   "pass": "applications/php-app"
+               }
+           }
+
+       ],
+
+       "applications": {
+           "php-app": {
+               "type": "php",
+               "root": "/www/php-app/scripts/"
+           }
+       }
+   }
+
 .. _configuration-applications:
 
 ************
