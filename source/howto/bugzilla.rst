@@ -6,16 +6,6 @@ Bugzilla
 
 To run Bugzilla in Unit:
 
-.. _bugzilla_nginx:
-
-#. Install `NGINX <https://nginx.org/en/download.html>`_.  Currently, it is
-   required to serve static files.  Note the :samp:`user` settings in
-   :file:`nginx.conf`:
-
-   .. code-block:: nginx
-
-      user <user> <group>;
-
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the appropriate Perl
    language module version.
 
@@ -28,32 +18,55 @@ To run Bugzilla in Unit:
       Unit uses `PSGI <https://metacpan.org/pod/PSGI>`_ to run Perl
       applications; Bugzilla natively supports PSGI since version 5.1.
 
-#. While running :program:`checksetup.pl`, configure :samp:`$webservergroup`
-   with the :samp:`<group>` value noted :ref:`earlier <bugzilla_nginx>`.
-
 #. .. include:: ../include/get-config.rst
 
-   This creates a JSON file with Unit's current settings.  Edit the JSON file,
-   adding a :ref:`listener <configuration-listeners>` in :samp:`listeners` and
-   pointing it to Bugzilla's :file:`app.psgi` file in :samp:`applications`.
-   Bugzilla will run on the listener's IP and port.
+   This creates a JSON file with Unit's current settings.  Edit the file,
+   adding a :ref:`listener <configuration-listeners>` with a :ref:`route
+   <configuration-routes>` that serves requests for static files via a
+   conditional :samp:`share` and passes any other requests to Bugzilla's
+   :file:`app.psgi`:
 
    .. code-block:: json
 
       {
           "listeners": {
-              "127.0.0.1:8081": {
-                  "pass": "applications/bugzilla"
+              "*:8000": {
+                  "pass": "routes/bugzilla"
               }
+          },
+
+          "routes": {
+              "bugzilla": [
+                  {
+                      "match": {
+                          "uri": [
+                              "/data/assets/*",
+                              "/docs/*",
+                              "/extensions/*",
+                              "/images/*",
+                              "/js/*",
+                              "/skins/*"
+                          ]
+                      },
+
+                      "action": {
+                          "share": "/path/to/bugzilla/"
+                      }
+                  },
+
+                  {
+                      "action": {
+                          "pass": "applications/bugzilla"
+                      }
+                  }
+              ],
           },
 
           "applications": {
               "bugzilla": {
                   "type": "perl",
                   "working_directory": "/path/to/bugzilla/",
-                  "script": "/path/to/bugzilla/app.psgi",
-                  "user": "<user>",
-                  "group": "<group>"
+                  "script": "/path/to/bugzilla/app.psgi"
               }
           }
       }
@@ -64,27 +77,6 @@ To run Bugzilla in Unit:
 
       # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
-
-#. Configure NGINX to serve :file:`.js` and :file:`.css` files, proxying other
-   requests to Unit:
-
-   .. code-block:: nginx
-
-      server {
-          listen 8080;
-
-          location /data/assets/ {
-              root /path/to/bugzilla/;
-          }
-
-          location / {
-              proxy_pass http://127.0.0.1:8081;
-              proxy_set_header Host $host;
-          }
-      }
-
-   For details, refer to `NGINX Admin Guide
-   <https://docs.nginx.com/nginx/admin-guide/>`_.
 
 #. Finally, browse to your Bugzilla site and complete the installation:
 

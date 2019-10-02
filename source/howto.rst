@@ -25,7 +25,7 @@ App Frameworks
 Applications
 ************
 
-- :doc:`howto/bugzilla`: Launch Bugzilla with NGINX and Unit using PSGI.
+- :doc:`howto/bugzilla`: Launch Bugzilla with Unit using PSGI.
 
 - :doc:`howto/grafana`: Use Unit to power Grafana's visual goodness.
 
