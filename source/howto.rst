@@ -35,7 +35,7 @@ Applications
 
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
 
-- :doc:`howto/wordpress`: Set up WordPress with NGINX and Unit in a breeze.
+- :doc:`howto/wordpress`: Set up WordPress with Unit in a breeze.
 
 *************
 Miscellaneous

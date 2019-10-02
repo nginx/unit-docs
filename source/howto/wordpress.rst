@@ -39,63 +39,94 @@ haven't already done so:
       # chmod -R g+w /path/to/wordpress/wp-content/themes
       # chmod -R g+w /path/to/wordpress/wp-content/plugins
 
-**************
-NGINX and Unit
-**************
+**********
+Unit Setup
+**********
 
 To run WordPress in Unit:
-
-#. Install `NGINX <https://nginx.org/en/download.html>`_.  Currently, NGINX is
-   required to serve static files.
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
 
 #. .. include:: ../include/get-config.rst
 
-#. Edit the file, adding two apps and their listeners to serve direct and
-   indirect WordPress URLs:
+#. Edit the file, adding a listener, three apps, and a route.  First, the route
+   serves URIs that explicitly name the :file:`.php` file; next, it serves the
+   :samp:`wp-admin` section of the WordPress site; finally, it filters out
+   static assets, relaying them to a :samp:`share`, and passes other requests
+   to WordPress's :samp:`/index.php` via the :samp:`wp_index` app:
 
    .. code-block:: json
 
       {
           "listeners": {
-              "127.0.0.1:8090": {
-                  "pass": "applications/wp_index"
-              },
-
-              "127.0.0.1:8091": {
-                  "pass": "applications/wp_direct"
+              "*:8080": {
+                  "pass": "routes/wordpress"
               }
+
+          },
+
+          "routes": {
+              "wordpress": [
+                  {
+                      "match": {
+                          "uri": [
+                              "*.php",
+                              "*.php/*",
+                              "/wp-admin/"
+                          ]
+                      },
+
+                      "action": {
+                          "pass": "applications/wp_direct"
+                      }
+                  },
+                  {
+                      "match": {
+                          "uri": [
+                               "/wp-admin/*",
+                               "/wp-content/*",
+                               "/wp-includes/*"
+                          ]
+                      },
+
+                      "action": {
+                          "share": "/www/wordpress/"
+                      }
+                  },
+                  {
+                      "action": {
+                          "pass": "applications/wp_index"
+                      }
+                  }
+              ]
           },
 
           "applications": {
+              "wp_direct": {
+                  "type": "php",
+                  "user": "wpuser",
+                  "group": "www-data",
+                  "root": "/path/to/wordpress/"
+              },
+
               "wp_index": {
                   "type": "php",
                   "user": "wpuser",
                   "group": "www-data",
                   "root": "/path/to/wordpress/",
                   "script": "index.php"
-              },
-
-              "wp_direct": {
-                  "type": "php",
-                  "user": "wpuser",
-                  "group": "www-data",
-                  "root": "/path/to/wordpress/"
               }
           }
       }
 
    .. note::
 
-      The difference between the two apps is their usage of :samp:`script` and
-      :samp:`index` :ref:`settings <configuration-php>`.  Here,
-      :samp:`wp_index` specifies the :samp:`script` that Unit will run for
-      *any* URL it receives (with WordPress, this is typical of the
-      :file:`index.php`).  The :samp:`wp_direct` app will serve URLs that
-      explicitly specify a PHP file name.  This isolates the :samp:`wp-admin`
-      section from the rest of WordPress, allowing to maintain different
-      per-app settings.
+      The difference between the apps is their usage of :samp:`script`
+      :ref:`setting <configuration-php>`.  Here, :samp:`wp_index` specifies the
+      :samp:`script` that Unit will run for *any* URIs the app receives.  In
+      contrast, the :samp:`wp_direct` app will serve URIs that reference a
+      specific :samp:`.php` file by running it; if there's no file specified,
+      it defaults to :samp:`index.php`.
 
 #. Upload the updated configuration:
 
@@ -104,59 +135,11 @@ To run WordPress in Unit:
       # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
-#. Configure NGINX to serve static files and route requests between the apps
-   you have set up in Unit:
-
-   .. code-block:: nginx
-
-      upstream unit_wp_index {
-          server 127.0.0.1:8090;
-      }
-
-      upstream unit_wp_direct {
-          server 127.0.0.1:8091;
-      }
-
-      server {
-          listen      80;
-          server_name localhost;
-          root        /path/to/wordpress/;
-
-          location / {
-              try_files $uri @index_php;
-          }
-
-          location @index_php {
-              proxy_pass       http://unit_wp_index;
-              proxy_set_header Host $host;
-          }
-
-          location /wp-admin {
-              index index.php;
-          }
-
-          location ~* \.php$ {
-              try_files        $uri =404;
-              proxy_pass       http://unit_wp_direct;
-              proxy_set_header Host $host;
-          }
-      }
-
-   For details, refer to `NGINX Admin Guide
-   <https://docs.nginx.com/nginx/admin-guide/>`_.
-
 Finally, browse to your WordPress site and `complete the installation
 <https://wordpress.org/support/article/how-to-install-wordpress/#step-5-run-the-install-script>`_.
 
 .. note::
 
-   Resulting URL scheme will trickle into your WordPress configuration; updates
+   Resulting URI scheme will trickle into your WordPress configuration; updates
    may require `extra steps
    <https://wordpress.org/support/article/changing-the-site-url/>`_.
-
-***************
-Further Reading
-***************
-
-See a detailed walkthrough in our blog:
-https://www.nginx.com/blog/installing-wordpress-with-nginx-unit/
