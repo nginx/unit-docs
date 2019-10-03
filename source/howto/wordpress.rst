@@ -49,11 +49,11 @@ To run WordPress in Unit:
 
 #. .. include:: ../include/get-config.rst
 
-#. Edit the file, adding a listener, three apps, and a route.  First, the route
-   serves URIs that explicitly name the :file:`.php` file; next, it serves the
-   :samp:`wp-admin` section of the WordPress site; finally, it filters out
-   static assets, relaying them to a :samp:`share`, and passes other requests
-   to WordPress's :samp:`/index.php` via the :samp:`wp_index` app:
+#. Edit the file, adding a listener, two apps, and a route.  First, the route
+   serves the :samp:`wp-admin` section of the WordPress site and other URIs
+   that explicitly name the :file:`.php` file; next, it filters out static
+   assets, relaying them to a :samp:`share`, and passes other requests to
+   WordPress's :samp:`/index.php` via the :samp:`wp_index` app:
 
    .. code-block:: json
 
