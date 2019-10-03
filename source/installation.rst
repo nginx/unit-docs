@@ -76,6 +76,69 @@ By default, the :samp:`:latest` image tag is used that resolves into a
 For further details, see the `repository page <https://hub.docker.com/r/
 nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 
+=====================
+Initial Configuration
+=====================
+
+Our images support initial container configuration, done with an
+:samp:`ENTRYPOINT` script.  First, the script checks the Unit :ref:`state
+directory <installation-config-src-state>` (:file:`/var/lib/unit/` in official
+images) of the container; *if it's empty*, the script scans the
+:file:`/docker-entrypoint.d/` directory of the container for certain file
+types, processing them in this order:
+
+.. list-table::
+   :header-rows: 1
+
+   * - File Type
+     - Purpose/Action
+
+   * - :file:`.pem`
+     - Certificate bundles, :ref:`uploaded <configuration-ssl>` under their
+       respective names: :samp:`cert.pem` -> :samp:`certificates/cert`.
+
+   * - :file:`.json`
+     - Configuration snippets, :ref:`uploaded <configuration-mgmt>` to Unit as
+       portions of the :samp:`config` section.
+
+   * - :file:`.sh`
+     - Shell scripts, executed within the container after :file:`.pem` and
+       :samp:`.json` files are handled.
+
+.. note::
+
+   The script issues warnings about any other file types in the
+   :file:`/docker-entrypoint.d/` directory.
+
+This mechanism allows you to customize your containers at startup, reuse
+configurations, and automate your workflows, reducing manual effort.  To use
+the feature, add :samp:`COPY` directives for certificate bundles, configuration
+fragments, and shell scripts to your :file:`Dockerfile` derived from an
+official image:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+   COPY ./*.pem  /docker-entrypoint.d/
+   COPY ./*.json /docker-entrypoint.d/
+   COPY ./*.sh   /docker-entrypoint.d/
+
+.. note::
+
+   Mind that running Unit populates its :samp:`state` directory; this prevents
+   the script from executing, so this script-based initialization must occur
+   before you run Unit within your derived image.
+
+This comes in handy if you want to tie Unit to a certain application
+configuration for later use.  For ad-hoc initialization, you can simply mount a
+directory with configuration files to a container at startup:
+
+.. code-block:: console
+
+   $ docker run -d --mount \
+            type=bind,src=/path/to/config/files/,dst=/docker-entrypoint.d/ \
+            nginx/unit:latest)
+
 .. _installation-precomp-pkgs:
 
 *****************
@@ -934,6 +997,8 @@ structure <installation-src-dir>`:
     Pathname for the PID file of Unit's daemon process.
 
     The default value is :samp:`unit.pid`.
+
+.. _installation-config-src-state:
 
 --state=directory
     Directory path for Unit's state storage.  It contains runtime
