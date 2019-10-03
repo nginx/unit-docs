@@ -148,10 +148,6 @@ To run NextCloud in Unit:
               return 301 $scheme://$host:$server_port/remote.php/dav;
           }
 
-          location ~ \.(?:css|js|woff2?|svg|gif|map)$ {
-              try_files $uri /index.php$request_uri;
-          }
-
           location / {
               rewrite ^ /index.php$request_uri;
           }
