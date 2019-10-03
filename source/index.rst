@@ -11,7 +11,7 @@ Built from scratch, Unit can run web apps in many language versions at once; it
 is also fully configurable in runtime with zero interruption, enabling
 on-the-fly granular management for engineering and operations.
 
-| The latest version is |version|, released on September 19, 2019.
+| The latest version is |version|, released on October 3, 2019.
 | See the changelog `here </CHANGES.txt>`_.
 
 The sources are distributed under the Apache |_| 2.0 license.
