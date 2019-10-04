@@ -37,10 +37,8 @@ RUN mkdir /www/ && echo '                                                  \
 # make nginx/unit package available at $GOPATH to compile the app
     && cp -r /usr/share/gocode/src/* /usr/lib/go-1.8/src/                  \
     && /usr/lib/go-1.8/bin/go build -o /www/app /www/app.go                \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/go_app"                                  \
@@ -53,7 +51,7 @@ RUN mkdir /www/ && echo '                                                  \
             "executable": "/www/app"                                       \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/   \
+    }' > /docker-entrypoint.d/config.json                                  \
 # final cleanup (unit-go not needed to run the app, only to build it)
     && apt remove -y unit-go1.8                                            \
     && apt autoremove --purge -y && rm /www/app.go

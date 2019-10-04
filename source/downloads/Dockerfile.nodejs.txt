@@ -31,10 +31,8 @@ RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
 # make app.js executable; link unit-http locally
     && cd /www && chmod +x app.js                                          \
     && npm link unit-http                                                  \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/node_app"                                \
@@ -47,4 +45,4 @@ RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
             "executable": "app.js"                                         \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
+    }' > /docker-entrypoint.d/config.json

@@ -25,10 +25,8 @@ def application(environ, start_response):                                \n\
     start_response("200 OK", [("Content-Type", "text/plain")])           \n\
     return (b"Hello, Unit!")                                               \
     ' > /www/wsgi.py                                                       \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/python_app"                              \
@@ -41,5 +39,4 @@ def application(environ, start_response):                                \n\
             "module": "wsgi"                                               \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
-
+    }' > /docker-entrypoint.d/config.json

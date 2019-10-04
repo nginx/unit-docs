@@ -29,10 +29,8 @@ RUN mkdir /www/ && echo '                                                  \
         ]                                                                  \
     };                                                                     \
     ' > /www/app.psgi                                                      \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/perl_app"                                \
@@ -45,5 +43,4 @@ RUN mkdir /www/ && echo '                                                  \
             "script": "/www/app.psgi"                                      \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
-
+    }' > /docker-entrypoint.d/config.json

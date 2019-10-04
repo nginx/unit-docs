@@ -21,10 +21,8 @@ RUN apt update                                                             \
 
 # application setup
 RUN mkdir /www/ && echo '<?php echo "Hello, Unit!"; ?>' > /www/index.php   \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/php_app"                                 \
@@ -36,5 +34,4 @@ RUN mkdir /www/ && echo '<?php echo "Hello, Unit!"; ?>' > /www/index.php   \
             "root": "/www/"                                                \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
-
+    }' > /docker-entrypoint.d/config.json

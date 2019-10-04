@@ -24,10 +24,8 @@ RUN apt update                                                             \
 RUN mkdir /www/ && echo                                                    \
     '<%@page language="java" contentType="text/plain"%><%="Hello, Unit!"%>'\
     > /www/index.jsp                                                       \
-# launch Unit
-    && unitd --control unix:/var/run/control.unit.sock                     \
-# upload the app config to Unit
-    && curl -X PUT --data-binary '{                                        \
+# prepare the app config for Unit
+    && echo '{                                                             \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/java_app"                                \
@@ -39,4 +37,4 @@ RUN mkdir /www/ && echo                                                    \
             "webapp": "/www/"                                              \
         }                                                                  \
     }                                                                      \
-    }' --unix-socket /var/run/control.unit.sock http://localhost/config/
+    }' > /docker-entrypoint.d/config.json
