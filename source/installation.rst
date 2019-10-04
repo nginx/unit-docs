@@ -158,6 +158,12 @@ we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 These include core Unit executables, developer files, and support packages for
 individual languages.
 
+.. warning::
+
+   Unit package versions 1.12 and above are not available for Debian 8,
+   Fedora 28, and Ubuntu 18.10.  These distributions are obsolete; please
+   update your system.
+
 .. note::
 
    Unit's language :ref:`module <installation-nodejs-package>` for Node.js is
