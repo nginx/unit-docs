@@ -30,7 +30,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
 {%- endif %}
 
-<title>{{ title|striptags|e }} — NGINX Unit</title>
+<title>{{ title|striptags|e }} — {{project}}</title>
 </head>
 <body>
 
@@ -45,7 +45,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {%- if pagename != "index" %}
         <a href="{{ pathto('index') }}">
         {%- endif %}
-            <img src="{{ pathto('_static/logo.svg', 1) }}" alt="NGINX Unit" />
+            <img src="{{ pathto('_static/logo.svg', 1) }}" alt="{{project}}" />
         {%- if pagename != "index" %}
         </a>
         {%- endif %}
@@ -55,7 +55,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="content">
     {% block body %} {% endblock %}
     <p id="footer">
-        Copyright © 2017-2019 <a href="https://www.nginx.com/">NGINX, Inc.</a>
+        Copyright © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
     </p>
 </div>
 </div>

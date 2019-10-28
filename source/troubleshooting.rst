@@ -1,4 +1,3 @@
-.. include:: include/replace.rst
 
 ###############
 Troubleshooting

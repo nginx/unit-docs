@@ -1,6 +1,5 @@
 :orphan:
 
-.. include:: ../include/replace.rst
 
 ##############
 Unit in Docker

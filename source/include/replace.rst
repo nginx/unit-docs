@@ -3,5 +3,3 @@
 
 .. |-| unicode:: 0x2011
    :trim:
-
-.. |version| replace:: 1.12.0
