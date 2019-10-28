@@ -1014,7 +1014,9 @@ structure <installation-src-dir>`:
     .. warning::
 
        Unit state includes sensitive data; it must be owned by :samp:`root`
-       with :samp:`700` permissions.
+       with :samp:`700` permissions.  Avoid updating the directory contents by
+       outside means; instead, use Unit's config API to ensure data
+       consistency.
 
     The default value is :samp:`state`.
 
