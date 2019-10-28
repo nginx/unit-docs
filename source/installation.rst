@@ -899,7 +899,7 @@ during language module setup:
 General :program:`./configure` options:
 
 --help
-    Displays a brief summary of common :program:`./configure` options.
+    Displays a summary of common :program:`./configure` options.
 
     For language-specific details, run :command:`./configure <language>
     --help` or see :ref:`below <installation-src-modules>`.
@@ -1032,7 +1032,7 @@ To customize Unit installation and runtime directories, you can both:
 
 - Set the :envvar:`DESTDIR` `variable
   <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :ref:`installation <installation-bld-src>`.  Unit file structure will be
+  :ref:`installation <installation-bld-src>`.  Unit's file structure will be
   placed at the specified directory, which can be either the final installation
   target or an intermediate staging location.
 
@@ -1431,7 +1431,7 @@ security notes, see :ref:`here <installation-config-src>`.
 General options:
 
 --help, -h
-    Displays a brief summary of Unit's command-line options and their
+    Displays a summary of Unit's command-line options and their
     default values that were configured at compile time.
 
 --no-daemon

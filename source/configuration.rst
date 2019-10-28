@@ -656,7 +656,7 @@ To be a match against the condition, the property must meet two requirements:
 
 - No negation-based patterns match the property value.
 
-Patterns must match the value symbol by symbol, with the exception of wildcards
+Patterns must match the value symbol by symbol, except for wildcards
 (:samp:`*`) and negations (:samp:`!`):
 
 - A wildcard matches zero or more arbitrary characters; wildcards can only
@@ -1056,16 +1056,16 @@ App objects have a number of options shared between all application languages:
         The default value is 1.
 
     * - :samp:`working_directory`
-      - Working directory for the app.  If omitted, working directory of Unit
-        daemon is used.
+      - The app's working directory.  If not set, the Unit daemon's working
+        directory is used.
 
     * - :samp:`user`
-      - Username that runs the app process.  If omitted, :samp:`nobody` is
+      - Username that runs the app process.  If not set, :samp:`nobody` is
         used.
 
     * - :samp:`group`
-      - Group name that runs the app process.  If omitted, user's primary group
-        is used.
+      - Group name that runs the app process.  If not set, the user's primary
+        group is used.
 
     * - :samp:`environment`
       - Environment variables to be passed to the application.
@@ -1265,7 +1265,7 @@ Example:
 Process Management
 ******************
 
-The :samp:`processes` option offers choice between static and dynamic process
+The :samp:`processes` option offers a choice between static and dynamic process
 management.  If you set it to an integer, Unit immediately launches the given
 number of app processes and keeps them without scaling.
 
@@ -1560,7 +1560,7 @@ following:
       - Filename appended to any URI paths ending with a slash; applies if
         :samp:`script` is omitted.
 
-        Default value is :samp:`index.php`.
+        The default value is :samp:`index.php`.
 
     * - :samp:`options`
       - Object that defines :file:`php.ini` location and options.  For details,

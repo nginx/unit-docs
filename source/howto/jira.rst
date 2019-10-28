@@ -118,7 +118,7 @@ follow these steps.
 
    After a successful update, Jira should be available on the listener's IP
    address and port.  Navigate to Jira's URI path (:samp:`http://{IP
-   address}:{port}/jira`) to continue setup in your browser:
+   address}:{port}/jira`) to continue the setup in your browser:
 
    .. image:: ../images/jira.png
       :width: 100%
