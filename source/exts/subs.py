@@ -18,6 +18,7 @@
 #
 #  some text and more text
 
+from docutils.nodes import Text
 from sphinx.directives.code import CodeBlock
 
 class SubsCodeBlock(CodeBlock):
@@ -25,9 +26,13 @@ class SubsCodeBlock(CodeBlock):
     def run(self):
 
         new_content = []
+        doc = self.state.document
 
         replacements = [(i.attributes['names'][0], i.children[0]) for \
-            i in self.state.document.substitution_defs.values()]
+            i in doc.substitution_defs.values()]
+
+        # config values need to be added manually at this time
+        replacements.append(('version', Text(doc.settings.env.config.version)))
 
         for item in self.content:
             for rep in replacements:
