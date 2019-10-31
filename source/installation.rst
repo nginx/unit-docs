@@ -76,6 +76,8 @@ By default, the :samp:`:latest` image tag is used that resolves into a
 For further details, see the `repository page <https://hub.docker.com/r/
 nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 
+.. _installation-docker-init:
+
 =====================
 Initial Configuration
 =====================

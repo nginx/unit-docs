@@ -76,8 +76,7 @@ called :file:`requirements.txt`:
 
 .. code-block:: none
 
-   $ mkdir config
-   $ cat << EOF > config/requirements.txt
+   $ cat << EOF > requirements.txt
 
        flask
        EOF
@@ -87,7 +86,8 @@ app:
 
 .. code-block:: console
 
-   # cat << EOF > config/config.json
+   $ mkdir config
+   $ cat << EOF > config/config.json
 
        {
           "listeners":{
@@ -120,13 +120,13 @@ Our file structure so far:
 
    /path/to/app
    ├── config
-   │   ├── config.json
-   │   └── requirements.txt
+   │   └── config.json
    ├── log
    │   └── unit.log
+   ├── requirements.txt
    ├── state
    └── webapp
-       └── app.py
+       └── app.py
 
 Everything is ready for a containerized Unit.  First, let's create a
 :file:`Dockerfile` to install app prerequisites:
@@ -134,7 +134,7 @@ Everything is ready for a containerized Unit.  First, let's create a
 .. code-block:: docker
 
    FROM nginx/unit:latest
-   COPY config/requirements.txt /config/requirements.txt
+   COPY requirements.txt /config/requirements.txt
    RUN apt update && apt install -y python3-pip                               \
        && pip3 install -r /config/requirements.txt                            \
        && apt remove -y python3-pip                                           \
@@ -151,10 +151,10 @@ Next, we start a container and map it to our directory structure:
 .. code-block:: console
 
    $ export UNIT=$(docker run -d \
-                          --mount type=bind,src="$(pwd)/config/config.json",dst=/config/config.json \
+                          --mount type=bind,src="$(pwd)/config/",dst=/docker-entrypoint.d/  \
                           --mount type=bind,src="$(pwd)/log/unit.log",dst=/var/log/unit.log \
-                          --mount type=bind,src="$(pwd)/state",dst=/var/lib/unit \
-                          --mount type=bind,src="$(pwd)/webapp",dst=/www \
+                          --mount type=bind,src="$(pwd)/state",dst=/var/lib/unit            \
+                          --mount type=bind,src="$(pwd)/webapp",dst=/www                    \
                                       -p 8080:8000 unit-webapp)
 
 .. note::
@@ -162,18 +162,10 @@ Next, we start a container and map it to our directory structure:
    With this mapping, Unit will store its state and log in your file structure,
    essentially making it portable.
 
-Now we can configure the app in Unit:
-
-.. code-block:: console
-
-   $ docker exec -ti $UNIT curl -X PUT --data-binary @/config/config.json \
-                                --unix-socket /var/run/control.unit.sock http://localhost/config
-
-       {
-           "success": "Reconfiguration done."
-       }
-
-Finally, let's test the app:
+We've mapped the source :file:`config/` to :file:`/docker-entrypoint.d/` in the
+container; the official image :ref:`uploads <installation-docker-init>` any
+:file:`.json` files found there into Unit's :samp:`config` section if the state
+is empty.  Now we can test the app:
 
 .. code-block:: console
 
@@ -194,7 +186,7 @@ To switch your app to another Unit image, prepare a corresponding
 .. subs-code-block:: docker
 
    FROM nginx/unit:|version|-python3.5
-   COPY config/requirements.txt /config/requirements.txt
+   COPY requirements.txt /config/requirements.txt
    RUN apt update && apt install -y python3-pip    \
        && pip3 install -r /config/requirements.txt \
        && rm -rf /var/lib/apt/lists/*
@@ -270,12 +262,15 @@ Resulting file structure:
    └── config.json
 
 Let's prepare a :file:`Dockerfile` to install and configure the app in an
-image, layering it to benefit from caching:
+image:
 
 .. subs-code-block:: docker
 
    # keep our base image as small as possible
    FROM nginx/unit:|version|-minimal
+
+   # same as "working_directory" in config.json
+   COPY myapp/app.js /www/
 
    # add NGINX Unit and Node.js repos
    RUN apt update                                                             \
@@ -291,51 +286,63 @@ image, layering it to benefit from caching:
        && apt install -y build-essential nodejs unit-dev                      \
    # add global dependencies
        && npm install -g --unsafe-perm unit-http                              \
+   # add app dependencies locally
+       && cd /www && npm link unit-http && npm install express                \
    # final cleanup
        && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
        && apt autoremove --purge -y                                           \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-   # same as "working_directory" in config.json
-   COPY myapp/ /www
-
    # port used by the listener in config.json
    EXPOSE 8080
 
-   # add app dependencies locally
-   RUN cd /www && npm link unit-http && npm install express                   \
-   # launch Unit for initial app config
-       && unitd --control unix:/var/run/control.unit.sock                     \
-   # configure the app in Unit
-       && curl -X PUT --data-binary @/www/config.json --unix-socket           \
-           /var/run/control.unit.sock http://localhost/config/                \
-   # app dir cleanup
-       && rm /www/config.json
+When you start a container based on this image, mount the :file:`config.json`
+file to :ref:`initialize <installation-docker-init>` Unit's state:
 
 .. code-block:: console
 
    $ docker build --tag=unit-expressapp .
-
-Subsequent start in a container will make Unit pick up the initial config
-you've uploaded during the build:
-
-.. code-block:: console
-
-   $ docker run -d -p 8080:8080 unit-expressapp
+   $ export UNIT=$(docker run -d --mount \
+         type=bind,src="$(pwd)/myapp/config.json",dst=/docker-entrypoint.d/config.json \
+         -p 8080:8080 unit-expressapp)
    $ curl -X GET localhost:8080
 
         Hello, Unit!
 
-This approach is applicable to any Unit-supported apps with external
-dependencies.
+.. note::
 
-Finally, to reconfigure the app in an existing container, simply supply the
-config either as a file or explicitly:
+   This mechanism allows to initialize Unit at container startup only if its
+   state is empty; otherwise, the contents of :file:`/docker-entrypoint.d/` is
+   ignored.  Continuing the previous sample:
+
+   .. code-block:: console
+
+      $ docker commit $UNIT unit-expressapp  # store non-empty Unit state in the image
+      # cat << EOF > myapp/new-config.json   # let's attempt re-initialization
+        ...
+        EOF
+      $ export UNIT=$(docker run -d --mount \
+            type=bind,src="$(pwd)/myapp/new-config.json",dst=/docker-entrypoint.d/new-config.json \
+            -p 8080:8080 unit-expressapp)
+
+   Here, Unit *will not* pick up the :samp:`new-config.json` from the
+   :file:`/docker-entrypoint.d/` directory when we run a container from the
+   updated image because Unit's state was initialized and saved earlier.
+
+To configure the app after startup, supply a file or an explicit snippet via
+the :ref:`config API <configuration-mgmt>`:
 
 .. code-block:: console
 
-   $ export UNIT=$(docker run -d --mount type=bind,src="$(pwd)",dst=/cfg unit-expressapp)
-   $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/config.json \
-                                --unix-socket /var/run/control.unit.sock http://localhost/config
+   $ cat << EOF > myapp/new-config.json
+     ...
+     EOF
+   $ export UNIT=$(docker run -d --mount \
+         type=bind,src="$(pwd)/myapp/new-config.json",dst=/cfg/new-config.json unit-expressapp)
+   $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/new-config.json \
+         --unix-socket /var/run/control.unit.sock http://localhost/config
    $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"' --unix-socket \
-                                /var/run/control.unit.sock http://localhost/config/applications/express_app/working_directory
+         /var/run/control.unit.sock http://localhost/config/applications/express_app/working_directory
+
+This approach is applicable to any Unit-supported apps with external
+dependencies.
