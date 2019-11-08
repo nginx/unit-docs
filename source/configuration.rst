@@ -1708,6 +1708,15 @@ Ruby
 First, make sure to install Unit along with the :ref:`Ruby language module
 <installation-precomp-pkgs>`.
 
+.. note::
+
+   Unit uses the `Rack <https://rack.github.io>`_ interface to run Ruby
+   scripts; you need to have it installed as well:
+
+   .. code-block:: console
+
+      $ gem install rack
+
 Besides :ref:`common options <configuration-apps-common>`, you have the
 following:
 
@@ -1718,7 +1727,8 @@ following:
       - Description
 
     * - :samp:`script` (required)
-      - Rack script path.
+      - Rack script pathname, including the :file:`.ru` extension:
+        :file:`/www/rubyapp/script.ru`.
 
 Example:
 
