@@ -32,7 +32,7 @@ Key Features
 - Built-in WebSocket server implementation for
   :ref:`Node.js <configuration-external>` and Java
 - Application namespace :ref:`isolation <configuration-proc-mgmt-isolation>`
-- **Coming next**: proxying features
+- HTTP request :ref:`proxying <configuration-routes-proxy>` in routes
 
 ***********************
 Supported App Languages

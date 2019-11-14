@@ -488,18 +488,22 @@ Steps have the following options:
      - Description
 
    * - :samp:`action/pass`
-     - Route's target; identical to :samp:`pass` in a :ref:`listener
-       <configuration-listeners>`.
+     - Route's target in case of a match, identical to :samp:`pass` in a
+       :ref:`listener <configuration-listeners>`.
 
    * - :samp:`action/share`
      - Static asset path: :samp:`/www/files/`.  In case of a match, Unit serves
-       the :ref:`files<configuration-static>` at this path.
+       the :ref:`files <configuration-static>` at this path.
+
+   * - :samp:`action/proxy`
+     - Socket address of an HTTP server where the request is
+       :ref:`proxied <configuration-routes-proxy>` upon match.
 
    * - :samp:`match`
      - Object that defines the step conditions.
 
        - If the request fits all :samp:`match` conditions in a step, the step's
-         :samp:`pass` or :samp:`share` is followed.
+         :samp:`action` is performed.
 
        - If the request doesn't match a condition, Unit proceeds to the next
          step of the route.
@@ -514,7 +518,8 @@ Steps have the following options:
 
 .. note::
 
-   A route step must define either :samp:`pass` or :samp:`share`, but not both.
+   A route step must define exactly one of the following: :samp:`pass`,
+   :samp:`share`, or :samp:`proxy`.
 
 An example:
 
@@ -541,7 +546,7 @@ An example:
         ]
    }
 
-A more elaborate example with chained routes:
+A more elaborate example with chained routes and proxying:
 
 .. code-block:: json
 
@@ -550,13 +555,11 @@ A more elaborate example with chained routes:
            "main": [
                {
                    "match": {
-                       "arguments": {
-                           "site_access": "yes"
-                       }
+                       "scheme": "http"
                    },
 
                    "action": {
-                       "pass": "routes/site"
+                       "pass": "routes/http_site"
                    }
                },
                {
@@ -575,9 +578,63 @@ A more elaborate example with chained routes:
                }
            ],
 
-           "site": [ "..." ]
+           "http_site": [
+               {
+                   "action": {
+                       "proxy": "http://127.0.0.1:9000"
+                   }
+               }
+           ]
        }
    }
+
+.. _configuration-routes-proxy:
+
+========
+Proxying
+========
+
+Unit routes support HTTP proxying; provide the target socket address in the
+step's :samp:`action/proxy` option:
+
+.. code-block:: json
+
+    {
+       "routes": [
+           {
+               "match": {
+                   "uri": "/ipv4/*"
+               },
+
+               "action": {
+                   "proxy": "http://127.0.0.1:8080"
+                }
+           },
+
+           {
+               "match": {
+                   "uri": "/ipv6/*"
+               },
+
+               "action": {
+                   "proxy": "http://[::1]:8090"
+                }
+           },
+
+           {
+               "match": {
+                   "uri": "/unix/*"
+               },
+
+               "action": {
+                   "proxy": "http://unix:/path/to/unix.sock"
+                }
+           }
+        ]
+    }
+
+As the example above suggests, you can use Unix, IPv4, and IPv6 socket
+addresses.
 
 .. _configuration-routes-matching:
 
@@ -801,8 +858,8 @@ Passing Requests
 
 To match a step, the request must fit *all* property conditions listed in it.
 
-If all properties match or you omit :samp:`match` entirely, Unit routes the
-request where :samp:`pass` or :samp:`share` points to:
+If all properties match or :samp:`match` is omitted, Unit routes the request
+using the respective :samp:`action`:
 
 .. code-block:: json
 
@@ -2240,6 +2297,16 @@ Full Example
 
                    "action": {
                        "pass": "applications/wiki"
+                   }
+               },
+
+               {
+                   "match": {
+                       "scheme": "http",
+                   },
+
+                   "action" {
+                       "proxy": "http://127.0.0.1:8080"
                    }
                },
 
