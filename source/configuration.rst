@@ -580,6 +580,15 @@ A more elaborate example with chained routes and proxying:
 
            "http_site": [
                {
+                   "match": {
+                       "uri": "/v2_site/*"
+                   },
+
+                   "action": {
+                       "pass": "applications/v2_site"
+                   }
+               },
+               {
                    "action": {
                        "proxy": "http://127.0.0.1:9000"
                    }
