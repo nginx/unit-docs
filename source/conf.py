@@ -5,7 +5,7 @@ import os, sys
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2019'
-version = '1.12.0'
+version = '1.13.0'
 release = version
 
 html_context = {
