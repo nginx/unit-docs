@@ -748,6 +748,25 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
    Control socket is located here: :file:`/run/nginx-unit.sock`.
 
+=========
+NixOS/Nix
+=========
+
+To install Unit using the `Nix package manager <https://nixos.org/nix/>`_,
+update the repository and install the `package
+<https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`_:
+
+.. code-block:: console
+
+   $ nix-channel --update
+   $ nix-env -qa 'unit'    # check availability and version
+   $ nix-env -i unit
+
+.. note::
+
+   Control socket is located here: :file:`/run/unit/control.unit.sock`.
+
+
 .. _installation-remirepo:
 
 ===============
