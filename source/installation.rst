@@ -153,7 +153,7 @@ we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 - Amazon |_| Linux, Amazon |_| Linux |_| 2
 - CentOS |_| 6, 7, 8
 - Debian |_| 8, 9, 10
-- Fedora |_| 28, 29, 30
+- Fedora |_| 28, 29, 30, 31
 - RHEL |_| 6, 7, 8
 - Ubuntu |_| 16.04, 18.04, 18.10, 19.04
 
@@ -378,6 +378,14 @@ Fedora
             unit-php unit-python27 unit-python37 unit-ruby
 
    Fedora |_| 30:
+
+   .. code-block:: console
+
+      # yum install unit
+      # yum install unit-devel unit-go unit-jsc11 unit-jsc8 unit-perl \
+            unit-php unit-python27 unit-python37 unit-ruby
+
+   Fedora |_| 31:
 
    .. code-block:: console
 
