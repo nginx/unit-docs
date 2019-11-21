@@ -155,7 +155,7 @@ we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 - Debian |_| 8, 9, 10
 - Fedora |_| 28, 29, 30, 31
 - RHEL |_| 6, 7, 8
-- Ubuntu |_| 16.04, 18.04, 18.10, 19.04
+- Ubuntu |_| 16.04, 18.04, 18.10, 19.04, 19.10
 
 These include core Unit executables, developer files, and support packages for
 individual languages.
@@ -488,6 +488,13 @@ Ubuntu
       deb https://packages.nginx.org/unit/ubuntu/ disco unit
       deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
 
+   Ubuntu |_| 19.10:
+
+   .. code-block:: none
+
+      deb https://packages.nginx.org/unit/ubuntu/ eoan unit
+      deb-src https://packages.nginx.org/unit/ubuntu/ eoan unit
+
 #. Install Unit base package and additional packages you would like to use.
 
    Ubuntu |_| 16.04:
@@ -525,6 +532,15 @@ Ubuntu
       # apt install unit
       # apt install unit-dev unit-go1.11 unit-jsc11 unit-perl \
             unit-php unit-python2.7 unit-python3.7 unit-ruby
+
+   Ubuntu |_| 19.10:
+
+   .. code-block:: console
+
+      # apt update
+      # apt install unit
+      # apt install unit-dev unit-go1.12 unit-go1.13 unit-jsc11 unit-perl \
+            unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
 
 .. include:: include/socket-note-deb.rst
 
