@@ -249,8 +249,7 @@ CentOS
    .. code-block:: console
 
       # yum install unit
-      # yum install unit-devel unit-go unit-jsc8 unit-perl \
-            unit-php unit-python
+      # yum install unit-devel unit-go unit-jsc8 unit-php unit-python
 
    CentOS |_| 7:
 
