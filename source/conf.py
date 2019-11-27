@@ -24,4 +24,4 @@ html_extra_path = ['robots.txt', 'CHANGES.txt']
 exclude_patterns = ['include']
 
 sys.path.append(os.path.abspath('./exts'))
-extensions = ['subs']
+extensions = ['subs', 'inline']

@@ -61,15 +61,15 @@ By default, the :samp:`:latest` image tag is used that resolves into a
     * - Tag
       - Description
 
-    * - :samp:`<version>-full`
+    * - :samp:`|version|-full`
       - Modules for all supported languages.
 
-    * - :samp:`<version>-minimal`
+    * - :samp:`|version|-minimal`
       - No language modules.
 
-    * - :samp:`<version>-<language>`
-      - Specific language module only, for example :samp:`1.3-ruby2.3` or
-        :samp:`1.2-python2.7`.
+    * - :samp:`|version|-<language>`
+      - Specific language module only, for example :samp:`|version|-ruby2.3` or
+        :samp:`|version|-python2.7`.
 
 .. include:: include/socket-note-deb.rst
 
