@@ -381,3 +381,11 @@ body > div {
 .highlight .sx {
     color: #ffa500;
 }
+
+/* custom terms */
+
+.nxt_term {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+    cursor: help;
+}

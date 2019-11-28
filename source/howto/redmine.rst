@@ -12,8 +12,8 @@ Redmine
 
    .. code-block:: console
 
-      $ cd /path/to/redmine
-      $ bundle exec rails server webrick -e production
+      $ cd path/to/redmine
+      $ bundle exec rails server webrick -e :nxt_term:`production <Environment name, used for RAILS_ENV in Unit app config>` # refer to Redmine docs for details
       $ curl localhost:3000
 
    Next, we'll make this installation run on Unit.
@@ -38,10 +38,10 @@ Redmine
               "redmine": {
                   "type": "ruby",
                   "user": "redmine",
-                  "working_directory": "/path/to/redmine/",
+                  "working_directory": ":nxt_term:`/path/to/redmine/ <Where Redmine is installed>`",
                   "script": "config.ru",
                   "environment": {
-                      "RAILS_ENV": "production"
+                      "RAILS_ENV": ":nxt_term:`production<Environment name in Redmine config>`"
                   }
            }
        }

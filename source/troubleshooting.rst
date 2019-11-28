@@ -9,9 +9,11 @@ Troubleshooting
 Logging
 *******
 
-Unit maintains a single general-purpose log for diagnostics and troubleshooting
-(not to be confused with the :ref:`access log <configuration-access-log>`).
-To find out its default location in your Unit installation:
+Unit maintains a single general-purpose :nxt_term:`log <A system-wide log for
+runtime messaging, usually found at /var/log/unit.log>` for diagnostics and
+troubleshooting (not to be confused with the :ref:`access log
+<configuration-access-log>`).  To find out its default location in your Unit
+installation:
 
 .. code-block:: console
 
