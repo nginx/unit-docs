@@ -1,0 +1,214 @@
+# Copyright (C) 2019, NGINX, Inc.
+# Sphinx extension to support advanced markup capabilities in .rst files.
+#
+# Usage:
+#
+# conf.py:
+#
+# extensions += ['nxt']
+#
+# 1. Enables tooltips for terms in text and code-blocks.
+#
+# .rst file:
+#
+# .. markup:: (including literal blocks)
+#
+#    :nxt_term:`term <definition>` and more text
+#
+# .html file:
+#
+#  <span style="nxt_term" title="definition">term</span> and more text
+#
+# 2. Enables adaptive CSS-based tabbing on pages.
+#
+# .rst file:
+#
+# .. tabs::
+#
+#    .. tab:: Plain Text Foo
+#
+#       Foo bar foo bar foo bar:
+#
+#       .. markup::
+#
+#          Foo bar
+#
+#    .. tab:: Plain Text Bar
+#
+#       Foo bar foo bar foo bar:
+#
+#       .. markup::
+#
+#          Foo bar
+
+from docutils import nodes
+from docutils.parsers.rst import Directive, roles
+from sphinx.writers.html import HTMLTranslator
+import re
+
+
+# writer-related classes and functions
+
+class nxt_tabs(nodes.container): pass
+class nxt_tab_head(nodes.Text): pass
+class nxt_tab_body(nodes.container): pass
+class nxt_term(nodes.container): pass
+# dummy classes, required for docutils dispatcher's Visitor pattern
+
+nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(r'[\w\s\.\,\?\!\-\/\:#_]')
+# matches `text w/punctuation <text w/punctuation>` in ':nxt_term:' directives
+
+
+def nxt_term_role_fn(name, rawtext, text, lineno, inliner,
+        options={}, content=[]):
+# ':nxt_term:' role handler for inline text outside literal blocks
+
+    node = nxt_term()
+    groups = re.search(nxt_term_regex, \
+        rawtext.replace('\n', ' ').replace('\r', ''))
+
+    try:
+        node.term, node.tip = groups.group(1), groups.group(2)
+    except:
+        msg = inliner.reporter.error(
+            'Inline term "%s" is invalid.' % text, line=lineno)
+        prb = inliner.problematic(rawtext, rawtext, msg)
+        return [prb], [msg]
+
+    return [node], []
+
+
+class nxt_highlighter(object):
+# extends default highlighter to handle ':nxt_term:' inside literal blocks
+
+    def __init__(self, highlighter):
+        self.highlighter = highlighter
+
+    def highlight_block(self, *args, **kwargs):
+        groups = re.findall(nxt_term_regex, args[0])
+
+        rawsource = args[0]
+
+        for c, g in enumerate(groups):
+            rawsource = re.sub(':nxt_term:' + nxt_term_regex, \
+                'nxt_term_{0}'.format(c), rawsource, count=1)
+
+        highlighted = self.highlighter.highlight_block(rawsource, *args[1:], \
+            **kwargs)
+
+        for c, g in enumerate(groups):
+            highlighted = re.sub('nxt_term_{0}'.format(c),      \
+                '<span class="nxt_term" title="{0}">{1}</span>'.\
+                format(g[1], g[0]), highlighted, count=1)
+
+        return highlighted
+
+class nxt_translator(HTMLTranslator):
+# adds dispatcher methods to handle 'nxt_tabs' and 'nxt_tab' doctree nodes
+# replaces default highlighter to enable ':nxt_term:' inside literal blocks
+
+    def __init__(self, builder, *args, **kwargs):
+        HTMLTranslator.__init__(self, builder, *args, **kwargs)
+        self.highlighter = nxt_highlighter(builder.highlighter)
+
+    def visit_nxt_term(self, node):
+        self.body.append('<span class="nxt_term" title="{1}">{0}</span>'.\
+                         format(node.term, node.tip))
+        return nodes.SkipNode
+
+    def depart_nxt_term(self, node):
+        return nodes.SkipNode
+
+    def visit_nxt_tabs(self, node):
+        HTMLTranslator.visit_container(self,node)
+
+    def depart_nxt_tabs(self, node):
+        HTMLTranslator.depart_container(self,node)
+
+    def visit_nxt_tab_head(self, node):
+        self.body.append('''
+        <input name="{0}" type="radio" id="{1}" class="nxt_input" {2}/>
+        '''.format(node.tabs_id, node.tab_id, node.tab_checked))
+        self.body.append('''
+        <label for="{0}" class="nxt_label">'''
+        .format(node.tab_id))
+        HTMLTranslator.visit_Text(self,node)
+
+    def depart_nxt_tab_head(self, node):
+        self.body.append('</label>')
+        HTMLTranslator.depart_Text(self,node)
+
+    def visit_nxt_tab_body(self, node):
+        HTMLTranslator.visit_container(self,node)
+
+    def depart_nxt_tab_body(self, node):
+        HTMLTranslator.depart_container(self,node)
+
+
+# doctree-related classes
+
+class TabsDirective(Directive):
+# handles the '.. tabs::' directive, adding an 'nxt_tabs' container node
+
+    has_content = True
+
+    def run(self):
+        self.assert_has_content()
+        env = self.state.document.settings.env
+
+        node = nxt_tabs()
+        node['classes'] = ['nxt_tabs']
+
+        # tab groups numbering logic
+        if 'tabs_id' not in env.temp_data:
+            env.temp_data['tabs_id'] = 0
+
+        # individual tab numbering logic
+        env.temp_data['tabs_id'] += 1
+        env.temp_data['tab_id'] = 0
+        env.temp_data['tab_checked'] = 'checked'
+
+        self.state.nested_parse(self.content, self.content_offset, node)
+
+        return [node]
+
+
+class TabDirective(Directive):
+# handles the '.. tab::' directive, adding an 'nxt_tab' container node
+
+    has_content = True
+
+    def run(self):
+        self.assert_has_content()
+        env = self.state.document.settings.env
+
+        tab_head = nxt_tab_head(self.content[0])
+
+        tab_head.tabs_id = 'nxt_tabs{0}'.format(env.temp_data['tabs_id'])
+        tab_head.tab_id = 'nxt_tab{0}_{1}'.\
+            format(env.temp_data['tabs_id'], env.temp_data['tab_id'])
+        tab_head.tab_checked = env.temp_data['tab_checked']
+        # each tab stores tab ID and tab group ID
+
+        env.temp_data['tab_id'] += 1
+        if env.temp_data['tab_checked']:
+            env.temp_data['tab_checked'] = ''
+        # first tab in a group is checked by default, others are unchecked
+
+        text = '\n'.join(self.content)
+        tab_body = nxt_tab_body(text)
+        tab_body['classes'] = ['nxt_tab']
+        self.state.nested_parse(self.content[2:], self.content_offset, \
+            tab_body)
+
+        return [tab_head, tab_body]
+
+
+def setup(app):
+
+    app.add_directive('tabs', TabsDirective)
+    app.add_directive('tab', TabDirective)
+
+    app.set_translator('dirhtml', nxt_translator)
+
+    roles.register_canonical_role('nxt_term', nxt_term_role_fn)
