@@ -666,6 +666,9 @@ request properties:
    * - :samp:`cookies`
      - Cookies supplied with the request.
      - Yes
+   * - :samp:`destination`
+     - Target IP address and optional port of the request.
+     - No
    * - :samp:`headers`
      - Header fields supplied with the request.
      - No
@@ -681,14 +684,20 @@ request properties:
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
        Currently, :samp:`http` and :samp:`https` are supported.
      - No
+   * - :samp:`source`
+     - Source IP address and optional port of the request.
+     - No
    * - :samp:`uri`
      - URI path without arguments, normalized by decoding the "%XX" sequences,
        resolving relative path references ("." and ".."), and compressing
        adjacent slashes into one.
      - Yes
 
-For :samp:`host`, :samp:`method`, and :samp:`uri`, simple matching is used;
-other properties use :ref:`compound matching <configuration-routes-compound>`.
+For :samp:`host`, :samp:`method`, and :samp:`uri`, :ref:`simple matching
+<configuration-routes-simple>` is used; :samp:`destination` and :samp:`source`
+employ :ref:`address matching <configuration-routes-address>`, accepting single
+values or arrays of values; other properties rely on :ref:`compound matching
+<configuration-routes-compound>`.
 
 .. note::
 
@@ -779,6 +788,140 @@ You can also combine special characters in a pattern:
 
 Here, any URIs will match except the ones containing :samp:`/api/`.
 
+.. _configuration-routes-address:
+
+Address Matching
+****************
+
+Unit uses special logic to match IP addresses and address ranges against the
+:samp:`source` and :samp:`destination` options in routes.  Supported matching
+types, including wildcards, exact addresses, CIDR notation, and address ranges,
+are outlined below.  Both :samp:`source` and :samp:`destination` accept
+individual patterns and arrays of patterns; any matching pattern in an array
+makes the entire condition a match.
+
+#. Single wildcard: matches any IPs, defines an individual port number or a
+   port range:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": "*:0-65535",
+              "destination": "*:8000"
+          }
+      }
+
+   No other wildcard combinations (partial matches, multiple wildcards) are
+   supported.
+
+#. Exact address: matches specific IP addresses, optionally defining matching
+   ports or port ranges.
+
+   IPv4:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                  "127.0.0.1",
+                  "192.168.0.10:8080",
+                  "192.168.0.11:8080-8090"
+              ]
+          }
+      }
+
+   IPv6:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "destination": [
+                  "2001::",
+                  "[2002::]:8000",
+                  "[2003::]:8080-8090"
+              ]
+          }
+      }
+
+#. CIDR address range: matches IP ranges in CIDR notation, optionally defining
+   matching ports or port ranges.
+
+   IPv4:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "destination": [
+                  "10.0.0.0/8",
+                  "10.0.0.0/7:1000",
+                  "10.0.0.0/32:8080-8090"
+              ]
+          }
+      }
+
+   IPv6:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                   "2001::/16",
+                   "[0ff::/64]:8000",
+                   "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
+               ]
+          }
+      }
+
+#. Address range: matches ranges of IP addresses, optionally defining matching
+   ports or port ranges.
+
+   IPv4:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "destination": [
+                   "10.0.0.0-10.0.0.10",
+                   "10.0.0.100-11.0.0.100:1000",
+                   "127.0.0.100-127.0.0.255:8080-8090"
+              ]
+          }
+      }
+
+   IPv6:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                   "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                   "[fe08::-feff::]:8000",
+                   "[fff0::-fff0::10]:8080-8090"
+              ]
+          }
+      }
+
+Finally, prepend an address-based pattern with the '!' character to negate it:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "destination": "!10.0.0.0-10.0.0.100",
+              "source": "!*:8000"
+          }
+      }
+
+The condition above excludes requests that target any IPs within the
+:samp:`10.0.0.0-10.0.0.100` range *or* issued from port 8000.
+
 .. _configuration-routes-compound:
 
 Compound Matching
@@ -859,7 +1002,8 @@ This matches all requests that either use :samp:`gzip` and identify as
 
 .. note::
 
-   You can mix simple and compound properties in a :samp:`match` condition.
+   You can combine simple, compound, and address matching in a :samp:`match`
+   condition.
 
 ================
 Passing Requests
@@ -879,6 +1023,7 @@ using the respective :samp:`action`:
                   "host": [ "*.example.com", "!static.example.com" ],
                   "uri": [ "/admin/*", "/store/*" ],
                   "scheme": "https",
+                  "source": "*:8000-9000",
                   "method": "POST"
               },
 
@@ -894,10 +1039,11 @@ using the respective :samp:`action`:
       ]
    }
 
-Here, all :samp:`POST` requests for HTTPS-schemed URIs prefixed with
-:samp:`/admin/` or :samp:`/store/` within subdomains of :samp:`example.com`
-(except for :samp:`static.example.com`) are routed to :samp:`php5_app`; any
-other requests are served with static content at :file:`/www/static_site/`.
+Here, all :samp:`POST` requests issuing from ports 8000-9000 for HTTPS-schemed
+URIs prefixed with :samp:`/admin/` or :samp:`/store/` within subdomains of
+:samp:`example.com` (except for :samp:`static.example.com`) are routed to
+:samp:`php5_app`; any other requests are served with static content at
+:file:`/www/static_site/`.
 
 .. _configuration-static:
 
@@ -2270,7 +2416,8 @@ Full Example
 
                {
                    "match": {
-                       "host": ["blog.example.com", "blog.*.org"]
+                       "host": ["blog.example.com", "blog.*.org"],
+                       "source": "*:8000-9000"
                    },
 
                    "action": {
@@ -2281,6 +2428,7 @@ Full Example
                {
                    "match": {
                        "host": "example.com",
+                       "source": "127.0.0.0-127.0.0.255:8080-8090",
                        "uri": "/chat/*"
                    },
 
@@ -2291,7 +2439,11 @@ Full Example
 
                {
                    "match": {
-                       "host": "example.com"
+                       "host": "example.com",
+                       "source": [
+                           "10.0.0.0/7:1000",
+                           "10.0.0.0/32:8080-8090"
+                       ]
                    },
 
                    "action": {
