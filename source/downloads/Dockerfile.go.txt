@@ -1,23 +1,8 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.13.0-minimal
+FROM unit:1.14.0-go1.11-dev
 
 # port used by the listener in config.json
 EXPOSE 8080
-
-# add Go language and corresponding language module (for build only)
-RUN apt update                                                             \
-    && apt install -y apt-transport-https gnupg1                           \
-    && curl https://nginx.org/keys/nginx_signing.key | apt-key add -       \
-    && echo "deb https://packages.nginx.org/unit/debian/ stretch unit"     \
-         > /etc/apt/sources.list.d/unit.list                               \
-    && echo "deb-src https://packages.nginx.org/unit/debian/ stretch unit" \
-         >> /etc/apt/sources.list.d/unit.list                              \
-    && apt update                                                          \
-    && apt install -y unit-go1.8                                           \
-# final cleanup
-    && apt remove -y apt-transport-https gnupg1                            \
-    && apt autoremove --purge -y                                           \
-    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
 RUN mkdir /www/ && echo '                                                  \
@@ -34,11 +19,20 @@ RUN mkdir /www/ && echo '                                                  \
         unit.ListenAndServe(":8080", nil)                                  \
     }                                                                      \
     ' > /www/app.go                                                        \
+# install build tools to compile the app
+    && apt update && apt install --no-install-recommends                   \
+                         --no-install-suggests -y build-essential          \
 # make nginx/unit package available at $GOPATH to compile the app
-    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.8/src/                  \
-    && /usr/lib/go-1.8/bin/go build -o /www/app /www/app.go                \
+    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.11/src/                 \
+    && /usr/lib/go-1.11/bin/go build -o /www/app /www/app.go               \
+# final cleanup
+    && apt remove -y build-essential                                       \
+    && apt autoremove --purge -y                                           \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list          \
+    && rm /www/app.go
+
 # prepare the app config for Unit
-    && echo '{                                                             \
+RUN echo '{                                                                \
     "listeners": {                                                         \
         "*:8080": {                                                        \
             "pass": "applications/go_app"                                  \
@@ -52,6 +46,3 @@ RUN mkdir /www/ && echo '                                                  \
         }                                                                  \
     }                                                                      \
     }' > /docker-entrypoint.d/config.json                                  \
-# final cleanup (unit-go not needed to run the app, only to build it)
-    && apt remove -y unit-go1.8                                            \
-    && apt autoremove --purge -y && rm /www/app.go
