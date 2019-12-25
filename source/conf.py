@@ -19,7 +19,7 @@ html_theme_path = ["."]
 html_use_index = False
 html_add_permalinks = u'§'
 
-html_extra_path = ['robots.txt', 'CHANGES.txt']
+html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
 
 exclude_patterns = ['include']
 

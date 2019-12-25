@@ -54,6 +54,7 @@ deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
+	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
 	rsync -rcv --delete --exclude='*.gz' --exclude='/sitemap.xml' \
 		"$(TMP)/" "$(DEPLOYDIR)"
 	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" > "$(TMP)/sitemap.xml"
