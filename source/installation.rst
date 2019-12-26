@@ -232,29 +232,7 @@ CentOS
 
 .. tabs::
 
-   .. tab:: 8.x
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install Unit base package and additional packages you would like to
-         use:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-                  unit-perl unit-php unit-python27 unit-python36
-
-   .. tab:: 7.x
+   .. tab:: 8.x, 7.x
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -498,29 +476,7 @@ RHEL
 
 .. tabs::
 
-   .. tab:: 8.x
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install Unit base package and additional packages you would like to
-         use:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-                  unit-perl unit-php unit-python27 unit-python36
-
-   .. tab:: 7.x
+   .. tab:: 8.x, 7.x
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
