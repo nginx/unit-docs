@@ -1582,15 +1582,15 @@ Before applying the configuration, update the application itself.
 Modifying Go Sources
 ********************
 
-In the :samp:`import` section, reference the :samp:`"nginx/unit"` package that
-you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
+In the :samp:`import` section, reference the :samp:`"unit.nginx.org/go"` package
+that you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
 <installation-go>` earlier:
 
 .. code-block:: go
 
    import (
        ...
-       "nginx/unit"
+       "unit.nginx.org/go"
        ...
    )
 

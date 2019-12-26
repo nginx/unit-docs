@@ -43,7 +43,7 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
       import (
           // ...
           "net/http"
-          "nginx/unit"
+          "unit.nginx.org/go"
           "os"
           // ...
       )

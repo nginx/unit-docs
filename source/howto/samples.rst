@@ -25,7 +25,7 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
    import (
        "io";
        "net/http";
-       "nginx/unit"
+       "unit.nginx.org/go"
    )
 
    func main() {
