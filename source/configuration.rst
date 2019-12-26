@@ -1039,7 +1039,7 @@ using the respective :samp:`action`:
       ]
    }
 
-Here, all :samp:`POST` requests issuing from ports 8000-9000 for HTTPS-schemed
+Here, all :samp:`POST` requests issued from ports 8000-9000 for HTTPS-schemed
 URIs prefixed with :samp:`/admin/` or :samp:`/store/` within subdomains of
 :samp:`example.com` (except for :samp:`static.example.com`) are routed to
 :samp:`php5_app`; any other requests are served with static content at
