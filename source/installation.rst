@@ -198,7 +198,7 @@ Amazon Linux
 
             # yum install unit
             # yum install unit-devel unit-go unit-jsc8 unit-perl \
-                  unit-php unit-python
+                  unit-php unit-python27 unit-python37
 
    .. tab:: AMI
 
@@ -274,7 +274,7 @@ CentOS
 
             # yum install unit
             # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-                  unit-perl unit-php unit-python
+                  unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
 
@@ -335,7 +335,7 @@ Debian
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.11 unit-jsc11 unit-perl \
+            # apt install unit-dev unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 9
@@ -366,7 +366,7 @@ Debian
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.8 unit-jsc8 unit-perl \
+            # apt install unit-dev unit-go unit-jsc8 unit-perl \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
 
    .. tab:: 8
@@ -540,7 +540,7 @@ RHEL
 
             # yum install unit
             # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
-                  unit-perl unit-php unit-python
+                  unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
 
@@ -600,7 +600,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.12 unit-go1.13 unit-jsc11 unit-perl \
+            # apt install unit-dev unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
 
    .. tab:: 19.04
@@ -631,7 +631,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.11 unit-jsc11 unit-perl \
+            # apt install unit-dev unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 18.10
@@ -698,7 +698,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
+            # apt install unit-dev unit-go unit-jsc8 unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 16.04
