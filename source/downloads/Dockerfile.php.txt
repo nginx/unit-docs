@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM unit:1.14.0-php7.3
+FROM nginx/unit:1.14.0-php7.3
 
 # port used by the listener in config.json
 EXPOSE 8080
