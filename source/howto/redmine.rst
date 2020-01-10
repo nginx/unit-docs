@@ -43,8 +43,9 @@ Redmine
                   "environment": {
                       "RAILS_ENV": ":nxt_term:`production<Environment name in Redmine config>`"
                   }
-           }
-       }
+              }
+          }
+      }
 
    See :ref:`Ruby application options <configuration-ruby>` for details.
 
