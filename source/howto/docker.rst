@@ -185,7 +185,7 @@ To switch your app to another Unit image, prepare a corresponding
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.5
+   FROM nginx/unit:|version|-python3.7
    COPY requirements.txt /config/requirements.txt
    RUN apt update && apt install -y python3-pip    \
        && pip3 install -r /config/requirements.txt \
