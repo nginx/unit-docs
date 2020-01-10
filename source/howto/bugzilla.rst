@@ -59,7 +59,7 @@ To run Bugzilla in Unit:
                           "pass": "applications/bugzilla"
                       }
                   }
-              ],
+              ]
           },
 
           "applications": {

@@ -2194,7 +2194,7 @@ them to a separate configuration section, aptly named :samp:`certificates`:
                            "since": "Feb 22 22:45:55 2016 GMT",
                            "until": "Feb 21 22:45:55 2019 GMT"
                        }
-                   },
+                   }
                ]
            }
        }
@@ -2463,16 +2463,16 @@ Full Example
 
                {
                    "match": {
-                       "scheme": "http",
+                       "scheme": "http"
                    },
 
-                   "action" {
+                   "action": {
                        "proxy": "http://127.0.0.1:8080"
                    }
                },
 
                {
-                   "action" {
+                   "action": {
                        "share": "/www/not_found/"
                    }
                }
