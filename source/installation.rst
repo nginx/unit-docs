@@ -176,6 +176,8 @@ individual languages.
 Amazon Linux
 ============
 
+Supported architectures: :samp:`x86-64`.
+
 .. tabs::
 
    .. tab:: 2.0 LTS
@@ -234,6 +236,8 @@ CentOS
 
    .. tab:: 8.x, 7.x
 
+      Supported architectures: :samp:`x86-64`.
+
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
@@ -255,6 +259,8 @@ CentOS
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
+
+      Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -282,6 +288,8 @@ CentOS
 ======
 Debian
 ======
+
+Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
 .. tabs::
 
@@ -391,6 +399,8 @@ Debian
 Fedora
 ======
 
+Supported architectures: :samp:`x86-64`.
+
 .. tabs::
 
    .. tab:: 31, 30
@@ -478,6 +488,8 @@ RHEL
 
    .. tab:: 8.x, 7.x
 
+      Supported architectures: :samp:`x86-64`.
+
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
@@ -499,6 +511,8 @@ RHEL
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
+
+      Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -529,6 +543,8 @@ Ubuntu
 .. tabs::
 
    .. tab:: 19.10
+
+      Supported architectures: :samp:`x86-64`.
 
       #. Download the NGINX `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
@@ -561,6 +577,8 @@ Ubuntu
 
    .. tab:: 19.04
 
+      Supported architectures: :samp:`i386`, :samp:`x86-64`.
+
       #. Download the NGINX `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
          and packages and add it to :program:`apt`'s keyring:
@@ -591,6 +609,8 @@ Ubuntu
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 18.10
+
+      Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
       .. warning::
 
@@ -628,6 +648,8 @@ Ubuntu
 
    .. tab:: 18.04
 
+      Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
+
       #. Download the NGINX `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
          and packages and add it to :program:`apt`'s keyring:
@@ -658,6 +680,8 @@ Ubuntu
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 16.04
+
+      Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
 
       #. Download the NGINX `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
