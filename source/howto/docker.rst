@@ -38,14 +38,14 @@ details of Unit configuration, see :ref:`configuration-mgmt`.
 
 .. note::
 
-   For app containerization examples, refer to our sample `Go
-   <../../_downloads/Dockerfile.go.txt>`_, `Java
-   <../../_downloads/Dockerfile.java.txt>`_, `Node.js
-   <../../_downloads/Dockerfile.nodejs.txt>`_, `Perl
-   <../../_downloads/Dockerfile.perl.txt>`_, `PHP
-   <../../_downloads/Dockerfile.php.txt>`_, `Python
-   <../../_downloads/Dockerfile.python.txt>`_, and `Ruby
-   <../../_downloads/Dockerfile.ruby.txt>`_ Dockerfiles; also, see a more
+   For app containerization examples, refer to our sample :download:`Go
+   <../downloads/Dockerfile.go.txt>`, :download:`Java
+   <../downloads/Dockerfile.java.txt>`, :download:`Node.js
+   <../downloads/Dockerfile.nodejs.txt>`, :download:`Perl
+   <../downloads/Dockerfile.perl.txt>`, :download:`PHP
+   <../downloads/Dockerfile.php.txt>`, :download:`Python
+   <../downloads/Dockerfile.python.txt>`, and :download:`Ruby
+   <../downloads/Dockerfile.ruby.txt>` Dockerfiles; also, see a more
    elaborate discussion :ref:`below <docker-apps>`.
 
 Now for a few detailed scenarios.
