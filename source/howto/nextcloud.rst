@@ -125,6 +125,14 @@ To run NextCloud in Unit:
       # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
+#. Adjust Unit's :samp:`max_body_size` :ref:`option <configuration-stngs>` to
+   avoid potential issues with large file uploads, for example:
+
+   .. code-block:: console
+
+      # curl -X PUT -d '{"http":{"max_body_size": 2147483648}}' --unix-socket \
+             /path/to/control.unit.sock http://localhost/config/settings
+
 #. Set up NGINX to serve static files and route PHP requests to Unit (adopted
    from NextCloud's `guide
    <https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html>`_):
@@ -139,6 +147,7 @@ To run NextCloud in Unit:
           listen 80;
           server_name nextcloud.example.com;
           root /path/to/nextcloud;
+          proxy_max_temp_file_size 0;
 
           location = /.well-known/carddav {
               return 301 $scheme://$host:$server_port/remote.php/dav;
@@ -185,6 +194,11 @@ To run NextCloud in Unit:
       placeholders, such as :samp:`/path/to/nextcloud/` in :samp:`root`.
       For details, refer to `NGINX Admin Guide
       <https://docs.nginx.com/nginx/admin-guide/>`_.
+
+   .. note::
+
+      Here, :samp:`proxy_max_temp_file_size` disables response buffering so
+      that large files are served correctly.
 
 Finally, browse to your NextCloud site and complete the installation:
 
