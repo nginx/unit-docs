@@ -29,6 +29,8 @@ Applications
 
 - :doc:`howto/grafana`: Use Unit to power Grafana's visual goodness.
 
+- :doc:`howto/hg`: Install and configure Mercurial on Unit.
+
 - :doc:`howto/jira`: Run a new Jira installation in Unit.
 
 - :doc:`howto/nextcloud`: Deploy a NextCloud site using NGINX and Unit.
