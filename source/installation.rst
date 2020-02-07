@@ -878,7 +878,7 @@ FreeBSD
 
 To install Unit using `FreeBSD packages <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
-repository and install the package:
+repository and install the `package <https://www.freshports.org/www/unit>`_:
 
 .. code-block:: console
 
