@@ -12,7 +12,8 @@ is also fully configurable in runtime with zero interruption, enabling
 on-the-fly granular management for engineering and operations.
 
 | The latest version is |version|, released on February 6, 2020.
-| See the changelog `here </CHANGES.txt>`_.
+| See the changelog `here </CHANGES.txt>`_; further plans are outlined in our
+  `roadmap <https://github.com/orgs/nginx/projects/1>`_ on GitHub.
 
 The sources are distributed under the Apache |_| 2.0 license.
 
