@@ -1624,8 +1624,8 @@ The resulting application works as follows:
 
 .. note::
 
-   For an example of Go app configuration, see our :doc:`Grafana
-   <howto/grafana>` howto.  Also, see a :ref:`sample <sample-go>` in Go.
+   For Go-based examples, see our :doc:`Grafana <howto/grafana>` howto or a
+   basic :ref:`sample <sample-go>`.
 
 .. _configuration-external-nodejs:
 
@@ -1658,9 +1658,8 @@ replace the default :samp:`websocket`:
 
 .. note::
 
-   For examples of Node.js app configuration, see our :doc:`Express
-   <howto/express>` and :ref:`Docker <docker-apps>` howtos or a
-   :ref:`sample <sample-nodejs>` in Node.js.
+   For Node.js-based examples, see our :doc:`Express <howto/express>` and
+   :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample <sample-nodejs>`.
 
 .. _configuration-java:
 
@@ -1703,8 +1702,8 @@ Example:
 
 .. note::
 
-   For an example of Java app configuration, see our :doc:`Jira <howto/jira>`
-   howto.  Also, see a JSP :ref:`sample <sample-java>`.
+   For Java-based examples, see our :doc:`Jira <howto/jira>` howto or a basic
+   :ref:`sample <sample-java>`.
 
 .. _configuration-perl:
 
@@ -1742,9 +1741,9 @@ Example:
 
 .. note::
 
-   For an example of Perl app configuration, see our :doc:`Bugzilla
-   <howto/bugzilla>` and :doc:`Catalyst <howto/catalyst>` howtos or a
-   :ref:`sample <sample-perl>` in Perl.
+   For Perl-based examples of Perl, see our :doc:`Bugzilla <howto/bugzilla>`
+   and :doc:`Catalyst <howto/catalyst>` howtos or a basic :ref:`sample
+   <sample-perl>`.
 
 .. _configuration-php:
 
@@ -1845,9 +1844,9 @@ Example:
 
 .. note::
 
-   For an example of PHP app configuration, see our :doc:`WordPress
-   <howto/wordpress>` howto.  Also, see a :ref:`sample
-   <sample-php>` in PHP.
+   For PHP-based examples, see our :doc:`WordPress <howto/wordpress>` and
+   :doc:`NextCloud <howto/nextcloud>` howtos or a basic :ref:`sample
+   <sample-php>`.
 
 .. _configuration-python:
 
@@ -1907,9 +1906,9 @@ Example:
 
 .. note::
 
-   For examples of Python app configuration, see our :doc:`Django
-   <howto/django>` and :doc:`Flask <howto/flask>` howtos or a
-   :ref:`sample <sample-python>` in Python.
+   For Python-based examples, see our :doc:`Django <howto/django>`, :doc:`Flask
+   <howto/flask>`, and :doc:`Mercurial <howto/hg>` howtos or a basic
+   :ref:`sample <sample-python>`.
 
 .. _configuration-ruby:
 
@@ -1956,9 +1955,8 @@ Example:
 
 .. note::
 
-   For an example of Ruby app configuration, see our :doc:`Redmine
-   <howto/redmine>` howto.  Also, see a :ref:`sample
-   <sample-ruby>` in Ruby.
+   For Ruby-based examples, see our :doc:`Redmine <howto/redmine>` howto or a
+   basic :ref:`sample <sample-ruby>`.
 
 .. _configuration-stngs:
 
