@@ -1311,7 +1311,7 @@ structure <installation-src-dir>`:
 
     Defines the temporary files location (used to dump large request bodies).
 
-    The default value is :samp:`/tmp`.
+    The default value is :samp:`tmp`.
 
 .. _installation-src-dir:
 
