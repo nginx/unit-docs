@@ -1307,6 +1307,12 @@ structure <installation-src-dir>`:
 
     The default value is :samp:`state`.
 
+--tmp=directory
+
+    Defines the temporary files location (used to dump large request bodies).
+
+    The default value is :samp:`/tmp`.
+
 .. _installation-src-dir:
 
 Directory Structure
