@@ -491,9 +491,14 @@ Steps have the following options:
      - Route's target in case of a match, identical to :samp:`pass` in a
        :ref:`listener <configuration-listeners>`.
 
-   * - :samp:`action/share`
-     - Static asset path: :samp:`/www/files/`.  In case of a match, Unit serves
-       the :ref:`files <configuration-static>` at this path.
+   * - :samp:`action/share`, :samp:`action/fallback`
+     - The :samp:`share` is a static path: :samp:`/www/files/`.  Upon a match,
+       :ref:`files <configuration-static>` at this path are served.
+
+       The :samp:`fallback` is optional, applying only if the requested file
+       isn't found; it can specify a :samp:`pass`, a :samp:`proxy`, or a
+       :samp:`share`.  In the latter case, :samp:`fallback` options may be
+       nested.
 
    * - :samp:`action/proxy`
      - Socket address of an HTTP server where the request is
@@ -1121,14 +1126,52 @@ Unit maintains a number of :ref:`built-in MIME types <configuration-mime>` like
 override built-ins in the :samp:`/config/settings/http/static/mime_types`
 section.
 
+.. _configuration-fallback:
+
+Finally, within an :samp:`action`, you can supply a :samp:`fallback` option
+beside a :samp:`share`.  It specifies the action to be taken if the requested
+file isn't found at the :samp:`share` path:
+
+.. code-block:: json
+
+   {
+       "share": "/data/www/",
+       "fallback": {
+           "pass": "applications/php"
+       }
+   }
+
+In the example above, an attempt to serve the requested file from the
+:samp:`/data/www/` directory is made first.  Only if there's no such file, the
+request is passed to the :samp:`php` application.
+
+If a :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
+:samp:`fallback`:
+
+.. code-block:: json
+
+   {
+       "share": "/data/www/",
+       "fallback": {
+           "share": "/data/cache/",
+           "fallback": {
+               "proxy": "http://127.0.0.1:9000"
+           }
+       }
+   }
+
+First, this configuration tries to serve a file from the :file:`/data/www/`
+directory; next, it queries the :file:`/data/cache/` path.  If both attempts
+fail, the request is proxied to an external server.
+
 ========
 Examples
 ========
 
 One common use case that this feature enables is the separation of requests for
-static and dynamic content into independent routes.  The following
-example relays all requests that target :file:`.php` files to an application
-and uses a static :samp:`share` as the catch-all fallback:
+static and dynamic content into independent routes.  The following example
+relays all requests that target :file:`.php` files to an application and uses a
+catch-all static :samp:`share` with a :samp:`fallback`:
 
 .. code-block:: json
 
@@ -1144,7 +1187,10 @@ and uses a static :samp:`share` as the catch-all fallback:
            },
            {
                "action": {
-                   "share": "/www/php-app/assets/files/"
+                   "share": "/www/php-app/assets/files/",
+                   "fallback": {
+                       "proxy": "http://127.0.0.1:9000"
+                   }
                }
            }
 
@@ -1160,7 +1206,7 @@ and uses a static :samp:`share` as the catch-all fallback:
 
 You can reverse this scheme for apps that avoid filenames in dynamic URIs,
 listing all types of static content to be served from a :samp:`share` in a
-:samp:`match` condition and adding an unconditional fallback application path:
+:samp:`match` condition and adding an unconditional application path:
 
 .. code-block:: json
 
@@ -1178,7 +1224,10 @@ listing all types of static content to be served from a :samp:`share` in a
                    ]
                },
                "action": {
-                   "share": "/www/php-app/assets/files/"
+                   "share": "/www/php-app/assets/files/",
+                   "fallback": {
+                       "proxy": "http://127.0.0.1:9000"
+                   }
                }
            },
            {
@@ -2471,7 +2520,10 @@ Full Example
 
                {
                    "action": {
-                       "share": "/www/not_found/"
+                       "share": "/www/static/",
+                       "fallback": {
+                           "proxy": "http://127.0.0.1:9000"
+                       }
                    }
                }
            ],
