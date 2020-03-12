@@ -29,8 +29,9 @@ Key Features
 - Application processes :ref:`scale on demand <configuration-proc-mgmt-prcs>`
 - :ref:`SSL/TLS <configuration-ssl>` is supported seamlessly (OpenSSL |_| 1.0.1
   and later)
-- Extensive :ref:`request routing <configuration-routes>` and static
-  :ref:`content <configuration-static>` capabilities are available
+- Extensive :ref:`request routing <configuration-routes>`,
+  :ref:`load balancing <configuration-upstreams>`, and
+  :ref:`static file serving <configuration-static>` options are available
 - Server-side WebSockets are implemented for :ref:`Node.js
   <configuration-external>` and Java
 - Namespaces enable :ref:`application isolation

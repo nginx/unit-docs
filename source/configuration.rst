@@ -394,15 +394,20 @@ Available options:
 
         .. list-table::
 
-           * - App name
+           * - App
              - :samp:`applications/qwk2mart`
-             - Listener passes incoming requests to the
+             - Incoming requests are directly passed to the
                :ref:`app <configuration-applications>`.
 
-           * - Route name
+           * - Route
              - :samp:`routes/route66`, :samp:`routes`
-             - Listener relays incoming requests to the
+             - Incoming requests travel along the
                :ref:`route <configuration-routes>`.
+
+           * - Upstream
+             - :samp:`upstreams/rr-lb`
+             - Incoming requests are served by the
+               :ref:`upstream <configuration-upstreams>`.
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
@@ -1049,6 +1054,7 @@ URIs prefixed with :samp:`/admin/` or :samp:`/store/` within subdomains of
 :samp:`example.com` (except for :samp:`static.example.com`) are routed to
 :samp:`php5_app`; any other requests are served with static content at
 :file:`/www/static_site/`.
+
 
 .. _configuration-static:
 
@@ -2007,6 +2013,49 @@ Example:
    For Ruby-based examples, see our :doc:`Redmine <howto/redmine>` howto or a
    basic :ref:`sample <sample-ruby>`.
 
+
+.. _configuration-upstreams:
+
+*********
+Upstreams
+*********
+
+Besides routes and apps, Unit can also relay incoming requests to *upstreams*.
+An upstream is a group of servers that comprise a single logical entity and may
+be used as a :samp:`pass` destination for incoming requests.
+
+Upstreams are defined in the eponymous top-level section of the configuration:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               "pass": "upstreams/rr-lb"
+           }
+       },
+
+       "upstreams": {
+           "rr-lb": {
+               "servers": {
+                   "192.168.0.100:8080": { },
+                   "192.168.0.101:8080": {
+                       "weight": 2
+                   }
+               }
+           }
+       }
+   }
+
+An upstream must have a :samp:`servers` object that lists server socket
+addresses and their configurations; each server may set an integer option,
+:samp:`weight`.  Weights control request distribution within the upstream:
+Unit dispatches requests between the upstream's servers in a round-robin
+fashion, acting as a load balancer.  In the example above,
+:samp:`192.168.0.101:8080` receives twice as many requests as
+:samp:`192.168.0.100:8080`.
+
+
 .. _configuration-stngs:
 
 ********
@@ -2438,6 +2487,10 @@ Full Example
 
                "127.0.0.1:8001": {
                    "pass": "applications/drive"
+               },
+
+               "*:8080": {
+                   "pass": "upstreams/rr-lb"
                }
            },
 
@@ -2625,6 +2678,15 @@ Full Example
 
                    "path": "/www/wiki/",
                    "processes": 10
+               }
+           },
+
+           "upstreams": {
+               "rr-lb": {
+                   "192.168.1.100:8080": { },
+                   "192.168.1.101:8080": {
+                       "weight": 2
+                   }
                }
            },
 
