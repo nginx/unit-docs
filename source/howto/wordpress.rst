@@ -33,7 +33,7 @@ haven't already done so:
 
    .. code-block:: console
 
-      # chown -R wpuser:www-data /path/to/wordpress/
+      # chown -R wp_user:wp_user /path/to/wordpress/
       # find /path/to/wordpress/ -type d -exec chmod g+s {} \;
       # chmod g+w /path/to/wordpress/wp-content
       # chmod -R g+w /path/to/wordpress/wp-content/themes
@@ -81,21 +81,11 @@ To run WordPress in Unit:
                       }
                   },
                   {
-                      "match": {
-                          "uri": [
-                               "/wp-admin/*",
-                               "/wp-content/*",
-                               "/wp-includes/*"
-                          ]
-                      },
-
                       "action": {
-                          "share": "/www/wordpress/"
-                      }
-                  },
-                  {
-                      "action": {
-                          "pass": "applications/wp_index"
+                          "share": "/path/to/wordpress/",
+                          "fallback": {
+                              "pass": "applications/wp_index"
+                          }
                       }
                   }
               ]
@@ -104,15 +94,15 @@ To run WordPress in Unit:
           "applications": {
               "wp_direct": {
                   "type": "php",
-                  "user": "wpuser",
-                  "group": "www-data",
+                  "user": "wp_user",
+                  "group": "wp_user",
                   "root": "/path/to/wordpress/"
               },
 
               "wp_index": {
                   "type": "php",
-                  "user": "wpuser",
-                  "group": "www-data",
+                  "user": "wp_user",
+                  "group": "wp_user",
                   "root": "/path/to/wordpress/",
                   "script": "index.php"
               }
@@ -123,10 +113,10 @@ To run WordPress in Unit:
 
       The difference between the apps is their usage of :samp:`script`
       :ref:`setting <configuration-php>`.  Here, :samp:`wp_index` specifies the
-      :samp:`script` that Unit will run for *any* URIs the app receives.  In
-      contrast, the :samp:`wp_direct` app will serve URIs that reference a
-      specific :samp:`.php` file by running it; if there's no file specified,
-      it defaults to :samp:`index.php`.
+      :samp:`script` that Unit runs for *any* URIs the app receives.  In
+      contrast, the :samp:`wp_direct` app serves URIs that reference a specific
+      :samp:`.php` file by running it; if there's no file specified, it
+      defaults to :samp:`index.php`.
 
 #. Upload the updated configuration:
 
