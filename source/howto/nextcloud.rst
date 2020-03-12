@@ -31,7 +31,7 @@ if you haven't already done so:
 
    .. code-block:: console
 
-      # chown -R www-data:www-data /path/to/nextcloud/
+      # chown -R nc_user:nc_user /path/to/nextcloud/
 
 #. Install and check NextCloud's `prerequisites
    <https://docs.nextcloud.com/server/16/admin_manual/installation/source_installation.html#prerequisites-for-manual-installation>`_:
@@ -62,7 +62,7 @@ if you haven't already done so:
    .. code-block:: console
 
       $ cd /path/to/nextcloud/
-      $ sudo -u www-data php occ maintenance:install --database "mysql" \
+      $ sudo -u nc_user php occ maintenance:install --database "mysql" \
              --database-name "nextcloud" --database-user "nextuser"     \
              --database-pass "nextpass" --admin-user "admin" --admin-pass "adminpass"
 
@@ -84,36 +84,170 @@ if you haven't already done so:
          1 => '*.example.com',
        ),
 
-**************
-NGINX and Unit
-**************
+****
+Unit
+****
 
 To run NextCloud in Unit:
-
-#. Install `NGINX <https://nginx.org/en/download.html>`_.  Currently, NGINX is
-   required to serve static files.
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
 
 #. .. include:: ../include/get-config.rst
 
-#. Edit the file, adding an app and a listener to make NextCloud available:
+#. Edit the file, adding a route, a few apps and a listener to make NextCloud
+   available (based on NextCloud's own `guide
+   <https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html>`_):
 
    .. code-block:: json
 
       {
           "listeners": {
-              "127.0.0.1:9000": {
-                  "pass": "applications/nextcloud"
+              "*:80": {
+                  "pass": "routes/nextcloud"
               }
           },
 
+          "routes": {
+              "nextcloud": [
+                  {
+                      "match": {
+                          "uri": [
+                              "/build/*",
+                              "/tests/*",
+                              "/config/*",
+                              "/lib/*",
+                              "/3rdparty/*",
+                              "/templates/*",
+                              "/data/*",
+                              "/.*",
+                              "/autotest*",
+                              "/occ*",
+                              "/issue*",
+                              "/indie*",
+                              "/db_*",
+                              "/console*"
+                          ]
+                      },
+
+                      "action": {
+                          "share": "/dev/null/"
+                      }
+                  },
+                  {
+                      "match": {
+                          "uri": [
+                              "/core/ajax/update.php*",
+                              "/cron.php*",
+                              "/index.php*",
+                              "/ocs/v1.php*",
+                              "/ocs/v2.php*",
+                              "/public.php*",
+                              "/remote.php*",
+                              "/status.php*"
+                          ]
+                      },
+
+                      "action": {
+                          "pass": "applications/nextcloud_direct"
+                      }
+                  },
+                  {
+                      "match": {
+                          "uri": [
+                              "/ocm-provider*",
+                              "/ocs-provider*",
+                              "/updater*"
+                          ]
+                      },
+
+                      "action": {
+                          "pass": "routes/nextcloud_fallthrough"
+                      }
+                  },
+                  {
+                      "action": {
+                          "share": "/path/to/nextcloud/",
+                          "fallback": {
+                              "pass": "applications/nextcloud_index"
+                          }
+                      }
+                  }
+              ],
+
+              "nextcloud_fallthrough": [
+                  {
+                      "match": {
+                          "uri": "*.php*"
+                      },
+
+                      "action": {
+                          "pass": "applications/nextcloud_direct"
+                      }
+                  },
+                  {
+                      "match": {
+                          "uri": "/ocm-provider*"
+                      },
+
+                      "action": {
+                          "pass": "applications/nextcloud_ocm"
+                      }
+                  },
+                  {
+                      "match": {
+                          "uri": "/ocs-provider*"
+                      },
+
+                      "action": {
+                          "pass": "applications/nextcloud_ocs"
+                      }
+                  },
+                  {
+                      "action": {
+                          "pass": "applications/nextcloud_updater"
+                      }
+                  }
+              ]
+          },
+
           "applications": {
-              "nextcloud": {
+              "nextcloud_direct": {
                   "type": "php",
-                  "user": "www-data",
-                  "group": "www-data",
+                  "user": "nc_user",
+                  "group": "nc_user",
                   "root": "/path/to/nextcloud/"
+              },
+
+              "nextcloud_index": {
+                  "type": "php",
+                  "user": "nc_user",
+                  "group": "nc_user",
+                  "root": "/path/to/nextcloud/",
+                  "script": "index.php"
+              },
+
+              "nextcloud_ocm": {
+                  "type": "php",
+                  "user": "nc_user",
+                  "group": "nc_user",
+                  "root": "/path/to/nextcloud/ocm-provider/",
+                  "script": "index.php"
+              },
+
+              "nextcloud_ocs": {
+                  "type": "php",
+                  "user": "nc_user",
+                  "group": "nc_user",
+                  "root": "/path/to/nextcloud/ocs-provider/",
+                  "script": "index.php"
+              },
+
+              "nextcloud_updater": {
+                  "type": "php",
+                  "user": "nc_user",
+                  "group": "nc_user",
+                  "root": "/path/to/nextcloud/updater/",
+                  "script": "index.php"
               }
           }
       }
@@ -132,73 +266,6 @@ To run NextCloud in Unit:
 
       # curl -X PUT -d '{"http":{"max_body_size": 2147483648}}' --unix-socket \
              /path/to/control.unit.sock http://localhost/config/settings
-
-#. Set up NGINX to serve static files and route PHP requests to Unit (adopted
-   from NextCloud's `guide
-   <https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html>`_):
-
-   .. code-block:: nginx
-
-      upstream unit_nextcloud {
-          server 127.0.0.1:9000;
-      }
-
-      server {
-          listen 80;
-          server_name nextcloud.example.com;
-          root /path/to/nextcloud;
-          proxy_max_temp_file_size 0;
-
-          location = /.well-known/carddav {
-              return 301 $scheme://$host:$server_port/remote.php/dav;
-          }
-
-          location = /.well-known/caldav {
-              return 301 $scheme://$host:$server_port/remote.php/dav;
-          }
-
-          location / {
-              rewrite ^ /index.php$request_uri;
-          }
-
-          location ~ ^\/(?:build|tests|config|lib|3rdparty|templates|data)\/ {
-              deny all;
-          }
-
-          location ~ ^\/(?:\.|autotest|occ|issue|indie|db_|console) {
-              deny all;
-          }
-
-          location ~ ^\/(?:index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+)\.php(?:$|\/) {
-              proxy_pass http://unit_nextcloud;
-              proxy_set_header Host $host;
-          }
-
-          location ~ ^\/(?:updater|oc[ms]-provider)(?:$|\/) {
-              try_files $uri/ =404;
-              index index.php;
-          }
-
-          location ~ \.(?:css|js|woff2?|svg|gif|map)$ {
-              try_files $uri /index.php$request_uri;
-          }
-
-          location ~ \.(?:png|html|ttf|ico|jpg|jpeg|bcmap)$ {
-              try_files $uri /index.php$request_uri;
-          }
-      }
-
-   .. note::
-
-      If you use the above config for your purposes, make sure to replace
-      placeholders, such as :samp:`/path/to/nextcloud/` in :samp:`root`.
-      For details, refer to `NGINX Admin Guide
-      <https://docs.nginx.com/nginx/admin-guide/>`_.
-
-   .. note::
-
-      Here, :samp:`proxy_max_temp_file_size` disables response buffering so
-      that large files are served correctly.
 
 Finally, browse to your NextCloud site and complete the installation:
 
