@@ -160,6 +160,9 @@ we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
 These include core Unit executables, developer files, and support packages for
 individual languages.
 
+We also maintain an official Homebrew `tap
+<https://github.com/nginx/homebrew-unit>`_ for macOS users.
+
 .. note::
 
    Unit's language :ref:`module <installation-nodejs-package>` for Node.js is
@@ -536,6 +539,9 @@ RHEL
 
 .. include:: include/socket-note-rpm.rst
 
+
+.. _installation-precomp-ubuntu:
+
 ======
 Ubuntu
 ======
@@ -713,6 +719,56 @@ Ubuntu
                   unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-note-deb.rst
+
+
+.. _installation-homebrew:
+
+========
+Homebrew
+========
+
+To install Unit on macOS from our official Homebrew `tap
+<https://github.com/nginx/homebrew-unit>`_:
+
+.. subs-code-block:: console
+
+   $ brew install nginx/unit/unit  # perform core installation
+   $ which unitd                   # confirm the executable location
+         /usr/local/bin/unitd
+   $ unitd --version               # check ./configure flags
+         unit version: |version|
+
+This deploys the Unit binary and the prerequisites for :ref:`Go
+<installation-go-package>` and :ref:`Node.js <installation-nodejs-package>`
+language module installation.
+
+To install Java, Perl, Python, and Ruby language modules from Homebrew:
+
+.. code-block:: console
+
+   $ brew install unit-java unit-perl unit-python unit-python3 unit-ruby
+
+.. note::
+
+   Control socket is located here:
+   :file:`/usr/local/var/run/unit/control.sock`.
+
+
+.. _installation-go-package:
+
+==
+Go
+==
+
+To install the Go language module:
+
+.. code-block:: console
+
+   $ go get unit.nginx.org/go
+
+That's it; now, you can :ref:`use it <configuration-external-go>` to run your
+Go apps in Unit.
+
 
 .. _installation-nodejs-package:
 
