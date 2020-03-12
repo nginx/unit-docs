@@ -22,8 +22,8 @@ To run Bugzilla in Unit:
 
    This creates a JSON file with Unit's current settings.  Edit the file,
    adding a :ref:`listener <configuration-listeners>` with a :ref:`route
-   <configuration-routes>` that serves requests for static files via a
-   conditional :samp:`share` and passes any other requests to Bugzilla's
+   <configuration-routes>` that serves requests for static files via an
+   unconditional :samp:`share` and passes other requests to Bugzilla's
    :file:`app.psgi`:
 
    .. code-block:: json
@@ -38,25 +38,11 @@ To run Bugzilla in Unit:
           "routes": {
               "bugzilla": [
                   {
-                      "match": {
-                          "uri": [
-                              "/data/assets/*",
-                              "/docs/*",
-                              "/extensions/*",
-                              "/images/*",
-                              "/js/*",
-                              "/skins/*"
-                          ]
-                      },
-
                       "action": {
-                          "share": "/path/to/bugzilla/"
-                      }
-                  },
-
-                  {
-                      "action": {
-                          "pass": "applications/bugzilla"
+                          "share": "/path/to/bugzilla/",
+                          "fallback": {
+                              "pass": "/applications/bugzilla"
+                          }
                       }
                   }
               ]
