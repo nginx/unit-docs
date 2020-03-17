@@ -33,6 +33,8 @@ Applications
 
 - :doc:`howto/jira`: Run a new Jira installation in Unit.
 
+- :doc:`howto/joomla`: Implement a Joomla site with Unit.
+
 - :doc:`howto/nextcloud`: Deploy a NextCloud site using Unit.
 
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
