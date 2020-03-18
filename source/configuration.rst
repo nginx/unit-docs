@@ -1899,9 +1899,9 @@ Example:
 
 .. note::
 
-   For PHP-based examples, see our :doc:`WordPress <howto/wordpress>` and
-   :doc:`NextCloud <howto/nextcloud>` howtos or a basic :ref:`sample
-   <sample-php>`.
+   For PHP-based examples, see our :doc:`WordPress <howto/wordpress>`,
+   :doc:`NextCloud <howto/nextcloud>`, and :doc:`Symfony <howto/symfony>`
+   howtos or a basic :ref:`sample <sample-php>`.
 
 .. _configuration-python:
 

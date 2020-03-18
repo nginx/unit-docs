@@ -21,6 +21,8 @@ App Frameworks
 - :doc:`Flask <howto/flask>`: Run your Flask apps in Unit with little to no
   change.
 
+- :doc:`Symfony <howto/symfony>`: Deploy Symfony apps with Unit on the backend.
+
 ************
 Applications
 ************
