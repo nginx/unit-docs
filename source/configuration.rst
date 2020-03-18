@@ -1962,8 +1962,8 @@ Example:
 .. note::
 
    For Python-based examples, see our :doc:`Django <howto/django>`, :doc:`Flask
-   <howto/flask>`, and :doc:`Mercurial <howto/hg>` howtos or a basic
-   :ref:`sample <sample-python>`.
+   <howto/flask>`, :doc:`Mercurial <howto/hg>`, and :doc:`Trac <howto/trac>`
+   howtos or a basic :ref:`sample <sample-python>`.
 
 .. _configuration-ruby:
 

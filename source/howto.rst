@@ -39,6 +39,8 @@ Applications
 
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
 
+- :doc:`howto/trac`: Install and configure Trac using Unit in a few steps.
+
 - :doc:`howto/wordpress`: Set up WordPress with Unit in a breeze.
 
 *************
