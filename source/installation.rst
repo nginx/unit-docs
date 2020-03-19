@@ -46,10 +46,10 @@ Docker Images
 
 To install and run Unit from our Docker image repository:
 
-.. code-block:: none
+.. code-block:: console
 
-   # docker pull nginx/unit
-   # docker run -d nginx/unit
+   $ docker pull nginx/unit
+   $ docker run -d nginx/unit
 
 By default, the :samp:`:latest` image tag is used that resolves into a
 :samp:`-full` configuration of the latest Unit version.  Other `tags
@@ -70,6 +70,17 @@ By default, the :samp:`:latest` image tag is used that resolves into a
     * - :samp:`|version|-<language>`
       - Specific language module only, for example :samp:`|version|-ruby2.3` or
         :samp:`|version|-python2.7`.
+
+We also publish these images as tarballs on our `website
+<https://packages.nginx.org/unit/docker/>`_:
+
+.. subs-code-block:: console
+
+   $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz
+   $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz.sha512
+   $ sha512sum -c nginx-unit-|version|-full.tar.gz.sha512
+         nginx-unit-|version|-full.tar.gz: OK
+   $ docker load < nginx-unit-|version|-full.tar.gz
 
 .. include:: include/socket-note-deb.rst
 
