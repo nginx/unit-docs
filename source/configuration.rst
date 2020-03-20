@@ -804,7 +804,8 @@ You can also combine special characters in a pattern:
 
 Here, any URIs will match except the ones containing :samp:`/api/`.
 
-Address ranges can be specified in dot-decimal or CIDR notation for IPv4:
+Individual addresses and address ranges can be specified in dot-decimal or CIDR
+notation for IPv4:
 
 .. code-block:: json
 
