@@ -668,50 +668,51 @@ request properties:
    :header-rows: 1
 
    * - Option
-     - Description
+     - Matched Against
      - Case |-| Sensitive
+     - Match |_| Type
    * - :samp:`arguments`
      - Parameter arguments supplied in the request URI.
      - Yes
+     - Compound
    * - :samp:`cookies`
      - Cookies supplied with the request.
      - Yes
+     - Compound
    * - :samp:`destination`
      - Target IP address and optional port of the request.
      - No
+     - Simple
    * - :samp:`headers`
      - Header fields supplied with the request.
      - No
+     - Compound
    * - :samp:`host`
      - Host from the :samp:`Host` header field without port number, normalized
        by removing the trailing period (if any).
      - No
+     - Simple
    * - :samp:`method`
      - Method from the request line.
      - No
+     - Simple
    * - :samp:`scheme`
      - URI `scheme
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
        Currently, :samp:`http` and :samp:`https` are supported.
      - No
+     - :samp:`http`/:samp:`https`
    * - :samp:`source`
      - Source IP address and optional port of the request.
      - No
+     - Simple
    * - :samp:`uri`
      - URI path without arguments, normalized by decoding the "%XX" sequences,
        resolving relative path references ("." and ".."), and compressing
        adjacent slashes into one.
      - Yes
+     - Simple
 
-For :samp:`host`, :samp:`method`, and :samp:`uri`, :ref:`simple matching
-<configuration-routes-simple>` is used; :samp:`destination` and :samp:`source`
-employ :ref:`address matching <configuration-routes-address>`, accepting single
-values or arrays of values; other properties rely on :ref:`compound matching
-<configuration-routes-compound>`.
-
-.. note::
-
-   The :samp:`scheme` option value can either be :samp:`http` or :samp:`https`.
 
 .. _configuration-routes-simple:
 
@@ -741,15 +742,20 @@ To be a match against the condition, the property must meet two requirements:
 
 - No negation-based patterns match the property value.
 
-Patterns must match the value symbol by symbol, except for wildcards
-(:samp:`*`) and negations (:samp:`!`):
+Patterns must precisely match the value, taking negations (:samp:`!`),
+wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
 
-- A wildcard matches zero or more arbitrary characters; wildcards can only
-  :samp:`*prefix` exact patterns, :samp:`suffix*` them, :samp:`*enclose*` them,
-  or :samp:`split*them` in two.
+- A negation can only start a pattern; it rejects all matches to its remainder
+  (:samp:`!<negated_pattern>`).
 
-- A negation rejects all matches to the remainder of the pattern; pattern can
-  only start with it.
+- In :samp:`host`, :samp:`method`, and :samp:`uri`, a wildcard matches any
+  number of characters, :samp:`*prefixing` a pattern, :samp:`suffixing*` it,
+  :samp:`*enclosing*` it, or :samp:`splitting*it` in two.  However, ranges are
+  not supported.
+
+- In :samp:`source` and :samp:`destination`, wildcards can only be used to
+  match any IPs (:samp:`*:<port>`).  Also, ranges can be used to specify IPs
+  (in respective notation) and ports (:samp:`<start_port>-<end-port>`).
 
 .. note::
 
@@ -798,139 +804,44 @@ You can also combine special characters in a pattern:
 
 Here, any URIs will match except the ones containing :samp:`/api/`.
 
-.. _configuration-routes-address:
+Address ranges can be specified in dot-decimal or CIDR notation for IPv4:
 
-Address Matching
-****************
+.. code-block:: json
 
-Unit uses special logic to match IP addresses and address ranges against the
-:samp:`source` and :samp:`destination` options in routes.  Supported matching
-types, including wildcards, exact addresses, CIDR notation, and address ranges,
-are outlined below.  Both :samp:`source` and :samp:`destination` accept
-individual patterns and arrays of patterns; any matching pattern in an array
-makes the entire condition a match.
-
-#. Single wildcard: matches any IPs, defines an individual port number or a
-   port range:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "source": "*:0-65535",
-              "destination": "*:8000"
-          }
+  {
+      "match": {
+          "source": [
+               "10.0.0.0-10.0.0.10",
+               "10.0.0.100-11.0.0.100:1000",
+               "127.0.0.100-127.0.0.255:8080-8090"
+          ],
+          "destination": [
+              "10.0.0.0/8",
+              "10.0.0.0/7:1000",
+              "10.0.0.0/32:8080-8090"
+          ]
       }
+  }
 
-   No other wildcard combinations (partial matches, multiple wildcards) are
-   supported.
+Or IPv6:
 
-#. Exact address: matches specific IP addresses, optionally defining matching
-   ports or port ranges.
+.. code-block:: json
 
-   IPv4:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "source": [
-                  "127.0.0.1",
-                  "192.168.0.10:8080",
-                  "192.168.0.11:8080-8090"
-              ]
-          }
+  {
+      "match": {
+          "source": [
+               "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+               "[fe08::-feff::]:8000",
+               "[fff0::-fff0::10]:8080-8090"
+          ],
+          "destination": [
+               "2001::/16",
+               "[0ff::/64]:8000",
+               "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
+           ]
       }
+  }
 
-   IPv6:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "destination": [
-                  "2001::",
-                  "[2002::]:8000",
-                  "[2003::]:8080-8090"
-              ]
-          }
-      }
-
-#. CIDR address range: matches IP ranges in CIDR notation, optionally defining
-   matching ports or port ranges.
-
-   IPv4:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "destination": [
-                  "10.0.0.0/8",
-                  "10.0.0.0/7:1000",
-                  "10.0.0.0/32:8080-8090"
-              ]
-          }
-      }
-
-   IPv6:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "source": [
-                   "2001::/16",
-                   "[0ff::/64]:8000",
-                   "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
-               ]
-          }
-      }
-
-#. Address range: matches ranges of IP addresses, optionally defining matching
-   ports or port ranges.
-
-   IPv4:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "destination": [
-                   "10.0.0.0-10.0.0.10",
-                   "10.0.0.100-11.0.0.100:1000",
-                   "127.0.0.100-127.0.0.255:8080-8090"
-              ]
-          }
-      }
-
-   IPv6:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "source": [
-                   "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
-                   "[fe08::-feff::]:8000",
-                   "[fff0::-fff0::10]:8080-8090"
-              ]
-          }
-      }
-
-Finally, prepend an address-based pattern with the '!' character to negate it:
-
-   .. code-block:: json
-
-      {
-          "match": {
-              "destination": "!10.0.0.0-10.0.0.100",
-              "source": "!*:8000"
-          }
-      }
-
-The condition above excludes requests that target any IPs within the
-:samp:`10.0.0.0-10.0.0.100` range *or* issued from port 8000.
 
 .. _configuration-routes-compound:
 
@@ -1012,8 +923,7 @@ This matches all requests that either use :samp:`gzip` and identify as
 
 .. note::
 
-   You can combine simple, compound, and address matching in a :samp:`match`
-   condition.
+   You can combine simple and compound matching in a :samp:`match` condition.
 
 ================
 Passing Requests
