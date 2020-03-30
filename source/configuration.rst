@@ -2009,7 +2009,7 @@ Upstreams are defined in the eponymous top-level section of the configuration:
                "servers": {
                    "192.168.0.100:8080": { },
                    "192.168.0.101:8080": {
-                       "weight": 2
+                       "weight": 0.2
                    }
                }
            }
@@ -2017,12 +2017,31 @@ Upstreams are defined in the eponymous top-level section of the configuration:
    }
 
 An upstream must have a :samp:`servers` object that lists server socket
-addresses and their configurations; each server may set an integer option,
+addresses and their configurations; each server may set a numeric
 :samp:`weight`.  Weights control request distribution within the upstream:
 Unit dispatches requests between the upstream's servers in a round-robin
 fashion, acting as a load balancer.  In the example above,
 :samp:`192.168.0.101:8080` receives twice as many requests as
 :samp:`192.168.0.100:8080`.
+
+Weights can be specified as integers or rational numbers in decimal or
+scientific notation:
+
+.. code-block:: json
+
+   {
+       "servers": {
+           "192.168.0.100:8080": {
+               "weight": 100e1
+           },
+           "192.168.0.101:8080": {
+               "weight": 1000.0
+           }
+       }
+   }
+
+Maximum weight value is :samp:`1000000`, minimum is :samp:`0` (such servers
+receive no requests), the default is :samp:`1`.
 
 
 .. _configuration-stngs:
