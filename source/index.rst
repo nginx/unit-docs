@@ -43,6 +43,7 @@ Key Features
 Supported App Languages
 ***********************
 
+- `Assembly <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
 - :ref:`Python <configuration-python>`
 - :ref:`PHP <configuration-php>`
 - :ref:`Go <configuration-external>`
