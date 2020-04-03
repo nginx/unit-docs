@@ -29,7 +29,6 @@ It also supports most modern instruction set architectures, such as:
 App languages and platforms that Unit can run (including several versions of
 the same language):
 
-- `Assembly language <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
 - Go |_| 1.6 or later
 - Java |_| 8 or later
 - Node.js |_| 8.11 or later
