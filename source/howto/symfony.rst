@@ -63,7 +63,7 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
               "symfony_direct": {
                   "type": "php",
                   "root": ":/path/to/my_project/public/",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/my_project/>`",
+                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/my_project/>`"
               },
 
               "symfony_index": {
@@ -88,4 +88,4 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
 
    .. image:: ../images/symfony.png
       :width: 100%
-      :alt: Symfony Demp App on Unit - Admin Post Update
+      :alt: Symfony Demo App on Unit - Admin Post Update
