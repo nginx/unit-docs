@@ -1811,8 +1811,8 @@ Example:
 .. note::
 
    For PHP-based examples, see our :doc:`WordPress <howto/wordpress>`,
-   :doc:`NextCloud <howto/nextcloud>`, and :doc:`Symfony <howto/symfony>`
-   howtos or a basic :ref:`sample <sample-php>`.
+   :doc:`NextCloud <howto/nextcloud>`, :doc:`Symfony <howto/symfony>`, and
+   :doc:`Yii <howto/yii>` howtos or a basic :ref:`sample <sample-php>`.
 
 .. _configuration-python:
 
