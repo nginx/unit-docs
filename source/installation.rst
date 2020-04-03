@@ -10,15 +10,14 @@ Installation
 Prerequisites
 *************
 
-NGINX Unit is verified to compile and run on various Unix-like operating
-systems, including:
+NGINX Unit compiles and runs on various Unix-like operating systems, including:
 
 - FreeBSD |_| 10 or later
 - Linux |_| 2.6 or later
 - macOS |_| 10.6 or later
 - Solaris |_| 11
 
-Most modern instruction set architectures are supported, such as:
+It also supports most modern instruction set architectures, such as:
 
 - ARM
 - IA-32
@@ -27,7 +26,7 @@ Most modern instruction set architectures are supported, such as:
 - S390X
 - x86-64
 
-App languages and platforms that Unit can run (including multiple versions of
+App languages and platforms that Unit can run (including several versions of
 the same language):
 
 - `Assembly language <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
@@ -45,16 +44,16 @@ the same language):
 Docker Images
 *************
 
-To install and run Unit from our Docker image repository:
+To install and run Unit from NGINX's Docker image repository:
 
 .. code-block:: console
 
    $ docker pull nginx/unit
    $ docker run -d nginx/unit
 
-By default, the :samp:`:latest` image tag is used that resolves into a
-:samp:`-full` configuration of the latest Unit version.  Other `tags
-<https://hub.  docker.com/r/nginx/unit/tags/>`_ available:
+Default image tag is :samp:`:latest`; it resolves into a :samp:`-full`
+configuration of the latest Unit version.  Other `tags <https://hub.
+docker.com/r/nginx/unit/tags/>`_:
 
 .. list-table::
     :header-rows: 1
@@ -69,7 +68,7 @@ By default, the :samp:`:latest` image tag is used that resolves into a
       - No language modules.
 
     * - :samp:`|version|-<language>`
-      - Specific language module only, for example :samp:`|version|-ruby2.3` or
+      - A specific language module, for example :samp:`|version|-ruby2.3` or
         :samp:`|version|-python2.7`.
 
 We also publish these images as tarballs on our `website
@@ -86,7 +85,7 @@ We also publish these images as tarballs on our `website
 .. include:: include/socket-note-deb.rst
 
 For further details, see the `repository page <https://hub.docker.com/r/
-nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
+nginx/unit/>`_ and the official :doc:`Howto <howto/docker>`.
 
 .. _installation-docker-init:
 
@@ -94,12 +93,14 @@ nginx/unit/>`_ and our :doc:`Howto <howto/docker>`.
 Initial Configuration
 =====================
 
-Our images support initial container configuration, done with an
-:samp:`ENTRYPOINT` script.  First, the script checks the Unit :ref:`state
-directory <installation-config-src-state>` (:file:`/var/lib/unit/` in official
-images) of the container; *if it's empty*, the script scans the
-:file:`/docker-entrypoint.d/` directory of the container for certain file
-types, processing them in this order:
+Official images support initial container configuration, implemented with an
+:samp:`ENTRYPOINT` `script
+<https://docs.docker.com/engine/reference/builder/#entrypoint>`_.
+
+First, the script checks the Unit :ref:`state directory
+<installation-config-src-state>` (:file:`/var/lib/unit/` in official images) of
+the container.  If it's empty, the script processes certain file types in the
+container's :file:`/docker-entrypoint.d/` directory:
 
 .. list-table::
    :header-rows: 1
@@ -108,21 +109,23 @@ types, processing them in this order:
      - Purpose/Action
 
    * - :file:`.pem`
-     - Certificate bundles, :ref:`uploaded <configuration-ssl>` under their
-       respective names: :samp:`cert.pem` -> :samp:`certificates/cert`.
+     - :ref:`Certificate bundles <configuration-ssl>` are uploaded under
+       respective names: :samp:`cert.pem` to :samp:`certificates/cert`.
 
    * - :file:`.json`
-     - Configuration snippets, :ref:`uploaded <configuration-mgmt>` to Unit as
-       portions of the :samp:`config` section.
+     - :ref:`Configuration snippets <configuration-mgmt>` are uploaded as
+       to the :samp:`config` section of Unit's configuration.
 
    * - :file:`.sh`
-     - Shell scripts, executed within the container after :file:`.pem` and
-       :samp:`.json` files are handled.
+     - :nxt_term:`Shell scripts <Use shebang in your scripts to specify a
+       custom shell>` that run in the container after the :file:`.pem` and
+       :file:`.json` files are uploaded.
 
 .. note::
 
    The script issues warnings about any other file types in the
-   :file:`/docker-entrypoint.d/` directory.
+   :file:`/docker-entrypoint.d/` directory.  Also, your shell
+   scripts must have execute permissions set.
 
 This mechanism allows you to customize your containers at startup, reuse
 configurations, and automate your workflows, reducing manual effort.  To use
@@ -139,12 +142,12 @@ official image:
 
 .. note::
 
-   Mind that running Unit populates its :samp:`state` directory; this prevents
-   the script from executing, so this script-based initialization must occur
-   before you run Unit within your derived image.
+   Mind that running Unit even once populates its :samp:`state` directory; this
+   prevents the script from executing, so this script-based initialization must
+   occur before you run Unit within your derived image.
 
-This comes in handy if you want to tie Unit to a certain application
-configuration for later use.  For ad-hoc initialization, you can simply mount a
+This feature comes in handy if you want to tie Unit to a certain app
+configuration for later use.  For ad-hoc initialization, you can mount a
 directory with configuration files to a container at startup:
 
 .. code-block:: console
@@ -153,6 +156,7 @@ directory with configuration files to a container at startup:
             type=bind,src=/path/to/config/files/,dst=/docker-entrypoint.d/ \
             nginx/unit:latest)
 
+
 .. _installation-precomp-pkgs:
 
 *****************
@@ -160,7 +164,7 @@ Official Packages
 *****************
 
 Installing a precompiled Unit binary package is best for most occasions;
-we `maintain <https://packages.nginx.org/unit/>`_ binaries for:
+`official <https://packages.nginx.org/unit/>`_ binaries are available for:
 
 - Amazon |_| Linux, Amazon |_| Linux |_| 2
 - CentOS |_| 6, 7, 8
@@ -185,6 +189,7 @@ We also maintain an official Homebrew `tap
    For details of packaging custom modules that install alongside the official
    Unit, see :ref:`here <modules-pkg>`.
 
+
 .. _installation-precomp-amazon:
 
 ============
@@ -208,16 +213,16 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
+      #. Install Unit base package and other packages you would like to
          use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37
 
-   .. tab:: AMI
+   .. tabfv: AMI
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -230,16 +235,16 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-perl unit-php \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python27 unit-python34 unit-python35 unit-python36
 
 .. include:: include/socket-note-rpm.rst
+
 
 .. _installation-precomp-centos:
 
@@ -264,13 +269,12 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
@@ -288,15 +292,15 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-php unit-python
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
 
 .. include:: include/socket-note-rpm.rst
+
 
 .. _installation-precomp-deb:
 
@@ -310,9 +314,9 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
    .. tab:: 10
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -329,21 +333,20 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ buster unit
             deb-src https://packages.nginx.org/unit/debian/ buster unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 9
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -360,26 +363,25 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ stretch unit
             deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc8 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
 
    .. tab:: 8
 
       .. warning::
 
-         Unit package versions 1.12 and above are not available for Debian 8.
-         This distribution is obsolete; please update your system.
+         Unit 1.12+ packages aren't available for Debian 8.  This distribution
+         is obsolete; please update.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -396,17 +398,17 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ jessie unit
             deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-perl unit-php unit-python2.7 \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-perl unit-php unit-python2.7 \
                   unit-python3.4 unit-ruby
 
 .. include:: include/socket-note-deb.rst
+
 
 .. _installation-precomp-fedora:
 
@@ -431,13 +433,12 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
 
    .. tab:: 29
@@ -453,21 +454,20 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
 
    .. tab:: 28
 
       .. warning::
 
-         Unit package versions 1.12 and above are not available for Fedora 28.
-         This distribution is obsolete; please update your system.
+         Unit 1.12+ packages aren't available for Fedora 28.  This distribution
+         is obsolete; please update.
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -480,18 +480,18 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python36 unit-ruby
 
 .. note::
 
-   Control socket is located here: :file:`/var/run/unit/control.sock`.
+   The control socket's pathname is :file:`/var/run/unit/control.sock`.
+
 
 .. _installation-precomp-rhel:
 
@@ -516,13 +516,12 @@ RHEL
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
@@ -546,7 +545,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install unit-devel unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python
 
 .. include:: include/socket-note-rpm.rst
@@ -564,9 +563,9 @@ Ubuntu
 
       Supported architectures: :samp:`x86-64`.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -583,23 +582,22 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ eoan unit
             deb-src https://packages.nginx.org/unit/ubuntu/ eoan unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
 
    .. tab:: 19.04
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -616,14 +614,13 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ disco unit
             deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 18.10
@@ -632,12 +629,12 @@ Ubuntu
 
       .. warning::
 
-         Unit package versions 1.12 and above are not available for Ubuntu
-         18.10.  This distribution is obsolete; please update your system.
+         Unit 1.12+ packages aren't available for Ubuntu 18.10.  This
+         distribution is obsolete; please update.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -654,23 +651,22 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 18.04
 
       Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -687,23 +683,22 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ bionic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc8 unit-jsc11 unit-perl \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 16.04
 
       Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
 
-      #. Download the NGINX `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ used for our repositories
-         and packages and add it to :program:`apt`'s keyring:
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
 
          .. code-block:: console
 
@@ -720,14 +715,13 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ xenial unit
             deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install Unit base package and other packages you would like to use:
 
          .. code-block:: console
 
             # apt update
             # apt install unit
-            # apt install unit-dev unit-go unit-jsc8 unit-perl unit-php \
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-note-deb.rst
@@ -789,13 +783,13 @@ Node.js at npm
 ==============
 
 Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
-is named :program:`unit-http`.  Your Node.js apps :samp:`require` it to
-run in Unit:
+is :program:`unit-http`.  Your Node.js apps must :samp:`require` it to run in
+Unit:
 
-#. First, install the :program:`unit-dev/unit-devel` :ref:`package
-   <installation-precomp-pkgs>`; it's used by :program:`unit-http`.
+#. First, install the :samp:`unit-dev/unit-devel` :ref:`package
+   <installation-precomp-pkgs>`, necessary to build :program:`unit-http`.
 
-#. Next, install :program:`unit-http` globally (this step requires
+#. Next, build and install :program:`unit-http` globally (this step requires
    :program:`npm` and :program:`node-gyp`):
 
     .. code-block:: console
@@ -811,8 +805,8 @@ run in Unit:
 
 #. After that, :ref:`use <configuration-external-nodejs>` the module in your
    Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
-   that such frameworks as Express may require
-   additional :doc:`changes in your code <howto/express>`.
+   that such frameworks as Express may require extra
+   :doc:`changes in your code <howto/express>`.
 
 If you update Unit later, make sure to update the module as well:
 
@@ -825,6 +819,7 @@ If you update Unit later, make sure to update the module as well:
    You can also :ref:`configure <installation-nodejs>` and :ref:`install
    <installation-bld-src-ext>` the :program:`unit-http` module from sources.
 
+
 .. _installation-precomp-startup:
 
 ====================
@@ -832,14 +827,15 @@ Startup and Shutdown
 ====================
 
 Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
-installed or check its settings.  To manage the installation:
+available or list its settings.  To manage the installation:
 
     .. code-block:: console
 
-       # systemctl enable unit   # Enable auto startup after installation
-       # systemctl restart unit  # Start or restart Unit
-       # systemctl stop unit     # Stop a running Unit
-       # systemctl disable unit  # Disable auto startup
+       # systemctl enable unit
+       # systemctl restart unit
+       # systemctl stop unit
+       # systemctl disable unit
+
 
 .. _installation-community-repos:
 
@@ -849,8 +845,8 @@ Community Repositories
 
 .. warning::
 
-   Distributions listed here are maintained by respective communities, not
-   NGINX.  Proceed with caution.
+   These distributions are maintained by respective communities, not NGINX.
+   Proceed with caution.
 
 .. _installation-alpine-apk:
 
@@ -875,7 +871,8 @@ To install service manager files and specific language modules:
 
 .. note::
 
-   Control socket is located here: :file:`/run/control.unit.sock`.
+   The control socket's pathname is :file:`/run/control.unit.sock`.
+
 
 .. _installation-archlinux-aur:
 
@@ -894,9 +891,9 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. warning::
 
-   Verify that the :file:`PKGBUILD` and accompanying files are not malicious
-   or untrustworthy.  AUR packages are entirely user produced without
-   pre-moderation; you use them at your own risk.
+   Verify that the :file:`PKGBUILD` and accompanying files aren't malicious or
+   untrustworthy.  AUR packages are entirely user produced without
+   pre-moderation; use them at your own risk.
 
 .. code-block:: console
 
@@ -904,7 +901,8 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. note::
 
-   Control socket is located here: :file:`/run/nginx-unit.control.sock`.
+   The control socket's pathname is :file:`/run/nginx-unit.control.sock`.
+
 
 .. _installation-scls:
 
@@ -936,6 +934,7 @@ RHEL:
    # yum install --enablerepo=centos-sclo-sclo-testing \
          sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
 
+
 .. _installation-freebsd-pkgs-prts:
 
 =======
@@ -954,7 +953,7 @@ repository and install the `package <https://www.freshports.org/www/unit>`_:
 
 .. note::
 
-   Control socket is located here: :file:`/var/run/unit/control.unit.sock`.
+   The control socket's pathname is :file:`/var/run/unit/control.unit.sock`.
 
 .. _installation-freebsd-prts:
 
@@ -984,12 +983,13 @@ Next, browse to the port path to build and install the port:
 
 .. warning::
 
-   Here, :program:`make` is used in port configuration.  To :program:`make` a
-   Unit build using our repositories, see :ref:`below <installation-bld-src>`.
+   These commands compile and install the *port*.  To :program:`make` a Unit
+   build with our sources only, see :ref:`below <installation-bld-src>`.
 
 .. note::
 
-   Control socket is located here: :file:`/var/run/unit/control.unit.sock`.
+   The control socket's pathname is :file:`/var/run/unit/control.unit.sock`.
+
 
 .. _installation-gnt-prtg:
 
@@ -1008,7 +1008,10 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 
 .. note::
 
-   Control socket is located here: :file:`/run/nginx-unit.sock`.
+   The control socket's pathname is :file:`/run/nginx-unit.sock`.
+
+
+.. installation-nix:
 
 =========
 NixOS/Nix
@@ -1022,11 +1025,11 @@ update the repository and install the `package
 
    $ nix-channel --update
    $ nix-env -qa 'unit'    # check availability and version
-   $ nix-env -i unit
+   $ nix-env -i unit       # install Unit
 
 .. note::
 
-   Control socket is located here: :file:`/run/unit/control.unit.sock`.
+   The control socket's pathname is :file:`/run/unit/control.unit.sock`.
 
 
 .. _installation-remirepo:
@@ -1042,8 +1045,8 @@ also has the base Unit package and the PHP modules.
 
 To use Remi's versions of Unit packages, configure `Remi's RPM repo
 <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
-modules also work with the base Unit package from :ref:`our own repository
-<installation-precomp-pkgs>`.
+modules are also compatible with the base Unit package from :ref:`our own
+repository <installation-precomp-pkgs>`.
 
 Next, install Unit and the PHP modules you want:
 
@@ -1054,7 +1057,8 @@ Next, install Unit and the PHP modules you want:
 
 .. note::
 
-   Control socket is located here: :file:`/var/run/unit/control.sock`.
+   The control socket's pathname is :file:`/var/run/unit/control.sock`.
+
 
 .. _installation-src:
 
@@ -1062,11 +1066,11 @@ Next, install Unit and the PHP modules you want:
 Source Code
 ***********
 
-===============
-Getting Sources
-===============
+=================
+Obtaining Sources
+=================
 
-You can obtain Unit source code from our official Mercurial repository, its
+You can get Unit source code from our official Mercurial repository, its
 GitHub mirror, or in a tarball.
 
 If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
@@ -1092,6 +1096,7 @@ To download sources directly from `our site
       $ tar xzf unit-|version|.tar.gz
       $ cd unit-|version|
 
+
 .. _installation-prereq-build:
 
 ============================
@@ -1113,14 +1118,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # apt install build-essential
          # apt install golang
-         # curl -sL https://deb.nodesource.com/setup_<Node.js version>.x | bash -
+         # curl -sL :nxt_term:`https://deb.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
          # apt install nodejs
          # npm install -g node-gyp
          # apt install php-dev libphp-embed
          # apt install libperl-dev
          # apt install python-dev
          # apt install ruby-dev
-         # apt install openjdk-8-jdk
+         # apt install :nxt_term:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
          # apt install libssl-dev
 
    .. tab:: Amazon Linux, CentOS, Fedora, RHEL
@@ -1129,14 +1134,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # yum install gcc make
          # yum install golang
-         # curl -sL https://rpm.nodesource.com/setup_<Node.js version>.x | bash -
+         # curl -sL :nxt_term:`https://rpm.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
          # yum install nodejs
          # npm install -g node-gyp
          # yum install php-devel php-embedded
          # yum install perl-devel perl-libs
          # yum install python-devel
          # yum install ruby-devel
-         # yum install java-1.8.0-openjdk-devel
+         # yum install :nxt_term:`java-1.8.0-openjdk-devel <Java 8 or later is supported. Different JDKs may be used>`
          # yum install openssl-devel
 
    .. tab:: FreeBSD
@@ -1148,11 +1153,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # cd /usr/ports/lang/go/ && make install clean
          # cd /usr/ports/www/node/ && make install clean
          # cd /usr/ports/www/npm/ && make install clean && npm i -g node-gyp
-         # cd /usr/ports/lang/php73/ && make install clean
-         # cd /usr/ports/lang/perl5.28/ && make install clean
+         # cd :nxt_term:`/usr/ports/lang/php73/ <PHP versions 5 and 7 are supported>` && make install clean
+         # cd :nxt_term:`/usr/ports/lang/perl5.28/ <Perl 5.12 or later is supported>` && make install clean
          # cd /usr/ports/lang/python/ && make install clean
-         # cd /usr/ports/lang/ruby25/ && make install clean
-         # cd /usr/ports/java/openjdk8/ && make install clean
+         # cd :nxt_term:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
+         # cd :nxt_term:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
          # cd /usr/ports/security/openssl/ && make install clean
 
       Packages:
@@ -1161,11 +1166,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install go
          # pkg install node && pkg install npm && npm i -g node-gyp
-         # pkg install php73
-         # pkg install perl5
+         # pkg install :nxt_term:`php73 <PHP versions 5 and 7 are supported>`
+         # pkg install :nxt_term:`perl5 <Perl 5.12 or later is supported>`
          # pkg install python
-         # pkg install ruby25
-         # pkg install openjdk8
+         # pkg install :nxt_term:`ruby25 <Ruby 2.0 is supported>`
+         # pkg install :nxt_term:`openjdk8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
 
    .. tab:: Solaris
@@ -1174,13 +1179,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install gcc
          # pkg install golang
-         # pkg install php-71
+         # pkg install :nxt_term:`php-71 <PHP versions 5 and 7 are supported>`
          # pkg install ruby
-         # pkg install jdk-8
+         # pkg install :nxt_term:`jdk-8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
 
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
       and installing <installation-bld-src>` Unit on Solaris.
+
 
 .. _installation-config-src:
 
@@ -1188,12 +1194,15 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 Configuring Sources
 ===================
 
-First, run system checks and create the :file:`Makefile` that you will update
-during language module setup:
+To run system compatibility checks and generate a :file:`Makefile` with core
+build instructions for Unit:
 
 .. code-block:: console
 
    $ ./configure <command-line options>
+
+To finalize the resulting :file:`Makefile`, configure the :ref:`language
+modules <installation-src-modules>` you need.
 
 General :program:`./configure` options:
 
@@ -1206,40 +1215,38 @@ General :program:`./configure` options:
 These options control the compilation process:
 
 --cc=pathname
-    Specific C compiler pathname.
+    Custom C compiler pathname.
 
-    The default value is :samp:`cc`.
+    The default is :samp:`cc`.
 
 --cc-opt=options, --ld-opt=options
-    Additional C compiler and linker options.
-
-    The default values are empty strings.
+    Extra options for the C compiler and linker.
 
 The following option pair controls Unit's runtime privileges:
 
 --group=name, --user=name
     Group name and username to run Unit's non-privileged processes.
 
-    The default values are :option:`!user`'s primary group and
+    The defaults are :option:`!--user`'s primary group and
     :samp:`nobody`, respectively.
 
 These flags enable or disable support of certain features:
 
 --debug
-    Enables the :ref:`debug log <troubleshooting-dbg-log>`.
+    Turns on the :ref:`debug log <troubleshooting-dbg-log>`.
 
 --no-ipv6
-    Disables IPv6 support.
+    Turns off IPv6 support.
 
 --no-unix-sockets
-    Disables Unix domain sockets support.
+    Turns off Unix domain sockets support.
 
 --openssl
-    Enables OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
+    Turns on OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
     files and libraries are available in your compiler's search path.
 
     To customize the path, provide the :option:`!--cc-opt` and
-    :option:`!--ld-opt` options;  alternatively, set :envvar:`CFLAGS` and
+    :option:`!--ld-opt` options; you can also set the :envvar:`CFLAGS` and
     :envvar:`LDFLAGS` environment variables before running
     :program:`./configure`.
 
@@ -1258,66 +1265,64 @@ structure <installation-src-dir>`:
     :option:`!--state`, :option:`!--pid`, :option:`!--log`, and
     :option:`!--control`.
 
-    The default value is an empty string.
-
 --bindir=directory, --sbindir=directory
     Directory paths for end-user and sysadmin executables.
 
-    The default values are :samp:`bin` and :samp:`sbin`, respectively.
+    The defaults are :samp:`bin` and :samp:`sbin`, respectively.
 
 --control=socket
-    Control API socket address; Unix (with :samp:`unix:` prefix), IPv4,
-    or IPv6 socket can be used:
+    Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
+    prefix) domain format:
 
     .. code-block:: console
 
-       # unitd --control unix:/path/to/control.unit.sock
-       # unitd --control 127.0.0.1:8080
-       # unitd --control [::1]:8080
+       $ ./configure --control=unix:/path/to/control.unit.sock
+       $ ./configure --control=127.0.0.1:8080
+       $ ./configure --control=[::1]:8080
 
     .. warning::
 
        For security reasons, avoid opening sockets on public interfaces in
        production.
 
-    The default value is :samp:`unix:control.unit.sock`, created as
+    The default is :samp:`unix:control.unit.sock`, created as
     :samp:`root` with :samp:`600` permissions.
 
 --incdir=directory, --libdir=directory
     Directory paths for :program:`libunit` header files and libraries.
 
-    The default values are :samp:`include` and :samp:`lib`, respectively.
+    The defaults are :samp:`include` and :samp:`lib`, respectively.
 
 --log=pathname
     Pathname for Unit's log.
 
-    The default value is :samp:`unit.log`.
+    The default is :samp:`unit.log`.
 
 --modules=directory
     Directory path for Unit's language modules.
 
-    The default value is :samp:`modules`.
+    The default is :samp:`modules`.
 
 --pid=pathname
     Pathname for the PID file of Unit's daemon process.
 
-    The default value is :samp:`unit.pid`.
+    The default is :samp:`unit.pid`.
 
 .. _installation-config-src-state:
 
 --state=directory
     Directory path for Unit's state storage.  It contains runtime
     configuration, certificates, and other records; if you migrate your
-    installation, simply copy the entire directory.
+    installation, copy the entire directory.
 
     .. warning::
 
-       Unit state includes sensitive data; it must be owned by :samp:`root`
-       with :samp:`700` permissions.  Avoid updating the directory contents by
-       outside means; instead, use Unit's config API to ensure data
-       consistency.
+       Unit state includes sensitive data and must be owned by :samp:`root`
+       with :samp:`700` permissions.  Avoid updating the directory by outside
+       means; instead, use Unit's config API to ensure data consistency.
 
-    The default value is :samp:`state`.
+    The default is :samp:`state`.
+
 
 --tmp=directory
 
@@ -1334,17 +1339,17 @@ To customize Unit installation and runtime directories, you can both:
 
 - Set the :option:`!--prefix` and path options (their relative settings are
   prefix-based) during :ref:`configuration <installation-config-src-prefix>` to
-  set up the runtime file structure: Unit will use these settings to locate its
+  set up the runtime file structure: Unit uses these settings to locate its
   modules, state, and other files.
 
 - Set the :envvar:`DESTDIR` `variable
   <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :ref:`installation <installation-bld-src>`.  Unit's file structure will be
+  :ref:`installation <installation-bld-src>`.  Unit's file structure is
   placed at the specified directory, which can be either the final installation
   target or an intermediate staging location.
 
 Coordinate these two options as necessary to customize the directory structure.
-One common scenario is installation based on absolute paths.
+One common scenario is installation based on absolute paths:
 
 #. Set absolute runtime paths with :option:`!--prefix` and path options:
 
@@ -1353,16 +1358,17 @@ One common scenario is installation based on absolute paths.
       $ ./configure --state=/var/lib/unit --log=/var/log/unit.log \
                     --control=unix:/run/control.unit.sock --prefix=/usr/local/
 
-   This configuration will access its state, log, and control socket at custom
-   locations; other files will be accessed by default prefix-based paths:
-   :file:`/usr/local/sbin/`, :file:`/usr/local/modules/`, and so on.
+   Configured thus, Unit will store its state, log, and control socket at
+   custom locations; other files will have default prefix-based paths.  Here,
+   :file:`unitd` is put to :file:`/usr/local/sbin/`, modules to
+   :file:`/usr/local/modules/`.
 
 #. For further packaging or containerization, specify :option:`!DESTDIR` at
    installation to place the files in a staging location while preserving their
    relative structure.  Otherwise, omit :option:`!DESTDIR` for direct
    installation.
 
-An alternative scenario is a build that you can move around the filesystem.
+An alternative scenario is a build that you can move around the filesystem:
 
 #. Set relative runtime paths with :option:`!--prefix` and path options:
 
@@ -1371,21 +1377,22 @@ An alternative scenario is a build that you can move around the filesystem.
       $ ./configure --state=config --log=log/unit.log \
                     --control=unix:control/control.unit.sock --prefix=movable
 
-   This configuration will access its files by prefix-based paths (both default
-   and custom): :file:`<working directory>/movable/sbin/`, :file:`<working
-   directory>/movable/config/`, and so on.
+   Configured this way, Unit will store its files by prefix-based paths (both
+   default and custom), for example, :file:`<working directory>/movable/sbin/`
+   or :file:`<working directory>/movable/config/`.
 
-#. Specify :option:`!DESTDIR` while installing the build.  You can relocate
-   such builds when needed, making sure to move the entire file structure and
-   start binaries from the *base* directory so that relative paths stay valid:
+#. Specify :option:`!DESTDIR` when installing the build.  You can migrate such
+   builds if needed; move the entire file structure and launch binaries from
+   the *base* directory so that the relative paths stay valid:
 
    .. code-block:: console
 
       $ cd <DESTDIR>
       # movable/sbin/unitd <command-line options>
 
-You can combine these approaches; however, take care to understand how your
-settings work together.
+You can combine these approaches, but take care to understand how your settings
+work together.
+
 
 .. _installation-src-modules:
 
@@ -1399,29 +1406,30 @@ and place module-specific instructions in the :file:`Makefile`.
 
 .. note::
 
-   Unit can run apps in several versions of a language if you build and
-   install a module for each version.
+   To run apps in several versions of a language, build and install a module
+   for each version.
+
 
 .. _installation-go:
 
 Configuring Go
 **************
 
-When you run :command:`./configure go`, Unit sets up the Go package that your
-applications will use to :ref:`run in Unit <configuration-external-go>`.  To
-use the package, :ref:`install <installation-bld-src-ext>` it in your Go
-environment.  Available configuration options:
+When you run :command:`./configure go`, Unit sets up the Go package that lets
+your applications :ref:`run in Unit <configuration-external-go>`.  To use the
+package, :ref:`install <installation-bld-src-ext>` it in your Go environment.
+Available configuration options:
 
 --go=pathname
-    Specific Go executable pathname, also used for targets in :ref:`make
-    <installation-bld-src-ext>` commands.
+    Specific Go executable pathname, also used for :ref:`make
+    <installation-bld-src-ext>` targets.
 
-    The default value is :samp:`go`.
+    The default is :samp:`go`.
 
 --go-path=directory
     Custom directory path for Go package installation.
 
-    The default value is :samp:`$GOPATH`.
+    The default is :samp:`$GOPATH`.
 
 .. note::
 
@@ -1430,6 +1438,7 @@ environment.  Available configuration options:
    two paths (configuration-time :option:`!--go-path` and compile-time
    :envvar:`GOPATH`) must be coherent at build time for Go to locate the Unit
    package.
+
 
 .. _installation-java:
 
@@ -1445,33 +1454,33 @@ Unit.  Available command options:
     Directory path for Java utilities and header files (required to build the
     module).
 
-    The default value is the :samp:`java.home` setting.
+    The default is the :samp:`java.home` setting.
 
 --jars=directory
     Directory path for Unit's custom :file:`.jar` files.
 
-    The default value is the Java module path.
+    The default is the Java module path.
 
 --lib-path=directory
     Directory path for the :file:`libjvm.so` library.
 
-    The default value is derived from JDK settings.
+    The default is based on JDK settings.
 
 --local-repo=directory
     Directory path for local :file:`.jar` repository.
 
-    The default value is :samp:`$HOME/.m2/repository/`.
+    The default is :samp:`$HOME/.m2/repository/`.
 
 --repo=directory
     URL path for remote Maven repository.
 
-    The default value is :samp:`http://central.maven.org/maven2/`.
+    The default is :samp:`http://central.maven.org/maven2/`.
 
 --module=filename
     Name of the Java module to be built (:file:`<module>.unit.so`), also
-    used for targets in :ref:`make <installation-bld-src-emb>` commands.
+    used for :ref:`make <installation-bld-src-emb>` targets.
 
-    The default value is :samp:`java`.
+    The default is :samp:`java`.
 
 To configure a module called :file:`java11.unit.so` with OpenJDK |_| 11.0.1:
 
@@ -1480,14 +1489,15 @@ To configure a module called :file:`java11.unit.so` with OpenJDK |_| 11.0.1:
    $ ./configure java --module=java11 \
                       --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 
+
 .. _installation-nodejs:
 
 Configuring Node.js
 *******************
 
 When you run :command:`./configure nodejs`, Unit sets up the
-:program:`unit-http` module that your applications will use to :ref:`run in
-Unit <configuration-external-nodejs>`.  Available configuration options:
+:program:`unit-http` module that lets your applications :ref:`run in Unit
+<configuration-external-nodejs>`.  Available configuration options:
 
 --local=directory
     Local directory path for Node.js module installation.
@@ -1496,20 +1506,21 @@ Unit <configuration-external-nodejs>`.  Available configuration options:
     <installation-nodejs-package>`.
 
 --node=pathname
-    Specific Node.js executable pathname, also used for targets in
-    :ref:`make <installation-bld-src-ext>` commands.
+    Specific Node.js executable pathname, also used for
+    :ref:`make <installation-bld-src-ext>` targets.
 
-    The default value is :samp:`node`.
+    The default is :samp:`node`.
 
 --npm=pathname
     Specific NPM executable pathname.
 
-    The default value is :samp:`npm`.
+    The default is :samp:`npm`.
 
 --node-gyp=pathname
     Specific :program:`node-gyp` executable pathname.
 
-    The default value is :samp:`node-gyp`.
+    The default is :samp:`node-gyp`.
+
 
 .. _installation-perl:
 
@@ -1523,14 +1534,14 @@ options:
 --perl=pathname
         Specific Perl executable pathname.
 
-        The default value is :samp:`perl`.
+        The default is :samp:`perl`.
 
 --module=filename
         Name of the Perl module to be built
-        (:file:`<module>.unit.so`), also used for targets in :ref:`make
-        <installation-bld-src-emb>` commands.
+        (:file:`<module>.unit.so`), also used for :ref:`make
+        <installation-bld-src-emb>` targets.
 
-        The default value is the filename of the :option:`!perl` executable.
+        The default is the filename of the :option:`!--perl` executable.
 
 To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
@@ -1538,6 +1549,7 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
    $ ./configure perl --module=perl-5.20 \
                       --perl=perl5.20.2
+
 
 .. _installation-php:
 
@@ -1552,24 +1564,23 @@ Available command options:
     Pathname of the :program:`php-config` script invoked to configure the PHP
     module.
 
-    The default value is :samp:`php-config`.
+    The default is :samp:`php-config`.
 
 --lib-path=directory
     Directory path of PHP's :program:`embed` SAPI library file
     (:file:`libphp<version>.so` or :file:`.a`).
 
 --lib-static
-    Links the static :program:`embed` SAPI library (:file:`libphp<version>.a`);
-    requires :option:`!--lib-path`.  If this option is omitted, dynamic SAPI
-    library (:file:`libphp<version>.so`) is used.
+    Links the static :program:`embed` SAPI library (:file:`libphp<version>.a`)
+    instead of the dynamic one (:file:`libphp<version>.so`); requires
+    :option:`!--lib-path`.
 
 --module=filename
     Name of the PHP module to be built (:file:`<module>.unit.so`), also used
-    for targets in :ref:`make <installation-bld-src-emb>` commands.
+    for :ref:`make <installation-bld-src-emb>` targets.
 
-    The default value is :option:`!config`'s filename without the
-    `-config` suffix (thus, :samp:`/usr/bin/php7-config` yields
-    :samp:`php7`).
+    The default is :option:`!--config`'s filename minus the
+    `-config` suffix (:samp:`/path/php7-config` to :samp:`php7`).
 
 To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
@@ -1578,6 +1589,7 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
    $ ./configure php --module=php70 \
                      --config=/usr/lib64/php7.0/bin/php-config \
                      --lib-path=/usr/lib64/php7.0/lib64
+
 
 .. _installation-python:
 
@@ -1592,17 +1604,17 @@ options:
     Pathname of the :program:`python-config` script invoked to configure
     the Python module.
 
-    The default value is :samp:`python-config`.
+    The default is :samp:`python-config`.
 
 --lib-path=directory
     Custom directory path of the Python runtime library to use with Unit.
 
 --module=filename
     Name of the Python module to be built (:samp:`<module>.unit.so`), also used
-    for targets in :ref:`make <installation-bld-src-emb>` commands.
+    for :ref:`make <installation-bld-src-emb>` targets.
 
-    The default value is :option:`!config`'s filename without the `-config`
-    suffix (thus, :samp:`/usr/bin/python3-config` yields :samp:`python3`).
+    The default is :option:`!--config`'s filename minus the `-config` suffix
+    (:samp:`/path/python3-config` to :samp:`python3`).
 
 To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
@@ -1610,6 +1622,7 @@ To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
    $ ./configure python --module=py33 \
                         --config=python-config-3.3
+
 
 .. _installation-ruby:
 
@@ -1622,14 +1635,14 @@ options:
 
 --module=filename
     Name of the Ruby module to be built (:file:`<module>.unit.so`), also used
-    for targets in :ref:`make <installation-bld-src-emb>` commands.
+    for :ref:`make <installation-bld-src-emb>` targets.
 
-    The default value is the filename of the :option:`!ruby` executable.
+    The default is the filename of the :option:`!--ruby` executable.
 
 --ruby=pathname
     Specific Ruby executable pathname.
 
-    The default value is :samp:`ruby`.
+    The default is :samp:`ruby`.
 
 To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
@@ -1638,14 +1651,15 @@ To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
    $ ./configure ruby --module=ru23 \
                       --ruby=ruby23
 
+
 .. _installation-bld-src:
 
 ============================
 Building and Installing Unit
 ============================
 
-To build Unit executables and language modules that you have
-:program:`./configure`'d earlier and install them:
+To build and install Unit executables and language modules that you have
+:program:`./configure`'d earlier:
 
 .. code-block:: console
 
@@ -1660,6 +1674,7 @@ externally.
 
    For further details about Unit language modules, see :doc:`howto/modules`.
 
+
 .. _installation-bld-src-emb:
 
 Embedded Language Modules
@@ -1671,21 +1686,23 @@ configuration, run :command:`make <module>` and :command:`make
 
 .. code-block:: console
 
-   $ make perl-5.20
-   # make perl-5.20-install
+   $ make :nxt_term:`perl-5.20 <This is the --module option value from ./configure perl>`
+   # make :nxt_term:`perl-5.20 <This is the --module option value from ./configure perl>`-install
+
 
 .. _installation-bld-src-ext:
 
 External Language Modules
 *************************
 
-To build and install Unit modules for Go and Node.js after configuration, run
-:command:`make <go>-install` and :command:`make <node>-install`, for example:
+To build and install Unit modules for Go and Node.js globally after
+configuration, run :command:`make <go>-install` and :command:`make
+<node>-install`, for example:
 
 .. code-block:: console
 
-   # make go-install
-   # make node-install
+   # make :nxt_term:`go <This is the --go option value from ./configure go>`-install
+   # make :nxt_term:`node <This is the --node option value from ./configure nodejs>`-install
 
 .. note::
 
@@ -1694,18 +1711,18 @@ To build and install Unit modules for Go and Node.js after configuration, run
 
    .. code-block:: console
 
-      # make node-local-install
+      # make :nxt_term:`node <This is the --node option value from ./configure nodejs>`-local-install
 
-   If you haven't specified the :option:`!local` :ref:`directory
+   If you haven't specified the :option:`!--local` :ref:`directory
    <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
    it here: :command:`DESTDIR=/your/project/directory`.  If both options are
-   specified, :option:`!DESTDIR` prefixes the :option:`!local` value.
+   specified, :option:`!DESTDIR` prefixes the :option:`!--local` value.
 
-   However, the recommended method is :ref:`global installation
-   <installation-nodejs-package>`.
+   However, mind that global installation is the recommended method for the
+   Node.js module.
 
-If you customize the executable pathname with :option:`!go` or
-:option:`!node`, use the following pattern:
+If you customize the executable pathname with :option:`!--go` or
+:option:`!--node`, use the following pattern:
 
 .. code-block:: console
 
@@ -1715,12 +1732,12 @@ If you customize the executable pathname with :option:`!go` or
    $ ./configure go --go=/usr/local/bin/go1.7
    # make /usr/local/bin/go1.7-install
 
+
 .. _installation-startup:
 
 =======
 Startup
 =======
-
 We advise installing Unit from :ref:`precompiled packages
 <installation-precomp-pkgs>`; in this case, startup is :ref:`configured
 <installation-precomp-startup>` automatically.
@@ -1731,29 +1748,29 @@ create an :program:`rc.d` script to launch the Unit daemon using the options
 below.
 
 Run :program:`unitd` as :samp:`root` from the :samp:`sbin` installation
-subdirectory.  Usually, default compile-time settings don't require override;
-use the :option:`!--help` option to review their values.  For details and
-security notes, see :ref:`here <installation-config-src>`.
+subdirectory.  Usually, the default compile-time settings don't require
+overrides; use the :option:`!--help` option to review their values.  For
+details and security notes, see :ref:`here <installation-config-src>`.
 
 General options:
 
 --help, -h
     Displays a summary of Unit's command-line options and their
-    default values that were configured at compile time.
+    default values set at compile time.
 
 --no-daemon
     Runs Unit in non-daemon mode.
 
 --version
-    Displays Unit version and :program:`./configure` settings it was built
-    with.
+    Displays Unit's version and the :program:`./configure` settings it was
+    built with.
 
 The following options override :ref:`compile-time settings
 <installation-config-src>`:
 
 --control socket
-    Address of the control API socket.  IPv4, IPv6, and Unix domain sockets
-    are supported:
+    Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
+    prefix) domain format:
 
     .. code-block:: console
 

@@ -1,3 +1,3 @@
 .. note::
 
-   Control socket is located here: :file:`/var/run/unit/control.sock`.
+   The control socket's pathname is :file:`/var/run/unit/control.sock`.
