@@ -23,6 +23,8 @@ App Frameworks
 
 - :doc:`Symfony <howto/symfony>`: Deploy Symfony apps with Unit on the backend.
 
+- :doc:`Yii <howto/yii>`: Power the Yii framework's templates with Unit.
+
 ************
 Applications
 ************
