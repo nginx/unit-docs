@@ -221,7 +221,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37
 
-   .. tabfv: AMI
+   .. tab:: AMI
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
