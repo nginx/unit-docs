@@ -944,7 +944,7 @@ FreeBSD
 
 To install Unit using `FreeBSD packages <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
-repository and install the `package <https://www.freshports.org/www/unit>`_:
+repository and install the `package <https://www.freshports.org/www/unit>`__:
 
 .. code-block:: console
 
@@ -998,7 +998,7 @@ Gentoo
 
 To install Unit using `Portage <https://wiki.gentoo.org/wiki/
 Handbook:X86/Full/Portage>`_, update the repository and install the `package
-<https://packages.gentoo.org/packages/www-servers/nginx-unit>`_:
+<https://packages.gentoo.org/packages/www-servers/nginx-unit>`__:
 
 .. code-block:: console
 
@@ -1018,7 +1018,7 @@ NixOS/Nix
 
 To install Unit using the `Nix package manager <https://nixos.org/nix/>`_,
 update the repository and install the `package
-<https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`_:
+<https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`__:
 
 .. code-block:: console
 

@@ -170,7 +170,7 @@ package installed:
       $ mv build/php7.3.unit.so $UNITTMP/unit-php7.3/<module path> # Adds the module to the package
 
 #. Create a :file:`control` `file
-   <https://www.debian.org/doc/debian-policy/ch-controlfields.html>`_ in the
+   <https://www.debian.org/doc/debian-policy/ch-controlfields.html>`__ in the
    :file:`$UNITTMP/unit-php7.3/DEBIAN/` directory; list :samp:`unit` with other
    dependencies:
 
@@ -221,7 +221,7 @@ package installed:
       $ rpmdev-setuptree
 
 #. Create a :file:`.spec` `file
-   <https://rpm-packaging-guide.github.io/#what-is-a-spec-file>`_ to store
+   <https://rpm-packaging-guide.github.io/#what-is-a-spec-file>`__ to store
    build commands for your custom package:
 
    .. code-block:: console
