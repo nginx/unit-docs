@@ -9,6 +9,8 @@ experience with Unit.
 App Frameworks
 **************
 
+- :doc:`CakePHP <howto/cakephp>`: Fire up your CakePHP projects using Unit.
+
 - :doc:`Catalyst <howto/catalyst>`: Empower your Catalyst applications with
   Unit.
 
