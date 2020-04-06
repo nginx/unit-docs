@@ -20,7 +20,7 @@ Unit:
       $ cd /path/to/
       $ composer create-project --prefer-dist yiisoft/yii2-app-basic yii
 
-   This creates the app's directory tree at :file:`/path/to/yii`.  Its
+   This creates the app's directory tree at :file:`/path/to/yii/`.  Its
    :file:`web/` subdirectory contains both the root :file:`index.php` and
    the static files; if your app requires additional :file:`.php` scripts, also
    store them here.
