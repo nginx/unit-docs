@@ -36,6 +36,13 @@ running, check whether this option is set:
 If Unit isn't running, see its system startup scripts or configuration files to
 check if :option:`!--log` is set, and how.
 
+.. note::
+
+   Mind that our Docker images forward their log output to the `Docker log
+   collector <https://docs.docker.com/config/containers/logging/>`_ instead of
+   a file.
+
+
 .. _troubleshooting-dbg-log:
 
 *********
@@ -50,9 +57,9 @@ vary by install method.
    Debug log is meant for developers; it grows rapidly, so enable it only for
    detailed reports and inspection.
 
-==================================
-Installation From Our Repositories
-==================================
+=========================
+Installing From Our Repos
+=========================
 
 Our :ref:`repositories <installation-precomp-pkgs>` provide a debug version of
 :program:`unitd` called :program:`unitd-debug` within the :program:`unit`
@@ -67,9 +74,32 @@ package:
    Also, there are debug symbol packages for core dump analysis; their names
    end in :samp:`-dbg`, like :samp:`unit-dbg`.
 
-========================
-Installation From Source
-========================
+==========================
+Running From Docker Images
+==========================
+
+To enable debug-level logging when using our Docker :ref:`images
+<installation-docker>`:
+
+.. subs-code-block:: console
+
+   $ docker run -d nginx/unit:|version|-full unitd-debug --no-daemon \
+                --control unix:/var/run/control.unit.sock
+
+Another option is adding a new layer in a Dockerfile:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-full
+
+   CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
+
+The :samp:`CMD` instruction above replaces the default :program:`unitd`
+executable with its debug version.
+
+====================
+Building From Source
+====================
 
 To enable debug-level logging when :ref:`installing from source
 <installation-src>`, use the :option:`!--debug` option:
