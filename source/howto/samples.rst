@@ -67,7 +67,7 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.go.txt>`.
 
 .. _sample-nodejs:
@@ -119,7 +119,7 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.nodejs.txt>`.
 
 .. _sample-java:
@@ -157,7 +157,7 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.java.txt>`.
 
 .. _sample-perl:
@@ -201,7 +201,7 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.perl.txt>`.
 
 .. _sample-php:
@@ -238,7 +238,7 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.php.txt>`.
 
 .. _sample-python:
@@ -278,7 +278,7 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.python.txt>`.
 
 .. _sample-ruby:
@@ -322,5 +322,5 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
 
        Hello, Unit!
 
-See the :file:`Dockerfile` with this app :download:`here
+For a more elaborate example, see the Dockerfile :download:`here
 <../downloads/Dockerfile.ruby.txt>`.

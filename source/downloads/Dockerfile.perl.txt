@@ -4,28 +4,51 @@ FROM nginx/unit:1.16.0-perl5.28
 # port used by the listener in config.json
 EXPOSE 8080
 
+RUN apt update && apt install --no-install-recommends --no-install-suggests -y\
+    build-essential && curl -L https://cpanmin.us | perl - App::cpanminus &&  \
+    cpanm JSON Plack
+
 #application setup
-RUN mkdir /www/ && echo '                                                  \
-    my $app = sub {                                                        \
-        return [                                                           \
-            "200",                                                         \
-            [ "Content-Type" => "text/plain" ],                            \
-            [ "Hello, Unit!" ],                                            \
-        ]                                                                  \
-    };                                                                     \
-    ' > /www/app.psgi                                                      \
+RUN mkdir /www/ && echo '                                                   \n\
+use strict;                                                                 \n\
+                                                                            \n\
+use Digest::SHA qw(sha256_hex);                                             \n\
+use JSON;                                                                   \n\
+use Plack;                                                                  \n\
+use Plack::Request;                                                         \n\
+                                                                            \n\
+my $app = sub {                                                             \n\
+    my $env = shift;                                                        \n\
+    my $req = Plack::Request->new($env);                                    \n\
+    my $res = $req->new_response(200);                                      \n\
+    $res->header("Content-Type" => "application/json; charset=utf-8");      \n\
+                                                                            \n\
+    my $r = {                                                               \n\
+        "message"   => "Kirov reporting",                                   \n\
+        "agent"     => "NGINX Unit 1.16.0",                                 \n\
+        "headers"   => $req->headers->psgi_flatten(),                       \n\
+        "body"      => $req->content,                                       \n\
+        "sha256"    => sha256_hex($req->content),                           \n\
+    };                                                                      \n\
+                                                                            \n\
+    my $json = JSON->new();                                                 \n\
+    $res->body($json->utf8->pretty->encode($r));                            \n\
+                                                                            \n\
+    return $res->finalize();                                                \n\
+};                                                                          \n\
+' > /www/app.psgi                                                             \
 # prepare the app config for Unit
-    && echo '{                                                             \
-    "listeners": {                                                         \
-        "*:8080": {                                                        \
-            "pass": "applications/perl_app"                                \
-        }                                                                  \
-    },                                                                     \
-    "applications": {                                                      \
-        "perl_app": {                                                      \
-            "type": "perl",                                                \
-            "working_directory": "/www/",                                  \
-            "script": "/www/app.psgi"                                      \
-        }                                                                  \
-    }                                                                      \
+    && echo '{                                                                \
+    "listeners": {                                                            \
+        "*:8080": {                                                           \
+            "pass": "applications/perl_app"                                   \
+        }                                                                     \
+    },                                                                        \
+    "applications": {                                                         \
+        "perl_app": {                                                         \
+            "type": "perl",                                                   \
+            "working_directory": "/www/",                                     \
+            "script": "/www/app.psgi"                                         \
+        }                                                                     \
+    }                                                                         \
     }' > /docker-entrypoint.d/config.json

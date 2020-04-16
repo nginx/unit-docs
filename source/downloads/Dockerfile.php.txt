@@ -5,18 +5,37 @@ FROM nginx/unit:1.16.0-php7.3
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '<?php echo "Hello, Unit!"; ?>' > /www/index.php   \
+RUN mkdir /www/ && echo '                                                   \n\
+<?php                                                                       \n\
+                                                                            \n\
+header("Content-Type: application/json; charset=utf-8");                    \n\
+                                                                            \n\
+$r = array (                                                                \n\
+   "message" => "Kirov reporting",                                          \n\
+   "agent"   => "NGINX Unit 1.16.0"                                         \n\
+);                                                                          \n\
+                                                                            \n\
+foreach ($_SERVER as $header => $value)                                     \n\
+   if (strpos($header, "HTTP_") === 0)                                      \n\
+      $r["headers"][$header] = $value;                                      \n\
+                                                                            \n\
+$r["body"] = file_get_contents("php://input");                              \n\
+$r["sha256"] = hash("sha256", $r["body"]);                                  \n\
+                                                                            \n\
+echo json_encode($r, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)            \n\
+                                                                            \n\
+?>' > /www/index.php                                                          \
 # prepare the app config for Unit
-    && echo '{                                                             \
-    "listeners": {                                                         \
-        "*:8080": {                                                        \
-            "pass": "applications/php_app"                                 \
-        }                                                                  \
-    },                                                                     \
-    "applications": {                                                      \
-        "php_app": {                                                       \
-            "type": "php",                                                 \
-            "root": "/www/"                                                \
-        }                                                                  \
-    }                                                                      \
+    && echo '{                                                                \
+    "listeners": {                                                            \
+        "*:8080": {                                                           \
+            "pass": "applications/php_app"                                    \
+        }                                                                     \
+    },                                                                        \
+    "applications": {                                                         \
+        "php_app": {                                                          \
+            "type": "php",                                                    \
+            "root": "/www/"                                                   \
+        }                                                                     \
+    }                                                                         \
     }' > /docker-entrypoint.d/config.json

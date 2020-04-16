@@ -5,44 +5,77 @@ FROM nginx/unit:1.16.0-go1.11-dev
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '                                                  \
-    package main;                                                          \
-    import (                                                               \
-        "io";                                                              \
-        "net/http";                                                        \
-        "unit.nginx.org/go"                                                \
-    );                                                                     \
-    func main() {                                                          \
-        http.HandleFunc("/",func (w http.ResponseWriter, r *http.Request) {\
-            io.WriteString(w, "Hello, Unit!")                              \
-        });                                                                \
-        unit.ListenAndServe(":8080", nil)                                  \
-    }                                                                      \
-    ' > /www/app.go                                                        \
+RUN mkdir /www/ && echo 'package main                                       \n\
+                                                                            \n\
+import (                                                                    \n\
+    "crypto/sha256";                                                        \n\
+    "fmt";                                                                  \n\
+    "io";                                                                   \n\
+    "io/ioutil";                                                            \n\
+    "encoding/json";                                                        \n\
+    "net/http";                                                             \n\
+    "strings";                                                              \n\
+    "unit.nginx.org/go"                                                     \n\
+)                                                                           \n\
+                                                                            \n\
+func formatRequest(r *http.Request) string {                                \n\
+                                                                            \n\
+    h := make(map[string]string)                                            \n\
+    m := make(map[string]string)                                            \n\
+    t := make( map[string]interface{})                                      \n\
+                                                                            \n\
+    m["message"] = "Kirov reporting"                                        \n\
+    m["agent"] = "NGINX Unit 1.16.0"                                        \n\
+                                                                            \n\
+    body, _ := ioutil.ReadAll(r.Body)                                       \n\
+    m["body"] = fmt.Sprintf("%s", body)                                     \n\
+                                                                            \n\
+    m["sha256"] = fmt.Sprintf("%x", sha256.Sum256([]byte(m["body"])))       \n\
+                                                                            \n\
+    data, _ := json.Marshal(m)                                              \n\
+    for name, _ := range r.Header {                                         \n\
+        h[strings.ToUpper(name)] = r.Header.Get(name)                       \n\
+    }                                                                       \n\
+    _ = json.Unmarshal(data, &t)                                            \n\
+    t["headers"] = h                                                        \n\
+                                                                            \n\
+    js, _ := json.MarshalIndent(t, "", "    ")                              \n\
+                                                                            \n\
+    return fmt.Sprintf("%s", js)                                            \n\
+}                                                                           \n\
+                                                                            \n\
+func main() {                                                               \n\
+    http.HandleFunc("/",func (w http.ResponseWriter, r *http.Request) {     \n\
+        w.Header().Set("Content-Type", "application/json; charset=utf-8")   \n\
+        io.WriteString(w, formatRequest(r))                                 \n\
+    })                                                                      \n\
+    unit.ListenAndServe(":8080", nil)                                       \n\
+}                                                                           \n\
+    ' > /www/app.go                                                           \
 # install build tools to compile the app
-    && apt update && apt install --no-install-recommends                   \
-                         --no-install-suggests -y build-essential          \
+    && apt update && apt install --no-install-recommends                      \
+                         --no-install-suggests -y build-essential             \
 # make nginx/unit package available at $GOPATH to compile the app
-    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.11/src/                 \
-    && /usr/lib/go-1.11/bin/go build -o /www/app /www/app.go               \
+    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.11/src/                    \
+    && /usr/lib/go-1.11/bin/go build -o /www/app /www/app.go                  \
 # final cleanup
-    && apt remove -y build-essential                                       \
-    && apt autoremove --purge -y                                           \
-    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list          \
+    && apt remove -y build-essential                                          \
+    && apt autoremove --purge -y                                              \
+    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list             \
     && rm /www/app.go
 
 # prepare the app config for Unit
-RUN echo '{                                                                \
-    "listeners": {                                                         \
-        "*:8080": {                                                        \
-            "pass": "applications/go_app"                                  \
-        }                                                                  \
-    },                                                                     \
-    "applications": {                                                      \
-        "go_app": {                                                        \
-            "type": "external",                                            \
-            "working_directory": "/www/",                                  \
-            "executable": "/www/app"                                       \
-        }                                                                  \
-    }                                                                      \
-    }' > /docker-entrypoint.d/config.json                                  \
+RUN echo '{                                                                   \
+    "listeners": {                                                            \
+        "*:8080": {                                                           \
+            "pass": "applications/go_app"                                     \
+        }                                                                     \
+    },                                                                        \
+    "applications": {                                                         \
+        "go_app": {                                                           \
+            "type": "external",                                               \
+            "working_directory": "/www/",                                     \
+            "executable": "/www/app"                                          \
+        }                                                                     \
+    }                                                                         \
+    }' > /docker-entrypoint.d/config.json                                     \
