@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-go1.11-dev
+FROM nginx/unit:1.17.0-go1.11-dev
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -25,7 +25,7 @@ func formatRequest(r *http.Request) string {                                \n\
     t := make( map[string]interface{})                                      \n\
                                                                             \n\
     m["message"] = "Kirov reporting"                                        \n\
-    m["agent"] = "NGINX Unit 1.16.0"                                        \n\
+    m["agent"] = "NGINX Unit 1.17.0"                                        \n\
                                                                             \n\
     body, _ := ioutil.ReadAll(r.Body)                                       \n\
     m["body"] = fmt.Sprintf("%s", body)                                     \n\

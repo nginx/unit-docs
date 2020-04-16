@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-minimal
+FROM nginx/unit:1.17.0-minimal
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -29,7 +29,7 @@ bd (req, res, function (err, body) {                                        \n\
     res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"}) \n\
                                                                             \n\
     var r = {                                                               \n\
-        "agent":    "NGINX Unit 1.16.0",                                    \n\
+        "agent":    "NGINX Unit 1.17.0",                                    \n\
         "message":  "Kirov reporting"                                       \n\
     }                                                                       \n\
                                                                             \n\

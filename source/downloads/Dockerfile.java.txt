@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-minimal
+FROM nginx/unit:1.17.0-minimal
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -34,7 +34,7 @@ RUN mkdir /www/ && cd /www/ &&                                                \
 JsonObject r = new JsonObject();                                            \n\
                                                                             \n\
 r.put("message", "Kirov reporting");                                        \n\
-r.put("agent", "NGINX Unit 1.16.0");                                        \n\
+r.put("agent", "NGINX Unit 1.17.0");                                        \n\
                                                                             \n\
 JsonObject headers = new JsonObject();                                      \n\
 Enumeration h = request.getHeaderNames();                                   \n\

@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-ruby2.5
+FROM nginx/unit:1.17.0-ruby2.5
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -12,7 +12,7 @@ app = Proc.new do |env|                                                     \n\
     body = env["rack.input"].read                                           \n\
     r = {                                                                   \n\
         "message" => "Kirov reporting",                                     \n\
-        "agent"   => "NGINX Unit 1.16.0",                                   \n\
+        "agent"   => "NGINX Unit 1.17.0",                                   \n\
         "body"    => body,                                                  \n\
         "headers" => env.select { |key, value| key.include?("HTTP_") },     \n\
         "sha256"  => Digest::SHA256.hexdigest(body)                         \n\

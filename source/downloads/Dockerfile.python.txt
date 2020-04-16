@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-python3.7
+FROM nginx/unit:1.17.0-python3.7
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -14,7 +14,7 @@ def application(env, start_response):                                       \n\
     r = {}                                                                  \n\
                                                                             \n\
     r["message"] = "Kirov reporting"                                        \n\
-    r["agent"] = "NGINX Unit 1.16.0"                                        \n\
+    r["agent"] = "NGINX Unit 1.17.0"                                        \n\
                                                                             \n\
     r["headers"] = {}                                                       \n\
     for header in [_ for _ in env.keys() if _.startswith("HTTP_")]:         \n\

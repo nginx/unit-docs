@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-php7.3
+FROM nginx/unit:1.17.0-php7.3
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -12,7 +12,7 @@ header("Content-Type: application/json; charset=utf-8");                    \n\
                                                                             \n\
 $r = array (                                                                \n\
    "message" => "Kirov reporting",                                          \n\
-   "agent"   => "NGINX Unit 1.16.0"                                         \n\
+   "agent"   => "NGINX Unit 1.17.0"                                         \n\
 );                                                                          \n\
                                                                             \n\
 foreach ($_SERVER as $header => $value)                                     \n\

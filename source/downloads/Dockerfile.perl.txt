@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.16.0-perl5.28
+FROM nginx/unit:1.17.0-perl5.28
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -25,7 +25,7 @@ my $app = sub {                                                             \n\
                                                                             \n\
     my $r = {                                                               \n\
         "message"   => "Kirov reporting",                                   \n\
-        "agent"     => "NGINX Unit 1.16.0",                                 \n\
+        "agent"     => "NGINX Unit 1.17.0",                                 \n\
         "headers"   => $req->headers->psgi_flatten(),                       \n\
         "body"      => $req->content,                                       \n\
         "sha256"    => sha256_hex($req->content),                           \n\
