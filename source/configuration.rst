@@ -509,6 +509,11 @@ Steps have the following options:
      - Socket address of an HTTP server where the request is
        :ref:`proxied <configuration-routes-proxy>` upon match.
 
+   * - :samp:`action/return`, :samp:`action/location`
+     - `HTTP response status code
+       <https://tools.ietf.org/html/rfc7231#section-6>`_ to be returned, along
+       with an optional redirect :samp:`location`.
+
    * - :samp:`match`
      - Object that defines the step conditions.
 
@@ -582,8 +587,20 @@ A more elaborate example with chained routes and proxying:
                    }
                },
                {
+                    "match": {
+                        "uri": [
+                            "*.css",
+                            "*.jpg",
+                            "*.js"
+                        ]
+                    },
                    "action": {
-                       "share": "/www/static_fallthrough/"
+                       "share": "/www/static/"
+                   }
+               },
+               {
+                   "action": {
+                       "return": 404
                    }
                }
            ],
@@ -606,6 +623,46 @@ A more elaborate example with chained routes and proxying:
            ]
        }
    }
+
+
+.. _configuration-routes-return:
+
+=====================
+Response Status Codes
+=====================
+
+You can configure route actions to respond to certain conditions with arbitrary
+HTTP status codes:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "uri": "/admin_console/*"
+       },
+
+       "action": {
+           "return": 403
+        }
+   }
+
+The :samp:`return` option accepts any integer values within the 000-999 range.
+It is recommended to use the codes according to their `semantics
+<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
+make sure user agents can understand them.
+
+If you specify a redirect code (3xx), you can supply the target using the
+:samp:`location` option alongside :samp:`return`:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "return": 301,
+           "location": "https://www.example.com"
+        }
+   }
+
 
 .. _configuration-routes-proxy:
 
@@ -2470,6 +2527,17 @@ Full Example
 
                    "action": {
                        "pass": "applications/wiki"
+                   }
+               },
+
+               {
+                   "match": {
+                        "uri": "/legacy/*"
+                   },
+
+                   "action": {
+                       "return": 301,
+                       "location": "https://legacy.example.com"
                    }
                },
 
