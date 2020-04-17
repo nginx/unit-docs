@@ -41,6 +41,8 @@ Applications
 
 - :doc:`howto/joomla`: Implement a Joomla site with Unit.
 
+- :doc:`howto/moin`: Fire up a MoinMoin installation with Unit.
+
 - :doc:`howto/nextcloud`: Deploy a NextCloud site using Unit.
 
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
