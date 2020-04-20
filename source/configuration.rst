@@ -1647,8 +1647,8 @@ The resulting application works as follows:
 
 .. note::
 
-   For Go-based examples, see our :doc:`Grafana <howto/grafana>` howto or a
-   basic :ref:`sample <sample-go>`.
+   For Go-based examples, see our :doc:`howto/grafana` howto or a basic
+   :ref:`sample <sample-go>`.
 
 .. _configuration-external-nodejs:
 
@@ -1681,7 +1681,7 @@ replace the default :samp:`websocket`:
 
 .. note::
 
-   For Node.js-based examples, see our :doc:`Express <howto/express>` and
+   For Node.js-based examples, see our :doc:`howto/express` and
    :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample <sample-nodejs>`.
 
 .. _configuration-java:
@@ -1725,7 +1725,7 @@ Example:
 
 .. note::
 
-   For Java-based examples, see our :doc:`Jira <howto/jira>` howto or a basic
+   For Java-based examples, see our :doc:`howto/jira` howto or a basic
    :ref:`sample <sample-java>`.
 
 .. _configuration-perl:
@@ -1764,9 +1764,8 @@ Example:
 
 .. note::
 
-   For Perl-based examples of Perl, see our :doc:`Bugzilla <howto/bugzilla>`
-   and :doc:`Catalyst <howto/catalyst>` howtos or a basic :ref:`sample
-   <sample-perl>`.
+   For Perl-based examples of Perl, see our :doc:`howto/bugzilla` and
+   :doc:`howto/catalyst` howtos or a basic :ref:`sample <sample-perl>`.
 
 .. _configuration-php:
 
@@ -1930,9 +1929,9 @@ Example:
 
 .. note::
 
-   For Python-based examples, see our :doc:`Django <howto/django>`, :doc:`Flask
-   <howto/flask>`, :doc:`howto/hg`, :doc:`howto/moin`, and :doc:`howto/trac`
-   howtos or a basic :ref:`sample <sample-python>`.
+   For Python-based examples, see our :doc:`howto/django`, :doc:`howto/flask`,
+   :doc:`howto/hg`, :doc:`howto/moin`, and :doc:`howto/trac` howtos or a basic
+   :ref:`sample <sample-python>`.
 
 .. _configuration-ruby:
 
@@ -1979,8 +1978,8 @@ Example:
 
 .. note::
 
-   For Ruby-based examples, see our :doc:`Redmine <howto/redmine>` howto or a
-   basic :ref:`sample <sample-ruby>`.
+   For Ruby-based examples, see our :doc:`howto/redmine` howto or a basic
+   :ref:`sample <sample-ruby>`.
 
 
 .. _configuration-upstreams:
