@@ -9,49 +9,35 @@ experience with Unit.
 App Frameworks
 **************
 
-- :doc:`CakePHP <howto/cakephp>`: Fire up your CakePHP projects using Unit.
+With Unit, you can configure a diverse range of applications based on the
+following frameworks:
 
-- :doc:`Catalyst <howto/catalyst>`: Empower your Catalyst applications with
-  Unit.
-
-- :doc:`Django <howto/django>`: Migrate your Django projects and apps to Unit
-  with ease.
-
-- :doc:`Express <howto/express>`: Launch Express apps in Unit with minimal
-  adjustments.
-
-- :doc:`Flask <howto/flask>`: Run your Flask apps in Unit with little to no
-  change.
-
-- :doc:`Symfony <howto/symfony>`: Deploy Symfony apps with Unit on the backend.
-
-- :doc:`Yii <howto/yii>`: Power the Yii framework's templates with Unit.
+- :doc:`howto/cakephp`
+- :doc:`howto/catalyst`
+- :doc:`howto/django`
+- :doc:`howto/express`
+- :doc:`howto/flask`
+- :doc:`howto/symfony`
+- :doc:`howto/yii`
 
 ************
 Applications
 ************
 
-- :doc:`howto/bugzilla`: Launch Bugzilla with Unit using PSGI.
+You can also make use of detailed setup instructions for popular web apps such
+as:
 
-- :doc:`howto/grafana`: Use Unit to power Grafana's visual goodness.
-
-- :doc:`howto/hg`: Install and configure Mercurial on Unit.
-
-- :doc:`howto/jira`: Run a new Jira installation in Unit.
-
-- :doc:`howto/joomla`: Implement a Joomla site with Unit.
-
-- :doc:`howto/moin`: Fire up a MoinMoin installation with Unit.
-
-- :doc:`howto/nextcloud`: Deploy a NextCloud site using Unit.
-
-- :doc:`howto/phpbb`: Install and configure phpBB on Unit.
-
-- :doc:`howto/redmine`: Run your Redmine on Unit easily.
-
-- :doc:`howto/trac`: Install and configure Trac using Unit in a few steps.
-
-- :doc:`howto/wordpress`: Set up WordPress with Unit in a breeze.
+- :doc:`howto/bugzilla`
+- :doc:`howto/grafana`
+- :doc:`howto/jira`
+- :doc:`howto/joomla`
+- :doc:`howto/mercurial`
+- :doc:`howto/moin`
+- :doc:`howto/nextcloud`
+- :doc:`howto/phpbb`
+- :doc:`howto/redmine`
+- :doc:`howto/trac`
+- :doc:`howto/wordpress`
 
 *************
 Miscellaneous

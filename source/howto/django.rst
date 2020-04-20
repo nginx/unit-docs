@@ -1,8 +1,8 @@
 :orphan:
 
-###########
-Django Apps
-###########
+######
+Django
+######
 
 To run your Django projects and apps in Unit:
 

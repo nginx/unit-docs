@@ -1,8 +1,8 @@
 :orphan:
 
-##########
-Flask Apps
-##########
+#####
+Flask
+#####
 
 To run your Flask apps in Unit:
 

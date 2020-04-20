@@ -2,9 +2,9 @@
 
 .. include:: ../include/replace.rst
 
-#############
-Catalyst Apps
-#############
+########
+Catalyst
+########
 
 Unit allows to run Perl web apps based on Catalyst |_| 5.9 and later almost
 seamlessly:
