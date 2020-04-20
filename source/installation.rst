@@ -592,7 +592,12 @@ Ubuntu
 
    .. tab:: 19.04
 
-      Supported architectures: :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: :samp:`x86-64`.
+
+      .. warning::
+
+         Unit 1.16+ packages aren't available for Ubuntu 19.04.  This
+         distribution is obsolete; please update.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -624,7 +629,7 @@ Ubuntu
 
    .. tab:: 18.10
 
-      Supported architectures: :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
@@ -661,7 +666,7 @@ Ubuntu
 
    .. tab:: 18.04
 
-      Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
