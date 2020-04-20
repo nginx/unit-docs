@@ -1866,10 +1866,10 @@ Example:
 
 .. note::
 
-   For PHP-based examples, see our :doc:`CakePHP <howto/cakephp>`,
-   :doc:`WordPress <howto/wordpress>`, :doc:`NextCloud <howto/nextcloud>`,
-   :doc:`Symfony <howto/symfony>`, and :doc:`Yii <howto/yii>` howtos or a basic
-   :ref:`sample <sample-php>`.
+   For PHP-based examples, see our :doc:`howto/cakephp`,
+   :doc:`howto/wordpress`, :doc:`howto/nextcloud`, :doc:`howto/phpbb`,
+   :doc:`howto/symfony`, and :doc:`howto/yii` howtos or a basic :ref:`sample
+   <sample-php>`.
 
 .. _configuration-python:
 

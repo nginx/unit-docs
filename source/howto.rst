@@ -45,6 +45,8 @@ Applications
 
 - :doc:`howto/nextcloud`: Deploy a NextCloud site using Unit.
 
+- :doc:`howto/phpbb`: Install and configure phpBB on Unit.
+
 - :doc:`howto/redmine`: Run your Redmine on Unit easily.
 
 - :doc:`howto/trac`: Install and configure Trac using Unit in a few steps.
