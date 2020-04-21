@@ -6,7 +6,7 @@
 Catalyst
 ########
 
-Unit allows to run Perl web apps based on Catalyst |_| 5.9 and later almost
+Unit enables running Perl web apps based on Catalyst |_| 5.9 and later almost
 seamlessly:
 
 #. :ref:`Install Unit <installation-precomp-pkgs>` with the appropriate Perl
@@ -21,7 +21,7 @@ seamlessly:
       $ cd /path/to/apps/
       $ catalyst.pl myapp
       $ cd myapp && perl Makefile.PL
-      $ chown -R catalyst_user:catalyst_group .
+      # chown -R :nxt_term:`catalyst_user:catalyst_group <Used to run the app in Unit>` .
 
    .. note::
 
@@ -44,7 +44,7 @@ seamlessly:
 
       {
           "listeners": {
-              "127.0.0.1:3000": {
+              "127.0.0.1:8080": {
                   "pass": "applications/catalyst_app"
               }
           },
@@ -71,4 +71,4 @@ seamlessly:
 
    .. code-block:: console
 
-      $ curl 127.0.0.1:3000
+      $ curl 127.0.0.1:8080
