@@ -39,7 +39,8 @@ To run your Django projects and apps in Unit:
    *project*'s WSGI module; the project and its apps will run on the listener's
    IP and port.  If you use a `virtual environment
    <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_,
-   reference it as :samp:`home`:
+   reference it as :samp:`home`.  Finally, you can also set up some environment
+   variables that your project relies on:
 
    .. code-block:: json
 
@@ -54,8 +55,15 @@ To run your Django projects and apps in Unit:
               "django_project": {
                   "type": "python 3",
                   "path": "/home/django/project/",
-                  "home": "/home/django/venv/",
-                  "module": "project.wsgi"
+                  "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",
+                  "module": "project.wsgi",
+                  "environment": {
+                      "DJANGO_SETTINGS_MODULE": "project.settings",
+                      "DB_ENGINE": "django.db.backends.postgresql",
+                      "DB_NAME": "project",
+                      "DB_HOST": "127.0.0.1",
+                      "DB_PORT": "5432"
+                  }
               }
           }
       }
