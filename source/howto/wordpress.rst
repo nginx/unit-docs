@@ -111,7 +111,7 @@ To run WordPress in Unit:
 
    .. note::
 
-      The difference between the apps is their usage of :samp:`script`
+      The difference between the apps is their usage of the :samp:`script`
       :ref:`setting <configuration-php>`.  Here, :samp:`wp_index` specifies the
       :samp:`script` that Unit runs for *any* URIs the app receives.  In
       contrast, the :samp:`wp_direct` app serves URIs that reference a specific

@@ -98,7 +98,7 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
 
    .. note::
 
-      The difference between the apps is their usage of :samp:`script`
+      The difference between the apps is their usage of the :samp:`script`
       :ref:`setting <configuration-php>`.  Here, :samp:`phpbb_index` specifies
       the :samp:`script` that Unit runs for *any* URIs the app receives.  In
       contrast, the :samp:`phpbb_direct` app serves URIs that reference a
