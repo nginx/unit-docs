@@ -2500,7 +2500,6 @@ Full Example
                        "pass": "applications/cms"
                    }
                },
-
                {
                    "match": {
                        "host": ["blog.example.com", "blog.*.org"],
@@ -2511,7 +2510,6 @@ Full Example
                        "pass": "applications/blogs"
                    }
                },
-
                {
                    "match": {
                        "host": "example.com",
@@ -2523,7 +2521,6 @@ Full Example
                        "pass": "applications/chat"
                    }
                },
-
                {
                    "match": {
                        "host": "example.com",
@@ -2537,7 +2534,6 @@ Full Example
                        "pass": "applications/store"
                    }
                },
-
                {
                    "match": {
                        "host": "wiki.example.com"
@@ -2547,7 +2543,6 @@ Full Example
                        "pass": "applications/wiki"
                    }
                },
-
                {
                    "match": {
                         "uri": "/legacy/*"
@@ -2558,7 +2553,6 @@ Full Example
                        "location": "https://legacy.example.com"
                    }
                },
-
                {
                    "match": {
                        "scheme": "http"
@@ -2568,7 +2562,6 @@ Full Example
                        "proxy": "http://127.0.0.1:8080"
                    }
                },
-
                {
                    "action": {
                        "share": "/www/static/",
