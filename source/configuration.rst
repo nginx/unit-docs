@@ -1796,8 +1796,8 @@ following:
         The default value is :samp:`index.php`.
 
     * - :samp:`options`
-      - Object that defines :file:`php.ini` location and options.  For details,
-        see below.
+      - Object that :ref:`defines <configuration-php-options>` the
+        :file:`php.ini` location and options.
 
     * - :samp:`script`
       - Filename of a :samp:`root`-based PHP script that Unit uses to serve all
@@ -1810,6 +1810,8 @@ The :samp:`index` and :samp:`script` options enable two modes of operation:
 
 - Otherwise, the requests are served according to their URI paths; if script
   name is omitted, :samp:`index` is used.
+
+.. _configuration-php-options:
 
 You can customize :file:`php.ini` via the :samp:`options` object:
 
