@@ -31,6 +31,7 @@ as:
 - :doc:`howto/grafana`
 - :doc:`howto/jira`
 - :doc:`howto/joomla`
+- :doc:`howto/mediawiki`
 - :doc:`howto/mercurial`
 - :doc:`howto/moin`
 - :doc:`howto/nextcloud`
