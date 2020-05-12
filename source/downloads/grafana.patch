@@ -1,53 +1,52 @@
-diff --git a/conf/defaults.ini b/conf/defaults.ini
---- a/conf/defaults.ini
-+++ b/conf/defaults.ini
-@@ -28,8 +28,8 @@ provisioning = conf/provisioning
- 
+diff -r e23e42b2ca07 conf/defaults.ini
+--- a/conf/defaults.ini	Sat May 09 07:45:29 2020 +0000
++++ b/conf/defaults.ini	Sat May 09 07:47:01 2020 +0000
+@@ -29,7 +29,7 @@
  #################################### Server ##############################
  [server]
--# Protocol (http, https, socket)
+ # Protocol (http, https, h2, socket)
 -protocol = http
-+# Protocol (http, https, socket, unit)
 +protocol = unit
  
  # The ip address to bind to, empty will bind to all interfaces
  http_addr =
-diff --git a/pkg/api/http_server.go b/pkg/api/http_server.go
---- a/pkg/api/http_server.go
-+++ b/pkg/api/http_server.go
-@@ -7,6 +7,7 @@ import (
- 	"fmt"
+diff -r e23e42b2ca07 pkg/api/http_server.go
+--- a/pkg/api/http_server.go	Sat May 09 07:45:29 2020 +0000
++++ b/pkg/api/http_server.go	Sat May 09 07:47:01 2020 +0000
+@@ -7,6 +7,7 @@
+ 	"github.com/grafana/grafana/pkg/services/search"
  	"net"
  	"net/http"
 +	"unit.nginx.org/go"
  	"os"
  	"path"
- 	"time"
-@@ -123,6 +124,12 @@ func (hs *HTTPServer) Run(ctx context.Co
- 			hs.log.Debug("server was shutdown gracefully")
- 			return nil
+ 	"sync"
+@@ -116,6 +117,13 @@
+ 		if err != nil {
+ 			return errutil.Wrapf(err, "failed to open listener for socket %s", setting.SocketPath)
  		}
 +	case setting.UNIT:
-+		err = unit.ListenAndServe(listenAddr, hs.macaron)
++		var err error
++		err = unit.ListenAndServe(hs.httpSrv.Addr, hs.macaron)
 +		if err == http.ErrServerClosed {
 +			hs.log.Debug("server was shutdown gracefully")
 +			return nil
 +		}
- 	default:
- 		hs.log.Error("Invalid protocol", "protocol", setting.Protocol)
- 		err = errors.New("Invalid Protocol")
-diff --git a/pkg/setting/setting.go b/pkg/setting/setting.go
---- a/pkg/setting/setting.go
-+++ b/pkg/setting/setting.go
-@@ -30,6 +30,7 @@ const (
+ 
+ 		// Make socket writable by group
+ 		if err := os.Chmod(setting.SocketPath, 0660); err != nil {
+diff -r e23e42b2ca07 pkg/setting/setting.go
+--- a/pkg/setting/setting.go	Sat May 09 07:45:29 2020 +0000
++++ b/pkg/setting/setting.go	Sat May 09 07:47:01 2020 +0000
+@@ -30,6 +30,7 @@
  	HTTP              Scheme = "http"
  	HTTPS             Scheme = "https"
- 	SOCKET            Scheme = "socket"
+ 	HTTP2             Scheme = "h2"
 +	UNIT              Scheme = "unit"
+ 	SOCKET            Scheme = "socket"
  	DEFAULT_HTTP_ADDR string = "0.0.0.0"
- )
- 
-@@ -624,6 +625,9 @@ func (cfg *Cfg) Load(args *CommandLineAr
+ 	REDACTED_PASSWORD string = "*********"
+@@ -679,6 +680,9 @@
  		Protocol = SOCKET
  		SocketPath = server.Key("socket").String()
  	}
