@@ -5,75 +5,34 @@ FROM nginx/unit:1.17.0-minimal
 EXPOSE 8080
 
 # add Java language and corresponding language module
-RUN apt update                                                                \
-    && apt install -y apt-transport-https gnupg1                              \
-    && curl https://nginx.org/keys/nginx_signing.key | apt-key add -          \
-    && echo "deb https://packages.nginx.org/unit/debian/ buster unit"         \
-         > /etc/apt/sources.list.d/unit.list                                  \
-    && mkdir -p /usr/share/man/man1/                                          \
-    && apt update && apt install --no-install-recommends                      \
-       --no-install-suggests -y unit-jsc11                                    \
+RUN apt update                                                             \
+    && apt install -y apt-transport-https gnupg1                           \
+    && curl https://nginx.org/keys/nginx_signing.key | apt-key add -       \
+    && echo "deb https://packages.nginx.org/unit/debian/ buster unit"      \
+         > /etc/apt/sources.list.d/unit.list                               \
+    && mkdir -p /usr/share/man/man1/                                       \
+    && apt update && apt install --no-install-recommends                   \
+       --no-install-suggests -y unit-jsc11                                 \
 # final cleanup
-    && apt remove -y apt-transport-https gnupg1                               \
-    && apt autoremove --purge -y                                              \
+    && apt remove -y apt-transport-https gnupg1                            \
+    && apt autoremove --purge -y                                           \
     && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 # application setup
-RUN mkdir /www/ && cd /www/ &&                                                \
-    curl -O https://cliftonlabs.github.io/json-simple/target/json-simple-3.1.1.jar \
-    && echo '                                                               \n\
-<%@ page language="java" contentType="application/json; charset=utf-8" %>   \n\
-<%@ page import="com.github.cliftonlabs.json_simple.JsonObject" %>          \n\
-<%@ page import="com.github.cliftonlabs.json_simple.Jsoner" %>              \n\
-<%@ page import="java.io.BufferedReader" %>                                 \n\
-<%@ page import="java.math.BigInteger" %>                                   \n\
-<%@ page import="java.nio.charset.StandardCharsets" %>                      \n\
-<%@ page import="java.security.MessageDigest" %>                            \n\
-<%@ page import="java.util.Enumeration" %>                                  \n\
-<%                                                                          \n\
-JsonObject r = new JsonObject();                                            \n\
-                                                                            \n\
-r.put("message", "Kirov reporting");                                        \n\
-r.put("agent", "NGINX Unit 1.17.0");                                        \n\
-                                                                            \n\
-JsonObject headers = new JsonObject();                                      \n\
-Enumeration h = request.getHeaderNames();                                   \n\
-while (h.hasMoreElements()) {                                               \n\
-    String name = (String)h.nextElement();                                  \n\
-    headers.put(name, request.getHeader(name));                             \n\
-}                                                                           \n\
-r.put("headers", headers);                                                  \n\
-                                                                            \n\
-BufferedReader  br = request.getReader();                                   \n\
-String          body = "";                                                  \n\
-String          line = br.readLine();                                       \n\
-while (line != null) {                                                      \n\
-    body += line;                                                           \n\
-    line = br.readLine();                                                   \n\
-}                                                                           \n\
-r.put("body", body);                                                        \n\
-                                                                            \n\
-MessageDigest   md = MessageDigest.getInstance("SHA-256");                  \n\
-byte[]          bytes = md.digest(body.getBytes(StandardCharsets.UTF_8));   \n\
-BigInteger      number = new BigInteger(1, bytes);                          \n\
-StringBuilder   hex = new StringBuilder(number.toString(16));               \n\
-r.put("sha256", hex.toString());                                            \n\
-                                                                            \n\
-out.println(Jsoner.prettyPrint((Jsoner.serialize(r))));                     \n\
-%>                                                                            \
-' > /www/index.jsp                                                            \
+RUN mkdir /www/ && echo                                                    \
+    '<%@page language="java" contentType="text/plain"%><%="Hello, Unit!"%>'\
+    > /www/index.jsp                                                       \
 # prepare the app config for Unit
-    && echo '{                                                                \
-    "listeners": {                                                            \
-        "*:8080": {                                                           \
-            "pass": "applications/java_app"                                   \
-        }                                                                     \
-    },                                                                        \
-    "applications": {                                                         \
-        "java_app": {                                                         \
-            "type": "java",                                                   \
-            "classpath": ["/www/json-simple-3.1.1.jar"],                      \
-            "webapp": "/www/"                                                 \
-        }                                                                     \
-    }                                                                         \
+    && echo '{                                                             \
+    "listeners": {                                                         \
+        "*:8080": {                                                        \
+            "pass": "applications/java_app"                                \
+        }                                                                  \
+    },                                                                     \
+    "applications": {                                                      \
+        "java_app": {                                                      \
+            "type": "java",                                                \
+            "webapp": "/www/"                                              \
+        }                                                                  \
+    }                                                                      \
     }' > /docker-entrypoint.d/config.json

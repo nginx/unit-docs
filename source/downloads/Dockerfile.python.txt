@@ -5,39 +5,23 @@ FROM nginx/unit:1.17.0-python3.7
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '                                                   \n\
-import hashlib, json                                                        \n\
-def application(env, start_response):                                       \n\
-    start_response("200 OK", [("Content-Type",                                \
-                   "application/json; charset=utf-8")])                     \n\
-                                                                            \n\
-    r = {}                                                                  \n\
-                                                                            \n\
-    r["message"] = "Kirov reporting"                                        \n\
-    r["agent"] = "NGINX Unit 1.17.0"                                        \n\
-                                                                            \n\
-    r["headers"] = {}                                                       \n\
-    for header in [_ for _ in env.keys() if _.startswith("HTTP_")]:         \n\
-        r["headers"][header] = env[header]                                  \n\
-                                                                            \n\
-    bytes = env["wsgi.input"].read()                                        \n\
-    r["body"] = bytes.decode("utf-8")                                       \n\
-    r["sha256"] = hashlib.sha256(bytes).hexdigest()                         \n\
-                                                                            \n\
-    return json.dumps(r, indent=4).encode("utf-8")                          \n\
-    ' > /www/wsgi.py                                                          \
+RUN mkdir /www/ && echo '                                                \n\
+def application(environ, start_response):                                \n\
+    start_response("200 OK", [("Content-Type", "text/plain")])           \n\
+    return (b"Hello, Unit!")                                               \
+    ' > /www/wsgi.py                                                       \
 # prepare the app config for Unit
-    && echo '{                                                                \
-    "listeners": {                                                            \
-        "*:8080": {                                                           \
-            "pass": "applications/python_app"                                 \
-        }                                                                     \
-    },                                                                        \
-    "applications": {                                                         \
-        "python_app": {                                                       \
-            "type": "python",                                                 \
-            "path": "/www/",                                                  \
-            "module": "wsgi"                                                  \
-        }                                                                     \
-    }                                                                         \
+    && echo '{                                                             \
+    "listeners": {                                                         \
+        "*:8080": {                                                        \
+            "pass": "applications/python_app"                              \
+        }                                                                  \
+    },                                                                     \
+    "applications": {                                                      \
+        "python_app": {                                                    \
+            "type": "python",                                              \
+            "path": "/www/",                                               \
+            "module": "wsgi"                                               \
+        }                                                                  \
+    }                                                                      \
     }' > /docker-entrypoint.d/config.json

@@ -5,37 +5,26 @@ FROM nginx/unit:1.17.0-ruby2.5
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '                                                   \n\
-require "digest"                                                            \n\
-require "json"                                                              \n\
-app = Proc.new do |env|                                                     \n\
-    body = env["rack.input"].read                                           \n\
-    r = {                                                                   \n\
-        "message" => "Kirov reporting",                                     \n\
-        "agent"   => "NGINX Unit 1.17.0",                                   \n\
-        "body"    => body,                                                  \n\
-        "headers" => env.select { |key, value| key.include?("HTTP_") },     \n\
-        "sha256"  => Digest::SHA256.hexdigest(body)                         \n\
-    }                                                                       \n\
-                                                                            \n\
-    ["200", {                                                               \n\
-        "Content-Type" => "application/json; charset=utf-8",                \n\
-    }, [JSON.pretty_generate(r)]]                                           \n\
-end;                                                                        \n\
-run app                                                                     \n\
-' > /www/config.ru                                                            \
+RUN mkdir /www/ && echo '                                                  \
+    app = Proc.new do |env|                                                \
+        ["200", {                                                          \
+            "Content-Type" => "text/plain",                                \
+        }, ["Hello, Unit!"]]                                               \
+    end;                                                                   \
+    run app                                                                \
+    ' > /www/config.ru                                                     \
 # prepare the app config for Unit
-    && echo '{                                                                \
-    "listeners": {                                                            \
-        "*:8080": {                                                           \
-            "pass": "applications/ruby_app"                                   \
-        }                                                                     \
-    },                                                                        \
-    "applications": {                                                         \
-        "ruby_app": {                                                         \
-            "type": "ruby",                                                   \
-            "working_directory": "/www/",                                     \
-            "script": "config.ru"                                             \
-        }                                                                     \
-    }                                                                         \
+    && echo '{                                                             \
+    "listeners": {                                                         \
+        "*:8080": {                                                        \
+            "pass": "applications/ruby_app"                                \
+        }                                                                  \
+    },                                                                     \
+    "applications": {                                                      \
+        "ruby_app": {                                                      \
+            "type": "ruby",                                                \
+            "working_directory": "/www/",                                  \
+            "script": "config.ru"                                          \
+        }                                                                  \
+    }                                                                      \
     }' > /docker-entrypoint.d/config.json
