@@ -4,6 +4,6 @@
    index
    installation
    configuration
-   howto
+   howto/index
    troubleshooting
    contribution

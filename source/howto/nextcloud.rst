@@ -1,5 +1,3 @@
-:orphan:
-
 .. include:: ../include/replace.rst
 
 #########
