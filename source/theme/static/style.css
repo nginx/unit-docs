@@ -431,6 +431,38 @@ body > div {
     margin-left: .3em;
 }
 
+/* Click-to-copy */
+.nxt_copy_btn {
+    position: absolute;
+    top: 0;
+    right: .2em;
+    cursor: pointer;
+}
+.nxt_copy_btn a {
+    display: inline-block;
+    line-height: 1em;
+    padding: .5em;
+}
+.nxt_copy_btn input,
+.nxt_copy_btn a:last-child,
+.nxt_copy_btn input:checked + a {
+    display: none;
+}
+.nxt_copy_btn input:checked ~ a:last-child {
+    display: inline-block;
+}
+.nxt_copy_btn:hover svg {
+    fill: #eee;
+}
+.nxt_copy_btn svg,
+.nxt_copy_btn:active svg {
+    fill: #bbb;
+    height: 1em;
+}
+.nxt_copy_ws {
+    visibility: hidden;
+}
+
 @media (max-width: 53em) {
     #side {
         position: relative;
