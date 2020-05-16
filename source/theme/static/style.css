@@ -380,6 +380,74 @@ body > div {
     -webkit-user-select: none;
 }
 
+.highlight-console,
+.highlight-docker,
+.highlight-go,
+.highlight-ini,
+.highlight-java,
+.highlight-javascript,
+.highlight-json,
+.highlight-jsp,
+.highlight-nginx,
+.highlight-perl,
+.highlight-php,
+.highlight-python,
+.highlight-ruby,
+.highlight-none {
+    position: relative;
+}
+
+.highlight::before {
+    position: absolute;
+    right: .5em;
+    top: -1.4em;
+    color: #333;
+    font-size: .8em;
+}
+.highlight-console .highlight::before {
+    content: "console";
+}
+.highlight-docker .highlight::before {
+    content: "docker";
+}
+.highlight-go .highlight::before {
+    content: "go";
+}
+.highlight-ini .highlight::before {
+    content: "ini";
+}
+.highlight-java .highlight::before {
+    content: "java";
+}
+.highlight-javascript .highlight::before {
+    content: "javascript";
+}
+.highlight-json .highlight::before {
+    content: "json";
+}
+.highlight-jsp .highlight::before {
+    content: "jsp";
+}
+.highlight-nginx .highlight::before {
+    content: "nginx";
+}
+.highlight-perl .highlight::before {
+    content: "perl";
+}
+.highlight-php .highlight::before {
+    content: "php";
+}
+.highlight-python .highlight::before {
+    content: "python";
+}
+.highlight-ruby .highlight::before {
+    content: "ruby";
+}
+.highlight-none .highlight::before {
+    content: "text";
+}
+
+
 /* custom terms */
 
 .nxt_term {

@@ -41,9 +41,7 @@ function nxt_page_load() {
                         + '<span class="nxt_copy_ws">     </span>'
                         + html.slice(pos)
 
-        el = el.parentElement
-        el.style.position = 'relative'
-        el.appendChild(btn.cloneNode(true))
+        el.parentElement.appendChild(btn.cloneNode(true))
     }
 
     document.body.addEventListener("copy", function () {
