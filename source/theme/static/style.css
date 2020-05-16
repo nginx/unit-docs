@@ -373,6 +373,13 @@ body > div {
     color: #ffa500;
 }
 
+.highlight-console .gp {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
 /* custom terms */
 
 .nxt_term {
