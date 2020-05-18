@@ -163,6 +163,9 @@ body > div {
     border-top: .1em solid #ddd;
     border-bottom: .1em solid #ddd;
 }
+#content td table:last-child td {
+    border-bottom: none;
+}
 #content td > .first {
     margin-top: 0;
 }
