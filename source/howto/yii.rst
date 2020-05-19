@@ -64,7 +64,7 @@ Unit:
           "applications": {
               "yii_direct": {
                   "type": "php",
-                  "root": ":/path/to/yii/web/",
+                  "root": "/path/to/yii/web/",
                   "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/yii/>`"
               },
 

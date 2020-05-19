@@ -60,7 +60,7 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
           "applications": {
               "symfony_direct": {
                   "type": "php",
-                  "root": ":/path/to/my_project/public/",
+                  "root": "/path/to/my_project/public/",
                   "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/my_project/>`"
               },
 
