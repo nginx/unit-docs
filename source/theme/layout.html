@@ -11,13 +11,13 @@
 @font-face {
     font-family: 'Open Sans';
     src: local('OpenSans'), local('Open Sans'), local('Open Sans Regular'), local('OpenSans-Regular'),
-         url('{{ pathto('_static/OpenSans.woff2', 1) }}') format('woff2'),
-         url('{{ pathto('_static/OpenSans.woff', 1) }}') format('woff');
+         url('{{ pathto('_static/OpenSans.woff2', 1) + '?' + md5('theme/static/OpenSans.woff2') }}') format('woff2'),
+         url('{{ pathto('_static/OpenSans.woff', 1) + '?' + md5('theme/static/OpenSans.woff') }}') format('woff');
 }
 </style>
-<link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}?1" />
-<link rel="icon" href="{{ pathto('_static/icon.png', 1) }}" />
-<script async src="{{ pathto('_static/script.js', 1) }}?1"></script>
+<link rel="stylesheet" href="{{ pathto('_static/' + style, 1) + '?' + md5('theme/static/' + style) }}" />
+<link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
+<script async src="{{ pathto('_static/script.js', 1) + '?' + md5('theme/static/script.js') }}"></script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -49,7 +49,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {%- if pagename != "index" %}
         <a href="{{ pathto('index') }}">
         {%- endif %}
-            <img src="{{ pathto('_static/logo.svg', 1) }}" alt="{{project}}" />
+            <img src="{{ pathto('_static/logo.svg', 1) + '?' + md5('theme/static/logo.svg')}}" alt="{{project}}" />
         {%- if pagename != "index" %}
         </a>
         {%- endif %}

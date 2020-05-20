@@ -32,7 +32,7 @@ COMPRESS = -size +1000c \
 .PHONY: site serve check clean deploy do_gzip
 
 site: $(BUILDDIR)
-	@$(SPHINX) -b dirhtml source "$(BUILDDIR)"
+	@$(SPHINX) -b nxt_html source "$(BUILDDIR)"
 
 $(BUILDDIR):
 	mkdir "$(BUILDDIR)"

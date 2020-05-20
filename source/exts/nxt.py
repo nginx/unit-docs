@@ -43,6 +43,9 @@
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, roles
+from hashlib import md5 as hashlib_md5
+from os import path, strerror
+from sphinx.builders.html import DirectoryHTMLBuilder
 from sphinx.writers.html import HTMLTranslator
 import re
 
@@ -54,6 +57,7 @@ class nxt_tab_head(nodes.Text): pass
 class nxt_tab_body(nodes.container): pass
 class nxt_term(nodes.container): pass
 # dummy classes, required for docutils dispatcher's Visitor pattern
+
 
 nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(r'[\w\s\.\,\?\!\-\/\:#_]')
 # matches `text w/punctuation <text w/punctuation>` in ':nxt_term:' directives
@@ -102,6 +106,36 @@ class nxt_highlighter(object):
                 format(g[1], g[0]), highlighted, count=1)
 
         return highlighted
+
+
+class nxt_builder(DirectoryHTMLBuilder):
+    '''Adds custom function to enable MD5-based versioning.'''
+
+    name = 'nxt_html'
+
+    def __init__(self, app):
+        DirectoryHTMLBuilder.__init__(self, app)
+
+
+    def update_page_context(self, pagename, templatename, ctx, event_arg):
+        '''Extends builder context to make the function available at build time.'''
+
+        DirectoryHTMLBuilder.update_page_context(self, pagename, templatename, \
+                                                 ctx, event_arg)
+
+        def md5(fname):
+            '''Calculates MD5 for a file relative to source directory.'''
+
+            pathname = self.srcdir + '/' + fname
+            hash = hashlib_md5()
+            with open(pathname, 'rb') as f:
+                for chunk in iter(lambda: f.read(65536), b''):
+                    hash.update(chunk)
+
+            return hash.hexdigest()
+
+        ctx['md5'] = md5
+
 
 class nxt_translator(HTMLTranslator):
 # adds dispatcher methods to handle 'nxt_tabs' and 'nxt_tab' doctree nodes
@@ -209,6 +243,7 @@ def setup(app):
     app.add_directive('tabs', TabsDirective)
     app.add_directive('tab', TabDirective)
 
-    app.set_translator('dirhtml', nxt_translator)
+    app.add_builder(nxt_builder)
+    app.set_translator('nxt_html', nxt_translator)
 
     roles.register_canonical_role('nxt_term', nxt_term_role_fn)
