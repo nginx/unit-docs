@@ -1706,8 +1706,8 @@ following:
       - Pathname of the application's packaged or unpackaged :file:`.war` file.
 
     * - :samp:`classpath`
-      - Array of paths to your app's required libraries (may point to
-        directories or :file:`.jar` files).
+      - Array of paths to your app's required libraries (may list directories
+        or :file:`.jar` files).
 
     * - :samp:`options`
       - Array of strings defining JVM runtime options.
