@@ -93,6 +93,7 @@ function nxt_copy_console(text) {
                 break
             case '#':
                 line = trimmed.replace(/^#\s*/, 'sudo ')
+                              .replace(/\|\s*/g, '| sudo ')
                 break
             default:
                 continue
