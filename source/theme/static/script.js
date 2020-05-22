@@ -12,7 +12,7 @@
  */
 
 
-function nxt_page_load() {
+function nxt_copy_init() {
     const template = document.createElement('template');
 
     /*
@@ -115,5 +115,9 @@ function nxt_copy_console(text) {
     return result.join('\n')
 }
 
+if (navigator.clipboard) {
+    window.addEventListener("load", nxt_copy_init)
 
-window.addEventListener("load", nxt_page_load)
+} else {
+    console.log("Clipboard API is not available")
+}
