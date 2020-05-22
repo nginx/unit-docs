@@ -44,12 +44,7 @@ function nxt_copy_init() {
         el.parentElement.appendChild(btn.cloneNode(true))
     }
 
-    document.body.addEventListener("copy", function () {
-        const el = document.querySelector(".nxt_copy_btn input:checked")
-        if (el) {
-            el.checked = false
-        }
-    })
+    document.body.addEventListener("copy", nxt_copy_reset)
 }
 
 
@@ -61,9 +56,13 @@ function nxt_copy(btn) {
         text = nxt_copy_console(text)
     }
 
-    navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(text).then(function() {
+        console.log(text.length + " chars copied to clipboard")
 
-    console.log(text.length + " chars copied to clipboard")
+    }, function() {
+        nxt_copy_reset()
+        console.log("clipboard write failed")
+    })
 }
 
 
@@ -114,6 +113,15 @@ function nxt_copy_console(text) {
 
     return result.join('\n')
 }
+
+
+function nxt_copy_reset() {
+    const el = document.querySelector(".nxt_copy_btn input:checked")
+    if (el) {
+        el.checked = false
+    }
+}
+
 
 if (navigator.clipboard) {
     window.addEventListener("load", nxt_copy_init)
