@@ -46,14 +46,14 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                       },
 
                       "action": {
-                          "pass": "applications/cakephp_direct"
+                          "pass": "applications/cakephp/direct"
                       }
                   },
                   {
                       "action": {
                           ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/cakephp/webroot/",
                           ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
-                              "pass": "applications/cakephp_index"
+                              "pass": "applications/cakephp/index"
                           }
                       }
                   }
@@ -61,20 +61,32 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
           },
 
           "applications": {
-              "cakephp_direct": {
+              "cakephp": {
                   "type": "php",
-                  "root": "/path/to/cakephp/webroot/",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/cakephp/>`"
-              },
-
-              "cakephp_index": {
-                  "type": "php",
-                  "root": ":nxt_term:`/path/to/cakephp/webroot/ <Path to the index.php script>`",
                   "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/cakephp/>`",
-                  "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                  "targets": {
+                      "direct": {
+                          "root": ":nxt_term:`/path/to/cakephp/webroot/ <Path to the index.php script>`"
+                      },
+
+                      "index": {
+                          "root": ":nxt_term:`/path/to/cakephp/webroot/ <Path to the index.php script>`",
+                          "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                      }
+                  }
               }
           }
       }
+
+   .. note::
+
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+        for *any* URIs the target receives.
 
    For a detailed discussion, see `Fire It Up
    <https://book.cakephp.org/4/en/installation.html#fire-it-up>`_ in CakePHP

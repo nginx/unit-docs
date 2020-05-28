@@ -2,8 +2,8 @@
 Yii
 ###
 
-To run apps based on the `Yii <https://www.yiiframework.com>`_ framework using
-Unit:
+To run apps based on the `Yii 2.0 <https://www.yiiframework.com>`_ framework
+using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
 
@@ -47,14 +47,14 @@ Unit:
                       },
 
                       "action": {
-                          "pass": "applications/yii_direct"
+                          "pass": "applications/yii/direct"
                       }
                   },
                   {
                       "action": {
                           ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/yii/web/",
                           ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
-                              "pass": "applications/yii_index"
+                              "pass": "applications/yii/index"
                           }
                       }
                   }
@@ -62,20 +62,32 @@ Unit:
           },
 
           "applications": {
-              "yii_direct": {
+              "yii": {
                   "type": "php",
-                  "root": "/path/to/yii/web/",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/yii/>`"
-              },
-
-              "yii_index": {
-                  "type": "php",
-                  "root": ":nxt_term:`/path/to/yii/web/ <Path to the script>`",
                   "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/yii/>`",
-                  "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                  "targets": {
+                      "direct": {
+                          "root": ":nxt_term:`/path/to/yii/web/ <Path to the script>`"
+                      },
+
+                      "index": {
+                          "root": ":nxt_term:`/path/to/yii/web/ <Path to the script>`",
+                          "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                      }
+                  }
               }
           }
       }
+
+   .. note::
+
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+        for *any* URIs the target receives.
 
    For a detailed discussion, see `Configuring Web Servers
    <https://www.yiiframework.com/doc/guide/2.0/en/start-installation#configuring-web-servers>`_

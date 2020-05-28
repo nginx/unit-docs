@@ -44,14 +44,14 @@ system using Unit:
                       },
 
                       "action": {
-                          "pass": "applications/joomla_direct"
+                          "pass": "applications/joomla/direct"
                       }
                   },
                   {
                       "action": {
                           "share": "/path/to/joomla/",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/joomla_index <Unconditionally matches all remaining URLs, including rewritten ones>`"
+                              "pass": ":nxt_term:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
                           }
                       }
                   }
@@ -59,29 +59,32 @@ system using Unit:
           },
 
           "applications": {
-              "joomla_direct": {
+              "joomla": {
                   "type": "php",
                   "user": "joomla_user",
-                  "root": "/path/to/joomla/"
-              },
+                  "targets": {
+                      "direct": {
+                          "root": "/path/to/joomla/"
+                      },
 
-              "joomla_index": {
-                  "type": "php",
-                  "user": "joomla_user",
-                  "root": "/path/to/joomla/",
-                  "script": "index.php"
+                      "index": {
+                          "root": "/path/to/joomla/",
+                          "script": "index.php"
+                      }
+                  }
               }
           }
       }
 
    The first route step handles the admin section and all URLs that specify a
-   PHP script; the :samp:`joomla_direct` app doesn't set the :samp:`script`
-   option to be used by default, so Unit looks for the respective :file:`.php`
-   file.  The next step serves static file types via a :samp:`share`; the
-   :samp:`fallback` here enables rewrite mechanics for `search-friendly URLs
-   <https://docs.joomla.org/Enabling_Search_Engine_Friendly_(SEF)_URLs>`_,
-   routing all requests via the :samp:`index.php` at the base of Joomla's file
-   structure.
+   PHP script; the :samp:`direct` target doesn't set the :samp:`script` option
+   to be used by default, so Unit looks for the respective :file:`.php` file.
+
+   The next step serves static files via a :samp:`share`.  Its :samp:`fallback`
+   enables rewrite mechanics for `search-friendly URLs
+   <https://docs.joomla.org/Enabling_Search_Engine_Friendly_(SEF)_URLs>`_.  All
+   requests go to the :samp:`index` target that runs the :file:`index.php`
+   script at Joomla's directory root.
 
    Assuming the config above is saved as :file:`joomla.json`:
 

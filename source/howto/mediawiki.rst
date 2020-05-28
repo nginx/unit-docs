@@ -70,7 +70,7 @@ To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
                       },
 
                       "action": {
-                          "pass": "applications/mw_direct"
+                          "pass": "applications/mw/direct"
                       }
                   },
                   {
@@ -94,36 +94,39 @@ To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
                   },
                   {
                       "action": {
-                          "pass": "applications/mw_index"
+                          "pass": "applications/mw/index"
                       }
                   }
               ]
           },
 
           "applications": {
-              "mw_direct": {
+              "mw": {
                   "type": "php",
                   "user": ":nxt_term:`mw_user <Username that Unit runs the app as, with access to /path/to/mediawiki/>`",
-                  "root": "/path/to/mediawiki/"
-              },
+                  "targets": {
+                      "direct": {
+                          "root": "/path/to/mediawiki/"
+                      },
 
-              "mw_index": {
-                  "type": "php",
-                  "user": ":nxt_term:`mw_user <Username that Unit runs the app as, with access to /path/to/mediawiki/>`",
-                  "root": "/path/to/mediawiki/",
-                  "script": "index.php"
+                      "index": {
+                          "root": "/path/to/mediawiki/",
+                          "script": "index.php"
+                      }
+                  }
               }
           }
       }
 
    .. note::
 
-      The difference between the apps is their usage of the :samp:`script`
-      :ref:`setting <configuration-php>`.  Here, :samp:`mw_index` specifies the
-      :samp:`script` that Unit runs for *any* URIs the app receives.  In
-      contrast, the :samp:`mw_direct` app serves URIs that reference a specific
-      :samp:`.php` file by running it; if there's no file specified, it
-      defaults to :samp:`index.php`.
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+        for *any* URIs the target receives.
 
 #. Assuming the config above is saved as :file:`mediawiki.json`:
 

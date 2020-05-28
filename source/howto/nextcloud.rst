@@ -92,8 +92,8 @@ To run NextCloud in Unit:
 
 #. .. include:: ../include/get-config.rst
 
-#. Edit the file, adding a route, a few apps and a listener to make NextCloud
-   available (based on NextCloud's own `guide
+#. Edit the configuration, adding a listener, routes, and an app (based on
+   NextCloud's own `guide
    <https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html>`_):
 
    .. code-block:: json
@@ -146,7 +146,7 @@ To run NextCloud in Unit:
                       },
 
                       "action": {
-                          "pass": "applications/nextcloud_direct"
+                          "pass": "applications/nextcloud/direct"
                       }
                   },
                   {
@@ -166,7 +166,7 @@ To run NextCloud in Unit:
                       "action": {
                           "share": "/path/to/nextcloud/",
                           "fallback": {
-                              "pass": "applications/nextcloud_index"
+                              "pass": "applications/nextcloud/index"
                           }
                       }
                   }
@@ -179,7 +179,7 @@ To run NextCloud in Unit:
                       },
 
                       "action": {
-                          "pass": "applications/nextcloud_direct"
+                          "pass": "applications/nextcloud/direct"
                       }
                   },
                   {
@@ -188,7 +188,7 @@ To run NextCloud in Unit:
                       },
 
                       "action": {
-                          "pass": "applications/nextcloud_ocm"
+                          "pass": "applications/nextcloud/ocm"
                       }
                   },
                   {
@@ -197,58 +197,61 @@ To run NextCloud in Unit:
                       },
 
                       "action": {
-                          "pass": "applications/nextcloud_ocs"
+                          "pass": "applications/nextcloud/ocs"
                       }
                   },
                   {
                       "action": {
-                          "pass": "applications/nextcloud_updater"
+                          "pass": "applications/nextcloud/updater"
                       }
                   }
               ]
           },
 
           "applications": {
-              "nextcloud_direct": {
+              "nextcloud": {
                   "type": "php",
                   "user": "nc_user",
                   "group": "nc_user",
-                  "root": "/path/to/nextcloud/"
-              },
+                  "targets": {
+                      "direct": {
+                          "root": "/path/to/nextcloud/"
+                      },
 
-              "nextcloud_index": {
-                  "type": "php",
-                  "user": "nc_user",
-                  "group": "nc_user",
-                  "root": "/path/to/nextcloud/",
-                  "script": "index.php"
-              },
+                      "index": {
+                          "root": "/path/to/nextcloud/",
+                          "script": "index.php"
+                      },
 
-              "nextcloud_ocm": {
-                  "type": "php",
-                  "user": "nc_user",
-                  "group": "nc_user",
-                  "root": "/path/to/nextcloud/ocm-provider/",
-                  "script": "index.php"
-              },
+                      "ocm": {
+                          "root": "/path/to/nextcloud/ocm-provider/",
+                          "script": "index.php"
+                      },
 
-              "nextcloud_ocs": {
-                  "type": "php",
-                  "user": "nc_user",
-                  "group": "nc_user",
-                  "root": "/path/to/nextcloud/ocs-provider/",
-                  "script": "index.php"
-              },
 
-              "nextcloud_updater": {
-                  "type": "php",
-                  "user": "nc_user",
-                  "group": "nc_user",
-                  "root": "/path/to/nextcloud/updater/",
-                  "script": "index.php"
+                      "ocs": {
+                          "root": "/path/to/nextcloud/ocs-provider/",
+                          "script": "index.php"
+                      },
+
+                      "updater": {
+                          "root": "/path/to/nextcloud/updater/",
+                          "script": "index.php"
+                      }
+                  }
               }
           }
       }
+
+   .. note::
+
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - Other targers specify the :samp:`script` that Unit runs for *any* URIs
+        the target receives.
 
 #. Upload the updated configuration:
 

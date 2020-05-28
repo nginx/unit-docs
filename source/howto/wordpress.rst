@@ -75,14 +75,14 @@ To run WordPress in Unit:
                       },
 
                       "action": {
-                          "pass": "applications/wp_direct"
+                          "pass": "applications/wordpress/direct"
                       }
                   },
                   {
                       "action": {
                           "share": "/path/to/wordpress/",
                           "fallback": {
-                              "pass": "applications/wp_index"
+                              "pass": "applications/wordpress/index"
                           }
                       }
                   }
@@ -90,31 +90,33 @@ To run WordPress in Unit:
           },
 
           "applications": {
-              "wp_direct": {
+              "wordpress": {
                   "type": "php",
                   "user": "wp_user",
                   "group": "wp_user",
-                  "root": "/path/to/wordpress/"
-              },
+                  "targets": {
+                      "direct": {
+                          "root": "/path/to/wordpress/"
+                      },
 
-              "wp_index": {
-                  "type": "php",
-                  "user": "wp_user",
-                  "group": "wp_user",
-                  "root": "/path/to/wordpress/",
-                  "script": "index.php"
+                      "index": {
+                          "root": "/path/to/wordpress/",
+                          "script": "index.php"
+                      }
+                  }
               }
           }
       }
 
    .. note::
 
-      The difference between the apps is their usage of the :samp:`script`
-      :ref:`setting <configuration-php>`.  Here, :samp:`wp_index` specifies the
-      :samp:`script` that Unit runs for *any* URIs the app receives.  In
-      contrast, the :samp:`wp_direct` app serves URIs that reference a specific
-      :samp:`.php` file by running it; if there's no file specified, it
-      defaults to :samp:`index.php`.
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+        for *any* URIs the target receives.
 
 #. Upload the updated configuration:
 
@@ -128,6 +130,6 @@ Finally, browse to your WordPress site and `complete the installation
 
 .. note::
 
-   Resulting URI scheme will trickle into your WordPress configuration; updates
+   The resulting URI scheme will affect your WordPress configuration; updates
    may require `extra steps
    <https://wordpress.org/support/article/changing-the-site-url/>`_.

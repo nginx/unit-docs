@@ -63,14 +63,14 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
                       },
 
                       "action": {
-                          "pass": "applications/phpbb_direct"
+                          "pass": "applications/phpbb/direct"
                       }
                   },
                   {
                       "action": {
                           ":nxt_term:`share <Serves static content>`": "/path/to/phpbb/",
                           ":nxt_term:`fallback <Catch-all for requests not yet served by other rules>`": {
-                              "pass": "applications/phpbb_index"
+                              "pass": "applications/phpbb/index"
                           }
                       }
                   }
@@ -78,30 +78,32 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
           },
 
           "applications": {
-              "phpbb_direct": {
+              "phpbb": {
                   "type": "php",
                   "user": ":nxt_term:`phpbb_user <Username that Unit runs the app as, with access to /path/to/phpbb/>`",
-                  "root": "/path/to/phpbb/"
-              },
+                  "targets": {
+                      "direct": {
+                          "root": "/path/to/phpbb/"
+                      },
 
-              
-              "phpbb_index": {
-                  "type": "php",
-                  "user": ":nxt_term:`phpbb_user <Username that Unit runs the app as, with access to /path/to/phpbb/>`",
-                  "root": "/path/to/phpbb/",
-                  "script": "app.php"
+                      "index": {
+                          "root": "/path/to/phpbb/",
+                          "script": "app.php"
+                      }
+                  }
               }
           }
       }
 
    .. note::
 
-      The difference between the apps is their usage of the :samp:`script`
-      :ref:`setting <configuration-php>`.  Here, :samp:`phpbb_index` specifies
-      the :samp:`script` that Unit runs for *any* URIs the app receives.  In
-      contrast, the :samp:`phpbb_direct` app serves URIs that reference a
-      specific :samp:`.php` file by running it; if there's no file specified,
-      it defaults to :samp:`index.php`.
+      The difference between the :samp:`pass` targets is their usage of the
+      :samp:`script` :ref:`setting <configuration-php>`:
+
+      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
+        defaults to :samp:`index.php` if the URI omits it.
+      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+        for *any* URIs the target receives.
 
 #. Assuming the config above is saved as :file:`phpbb.json`:
 
