@@ -35,7 +35,7 @@ Key Features
 - Server-side WebSockets are implemented for :ref:`Node.js
   <configuration-external>` and Java
 - Applications can rely on namespace and file system :ref:`isolation
-  <configuration-rootfs>`
+  <configuration-proc-mgmt-isolation>`
 - HTTP requests can be :ref:`proxied <configuration-routes-proxy>` elsewhere
   during routing
 
