@@ -11,7 +11,7 @@ Built from scratch, Unit can run web apps in different language versions; fully
 configurable in runtime with zero interruption, it enables on-the-fly granular
 management for engineering and operations.
 
-| The latest version is |version|, released on April 16, 2020.
+| The latest version is |version|, released on May 28, 2020.
 | See the changelog `here </CHANGES.txt>`_; a GitHub-based
   `roadmap <https://github.com/orgs/nginx/projects/1>`_ outlines
   our further plans.
@@ -34,8 +34,8 @@ Key Features
   :ref:`static file serving <configuration-static>` options are available
 - Server-side WebSockets are implemented for :ref:`Node.js
   <configuration-external>` and Java
-- Namespaces enable :ref:`application isolation
-  <configuration-proc-mgmt-isolation>`
+- Applications can rely on namespace and file system :ref:`isolation
+  <configuration-rootfs>`
 - HTTP requests can be :ref:`proxied <configuration-routes-proxy>` elsewhere
   during routing
 
