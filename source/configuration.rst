@@ -409,6 +409,11 @@ Available options:
              - Incoming requests are served by the
                :ref:`upstream <configuration-upstreams>`.
 
+        .. note::
+
+           Values can be `percent encoded
+           <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
+
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
         enables secure communication via the listener; it must name a
@@ -729,7 +734,8 @@ request properties:
      - Case |-| Sensitive
      - Match |_| Type
    * - :samp:`arguments`
-     - Parameter arguments supplied in the request URI.
+     - Parameter arguments supplied in the request URI.  Names and values can
+       be `percent encoded <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
      - Yes
      - Compound
    * - :samp:`cookies`
@@ -764,12 +770,18 @@ request properties:
      - No
      - Simple
    * - :samp:`uri`
-     - URI path without arguments, normalized by decoding the "%XX" sequences,
-       resolving relative path references ("." and ".."), and compressing
-       adjacent slashes into one.
+     - URI path without arguments, normalized by resolving relative path
+       references ("." and "..") and compressing adjacent slashes into one.
+       Can be `percent encoded
+       <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
      - Yes
      - Simple
 
+.. note::
+
+   Both :samp:`arguments` and :samp:`uri` support `percent encoding
+   <https://tools.ietf.org/html/rfc3986#section-2.1>`_; the percent character
+   should be encoded as :samp:`%25`.
 
 .. _configuration-routes-simple:
 
