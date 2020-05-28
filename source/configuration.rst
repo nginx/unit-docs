@@ -1351,9 +1351,10 @@ Unit supports three per-app options that control the app's processes:
 Process Isolation
 *****************
 
-You can use namespace isolation `features
-<http://man7.org/linux/man-pages/man7/namespaces.7.html>`_ for your apps if
-Unit's underlying OS supports them:
+You can use `namespace
+<https://man7.org/linux/man-pages/man7/namespaces.7.html>`_ and `file system
+<https://man7.org/linux/man-pages/man2/chroot.2.html>`_ isolation for your apps
+if Unit's underlying OS supports them:
 
 .. code-block:: console
 
@@ -1431,13 +1432,17 @@ The :samp:`isolation` application option has the following members:
    * - :samp:`gidmap`
      - Same as :samp:`uidmap`, but configures group IDs instead of user IDs.
 
+   * - :samp:`rootfs`
+     - Pathname of the directory to be used as the new `file system root
+       <https://man7.org/linux/man-pages/man2/chroot.2.html>`_ for the app.
+
 .. note::
 
    The :samp:`uidmap` and :samp:`gidmap` options are available only if the OS
    supports user namespaces.
 
-Example of an :samp:`isolation` object that enables all namespaces and sets
-mappings for user and group IDs:
+A sample :samp:`isolation` object that enables all namespaces and sets mappings
+for user and group IDs:
 
 .. code-block:: json
 
@@ -1467,6 +1472,55 @@ mappings for user and group IDs:
             }
         ]
     }
+
+.. _configuration-rootfs:
+
+The :samp:`rootfs` option confines the app to the directory you provide, making
+it the new file system root.  To use it, your app should have the corresponding
+privilege (effectively, run as :samp:`root` in most cases).
+
+The root directory is changed before the language module starts the
+app, so any path options for the app should be relative to the new root.
+Note the :samp:`path` and :samp:`home` settings:
+
+.. code-block:: json
+
+   {
+       "type": "python 2.7",
+       ":nxt_term:`path <Without rootfs, this would be /var/app/sandbox/>`": "/",
+       ":nxt_term:`home <Without rootfs, this would be /var/app/sandbox/venv/>`": "/venv/",
+       "module": "wsgi",
+       "isolation": {
+           "rootfs": "/var/app/sandbox/"
+       }
+   }
+
+Unit mounts language-specific files and directories to the new root so the app
+stays operational:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Language
+     - Language-Specific Mounts
+
+   * - Java
+     - - The :file:`/proc/` directory tree, required by JVM
+       - JVM's :file:`libc.so` directory
+       - Java module's :ref:`home <installation-java>` directory
+
+   * - Python
+     - Python's :samp:`sys.path` `directories
+       <https://docs.python.org/3/library/sys.html#sys.path>`__
+
+   * - Ruby
+     - - Ruby's header, interpreter, and library `directories
+         <https://idiosyncratic-ruby.com/42-ruby-config.html>`__:
+         :samp:`rubyarchhdrdir`, :samp:`rubyhdrdir`, :samp:`rubylibdir`,
+         :samp:`rubylibprefix`, :samp:`sitedir`, and :samp:`topdir`
+       - Ruby's gem installation directory (:samp:`gem env gemdir`)
+       - Ruby's entire gem path list (:samp:`gem env gempath`)
+
 
 .. _configuration-proc-mgmt-lmts:
 
