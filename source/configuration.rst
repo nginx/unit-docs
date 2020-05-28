@@ -926,7 +926,6 @@ array of such objects:
                    "name1": "pattern",
                    "name2": ["pattern", "pattern", "..."]
                },
-
                {
                    "name1": "pattern",
                    "name3": ["pattern", "pattern", "..."]
@@ -1799,6 +1798,11 @@ following:
       - Object that :ref:`defines <configuration-php-options>` the
         :file:`php.ini` location and options.
 
+    * - :samp:`targets`
+      - Object that defines application sections with :ref:`custom
+        <configuration-php-targets>` :samp:`root`, :samp:`script`, and
+        :samp:`index` values.
+
     * - :samp:`script`
       - Filename of a :samp:`root`-based PHP script that Unit uses to serve all
         requests to the app.
@@ -1865,6 +1869,75 @@ Example:
            }
        }
    }
+
+
+.. _configuration-php-targets:
+
+Targets
+*******
+
+You can configure up to 254 individual entry points for a single PHP
+application:
+
+.. code-block:: json
+
+   {
+       "applications": {
+           "php_app": {
+               "type": "php",
+               "targets": {
+                   "phpinfo": {
+                       "script": "phpinfo.php",
+                       "root": "/www/data/admin"
+                   },
+
+                   "hello": {
+                       "script": "hello.php",
+                       "root": "/www/data/test"
+                   }
+               }
+           }
+       }
+   }
+
+Each target is an object that specifies :samp:`root` and optionally
+:samp:`index` or :samp:`script` just like a common application does.  Targets
+can be used by the :samp:`pass` options in listeners and routes to serve
+requests:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "127.0.0.1:8080": {
+               "pass": "applications/php_app/hello"
+           },
+
+           "127.0.0.1:80": {
+               "pass": "routes"
+           }
+       },
+
+       "routes": [
+           {
+               "match": {
+                   "uri": "/info"
+               },
+
+               "action": {
+                   "pass": "applications/php_app/phpinfo"
+               }
+           }
+       ]
+   }
+
+App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
+:samp:`processes`) are shared by all targets within the app.
+
+.. warning::
+
+   If you specify :samp:`targets`, there should be no :samp:`root`,
+   :samp:`index`, or :samp:`script` defined at the application level.
 
 .. note::
 
@@ -2504,12 +2577,22 @@ Full Example
                },
                {
                    "match": {
+                       "host": ["blog.example.com/admin"],
+                       "source": "*:8000-9000"
+                   },
+
+                   "action": {
+                       "pass": "applications/blogs/admin"
+                   }
+               },
+               {
+                   "match": {
                        "host": ["blog.example.com", "blog.*.org"],
                        "source": "*:8000-9000"
                    },
 
                    "action": {
-                       "pass": "applications/blogs"
+                       "pass": "applications/blogs/core"
                    }
                },
                {
@@ -2577,7 +2660,17 @@ Full Example
            "applications": {
                "blogs": {
                    "type": "php",
-                   "root": "/www/blogs/scripts/",
+                   "targets": {
+                       "admin": {
+                           "root": "/www/blogs/admin/",
+                           "script": "index.php"
+                       },
+
+                       "core" : {
+                           "root": "/www/blogs/scripts/"
+                       }
+                   },
+
                    "limits": {
                        "timeout": 10,
                        "requests": 1000
