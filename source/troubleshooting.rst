@@ -71,8 +71,9 @@ package:
 
 .. note::
 
-   Also, there are debug symbol packages for core dump analysis; their names
-   end in :samp:`-dbg`, like :samp:`unit-dbg`.
+   Also, there are debug symbol packages for :ref:`core dump analysis
+   <troubleshooting-core-dumps>`; their names end in :samp:`-dbg`, like
+   :samp:`unit-dbg`.
 
 ==========================
 Running From Docker Images
@@ -110,6 +111,153 @@ To enable debug-level logging when :ref:`installing from source
 
 Then recompile and reinstall Unit and your specific :ref:`language modules
 <installation-src-modules>`.
+
+
+.. _troubleshooting-core-dumps:
+
+**********
+Core Dumps
+**********
+
+Core dumps help developers to resolve Unit crashes; providing them with your
+feedback is recommended.
+
+.. note::
+
+   This section assumes you're running Unit as :samp:`root` (recommended).
+
+.. warning::
+
+   Disable core dumping on live production systems to avoid wasting disk space.
+
+===============
+Systemd Service
+===============
+
+To enable saving core dumps while running Unit as a :program:`systemd` service
+(for example, with :ref:`packaged installations <installation-precomp-pkgs>`),
+adjust the `service settings
+<https://www.freedesktop.org/software/systemd/man/systemd.exec.html>`_ in
+:file:`/lib/systemd/system/unit.service`:
+
+.. code-block:: ini
+
+   [Service]
+   ...
+   LimitCORE=infinity
+   LimitNOFILE=655356
+
+Alternatively, update the `global settings
+<https://www.freedesktop.org/software/systemd/man/systemd.directives.html>`_
+in :file:`/etc/systemd/system.conf`:
+
+.. code-block:: ini
+
+   [Manager]
+   ...
+   DefaultLimitCORE=infinity
+   DefaultLimitNOFILE=655356
+
+Next, reload the service configuration and restart Unit to reproduce the crash
+condition:
+
+.. code-block:: console
+
+   # systemctl daemon-reload
+   # systemctl restart unit.service
+
+After a crash, locate the core dump file:
+
+.. code-block:: console
+
+   # coredumpctl -1                     # optional
+
+         TIME                            PID   UID   GID SIG COREFILE  EXE
+         Mon 2020-07-27 11:05:40 GMT    1157     0     0  11 present   /usr/sbin/unitd
+
+   # ls -al /var/lib/systemd/coredump/  # default, see also /etc/systemd/coredump.conf and /etc/systemd/coredump.conf.d/*.conf
+
+         ...
+         -rw-r----- 1 root root 177662 Jul 27 11:05 core.unitd.0.6135489c850b4fb4a74795ebbc1e382a.1157.1590577472000000.lz4
+
+============
+Manual Setup
+============
+
+Linux
+*****
+
+Check the `core dump settings
+<https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`__ in
+:file:`/etc/security/limits.conf`, adjusting them if necessary:
+
+.. code-block:: none
+
+   root           soft    core       0          # disables core dumps by default
+   root           hard    core       unlimited  # enables raising the size limit
+
+Next, `raise
+<https://www.man7.org/linux/man-pages/man1/bash.1.html>`_ the core dump size
+limit and restart Unit to reproduce the crash condition:
+
+.. code-block:: console
+
+   # ulimit -c unlimited
+   # cd /path/to/unit/
+   # sbin/unitd           # or sbin/unitd-debug
+
+After a crash, locate the core dump file:
+
+.. code-block:: console
+
+   # ls -al /path/to/unit/working/directory/  # default location, see /proc/sys/kernel/core_pattern
+
+         ...
+         -rw-r----- 1 root root 177662 Jul 27 11:05 core.1157
+
+FreeBSD
+*******
+
+Check the `core dump settings
+<https://www.freebsd.org/cgi/man.cgi?query=sysctl>`__ in
+:file:`/etc/sysctl.conf`, adjusting them if necessary:
+
+.. code-block:: ini
+
+   kern.coredump=1
+   # must be set to 1
+   kern.corefile=/path/to/core/files/%N.core
+   # must provide a valid pathname
+
+Alternatively, update the settings in runtime:
+
+.. code-block:: console
+
+   # sysctl kern.coredump=1
+   # sysctl kern.corefile=/path/to/core/files/%N.core
+
+Next, restart Unit to reproduce the crash condition.  If installed as a
+service:
+
+.. code-block:: console
+
+   # service unitd restart
+
+If installed manually:
+
+.. code-block:: console
+
+   # cd /path/to/unit/
+   # sbin/unitd
+
+After a crash, locate the core dump file:
+
+.. code-block:: console
+
+   # ls -al /path/to/core/files/
+
+         ...
+         -rw-------  1 root     root  9912320 Jul 27 11:05 unitd.core
 
 .. _troubleshooting-support:
 
