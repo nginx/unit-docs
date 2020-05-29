@@ -145,7 +145,7 @@ adjust the `service settings
    [Service]
    ...
    LimitCORE=infinity
-   LimitNOFILE=655356
+   LimitNOFILE=65535
 
 Alternatively, update the `global settings
 <https://www.freedesktop.org/software/systemd/man/systemd.directives.html>`_
@@ -156,7 +156,7 @@ in :file:`/etc/systemd/system.conf`:
    [Manager]
    ...
    DefaultLimitCORE=infinity
-   DefaultLimitNOFILE=655356
+   DefaultLimitNOFILE=65535
 
 Next, reload the service configuration and restart Unit to reproduce the crash
 condition:
