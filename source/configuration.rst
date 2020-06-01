@@ -18,7 +18,7 @@ available via the :ref:`control socket <installation-startup>` at
 
 .. code-block:: console
 
-   # cat << EOF > config.json
+   $ cat << EOF > config.json
 
        {
            "type": "php",
@@ -40,7 +40,7 @@ section of the API:
 
 .. code-block:: console
 
-   # cat << EOF > config.json
+   $ cat << EOF > config.json
 
        {
            "pass": "applications/blogs"
@@ -217,7 +217,7 @@ of the app:
 
 .. code-block:: console
 
-   # cat << EOF > config.json
+   $ cat << EOF > config.json
 
        [
            {
