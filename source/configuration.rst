@@ -1315,8 +1315,8 @@ App objects have a number of options shared between all application languages:
         used.
 
     * - :samp:`group`
-      - Group name that runs the app process.  If not set, the user's primary
-        group is used.
+      - Group name that runs the app process.  If not set, the :samp:`user`'s
+        primary group is used.
 
     * - :samp:`environment`
       - Environment variables to be passed to the application.
