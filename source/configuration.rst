@@ -390,7 +390,7 @@ Available options:
       - Description
 
     * - :samp:`pass`
-      - Listener's target; possible values and respective actions:
+      - Listener's destination; possible values and respective actions:
 
         .. list-table::
 
@@ -398,6 +398,11 @@ Available options:
              - :samp:`applications/qwk2mart`
              - Incoming requests are directly passed to the
                :ref:`app <configuration-applications>`.
+
+           * - PHP target
+             - :samp:`applications/app/section`
+             - Incoming requests are directly passed to the
+               :ref:`target <configuration-php-targets>`.
 
            * - Route
              - :samp:`routes/route66`, :samp:`routes`
