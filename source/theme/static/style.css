@@ -401,11 +401,12 @@ body > div {
 }
 
 .highlight::before {
-    position: absolute;
-    right: .5em;
-    top: -1.4em;
     color: #333;
     font-size: .8em;
+    line-height: 1;
+    position: absolute;
+    right: .5em;
+    top: -1.2em;
 }
 .highlight-console .highlight::before {
     content: "console";
