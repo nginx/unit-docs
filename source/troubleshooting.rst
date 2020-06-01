@@ -69,12 +69,6 @@ package:
 
    # unitd-debug <command line options>
 
-.. note::
-
-   Also, there are debug symbol packages for :ref:`core dump analysis
-   <troubleshooting-core-dumps>`; their names end in :samp:`-dbg`, like
-   :samp:`unit-dbg`.
-
 ==========================
 Running From Docker Images
 ==========================
@@ -120,7 +114,10 @@ Core Dumps
 **********
 
 Core dumps help developers to resolve Unit crashes; providing them with your
-feedback is recommended.
+feedback is recommended.  For builds from :ref:`our repositories
+<installation-precomp-pkgs>`, we maintain debug symbols in special packages;
+they have the original packages' names with the :samp:`-dbg` suffix appended,
+such as :samp:`unit-dbg`.
 
 .. note::
 
