@@ -450,11 +450,14 @@ all requests at :samp:`8400` follow the :samp:`main` route:
 Routes
 ******
 
-Unit configuration offers a :samp:`routes` object to enable elaborate internal
-routing between listeners and apps.  Listeners :samp:`pass` requests to routes
-or directly to apps.  Requests are matched against route step conditions; a
-request matching all conditions of a step is passed to the app or the route
-that the step specifies.
+The :samp:`routes` configuration entity defines internal request routing,
+receiving requests via :ref:`listeners <configuration-listeners>` and filtering
+them through :ref:`sets of conditions <configuration-routes-matching>` to be
+processed by :ref:`apps <configuration-applications>`, :ref:`proxied
+<configuration-routes-proxy>` to external servers or :ref:`load-balanced
+<configuration-upstreams>` between them, served with :ref:`static content
+<configuration-static>`, :ref:`answered <configuration-routes-return>` with
+arbitrary status codes, or :ref:`redirected <configuration-routes-location>`.
 
 In its simplest form, :samp:`routes` can be a single route array:
 
@@ -637,12 +640,12 @@ A more elaborate example with chained routes and proxying:
 
 .. _configuration-routes-return:
 
-=====================
-Response Status Codes
-=====================
+===============================
+Instant Responses And Redirects
+===============================
 
-You can configure route actions to respond to certain conditions with arbitrary
-HTTP status codes:
+You can configure route actions to instantly respond to certain conditions with
+arbitrary HTTP status codes:
 
 .. code-block:: json
 
@@ -660,6 +663,8 @@ The :samp:`return` option accepts any integer values within the 000-999 range.
 It is recommended to use the codes according to their `semantics
 <https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
 make sure user agents can understand them.
+
+.. _configuration-routes-location:
 
 If you specify a redirect code (3xx), you can supply the target using the
 :samp:`location` option alongside :samp:`return`:
