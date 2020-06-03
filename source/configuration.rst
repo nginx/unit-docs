@@ -2154,33 +2154,35 @@ Upstreams are defined in the eponymous top-level section of the configuration:
                "servers": {
                    "192.168.0.100:8080": { },
                    "192.168.0.101:8080": {
-                       "weight": 0.2
+                       "weight": 0.5
                    }
                }
            }
        }
    }
 
-An upstream must have a :samp:`servers` object that lists server socket
-addresses and their configurations; each server may set a numeric
-:samp:`weight`.  Weights control request distribution within the upstream:
-Unit dispatches requests between the upstream's servers in a round-robin
-fashion, acting as a load balancer.  In the example above,
-:samp:`192.168.0.101:8080` receives twice as many requests as
-:samp:`192.168.0.100:8080`.
+An upstream must define a :samp:`servers` object that lists socket addresses as
+server object names.  Unit dispatches requests between the upstream's servers
+in a round-robin fashion, acting as a load balancer.  Each server object can
+set a numeric :samp:`weight` to adjust the share of requests it receives via
+the upstream.  In the above example, :samp:`192.168.0.100:8080` receives twice
+as many requests as :samp:`192.168.0.101:8080`.
 
-Weights can be specified as integers or rational numbers in decimal or
-scientific notation:
+Weights can be specified as integers or fractions in decimal or scientific
+notation:
 
 .. code-block:: json
 
    {
        "servers": {
            "192.168.0.100:8080": {
-               "weight": 100e1
+               ":nxt_term:`weight <All three values are equal>`": 1e1
            },
            "192.168.0.101:8080": {
-               "weight": 1000.0
+               ":nxt_term:`weight <All three values are equal>`": 10.0
+           },
+           "192.168.0.102:8080": {
+               ":nxt_term:`weight <All three values are equal>`": 10
            }
        }
    }
