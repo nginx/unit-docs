@@ -450,14 +450,15 @@ all requests at :samp:`8400` follow the :samp:`main` route:
 Routes
 ******
 
-The :samp:`routes` configuration entity defines internal request routing,
-receiving requests via :ref:`listeners <configuration-listeners>` and filtering
-them through :ref:`sets of conditions <configuration-routes-matching>` to be
-processed by :ref:`apps <configuration-applications>`, :ref:`proxied
-<configuration-routes-proxy>` to external servers or :ref:`load-balanced
-<configuration-upstreams>` between them, served with :ref:`static content
-<configuration-static>`, :ref:`answered <configuration-routes-return>` with
-arbitrary status codes, or :ref:`redirected <configuration-routes-location>`.
+The :samp:`config/routes` configuration entity defines internal request
+routing, receiving requests via :ref:`listeners <configuration-listeners>` and
+filtering them through :ref:`sets of conditions
+<configuration-routes-matching>` to be processed by :ref:`apps
+<configuration-applications>`, :ref:`proxied <configuration-routes-proxy>` to
+external servers or :ref:`load-balanced <configuration-upstreams>` between
+them, served with :ref:`static content <configuration-static>`, :ref:`answered
+<configuration-routes-return>` with arbitrary status codes, or :ref:`redirected
+<configuration-routes-location>`.
 
 In its simplest form, :samp:`routes` can be a single route array:
 
@@ -641,7 +642,7 @@ A more elaborate example with chained routes and proxying:
 .. _configuration-routes-return:
 
 ===============================
-Instant Responses And Redirects
+Instant Responses and Redirects
 ===============================
 
 You can configure route actions to instantly respond to certain conditions with
