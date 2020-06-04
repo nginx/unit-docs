@@ -8,19 +8,18 @@ copyright = '2017-2020'
 version = '1.18.0'
 release = version
 
-html_context = {
-    'author' : author
-}
-
 highlight_language = 'json'
 
 html_theme = 'theme'
 html_theme_path = ["."]
 html_use_index = False
 html_add_permalinks = u'§'
-html_baseurl = 'https://unit.nginx.org'
-
+html_baseurl = 'https://unit.nginx.org/'
 html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
+html_context = {
+    'author'        : author,
+    'nxt_baseurl'   : html_baseurl
+}
 
 exclude_patterns = ['include']
 
