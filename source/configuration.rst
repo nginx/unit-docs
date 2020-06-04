@@ -639,47 +639,6 @@ A more elaborate example with chained routes and proxying:
    }
 
 
-.. _configuration-routes-return:
-
-===============================
-Instant Responses and Redirects
-===============================
-
-You can configure route actions to instantly respond to certain conditions with
-arbitrary HTTP status codes:
-
-.. code-block:: json
-
-   {
-       "match": {
-           "uri": "/admin_console/*"
-       },
-
-       "action": {
-           "return": 403
-        }
-   }
-
-The :samp:`return` option accepts any integer values within the 000-999 range.
-It is recommended to use the codes according to their `semantics
-<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
-make sure user agents can understand them.
-
-.. _configuration-routes-location:
-
-If you specify a redirect code (3xx), you can supply the target using the
-:samp:`location` option alongside :samp:`return`:
-
-.. code-block:: json
-
-   {
-       "action": {
-           "return": 301,
-           "location": "https://www.example.com"
-        }
-   }
-
-
 .. _configuration-routes-proxy:
 
 ========
@@ -1044,6 +1003,47 @@ URIs prefixed with :samp:`/admin/` or :samp:`/store/` within subdomains of
 :samp:`example.com` (except for :samp:`static.example.com`) are routed to
 :samp:`php5_app`; any other requests are served with static content at
 :file:`/www/static_site/`.
+
+
+.. _configuration-routes-return:
+
+===============================
+Instant Responses and Redirects
+===============================
+
+You can configure route actions to instantly respond to certain conditions with
+arbitrary HTTP status codes:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "uri": "/admin_console/*"
+       },
+
+       "action": {
+           "return": 403
+        }
+   }
+
+The :samp:`return` option accepts any integer values within the 000-999 range.
+It is recommended to use the codes according to their `semantics
+<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
+make sure user agents can understand them.
+
+.. _configuration-routes-location:
+
+If you specify a redirect code (3xx), you can supply the target using the
+:samp:`location` option alongside :samp:`return`:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "return": 301,
+           "location": "https://www.example.com"
+        }
+   }
 
 
 .. _configuration-static:
