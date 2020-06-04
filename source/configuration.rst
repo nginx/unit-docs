@@ -1244,7 +1244,7 @@ addresses for proxy destinations.
 
 .. note::
 
-   HTTPS proxying is not supported yet.
+   The HTTPS scheme is not supported yet.
 
 
 .. _configuration-upstreams:
