@@ -1006,7 +1006,8 @@ Static Files
 
 Unit is capable of acting as a standalone web server, serving requests for
 static assets from directories you configure; to use the feature, supply the
-directory path in the :samp:`share` option of a route step:
+directory path in the :samp:`share` option of a :ref:`route
+<configuration-routes>` step:
 
 .. code-block:: json
 
