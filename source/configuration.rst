@@ -639,54 +639,6 @@ A more elaborate example with chained routes and proxying:
    }
 
 
-.. _configuration-routes-proxy:
-
-========
-Proxying
-========
-
-Unit routes support HTTP proxying; provide the target socket address in the
-step's :samp:`action/proxy` option:
-
-.. code-block:: json
-
-    {
-       "routes": [
-           {
-               "match": {
-                   "uri": "/ipv4/*"
-               },
-
-               "action": {
-                   "proxy": "http://127.0.0.1:8080"
-                }
-           },
-
-           {
-               "match": {
-                   "uri": "/ipv6/*"
-               },
-
-               "action": {
-                   "proxy": "http://[::1]:8090"
-                }
-           },
-
-           {
-               "match": {
-                   "uri": "/unix/*"
-               },
-
-               "action": {
-                   "proxy": "http://unix:/path/to/unix.sock"
-                }
-           }
-        ]
-    }
-
-As the example above suggests, you can use Unix, IPv4, and IPv6 socket
-addresses.
-
 .. _configuration-routes-matching:
 
 ==================
@@ -1241,6 +1193,124 @@ listing all types of static content to be served from a :samp:`share` in a
            }
        }
    }
+
+
+.. _configuration-routes-proxy:
+
+********
+Proxying
+********
+
+Unit :ref:`routes <configuration-routes>` support HTTP proxying to socket
+addresses using the :samp:`proxy` option of a step's :samp:`action`:
+
+.. code-block:: json
+
+   {
+       "routes": [
+           {
+               "match": {
+                   "uri": "/ipv4/*"
+               },
+
+               "action": {
+                   "proxy": "http://127.0.0.1:8080"
+               }
+           },
+           {
+               "match": {
+                   "uri": "/ipv6/*"
+               },
+
+               "action": {
+                   "proxy": "http://[::1]:8090"
+               }
+           },
+           {
+               "match": {
+                   "uri": "/unix/*"
+               },
+
+               "action": {
+                   ":nxt_term:`proxy <Note the http:// scheme is still required>`": "http://unix:/path/to/unix.sock"
+               }
+           }
+       ]
+   }
+
+As the example above suggests, you can use Unix, IPv4, and IPv6 socket
+addresses for proxy destinations.
+
+.. note::
+
+   HTTPS proxying is not supported yet.
+
+
+.. _configuration-upstreams:
+
+==============
+Load Balancing
+==============
+
+Besides proxying requests to individual servers, Unit can also relay incoming
+requests to *upstreams*.  An upstream is a group of servers that comprise a
+single logical entity and may be used as a :samp:`pass` destination for
+incoming requests in a :ref:`listener <configuration-listeners>` or a
+:ref:`route <configuration-routes>`.
+
+Upstreams are defined in the eponymous :samp:`config/upstreams` section of the
+API:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               "pass": "upstreams/rr-lb"
+           }
+       },
+
+       "upstreams": {
+           ":nxt_term:`rr-lb <Upstream object>`": {
+               ":nxt_term:`servers <Lists individual servers as object-valued options>`": {
+                   ":nxt_term:`192.168.0.100:8080 <Empty object needed due to JSON requirements>`": { },
+                   "192.168.0.101:8080": {
+                       "weight": 0.5
+                   }
+               }
+           }
+       }
+   }
+
+An upstream must define a :samp:`servers` object that lists socket addresses as
+server object names.  Unit dispatches requests between the upstream's servers
+in a round-robin fashion, acting as a load balancer.  Each server object can
+set a numeric :samp:`weight` to adjust the share of requests it receives via
+the upstream.  In the above example, :samp:`192.168.0.100:8080` receives twice
+as many requests as :samp:`192.168.0.101:8080`.
+
+Weights can be specified as integers or fractions in decimal or scientific
+notation:
+
+.. code-block:: json
+
+   {
+       "servers": {
+           "192.168.0.100:8080": {
+               ":nxt_term:`weight <All three values are equal>`": 1e1
+           },
+           "192.168.0.101:8080": {
+               ":nxt_term:`weight <All three values are equal>`": 10.0
+           },
+           "192.168.0.102:8080": {
+               ":nxt_term:`weight <All three values are equal>`": 10
+           }
+       }
+   }
+
+The maximum weight is :samp:`1000000`, the minimum is :samp:`0` (such servers
+receive no requests), the default is :samp:`1`.
+
 
 .. _configuration-applications:
 
@@ -2132,69 +2202,6 @@ Example:
 
    For Ruby-based examples, see our :doc:`howto/redmine` howto or a basic
    :ref:`sample <sample-ruby>`.
-
-
-.. _configuration-upstreams:
-
-*********
-Upstreams
-*********
-
-Besides routes and apps, Unit can also relay incoming requests to *upstreams*.
-An upstream is a group of servers that comprise a single logical entity and may
-be used as a :samp:`pass` destination for incoming requests.
-
-Upstreams are defined in the eponymous top-level section of the configuration:
-
-.. code-block:: json
-
-   {
-       "listeners": {
-           "*:80": {
-               "pass": "upstreams/rr-lb"
-           }
-       },
-
-       "upstreams": {
-           "rr-lb": {
-               "servers": {
-                   "192.168.0.100:8080": { },
-                   "192.168.0.101:8080": {
-                       "weight": 0.5
-                   }
-               }
-           }
-       }
-   }
-
-An upstream must define a :samp:`servers` object that lists socket addresses as
-server object names.  Unit dispatches requests between the upstream's servers
-in a round-robin fashion, acting as a load balancer.  Each server object can
-set a numeric :samp:`weight` to adjust the share of requests it receives via
-the upstream.  In the above example, :samp:`192.168.0.100:8080` receives twice
-as many requests as :samp:`192.168.0.101:8080`.
-
-Weights can be specified as integers or fractions in decimal or scientific
-notation:
-
-.. code-block:: json
-
-   {
-       "servers": {
-           "192.168.0.100:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 1e1
-           },
-           "192.168.0.101:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 10.0
-           },
-           "192.168.0.102:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 10
-           }
-       }
-   }
-
-Maximum weight value is :samp:`1000000`, minimum is :samp:`0` (such servers
-receive no requests), the default is :samp:`1`.
 
 
 .. _configuration-stngs:
