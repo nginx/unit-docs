@@ -18,6 +18,7 @@ html_theme = 'theme'
 html_theme_path = ["."]
 html_use_index = False
 html_add_permalinks = u'§'
+html_baseurl = 'https://unit.nginx.org'
 
 html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
 

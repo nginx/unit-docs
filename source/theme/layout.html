@@ -8,11 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://unit.nginx.org/">
-<meta property="og:title" content="NGINX Unit">
-<meta property="og:description" content="A versatile app server for a diverse Web.">
-<meta property="og:image" content="http://unit.nginx.org/_static/icon.png">
-<meta property="og:image:secure_url" content="https://unit.nginx.org/_static/icon.png">
+<meta property="og:url" content="{{ pageurl }}">
+<meta property="og:title" content="{{ project }}: {{ title|striptags|e }}">
+{{ metatags }}
+<meta property="og:image" content="{{ 'http://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
+<meta property="og:image:secure_url" content="{{ 'https://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
+<meta property="og:image:width" content="988">
+<meta property="og:image:height" content="357">
+<meta property="og:image:alt" content="NGINX Unit logo" />
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 

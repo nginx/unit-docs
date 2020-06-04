@@ -1,3 +1,5 @@
+.. meta::
+   :og:description: Troubleshoot issues using logs, core dumps, and community support.
 
 ###############
 Troubleshooting

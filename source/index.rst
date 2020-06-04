@@ -1,3 +1,6 @@
+.. meta::
+   :og:description: A versatile open-source server for a diverse Web.
+
 .. include:: include/replace.rst
 
 #####

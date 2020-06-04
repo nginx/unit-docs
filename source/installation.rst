@@ -1,3 +1,6 @@
+.. meta::
+   :og:description: Download official packages, use third-party repositories, or configure a custom build from source.
+
 .. include:: include/replace.rst
 
 ############

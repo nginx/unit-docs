@@ -1,3 +1,5 @@
+.. meta::
+   :og:description: Take part in the development and documentation efforts.
 
 .. _contribution:
 
