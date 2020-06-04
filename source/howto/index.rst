@@ -1,4 +1,4 @@
-e. meta::
+.. meta::
    :og:description: Run a variety of frameworks and applications, use Unit with Docker, build custom modules, and resolve other issues.
 
 #####
