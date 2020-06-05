@@ -494,14 +494,23 @@ Another form is an object with one or more named route arrays as members:
         }
    }
 
-============
-Route Object
-============
+===========
+Route Steps
+===========
 
 A route array contains step objects as elements; a request passed to a route
-traverses them sequentially.
+traverses them sequentially:
 
-Steps have the following options:
+- If the request meets all :samp:`match` conditions in a step, the step's
+  :samp:`action` is performed.
+
+- If the request doesn't match a step's condition, Unit proceeds to the next
+  step of the route.
+
+- If the request doesn't match any steps of the route, a 404 "Not Found"
+  response is returned.
+
+Step objects accept the following options:
 
 .. list-table::
    :header-rows: 1
@@ -509,49 +518,19 @@ Steps have the following options:
    * - Option
      - Description
 
-   * - :samp:`action/pass`
-     - Route's target in case of a match, identical to :samp:`pass` in a
-       :ref:`listener <configuration-listeners>`.
-
-   * - :samp:`action/share`, :samp:`action/fallback`
-     - The :samp:`share` is a static path: :samp:`/www/files/`.  Upon a match,
-       :ref:`files <configuration-static>` at this path are served.
-
-       The :samp:`fallback` is optional, applying only if the requested file
-       isn't found; it can specify a :samp:`pass`, a :samp:`proxy`, or a
-       :samp:`share`.  In the latter case, :samp:`fallback` options may be
-       nested.
-
-   * - :samp:`action/proxy`
-     - Socket address of an HTTP server where the request is
-       :ref:`proxied <configuration-routes-proxy>` upon match.
-
-   * - :samp:`action/return`, :samp:`action/location`
-     - `HTTP response status code
-       <https://tools.ietf.org/html/rfc7231#section-6>`_ to be returned, along
-       with an optional redirect :samp:`location`.
+   * - :samp:`action` (required)
+     - Object that defines how matching requests are :ref:`handled
+       <configuration-routes-action>`.
 
    * - :samp:`match`
-     - Object that defines the step conditions.
+     - Object that defines the step's :ref:`conditions
+       <configuration-routes-matching>` to be matched.
 
-       - If the request fits all :samp:`match` conditions in a step, the step's
-         :samp:`action` is performed.
+.. warning::
 
-       - If the request doesn't match a condition, Unit proceeds to the next
-         step of the route.
-
-       - If the request doesn't match any steps, a 404 "Not Found" response is
-         returned.
-
-       If you omit :samp:`match`, requests are passed unconditionally; to avoid
-       issues, use no more than one such step per route, placing it last.  See
-       :ref:`below <configuration-routes-matching>` for condition matching
-       details.
-
-.. note::
-
-   A route step must define exactly one of the following: :samp:`pass`,
-   :samp:`share`, or :samp:`proxy`.
+  If a step omits the :samp:`match` option, its :samp:`action` is
+  performed automatically.  Thus, use no more than one such step per
+  route, always placing it last to avoid potential routing issues.
 
 An example:
 
@@ -919,14 +898,49 @@ This matches all requests that either use :samp:`gzip` and identify as
 
    You can combine simple and compound matching in a :samp:`match` condition.
 
+
+.. _configuration-routes-action:
+
 ================
-Passing Requests
+Request Handling
 ================
 
-To match a step, the request must fit *all* property conditions listed in it.
+If a request matches all conditions of a route step, or the step itself omits
+the :samp:`match` object, Unit handles the request using the respective
+:samp:`action`.  Possible combinations of :samp:`action` options are:
 
-If all properties match or :samp:`match` is omitted, Unit routes the request
-using the respective :samp:`action`:
+.. list-table::
+
+  * - :samp:`pass`
+    - Route's destination upon a match, identical to :samp:`pass` in a
+      listener.
+
+      Read more: :ref:`configuration-listeners`.
+
+  * - :samp:`share`, :samp:`fallback`
+    - The :samp:`share` is a static pathname from where files are served upon a
+      match. The optional :samp:`fallback` action (identical to
+      :samp:`match/action`) is performed if the requested file isn't found or
+      can't be accessed.  Thus, share-based :samp:`fallback` actions can be
+      nested.
+
+      Read more: :ref:`configuration-static`.
+
+  * - :samp:`proxy`
+    - Socket address of an HTTP server where the request is proxied upon a
+      match.
+
+      Read more: :ref:`configuration-routes-proxy`.
+
+  * - :samp:`return`, :samp:`location`
+    - The :samp:`return` value defines the HTTP response status `code
+      <https://tools.ietf.org/html/rfc7231#section-6>`__ to be returned upon a
+      match.  The :samp:`location` is required if the :samp:`return` value
+      implies redirection (3xx).
+
+      Read more: :ref:`configuration-routes-return`.
+
+An example:
 
 .. code-block:: json
 
@@ -934,30 +948,49 @@ using the respective :samp:`action`:
       "routes": [
           {
               "match": {
-                  "host": [ "*.example.com", "!static.example.com" ],
-                  "uri": [ "/admin/*", "/store/*" ],
-                  "scheme": "https",
-                  "source": "*:8000-9000",
-                  "method": "POST"
+                  "uri": "/pass/*"
               },
 
               "action": {
-                  "pass": "applications/php5_app"
+                  "pass": "applications/app"
               }
           },
           {
+              "match": {
+                  "uri": "/share/*"
+              },
+
               "action": {
-                  "share": "/www/static_site/"
+                  "share": "/var/www/static/",
+                  "fallback": {
+                      "share": "/var/www/static/assets",
+                      "fallback": {
+                           "pass": "upstreams/cdn"
+                      }
+                  }
+              }
+          },
+          {
+              "match": {
+                  "uri": "/proxy/*"
+              },
+
+              "action": {
+                  "proxy": "http://192.168.0.100:80"
+              }
+          },
+          {
+              "match": {
+                  "uri": "/return/*"
+              },
+
+              "action": {
+                  "return": 301,
+                  "location": "https://www.example.com"
               }
           }
       ]
    }
-
-Here, all :samp:`POST` requests issued from ports 8000-9000 for HTTPS-schemed
-URIs prefixed with :samp:`/admin/` or :samp:`/store/` within subdomains of
-:samp:`example.com` (except for :samp:`static.example.com`) are routed to
-:samp:`php5_app`; any other requests are served with static content at
-:file:`/www/static_site/`.
 
 
 .. _configuration-routes-return:
@@ -988,7 +1021,7 @@ make sure user agents can understand them.
 
 .. _configuration-routes-location:
 
-If you specify a redirect code (3xx), you can supply the target using the
+If you specify a redirect code (3xx), supply the destination using the
 :samp:`location` option alongside :samp:`return`:
 
 .. code-block:: json
@@ -1081,8 +1114,9 @@ section.
 .. _configuration-fallback:
 
 Finally, within an :samp:`action`, you can supply a :samp:`fallback` option
-beside a :samp:`share`.  It specifies the action to be taken if the requested
-file isn't found at the :samp:`share` path:
+beside a :samp:`share`.  It specifies the :ref:`action
+<configuration-routes-action>` to be taken if the requested file isn't found at
+the :samp:`share` path:
 
 .. code-block:: json
 
