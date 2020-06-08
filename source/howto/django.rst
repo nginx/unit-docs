@@ -77,6 +77,54 @@ To run your Django projects and apps in Unit:
    you reorder your directories, :ref:`set up <configuration-python>`
    :samp:`path` and :samp:`module` accordingly.
 
+#. If your project uses Django's `static files
+   <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
+   add a :ref:`route <configuration-routes>` to :ref:`serve
+   <configuration-static>` them with Unit:
+
+   .. code-block:: json
+
+      {
+          "listeners": {
+              "127.0.0.1:8080": {
+                  "pass": "routes"
+              }
+          },
+
+          "routes": [
+              {
+                  "match": {
+                      "uri": "/static/*"
+                  },
+
+                  "action": {
+                      ":nxt_term:`share <The resulting static asset path will be /home/django/static/>`": "/home/django/"
+                  }
+              },
+              {
+                  "action": {
+                      "pass": "applications/django_project"
+                  }
+              }
+          ],
+
+          "applications": {
+              "django_project": {
+                  "type": "python 3",
+                  "path": "/home/django/project/",
+                  "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",
+                  "module": "project.wsgi",
+                  "environment": {
+                      "DJANGO_SETTINGS_MODULE": "project.settings",
+                      "DB_ENGINE": "django.db.backends.postgresql",
+                      "DB_NAME": "project",
+                      "DB_HOST": "127.0.0.1",
+                      "DB_PORT": "5432"
+                  }
+              }
+          }
+      }
+
 #. Upload the updated configuration:
 
    .. code-block:: console
