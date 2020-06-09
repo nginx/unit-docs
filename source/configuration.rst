@@ -1030,7 +1030,7 @@ If you specify a redirect code (3xx), supply the destination using the
        "action": {
            "return": 301,
            "location": "https://www.example.com"
-        }
+       }
    }
 
 
