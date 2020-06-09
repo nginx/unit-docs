@@ -1011,7 +1011,7 @@ arbitrary HTTP status codes:
 
        "action": {
            "return": 403
-        }
+       }
    }
 
 The :samp:`return` option accepts any integer values within the 000-999 range.
