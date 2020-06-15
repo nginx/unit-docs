@@ -393,49 +393,34 @@ Available options:
       - Description
 
     * - :samp:`pass`
-      - Listener's destination; possible values and respective actions:
+      - Destination to where the listener passes incoming requests. Possible
+        values and examples:
 
-        .. list-table::
+        - :ref:`App <configuration-applications>`:
+          :samp:`applications/qwk2mart`
+        - PHP app :ref:`target <configuration-php-targets>`:
+          :samp:`applications/app/section`
+        - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
+          :samp:`routes`
+        - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
 
-           * - App
-             - :samp:`applications/qwk2mart`
-             - Incoming requests are directly passed to the
-               :ref:`app <configuration-applications>`.
+        Values can be `percent encoded
+        <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example,
+        you can escape slashes in entity names:
 
-           * - PHP target
-             - :samp:`applications/app/section`
-             - Incoming requests are directly passed to the
-               :ref:`target <configuration-php-targets>`.
+        .. code-block:: json
 
-           * - Route
-             - :samp:`routes/route66`, :samp:`routes`
-             - Incoming requests travel along the
-               :ref:`route <configuration-routes>`.
+           {
+               "listeners": {
+                    "*:80": {
+                        "pass": "routes/slashes%2Fin%2Froute%2Fname"
+                    }
+               },
 
-           * - Upstream
-             - :samp:`upstreams/rr-lb`
-             - Incoming requests are served by the
-               :ref:`upstream <configuration-upstreams>`.
-
-        .. note::
-
-           Values can be `percent encoded
-           <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example,
-           you can escape slashes in entity names:
-
-           .. code-block:: json
-
-              {
-                  "listeners": {
-                       "*:80": {
-                           "pass": "routes/slashes%2Fin%2Froute%2Fname"
-                       }
-                  },
-
-                  "routes": {
-                       "slashes/in/route/name": []
-                  }
-              }
+               "routes": {
+                    "slashes/in/route/name": []
+               }
+           }
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
