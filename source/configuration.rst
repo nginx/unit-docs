@@ -420,7 +420,22 @@ Available options:
         .. note::
 
            Values can be `percent encoded
-           <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
+           <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example,
+           you can escape slashes in entity names:
+
+           .. code-block:: json
+
+              {
+                  "listeners": {
+                       "*:80": {
+                           "pass": "routes/slashes%2Fin%2Froute%2Fname"
+                       }
+                  },
+
+                  "routes": {
+                       "slashes/in/route/name": []
+                  }
+              }
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
@@ -684,8 +699,19 @@ request properties:
 .. note::
 
    Both :samp:`arguments` and :samp:`uri` support `percent encoding
-   <https://tools.ietf.org/html/rfc3986#section-2.1>`_; the percent character
-   should be encoded as :samp:`%25`.
+   <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  Thus, you can escape
+   characters which have special meaning in routing (:samp:`!` is :samp:`%21`,
+   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`) or even target
+   individual bytes.  For example, to select an entire class of diacritic
+   characters such as Ö or Å by their starting byte :samp:`0xC3` in UTF-8:
+
+   .. code-block:: json
+
+      {
+          "arguments": {
+              "word": "*%C3*"
+          }
+      }
 
 .. _configuration-routes-simple:
 
