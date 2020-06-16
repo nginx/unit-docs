@@ -60,7 +60,7 @@ Unit:
           "applications": {
               "joomla": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to targets' root directories>`",
+                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
                   "group": "unit_group",
                   "targets": {
                       "direct": {
