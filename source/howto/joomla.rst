@@ -64,11 +64,11 @@ Unit:
                   "group": "unit_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/joomla/"
+                          "root": "/path/to/app/"
                       },
 
                       "index": {
-                          "root": "/path/to/joomla/",
+                          "root": "/path/to/app/",
                           "script": "index.php"
                       }
                   }
