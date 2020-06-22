@@ -40,6 +40,20 @@
 #       .. markup::
 #
 #          Foo bar
+#
+# 3. Enables collapsible sections.
+#
+# .rst file:
+#
+# .. nxt_details:: Plaint Text Foo
+#
+#    Foo Bar
+#
+# .html file:
+#
+#  <details><summary>Plain Text Foo</summary>
+#  Foo Bar
+#  </details>
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, roles
@@ -52,9 +66,10 @@ import re
 
 # writer-related classes and functions
 
-class nxt_tabs(nodes.container): pass
-class nxt_tab_head(nodes.Text): pass
+class nxt_details(nodes.container): pass
 class nxt_tab_body(nodes.container): pass
+class nxt_tab_head(nodes.Text): pass
+class nxt_tabs(nodes.container): pass
 class nxt_term(nodes.container): pass
 # dummy classes, required for docutils dispatcher's Visitor pattern
 
@@ -138,48 +153,91 @@ class nxt_builder(DirectoryHTMLBuilder):
 
 
 class nxt_translator(HTMLTranslator):
-# adds dispatcher methods to handle 'nxt_tabs' and 'nxt_tab' doctree nodes
-# replaces default highlighter to enable ':nxt_term:' inside literal blocks
+    '''Adds dispatcher methods to handle 'nxt_tabs' and 'nxt_tab' doctree nodes,
+    replaces default highlighter to enable ':nxt_term:' inside literal blocks,
+    enables expandable .. nxt_details:: blocks.'''
 
     def __init__(self, builder, *args, **kwargs):
         HTMLTranslator.__init__(self, builder, *args, **kwargs)
         self.highlighter = nxt_highlighter(builder.highlighter)
 
-    def visit_nxt_term(self, node):
-        self.body.append('<span class="nxt_term" title="{1}">{0}</span>'.\
-                         format(node.term, node.tip))
-        return nodes.SkipNode
 
-    def depart_nxt_term(self, node):
-        return nodes.SkipNode
+    def visit_nxt_details(self, node):
+        self.body.append('''
+        <details>
+        <summary onclick="this.addEventListener('click',
+        e => e.preventDefault())"><span>{0}</span></summary>'''
+        .format(node.summary_text))
+
+        HTMLTranslator.visit_container(self,node)
+
+
+    def depart_nxt_details(self, node):
+        HTMLTranslator.depart_container(self,node)
+        self.body.append("</details>")
+
 
     def visit_nxt_tabs(self, node):
         HTMLTranslator.visit_container(self,node)
 
+
     def depart_nxt_tabs(self, node):
         HTMLTranslator.depart_container(self,node)
+
 
     def visit_nxt_tab_head(self, node):
         self.body.append('''
         <input name="{0}" type="radio" id="{1}" class="nxt_input" {2}/>
         '''.format(node.tabs_id, node.tab_id, node.tab_checked))
+
         self.body.append('''
         <label for="{0}" class="nxt_label">'''
         .format(node.tab_id))
+
         HTMLTranslator.visit_Text(self,node)
+
 
     def depart_nxt_tab_head(self, node):
         self.body.append('</label>')
         HTMLTranslator.depart_Text(self,node)
 
+
     def visit_nxt_tab_body(self, node):
         HTMLTranslator.visit_container(self,node)
+
 
     def depart_nxt_tab_body(self, node):
         HTMLTranslator.depart_container(self,node)
 
 
+    def visit_nxt_term(self, node):
+        self.body.append('''<span class=nxt_term title="{1}">{0}</span>'''
+        .format(node.term, node.tip))
+
+
+    def depart_nxt_term(self, node):
+        pass
+
+
 # doctree-related classes
+
+class DetailsDirective(Directive):
+    '''Handles the '.. nxt_details::' directive, adding an 'nxt_details'
+    container node.'''
+
+    has_content = True
+
+    def run(self):
+        self.assert_has_content()
+        env = self.state.document.settings.env
+
+        node = nxt_details()
+        node.summary_text = self.content[0]
+
+        self.state.nested_parse(self.content[2:], self.content_offset, node)
+
+        return [node]
+
 
 class TabsDirective(Directive):
 # handles the '.. tabs::' directive, adding an 'nxt_tabs' container node
@@ -240,6 +298,7 @@ class TabDirective(Directive):
 
 def setup(app):
 
+    app.add_directive('nxt_details', DetailsDirective)
     app.add_directive('tabs', TabsDirective)
     app.add_directive('tab', TabDirective)
 

@@ -185,7 +185,8 @@ body > div {
     color: #666;
     white-space: nowrap
 }
-#content div.admonition {
+#content div.admonition,
+#content details {
     margin: 1em 0;
     border-left: .2em solid;
     padding: .6em 0 .6em 1em;
@@ -204,6 +205,36 @@ body > div {
 }
 #content div.admonition p.admonition-title {
     font-weight: bold;
+}
+#content details {
+    border-color: #ddd;
+    max-height: 2.2em;
+    overflow-y: hidden;
+    transition: max-height 2s ease-in-out;
+}
+#content details[open] {
+    max-height: 400em;
+    padding-bottom: 0;
+    position: relative;
+}
+#content details[open] summary span {
+    cursor: default;
+    text-decoration: none;
+}
+#content summary {
+    display: inline;
+    font-weight: bold;
+    outline: none;
+}
+#content summary::-webkit-details-marker {
+    display: none;
+}
+#content summary span {
+    cursor: pointer;
+    text-decoration: underline;
+}
+#content summary span:hover {
+    text-decoration: none;
 }
 #content .highlight {
     margin: 1em 0;
@@ -541,7 +572,6 @@ body > div {
 .nxt_copy_ws {
     visibility: hidden;
 }
-
 @media (max-width: 53em) {
     #side {
         position: relative;

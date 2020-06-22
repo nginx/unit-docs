@@ -153,214 +153,213 @@ However, mind that the first command replaces the *entire* listener, dropping
 any other options you could have configured, whereas the second one replaces
 only the :samp:`pass` value and leaves other options intact.
 
-========
-Examples
-========
+.. nxt_details:: Examples
 
-To minimize typos and effort, avoid embedding JSON payload in your commands;
-instead, consider storing your configuration snippets for review and reuse.
-Suppose you save your application object as :file:`wiki.json`:
+   To minimize typos and effort, avoid embedding JSON payload in your commands;
+   instead, consider storing your configuration snippets for review and reuse.
+   Suppose you save your application object as :file:`wiki.json`:
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "type": "python",
-       "module": "wsgi",
-       "user": "www-wiki",
-       "group": "www-wiki",
-       "path": "/www/wiki/"
-   }
+      {
+          "type": "python",
+          "module": "wsgi",
+          "user": "www-wiki",
+          "group": "www-wiki",
+          "path": "/www/wiki/"
+      }
 
-Use it to set up an application called :samp:`wiki-prod`:
+   Use it to set up an application called :samp:`wiki-prod`:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT --data-binary @/path/to/wiki.json \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod
+      # curl -X PUT --data-binary @/path/to/wiki.json \
+             --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod
 
-Use it again to set up a development version of the same app called
-:samp:`wiki-dev`:
+   Use it again to set up a development version of the same app called
+   :samp:`wiki-dev`:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT --data-binary @/path/to/wiki.json \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev
+      # curl -X PUT --data-binary @/path/to/wiki.json \
+             --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev
 
-Toggle the :samp:`wiki-dev` app to another source code directory:
+   Toggle the :samp:`wiki-dev` app to another source code directory:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT -d '"/www/wiki-dev/"' \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev/path
+      # curl -X PUT -d '"/www/wiki-dev/"' \
+             --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev/path
 
-Next, boost the process count for the production app to warm it up a bit:
+   Next, boost the process count for the production app to warm it up a bit:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT -d '5' \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod/processes
+      # curl -X PUT -d '5' \
+             --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod/processes
 
-Add a listener for the :samp:`wiki-prod` app to accept requests at all host
-IPs:
+   Add a listener for the :samp:`wiki-prod` app to accept requests at all host
+   IPs:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT -d '{ "pass": "applications/wiki-prod" }' \
-          --unix-socket /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400'
+      # curl -X PUT -d '{ "pass": "applications/wiki-prod" }' \
+             --unix-socket /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400'
 
-Plug the :samp:`wiki-dev` app into the listener to test it:
+   Plug the :samp:`wiki-dev` app into the listener to test it:
 
-.. code-block:: console
+   .. code-block:: console
 
-   # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
-          'http://localhost/config/listeners/*:8400/pass'
+      # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
+             'http://localhost/config/listeners/*:8400/pass'
 
-Then rewire the listener, adding a URI-based route to the development version
-of the app:
+   Then rewire the listener, adding a URI-based route to the development
+   version of the app:
 
-.. code-block:: console
+   .. code-block:: console
 
-   $ cat << EOF > config.json
+      $ cat << EOF > config.json
 
-       [
+          [
+              {
+                  "match": {
+                      "uri": "/dev/*"
+                  },
+
+                  "action": {
+                      "pass": "applications/wiki-dev"
+                  }
+              }
+          ]
+          EOF
+
+      # curl -X PUT --data-binary @config.json --unix-socket \
+             /path/to/control.unit.sock http://localhost/config/routes
+
+      # curl -X PUT -d '"routes"' --unix-socket \
+             /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
+
+   Next, let's change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes`
+   array using its index (0):
+
+   .. code-block:: console
+
+      # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
+             http://localhost/config/routes/0/match/uri
+
+   Let's add a route to the prod app: :samp:`POST` always adds to the array
+   end, so there's no need for an index:
+
+   .. code-block:: console
+
+      # curl -X POST -d '{"match": {"uri": "/production/*"}, \
+             "action": {"pass": "applications/wiki-prod"}}'  \
+             --unix-socket=/path/to/control.unit.sock        \
+             http://localhost/config/routes/
+
+   Otherwise, use :samp:`PUT` with the array's last index (0 in our sample)
+   *plus one* to add the new item at the end:
+
+   .. code-block:: console
+
+      # curl -X PUT -d '{"match": {"uri": "/production/*"}, \
+             "action": {"pass": "applications/wiki-prod"}}' \
+             --unix-socket=/path/to/control.unit.sock       \
+             http://localhost/config/routes/1/
+
+   To get the complete :samp:`config` section:
+
+   .. code-block:: console
+
+      # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
+
+          {
+              "listeners": {
+                  "*:8400": {
+                      "pass": "routes"
+                  }
+              },
+
+              "applications": {
+                  "wiki-dev": {
+                      "type": "python",
+                      "module": "wsgi",
+                      "user": "www-wiki",
+                      "group": "www-wiki",
+                      "path": "/www/wiki-dev/"
+                  },
+
+                  "wiki-prod": {
+                      "type": "python",
+                      "processes": 5,
+                      "module": "wsgi",
+                      "user": "www-wiki",
+                      "group": "www-wiki",
+                      "path": "/www/wiki/"
+                  }
+              },
+
+              "routes": [
+                  {
+                      "match": {
+                          "uri": "/development/*"
+                      },
+
+                      "action": {
+                          "pass": "applications/wiki-dev"
+                      }
+                  },
+                  {
+                      "action": {
+                          "pass": "applications/wiki-prod"
+                      }
+                  }
+              ]
+          }
+
+   To obtain the :samp:`wiki-dev` application object:
+
+   .. code-block:: console
+
+      # curl --unix-socket /path/to/control.unit.sock \
+             http://localhost/config/applications/wiki-dev
+
+          {
+              "type": "python",
+              "module": "wsgi",
+              "user": "www-wiki",
+              "group": "www-wiki",
+              "path": "/www/wiki-dev/"
+          }
+
+   You can save JSON returned by such requests as :file:`.json` files for
+   update or review:
+
+   .. code-block:: console
+
+      # curl --unix-socket /path/to/control.unit.sock \
+             http://localhost/config/ > config.json
+
+   To drop the listener on :samp:`\*:8400`:
+
+   .. code-block:: console
+
+      # curl -X DELETE --unix-socket /path/to/control.unit.sock \
+             'http://localhost/config/listeners/*:8400'
+
+   Mind that you can't delete objects that other objects rely on, such as a
+   route still referenced by a listener:
+
+   .. code-block:: console
+
+      # curl -X DELETE --unix-socket /var/run/unit/control.sock \
+              http://localhost/config/routes
+
            {
-               "match": {
-                   "uri": "/dev/*"
-               },
-
-               "action": {
-                   "pass": "applications/wiki-dev"
-               }
+               "error": "Invalid configuration.",
+               "detail": "Request \"pass\" points to invalid location \"routes\"."
            }
-       ]
-       EOF
 
-   # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/routes
-
-   # curl -X PUT -d '"routes"' --unix-socket \
-          /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
-
-Next, let's change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes`
-array using its index (0):
-
-.. code-block:: console
-
-   # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
-          http://localhost/config/routes/0/match/uri
-
-Let's add a route to the prod app: :samp:`POST` always adds to the array end,
-so there's no need for an index:
-
-.. code-block:: console
-
-   # curl -X POST -d '{"match": {"uri": "/production/*"}, \
-          "action": {"pass": "applications/wiki-prod"}}'  \
-          --unix-socket=/path/to/control.unit.sock        \
-          http://localhost/config/routes/
-
-Otherwise, use :samp:`PUT` with the array's last index (0 in our sample) *plus
-one* to add the new item at the end:
-
-.. code-block:: console
-
-   # curl -X PUT -d '{"match": {"uri": "/production/*"}, \
-          "action": {"pass": "applications/wiki-prod"}}' \
-          --unix-socket=/path/to/control.unit.sock       \
-          http://localhost/config/routes/1/
-
-To get the complete :samp:`config` section:
-
-.. code-block:: console
-
-   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
-
-       {
-           "listeners": {
-               "*:8400": {
-                   "pass": "routes"
-               }
-           },
-
-           "applications": {
-               "wiki-dev": {
-                   "type": "python",
-                   "module": "wsgi",
-                   "user": "www-wiki",
-                   "group": "www-wiki",
-                   "path": "/www/wiki-dev/"
-               },
-
-               "wiki-prod": {
-                   "type": "python",
-                   "processes": 5,
-                   "module": "wsgi",
-                   "user": "www-wiki",
-                   "group": "www-wiki",
-                   "path": "/www/wiki/"
-               }
-           },
-
-           "routes": [
-               {
-                   "match": {
-                       "uri": "/development/*"
-                   },
-
-                   "action": {
-                       "pass": "applications/wiki-dev"
-                   }
-               },
-               {
-                   "action": {
-                       "pass": "applications/wiki-prod"
-                   }
-               }
-           ]
-       }
-
-To obtain the :samp:`wiki-dev` application object:
-
-.. code-block:: console
-
-   # curl --unix-socket /path/to/control.unit.sock \
-          http://localhost/config/applications/wiki-dev
-
-       {
-           "type": "python",
-           "module": "wsgi",
-           "user": "www-wiki",
-           "group": "www-wiki",
-           "path": "/www/wiki-dev/"
-       }
-
-You can save JSON returned by such requests as :file:`.json` files for update
-or review:
-
-.. code-block:: console
-
-   # curl --unix-socket /path/to/control.unit.sock \
-          http://localhost/config/ > config.json
-
-To drop the listener on :samp:`\*:8400`:
-
-.. code-block:: console
-
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
-          'http://localhost/config/listeners/*:8400'
-
-Mind that you can't delete objects that other objects rely on, such as a route
-still referenced by a listener:
-
-.. code-block:: console
-
-   # curl -X DELETE --unix-socket /var/run/unit/control.sock \
-          http://localhost/config/routes
-
-       {
-           "error": "Invalid configuration.",
-           "detail": "Request \"pass\" points to invalid location \"routes\"."
-       }
 
 .. _configuration-listeners:
 
@@ -532,93 +531,95 @@ Step objects accept the following options:
   performed automatically.  Thus, use no more than one such step per
   route, always placing it last to avoid potential routing issues.
 
-An example:
+.. nxt_details:: Examples
 
-.. code-block:: json
+   A basic one:
 
-   {
-       "routes": [
-           {
-               "match": {
-                   "host": "example.com",
-                   "scheme": "https",
-                   "uri": "/php/*"
-               },
+   .. code-block:: json
 
-               "action": {
-                   "pass": "applications/php_version"
-                }
-           },
-           {
-               "action": {
-                   "share": "/www/static_version/"
-                }
-           }
-        ]
-   }
+      {
+          "routes": [
+              {
+                  "match": {
+                      "host": "example.com",
+                      "scheme": "https",
+                      "uri": "/php/*"
+                  },
 
-A more elaborate example with chained routes and proxying:
-
-.. code-block:: json
-
-   {
-       "routes": {
-           "main": [
-               {
-                   "match": {
-                       "scheme": "http"
-                   },
-
-                   "action": {
-                       "pass": "routes/http_site"
+                  "action": {
+                      "pass": "applications/php_version"
                    }
-               },
-               {
-                   "match": {
-                       "host": "blog.example.com"
-                   },
-
-                   "action": {
-                       "pass": "applications/blog"
+              },
+              {
+                  "action": {
+                      "share": "/www/static_version/"
                    }
-               },
-               {
-                    "match": {
-                        "uri": [
-                            "*.css",
-                            "*.jpg",
-                            "*.js"
-                        ]
-                    },
-                   "action": {
-                       "share": "/www/static/"
-                   }
-               },
-               {
-                   "action": {
-                       "return": 404
-                   }
-               }
-           ],
-
-           "http_site": [
-               {
-                   "match": {
-                       "uri": "/v2_site/*"
-                   },
-
-                   "action": {
-                       "pass": "applications/v2_site"
-                   }
-               },
-               {
-                   "action": {
-                       "proxy": "http://127.0.0.1:9000"
-                   }
-               }
+              }
            ]
-       }
-   }
+      }
+
+   A more elaborate example with chained routes and proxying:
+
+   .. code-block:: json
+
+      {
+          "routes": {
+              "main": [
+                  {
+                      "match": {
+                          "scheme": "http"
+                      },
+
+                      "action": {
+                          "pass": "routes/http_site"
+                      }
+                  },
+                  {
+                      "match": {
+                          "host": "blog.example.com"
+                      },
+
+                      "action": {
+                          "pass": "applications/blog"
+                      }
+                  },
+                  {
+                       "match": {
+                           "uri": [
+                               "*.css",
+                               "*.jpg",
+                               "*.js"
+                           ]
+                       },
+                      "action": {
+                          "share": "/www/static/"
+                      }
+                  },
+                  {
+                      "action": {
+                          "return": 404
+                      }
+                  }
+              ],
+
+              "http_site": [
+                  {
+                      "match": {
+                          "uri": "/v2_site/*"
+                      },
+
+                      "action": {
+                          "pass": "applications/v2_site"
+                      }
+                  },
+                  {
+                      "action": {
+                          "proxy": "http://127.0.0.1:9000"
+                      }
+                  }
+              ]
+          }
+      }
 
 
 .. _configuration-routes-matching:
@@ -751,81 +752,81 @@ wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
    | *U* ∩ *P* \\ *N* if *P* ≠ ∅
    | *U* \\ *N* if *P* = ∅
 
-A few examples:
+.. nxt_details:: Examples
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "host": "*.example.com"
-   }
-
-Only subdomains of :samp:`example.com` will match.
-
-.. code-block:: json
-
-   {
-       "host": ["eu-*.example.com", "!eu-5.example.com"]
-   }
-
-Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
-:samp:`eu-5.example.com`.
-
-.. code-block:: json
-
-   {
-       "method": ["!HEAD", "!GET"]
-   }
-
-Any methods will match except :samp:`HEAD` and :samp:`GET`.
-
-You can also combine special characters in a pattern:
-
-.. code-block:: json
-
-   {
-       "uri": "!*/api/*"
-   }
-
-Here, any URIs will match except the ones containing :samp:`/api/`.
-
-Individual addresses and address ranges can be specified in dot-decimal or CIDR
-notation for IPv4:
-
-.. code-block:: json
-
-  {
-      "match": {
-          "source": [
-               "10.0.0.0-10.0.0.10",
-               "10.0.0.100-11.0.0.100:1000",
-               "127.0.0.100-127.0.0.255:8080-8090"
-          ],
-          "destination": [
-              "10.0.0.0/8",
-              "10.0.0.0/7:1000",
-              "10.0.0.0/32:8080-8090"
-          ]
+      {
+          "host": "*.example.com"
       }
-  }
 
-Or IPv6:
+   Only subdomains of :samp:`example.com` will match.
 
-.. code-block:: json
+   .. code-block:: json
 
-  {
-      "match": {
-          "source": [
-               "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
-               "[fe08::-feff::]:8000",
-               "[fff0::-fff0::10]:8080-8090"
-          ],
-          "destination": [
-               "2001::/16",
-               "[0ff::/64]:8000",
-               "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
-           ]
+      {
+          "host": ["eu-*.example.com", "!eu-5.example.com"]
       }
-  }
+
+   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
+   :samp:`eu-5.example.com`.
+
+   .. code-block:: json
+
+      {
+          "method": ["!HEAD", "!GET"]
+      }
+
+   Any methods will match except :samp:`HEAD` and :samp:`GET`.
+
+   You can also combine special characters in a pattern:
+
+   .. code-block:: json
+
+      {
+          "uri": "!*/api/*"
+      }
+
+   Here, any URIs will match except the ones containing :samp:`/api/`.
+
+   Individual addresses and address ranges can be specified in dot-decimal or
+   CIDR notation for IPv4:
+
+   .. code-block:: json
+
+     {
+         "match": {
+             "source": [
+                  "10.0.0.0-10.0.0.10",
+                  "10.0.0.100-11.0.0.100:1000",
+                  "127.0.0.100-127.0.0.255:8080-8090"
+             ],
+             "destination": [
+                 "10.0.0.0/8",
+                 "10.0.0.0/7:1000",
+                 "10.0.0.0/32:8080-8090"
+             ]
+         }
+     }
+
+   Or IPv6:
+
+   .. code-block:: json
+
+     {
+         "match": {
+             "source": [
+                  "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                  "[fe08::-feff::]:8000",
+                  "[fff0::-fff0::10]:8080-8090"
+             ],
+             "destination": [
+                  "2001::/16",
+                  "[0ff::/64]:8000",
+                  "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
+              ]
+         }
+     }
 
 
 .. _configuration-routes-compound:
@@ -873,41 +874,37 @@ the same manner as property values during :ref:`simple matching
 To match an object array, it's sufficient to match *any* single one of its
 objects.
 
-A few examples:
+.. nxt_details:: Examples
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "arguments": {
-           "mode": "strict",
-           "access": "!full"
-       }
-   }
+      {
+          "arguments": {
+              "mode": "strict",
+              "access": "!full"
+          }
+      }
 
-This requires :samp:`mode=strict` and any :samp:`access` argument other than
-:samp:`access=full` in the URI.
+   This requires :samp:`mode=strict` and any :samp:`access` argument other than
+   :samp:`access=full` in the URI.
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "headers": [
-           {
-               "Accept-Encoding": "*gzip*",
-               "User-Agent": "Mozilla/5.0*"
-           },
+      {
+          "headers": [
+              {
+                  "Accept-Encoding": "*gzip*",
+                  "User-Agent": "Mozilla/5.0*"
+              },
 
-           {
-               "User-Agent": "curl*"
-           }
-       ]
-   }
+              {
+                  "User-Agent": "curl*"
+              }
+          ]
+      }
 
-This matches all requests that either use :samp:`gzip` and identify as
-:samp:`Mozilla/5.0` or list :program:`curl` as the user agent.
-
-.. note::
-
-   You can combine simple and compound matching in a :samp:`match` condition.
+   This matches all requests that either use :samp:`gzip` and identify as
+   :samp:`Mozilla/5.0` or list :program:`curl` as the user agent.
 
 
 .. _configuration-routes-action:
@@ -1161,87 +1158,85 @@ First, this configuration tries to serve a file from the :file:`/data/www/`
 directory; next, it queries the :file:`/data/cache/` path.  If both attempts
 fail, the request is proxied to an external server.
 
-========
-Examples
-========
+.. nxt_details:: Examples
 
-One common use case that this feature enables is the separation of requests for
-static and dynamic content into independent routes.  The following example
-relays all requests that target :file:`.php` files to an application and uses a
-catch-all static :samp:`share` with a :samp:`fallback`:
+   One common use case that this feature enables is the separation of requests
+   for static and dynamic content into independent routes.  The following
+   example relays all requests that target :file:`.php` files to an application
+   and uses a catch-all static :samp:`share` with a :samp:`fallback`:
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "routes": [
-           {
-               "match": {
-                   "uri": "*.php"
-               },
-               "action": {
-                   "pass": "applications/php-app"
-               }
-           },
-           {
-               "action": {
-                   "share": "/www/php-app/assets/files/",
-                   "fallback": {
-                       "proxy": "http://127.0.0.1:9000"
-                   }
-               }
-           }
+      {
+          "routes": [
+              {
+                  "match": {
+                      "uri": "*.php"
+                  },
+                  "action": {
+                      "pass": "applications/php-app"
+                  }
+              },
+              {
+                  "action": {
+                      "share": "/www/php-app/assets/files/",
+                      "fallback": {
+                          "proxy": "http://127.0.0.1:9000"
+                      }
+                  }
+              }
 
-       ],
+          ],
 
-       "applications": {
-           "php-app": {
-               "type": "php",
-               "root": "/www/php-app/scripts/"
-           }
-       }
-   }
+          "applications": {
+              "php-app": {
+                  "type": "php",
+                  "root": "/www/php-app/scripts/"
+              }
+          }
+      }
 
-You can reverse this scheme for apps that avoid filenames in dynamic URIs,
-listing all types of static content to be served from a :samp:`share` in a
-:samp:`match` condition and adding an unconditional application path:
+   You can reverse this scheme for apps that avoid filenames in dynamic URIs,
+   listing all types of static content to be served from a :samp:`share` in a
+   :samp:`match` condition and adding an unconditional application path:
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "routes": [
-           {
-               "match": {
-                   "uri": [
-                       "*.css",
-                       "*.ico",
-                       "*.jpg",
-                       "*.js",
-                       "*.png",
-                       "*.xml"
-                   ]
-               },
-               "action": {
-                   "share": "/www/php-app/assets/files/",
-                   "fallback": {
-                       "proxy": "http://127.0.0.1:9000"
-                   }
-               }
-           },
-           {
-               "action": {
-                   "pass": "applications/php-app"
-               }
-           }
+      {
+          "routes": [
+              {
+                  "match": {
+                      "uri": [
+                          "*.css",
+                          "*.ico",
+                          "*.jpg",
+                          "*.js",
+                          "*.png",
+                          "*.xml"
+                      ]
+                  },
+                  "action": {
+                      "share": "/www/php-app/assets/files/",
+                      "fallback": {
+                          "proxy": "http://127.0.0.1:9000"
+                      }
+                  }
+              },
+              {
+                  "action": {
+                      "pass": "applications/php-app"
+                  }
+              }
 
-       ],
+          ],
 
-       "applications": {
-           "php-app": {
-               "type": "php",
-               "root": "/www/php-app/scripts/"
-           }
-       }
-   }
+          "applications": {
+              "php-app": {
+                  "type": "php",
+                  "root": "/www/php-app/scripts/"
+              }
+          }
+      }
 
 
 .. _configuration-routes-proxy:
