@@ -548,14 +548,14 @@ Step objects accept the following options:
 
                   "action": {
                       "pass": "applications/php_version"
-                   }
+                  }
               },
               {
                   "action": {
                       "share": "/www/static_version/"
-                   }
+                  }
               }
-           ]
+          ]
       }
 
    A more elaborate example with chained routes and proxying:
