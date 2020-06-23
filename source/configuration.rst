@@ -717,7 +717,7 @@ or an array of patterns:
 
        "action": {
            "pass": "..."
-        }
+       }
    }
 
 To be a match against the condition, the property must meet two requirements:
