@@ -953,51 +953,51 @@ An example:
 .. code-block:: json
 
    {
-      "routes": [
-          {
-              "match": {
-                  "uri": "/pass/*"
-              },
+       "routes": [
+           {
+               "match": {
+                   "uri": "/pass/*"
+               },
 
-              "action": {
-                  "pass": "applications/app"
-              }
-          },
-          {
-              "match": {
-                  "uri": "/share/*"
-              },
+               "action": {
+                   "pass": "applications/app"
+               }
+           },
+           {
+               "match": {
+                   "uri": "/share/*"
+               },
 
-              "action": {
-                  "share": "/var/www/static/",
-                  "fallback": {
-                      "share": "/var/www/static/assets",
-                      "fallback": {
-                           "pass": "upstreams/cdn"
-                      }
-                  }
-              }
-          },
-          {
-              "match": {
-                  "uri": "/proxy/*"
-              },
+               "action": {
+                   "share": "/var/www/static/",
+                   "fallback": {
+                       "share": "/var/www/static/assets",
+                       "fallback": {
+                            "pass": "upstreams/cdn"
+                       }
+                   }
+               }
+           },
+           {
+               "match": {
+                   "uri": "/proxy/*"
+               },
 
-              "action": {
-                  "proxy": "http://192.168.0.100:80"
-              }
-          },
-          {
-              "match": {
-                  "uri": "/return/*"
-              },
+               "action": {
+                   "proxy": "http://192.168.0.100:80"
+               }
+           },
+           {
+               "match": {
+                   "uri": "/return/*"
+               },
 
-              "action": {
-                  "return": 301,
-                  "location": "https://www.example.com"
-              }
-          }
-      ]
+               "action": {
+                   "return": 301,
+                   "location": "https://www.example.com"
+               }
+           }
+       ]
    }
 
 
