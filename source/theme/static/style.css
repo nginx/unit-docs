@@ -35,6 +35,14 @@ body > div {
     box-sizing: border-box;
     padding: .8em 1em .6em .6em;
     width: 100%;
+    transition: all .5s ease-out;
+}
+#side h1.compact {
+    padding: .4em 2.7em 0 3.3em;
+    transition-timing-function: ease-in;
+}
+#side h1.notrans {
+    transition: none;
 }
 #side img {
     width: 100%;
@@ -584,6 +592,9 @@ body > div {
 @media (max-width: 53em) {
     #side {
         position: relative;
+    }
+    #side h1 {
+        padding: .4em 2.7em 0 3.3em;
     }
     #content {
         margin-left: 0;

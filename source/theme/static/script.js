@@ -7,6 +7,20 @@
  */
 
 
+function nxt_scroll_init() {
+    const h1 = document.querySelector('#side h1')
+
+    if (window.scrollY > 50) {
+        h1.classList.add('notrans', 'compact')
+    }
+
+    window.addEventListener('scroll', function() {
+        h1.classList.remove('notrans')
+        h1.classList.toggle('compact', window.scrollY > 50)
+    })
+}
+
+
 function nxt_nav_init() {
     for (const el of document.getElementsByClassName('toctree-l2')) {
         el.classList.add('js')
@@ -143,6 +157,8 @@ function nxt_copy_reset() {
 
 
 function nxt_dom_ready() {
+    nxt_scroll_init()
+
     if (IntersectionObserver) {
         nxt_nav_init()
 
