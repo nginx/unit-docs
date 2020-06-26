@@ -71,12 +71,21 @@ body > div {
     height: 100%;
     background: #00974d;
 }
-#side li.current > a {
+/* Dynamic navigation */
+#side li.current > a,
+#side .toctree-l2.js a.nxt_active,
+#side .toctree-l3.js a.nxt_active {
     color: #00974d;
 }
 #side .toctree-l1 li {
     margin: .5em 0 0 1em;
     font-size: .9em;
+}
+#side .toctree-l2.js ul {
+    display: none;
+}
+#side .toctree-l2.js a.nxt_active + ul {
+    display: block;
 }
 #content {
     margin-left: 18em;

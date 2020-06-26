@@ -1,15 +1,34 @@
 'use strict';
 
 /*
- * Functions and event handlers that implement click-to-copy functionality
- * in Sphinx code-blocks on pages.
- */
-
-/*
  * Adapted Font Awesome icons, CC BY 4.0 License:
  * https://fontawesome.com
  * https://creativecommons.org/licenses/by/4.0/
  */
+
+
+function nxt_nav_init() {
+    for (const el of document.getElementsByClassName('toctree-l2')) {
+        el.classList.add('js')
+    }
+
+    for (const el of document.getElementsByClassName('toctree-l3')) {
+        el.classList.add('js')
+    }
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        for (const entry of entries) {
+
+            const el = document.querySelector('[href="#'+entry.target.id+'"]')
+
+            el.classList.toggle('nxt_active', entry.intersectionRatio > 0)
+        }
+    })
+
+    for (const el of document.querySelectorAll('#content div.section')) {
+        observer.observe(el)
+    }
+}
 
 
 function nxt_copy_init() {
@@ -123,9 +142,26 @@ function nxt_copy_reset() {
 }
 
 
-if (navigator.clipboard) {
-    window.addEventListener("load", nxt_copy_init)
+function nxt_dom_ready() {
+    if (IntersectionObserver) {
+        nxt_nav_init()
+
+    } else {
+        console.log('IntersectionObserver API is not available')
+    }
+
+    if (navigator.clipboard) {
+        nxt_copy_init()
+
+    } else {
+        console.log('Clipboard API is not available')
+    }
+}
+
+
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', nxt_dom_ready)
 
 } else {
-    console.log("Clipboard API is not available")
+    nxt_dom_ready()
 }
