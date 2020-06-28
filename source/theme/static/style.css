@@ -32,13 +32,13 @@ body > div {
 }
 #side h1 {
     display: block;
-    box-sizing: border-box;
-    padding: .8em 1em .6em .6em;
-    width: 100%;
+    padding: .8em 0 .6em .6em;
+    width: 7.5em;
     transition: all .5s ease-out;
 }
 #side h1.compact {
-    padding: .4em 2.7em 0 3.3em;
+    padding: .4em 0 0 3.3em;
+    width: 3em;
     transition-timing-function: ease-in;
 }
 #side h1.notrans {
