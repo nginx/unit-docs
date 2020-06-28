@@ -81,15 +81,14 @@ body > div {
 }
 /* Dynamic navigation */
 #side li.current > a,
-#side .toctree-l2.js a.nxt_active,
-#side .toctree-l3.js a.nxt_active {
+#side .toctree-l1 a.nxt_active {
     color: #00974d;
 }
 #side .toctree-l1 li {
     margin: .5em 0 0 1em;
     font-size: .9em;
 }
-#side .toctree-l2.js ul {
+#side .toctree-l2 ul {
     position: relative;
     padding-bottom: .7em;
     margin-bottom: -.6em;
@@ -97,7 +96,7 @@ body > div {
     overflow-y: hidden;
     transition: all 2s;
 }
-#side .toctree-l2.js ul:after {
+#side .toctree-l2 ul:after {
     content: '';
     display: block;
     position: absolute;
@@ -106,12 +105,12 @@ body > div {
     height: .8em;
     background: linear-gradient(to top, white, rgba(255,255,255,0));
 }
-#side .toctree-l2.js a.nxt_active + ul,
-#side li.current > ul,
-#side .js:hover > ul {
-    max-height: 50em !important;
+#side .toctree-l2 a.nxt_active + ul,
+#side .toctree-l1 li.current > ul,
+#side .toctree-l1 li:hover > ul {
+    max-height: 50em;
 }
-#side .js:hover > ul {
+#side .toctree-l1 li:hover > ul {
     transition-delay: .3s;
 }
 #content {

@@ -22,20 +22,12 @@ function nxt_scroll_init() {
 
 
 function nxt_nav_init() {
-    for (const el of document.getElementsByClassName('toctree-l2')) {
-        el.classList.add('js')
-    }
-
-    for (const el of document.getElementsByClassName('toctree-l3')) {
-        el.classList.add('js')
-    }
-
     const observer = new IntersectionObserver((entries, observer) => {
         for (const entry of entries) {
+            const selector = '#side .toctree-l1 a[href="#'+entry.target.id+'"]'
 
-            const el = document.querySelector('[href="#'+entry.target.id+'"]')
-
-            el.classList.toggle('nxt_active', entry.intersectionRatio > 0)
+            document.querySelector(selector)
+                    .classList.toggle('nxt_active', entry.intersectionRatio > 0)
         }
     })
 
