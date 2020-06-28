@@ -1472,8 +1472,8 @@ and place module-specific instructions in the :file:`Makefile`.
 
 .. _installation-go:
 
-Configuring Go
-**************
+Go
+**
 
 When you run :command:`./configure go`, Unit sets up the Go package that lets
 your applications :ref:`run in Unit <configuration-external-go>`.  To use the
@@ -1502,8 +1502,8 @@ Available configuration options:
 
 .. _installation-java:
 
-Configuring Java
-****************
+Java
+****
 
 When you run :command:`./configure java`, the script configures a module to
 support running `Java Web Applications
@@ -1552,8 +1552,8 @@ To configure a module called :file:`java11.unit.so` with OpenJDK |_| 11.0.1:
 
 .. _installation-nodejs:
 
-Configuring Node.js
-*******************
+Node.js
+*******
 
 When you run :command:`./configure nodejs`, Unit sets up the
 :program:`unit-http` module that lets your applications :ref:`run in Unit
@@ -1584,8 +1584,8 @@ When you run :command:`./configure nodejs`, Unit sets up the
 
 .. _installation-perl:
 
-Configuring Perl
-****************
+Perl
+****
 
 When you run :command:`./configure perl`, the script configures a module to
 support running Perl scripts as applications in Unit.  Available command
@@ -1613,8 +1613,8 @@ To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
 
 .. _installation-php:
 
-Configuring PHP
-***************
+PHP
+***
 
 When you run :command:`./configure php`, the script configures a module to
 support running PHP applications in Unit via PHP's :program:`embed` SAPI.
@@ -1653,8 +1653,8 @@ To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
 .. _installation-python:
 
-Configuring Python
-******************
+Python
+******
 
 When you run :command:`./configure python`, the script configures a module to
 support running Python scripts as applications in Unit.  Available command
@@ -1686,8 +1686,8 @@ To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
 .. _installation-ruby:
 
-Configuring Ruby
-****************
+Ruby
+****
 
 When you run :program:`./configure ruby`, the script configures a module to
 support running Ruby scripts as applications in Unit.  Available command

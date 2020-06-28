@@ -1792,8 +1792,8 @@ Before applying the configuration, update the application itself.
 
 .. _configuration-external-go:
 
-Modifying Go Sources
-********************
+Go
+**
 
 In the :samp:`import` section, reference the :samp:`"unit.nginx.org/go"` package
 that you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
@@ -1842,8 +1842,8 @@ The resulting application works as follows:
 
 .. _configuration-external-nodejs:
 
-Modifying Node.js Sources
-*************************
+Node.js
+*******
 
 First, you need to have the :program:`unit-http` module :ref:`installed
 <installation-nodejs-package>`.  If it's global, symlink it in your project
