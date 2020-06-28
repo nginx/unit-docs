@@ -39,7 +39,9 @@ function nxt_nav_init() {
         }
     })
 
-    for (const el of document.querySelectorAll('#content div.section')) {
+    const sections = '#content > :not(#howto) div.section'
+
+    for (const el of document.querySelectorAll(sections)) {
         observer.observe(el)
     }
 }

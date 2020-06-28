@@ -107,8 +107,9 @@ body > div {
     background: linear-gradient(to top, white, rgba(255,255,255,0));
 }
 #side .toctree-l2.js a.nxt_active + ul,
+#side li.current > ul,
 #side .js:hover > ul {
-    max-height: 50em;
+    max-height: 50em !important;
 }
 #side .js:hover > ul {
     transition-delay: .3s;
