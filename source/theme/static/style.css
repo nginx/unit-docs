@@ -90,10 +90,24 @@ body > div {
     font-size: .9em;
 }
 #side .toctree-l2.js ul {
-    display: none;
+    position: relative;
+    padding-bottom: .7em;
+    margin-bottom: -.6em;
+    max-height: 0;
+    overflow-y: hidden;
+    transition: all 2s;
+}
+#side .toctree-l2.js ul:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: .8em;
+    background: linear-gradient(to top, white, rgba(255,255,255,0));
 }
 #side .toctree-l2.js a.nxt_active + ul {
-    display: block;
+    max-height: 50em;
 }
 #content {
     margin-left: 18em;
