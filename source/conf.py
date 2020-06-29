@@ -6,6 +6,7 @@ project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2020'
 version = '1.18.0'
+release_date = 'May 28, 2020'
 release = version
 
 highlight_language = 'json'
@@ -17,9 +18,15 @@ html_add_permalinks = u'§'
 html_baseurl = 'https://unit.nginx.org/'
 html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
 html_context = {
+    'release_date'  : release_date,
     'author'        : author,
     'nxt_baseurl'   : html_baseurl
 }
+
+rst_prolog = """
+.. |release_date| replace:: {}
+""".format(release_date)
+
 
 exclude_patterns = ['include']
 

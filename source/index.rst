@@ -14,7 +14,7 @@ Built from scratch, Unit can run web apps in different language versions; fully
 configurable in runtime with zero interruption, it enables on-the-fly granular
 management for engineering and operations.
 
-| The latest version is |version|, released on May 28, 2020.
+| The latest version is |version|, released on |release_date|.
 | See the changelog `here </CHANGES.txt>`_; a GitHub-based
   `roadmap <https://github.com/orgs/nginx/projects/1>`_ outlines
   our further plans.

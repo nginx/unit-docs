@@ -31,14 +31,15 @@ body > div {
     overflow-y: auto;
 }
 #side h1 {
+    position: relative;
     display: block;
     padding: .8em 0 .6em .6em;
     width: 7.5em;
     transition: all .5s ease-out;
 }
 #side h1.compact {
-    padding: .4em 0 0 3.3em;
-    width: 3em;
+    margin-left: 7.5em;
+    font-size: .8em;
     transition-timing-function: ease-in;
 }
 #side h1.notrans {
@@ -46,6 +47,18 @@ body > div {
 }
 #side img {
     width: 100%;
+}
+#side h1 div {
+    position: absolute;
+    cursor: help;
+    font-size: .45em;
+    right: 2.8em;
+    bottom: 1.9em;
+    transition: opacity .3s linear .5s;
+}
+#side h1.compact div {
+    opacity: 0;
+    transition: none;
 }
 #side ul {
     margin-left: .2em;
@@ -612,7 +625,12 @@ body > div {
         position: relative;
     }
     #side h1 {
-        padding: .4em 2.7em 0 3.3em;
+        margin-left: 7.5em;
+        font-size: .8em;
+    }
+    #side h1 div {
+        opacity: 0;
+        transition: none;
     }
     #content {
         margin-left: 0;
