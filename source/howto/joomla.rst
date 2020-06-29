@@ -20,7 +20,8 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, put together the |app| configuration for Unit:
+#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+   Unit:
 
    .. code-block:: json
 
