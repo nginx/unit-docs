@@ -38,6 +38,7 @@ as:
    :maxdepth: 1
 
    bugzilla
+   drupal
    grafana
    jira
    joomla
