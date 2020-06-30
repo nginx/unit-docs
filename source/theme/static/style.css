@@ -57,6 +57,7 @@ body > div {
     transition: opacity .3s linear .5s;
 }
 #side h1.compact div {
+    visibility: hidden;
     opacity: 0;
     transition: none;
 }
@@ -629,6 +630,7 @@ body > div {
         font-size: .8em;
     }
     #side h1 div {
+        visibility: hidden;
         opacity: 0;
         transition: none;
     }
