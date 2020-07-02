@@ -1,34 +1,39 @@
+.. |app| replace:: Bugzilla
+.. |mod| replace:: Perl
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://bugzilla.readthedocs.io/en/latest/installing/linux.html#install-packages
+.. |app-link| replace:: core files
+.. _app-link: https://bugzilla.readthedocs.io/en/latest/installing/linux.html#bugzilla
+
 ########
 Bugzilla
 ########
 
-To run Bugzilla in Unit:
+To run the `Bugzilla <https://www.bugzilla.org>`__ bug tracking system using
+Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with the appropriate Perl
-   language module version.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. Install `Bugzilla
-   <https://bugzilla.readthedocs.io/en/latest/installing/index.html>`_
-   prerequisites and source files.
+#. .. include:: ../include/howto_install_prereq.rst
+
+#. .. include:: ../include/howto_install_app.rst
 
    .. note::
 
       Unit uses `PSGI <https://metacpan.org/pod/PSGI>`_ to run Perl
       applications; Bugzilla natively supports PSGI since version 5.1.
 
-#. .. include:: ../include/get-config.rst
+#. .. include:: ../include/howto_change_ownership.rst
 
-   This creates a JSON file with Unit's current settings.  Edit the file,
-   adding a :ref:`listener <configuration-listeners>` with a :ref:`route
-   <configuration-routes>` that serves requests for static files via an
-   unconditional :samp:`share` and passes other requests to Bugzilla's
-   :file:`app.psgi`:
+#. Next, put together the |app| configuration for Unit.  The default
+   :file:`.htaccess` scheme in a |app| installation roughly translates into the
+   following:
 
    .. code-block:: json
 
       {
           "listeners": {
-              "*:8000": {
+              "*:80": {
                   "pass": "routes/bugzilla"
               }
           },
@@ -36,10 +41,48 @@ To run Bugzilla in Unit:
           "routes": {
               "bugzilla": [
                   {
+                      ":nxt_term:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
+                          "source": "192.20.225.0/24",
+                          "uri": "/data/webdot/*.dot"
+                      },
+
                       "action": {
-                          "share": "/path/to/bugzilla/",
+                          "share": "/path/to/app/"
+                      }
+                  },
+                  {
+                      "match": {
+                          ":nxt_term:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
+                              "!/data/assets/*.css",
+                              "!/data/assets/*.js",
+                              "!/data/webdot/*.png",
+                              "!/graphs/*.gif",
+                              "!/graphs/*.png",
+                              "*.pl",
+                              "*.pm",
+                              "*.psgi",
+                              "*.tmpl",
+                              "*/cpanfile",
+                              "*/localconfig*",
+                              "/Bugzilla/*",
+                              "/contrib/*",
+                              "/data/*",
+                              "/lib/*",
+                              "/t/*",
+                              "/template/*",
+                              "/xt/*"
+                          ]
+                      },
+
+                      "action": {
+                          "return": 403
+                      }
+                  },
+                  {
+                      "action": {
+                          "share": "/path/to/app/",
                           "fallback": {
-                              "pass": "/applications/bugzilla"
+                              "pass": "applications/bugzilla"
                           }
                       }
                   }
@@ -49,21 +92,20 @@ To run Bugzilla in Unit:
           "applications": {
               "bugzilla": {
                   "type": "perl",
-                  "working_directory": "/path/to/bugzilla/",
-                  "script": "/path/to/bugzilla/app.psgi"
+                  "user": ":nxt_term:`unit_user <User and group values must have access to the working directory>`",
+                  "group": "unit_group",
+                  "working_directory": "/path/to/app/",
+                  ":nxt_term:`script <Full pathname of the PSGI file>`": "/path/to/app/app.psgi"
               }
           }
       }
 
-#. Upload the updated configuration:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-#. Finally, browse to your Bugzilla site and complete the installation:
+#. After a successful update, browse to http://localhost and `set up
+   <https://bugzilla.readthedocs.io/en/latest/installing/essential-post-install-config.html>`__
+   your |app| installation:
 
    .. image:: ../images/bugzilla.png
       :width: 100%
-      :alt: Bugzilla in Unit - Setup Screen
+      :alt: Bugzilla on Unit - Setup Screen
