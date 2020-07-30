@@ -392,7 +392,7 @@ Available options:
       - Description
 
     * - :samp:`pass`
-      - Destination to where the listener passes incoming requests. Possible
+      - Destination to which the listener passes incoming requests. Possible
         values and examples:
 
         - :ref:`App <configuration-applications>`:
