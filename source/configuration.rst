@@ -2079,12 +2079,12 @@ application:
                "targets": {
                    "phpinfo": {
                        "script": "phpinfo.php",
-                       "root": "/www/data/admin"
+                       "root": "/www/data/admin/"
                    },
 
                    "hello": {
                        "script": "hello.php",
-                       "root": "/www/data/test"
+                       "root": "/www/data/test/"
                    }
                }
            }
