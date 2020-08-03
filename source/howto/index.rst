@@ -24,6 +24,7 @@ following frameworks:
    django
    express
    flask
+   laravel
    symfony
    yii
 
