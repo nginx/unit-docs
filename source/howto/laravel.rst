@@ -50,7 +50,7 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
               "laravel": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Avoids serving index.php as static content>`": ["!/index.php*"]
+                          ":nxt_term:`uri <Avoids serving index.php as static content>`": "!/index.php"
                       },
                       "action": {
                           ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/app/blog/public/",
