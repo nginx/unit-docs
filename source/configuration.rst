@@ -115,8 +115,8 @@ You can manipulate the API with the following HTTP methods:
      - Action
 
    * - :samp:`GET`
-     - Returns the entity at the request URI as JSON value in the HTTP response
-       body.
+     - Returns the entity at the request URI as a JSON value in the HTTP
+       response body.
 
    * - :samp:`POST`
      - Updates the *array* at the request URI, appending the JSON value
