@@ -132,7 +132,43 @@ You can manipulate the API with the following HTTP methods:
 
 Before a change, Unit evaluates the difference it causes in the entire
 configuration; if there's none, nothing is done. For example, you can't restart
-an app by uploading the same configuration it already has.
+an updated app by uploading the same configuration it already has.
+
+.. note::
+
+   While we're working on handy app reload control, there's a workaround to
+   forcefully restart an app in Unit by updating an :ref:`environment
+   <configuration-apps-common>` variable.  First, check whether the app has an
+   :samp:`environment` object:
+
+   .. code-block:: console
+
+      # curl --unix-socket /path/to/control.unit.sock \
+             http://localhost/config/applications/app/environment
+
+            {
+                "error": "Value doesn't exist."
+            }
+
+   Here, it doesn't, so you can safely add a new variable with a
+   shell-interpolated value:
+
+   .. code-block:: console
+
+      # curl -X PUT -d '{"APPGEN":"'$(date +"%s")'"}' --unix-socket \
+             /path/to/control.unit.sock http://localhost/config/applications/app/environment
+
+   Otherwise, take care and target the individual variable to avoid overwriting
+   the entire :samp:`environment`:
+
+   .. code-block:: console
+
+      # curl -X PUT -d '"'$(date +"%s")'"' --unix-socket \
+             /path/to/control.unit.sock http://localhost/config/applications/app/environment/APPGEN
+
+   To make Unit reload the app, repeat the :samp:`PUT` command,
+   updating the :samp:`APPGEN` variable.
+
 
 Unit performs actual reconfiguration steps as gracefully as possible: running
 tasks expire naturally, connections are properly closed, processes end
