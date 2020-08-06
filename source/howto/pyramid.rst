@@ -73,7 +73,7 @@ using Unit:
 #. After a successful update, your app should be available on the listener’s IP
    address and port:
 
-   .. code-block: console
+   .. code-block:: console
 
       $ curl http://localhost
 
