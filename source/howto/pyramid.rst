@@ -18,7 +18,7 @@ using Unit:
 
       $ cd /path/to/app/
       $ python3 -m venv venv
-      $ venv/bin/activate
+      $ source venv/bin/activate
       $ pip install pyramid
       $ deactivate
 
