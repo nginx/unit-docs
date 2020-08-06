@@ -17,7 +17,7 @@ using Unit:
    .. code-block:: console
 
       $ cd /path/to/app/
-      $ python -m venv venv
+      $ python3 -m venv venv
       $ venv/bin/activate
       $ pip install pyramid
       $ deactivate
