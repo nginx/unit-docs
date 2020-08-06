@@ -59,7 +59,7 @@ using Unit:
           "applications": {
               "pyramid_app": {
                   "type": "python 3",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
+                  "user": ":nxt_term:`unit_user <User and group values must have access to path and home directories>`",
                   "group": "unit_group",
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
