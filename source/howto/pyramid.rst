@@ -1,7 +1,5 @@
 .. |app| replace:: Pyramid
 .. |mod| replace:: Python 3
-.. |app-preq| replace:: prerequisites
-.. _app-preq: https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/install.html#before-you-install-pyramid
 
 #######
 Pyramid
