@@ -25,6 +25,7 @@ following frameworks:
    express
    flask
    laravel
+   pyramid
    symfony
    yii
 
