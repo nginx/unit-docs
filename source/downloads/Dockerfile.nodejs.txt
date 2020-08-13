@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.18.0-minimal
+FROM nginx/unit:1.19.0-minimal
 
 # port used by the listener in config.json
 EXPOSE 8080
