@@ -1078,6 +1078,147 @@ If you specify a redirect code (3xx), supply the destination using the
    }
 
 
+.. _configuration-variables:
+
+*********
+Variables
+*********
+
+While configuring Unit, you can use built-in variables that are replaced by
+dynamic values in runtime.  This enables flexible request processing, making
+the configuration more compact and straightforward.
+
+.. note::
+
+   Currently, the only place where variables are recognized is the :samp:`pass`
+   option in :ref:`listeners <configuration-listeners>` and :ref:`actions
+   <configuration-routes-action>`.  This means you can use them to guide
+   requests between sets of routes, applications, targets, or upstreams.
+
+Available variables:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Variable
+     - Description
+
+   * - :samp:`method`
+     - HTTP verb used in the request: :samp:`GET`, :samp:`POST`, :samp:`PUT`,
+       and so on.
+
+   * - :samp:`uri`
+     - URI path supplied with the request, including the initial slash
+       character: :samp:`/uri`.
+
+To reference a variable, prefix its name with the dollar sign character
+(:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
+separate it from adjacent text or enhance visibility.  Variable names can
+contain letters and underscores (:samp:`_`), so use the brackets if the
+variable is immediately followed by these characters:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               "pass": "routes/${method}_route"
+           }
+       },
+
+       "routes": {
+           "GET_route": [
+               {
+                   "action": {
+                       "return": 201
+                   }
+               }
+           ],
+
+           "PUT_route": [
+               {
+                   "action": {
+                       "return": 202
+                   }
+               }
+           ],
+
+           "POST_route": [
+               {
+                   "action": {
+                       "return": 203
+                   }
+               }
+           ]
+       }
+   }
+
+In runtime, variables are replaced by dynamically computed values.  For
+example, the listener above targets an entire set of routes, picking
+individual ones by HTTP verbs that the incoming requests use:
+
+.. code-block:: console
+
+   $ curl -i -X GET http://localhost
+
+       HTTP/1.1 201 Created
+
+   $ curl -i -X PUT http://localhost
+
+       HTTP/1.1 202 Accepted
+
+   $ curl -i -X POST http://localhost
+
+       HTTP/1.1 203 Non-Authoritative Information
+
+   $ curl -i --head http://localhost  # Bumpy ride ahead, no route defined
+
+       HTTP/1.1 404 Not Found
+
+Another obvious usage is employing the URI to choose between applications:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               ":nxt_term:`pass <Note that the variable includes the slash>`": "applications$uri"
+           }
+       },
+
+       "applications": {
+           "blog": {
+               "root": "/path/to/blog_app/",
+               "script": "index.php"
+           },
+
+           "sandbox": {
+               "type": "php",
+               "root": "/path/to/sandbox_app/",
+               "script": "index.php"
+           }
+       }
+   }
+
+Note that we've effectively implemented a routing scheme without actually using
+:samp:`routes`.  In fact, you can use variables as a shortcut alternative to
+:ref:`condition matching <configuration-routes-matching>`.
+
+You can combine variables as you see fit, repeating them or placing them in
+arbitrary order.  This configuration picks application targets by their names
+and request methods:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               ":nxt_term:`pass <Note that the uri variable includes the slash>`": "applications/app${uri}_${method}"
+           }
+       }
+   }
+
+
 .. _configuration-static:
 
 ************
