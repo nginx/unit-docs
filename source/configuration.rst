@@ -770,9 +770,9 @@ wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
   (:samp:`!<negated_pattern>`).
 
 - In :samp:`host`, :samp:`method`, and :samp:`uri`, a wildcard matches any
-  number of characters, :samp:`*prefixing` a pattern, :samp:`suffixing*` it,
-  :samp:`*enclosing*` it, or :samp:`splitting*it` in two.  However, ranges are
-  not supported.
+  number of characters, and an arbitrary number of wildcards can be used in a
+  single pattern: :samp:`How*s*that*to*you?`.  However, ranges are not
+  supported.
 
 - In :samp:`source` and :samp:`destination`, wildcards can only be used to
   match any IPs (:samp:`*:<port>`).  Also, ranges can be used to specify IPs
@@ -797,6 +797,15 @@ wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
       }
 
    Only subdomains of :samp:`example.com` will match.
+
+   .. code-block:: json
+
+      {
+          "uri": "/admin/*/*.php"
+      }
+
+   Only requests for :samp:`.php` files located in :file:`/admin/`'s
+   subdirectories will match.
 
    .. code-block:: json
 
@@ -2884,7 +2893,7 @@ Full Example
                },
                {
                    "match": {
-                       "host": ["blog.example.com/admin"],
+                       "host": "admin.emea-*.*.example.com",
                        "source": "*:8000-9000"
                    },
 
