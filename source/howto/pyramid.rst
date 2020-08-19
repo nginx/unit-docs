@@ -44,7 +44,7 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+#. Next, :ref:`put together <configuration-python>` the |app| configuration for
    Unit:
 
    .. code-block:: json
