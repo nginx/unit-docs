@@ -21,6 +21,7 @@ following frameworks:
 
    cakephp
    catalyst
+   codeigniter
    django
    express
    flask

@@ -2318,10 +2318,11 @@ App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
 
 .. note::
 
-   For PHP-based examples, see our :doc:`howto/cakephp`, :doc:`howto/drupal`,
-   :doc:`howto/wordpress`, :doc:`howto/nextcloud`, :doc:`howto/phpbb`,
-   :doc:`howto/laravel`, :doc:`howto/symfony`, :doc:`howto/mediawiki`, and
-   :doc:`howto/yii` howtos or a basic :ref:`sample <sample-php>`.
+   For PHP-based examples, see our :doc:`howto/cakephp`,
+   :doc:`howto/codeigniter`, :doc:`howto/drupal`, :doc:`howto/wordpress`,
+   :doc:`howto/nextcloud`, :doc:`howto/phpbb`, :doc:`howto/laravel`,
+   :doc:`howto/symfony`, :doc:`howto/mediawiki`, and :doc:`howto/yii` howtos or
+   a basic :ref:`sample <sample-php>`.
 
 .. _configuration-python:
 
