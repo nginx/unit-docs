@@ -14,7 +14,7 @@ RUN mkdir /www/ && echo '                                                  \
     );                                                                     \
     func main() {                                                          \
         http.HandleFunc("/",func (w http.ResponseWriter, r *http.Request) {\
-            io.WriteString(w, "Hello, Unit!")                              \
+            io.WriteString(w, "Hello, Go on Unit!")                        \
         });                                                                \
         unit.ListenAndServe(":8080", nil)                                  \
     }                                                                      \

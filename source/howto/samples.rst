@@ -28,7 +28,7 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
 
    func main() {
        http.HandleFunc("/",func (w http.ResponseWriter, r *http.Request) {
-           io.WriteString(w, "Hello, Unit!")
+           io.WriteString(w, "Hello, Go on Unit!")
        })
        unit.ListenAndServe(":8080", nil)
    }
@@ -63,7 +63,7 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, Go on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.go.txt>` or use a more elaborate app example:
@@ -132,7 +132,7 @@ Let's configure the following basic app, saved as :file:`/www/app.js`:
 
    require("unit-http").createServer(function (req, res) {
        res.writeHead(200, {"Content-Type": "text/plain"});
-       res.end("Hello, Unit!")
+       res.end("Hello, Node.js on Unit!")
    }).listen()
 
 Make it executable and link the Node.js language package you've :ref:`installed
@@ -165,7 +165,7 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, Node.js on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.nodejs.txt>` or use a more elaborate app example:
@@ -205,7 +205,7 @@ Let's configure the following basic app, saved as :file:`/www/index.jsp`:
 .. code-block:: jsp
 
    <%@ page language="java" contentType="text/plain" %>
-   <%= "Hello, Unit!" %>
+   <%= "Hello, JSP on Unit!" %>
 
 Upload the :ref:`app config <configuration-java>` to Unit and test it:
 
@@ -227,7 +227,7 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, JSP on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.java.txt>` or use a more elaborate app example:
@@ -289,7 +289,7 @@ Let's configure the following basic app, saved as :file:`/www/app.psgi`:
        return [
            "200",
            [ "Content-Type" => "text/plain" ],
-           [ "Hello, Unit!" ],
+           [ "Hello, Perl on Unit!" ],
        ];
    };
 
@@ -314,7 +314,7 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, Perl on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.perl.txt>` or use a more elaborate app example:
@@ -359,7 +359,7 @@ Let's configure the following basic app, saved as :file:`/www/index.php`:
 
 .. code-block:: php
 
-   <?php echo "Hello, Unit!"; ?>
+   <?php echo "Hello, PHP on Unit!"; ?>
 
 Upload the :ref:`app config <configuration-php>` to Unit and test it:
 
@@ -381,7 +381,7 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, PHP on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.php.txt>` or use a more elaborate app example:
@@ -421,7 +421,7 @@ Let's configure the following basic app, saved as :file:`/www/wsgi.py`:
 
    def application(environ, start_response):
        start_response("200 OK", [("Content-Type", "text/plain")])
-       return (b"Hello, Unit!")
+       return (b"Hello, Python on Unit!")
 
 Upload the :ref:`app config <configuration-python>` to Unit and test it:
 
@@ -444,7 +444,7 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, Python on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.python.txt>` or use a more elaborate app example:
@@ -485,7 +485,7 @@ Let's configure the following basic app, saved as :file:`/www/config.ru`:
    app = Proc.new do |env|
        ["200", {
            "Content-Type" => "text/plain",
-       }, ["Hello, Unit!"]]
+       }, ["Hello, Ruby on Unit!"]]
    end
 
    run app
@@ -511,7 +511,7 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
 
    $ curl localhost:8080
 
-       Hello, Unit!
+       Hello, Ruby on Unit!
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.ruby.txt>` or use a more elaborate app example:
@@ -537,3 +537,4 @@ Try this sample out with the Dockerfile :download:`here
    end;
 
    run app
+

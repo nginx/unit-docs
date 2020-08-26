@@ -20,7 +20,8 @@ RUN apt update                                                             \
 
 # application setup
 RUN mkdir /www/ && echo                                                    \
-    '<%@page language="java" contentType="text/plain"%><%="Hello, Unit!"%>'\
+    '<%@page language="java" contentType="text/plain"%>                    \
+    <%="Hello, JSP on Unit!"%>'                                            \
     > /www/index.jsp                                                       \
 # prepare the app config for Unit
     && echo '{                                                             \

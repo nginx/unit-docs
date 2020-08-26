@@ -5,7 +5,8 @@ FROM nginx/unit:1.19.0-php7.3
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '<?php echo "Hello, Unit!"; ?>' > /www/index.php   \
+RUN mkdir /www/                                                            \
+    && echo '<?php echo "Hello, PHP on Unit!"; ?>' > /www/index.php        \
 # prepare the app config for Unit
     && echo '{                                                             \
     "listeners": {                                                         \

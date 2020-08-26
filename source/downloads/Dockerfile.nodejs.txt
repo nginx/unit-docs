@@ -24,7 +24,7 @@ RUN apt update                                                             \
 RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
     require("unit-http").createServer(function (req, res) {                \
         res.writeHead(200, {"Content-Type": "text/plain"});                \
-        res.end("Hello, Unit!")                                            \
+        res.end("Hello, Node.js on Unit!")                                 \
     }).listen()                                                            \
     ' > /www/app.js                                                        \
 # make app.js executable; link unit-http locally

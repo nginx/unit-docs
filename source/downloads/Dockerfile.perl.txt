@@ -10,7 +10,7 @@ RUN mkdir /www/ && echo '                                                  \
         return [                                                           \
             "200",                                                         \
             [ "Content-Type" => "text/plain" ],                            \
-            [ "Hello, Unit!" ],                                            \
+            [ "Hello, Perl on Unit!" ],                                    \
         ]                                                                  \
     };                                                                     \
     ' > /www/app.psgi                                                      \

@@ -9,7 +9,7 @@ RUN mkdir /www/ && echo '                                                  \
     app = Proc.new do |env|                                                \
         ["200", {                                                          \
             "Content-Type" => "text/plain",                                \
-        }, ["Hello, Unit!"]]                                               \
+        }, ["Hello, Ruby on Unit!"]]                                       \
     end;                                                                   \
     run app                                                                \
     ' > /www/config.ru                                                     \

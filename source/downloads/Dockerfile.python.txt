@@ -8,7 +8,7 @@ EXPOSE 8080
 RUN mkdir /www/ && echo '                                                \n\
 def application(environ, start_response):                                \n\
     start_response("200 OK", [("Content-Type", "text/plain")])           \n\
-    return (b"Hello, Unit!")                                               \
+    return (b"Hello, Python on Unit!")                                     \
     ' > /www/wsgi.py                                                       \
 # prepare the app config for Unit
     && echo '{                                                             \
