@@ -1,14 +1,29 @@
+.. |app| replace:: Flask
+.. |mod| replace:: Python 3
+
 #####
 Flask
 #####
 
-To run your Flask apps in Unit:
+To run apps built with the `Flask
+<https://flask.palletsprojects.com/en/1.1.x/>`_ web framework using Unit:
 
-#. :ref:`Install Unit <installation-precomp-pkgs>` with the appropriate Python
-   language module version.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. If you haven’t already done so, create your `Flask app
-   <https://flask.palletsprojects.com/en/1.1.x/quickstart/>`_, for example:
+#. Create a virtual environment to install |app|'s `PIP package
+   <https://flask.palletsprojects.com/en/1.1.x/installation/#install-flask>`_:
+
+   .. code-block:: console
+
+      $ cd /path/to/app/
+      $ python3 -m venv venv
+      $ venv/bin/activate
+      $ pip install Flask
+      $ deactivate
+
+#. Let's try a basic version of the `quickstart app
+   <https://flask.palletsprojects.com/en/1.1.x/quickstart/>`_,
+   saving it as :file:`/path/to/app/wsgi.py`:
 
    .. code-block:: python
 
@@ -19,27 +34,16 @@ To run your Flask apps in Unit:
       def hello_world():
           return "Hello, World!"
 
-   Let's assume it's saved as :file:`/path/to/flask/flask_app/wsgi.py`.
+#. .. include:: ../include/howto_change_ownership.rst
 
-   .. note::
-
-      Mind that Unit will look for an :samp:`application` callable in the WSGI
-      module.
-
-#. .. include:: ../include/get-config.rst
-
-   This creates a JSON file with Unit's current settings.  Edit the file,
-   adding a :ref:`listener <configuration-listeners>` entry to point to a Unit
-   :ref:`app <configuration-applications>` that references your application’s
-   WSGI module as :samp:`module` and your `virtual environment
-   <https://flask.palletsprojects.com/en/1.1.x/installation/#virtual-environments>`_
-   as :samp:`home`:
+#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+   Unit:
 
    .. code-block:: json
 
       {
           "listeners": {
-              "*:8080": {
+              "*:80": {
                   "pass": "applications/flask_app"
               }
           },
@@ -47,25 +51,22 @@ To run your Flask apps in Unit:
           "applications": {
               "flask_app": {
                   "type": "python 3",
-                  "path": ":nxt_term:`/path/to/flask/flask_app/ <Path to the WSGI module>`",
-                  "home": ":nxt_term:`/path/to/flask/venv/ <Path to the virtual environment, if any>`",
+                  "user": ":nxt_term:`unit_user <User and group values must have access to path and home directories>`",
+                  "group": "unit_group",
+                  "path": ":nxt_term:`/path/to/app/ <Path to the WSGI module>`",
+                  "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_term:`wsgi <WSGI module filename with extension omitted>`"
               }
           }
       }
 
-   For details, see :ref:`Python app settings <configuration-python>`.
+#. .. include:: ../include/howto_upload_config.rst
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-   After a successful update, your app should be available on the
-   listener's IP address and port:
+#. After a successful update, your app should be available on the listener’s IP
+   address and port:
 
    .. code-block:: console
 
-      $ curl http://127.0.0.1:8080/
+      $ curl http://localhost
+
+            Hello, World!
