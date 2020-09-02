@@ -1,2 +1,2 @@
-Install |app|'s |app-link|_.  For our purposes, the installation path is
-:samp:`/path/to/app/`.
+Install |app|'s |app-link|_.  Here, we install it at :samp:`/path/to/app/`; use
+a real path in your configuration.
