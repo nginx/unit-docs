@@ -1,27 +1,23 @@
+.. |app| replace:: MediaWiki
+.. |mod| replace:: PHP
+.. |app-link| replace:: core files
+.. _app-link: https://www.mediawiki.org/wiki/Download
+
 #########
 MediaWiki
 #########
 
-To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
+To run the `MediaWiki <https://www.mediawiki.org/>`_ collaboration and
+documentation platform using Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. Check and configure MediaWiki's `prerequisites
-   <https://www.mediawiki.org/wiki/Manual:Installation_requirements>`_.
+#. .. include:: ../include/howto_install_app.rst
 
-#. Download and extract MediaWiki `files
-   <https://www.mediawiki.org/wiki/Download>`_:
+#. .. include:: ../include/howto_change_ownership.rst
 
-   .. code-block:: console
-
-      $ mkdir -p /path/to/mediawiki/ /tmp/mediawiki/ && cd :nxt_term:`/tmp/mediawiki/ <Temporary location to download files to>`
-      $ curl -O https://releases.wikimedia.org/mediawiki/1.34/mediawiki-1.34.1.tar.gz
-      $ tar xzf mediawiki-1.34.1.tar.gz --strip-components 1 -C :nxt_term:`/path/to/mediawiki/ <Target installation location>`
-      # chown -R :nxt_term:`mw_user:mw_group <Used to configure the app in Unit>` /path/to/mediawiki/
-
-   In this example, the files will be stored in :file:`/path/to/mediawiki/`.
-
-#. Next, prepare and upload the app configuration to Unit:
+#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+   Unit:
 
    .. code-block:: json
 
@@ -89,7 +85,7 @@ To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
                       },
 
                       "action": {
-                          "share": "/path/to/mediawiki/"
+                          "share": "/path/to/app/"
                       }
                   },
                   {
@@ -103,14 +99,15 @@ To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
           "applications": {
               "mw": {
                   "type": "php",
-                  "user": ":nxt_term:`mw_user <Username that Unit runs the app as, with access to /path/to/mediawiki/>`",
+                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
+                  "group": "unit_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/mediawiki/"
+                          "root": "/path/to/app/"
                       },
 
                       "index": {
-                          "root": "/path/to/mediawiki/",
+                          "root": "/path/to/app/",
                           "script": "index.php"
                       }
                   }
@@ -124,33 +121,27 @@ To install a `MediaWiki <https://www.mediawiki.org/>`_ server using Unit:
       :samp:`script` :ref:`setting <configuration-php>`:
 
       - The :samp:`direct` target runs the :samp:`.php` script from the URI or
-        defaults to :samp:`index.php` if the URI omits it.
+        defaults to :samp:`index.php` if the w omits it.
       - The :samp:`index` target specifies the :samp:`script` that Unit runs
         for *any* URIs the target receives.
 
-#. Assuming the config above is saved as :file:`mediawiki.json`:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @mediawiki.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-#. Browse to :samp:`/mw-config/index.php` to configure the settings from Step 2
-   and complete your installation:
+#. Browse to http://localhost/mw-config/index.php and set |app| up using
+   the settings noted earlier:
 
    .. image:: ../images/mw_install.png
       :width: 100%
       :alt: MediaWiki on Unit
 
-   Download the :file:`LocalSettings.php` file created here and place it
+   Download the newly generated :file:`LocalSettings.php` file and place it
    `appropriately <https://www.mediawiki.org/wiki/Manual:Config_script>`_:
 
    .. code-block:: console
 
-      $ mv LocalSettings.php /path/to/mediawiki/
-      $ chmod 600 /path/to/mediawiki/LocalSettings.php
-      # chown mw_user /path/to/mediawiki/LocalSettings.php
-
+      $ mv LocalSettings.php /path/to/app/
+      $ chmod 600 /path/to/app/LocalSettings.php
+      # chown unit_user /path/to/app/LocalSettings.php
 
 #. After installation, add a match condition to the first step to disable
    access to the :file:`mw-config/` directory:
