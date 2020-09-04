@@ -1342,8 +1342,9 @@ structure <installation-src-dir>`:
 
     .. warning::
 
-       For security reasons, avoid opening sockets on public interfaces in
-       production.
+       Avoid exposing an unprotected control socket to public networks.  Use
+       :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH for
+       security and authentication.
 
     The default is :samp:`unix:control.unit.sock`, created as
     :samp:`root` with :samp:`600` permissions.
