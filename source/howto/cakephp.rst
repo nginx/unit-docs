@@ -1,11 +1,13 @@
+.. |app| replace:: CakePHP
+.. |mod| replace:: PHP 7.2+
+
 #######
 CakePHP
 #######
 
 To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP 7.2+ language
-   module.
+#. .. include:: ../include/howto_install_unit.rst
 
 #. `Install
    <https://book.cakephp.org/4/en/installation.html>`_ CakePHP and
@@ -16,12 +18,14 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
    .. code-block:: console
 
       $ cd /path/to/
-      $ composer create-project --prefer-dist cakephp/app:4.* cakephp
+      $ composer create-project --prefer-dist cakephp/app:4.* app
 
-   This creates the app's directory tree at :file:`/path/to/cakephp/`.  Its
+   This creates the app's directory tree at :file:`/path/to/app/`.  Its
    :file:`webroot/` subdirectory contains both the root :file:`index.php` and
    the static files; if your app requires additional :file:`.php` scripts, also
    store them here.
+
+#. .. include:: ../include/howto_change_ownership.rst
 
 #. Finally, prepare and upload the app :ref:`configuration <configuration-php>`
    to Unit (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
@@ -51,7 +55,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/cakephp/webroot/",
+                          ":nxt_term:`share <Serves all kinds of static files>`": ":nxt_term:`/path/to/app/webroot/ <Use a real path in your configuration>`",
                           ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
                               "pass": "applications/cakephp/index"
                           }
@@ -63,15 +67,16 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
           "applications": {
               "cakephp": {
                   "type": "php",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/cakephp/>`",
+                  "user": ":nxt_term:`unit_user <User and group values must have access to the app root directory>`",
+                  "group": "unit_group",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/cakephp/webroot/ <Path to the index.php script>`"
+                          "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/cakephp/webroot/ <Path to the index.php script>`",
-                          "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                          "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory>`",
+                          "script": ":nxt_term:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
@@ -92,12 +97,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
    <https://book.cakephp.org/4/en/installation.html#fire-it-up>`_ in CakePHP
    docs.
 
-   Assuming the config above is saved as :file:`cakephp.json`:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @cakephp.json --unix-socket \
-             :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    .. image:: ../images/cakephp.png
       :width: 100%
