@@ -117,7 +117,7 @@ body > div {
     bottom: 0;
     width: 100%;
     height: .8em;
-    background: linear-gradient(to top, white, rgba(255,255,255,0));
+    background: linear-gradient(to top, white, rgba(255,255,255,1));
 }
 #side .toctree-l2 a.nxt_active + ul,
 #side .toctree-l1 li.current > ul,
