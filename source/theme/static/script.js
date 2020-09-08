@@ -73,7 +73,7 @@ function nxt_copy_init() {
 
     const btn = template.content.childNodes[0];
 
-    for (let el of document.getElementsByClassName("highlight")) {
+    for (let el of document.getElementsByClassName('highlight')) {
         const pre = el.firstChild;
         const html = pre.innerHTML
         const pos = html.indexOf('\n')
@@ -85,7 +85,7 @@ function nxt_copy_init() {
         el.parentElement.appendChild(btn.cloneNode(true))
     }
 
-    document.body.addEventListener("copy", nxt_copy_reset)
+    document.body.addEventListener('copy', nxt_copy_reset)
 }
 
 
@@ -93,16 +93,16 @@ function nxt_copy(btn) {
     const container = btn.closest('div')
     let text = container.querySelector('pre').innerText
 
-    if (container.classList.contains("highlight-console")) {
+    if (container.classList.contains('highlight-console')) {
         text = nxt_copy_console(text)
     }
 
     navigator.clipboard.writeText(text).then(function() {
-        console.log(text.length + " chars copied to clipboard")
+        console.log(text.length + ' chars copied to clipboard')
 
     }, function() {
         nxt_copy_reset()
-        console.log("clipboard write failed")
+        console.log('clipboard write failed')
     })
 }
 
@@ -157,7 +157,7 @@ function nxt_copy_console(text) {
 
 
 function nxt_copy_reset() {
-    const el = document.querySelector(".nxt_copy_btn input:checked")
+    const el = document.querySelector('.nxt_copy_btn input:checked')
     if (el) {
         el.checked = false
     }
