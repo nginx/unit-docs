@@ -403,9 +403,9 @@ only the :samp:`pass` value and leaves other options intact.
 Listeners
 *********
 
-To start serving HTTP requests with Unit, define a listener in the
-:samp:`config/listeners` section of the API.  A listener uniquely combines a
-host IP (or a wildcard to match all host IPs) and a port that Unit binds to.
+To start accepting requests, add a listener object in the
+:samp:`config/listeners` API section.  The object's name uniquely combines a
+host IP address and a port that Unit binds to; a wildcard matches any host IPs.
 
 .. note::
 
@@ -413,13 +413,11 @@ host IP (or a wildcard to match all host IPs) and a port that Unit binds to.
    listeners on the same port due to kernel-imposed limitations; for example,
    :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`.
 
-Unit dispatches the requests it receives to :ref:`applications
-<configuration-applications>` or :ref:`routes <configuration-routes>`
-referenced by listeners; it also can serve requests for :ref:`static files
-<configuration-static>` directly.  You can plug several listeners into one app
-or route, or use a single listener for hot-swapping during testing or staging.
+Unit dispatches the requests it receives to destinations referenced by
+listeners.  You can plug several listeners into one destination or use a
+single listener and hot-swap it between multiple destinations.
 
-Available options:
+Available listener options:
 
 .. list-table::
     :header-rows: 1
@@ -428,34 +426,22 @@ Available options:
       - Description
 
     * - :samp:`pass`
-      - Destination to which the listener passes incoming requests. Possible
-        values and examples:
+      - Destination to which the listener passes incoming requests.  Possible
+        alternatives:
 
-        - :ref:`App <configuration-applications>`:
+        - :ref:`Application <configuration-applications>`:
           :samp:`applications/qwk2mart`
-        - PHP app :ref:`target <configuration-php-targets>`:
-          :samp:`applications/app/section`
+        - :ref:`Target <configuration-php-targets>` in a PHP application:
+          :samp:`applications/my_php_app/section`
         - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
           :samp:`routes`
         - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
 
-        Values can be `percent encoded
-        <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example,
-        you can escape slashes in entity names:
+        .. note::
 
-        .. code-block:: json
-
-           {
-               "listeners": {
-                    "*:80": {
-                        "pass": "routes/slashes%2Fin%2Froute%2Fname"
-                    }
-               },
-
-               "routes": {
-                    "slashes/in/route/name": []
-               }
-           }
+           The value is :ref:`variable <configuration-variables>`-interpolated;
+           if it matches no configuration entities after interpolation, a 404
+           "Not Found" response is returned.
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
@@ -463,23 +449,45 @@ Available options:
         certificate chain that you have :ref:`configured <configuration-ssl>`
         earlier.
 
-Here, local requests at port :samp:`8300` are passed to the :samp:`blogs` app;
-all requests at :samp:`8400` follow the :samp:`main` route:
+Here, a local listener accepts requests at port 8300 and passes them to the
+:samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
+:samp:`uri` :ref:`variable <configuration-variables>`.  The wildcard listener
+on port 8400 is protected by the :samp:`blogs-cert` :ref:`certificate bundle
+<configuration-ssl>` and relays requests at any host IPs to the :samp:`main`
+:ref:`route <configuration-routes>`:
 
 .. code-block:: json
 
     {
         "127.0.0.1:8300": {
-            "pass": "applications/blogs",
-            "tls": {
-                "certificate": "blogs-cert"
-            }
+            "pass": "applications/blogs$uri",
         },
 
         "*:8400": {
-            "pass": "routes/main"
+            "pass": "routes/main",
+            "tls": {
+                "certificate": "blogs-cert"
+            }
         }
     }
+
+Also, the :samp:`pass` values can be `percent encoded
+<https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example, you can
+escape slashes in entity names:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+            "*:80": {
+                "pass": "routes/slashes%2Fin%2Froute%2Fname"
+            }
+       },
+
+       "routes": {
+            "slashes/in/route/name": []
+       }
+   }
 
 
 .. _configuration-routes:
