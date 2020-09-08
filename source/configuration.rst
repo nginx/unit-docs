@@ -460,7 +460,7 @@ on port 8400 is protected by the :samp:`blogs-cert` :ref:`certificate bundle
 
     {
         "127.0.0.1:8300": {
-            "pass": "applications/blogs$uri",
+            "pass": "applications/blogs$uri"
         },
 
         "*:8400": {
