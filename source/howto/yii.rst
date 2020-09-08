@@ -6,6 +6,7 @@ To run apps based on the `Yii <https://www.yiiframework.com>`_ framework
 versions 1.1 or 2.0 using Unit:
 
 .. tabs::
+   :prefix: yii
 
    .. tab:: Yii 2.0
 

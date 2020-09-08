@@ -546,48 +546,50 @@ body > div {
     display: flex;
     flex-flow: row wrap;
 }
-
-.nxt_input {
-    display: none;
-}
-
-.nxt_label {
-    white-space: nowrap;
-    overflow: hidden;
-    padding: .3em 1em;
-    order: 1;
-    border: solid #ddd;
-    text-shadow: 1px 0 white;
-    border-width: .1em .1em 0 .1em;
-    cursor: pointer;
-}
-
-.nxt_label:hover {
-    text-decoration: underline;
-}
-
-.nxt_input:checked + .nxt_label {
-    border-color: #00974d;
-    color: white;
-    background: #00974d;
-    text-decoration: none;
-    cursor: text;
-}
-
-.nxt_tab {
-    display: none;
+.nxt_tabs > div {
     border: .1em solid #00974d;
+    display: none;
+    order: 2;
     padding: 0 1em;
-    order: 3;
     width: 100%;
 }
-
-.nxt_input:checked + .nxt_label + .nxt_tab {
-    display: block;
+.nxt_tabs > input {
+    display: none;
 }
-
-.nxt_label + .nxt_tab + .nxt_input + .nxt_label {
-    margin-left: .3em;
+.nxt_tabs > label {
+    margin: .3em .3em 0 0;
+}
+.nxt_tabs > label a {
+    border: solid #ddd;
+    border-width: .1em .1em 0;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    padding: .3em 1em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.nxt_tabs > label a:hover {
+    text-decoration: underline;
+}
+.nxt_tabs > input.nojs + label a {
+    border-width: .1em;
+}
+.nxt_tabs > input.nojs + label:target a,
+.nxt_tabs > input.js:checked + label a {
+    background: #00974d;
+    border-color: #00974d;
+    color: white;
+    cursor: default;
+    text-shadow: 1px 0 white;
+}
+.nxt_tabs > input.nojs + label:target a:hover,
+.nxt_tabs > input.js:checked + label a:hover {
+    text-decoration: none;
+}
+.nxt_tabs > input.nojs + label:target + div,
+.nxt_tabs > input.js:checked + label + div {
+    display: block;
 }
 
 /* Click-to-copy */
@@ -638,11 +640,14 @@ body > div {
         margin-left: 0;
         padding-left: 1.6em;
     }
-    .nxt_label {
-        width: 100%;
-        margin: 0 !important;;
+    .nxt_tabs > div {
+        width: 93%;
     }
-    .nxt_input:checked + .nxt_label {
-        order: 2;
+    .nxt_tabs > input + label a {
+        border-width: .1em;
+    }
+    .nxt_tabs > input.nojs + label:target,
+    .nxt_tabs > input.js:checked + label {
+        order: 1;
     }
 }

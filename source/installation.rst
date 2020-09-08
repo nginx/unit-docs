@@ -201,6 +201,7 @@ Amazon Linux
 Supported architectures: :samp:`x86-64`.
 
 .. tabs::
+   :prefix: amazon
 
    .. tab:: 2.0 LTS
 
@@ -255,6 +256,7 @@ CentOS
 ======
 
 .. tabs::
+   :prefix: centos
 
    .. tab:: 8.x, 7.x
 
@@ -313,6 +315,7 @@ Debian
 Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
 .. tabs::
+   :prefix: debian
 
    .. tab:: 10
 
@@ -421,6 +424,7 @@ Fedora
 Supported architectures: :samp:`x86-64`.
 
 .. tabs::
+   :prefix: fedora
 
    .. tab:: 32
 
@@ -523,6 +527,7 @@ RHEL
 ====
 
 .. tabs::
+   :prefix: rhel
 
    .. tab:: 8.x, 7.x
 
@@ -581,6 +586,7 @@ Ubuntu
 ======
 
 .. tabs::
+   :prefix: ubuntu
 
    .. tab:: 20.04
 
@@ -1171,6 +1177,7 @@ The commands below assume you are configuring Unit with all supported
 languages and features; otherwise, skip the packages you aren’t going to use.
 
 .. tabs::
+   :prefix: prereq
 
    .. tab:: Debian, Ubuntu
 

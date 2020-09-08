@@ -56,9 +56,10 @@
 #  </details>
 
 from docutils import nodes
-from docutils.parsers.rst import Directive, roles
+from docutils.parsers.rst import Directive, directives, roles
 from hashlib import md5 as hashlib_md5
 from os import path, strerror
+from secrets import token_urlsafe
 from sphinx.builders.html import DirectoryHTMLBuilder
 from sphinx.writers.html import HTMLTranslator
 import re
@@ -187,18 +188,18 @@ class nxt_translator(HTMLTranslator):
 
     def visit_nxt_tab_head(self, node):
         self.body.append('''
-        <input name="{0}" type="radio" id="{1}" class="nxt_input" {2}/>
-        '''.format(node.tabs_id, node.tab_id, node.tab_checked))
+        <input name={0} type=radio id={1} class="nojs" {2}/>'''
+        .format(node.tabs_id, node.tab_id, node.checked))
 
         self.body.append('''
-        <label for="{0}" class="nxt_label">'''
-        .format(node.tab_id))
+        <label for={0} id={1}><a href=#{1} onclick="nxt_tab_click(event)">'''
+        .format(node.tab_id, node.label_id))
 
         HTMLTranslator.visit_Text(self,node)
 
 
     def depart_nxt_tab_head(self, node):
-        self.body.append('</label>')
+        self.body.append('</a></label>')
         HTMLTranslator.depart_Text(self,node)
 
 
@@ -243,6 +244,9 @@ class TabsDirective(Directive):
 # handles the '.. tabs::' directive, adding an 'nxt_tabs' container node
 
     has_content = True
+    option_spec = {
+            'prefix': directives.unchanged
+    }
 
     def run(self):
         self.assert_has_content()
@@ -250,15 +254,8 @@ class TabsDirective(Directive):
 
         node = nxt_tabs()
         node['classes'] = ['nxt_tabs']
-
-        # tab groups numbering logic
-        if 'tabs_id' not in env.temp_data:
-            env.temp_data['tabs_id'] = 0
-
-        # individual tab numbering logic
-        env.temp_data['tabs_id'] += 1
+        env.temp_data['tabs_id'] = self.options.get('prefix', token_urlsafe())
         env.temp_data['tab_id'] = 0
-        env.temp_data['tab_checked'] = 'checked'
 
         self.state.nested_parse(self.content, self.content_offset, node)
 
@@ -276,20 +273,17 @@ class TabDirective(Directive):
 
         tab_head = nxt_tab_head(self.content[0])
 
-        tab_head.tabs_id = 'nxt_tabs{0}'.format(env.temp_data['tabs_id'])
-        tab_head.tab_id = 'nxt_tab{0}_{1}'.\
+        tab_head.tabs_id = env.temp_data['tabs_id']
+        tab_head.checked = "checked" if env.temp_data['tab_id'] == 0 else ""
+        tab_head.tab_id = '{0}_{1}'.\
             format(env.temp_data['tabs_id'], env.temp_data['tab_id'])
-        tab_head.tab_checked = env.temp_data['tab_checked']
-        # each tab stores tab ID and tab group ID
+        tab_head.label_id = '{0}_{1}'.format(env.temp_data['tabs_id'],
+                                re.sub('[^\w\-]+', '', self.content[0]))
 
         env.temp_data['tab_id'] += 1
-        if env.temp_data['tab_checked']:
-            env.temp_data['tab_checked'] = ''
-        # first tab in a group is checked by default, others are unchecked
 
         text = '\n'.join(self.content)
         tab_body = nxt_tab_body(text)
-        tab_body['classes'] = ['nxt_tab']
         self.state.nested_parse(self.content[2:], self.content_offset, \
             tab_body)
 

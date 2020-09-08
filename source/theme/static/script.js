@@ -21,6 +21,20 @@ function nxt_scroll_init() {
 }
 
 
+function nxt_tab_click(e) {
+    e.preventDefault()
+    history.replaceState({}, '', e.target.href)
+    e.target.parentElement.previousElementSibling.checked=true
+}
+
+
+function nxt_tab_init() {
+    for (const el of document.querySelectorAll('.nxt_tabs > input')) {
+        el.classList.replace('nojs', 'js')
+    }
+}
+
+
 function nxt_nav_init() {
     const observer = new IntersectionObserver((entries, observer) => {
         for (const entry of entries) {
@@ -152,6 +166,8 @@ function nxt_copy_reset() {
 
 function nxt_dom_ready() {
     nxt_scroll_init()
+    nxt_tab_init()
+    nxt_tab_hash_change()
 
     if (IntersectionObserver) {
         nxt_nav_init()
@@ -168,6 +184,20 @@ function nxt_dom_ready() {
     }
 }
 
+
+function nxt_tab_hash_change() {
+    if (window.location.hash) {
+        const selector = '.nxt_tabs > label' + window.location.hash
+
+        const el = document.querySelector(selector)
+        if (el) {
+            el.previousElementSibling.checked = true;
+        }
+    }
+}
+
+
+window.addEventListener('hashchange', nxt_tab_hash_change)
 
 if (document.readyState === 'loading') {
     window.addEventListener('DOMContentLoaded', nxt_dom_ready)
