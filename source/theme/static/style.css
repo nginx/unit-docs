@@ -232,7 +232,13 @@ body > div {
     padding: .2em .4em;
     background: #eee;
     color: #666;
-    white-space: nowrap
+    white-space: nowrap;
+}
+#content code.download {
+    background: none;
+    color: inherit;
+    font: inherit;
+    padding: 0;
 }
 #content div.admonition,
 #content details {
