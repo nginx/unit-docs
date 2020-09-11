@@ -175,7 +175,7 @@ class nxt_translator(HTMLTranslator):
 
     def depart_nxt_details(self, node):
         HTMLTranslator.depart_container(self,node)
-        self.body.append("</details>")
+        self.body.append('</details>')
 
 
     def visit_nxt_tabs(self, node):
@@ -274,7 +274,7 @@ class TabDirective(Directive):
         tab_head = nxt_tab_head(self.content[0])
 
         tab_head.tabs_id = env.temp_data['tabs_id']
-        tab_head.checked = "checked" if env.temp_data['tab_id'] == 0 else ""
+        tab_head.checked = 'checked' if env.temp_data['tab_id'] == 0 else ''
         tab_head.tab_id = '{0}_{1}'.\
             format(env.temp_data['tabs_id'], env.temp_data['tab_id'])
         tab_head.label_id = '{0}_{1}'.format(env.temp_data['tabs_id'],
