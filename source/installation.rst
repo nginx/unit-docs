@@ -46,7 +46,8 @@ the same language):
 Docker Images
 *************
 
-To install and run Unit from NGINX's Docker image repository:
+To install and run Unit from NGINX's Docker `image repository <https://hub.
+docker.com/r/nginx/unit/>`_:
 
 .. code-block:: console
 
@@ -54,8 +55,7 @@ To install and run Unit from NGINX's Docker image repository:
    $ docker run -d nginx/unit
 
 Default image tag is :samp:`:latest`; it resolves into a :samp:`-full`
-configuration of the latest Unit version.  Other `tags <https://hub.
-docker.com/r/nginx/unit/tags/>`_:
+configuration of the latest Unit version.  Other tags:
 
 .. list-table::
     :header-rows: 1
