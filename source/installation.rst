@@ -897,10 +897,10 @@ available or list its settings.  To manage the installation:
 
     .. code-block:: console
 
-       # systemctl enable unit
-       # systemctl restart unit
-       # systemctl stop unit
-       # systemctl disable unit
+       # :nxt_term:`systemctl enable unit <Enables Unit to start automatically at system startup>`
+       # :nxt_term:`systemctl restart unit <Starts or restarts Unit>`
+       # :nxt_term:`systemctl stop unit <Stops a running Unit>`
+       # :nxt_term:`systemctl disable unit <Prevents Unit from starting automatically at system startup>`
 
 
 .. _installation-community-repos:
