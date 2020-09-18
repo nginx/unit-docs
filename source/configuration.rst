@@ -2702,7 +2702,7 @@ uploaded bundle in :samp:`certificate`:
 
    {
        "listeners": {
-           "127.0.0.1:8080": {
+           "127.0.0.1:443": {
                "pass": "applications/wsgi-app",
                "tls": {
                    "certificate": "<bundle>"
@@ -2725,7 +2725,7 @@ The resulting control API configuration may look like this:
 
        "config": {
            "listeners": {
-               "127.0.0.1:8080": {
+               "127.0.0.1:443": {
                    "pass": "applications/wsgi-app",
                    "tls": {
                        "certificate": "<bundle>"
@@ -2747,7 +2747,7 @@ Now you're solid.  The application is accessible via SSL/TLS:
 
 .. code-block:: console
 
-   $ curl -v https://127.0.0.1:8080
+   $ curl -v https://127.0.0.1
        ...
        * TLSv1.2 (OUT), TLS handshake, Client hello (1):
        * TLSv1.2 (IN), TLS handshake, Server hello (2):
