@@ -84,7 +84,7 @@ We also publish these images as tarballs on our `website
          nginx-unit-|version|-full.tar.gz: OK
    $ docker load < nginx-unit-|version|-full.tar.gz
 
-.. include:: include/socket-note-deb.rst
+.. include:: include/socket-log-deb.rst
 
 For further details, see the `repository page <https://hub.docker.com/r/
 nginx/unit/>`_ and the official :doc:`Howto <howto/docker>`.
@@ -246,7 +246,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python27 unit-python34 unit-python35 unit-python36
 
-.. include:: include/socket-note-rpm.rst
+.. include:: include/socket-log-rpm.rst
 
 
 .. _installation-precomp-centos:
@@ -303,7 +303,7 @@ CentOS
             # yum install unit
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
 
-.. include:: include/socket-note-rpm.rst
+.. include:: include/socket-log-rpm.rst
 
 
 .. _installation-precomp-deb:
@@ -412,7 +412,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-perl unit-php unit-python2.7 \
                   unit-python3.4 unit-ruby
 
-.. include:: include/socket-note-deb.rst
+.. include:: include/socket-log-deb.rst
 
 
 .. _installation-precomp-fedora:
@@ -515,9 +515,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python36 unit-ruby
 
-.. note::
-
-   The control socket's pathname is :file:`/var/run/unit/control.sock`.
+.. include:: include/socket-log-rpm.rst
 
 
 .. _installation-precomp-rhel:
@@ -576,7 +574,7 @@ RHEL
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python
 
-.. include:: include/socket-note-rpm.rst
+.. include:: include/socket-log-rpm.rst
 
 
 .. _installation-precomp-ubuntu:
@@ -790,7 +788,7 @@ Ubuntu
             # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python2.7 unit-python3.5 unit-ruby
 
-.. include:: include/socket-note-deb.rst
+.. include:: include/socket-log-deb.rst
 
 
 .. _installation-homebrew:
@@ -824,6 +822,8 @@ To install Java, Perl, Python, and Ruby language modules from Homebrew:
 
    Control socket is located here:
    :file:`/usr/local/var/run/unit/control.sock`.
+   The :ref:`log <troubleshooting-log>` is
+   :file:`/usr/local/var/log/unit/unit.log`.
 
 
 .. _installation-go-package:
