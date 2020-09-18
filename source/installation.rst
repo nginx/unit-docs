@@ -897,7 +897,7 @@ available or list its settings.  To manage the installation:
 
    .. tab:: Amazon, CentOS, Debian, Fedora, RHEL, Ubuntu
 
-      Enable Unit to start automatically at system startup:
+      Enable Unit to launch automatically at system startup:
 
       .. code-block:: console
 
@@ -909,7 +909,7 @@ available or list its settings.  To manage the installation:
 
          # systemctl restart unit
 
-      Stops a running Unit:
+      Stop a running Unit:
 
       .. code-block:: console
 
