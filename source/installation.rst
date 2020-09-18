@@ -800,15 +800,11 @@ Homebrew
 To install Unit on macOS from our official Homebrew `tap
 <https://github.com/nginx/homebrew-unit>`_:
 
-.. subs-code-block:: console
+.. code-block:: console
 
-   $ brew install nginx/unit/unit  # perform core installation
-   $ which unitd                   # confirm the executable location
-         /usr/local/bin/unitd
-   $ unitd --version               # check ./configure flags
-         unit version: |version|
+   $ brew install nginx/unit/unit
 
-This deploys the Unit binary and the prerequisites for :ref:`Go
+This deploys the core Unit binary and the prerequisites for :ref:`Go
 <installation-go-package>` and :ref:`Node.js <installation-nodejs-package>`
 language module installation.
 
@@ -820,10 +816,11 @@ To install Java, Perl, Python, and Ruby language modules from Homebrew:
 
 .. note::
 
-   Control socket is located here:
-   :file:`/usr/local/var/run/unit/control.sock`.
-   The :ref:`log <troubleshooting-log>` is
-   :file:`/usr/local/var/log/unit/unit.log`.
+   | The control socket's pathname is
+     :file:`/usr/local/var/run/unit/control.sock`.
+
+   | The :ref:`log <troubleshooting-log>` is
+     :file:`/usr/local/var/log/unit/unit.log`.
 
 
 .. _installation-go-package:
@@ -895,12 +892,48 @@ Startup and Shutdown
 Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
 available or list its settings.  To manage the installation:
 
-    .. code-block:: console
+.. tabs::
+   :prefix: startup-shutdown
 
-       # :nxt_term:`systemctl enable unit <Enables Unit to start automatically at system startup>`
-       # :nxt_term:`systemctl restart unit <Starts or restarts Unit>`
-       # :nxt_term:`systemctl stop unit <Stops a running Unit>`
-       # :nxt_term:`systemctl disable unit <Prevents Unit from starting automatically at system startup>`
+   .. tab:: Amazon, CentOS, Debian, Fedora, RHEL, Ubuntu
+
+      Enable Unit to start automatically at system startup:
+
+      .. code-block:: console
+
+         # systemctl enable unit
+
+      Start or restart Unit:
+
+      .. code-block:: console
+
+         # systemctl restart unit
+
+      Stops a running Unit:
+
+      .. code-block:: console
+
+         # systemctl stop unit
+
+      Disable Unit's automatic startup:
+
+      .. code-block:: console
+
+         # systemctl disable unit
+
+   .. tab:: Homebrew
+
+      Start Unit as a daemon:
+
+      .. code-block:: console
+
+         # unitd
+
+      Stop all Unit processes:
+
+      .. code-block:: console
+
+         # pkill unitd
 
 
 .. _installation-community-repos:
