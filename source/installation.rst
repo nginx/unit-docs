@@ -970,7 +970,8 @@ To install service manager files and specific language modules:
 
 .. note::
 
-   The control socket's pathname is :file:`/run/control.unit.sock`.
+   The control socket's pathname is :file:`/run/control.unit.sock`.  The
+   :ref:`log <troubleshooting-log>` is :file:`/var/log/unit.log`.
 
 
 .. _installation-archlinux-aur:
@@ -984,7 +985,6 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. code-block:: console
 
-   # pacman -S git
    $ git clone https://aur.archlinux.org/nginx-unit.git
    $ cd nginx-unit
 
@@ -1000,7 +1000,8 @@ To install Unit using the `Arch User Repository (AUR)
 
 .. note::
 
-   The control socket's pathname is :file:`/run/nginx-unit.control.sock`.
+   The control socket's pathname is :file:`/run/nginx-unit.control.sock`.  The
+   :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit.log`.
 
 
 .. _installation-scls:
@@ -1044,15 +1045,11 @@ FreeBSD
 
 To install Unit using `FreeBSD packages <https://www.
 freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
-repository and install the `package <https://www.freshports.org/www/unit>`__:
+repository and install the package:
 
 .. code-block:: console
 
    # pkg install -y unit
-
-.. note::
-
-   The control socket's pathname is :file:`/var/run/unit/control.unit.sock`.
 
 .. _installation-freebsd-prts:
 
@@ -1088,6 +1085,7 @@ Next, browse to the port path to build and install the port:
 .. note::
 
    The control socket's pathname is :file:`/var/run/unit/control.unit.sock`.
+   The :ref:`log <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
 
 
 .. _installation-gnt-prtg:
@@ -1108,6 +1106,7 @@ Handbook:X86/Full/Portage>`_, update the repository and install the `package
 .. note::
 
    The control socket's pathname is :file:`/run/nginx-unit.sock`.
+   The :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit`.
 
 
 .. installation-nix:
@@ -1129,6 +1128,7 @@ update the repository and install the `package
 .. note::
 
    The control socket's pathname is :file:`/run/unit/control.unit.sock`.
+   The :ref:`log <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
 
 
 .. _installation-remirepo:
