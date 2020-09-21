@@ -19,9 +19,10 @@ your technology stack, or simply be tech-curious.  In any case:
      - #. Verify that Unit :ref:`supports <installation-prereqs>` your
           platform and app language version.
 
-       #. If possible, check how your app runs beside Unit to avoid confusion.
+       #. If possible, ensure the app can run beside Unit to rule out
+          external issues.
 
-   * - **Get Unit in your system**
+   * - **Get Unit on the system**
 
      - #. Install Unit with the language modules you need.  Your options:
 
@@ -31,7 +32,7 @@ your technology stack, or simply be tech-curious.  In any case:
           - Third-party :ref:`packages <installation-community-repos>`
           - Source :ref:`build <installation-src>`
 
-       #. Configure and launch Unit in your system:
+       #. Configure and launch Unit on your system:
 
           - Our own and third-party packages :ref:`rely on
             <installation-precomp-startup>` :program:`systemctl` or
@@ -69,4 +70,4 @@ your technology stack, or simply be tech-curious.  In any case:
        #. Finally, set up a :ref:`listener <configuration-listeners>` to make
           your app publicly available.
 
-For details of each step, see specific documentation sections.
+For the details of each step, see specific documentation sections.
