@@ -1228,7 +1228,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # apt install :nxt_term:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
          # apt install libssl-dev
 
-   .. tab:: Amazon Linux, CentOS, Fedora, RHEL
+   .. tab:: Amazon, CentOS, Fedora, RHEL
 
       .. code-block:: console
 

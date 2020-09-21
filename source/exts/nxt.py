@@ -24,6 +24,8 @@
 # .rst file:
 #
 # .. tabs::
+#    :prefix: tab-hash-id-prefix
+#    :toc:
 #
 #    .. tab:: Plain Text Foo
 #
@@ -60,7 +62,11 @@ from docutils.parsers.rst import Directive, directives, roles
 from hashlib import md5 as hashlib_md5
 from os import path, strerror
 from secrets import token_urlsafe
+from sphinx import addnodes
 from sphinx.builders.html import DirectoryHTMLBuilder
+from sphinx.environment.collectors.toctree import TocTreeCollector
+from sphinx.transforms import SphinxContentsFilter
+from sphinx.environment.adapters.toctree import TocTree
 from sphinx.writers.html import HTMLTranslator
 import re
 
@@ -220,6 +226,100 @@ class nxt_translator(HTMLTranslator):
         pass
 
 
+class nxt_collector(TocTreeCollector):
+    '''Replaces TocTreeCollector.process_doc's nested build_doc function to
+    include tab titles in the resulting TOC.'''
+
+    def process_doc(self, app, doctree):
+        # type: (Sphinx, nodes.Node) -> None
+        """Build a TOC from the doctree and store it in the inventory.
+        Copied intact from Sphinx 1.8.0 sources with nxt_tab_head traversal
+        added; look for 'Extension code starts here'."""
+        docname = app.env.docname
+        numentries = [0]  # nonlocal again...
+
+        def traverse_in_section(node, cls):
+            # type: (nodes.Node, Any) -> List[nodes.Node]
+            """Like traverse(), but stay within the same section."""
+            result = []
+            if isinstance(node, cls):
+                result.append(node)
+            for child in node.children:
+                if isinstance(child, nodes.section):
+                    continue
+                result.extend(traverse_in_section(child, cls))
+            return result
+
+        def build_toc(node, depth=1):
+            # type: (nodes.Node, int) -> List[nodes.Node]
+            entries = []
+            for sectionnode in node:
+                # find all toctree nodes in this section and add them
+                # to the toc (just copying the toctree node which is then
+                # resolved in self.get_and_resolve_doctree)
+                if isinstance(sectionnode, addnodes.only):
+                    onlynode = addnodes.only(expr=sectionnode['expr'])
+                    blist = build_toc(sectionnode, depth)
+                    if blist:
+                        onlynode += blist.children  # type: ignore
+                        entries.append(onlynode)
+                    continue
+                if not isinstance(sectionnode, nodes.section):
+                    # Extension code starts here
+                    for tabnode in traverse_in_section(sectionnode,
+                            nxt_tab_head):
+                        if tabnode.tab_toc:
+                            nodetext = [nodes.Text(tabnode)]
+                            anchorname = '#' + tabnode.label_id
+                            numentries[0] += 1
+                            reference = nodes.reference(
+                                '', '', internal=True, refuri=docname,
+                                anchorname=anchorname, *nodetext)
+                            para = addnodes.compact_paragraph('', '', reference)
+                            item = nodes.list_item('', para)
+                            entries.append(item)
+                    # Extension code ends here
+                    for toctreenode in traverse_in_section(sectionnode,
+                                                           addnodes.toctree):
+                        item = toctreenode.copy()
+                        entries.append(item)
+                        # important: do the inventory stuff
+                        TocTree(app.env).note(docname, toctreenode)
+                    continue
+                title = sectionnode[0]
+                # copy the contents of the section title, but without references
+                # and unnecessary stuff
+                visitor = SphinxContentsFilter(doctree)
+                title.walkabout(visitor)
+                nodetext = visitor.get_entry_text()
+                if not numentries[0]:
+                    # for the very first toc entry, don't add an anchor
+                    # as it is the file's title anyway
+                    anchorname = ''
+                else:
+                    anchorname = '#' + sectionnode['ids'][0]
+                numentries[0] += 1
+                # make these nodes:
+                # list_item -> compact_paragraph -> reference
+                reference = nodes.reference(
+                    '', '', internal=True, refuri=docname,
+                    anchorname=anchorname, *nodetext)
+                para = addnodes.compact_paragraph('', '', reference)
+                item = nodes.list_item('', para)
+                sub_item = build_toc(sectionnode, depth + 1)
+                item += sub_item
+                entries.append(item)
+            if entries:
+                return nodes.bullet_list('', *entries)
+            return []
+        toc = build_toc(doctree)
+        if toc:
+            app.env.tocs[docname] = toc
+        else:
+            app.env.tocs[docname] = nodes.bullet_list('')
+        app.env.toc_num_entries[docname] = numentries[0]
+
+
 # doctree-related classes
 
 class DetailsDirective(Directive):
@@ -245,7 +345,8 @@ class TabsDirective(Directive):
 
     has_content = True
     option_spec = {
-            'prefix': directives.unchanged
+            'prefix': directives.unchanged,
+            'toc': directives.unchanged
     }
 
     def run(self):
@@ -256,6 +357,11 @@ class TabsDirective(Directive):
         node['classes'] = ['nxt_tabs']
         env.temp_data['tabs_id'] = self.options.get('prefix', token_urlsafe())
         env.temp_data['tab_id'] = 0
+        if 'toc' in self.options:
+            env.temp_data['tab_toc'] = True
+            node['classes'].append('nxt_toc')
+        else:
+            env.temp_data['tab_toc'] = False
 
         self.state.nested_parse(self.content, self.content_offset, node)
 
@@ -279,6 +385,7 @@ class TabDirective(Directive):
             format(env.temp_data['tabs_id'], env.temp_data['tab_id'])
         tab_head.label_id = '{0}_{1}'.format(env.temp_data['tabs_id'],
                                 re.sub('[^\w\-]+', '', self.content[0]))
+        tab_head.tab_toc = env.temp_data['tab_toc']
 
         env.temp_data['tab_id'] += 1
 
@@ -296,6 +403,7 @@ def setup(app):
     app.add_directive('tabs', TabsDirective)
     app.add_directive('tab', TabDirective)
 
+    app.add_env_collector(nxt_collector)
     app.add_builder(nxt_builder)
     app.set_translator('nxt_html', nxt_translator)
 

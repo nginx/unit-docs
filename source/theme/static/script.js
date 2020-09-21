@@ -38,16 +38,27 @@ function nxt_tab_init() {
 function nxt_nav_init() {
     const observer = new IntersectionObserver((entries, observer) => {
         for (const entry of entries) {
-            const selector = '#side .toctree-l1 a[href="#'+entry.target.id+'"]'
 
-            document.querySelector(selector)
-                    .classList.toggle('nxt_active', entry.intersectionRatio > 0)
+            const toc_id = (entry.target.classList.contains('section'))
+                           ? entry.target.id
+                           : entry.target.previousElementSibling.id;
+
+            const selector = '#side .toctree-l1 a[href="#' + toc_id + '"]'
+
+            document.querySelector(selector).classList.toggle('nxt_active',
+                entry.intersectionRatio > 0)
         }
     })
 
     const sections = '#content > :not(#howto) div.section'
 
     for (const el of document.querySelectorAll(sections)) {
+        observer.observe(el)
+    }
+
+    const tabs = '.nxt_toc > label + div'
+
+    for (const el of document.querySelectorAll(tabs)) {
         observer.observe(el)
     }
 }
