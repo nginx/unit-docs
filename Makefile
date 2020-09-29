@@ -54,7 +54,6 @@ deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
-	sed -i '' "s/linear-gradient(to top,white,transparent)/linear-gradient(to top,white,rgba(255,255,255,0))/" $(TMP)/_static/style.css
 	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
 	rsync -rcv --delete --exclude='*.gz' --exclude='/sitemap.xml' \
 		"$(TMP)/" "$(DEPLOYDIR)"
