@@ -2429,8 +2429,9 @@ automatically.
 .. note::
 
    For Python-based examples, see our :doc:`howto/django`, :doc:`howto/flask`,
-   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/pyramid`, and
-   :doc:`howto/trac` howtos or a basic :ref:`sample <sample-python>`.
+   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/pyramid`,
+   :doc:`howto/quart`, and :doc:`howto/trac` howtos or a basic :ref:`sample
+   <sample-python>`.
 
 .. _configuration-ruby:
 

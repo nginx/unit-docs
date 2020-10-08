@@ -50,6 +50,7 @@ following frameworks:
    flask
    laravel
    pyramid
+   quart
    symfony
    yii
 
