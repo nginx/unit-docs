@@ -2441,27 +2441,29 @@ following:
       - Description
 
     * - :samp:`module` (required)
-      - Application module name.  To
-        run the app, Unit looks for an :samp:`application` callable in the
-        module you supply; the :samp:`module` itself is `imported
+      - Application module name.  The :samp:`module` itself is `imported
         <https://docs.python.org/3/reference/import.html>`_ just like in
         Python.
 
-    * - :samp:`path`
-      - Additional lookup path for Python modules; this string is inserted into
-        :samp:`sys.path`.
+    * - :samp:`callable`
+      - Name of the callable in :samp:`module` that Unit uses to run the app.
+
+        The default value is :samp:`application`.
 
     * - :samp:`home`
       - Path to Python's `virtual environment <https://packaging.python.org/
         tutorials/installing-packages/#creating-virtual-environments>`_ for the
         app.  Absolute or relative to :samp:`working_directory`.
 
-
         .. note::
 
            The Python version used to run the app depends on the :samp:`type`
            value; Unit ignores the command-line interpreter from the virtual
            environment for performance considerations.
+
+    * - :samp:`path`
+      - Additional lookup path for Python modules; this string is inserted into
+        :samp:`sys.path`.
 
 Example:
 
@@ -2474,6 +2476,7 @@ Example:
        "path": "/www/store/cart/",
        "home": "/www/store/.virtualenv/",
        "module": "wsgi",
+       "callable": "app",
        "user": "www",
        "group": "www"
    }
@@ -3212,6 +3215,7 @@ Full Example
                "wiki": {
                    "type": "python",
                    "module": "wsgi",
+                   "callable": "app",
                    "environment": {
                        "DJANGO_SETTINGS_MODULE": "wiki.settings.prod",
                        "DB_ENGINE": "django.db.backends.postgresql",

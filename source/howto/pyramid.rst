@@ -38,9 +38,10 @@ using Unit:
       with Configurator() as config:
           config.add_route('hello', '/')
           config.add_view(hello_world, route_name='hello')
-          :nxt_term:`application <Callable name expected by Unit>` = config.make_wsgi_app()
+          app = config.make_wsgi_app()
+      # serve(app, host='0.0.0.0', port=6543)
 
-   Note that we've dropped the server code and altered the callable name.
+   Note that we've dropped the server code.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -63,7 +64,8 @@ using Unit:
                   "group": "unit_group",
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
-                  "module": "wsgi"
+                  "module": "wsgi",
+                  ":nxt_term:`callable <Name of the callable in the module to run>`": "app"
               }
           }
       }
