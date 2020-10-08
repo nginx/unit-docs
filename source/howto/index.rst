@@ -51,6 +51,7 @@ following frameworks:
    laravel
    pyramid
    quart
+   starlette
    symfony
    yii
 
