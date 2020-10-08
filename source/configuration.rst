@@ -1825,10 +1825,27 @@ The :samp:`isolation` application option has the following members:
      - Pathname of the directory to be used as the new `file system root
        <https://man7.org/linux/man-pages/man2/chroot.2.html>`_ for the app.
 
+   * - :samp:`automount`
+     - Object that controls mount behavior if :samp:`rootfs` is enabled.  By
+       default, Unit automatically mounts the :ref:`language runtime
+       dependencies <configuration-lang-runtime>`, but you can disable this
+       behavior:
+
+       .. code-block:: json
+
+          {
+              "isolation": {
+                  "automount": {
+                      "language_deps": false
+                  }
+              }
+          }
+
+
 .. note::
 
-   The :samp:`uidmap` and :samp:`gidmap` options are available only if the OS
-   supports user namespaces.
+   The :samp:`uidmap` and :samp:`gidmap` options are available only if the
+   underlying OS supports user namespaces.
 
 A sample :samp:`isolation` object that enables all namespaces and sets mappings
 for user and group IDs:
@@ -1883,6 +1900,9 @@ Note the :samp:`path` and :samp:`home` settings:
            "rootfs": "/var/app/sandbox/"
        }
    }
+
+
+.. _configuration-lang-runtime:
 
 Unit mounts language-specific files and directories to the new root so the app
 stays operational:
@@ -3156,7 +3176,11 @@ Full Example
                                "container": 0,
                                "size": 1000
                            }
-                       ]
+                       ],
+
+                       "automount": {
+                           "language_deps": false
+                       }
                    }
                },
 
