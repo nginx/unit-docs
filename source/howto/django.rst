@@ -38,8 +38,12 @@ To run your Django projects and apps in Unit:
    *project*'s WSGI or ASGI module; the project and its apps will run on the
    listener's IP and port.  If you use a `virtual environment
    <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_,
-   reference it as :samp:`home`.  Finally, you can also set up some environment
-   variables that your project relies on.
+   reference it as :samp:`home`.  Also, you can set up some environment
+   variables that your project relies on.  Finally, if your project uses
+   Django's `static files
+   <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
+   add a :ref:`route <configuration-routes>` to :ref:`serve
+   <configuration-static>` them with Unit.
 
    .. tabs::
       :prefix: django
