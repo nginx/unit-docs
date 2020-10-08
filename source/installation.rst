@@ -625,6 +625,11 @@ Ubuntu
 
    .. tab:: 19.10
 
+      .. warning::
+
+         Unit 1.20+ packages aren't available for Ubuntu 19.10.  This
+         distribution is obsolete; please update.
+
       Supported architectures: :samp:`x86-64`.
 
       #. Download NGINX's `signing key
