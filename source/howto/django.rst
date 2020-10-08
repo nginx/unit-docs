@@ -41,13 +41,6 @@ To run your Django projects and apps in Unit:
    reference it as :samp:`home`.  Finally, you can also set up some environment
    variables that your project relies on.
 
-   .. note::
-
-      If your project uses Django's `static files
-      <https://docs.djangoproject.com/en/stable/howto/static-files/>`_,
-      optionally add a :ref:`route <configuration-routes>` to :ref:`serve
-      <configuration-static>` them with Unit.
-
    .. tabs::
       :prefix: django
 
@@ -101,13 +94,12 @@ To run your Django projects and apps in Unit:
 
       .. tab:: ASGI
 
-         Mind the :samp:`module` setting that references the
-         :file:`project/asgi.py` file.
- 
          .. note::
 
             ASGI requires Python 3.5+ and Django 3.0+.
 
+         Mind the :samp:`module` setting that references the
+         :file:`project/asgi.py` file.
 
          .. code-block:: json
 
