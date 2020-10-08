@@ -2351,7 +2351,7 @@ following:
       - Description
 
     * - :samp:`module` (required)
-      - `WSGI <https://www.python.org/dev/peps/pep-3333/>`_ module name.  To
+      - Application module name.  To
         run the app, Unit looks for an :samp:`application` callable in the
         module you supply; the :samp:`module` itself is `imported
         <https://docs.python.org/3/reference/import.html>`_ just like in
@@ -2387,6 +2387,44 @@ Example:
        "user": "www",
        "group": "www"
    }
+
+.. _configuration-python-asgi:
+
+You can provide the callable in two forms.  The first one uses WSGI (`PEP 333
+<https://www.python.org/dev/peps/pep-0333/>`_ or `PEP 3333
+<https://www.python.org/dev/peps/pep-3333/>`_):
+
+.. code-block:: python
+
+   def application(environ, start_response):
+       start_response('200 OK', [('Content-Type', 'text/plain')])
+       yield b'Hello, WSGI\n'
+
+The second one, supported for Python 3.5+, uses `ASGI 3.0
+<https://asgi.readthedocs.io/en/latest/>`__:
+
+.. code-block:: python
+
+   async def application(scope, receive, send):
+
+       await send({
+           'type': 'http.response.start',
+           'status': 200
+       })
+
+       await send({
+           'type': 'http.response.body',
+           'body': b'Hello, ASGI\n'
+       })
+
+.. warning::
+
+   Legacy `two-callable
+   <https://asgi.readthedocs.io/en/latest/specs/main.html#legacy-applications>`_
+   ASGI 2.0 applications are not supported.
+
+Choose either one according to your needs; Unit will pick up your choice
+automatically.
 
 .. note::
 

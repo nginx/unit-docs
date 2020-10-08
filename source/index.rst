@@ -36,7 +36,8 @@ Key Features
   :ref:`load balancing <configuration-upstreams>`, and
   :ref:`static file serving <configuration-static>` options are available
 - Server-side WebSockets are implemented for :ref:`Node.js
-  <configuration-external>` and Java
+  <configuration-external>`, Python (via
+  :ref:`ASGI 3.0 <configuration-python-asgi>`), and Java
 - Applications can rely on namespace and file system :ref:`isolation
   <configuration-proc-mgmt-isolation>`
 - HTTP requests can be :ref:`proxied <configuration-routes-proxy>` elsewhere
