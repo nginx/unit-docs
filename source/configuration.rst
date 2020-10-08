@@ -683,8 +683,10 @@ request properties:
      - Case |-| Sensitive
      - Match |_| Type
    * - :samp:`arguments`
-     - Parameter arguments supplied in the request URI.  Names and values can
-       be `percent encoded <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
+     - Parameter arguments supplied in the request target `query
+       <https://tools.ietf.org/html/rfc3986#section-3.4>`_.  Names and values
+       can be `percent encoded
+       <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
      - Yes
      - Compound
    * - :samp:`cookies`
@@ -696,16 +698,19 @@ request properties:
      - No
      - Simple
    * - :samp:`headers`
-     - Header fields supplied with the request.
+     - `Header fields <https://tools.ietf.org/html/rfc7230#section-3.2>`_
+       supplied with the request.
      - No
      - Compound
    * - :samp:`host`
-     - Host from the :samp:`Host` header field without port number, normalized
-       by removing the trailing period (if any).
+     - :samp:`Host`
+       `header field <https://tools.ietf.org/html/rfc7230#section-5.4>`_
+       without the port number and the trailing period (if any).
      - No
      - Simple
    * - :samp:`method`
-     - Method from the request line.
+     - Method from the `request
+       line <https://tools.ietf.org/html/rfc7231#section-4>`_.
      - No
      - Simple
    * - :samp:`scheme`
@@ -719,8 +724,9 @@ request properties:
      - No
      - Simple
    * - :samp:`uri`
-     - URI path without arguments, normalized by resolving relative path
-       references ("." and "..") and compressing adjacent slashes into one.
+     - Request target `path <https://tools.ietf.org/html/rfc7230#section-5.3>`_
+       without the query part, normalized by resolving relative path
+       references ("." and "..") and collapsing adjacent slashes.
        Can be `percent encoded
        <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
      - Yes
@@ -731,7 +737,7 @@ request properties:
    Both :samp:`arguments` and :samp:`uri` support `percent encoding
    <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  Thus, you can escape
    characters which have special meaning in routing (:samp:`!` is :samp:`%21`,
-   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`) or even target
+   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`), or even target
    individual bytes.  For example, to select an entire class of diacritic
    characters such as Ö or Å by their starting byte :samp:`0xC3` in UTF-8:
 
@@ -742,6 +748,37 @@ request properties:
               "word": "*%C3*"
           }
       }
+
+   This requires mentioning that actual arguments and URIs passed with requests
+   are percent *decoded*: Unit interpolates all percent-encoded entities in
+   these properties.  Thus, the following configuration:
+
+   .. code-block:: json
+
+      {
+          "routes": [
+              {
+                  "match": {
+                      "uri": "/:nxt_term:`static files <Note the unencoded space>`/*"
+                  },
+
+                  "action": {
+                      "share": "/www/data/"
+                  }
+              }
+          ]
+      }
+
+   Matches this percent-encoded request:
+
+   .. subs-code-block:: console
+
+      $ curl http://127.0.0.1/static%20files/test.txt -v
+
+            > GET /static%20files/test.txt HTTP/1.1
+            ...
+            < HTTP/1.1 200 OK
+            ...
 
 .. _configuration-routes-simple:
 
