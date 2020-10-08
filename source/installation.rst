@@ -283,6 +283,11 @@ CentOS
 
    .. tab:: 6.x
 
+      .. warning::
+
+         Unit 1.20+ packages aren't available for CentOS 6.  This distribution
+         is obsolete; please update.
+
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
       #. To configure Unit repository, create the following file named
