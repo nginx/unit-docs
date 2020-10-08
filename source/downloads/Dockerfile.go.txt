@@ -1,5 +1,5 @@
 # keep our base image as small as possible
-FROM nginx/unit:1.19.0-go1.11-dev
+FROM nginx/unit:1.20.0-go1.11-dev
 
 # port used by the listener in config.json
 EXPOSE 8080
