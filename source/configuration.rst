@@ -1120,13 +1120,23 @@ Available variables:
    * - Variable
      - Description
 
+   * - :samp:`host`
+     - :samp:`Host`
+       `header field <https://tools.ietf.org/html/rfc7230#section-5.4>`_ in
+       lowercase, without the port number and the trailing period (if any).
+
    * - :samp:`method`
-     - HTTP verb used in the request: :samp:`GET`, :samp:`POST`, :samp:`PUT`,
-       and so on.
+     - Method from the `request
+       line <https://tools.ietf.org/html/rfc7231#section-4>`_.
 
    * - :samp:`uri`
-     - URI path supplied with the request, including the initial slash
-       character: :samp:`/uri`.
+     - Request target `path <https://tools.ietf.org/html/rfc7230#section-5.3>`_
+       without the query part, normalized by resolving relative path
+       references ("." and "..") and collapsing adjacent slashes.
+       The value is `percent decoded
+       <https://tools.ietf.org/html/rfc3986#section-2.1>`_: Unit interpolates
+       all percent-encoded entities in the request target `path
+       <https://tools.ietf.org/html/rfc7230#section-5.3>`_.
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1170,9 +1180,9 @@ variable is immediately followed by these characters:
        }
    }
 
-At runtime, variables are replaced by dynamically computed values.  For
-example, the listener above targets an entire set of routes, picking
-individual ones by HTTP verbs that the incoming requests use:
+At runtime, variables are replaced by dynamically computed values (at your
+risk!).  For example, the listener above targets an entire set of routes,
+picking individual ones by HTTP verbs that the incoming requests use:
 
 .. code-block:: console
 
@@ -1217,9 +1227,32 @@ Another obvious usage is employing the URI to choose between applications:
        }
    }
 
-Note that we've effectively implemented a routing scheme without actually using
-:samp:`routes`.  In fact, you can use variables as a shortcut alternative to
-:ref:`condition matching <configuration-routes-matching>`.
+This way, we can route requests to applications by request target URIs.  A
+different approach can route requests between applications by the :samp:`Host`
+header field received from the client:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:80": {
+               "pass": "applications/$host"
+           }
+       },
+
+       "applications": {
+           "localhost": {
+               "root": "/path/to/admin_section/",
+               "script": "index.php"
+           },
+
+           "www.example.com": {
+               "type": "php",
+               "root": "/path/to/public_app/",
+               "script": "index.php"
+           }
+       }
+   }
 
 You can combine variables as you see fit, repeating them or placing them in
 arbitrary order.  This configuration picks application targets by their names
