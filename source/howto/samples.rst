@@ -118,82 +118,6 @@ Try this sample out with the Dockerfile :download:`here
    }
 
 
-.. _sample-nodejs:
-
-*******
-Node.js
-*******
-
-Let's configure the following basic app, saved as :file:`/www/app.js`:
-
-.. code-block:: javascript
-
-   #!/usr/bin/env node
-
-   require("unit-http").createServer(function (req, res) {
-       res.writeHead(200, {"Content-Type": "text/plain"});
-       res.end("Hello, Node.js on Unit!")
-   }).listen()
-
-Make it executable and link the Node.js language package you've :ref:`installed
-<installation-nodejs-package>` earlier:
-
-.. code-block:: console
-
-   $ cd /www
-   $ chmod +x app.js
-   $ npm link unit-http
-
-Upload the :ref:`app config <configuration-external>` to Unit and test it:
-
-.. code-block:: console
-
-   # curl -X PUT --data-binary '{           \
-     "listeners": {                         \
-         "*:8080": {                        \
-             "pass": "applications/node_app"\
-         }                                  \
-     },                                     \
-     "applications": {                      \
-         "node_app": {                      \
-             "type": "external",            \
-             "working_directory": "/www/",  \
-             "executable": "app.js"         \
-         }                                  \
-     }                                      \
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
-
-   $ curl localhost:8080
-
-       Hello, Node.js on Unit!
-
-Try this sample out with the Dockerfile :download:`here
-<../downloads/Dockerfile.nodejs.txt>` or use a more elaborate app example:
-
-.. subs-code-block:: javascript
-
-   #!/usr/bin/env node
-
-   const cr = require("crypto")
-   const bd = require("body")
-   require("unit-http").createServer(function (req, res) {
-       bd (req, res, function (err, body) {
-           res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"})
-
-           var r = {
-               "agent":    "NGINX Unit |version|",
-               "message":  "Kirov reporting"
-           }
-
-           r["headers"] = req.headers
-           r["body"] = body
-           r["sha256"] = cr.createHash("sha256").update(r["body"]).digest("hex")
-
-           res.end(JSON.stringify(r, null, "    ").toString("utf8"))
-       })
-   }).listen()
-
-
 .. _sample-java:
 
 ****
@@ -273,6 +197,82 @@ Try this sample out with the Dockerfile :download:`here
 
    out.println(Jsoner.prettyPrint((Jsoner.serialize(r))));
    %>
+
+
+.. _sample-nodejs:
+
+*******
+Node.js
+*******
+
+Let's configure the following basic app, saved as :file:`/www/app.js`:
+
+.. code-block:: javascript
+
+   #!/usr/bin/env node
+
+   require("unit-http").createServer(function (req, res) {
+       res.writeHead(200, {"Content-Type": "text/plain"});
+       res.end("Hello, Node.js on Unit!")
+   }).listen()
+
+Make it executable and link the Node.js language package you've :ref:`installed
+<installation-nodejs-package>` earlier:
+
+.. code-block:: console
+
+   $ cd /www
+   $ chmod +x app.js
+   $ npm link unit-http
+
+Upload the :ref:`app config <configuration-external>` to Unit and test it:
+
+.. code-block:: console
+
+   # curl -X PUT --data-binary '{           \
+     "listeners": {                         \
+         "*:8080": {                        \
+             "pass": "applications/node_app"\
+         }                                  \
+     },                                     \
+     "applications": {                      \
+         "node_app": {                      \
+             "type": "external",            \
+             "working_directory": "/www/",  \
+             "executable": "app.js"         \
+         }                                  \
+     }                                      \
+     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+
+   $ curl localhost:8080
+
+       Hello, Node.js on Unit!
+
+Try this sample out with the Dockerfile :download:`here
+<../downloads/Dockerfile.nodejs.txt>` or use a more elaborate app example:
+
+.. subs-code-block:: javascript
+
+   #!/usr/bin/env node
+
+   const cr = require("crypto")
+   const bd = require("body")
+   require("unit-http").createServer(function (req, res) {
+       bd (req, res, function (err, body) {
+           res.writeHead(200, {"Content-Type": "application/json; charset=utf-8"})
+
+           var r = {
+               "agent":    "NGINX Unit |version|",
+               "message":  "Kirov reporting"
+           }
+
+           r["headers"] = req.headers
+           r["body"] = body
+           r["sha256"] = cr.createHash("sha256").update(r["body"]).digest("hex")
+
+           res.end(JSON.stringify(r, null, "    ").toString("utf8"))
+       })
+   }).listen()
 
 
 .. _sample-perl:
