@@ -5,8 +5,7 @@ App Samples
 .. note::
 
    These steps assume Unit was already :ref:`installed
-   <installation-precomp-pkgs>` with the language module or package for each
-   app.
+   <installation-precomp-pkgs>` with the language module for each app.
 
 .. _sample-go:
 
