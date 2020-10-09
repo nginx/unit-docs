@@ -33,7 +33,7 @@ using Unit:
 
 
       def hello_world(request):
-          return Response('<body><h1>Hello World!</h1></body>')
+          return Response('<body><h1>Hello, World!</h1></body>')
 
       with Configurator() as config:
           config.add_route('hello', '/')
@@ -79,4 +79,4 @@ using Unit:
 
       $ curl http://localhost
 
-            <body><h1>Hello World!</h1></body>
+            <body><h1>Hello, World!</h1></body>

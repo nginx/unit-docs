@@ -33,13 +33,13 @@ To run apps built with the `Quart
 
       @app.route('/')
       async def hello():
-          return '<body><h1>Hello World!</h1></body>'
+          return '<body><h1>Hello, World!</h1></body>'
 
       # Let's add WebSocket support to the app as well
       @app.websocket('/ws')
       async def ws():
           while True:
-              await websocket.send('Hello World!')
+              await websocket.send('Hello, World!')
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -77,11 +77,11 @@ To run apps built with the `Quart
 
       $ curl http://localhost
 
-            <body><h1>Hello World!</h1></body>
+            <body><h1>Hello, World!</h1></body>
 
       $ wscat -c ws://localhost/ws
 
-            < Hello World!
-            < Hello World!
-            < Hello World!
+            < Hello, World!
+            < Hello, World!
+            < Hello, World!
             ...
