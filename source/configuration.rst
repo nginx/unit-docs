@@ -2724,6 +2724,11 @@ containing your certificate chain and private key to Unit.  Next, reference the
 uploaded bundle in the listener's configuration.  After that, the listener's
 application becomes accessible via SSL/TLS.
 
+.. note::
+
+   For the details of certificate issuance and renewal in Unit, see an
+   example in :doc:`howto/certbot`.
+
 First, create a :file:`.pem` file with your certificate chain and private key:
 
 .. code-block:: console

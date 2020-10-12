@@ -14,6 +14,7 @@ experience with Unit.
 
    docker
    integration
+   certbot
    Language Modules <modules>
    samples
    walkthrough
@@ -22,6 +23,9 @@ experience with Unit.
   container.
 
 - :doc:`integration`: Front or secure Unit with NGINX.
+
+- :doc:`certbot`: Use EFF's Certbot with Unit to simplify certificate
+  manipulation.
 
 - :doc:`modules`: Build new modules or prepare custom packages for
   Unit.
