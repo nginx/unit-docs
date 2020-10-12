@@ -234,6 +234,9 @@ body > div {
     color: #666;
     white-space: nowrap;
 }
+#content span.guilabel {
+    font-weight: bold;
+}
 #content code.download {
     background: none;
     color: inherit;
