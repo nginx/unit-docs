@@ -7,19 +7,20 @@
 About
 #####
 
-NGINX Unit is a lightweight dynamic open-source server for diverse web
-applications; to install it, see :ref:`here <installation-precomp-pkgs>`.
-
-Built from scratch, Unit can run web apps in different language versions; fully
-configurable in runtime with zero interruption, it enables on-the-fly granular
-management for engineering and operations.
+NGINX Unit is a polyglot app server, a reverse proxy, and a static file server,
+:ref:`available <installation-precomp-pkgs>` for Unix-like systems. It was
+built by `nginx <https://nginx.org/en/>`_ team members from scratch to be
+highly efficient and fully configurable at runtime.
 
 | The latest version is |version|, released on |release_date|.
 | See the changelog `here </CHANGES.txt>`_; a GitHub-based
   `roadmap <https://github.com/orgs/nginx/projects/1>`_ outlines
   our further plans.
 
-The sources are available under the Apache |_| 2.0 license.
+| The sources are distributed under the `Apache 2.0
+  <https://hg.nginx.org/unit/file/tip/LICENSE>`_ license.
+| Commercial support is available from `NGINX, Inc
+  <https://www.nginx.com/support/>`_.
 
 ************
 Key Features

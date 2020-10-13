@@ -175,7 +175,8 @@ body > div {
 #content *:hover > .headerlink {
     visibility: visible;
 }
-#content p {
+#content p,
+#content .line-block {
     margin: 1em 0;
 }
 #content ul {
