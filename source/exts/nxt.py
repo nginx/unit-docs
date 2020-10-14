@@ -63,11 +63,16 @@ from hashlib import md5 as hashlib_md5
 from os import path, strerror
 from secrets import token_urlsafe
 from sphinx import addnodes
+from sphinx.application import Sphinx
 from sphinx.builders.html import DirectoryHTMLBuilder
+from sphinx.domains.std import StandardDomain
 from sphinx.environment.collectors.toctree import TocTreeCollector
+from sphinx.locale import __
 from sphinx.transforms import SphinxContentsFilter
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.writers.html import HTMLTranslator
+from sphinx.util import logging
+from typing import cast
 import re
 
 
@@ -79,6 +84,9 @@ class nxt_tab_head(nodes.Text): pass
 class nxt_tabs(nodes.container): pass
 class nxt_term(nodes.container): pass
 # dummy classes, required for docutils dispatcher's Visitor pattern
+
+
+logger = logging.getLogger(__name__)
 
 
 nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(r'[\w\s\.\,\?\!\-\/\:#_]')
@@ -383,8 +391,8 @@ class TabDirective(Directive):
         tab_head.checked = 'checked' if env.temp_data['tab_id'] == 0 else ''
         tab_head.tab_id = '{0}_{1}'.\
             format(env.temp_data['tabs_id'], env.temp_data['tab_id'])
-        tab_head.label_id = '{0}_{1}'.format(env.temp_data['tabs_id'],
-                                re.sub('[^\w\-]+', '', self.content[0]))
+        tab_head.label_id = '{0}-{1}'.format(env.temp_data['tabs_id'],
+                            re.sub('[^\w\-]+', '', self.content[0])).lower()
         tab_head.tab_toc = env.temp_data['tab_toc']
 
         env.temp_data['tab_id'] += 1
@@ -397,6 +405,20 @@ class TabDirective(Directive):
         return [tab_head, tab_body]
 
 
+def register_tabs_as_label(app: Sphinx, document: nodes.Node) -> None:
+    docname = app.env.docname
+    labels = app.env.domaindata['std']['labels']
+    anonlabels = app.env.domaindata['std']['anonlabels']
+    for node in document.traverse(nxt_tab_head):
+        if node.label_id in labels:
+            logger.warning(__('duplicate label %s, other instance in %s'),
+                           node.label_id,
+                           app.env.doc2path(labels[node.label_id][0]),
+                           location=node)
+        anonlabels[node.label_id] = docname, node.label_id
+        labels[node.label_id] = docname, node.label_id, node.astext()
+
+
 def setup(app):
 
     app.add_directive('nxt_details', DetailsDirective)
@@ -406,5 +428,6 @@ def setup(app):
     app.add_env_collector(nxt_collector)
     app.add_builder(nxt_builder)
     app.set_translator('nxt_html', nxt_translator)
+    app.connect('doctree-read', register_tabs_as_label)
 
     roles.register_canonical_role('nxt_term', nxt_term_role_fn)
