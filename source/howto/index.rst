@@ -36,6 +36,9 @@ experience with Unit.
 - :doc:`walkthrough`: Follow an end-to-end guide to application configuration
   in Unit.
 
+
+.. _howto-frameworks:
+
 **********
 Frameworks
 **********

@@ -26,36 +26,75 @@ highly efficient and fully configurable at runtime.
 Key Features
 ************
 
-- Configuration :ref:`updates dynamically <configuration-mgmt>` via a RESTful
-  JSON API
-- Disparate :ref:`language versions <configuration-applications>` run
-  simultaneously
-- Application processes :ref:`scale on demand <configuration-proc-mgmt-prcs>`
+===========
+Flexibility
+===========
+
+- :ref:`Entire configuration <configuration-full-example>` is managed
+  dynamically over HTTP via a :ref:`RESTful JSON API <configuration-mgmt>`
+- Updates to the configuration are performed granularly at runtime with
+  zero interruption
+- Requests are :ref:`routed <configuration-routes>` between :ref:`static
+  content <configuration-static>`, upstream :ref:`servers
+  <configuration-routes-proxy>`, and local :ref:`apps
+  <configuration-applications>`
+- Requests are filtered and dispatched with compound :ref:`matching rules
+  <configuration-routes-matching>`
+- Apps in multiple languages and language versions run :ref:`side by side
+  <configuration-applications>`
+- App runtimes seamlessly support :ref:`common language-specific APIs
+  <howto-frameworks>` for each supported language
+- Upstream :ref:`server groups <configuration-upstreams>` enable dynamic
+  load balancing using a weighted round-robin method
+
+
+============
+Performance
+============
+
+- Requests are asynchronously processed in threads with efficient event loops
+  (epoll/kqueue)
+- Syscalls and data copy operations are kept to a necessary minimum
+- 10,000 inactive HTTP keep-alive connections take up only a few MBs of memory
+- Router and app processes rely on low-latency IPC built with lock-free queues
+  over shared memory
+- The number of per-app processes is defined statically or :ref:`scales
+  <configuration-proc-mgmt-prcs>`  preemptively within given limits
+
+
+=====================
+Security & Robustness
+=====================
+
+- Client connections are handled by a separate non-privileged router process
+- Low-resource conditions (out of memory or descriptors) and app crashes are
+  handled gracefully
 - :ref:`SSL/TLS <configuration-ssl>` is supported seamlessly (OpenSSL |_| 1.0.1
   and later)
-- Extensive :ref:`request routing <configuration-routes>`,
-  :ref:`load balancing <configuration-upstreams>`, and
-  :ref:`static file serving <configuration-static>` options are available
-- Server-side WebSockets are implemented for :ref:`Node.js
-  <configuration-external>`, Python (via
-  :ref:`ASGI 3.0 <configuration-python-asgi>`), and Java
-- Applications can rely on namespace and file system :ref:`isolation
+- Different apps are isolated in separate processes
+- Apps can be containerized with namespace and file system :ref:`isolation
   <configuration-proc-mgmt-isolation>`
-- HTTP requests can be :ref:`proxied <configuration-routes-proxy>` elsewhere
-  during routing
+
 
 ***********************
 Supported App Languages
 ***********************
 
-- `Assembly <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
-- :ref:`Python <configuration-python>`
-- :ref:`PHP <configuration-php>`
-- :ref:`Go <configuration-external>`
-- :ref:`Perl <configuration-perl>`
-- :ref:`Ruby <configuration-ruby>`
-- :ref:`JavaScript (Node.js) <configuration-external>`
-- :ref:`Java <configuration-java>`
+- `Assembly
+  <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
+  uses the embedded :program:`libunit` library
+- :ref:`Go <configuration-external>` implementation relies on :ref:`overloading
+  <installation-go-package>` the :program:`http` module
+- :ref:`JavaScript (Node.js)<configuration-external>` implementation relies on
+  :ref:`overloading <installation-nodejs-package>` the :program:`http` and
+  :program:`websocket` modules
+- :ref:`Java Servlets <configuration-java>` are implemented with WebSocket
+  support
+- :ref:`Perl <configuration-perl>` implementation provides a PSGI server
+- :ref:`PHP <configuration-php>` implementation uses the :program:`embed` SAPI
+- :ref:`Python <configuration-python>` implementation provides WSGI and ASGI
+  |_| 3.0 with WebSocket support
+- :ref:`Ruby <configuration-ruby>` implementation relies on the Rack API
 
 ****
 Demo
