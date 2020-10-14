@@ -23,15 +23,18 @@ External modules are regular language libraries or packages that you install
 like any other.  They provide common web functionality, communicating with Unit
 from the app's runspace.
 
-In Go, Unit support is implemented with a package that you :ref:`build into
-<configuration-external-go>` your apps.  The package is available from the
-official Unit repository; you can also build it with Unit sources for a custom
-version of Go.
+In Go, Unit support is implemented with a package that you :ref:`import
+<configuration-external-go>` to your apps.  You can :ref:`install
+<installation-go>` the package from the official Unit repository; otherwise,
+:ref:`build <installation-go>` it for your version of Go using Unit sources.
 
-In Node.js, Unit is supported by an :program:`npm`-hosted :ref:`package
-<configuration-external-nodejs>` that your apps :samp:`require` in their code
-among other dependencies.  To make it available in your system, install it from
-the `npm <https://www.npmjs.com/package/unit-http>`_ repository.
+In Node.js, Unit is supported by an :program:`npm`-hosted `package
+<https://www.npmjs.com/package/unit-http>`__ that you :ref:`require
+<configuration-external-nodejs>` in your app code.  You can :ref:`install
+<installation-nodejs-package>` the package from the :program:`npm` repository;
+otherwise, :ref:`build <installation-nodejs>` it for your version of Node.js
+using Unit sources.
+
 
 .. _modules-emb:
 
