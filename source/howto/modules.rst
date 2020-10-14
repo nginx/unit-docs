@@ -97,12 +97,12 @@ but still want to benefit from the convenience of a packaged installation.  In
 this case, you can build your own package to be installed alongside the
 official distribution, adding the latter as a prerequisite.
 
-Here, we are packaging a custom PHP |_| 7.3 :ref:`module <installation-php>` to
-be installed next to the official Unit package; adjust the command samples to
-your scenario as needed.  For Debian, Ubuntu, and other :file:`.deb`-based
-distributions, see the steps :ref:`here <modules-deb>`; for CentOS, Fedora,
-RHEL, and other :file:`.rpm`-based distributions, follow the steps :ref:`here
-<modules-rpm>`.
+Here, we are packaging a custom PHP |_| 7.3 :ref:`module
+<installation-modules-php>` to be installed next to the official Unit package;
+adjust the command samples to your scenario as needed.  For Debian, Ubuntu, and
+other :file:`.deb`-based distributions, see the steps :ref:`here
+<modules-deb>`; for CentOS, Fedora, RHEL, and other :file:`.rpm`-based
+distributions, follow the steps :ref:`here <modules-rpm>`.
 
 .. note::
 

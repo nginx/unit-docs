@@ -1916,7 +1916,7 @@ stays operational:
    * - Java
      - - The :file:`/proc/` directory tree, required by JVM
        - JVM's :file:`libc.so` directory
-       - Java module's :ref:`home <installation-java>` directory
+       - Java module's :ref:`home <installation-modules-java>` directory
 
    * - Python
      - Python's :samp:`sys.path` `directories
@@ -2079,9 +2079,9 @@ Before applying the configuration, update the application itself.
 Go
 **
 
-In the :samp:`import` section, reference the :samp:`"unit.nginx.org/go"` package
-that you have :ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<installation-go>` earlier:
+In the :samp:`import` section, reference the :samp:`"unit.nginx.org/go"`
+package that you have :ref:`installed <installation-precomp-pkgs>` or
+:ref:`built <installation-modules-go>` earlier:
 
 .. code-block:: go
 

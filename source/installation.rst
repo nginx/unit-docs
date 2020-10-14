@@ -889,8 +889,9 @@ If you update Unit later, make sure to update the module as well:
 
 .. note::
 
-   You can also :ref:`configure <installation-nodejs>` and :ref:`install
-   <installation-bld-src-ext>` the :program:`unit-http` module from sources.
+   You can also :ref:`configure <installation-modules-nodejs>` and
+   :ref:`install <installation-bld-src-ext>` the :program:`unit-http` module
+   from sources.
 
 
 .. _installation-precomp-startup:
@@ -904,6 +905,7 @@ available or list its settings.  To manage the installation:
 
 .. tabs::
    :prefix: startup-shutdown
+   :toc:
 
    .. tab:: Amazon, CentOS, Debian, Fedora, RHEL, Ubuntu
 
@@ -957,216 +959,199 @@ Community Repositories
    These distributions are maintained by respective communities, not NGINX.
    Proceed with caution.
 
+..
+   Legacy anchors are left here so that external links remain valid
+
 .. _installation-alpine-apk:
-
-============
-Alpine Linux
-============
-
-To install core Unit executables using `Alpine Linux packages
-<https://pkgs.alpinelinux.org/packages?name=unit*>`_:
-
-.. code-block:: console
-
-   # apk update
-   # apk upgrade
-   # apk add unit
-
-To install service manager files and specific language modules:
-
-.. code-block:: console
-
-   # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
-
-.. note::
-
-   The control socket's pathname is :file:`/run/control.unit.sock`.  The
-   :ref:`log <troubleshooting-log>` is :file:`/var/log/unit.log`.
-
-
 .. _installation-archlinux-aur:
-
-==========
-Arch Linux
-==========
-
-To install Unit using the `Arch User Repository (AUR)
-<https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
-
-.. code-block:: console
-
-   $ git clone https://aur.archlinux.org/nginx-unit.git
-   $ cd nginx-unit
-
-.. warning::
-
-   Verify that the :file:`PKGBUILD` and accompanying files aren't malicious or
-   untrustworthy.  AUR packages are entirely user produced without
-   pre-moderation; use them at your own risk.
-
-.. code-block:: console
-
-   $ makepkg -si
-
-.. note::
-
-   The control socket's pathname is :file:`/run/nginx-unit.control.sock`.  The
-   :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit.log`.
-
-
 .. _installation-scls:
-
-================
-CentOS/RHEL SCLs
-================
-
-If you use `SCLo Software Collections
-<https://wiki.centos.org/SpecialInterestGroup/SCLo>`_ in your environment, you
-can install Unit's PHP modules as packages from the corresponding repo.
-Besides other dependencies, the packages require :ref:`core Unit installation
-<installation-precomp-pkgs>`.
-
-CentOS:
-
-.. code-block:: console
-
-   # yum install centos-release-scl
-   # yum install --enablerepo=centos-sclo-sclo-testing \
-         sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
-
-RHEL:
-
-.. code-block:: console
-
-   # cd /etc/yum.repos.d/
-   # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
-   # yum install centos-release-scl
-   # yum install --enablerepo=centos-sclo-sclo-testing \
-         sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
-
-
 .. _installation-freebsd-pkgs-prts:
-
-=======
-FreeBSD
-=======
-
-.. _installation-freebsd-pkgs:
-
-To install Unit using `FreeBSD packages <https://www.
-freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_, update the
-repository and install the package:
-
-.. code-block:: console
-
-   # pkg install -y unit
-
-.. _installation-freebsd-prts:
-
-To install Unit using `FreeBSD ports <https://www.
-freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_, update your
-port collection.
-
-For :program:`portsnap`:
-
-.. code-block:: console
-
-   # portsnap fetch update
-
-For :program:`svn`:
-
-.. code-block:: console
-
-   # svn update /usr/ports
-
-Next, browse to the port path to build and install the port:
-
-.. code-block:: console
-
-   # cd /usr/ports/www/unit
-   # make
-   # make install
-
-.. warning::
-
-   These commands compile and install the *port*.  To :program:`make` a Unit
-   build with our sources only, see :ref:`below <installation-bld-src>`.
-
-.. note::
-
-   The control socket's pathname is :file:`/var/run/unit/control.unit.sock`.
-   The :ref:`log <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
-
-
 .. _installation-gnt-prtg:
-
-======
-Gentoo
-======
-
-To install Unit using `Portage <https://wiki.gentoo.org/wiki/
-Handbook:X86/Full/Portage>`_, update the repository and install the `package
-<https://packages.gentoo.org/packages/www-servers/nginx-unit>`__:
-
-.. code-block:: console
-
-   # emerge --sync
-   # emerge www-servers/nginx-unit
-
-.. note::
-
-   The control socket's pathname is :file:`/run/nginx-unit.sock`.
-   The :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit`.
-
-
-.. installation-nix:
-
-=========
-NixOS/Nix
-=========
-
-To install Unit using the `Nix package manager <https://nixos.org/nix/>`_,
-update the repository and install the `package
-<https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`__:
-
-.. code-block:: console
-
-   $ nix-channel --update
-   $ nix-env -qa 'unit'    # check availability and version
-   $ nix-env -i unit       # install Unit
-
-.. note::
-
-   The control socket's pathname is :file:`/run/unit/control.unit.sock`.
-   The :ref:`log <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
-
-
+.. _installation-nix:
 .. _installation-remirepo:
 
-===============
-Remi's RPM Repo
-===============
+.. tabs::
+   :prefix: community
+   :toc:
 
-`Remi's RPM repository
-<https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
-which hosts the latest versions of the PHP stack for CentOS, Fedora, and RHEL,
-also has the base Unit package and the PHP modules.
+   .. tab:: Alpine
 
-To use Remi's versions of Unit packages, configure `Remi's RPM repo
-<https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
-modules are also compatible with the base Unit package from :ref:`our own
-repository <installation-precomp-pkgs>`.
+      To install core Unit executables using `Alpine Linux packages
+      <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
 
-Next, install Unit and the PHP modules you want:
+      .. code-block:: console
 
-.. code-block:: console
+         # apk update
+         # apk upgrade
+         # apk add unit
 
-   # yum install --enablerepo=remi unit php54-unit-php php55-unit-php \
-         php56-unit-php php70-unit-php php71-unit-php php72-unit-php php73-unit-php
+      To install service manager files and specific language modules:
 
-.. note::
+      .. code-block:: console
 
-   The control socket's pathname is :file:`/var/run/unit/control.sock`.
+         # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
+
+      .. note::
+
+         The control socket's pathname is :file:`/run/control.unit.sock`.  The
+         :ref:`log <troubleshooting-log>` is :file:`/var/log/unit.log`.
+
+   .. tab:: Arch
+
+      To install Unit using the `Arch User Repository (AUR)
+      <https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
+
+      .. code-block:: console
+
+         $ git clone https://aur.archlinux.org/nginx-unit.git
+         $ cd nginx-unit
+
+      .. warning::
+
+         Verify that the :file:`PKGBUILD` and accompanying files aren't
+         malicious or untrustworthy.  AUR packages are entirely user produced
+         without pre-moderation; use them at your own risk.
+
+      .. code-block:: console
+
+         $ makepkg -si
+
+      .. note::
+
+         The control socket's pathname is :file:`/run/nginx-unit.control.sock`.
+         The :ref:`log <troubleshooting-log>` is
+         :file:`/var/log/nginx-unit.log`.
+
+   .. tab:: CentOS/RHEL SCLs
+
+      If you use `SCLo Software Collections
+      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_ in your
+      environment, you can install Unit's PHP modules as packages from the
+      corresponding repo.  Besides other dependencies, the packages require
+      :ref:`core Unit installation <installation-precomp-pkgs>`.
+
+      CentOS:
+
+      .. code-block:: console
+
+         # yum install centos-release-scl
+         # yum install --enablerepo=centos-sclo-sclo-testing \
+               sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+
+      RHEL:
+
+      .. code-block:: console
+
+         # cd /etc/yum.repos.d/
+         # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
+         # yum install centos-release-scl
+         # yum install --enablerepo=centos-sclo-sclo-testing \
+               sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+
+   .. tab:: FreeBSD
+
+      To install Unit using `FreeBSD packages <https://www.
+      freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
+      update the repository and install the package:
+
+      .. code-block:: console
+
+         # pkg install -y unit
+
+      To install Unit using `FreeBSD ports <https://www.
+      freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
+      update your port collection.
+
+      For :program:`portsnap`:
+
+      .. code-block:: console
+
+         # portsnap fetch update
+
+      For :program:`svn`:
+
+      .. code-block:: console
+
+         # svn update /usr/ports
+
+      Next, browse to the port path to build and install the port:
+
+      .. code-block:: console
+
+         # cd /usr/ports/www/unit
+         # make
+         # make install
+
+      .. warning::
+
+         These commands compile and install the *port*.  To :program:`make` a
+         Unit build with our sources only, see :ref:`below
+         <installation-bld-src>`.
+
+      .. note::
+
+         The control socket's pathname is
+         :file:`/var/run/unit/control.unit.sock`.  The :ref:`log
+         <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
+
+   .. tab:: Gentoo
+
+      To install Unit using `Portage <https://wiki.gentoo.org/wiki/
+      Handbook:X86/Full/Portage>`_, update the repository and install the
+      `package
+      <https://packages.gentoo.org/packages/www-servers/nginx-unit>`__:
+
+      .. code-block:: console
+
+         # emerge --sync
+         # emerge www-servers/nginx-unit
+
+      .. note::
+
+         The control socket's pathname is :file:`/run/nginx-unit.sock`.
+         The :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit`.
+
+   .. tab:: Nix
+
+      To install Unit using the `Nix package manager
+      <https://nixos.org/nix/>`_, update the repository and install the
+      `package
+      <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`__:
+
+      .. code-block:: console
+
+         $ nix-channel --update
+         $ nix-env -qa 'unit'    # check availability and version
+         $ nix-env -i unit       # install Unit
+
+      .. note::
+
+         The control socket's pathname is :file:`/run/unit/control.unit.sock`.
+         The :ref:`log <troubleshooting-log>` is
+         :file:`/var/log/unit/unit.log`.
+
+   .. tab:: Remi's RPM Repo
+
+      `Remi's RPM repository
+      <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
+      which hosts the latest versions of the PHP stack for CentOS, Fedora, and
+      RHEL, also has the base Unit package and the PHP modules.
+
+      To use Remi's versions of Unit packages, configure `Remi's RPM repo
+      <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
+      modules are also compatible with the base Unit package from :ref:`our own
+      repository <installation-precomp-pkgs>`.
+
+      Next, install Unit and the PHP modules you want:
+
+      .. code-block:: console
+
+         # yum install --enablerepo=remi unit php54-unit-php php55-unit-php \
+               php56-unit-php php70-unit-php php71-unit-php php72-unit-php php73-unit-php
+
+      .. note::
+
+         The control socket's pathname is :file:`/var/run/unit/control.sock`.
 
 
 .. _installation-src:
@@ -1221,6 +1206,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
 .. tabs::
    :prefix: prereq
+   :toc:
 
    .. tab:: Debian, Ubuntu
 
@@ -1520,247 +1506,236 @@ and place module-specific instructions in the :file:`Makefile`.
    To run apps in several versions of a language, build and install a module
    for each version.
 
+..
+   Legacy anchors are left here so that external links remain valid
 
 .. _installation-go:
-
-Go
-**
-
-When you run :command:`./configure go`, Unit sets up the Go package that lets
-your applications :ref:`run in Unit <configuration-external-go>`.  To use the
-package, :ref:`install <installation-bld-src-ext>` it in your Go environment.
-Available configuration options:
-
---go=pathname
-    Specific Go executable pathname, also used for :ref:`make
-    <installation-bld-src-ext>` targets.
-
-    The default is :samp:`go`.
-
---go-path=directory
-    Custom directory path for Go package installation.
-
-    The default is :samp:`$GOPATH`.
-
-.. note::
-
-   The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
-   `environment variable <https://github.com/golang/go/wiki/GOPATH>`_. The
-   two paths (configuration-time :option:`!--go-path` and compile-time
-   :envvar:`GOPATH`) must be coherent at build time for Go to locate the Unit
-   package.
-
-
 .. _installation-java:
-
-Java
-****
-
-When you run :command:`./configure java`, the script configures a module to
-support running `Java Web Applications
-<https://download.oracle.com/otndocs/jcp/servlet-3_1-fr-spec/index.html>`_ in
-Unit.  Available command options:
-
---home=directory
-    Directory path for Java utilities and header files (required to build the
-    module).
-
-    The default is the :samp:`java.home` setting.
-
---jars=directory
-    Directory path for Unit's custom :file:`.jar` files.
-
-    The default is the Java module path.
-
---lib-path=directory
-    Directory path for the :file:`libjvm.so` library.
-
-    The default is based on JDK settings.
-
---local-repo=directory
-    Directory path for local :file:`.jar` repository.
-
-    The default is :samp:`$HOME/.m2/repository/`.
-
---repo=directory
-    URL path for remote Maven repository.
-
-    The default is :samp:`http://central.maven.org/maven2/`.
-
---module=filename
-    Name of the Java module to be built (:file:`<module>.unit.so`), also
-    used for :ref:`make <installation-bld-src-emb>` targets.
-
-    The default is :samp:`java`.
-
-To configure a module called :file:`java11.unit.so` with OpenJDK |_| 11.0.1:
-
-.. code-block:: console
-
-   $ ./configure java --module=java11 \
-                      --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
-
-
 .. _installation-nodejs:
-
-Node.js
-*******
-
-When you run :command:`./configure nodejs`, Unit sets up the
-:program:`unit-http` module that lets your applications :ref:`run in Unit
-<configuration-external-nodejs>`.  Available configuration options:
-
---local=directory
-    Local directory path for Node.js module installation.
-
-    By default, the module is installed globally :ref:`(recommended)
-    <installation-nodejs-package>`.
-
---node=pathname
-    Specific Node.js executable pathname, also used for
-    :ref:`make <installation-bld-src-ext>` targets.
-
-    The default is :samp:`node`.
-
---npm=pathname
-    Specific NPM executable pathname.
-
-    The default is :samp:`npm`.
-
---node-gyp=pathname
-    Specific :program:`node-gyp` executable pathname.
-
-    The default is :samp:`node-gyp`.
-
-
 .. _installation-perl:
-
-Perl
-****
-
-When you run :command:`./configure perl`, the script configures a module to
-support running Perl scripts as applications in Unit.  Available command
-options:
-
---perl=pathname
-        Specific Perl executable pathname.
-
-        The default is :samp:`perl`.
-
---module=filename
-        Name of the Perl module to be built
-        (:file:`<module>.unit.so`), also used for :ref:`make
-        <installation-bld-src-emb>` targets.
-
-        The default is the filename of the :option:`!--perl` executable.
-
-To configure a module called :file:`perl-5.20.unit.so` for Perl |_| 5.20.2:
-
-.. code-block:: console
-
-   $ ./configure perl --module=perl-5.20 \
-                      --perl=perl5.20.2
-
-
 .. _installation-php:
-
-PHP
-***
-
-When you run :command:`./configure php`, the script configures a module to
-support running PHP applications in Unit via PHP's :program:`embed` SAPI.
-Available command options:
-
---config=pathname
-    Pathname of the :program:`php-config` script invoked to configure the PHP
-    module.
-
-    The default is :samp:`php-config`.
-
---lib-path=directory
-    Directory path of PHP's :program:`embed` SAPI library file
-    (:file:`libphp<version>.so` or :file:`.a`).
-
---lib-static
-    Links the static :program:`embed` SAPI library (:file:`libphp<version>.a`)
-    instead of the dynamic one (:file:`libphp<version>.so`); requires
-    :option:`!--lib-path`.
-
---module=filename
-    Name of the PHP module to be built (:file:`<module>.unit.so`), also used
-    for :ref:`make <installation-bld-src-emb>` targets.
-
-    The default is :option:`!--config`'s filename minus the
-    `-config` suffix (:samp:`/path/php7-config` to :samp:`php7`).
-
-To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
-
-.. code-block:: console
-
-   $ ./configure php --module=php70 \
-                     --config=/usr/lib64/php7.0/bin/php-config \
-                     --lib-path=/usr/lib64/php7.0/lib64
-
-
 .. _installation-python:
-
-Python
-******
-
-When you run :command:`./configure python`, the script configures a module to
-support running Python scripts as applications in Unit.  Available command
-options:
-
---config=pathname
-    Pathname of the :program:`python-config` script invoked to configure
-    the Python module.
-
-    The default is :samp:`python-config`.
-
---lib-path=directory
-    Custom directory path of the Python runtime library to use with Unit.
-
---module=filename
-    Name of the Python module to be built (:samp:`<module>.unit.so`), also used
-    for :ref:`make <installation-bld-src-emb>` targets.
-
-    The default is :option:`!--config`'s filename minus the `-config` suffix
-    (:samp:`/path/python3-config` to :samp:`python3`).
-
-To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
-
-.. code-block:: console
-
-   $ ./configure python --module=py33 \
-                        --config=python-config-3.3
-
-
 .. _installation-ruby:
 
-Ruby
-****
+.. tabs::
+   :prefix: installation-modules
+   :toc:
 
-When you run :program:`./configure ruby`, the script configures a module to
-support running Ruby scripts as applications in Unit.  Available command
-options:
+   .. tab:: Go
 
---module=filename
-    Name of the Ruby module to be built (:file:`<module>.unit.so`), also used
-    for :ref:`make <installation-bld-src-emb>` targets.
+      When you run :command:`./configure go`, Unit sets up the Go package that
+      lets your applications :ref:`run in Unit <configuration-external-go>`.
+      To use the package, :ref:`install <installation-bld-src-ext>` it in your
+      Go environment.  Available configuration options:
 
-    The default is the filename of the :option:`!--ruby` executable.
+      --go=pathname
+          Specific Go executable pathname, also used for :ref:`make
+          <installation-bld-src-ext>` targets.
 
---ruby=pathname
-    Specific Ruby executable pathname.
+          The default is :samp:`go`.
 
-    The default is :samp:`ruby`.
+      --go-path=directory
+          Custom directory path for Go package installation.
 
-To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
+          The default is :samp:`$GOPATH`.
 
-.. code-block:: console
+      .. note::
 
-   $ ./configure ruby --module=ru23 \
-                      --ruby=ruby23
+         The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
+         `environment variable <https://github.com/golang/go/wiki/GOPATH>`_.
+         The two paths (configuration-time :option:`!--go-path` and
+         compile-time :envvar:`GOPATH`) must be coherent at build time for Go
+         to locate the Unit package.
+
+   .. tab:: Java
+
+      When you run :command:`./configure java`, the script configures a module
+      to support running `Java Web Applications
+      <https://download.oracle.com/otndocs/jcp/servlet-3_1-fr-spec/index.html>`_
+      in Unit.  Available command options:
+
+      --home=directory
+          Directory path for Java utilities and header files (required to build
+          the module).
+
+          The default is the :samp:`java.home` setting.
+
+      --jars=directory
+          Directory path for Unit's custom :file:`.jar` files.
+
+          The default is the Java module path.
+
+      --lib-path=directory
+          Directory path for the :file:`libjvm.so` library.
+
+          The default is based on JDK settings.
+
+      --local-repo=directory
+          Directory path for local :file:`.jar` repository.
+
+          The default is :samp:`$HOME/.m2/repository/`.
+
+      --repo=directory
+          URL path for remote Maven repository.
+
+          The default is :samp:`http://central.maven.org/maven2/`.
+
+      --module=filename
+          Name of the Java module to be built (:file:`<module>.unit.so`), also
+          used for :ref:`make <installation-bld-src-emb>` targets.
+
+          The default is :samp:`java`.
+
+      To configure a module called :file:`java11.unit.so` with OpenJDK |_|
+      11.0.1:
+
+      .. code-block:: console
+
+         $ ./configure java --module=java11 \
+                            --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
+
+   .. tab:: Node.js
+
+      When you run :command:`./configure nodejs`, Unit sets up the
+      :program:`unit-http` module that lets your applications :ref:`run in Unit
+      <configuration-external-nodejs>`.  Available configuration options:
+
+      --local=directory
+          Local directory path for Node.js module installation.
+
+          By default, the module is installed globally :ref:`(recommended)
+          <installation-nodejs-package>`.
+
+      --node=pathname
+          Specific Node.js executable pathname, also used for
+          :ref:`make <installation-bld-src-ext>` targets.
+
+          The default is :samp:`node`.
+
+      --npm=pathname
+          Specific NPM executable pathname.
+
+          The default is :samp:`npm`.
+
+      --node-gyp=pathname
+          Specific :program:`node-gyp` executable pathname.
+
+          The default is :samp:`node-gyp`.
+
+   .. tab:: Perl
+
+      When you run :command:`./configure perl`, the script configures a module
+      to support running Perl scripts as applications in Unit.  Available
+      command options:
+
+      --perl=pathname
+              Specific Perl executable pathname.
+
+              The default is :samp:`perl`.
+
+      --module=filename
+              Name of the Perl module to be built
+              (:file:`<module>.unit.so`), also used for :ref:`make
+              <installation-bld-src-emb>` targets.
+
+              The default is the filename of the :option:`!--perl` executable.
+
+      To configure a module called :file:`perl-5.20.unit.so` for Perl |_|
+      5.20.2:
+
+      .. code-block:: console
+
+         $ ./configure perl --module=perl-5.20 \
+                            --perl=perl5.20.2
+
+   .. tab:: PHP
+
+      When you run :command:`./configure php`, the script configures a module
+      to support running PHP applications in Unit via PHP's :program:`embed`
+      SAPI.  Available command options:
+
+      --config=pathname
+          Pathname of the :program:`php-config` script invoked to configure ther
+          PHP module.
+
+          The default is :samp:`php-config`.
+
+      --lib-path=directory
+          Directory path of PHP's :program:`embed` SAPI library file
+          (:file:`libphp<version>.so` or :file:`.a`).
+
+      --lib-static
+          Links the static :program:`embed` SAPI library
+          (:file:`libphp<version>.a`) instead of the dynamic one
+          (:file:`libphp<version>.so`); requires :option:`!--lib-path`.
+
+      --module=filename
+          Name of the PHP module to be built (:file:`<module>.unit.so`), also
+          used for :ref:`make <installation-bld-src-emb>` targets.
+
+          The default is :option:`!--config`'s filename minus the
+          `-config` suffix (:samp:`/path/php7-config` to :samp:`php7`).
+
+      To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
+
+      .. code-block:: console
+
+         $ ./configure php --module=php70 \
+                           --config=/usr/lib64/php7.0/bin/php-config \
+                           --lib-path=/usr/lib64/php7.0/lib64
+
+   .. tab:: Python
+
+      When you run :command:`./configure python`, the script configures a
+      module to support running Python scripts as applications in Unit.
+      Available command options:
+
+      --config=pathname
+          Pathname of the :program:`python-config` script invoked to configure
+          the Python module.
+
+          The default is :samp:`python-config`.
+
+      --lib-path=directory
+          Custom directory path of the Python runtime library to use with Unit.
+
+      --module=filename
+          Name of the Python module to be built (:samp:`<module>.unit.so`), also
+          used for :ref:`make <installation-bld-src-emb>` targets.
+
+          The default is :option:`!--config`'s filename minus the `-config`
+          suffix (:samp:`/path/python3-config` to :samp:`python3`).
+
+      To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
+
+      .. code-block:: console
+
+         $ ./configure python --module=py33 \
+                              --config=python-config-3.3
+
+   .. tab:: Ruby
+
+      When you run :program:`./configure ruby`, the script configures a module
+      to support running Ruby scripts as applications in Unit.  Available
+      command options:
+
+      --module=filename
+          Name of the Ruby module to be built (:file:`<module>.unit.so`), also
+          used for :ref:`make <installation-bld-src-emb>` targets.
+
+          The default is the filename of the :option:`!--ruby` executable.
+
+      --ruby=pathname
+          Specific Ruby executable pathname.
+
+          The default is :samp:`ruby`.
+
+      To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
+
+      .. code-block:: console
+
+         $ ./configure ruby --module=ru23 \
+                            --ruby=ruby23
 
 
 .. _installation-bld-src:
@@ -1825,9 +1800,10 @@ configuration, run :command:`make <go>-install` and :command:`make
       # make :nxt_term:`node <This is the --node option value from ./configure nodejs>`-local-install
 
    If you haven't specified the :option:`!--local` :ref:`directory
-   <installation-nodejs>` with :program:`./configure nodejs` earlier, provide
-   it here: :command:`DESTDIR=/your/project/directory`.  If both options are
-   specified, :option:`!DESTDIR` prefixes the :option:`!--local` value.
+   <installation-modules-nodejs>` with :program:`./configure nodejs`
+   earlier, provide it here: :command:`DESTDIR=/your/project/directory`.  If
+   both options are specified, :option:`!DESTDIR` prefixes the
+   :option:`!--local` value.
 
    However, mind that global installation is the recommended method for the
    Node.js module.
