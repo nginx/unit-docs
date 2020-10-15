@@ -59,6 +59,7 @@ following frameworks:
    laravel
    pyramid
    quart
+   sanic
    starlette
    symfony
    yii
