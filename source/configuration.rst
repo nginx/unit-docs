@@ -2521,10 +2521,11 @@ automatically.
 
 .. note::
 
-   For Python-based examples, see our :doc:`howto/django`, :doc:`howto/flask`,
-   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/pyramid`,
-   :doc:`howto/quart`, :doc:`howto/starlette`, and :doc:`howto/trac` howtos or
-   a basic :ref:`sample <sample-python>`.
+   For Python-based examples, see our :doc:`howto/django`,
+   :doc:`howto/fastapi`, :doc:`howto/flask`, :doc:`howto/mercurial`,
+   :doc:`howto/moin`, :doc:`howto/pyramid`, :doc:`howto/quart`,
+   :doc:`howto/starlette`, and :doc:`howto/trac` howtos or a basic :ref:`sample
+   <sample-python>`.
 
 .. _configuration-ruby:
 

@@ -54,6 +54,7 @@ following frameworks:
    codeigniter
    django
    express
+   fastapi
    flask
    laravel
    pyramid
