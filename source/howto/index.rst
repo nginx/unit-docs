@@ -75,6 +75,7 @@ as:
    :maxdepth: 1
 
    bugzilla
+   datasette
    drupal
    grafana
    jira
