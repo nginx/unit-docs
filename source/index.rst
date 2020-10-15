@@ -8,7 +8,7 @@ About
 #####
 
 NGINX Unit is a polyglot app server, a reverse proxy, and a static file server,
-:ref:`available <installation-precomp-pkgs>` for Unix-like systems. It was
+:ref:`available <installation-prereqs>` for Unix-like systems. It was
 built by `nginx <https://nginx.org/en/>`_ team members from scratch to be
 highly efficient and fully configurable at runtime.
 
