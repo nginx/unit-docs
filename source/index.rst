@@ -96,27 +96,27 @@ Supported App Languages
 ***********************
 
 - `Assembly
-  <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_
-  uses the embedded :program:`libunit` library
+  <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_:
+  via the embedded :program:`libunit` library
 
-- :ref:`Go <configuration-external>` implementation relies on :ref:`overloading
+- :ref:`Go <configuration-external>`: by :ref:`overloading
   <installation-go-package>` the :program:`http` module
 
-- :ref:`JavaScript (Node.js)<configuration-external>` implementation relies on
+- :ref:`JavaScript (Node.js)<configuration-external>`: by
   :ref:`overloading <installation-nodejs-package>` the :program:`http` and
   :program:`websocket` modules
 
-- :ref:`Java Servlets <configuration-java>` are implemented with WebSocket
-  support
+- :ref:`Java <configuration-java>`: via the Servlet Specification and WebSocket
+  APIs
 
-- :ref:`Perl <configuration-perl>` implementation provides a PSGI server
+- :ref:`Perl <configuration-perl>`: via PSGI
 
-- :ref:`PHP <configuration-php>` implementation uses the :program:`embed` SAPI
+- :ref:`PHP <configuration-php>`: via the :program:`embed` SAPI
 
-- :ref:`Python <configuration-python>` implementation provides WSGI and ASGI
-  |_| 3.0 with WebSocket support
+- :ref:`Python <configuration-python>`: via WSGI and ASGI |_| 3.0 with
+  WebSocket support
 
-- :ref:`Ruby <configuration-ruby>` implementation relies on the Rack API
+- :ref:`Ruby <configuration-ruby>`: via the Rack API
 
 ****
 Demo
