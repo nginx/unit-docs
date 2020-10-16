@@ -51,8 +51,8 @@ To run apps built with the `Flask
           "applications": {
               "flask_app": {
                   "type": "python 3",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to path and home directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
+                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the WSGI module>`",
                   "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_term:`wsgi <WSGI module filename with extension omitted>`"

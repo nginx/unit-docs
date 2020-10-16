@@ -67,8 +67,8 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
           "applications": {
               "cakephp": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to the app root directory>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory>`"

@@ -50,8 +50,8 @@ To run the `Datasette
           "applications": {
               "datasette": {
                   "type": "python 3",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to path and home directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
+                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
                   "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_term:`asgi <ASGI module filename with extension omitted>`",

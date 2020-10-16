@@ -99,8 +99,8 @@ documentation platform using Unit:
           "applications": {
               "mw": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to target root directories>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": "/path/to/app/"
@@ -141,7 +141,7 @@ documentation platform using Unit:
 
       $ mv LocalSettings.php /path/to/app/
       $ chmod 600 /path/to/app/LocalSettings.php
-      # chown unit_user /path/to/app/LocalSettings.php
+      # chown app_user /path/to/app/LocalSettings.php
 
 #. After installation, add a match condition to the first step to disable
    access to the :file:`mw-config/` directory:

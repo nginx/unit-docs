@@ -60,8 +60,8 @@ using Unit:
           "applications": {
               "pyramid_app": {
                   "type": "python 3",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to path and home directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
+                  "group": "app_group",
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
                   "module": "wsgi",

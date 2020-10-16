@@ -51,8 +51,8 @@ framework using Unit:
           "applications": {
               "ci_app": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to application directories such as app or public>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to application directories such as app or public>`",
+                  "group": "app_group",
                   ":nxt_term:`root <Public directory path>`": "/path/to/app/public/",
                   "script": "index.php"
               }

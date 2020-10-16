@@ -61,8 +61,8 @@ Unit:
           "applications": {
               "joomla": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to target root directories>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": "/path/to/app/"

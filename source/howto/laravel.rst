@@ -65,8 +65,8 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
           "applications": {
               "laravel": {
                   "type": "php",
-                  "user": ":nxt_term:`unit_user <User and group values must have access to target root directories>`",
-                  "group": "unit_group",
+                  "user": ":nxt_term:`app_user <User and group values must have access to target root directories>`",
+                  "group": "app_group",
                   "root": ":nxt_term:`/path/to/app/blog/public/ <Path to the script>`",
                   "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
               }
