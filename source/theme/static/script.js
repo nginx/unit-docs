@@ -123,6 +123,8 @@ function nxt_copy_console(text) {
 
     let heredoc = false
     let multi = false
+    let single_quotes = 0
+    let double_quotes = 0
 
     for (let line of text.split('\n')) {
         const trimmed = line.trim()
@@ -160,7 +162,11 @@ function nxt_copy_console(text) {
 
         result.push(line)
 
-        multi = (trimmed.substr(-1) === '\\')
+        single_quotes += (line.match(/\'/g) || []).length
+        double_quotes += (line.match(/\"/g) || []).length
+        multi = (trimmed.substr(-1) === '\\'
+                 || single_quotes & 1
+                 || double_quotes & 1)
     }
 
     return result.join('\n')

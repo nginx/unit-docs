@@ -45,24 +45,25 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{         \
-     "listeners": {                       \
-         "*:8080": {                      \
-             "pass": "applications/go_app"\
-         }                                \
-     },                                   \
-     "applications": {                    \
-         "go_app": {                      \
-             "type": "external",          \
-             "working_directory": "/www/",\
-             "executable": "/www/app"     \
-         }                                \
-     }                                    \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/go_app"
+         }
+     },
+     "applications": {
+         "go_app": {
+             "type": "external",
+             "working_directory": "/www/",
+             "executable": "/www/app"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
 
        Hello, Go on Unit!
+
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.go.txt>` or use a more elaborate app example:
@@ -134,18 +135,18 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{           \
-     "listeners": {                         \
-         "*:8080": {                        \
-             "pass": "applications/java_app"\
-         }                                  \
-     },                                     \
-     "applications": {                      \
-         "java_app": {                      \
-             "type": "java",                \
-             "webapp": "/www/"              \
-         }                                  \
-     }                                      \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/java_app"
+         }
+     },
+     "applications": {
+         "java_app": {
+             "type": "java",
+             "webapp": "/www/"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
@@ -228,19 +229,19 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{           \
-     "listeners": {                         \
-         "*:8080": {                        \
-             "pass": "applications/node_app"\
-         }                                  \
-     },                                     \
-     "applications": {                      \
-         "node_app": {                      \
-             "type": "external",            \
-             "working_directory": "/www/",  \
-             "executable": "app.js"         \
-         }                                  \
-     }                                      \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/node_app"
+         }
+     },
+     "applications": {
+         "node_app": {
+             "type": "external",
+             "working_directory": "/www/",
+             "executable": "app.js"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
@@ -296,19 +297,19 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{           \
-     "listeners": {                         \
-         "*:8080": {                        \
-             "pass": "applications/perl_app"\
-         }                                  \
-     },                                     \
-     "applications": {                      \
-         "perl_app": {                      \
-             "type": "perl",                \
-             "working_directory": "/www/",  \
-             "script": "/www/app.psgi"      \
-         }                                  \
-     }                                      \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/perl_app"
+         }
+     },
+     "applications": {
+         "perl_app": {
+             "type": "perl",
+             "working_directory": "/www/",
+             "script": "/www/app.psgi"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
@@ -364,18 +365,18 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{          \
-     "listeners": {                        \
-         "*:8080": {                       \
-             "pass": "applications/php_app"\
-         }                                 \
-     },                                    \
-     "applications": {                     \
-         "php_app": {                      \
-             "type": "php",                \
-             "root": "/www/"               \
-         }                                 \
-     }                                     \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/php_app"
+         }
+     },
+     "applications": {
+         "php_app": {
+             "type": "php",
+             "root": "/www/"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
@@ -426,19 +427,19 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{             \
-     "listeners": {                           \
-         "*:8080": {                          \
-             "pass": "applications/python_app"\
-         }                                    \
-     },                                       \
-     "applications": {                        \
-         "python_app": {                      \
-             "type": "python",                \
-             "path": "/www/",                 \
-             "module": "wsgi"                 \
-         }                                    \
-     }                                        \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/python_app"
+         }
+     },
+     "applications": {
+         "python_app": {
+             "type": "python",
+             "path": "/www/",
+             "module": "wsgi"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080
@@ -453,7 +454,7 @@ Try this sample out with the Dockerfile :download:`here
    import hashlib, json
 
    def application(env, start_response):
-       start_response("200 OK", [("Content-Type", \
+       start_response("200 OK", [("Content-Type",
                                   "application/json; charset=utf-8")])
 
        r = {}
@@ -493,19 +494,19 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary '{           \
-     "listeners": {                         \
-         "*:8080": {                        \
-             "pass": "applications/ruby_app"\
-         }                                  \
-     },                                     \
-     "applications": {                      \
-         "ruby_app": {                      \
-             "type": "ruby",                \
-             "working_directory": "/www/",  \
-             "script": "config.ru"          \
-         }                                  \
-     }                                      \
+   # curl -X PUT --data-binary '{
+     "listeners": {
+         "*:8080": {
+             "pass": "applications/ruby_app"
+         }
+     },
+     "applications": {
+         "ruby_app": {
+             "type": "ruby",
+             "working_directory": "/www/",
+             "script": "config.ru"
+         }
+     }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
    $ curl localhost:8080

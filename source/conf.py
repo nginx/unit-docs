@@ -29,6 +29,7 @@ rst_prolog = """
 
 
 exclude_patterns = ['include']
+suppress_warnings = ['misc.highlighting_failure']
 
 sys.path.append(os.path.abspath('./exts'))
 extensions = ['inline', 'nxt', 'subs']
