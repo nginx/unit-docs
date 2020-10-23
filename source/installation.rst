@@ -951,43 +951,58 @@ Community Repositories
 
    .. tab:: FreeBSD
 
-      To install Unit using `FreeBSD packages <https://www.
+      To install Unit from `FreeBSD packages <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
-      update the repository and install the package:
+      install the base package and the other packages you need:
 
       .. code-block:: console
 
          # pkg install -y unit
+         # pkg install -y unit-java unit-perl unit-php unit-python unit-ruby
 
-      To install Unit using `FreeBSD ports <https://www.
+      To install Unit from `FreeBSD ports <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
-      update your port collection.
+      start by updating your port collection.
 
-      For :program:`portsnap`:
+      With :program:`portsnap`:
 
       .. code-block:: console
 
          # portsnap fetch update
 
-      For :program:`svn`:
+      With :program:`svn`:
 
       .. code-block:: console
 
          # svn update /usr/ports
 
-      Next, browse to the port path to build and install the port:
+      Next, browse to the port path to build and install the base Unit port:
 
       .. code-block:: console
 
-         # cd /usr/ports/www/unit
+         # cd /usr/ports/www/unit/
          # make
          # make install
 
-      .. warning::
+      Repeat the steps for the other ports you need: `unit-java
+      <https://www.freshports.org/www/unit-java/>`_, `unit-perl
+      <https://www.freshports.org/www/unit-perl/>`_, `unit-php
+      <https://www.freshports.org/www/unit-php/>`_, `unit-python
+      <https://www.freshports.org/www/unit-python/>`_, or `unit-ruby
+      <https://www.freshports.org/www/unit-ruby/>`_.
 
-         These commands compile and install the *port*.  To :program:`make` a
-         Unit build with our sources only, see :ref:`below
-         <installation-bld-src>`.
+      To build the :ref:`external modules <modules-ext>`, install the base Unit
+      port with the :samp:`DEVKIT` option enabled; next, see the
+      :ref:`installation-go-package` or :ref:`installation-nodejs-package`
+      section.  If you have already installed Unit, enable :samp:`DEVKIT` and
+      reinstall the port:
+
+      .. code-block:: console
+
+         # cd /usr/ports/www/unit/
+         # make config
+         # make
+         # make install
 
       .. note::
 
