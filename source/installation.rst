@@ -752,9 +752,9 @@ Go apps in Unit.
 
 .. _installation-nodejs-package:
 
-==============
-Node.js at npm
-==============
+=======
+Node.js
+=======
 
 Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
 is :program:`unit-http`.  Your Node.js apps must :samp:`require` it to run in
