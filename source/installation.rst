@@ -117,8 +117,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to
-         use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -139,7 +138,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -174,7 +173,7 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -202,7 +201,7 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -244,7 +243,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ buster unit
             deb-src https://packages.nginx.org/unit/debian/ buster unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -274,7 +273,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ stretch unit
             deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -309,7 +308,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ jessie unit
             deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -345,7 +344,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -366,7 +365,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -387,7 +386,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -413,7 +412,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -448,7 +447,7 @@ RHEL
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -471,8 +470,7 @@ RHEL
             gpgcheck=0
             enabled=1
 
-      #. Install Unit base package and additional packages you would like to
-         use:
+      #. Install the base package and additional packages you need:
 
          .. code-block:: console
 
@@ -515,7 +513,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ focal unit
             deb-src https://packages.nginx.org/unit/ubuntu/ focal unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -552,7 +550,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ eoan unit
             deb-src https://packages.nginx.org/unit/ubuntu/ eoan unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -589,7 +587,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ disco unit
             deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -626,7 +624,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -658,7 +656,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ bionic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
@@ -690,7 +688,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ xenial unit
             deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-      #. Install Unit base package and other packages you would like to use:
+      #. Install the base package and other packages you need:
 
          .. code-block:: console
 
