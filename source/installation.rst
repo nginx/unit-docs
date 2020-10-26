@@ -117,7 +117,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -138,7 +138,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -173,7 +173,7 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -201,7 +201,7 @@ CentOS
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -243,7 +243,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ buster unit
             deb-src https://packages.nginx.org/unit/debian/ buster unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -273,7 +273,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ stretch unit
             deb-src https://packages.nginx.org/unit/debian/ stretch unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -308,7 +308,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             deb https://packages.nginx.org/unit/debian/ jessie unit
             deb-src https://packages.nginx.org/unit/debian/ jessie unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -344,7 +344,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -365,7 +365,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -386,7 +386,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -412,7 +412,7 @@ Supported architectures: :samp:`x86-64`.
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -447,7 +447,7 @@ RHEL
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -470,7 +470,7 @@ RHEL
             gpgcheck=0
             enabled=1
 
-      #. Install the base package and additional packages you need:
+      #. Install the core package and additional packages you need:
 
          .. code-block:: console
 
@@ -513,7 +513,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ focal unit
             deb-src https://packages.nginx.org/unit/ubuntu/ focal unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -550,7 +550,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ eoan unit
             deb-src https://packages.nginx.org/unit/ubuntu/ eoan unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -587,7 +587,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ disco unit
             deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -624,7 +624,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -656,7 +656,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ bionic unit
             deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -688,7 +688,7 @@ Ubuntu
             deb https://packages.nginx.org/unit/ubuntu/ xenial unit
             deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
 
-      #. Install the base package and other packages you need:
+      #. Install the core package and other packages you need:
 
          .. code-block:: console
 
@@ -951,7 +951,7 @@ Community Repositories
 
       To install Unit from `FreeBSD packages <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
-      install the base package and the other packages you need:
+      install the core package and other packages you need:
 
       .. code-block:: console
 
@@ -974,7 +974,7 @@ Community Repositories
 
          # svn update /usr/ports
 
-      Next, browse to the port path to build and install the base Unit port:
+      Next, browse to the port path to build and install the core Unit port:
 
       .. code-block:: console
 
@@ -989,7 +989,7 @@ Community Repositories
       <https://www.freshports.org/www/unit-python/>`_, or `unit-ruby
       <https://www.freshports.org/www/unit-ruby/>`_.
 
-      To build the :ref:`external modules <modules-ext>`, install the base Unit
+      To build the :ref:`external modules <modules-ext>`, install the core Unit
       port with the :samp:`DEVKIT` option enabled; next, see the
       :ref:`installation-go-package` or :ref:`installation-nodejs-package`
       section.  If you have already installed Unit, enable :samp:`DEVKIT` and
@@ -1049,11 +1049,11 @@ Community Repositories
       `Remi's RPM repository
       <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
       which hosts the latest versions of the PHP stack for CentOS, Fedora, and
-      RHEL, also has the base Unit package and the PHP modules.
+      RHEL, also has the core Unit package and the PHP modules.
 
       To use Remi's versions of Unit packages, configure `Remi's RPM repo
       <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
-      modules are also compatible with the base Unit package from :ref:`our own
+      modules are also compatible with the core Unit package from :ref:`our own
       repository <installation-precomp-pkgs>`.
 
       Next, install Unit and the PHP modules you want:
@@ -1233,7 +1233,7 @@ Installing Required Software
 
 Before configuring and compiling Unit, install the required build tools plus
 the library files for available languages (Go, Node.js, PHP, Perl, Python, and
-Ruby) and the other features you want Unit to support.
+Ruby) and other features you want Unit to support.
 
 The commands below assume you are configuring Unit with all supported
 languages and features; otherwise, skip the packages you aren’t going to use.
