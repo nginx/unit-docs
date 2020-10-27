@@ -1147,10 +1147,6 @@ Community Repositories
                php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
                php80-unit-php
 
-      .. note::
-
-         The control socket's pathname is .  The
-         log is .
       Runtime details:
 
       .. list-table::
