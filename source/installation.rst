@@ -875,7 +875,7 @@ Community Repositories
 
    .. tab:: Alpine
 
-      To install core Unit executables using `Alpine Linux packages
+      To install core Unit executables from the `Alpine Linux packages
       <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
 
       .. code-block:: console
@@ -890,14 +890,30 @@ Community Repositories
 
          # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
 
-      .. note::
+      Runtime details:
 
-         The control socket's pathname is :file:`/run/control.unit.sock`.  The
-         :ref:`log <troubleshooting-log>` is :file:`/var/log/unit.log`.
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`unit`
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # service unit start
+                # service unit stop
+
 
    .. tab:: Arch
 
-      To install Unit using the `Arch User Repository (AUR)
+      To install core Unit executables and all language modules, clone the
+      `Arch User Repository (AUR)
       <https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
 
       .. code-block:: console
@@ -905,21 +921,35 @@ Community Repositories
          $ git clone https://aur.archlinux.org/nginx-unit.git
          $ cd nginx-unit
 
-      .. warning::
+      Before proceeding further, verify that the :file:`PKGBUILD` and the
+      accompanying files aren't malicious or untrustworthy.  AUR packages are
+      user produced without pre-moderation; use them at your own risk.
 
-         Verify that the :file:`PKGBUILD` and accompanying files aren't
-         malicious or untrustworthy.  AUR packages are entirely user produced
-         without pre-moderation; use them at your own risk.
+      Next, build the package:
 
       .. code-block:: console
 
          $ makepkg -si
 
-      .. note::
+      Runtime details:
 
-         The control socket's pathname is :file:`/run/nginx-unit.control.sock`.
-         The :ref:`log <troubleshooting-log>` is
-         :file:`/var/log/nginx-unit.log`.
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/run/nginx-unit.control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/nginx-unit.log`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`nobody`
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # systemctl start unit
+                # systemctl stop unit
+
 
    .. tab:: CentOS/RHEL SCLs
 
@@ -927,15 +957,15 @@ Community Repositories
       <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_ in your
       environment, you can install Unit's PHP modules as packages from the
       corresponding repo.  Besides other dependencies, the packages require
-      :ref:`core Unit installation <installation-precomp-pkgs>`.
+      the :ref:`core Unit installation <installation-precomp-pkgs>`.
 
       CentOS:
 
       .. code-block:: console
 
          # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo-testing \
-               sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+         # yum install --enablerepo=centos-sclo-sclo \
+                       sclo-php72-unit-php sclo-php73-unit-php
 
       RHEL:
 
@@ -944,8 +974,8 @@ Community Repositories
          # cd /etc/yum.repos.d/
          # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
          # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo-testing \
-               sclo-php70-unit-php sclo-php71-unit-php sclo-php72-unit-php
+         # yum install --enablerepo=centos-sclo-sclo \
+                       sclo-php72-unit-php sclo-php73-unit-php
 
    .. tab:: FreeBSD
 
@@ -956,7 +986,11 @@ Community Repositories
       .. code-block:: console
 
          # pkg install -y unit
-         # pkg install -y unit-java unit-perl unit-php unit-python unit-ruby
+         # pkg install -y unit-java8  \
+                          unit-perl5.32  \
+                          unit-php72 unit-php73 unit-php74 unit-php80  \
+                          unit-python27 unit-python37  \
+                          unit-ruby2.6
 
       To install Unit from `FreeBSD ports <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
@@ -1002,11 +1036,25 @@ Community Repositories
          # make
          # make install
 
-      .. note::
+      Runtime details:
 
-         The control socket's pathname is
-         :file:`/var/run/unit/control.unit.sock`.  The :ref:`log
-         <troubleshooting-log>` is :file:`/var/log/unit/unit.log`.
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/var/run/unit/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`www`
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # service unitd start
+                # service unitd stop
+
 
    .. tab:: Gentoo
 
@@ -1020,29 +1068,63 @@ Community Repositories
          # emerge --sync
          # emerge www-servers/nginx-unit
 
-      .. note::
+      To install specific language modules and features, apply the
+      corresponding `USE flags
+      <https://packages.gentoo.org/packages/www-servers/nginx-unit>`_.
 
-         The control socket's pathname is :file:`/run/nginx-unit.sock`.
-         The :ref:`log <troubleshooting-log>` is :file:`/var/log/nginx-unit`.
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/run/nginx-unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/nginx-unit`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`nobody`
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # openrc -s nginx-unit start
+                # openrc -s nginx-unit stop
+
 
    .. tab:: Nix
 
-      To install Unit using the `Nix package manager
-      <https://nixos.org/nix/>`_, update the repository and install the
-      `package
+      To install core Unit executables and all language modules using the `Nix
+      package manager <https://nixos.org/nix/>`_, update the channel, check if
+      Unit's available, and install the `package
       <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`__:
 
       .. code-block:: console
 
          $ nix-channel --update
-         $ nix-env -qa 'unit'    # check availability and version
-         $ nix-env -i unit       # install Unit
+         $ nix-env -qa 'unit'
+         $ nix-env -i unit
 
-      .. note::
+      This installs most embedded language modules and such features as SSL or
+      IPv6 support.  For a full list of optionals, see the `package definition
+      <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/default.nix>`_.
 
-         The control socket's pathname is :file:`/run/unit/control.unit.sock`.
-         The :ref:`log <troubleshooting-log>` is
-         :file:`/var/log/unit/unit.log`.
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/run/unit/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`unit`
+
+         * - Startup and shutdown
+           - :ref:`Manual <installation-startup>`
+
 
    .. tab:: Remi's RPM Repo
 
@@ -1060,12 +1142,33 @@ Community Repositories
 
       .. code-block:: console
 
-         # yum install --enablerepo=remi unit php54-unit-php php55-unit-php \
-               php56-unit-php php70-unit-php php71-unit-php php72-unit-php php73-unit-php
+         # yum install --enablerepo=remi unit  \
+               php54-unit-php php55-unit-php php56-unit-php  \
+               php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
+               php80-unit-php
 
       .. note::
 
-         The control socket's pathname is :file:`/var/run/unit/control.sock`.
+         The control socket's pathname is .  The
+         log is .
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <installation-startup>`
+           - :file:`/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user <installation-startup>`
+           - :samp:`nobody`
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # systemctl start unit
+                # systemctl stop unit
 
 
 .. _installation-docker:
