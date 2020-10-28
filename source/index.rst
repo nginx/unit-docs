@@ -106,8 +106,8 @@ Supported App Languages
   :ref:`overloading <installation-nodejs-package>` the :program:`http` and
   :program:`websocket` modules
 
-- :ref:`Java <configuration-java>`: via the Servlet Specification and WebSocket
-  APIs
+- :ref:`Java <configuration-java>`: via the Servlet Specification 3.1 and
+  WebSocket APIs
 
 - :ref:`Perl <configuration-perl>`: via PSGI
 
