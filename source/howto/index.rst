@@ -59,6 +59,7 @@ following frameworks:
    laravel
    pyramid
    quart
+   responder
    sanic
    starlette
    symfony
