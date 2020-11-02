@@ -53,12 +53,12 @@ To run apps built with the `Responder
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/responder_app"
+                  "pass": "applications/responder"
               }
           },
 
           "applications": {
-              "responder_app": {
+              "responder": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path, home, and working_directory>`",
                   "group": "app_group",

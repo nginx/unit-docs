@@ -48,11 +48,11 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/go_app"
+             "pass": "applications/go"
          }
      },
      "applications": {
-         "go_app": {
+         "go": {
              "type": "external",
              "working_directory": "/www/",
              "executable": "/www/app"
@@ -138,11 +138,11 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/java_app"
+             "pass": "applications/java"
          }
      },
      "applications": {
-         "java_app": {
+         "java": {
              "type": "java",
              "webapp": "/www/"
          }
@@ -232,11 +232,11 @@ Upload the :ref:`app config <configuration-external>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/node_app"
+             "pass": "applications/node"
          }
      },
      "applications": {
-         "node_app": {
+         "node": {
              "type": "external",
              "working_directory": "/www/",
              "executable": "app.js"
@@ -300,11 +300,11 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/perl_app"
+             "pass": "applications/perl"
          }
      },
      "applications": {
-         "perl_app": {
+         "perl": {
              "type": "perl",
              "working_directory": "/www/",
              "script": "/www/app.psgi"
@@ -368,11 +368,11 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/php_app"
+             "pass": "applications/php"
          }
      },
      "applications": {
-         "php_app": {
+         "php": {
              "type": "php",
              "root": "/www/"
          }
@@ -430,11 +430,11 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/python_app"
+             "pass": "applications/python"
          }
      },
      "applications": {
-         "python_app": {
+         "python": {
              "type": "python",
              "path": "/www/",
              "module": "wsgi"
@@ -497,11 +497,11 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
    # curl -X PUT --data-binary '{
      "listeners": {
          "*:8080": {
-             "pass": "applications/ruby_app"
+             "pass": "applications/ruby"
          }
      },
      "applications": {
-         "ruby_app": {
+         "ruby": {
              "type": "ruby",
              "working_directory": "/www/",
              "script": "config.ru"

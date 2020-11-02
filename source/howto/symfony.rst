@@ -13,9 +13,9 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
    .. code-block:: console
 
       $ cd /path/to/
-      $ symfony new --demo my_project
+      $ symfony new --demo app
 
-   This creates the app's directory tree at :file:`/path/to/my_project`.  Its
+   This creates the app's directory tree at :file:`/path/to/app/`.  Its
    :file:`public/` subdirectory contains both the root :file:`index.php` and
    the static files; if your app requires additional :file:`.php` scripts, also
    store them here.
@@ -48,7 +48,7 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/my_project/public/",
+                          ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/app/public/",
                           ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
                               "pass": "applications/symfony/index"
                           }
@@ -60,14 +60,14 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
           "applications": {
               "symfony": {
                   "type": "php",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/my_project/>`",
+                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/app/>`",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/my_project/public/ <Path to the scripts>`"
+                          "root": ":nxt_term:`/path/to/app/public/ <Path to the scripts>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/my_project/public/ <Path to the script>`",
+                          "root": ":nxt_term:`/path/to/app/ppublic/ <Path to the script>`",
                           "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
                       }
                   }

@@ -237,12 +237,12 @@ Its Unit configuration, stored as :file:`config.json`:
       {
           "listeners": {
               "*:8080": {
-                  "pass": "applications/express_app"
+                  "pass": "applications/express"
               }
           },
 
           "applications": {
-              "express_app": {
+              "express": {
                   "type": "external",
                   "working_directory": "/www/",
                   "executable": "app.js"
@@ -339,7 +339,7 @@ the :ref:`config API <configuration-mgmt>`:
    $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/new-config.json \
          --unix-socket /var/run/control.unit.sock http://localhost/config
    $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"' --unix-socket \
-         /var/run/control.unit.sock http://localhost/config/applications/express_app/working_directory
+         /var/run/control.unit.sock http://localhost/config/applications/express/working_directory
 
 This approach is applicable to any Unit-supported apps with external
 dependencies.

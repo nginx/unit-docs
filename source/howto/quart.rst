@@ -51,12 +51,12 @@ To run apps built with the `Quart
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/quart_app"
+                  "pass": "applications/quart"
               }
           },
 
           "applications": {
-              "quart_app": {
+              "quart": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",

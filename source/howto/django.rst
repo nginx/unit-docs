@@ -74,13 +74,13 @@ To run your Django projects and apps in Unit:
                     },
                     {
                         "action": {
-                            "pass": "applications/django_project"
+                            "pass": "applications/django"
                         }
                     }
                 ],
 
                 "applications": {
-                    "django_project": {
+                    "django": {
                         "type": "python 3",
                         "path": ":nxt_term:`/home/django/project/ <Project directory>`",
                         "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",
@@ -126,13 +126,13 @@ To run your Django projects and apps in Unit:
                     },
                     {
                         "action": {
-                            "pass": "applications/django_project"
+                            "pass": "applications/django"
                         }
                     }
                 ],
 
                 "applications": {
-                    "django_project": {
+                    "django": {
                         "type": "python 3",
                         "path": ":nxt_term:`/home/django/project/ <Project directory>`",
                         "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",

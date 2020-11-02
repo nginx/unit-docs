@@ -93,13 +93,13 @@ framework using Unit:
 
               {
                   "action": {
-                      "pass": "applications/starlette_app"
+                      "pass": "applications/starlette"
                   }
               }
           ],
 
           "applications": {
-              "starlette_app": {
+              "starlette": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",

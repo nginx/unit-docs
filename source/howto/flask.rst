@@ -44,12 +44,12 @@ To run apps built with the `Flask
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/flask_app"
+                  "pass": "applications/flask"
               }
           },
 
           "applications": {
-              "flask_app": {
+              "flask": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",

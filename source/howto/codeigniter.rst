@@ -27,12 +27,12 @@ framework using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/ci_app"
+                  "pass": "routes/codeigniter"
               }
           },
 
           "routes": {
-              "ci_app": [
+              "codeigniter": [
                   {
                       "match": {
                           "uri": "!/index.php"
@@ -41,7 +41,7 @@ framework using Unit:
                       "action": {
                           ":nxt_term:`share <Public directory path>`": "/path/to/app/public/",
                           "fallback": {
-                              "pass": "applications/ci_app"
+                              "pass": "applications/codeigniter"
                           }
                       }
                   }
@@ -49,7 +49,7 @@ framework using Unit:
           },
 
           "applications": {
-              "ci_app": {
+              "codeigniter": {
                   "type": "php",
                   "user": ":nxt_term:`app_user <User and group values must have access to application directories such as app or public>`",
                   "group": "app_group",

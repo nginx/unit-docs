@@ -42,12 +42,12 @@ framework using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/catalyst_app"
+                  "pass": "applications/catalyst"
               }
           },
 
           "applications": {
-              "catalyst_app": {
+              "catalyst": {
                   "type": "perl",
                   "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
                   "group": "app_group",

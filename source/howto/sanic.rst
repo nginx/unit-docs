@@ -46,12 +46,12 @@ To run apps built with the `Sanic
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/sanic_app"
+                  "pass": "applications/sanic"
               }
           },
 
           "applications": {
-              "sanic_app": {
+              "sanic": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",

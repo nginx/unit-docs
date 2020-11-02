@@ -53,12 +53,12 @@ using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "applications/pyramid_app"
+                  "pass": "applications/pyramid"
               }
           },
 
           "applications": {
-              "pyramid_app": {
+              "pyramid": {
                   "type": "python 3",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",

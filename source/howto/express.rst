@@ -54,12 +54,12 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
       {
           "listeners": {
               "127.0.0.1:8080": {
-                  "pass": "applications/express_app"
+                  "pass": "applications/express"
               }
           },
 
           "applications": {
-              "express_app": {
+              "express": {
                   "type": "external",
                   "working_directory": "/path/to/express/app/",
                   "executable": "app.js"
