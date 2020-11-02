@@ -1,10 +1,13 @@
+.. |app| replace:: Symfony
+.. |mod| replace:: PHP 7.2.5+
+
 #######
 Symfony
 #######
 
-To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
+To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
+#. .. include:: ../include/howto_install_unit.rst
 
 #. Next, `install <https://symfony.com/doc/current/setup.html>`_ Symfony and
    create or deploy your app.  Here, we use Symfony's `reference app
@@ -20,8 +23,10 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
    the static files; if your app requires additional :file:`.php` scripts, also
    store them here.
 
-#. Finally, prepare and upload the app :ref:`configuration <configuration-php>`
-   to Unit (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
+#. .. include:: ../include/howto_change_ownership.rst
+
+#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+   Unit (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
 
    .. code-block:: json
 
@@ -60,7 +65,8 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
           "applications": {
               "symfony": {
                   "type": "php",
-                  "user": ":nxt_term:`www-data <Username that Unit runs the app as, with access to /path/to/app/>`",
+                  "user": ":nxt_term:`app_user <User and group values must have access to root directories>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/public/ <Path to the scripts>`"
@@ -89,12 +95,10 @@ To run apps based on the `Symfony <https://symfony.com>`_ framework using Unit:
    <https://symfony.com/doc/current/setup/web_server_configuration.html>`_ in
    Symfony docs.
 
-   Assuming the config above is saved as :file:`symfony.json`:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @symfony.json --unix-socket \
-             :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
+   After a successful update, your project and apps should be available on the
+   listener's IP address and port:
 
    .. image:: ../images/symfony.png
       :width: 100%
