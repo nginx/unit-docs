@@ -474,6 +474,7 @@ body > div {
 }
 
 .highlight-console,
+.highlight-control,
 .highlight-docker,
 .highlight-go,
 .highlight-ini,
@@ -486,7 +487,8 @@ body > div {
 .highlight-php,
 .highlight-python,
 .highlight-ruby,
-.highlight-none {
+.highlight-none,
+.highlight-spec {
     position: relative;
 }
 
@@ -500,6 +502,9 @@ body > div {
 }
 .highlight-console .highlight::before {
     content: "console";
+}
+.highlight-control .highlight::before {
+    content: "control";
 }
 .highlight-docker .highlight::before {
     content: "docker";
@@ -537,6 +542,9 @@ body > div {
 .highlight-ruby .highlight::before {
     content: "ruby";
 }
+.highlight-spec .highlight::before {
+    content: "spec";
+}
 .highlight-none .highlight::before {
     content: "text";
 }
@@ -557,6 +565,7 @@ body > div {
     flex-flow: row wrap;
 }
 .nxt_tabs > div {
+    box-sizing: border-box;
     border: .1em solid #00974d;
     display: none;
     order: 2;
