@@ -1,48 +1,47 @@
-.. include:: ../include/replace.rst
+.. |app| replace:: Catalyst
+.. |mod| replace:: Perl
 
 ########
 Catalyst
 ########
 
-Unit enables running Perl web apps based on Catalyst |_| 5.9 and later almost
-seamlessly:
+To run apps based on the `Catalyst <https://www.catalystframework.org>`_ 5.9+
+framework using Unit:
 
-#. :ref:`Install Unit <installation-precomp-pkgs>` with the appropriate Perl
-   language module version.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. If you haven’t already done so, `create
+#. Install |app|'s `core files
+   <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Intro.pod#Install>`_.
+
+#. `Create
    <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
-   a Catalyst app in your usual location:
+   a Catalyst app.  Here, let's store it at :file:`/path/to/app/`:
 
    .. code-block:: console
 
-      $ cd /path/to/apps/
-      $ catalyst.pl myapp
-      $ cd myapp && perl Makefile.PL
-      # chown -R :nxt_term:`catalyst_user:catalyst_group <Used to run the app in Unit>` .
+      $ cd /path/to/
+      $ catalyst.pl app
+      $ cd app
+      $ perl Makefile.PL
 
-   .. note::
-
-      Make sure the app's :file:`.psgi` file includes the :file:`lib/`
-      directory:
+   Make sure the app's :file:`.psgi` file includes the :file:`lib/`
+   directory:
 
       .. code-block:: perl
 
          use lib 'lib';
-         use myapp;
+         use app;
 
-#. .. include:: ../include/get-config.rst
+#. .. include:: ../include/howto_change_ownership.rst
 
-   This creates a JSON file with Unit's current settings.  Edit the file,
-   adding a :ref:`listener <configuration-listeners>` entry to point to a Unit
-   :ref:`app <configuration-applications>` with your :file:`.psgi` file; the
-   app will run on the listener's IP and port:
+#. Finally, prepare and upload the app :ref:`configuration
+   <configuration-perl>` to Unit (note the use of :samp:`script`):
 
    .. code-block:: json
 
       {
           "listeners": {
-              "127.0.0.1:8080": {
+              "*:80": {
                   "pass": "applications/catalyst_app"
               }
           },
@@ -50,23 +49,19 @@ seamlessly:
           "applications": {
               "catalyst_app": {
                   "type": "perl",
-                  "script": "/path/to/apps/myapp/myapp.psgi",
-                  "user": "catalyst_user",
-                  "group": "catalyst_group"
+                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
+                  "group": "app_group",
+                  "working_directory": ":nxt_term:`/path/to/app/ <Needed to use modules from the local lib directory>`",
+                  "script": ":nxt_term:`/path/to/app/app.psgi <Absolute pathname of the PSGI script>`"
               }
           }
       }
 
-#. Upload the updated configuration:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
+   After a successful update, your app should be available on the listener’s IP
+   address and port:
 
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-   After a successful update, your app should be available
-   on the listener's IP address and port:
-
-   .. code-block:: console
-
-      $ curl 127.0.0.1:8080
+   .. image:: ../images/catalyst.png
+      :width: 100%
+      :alt: Catalyst Basic Template App on Unit
