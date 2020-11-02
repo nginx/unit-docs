@@ -112,7 +112,7 @@ versions 1.1 or 2.0 using Unit:
             # curl -X PUT --data-binary @yii.json --unix-socket \
                    :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
 
-      #. Finally, browse to http://localhost:80 to check out your app locally:
+      #. Finally, browse to http://localhost to check out your app locally:
 
          .. image:: ../images/yii2.png
             :width: 100%
@@ -217,7 +217,7 @@ versions 1.1 or 2.0 using Unit:
             # curl -X PUT --data-binary @yii.json --unix-socket \
                    :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
 
-      #. Finally, browse to http://localhost:80 to check out your app locally:
+      #. Finally, browse to http://localhost to check out your app locally:
 
          .. image:: ../images/yii1.1.png
             :width: 100%
