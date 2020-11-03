@@ -1,46 +1,57 @@
+.. |app| replace:: Django
+.. |mod| replace:: Python 3
+
 ######
 Django
 ######
 
-To run your Django projects and apps in Unit:
+To run apps based on the |app| `framework <https://www.djangoproject.com>`__
+using Unit:
 
-#. :ref:`Install Unit <installation-precomp-pkgs>` with the appropriate Python
-   language module version.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. If you haven't already done so, `create your Django project and apps
-   <https://docs.djangoproject.com/en/stable/intro/overview/>`_ where you
-   usually store them.
+   .. warning::
+      |app|'s support for Python 2 `ends in 2020
+      <https://docs.djangoproject.com/en/3.1/faq/install/#what-python-version-should-i-use-with-django>`_.
 
-#. .. include:: ../include/get-config.rst
+#. Install and configure the |app| `framework
+   <https://www.djangoproject.com>`__.  The official docs `recommend
+   <https://docs.djangoproject.com/en/stable/topics/install/#installing-an-official-release-with-pip>`_
+   setting up a virtual environment; if you do, list it as :samp:`home` when
+   configuring Unit later.  Here, it's :samp:`/path/to/venv/`.
 
-   This creates a JSON file with Unit's current settings; update it with your
-   project settings as follows.
-
-   Suppose you use a `basic directory structure
-   <https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-startproject>`_
-   for your Django project:
+#. Create a |app| `project
+   <https://docs.djangoproject.com/en/stable/intro/tutorial01/>`_.  Here, we
+   install it at :samp:`/path/to/app/`; use a real path in your configuration.
+   The following steps assume your project uses `basic directory structure
+   <https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-startproject>`_:
 
    .. code-block:: none
 
-      /home/django/project/
+      :nxt_term:`/path/to/app/ <Project directory>`
       |-- manage.py
-      |-- app1/
+      |-- :nxt_term:`django_app1/ <Individual app directory>`
       |   |-- ...
-      |-- app2/
+      |-- :nxt_term:`django_app2/ <Individual app directory>`
       |   |-- ...
-      `-- project/
-          |-- ...
-          |-- asgi.py
-          `-- wsgi.py
+      |-- :nxt_term:`project/ <Project subdirectory>`
+      |   |-- ...
+      |   |-- :nxt_term:`asgi.py <ASGI application module>`
+      |   `-- :nxt_term:`wsgi.py <WSGI application module>`
+      `-- :nxt_term:`static/ <Static files subdirectory>`
 
-   Edit the JSON, adding a :ref:`listener <configuration-listeners>` entry to
-   point to a Unit :ref:`app <configuration-applications>` with your
-   *project*'s WSGI or ASGI module; the project and its apps will run on the
-   listener's IP and port.  If you use a `virtual environment
-   <https://docs.djangoproject.com/en/stable/intro/contributing/#getting-a-copy-of-django-s-development-version>`_,
-   reference it as :samp:`home`.  Also, you can set up some environment
-   variables that your project relies on.  Finally, if your project uses
-   Django's `static files
+#. .. include:: ../include/howto_change_ownership.rst
+
+#. Next, put together the |app| :ref:`configuration <configuration-python>` for
+   Unit.  Here, the :file:`/path/to/app/` directory is stored in the
+   :samp:`path` option; the virtual environment is :samp:`home`; the WSGI or
+   ASGI module in the :file:`project/` subdirectory is `imported
+   <https://docs.python.org/3/reference/import.html>`_ via :samp:`module`.  If
+   you reorder your directories, :ref:`set up <configuration-python>`
+   :samp:`path`, :samp:`home`, and :samp:`module` accordingly.
+
+   You can also set up some environment variables that your project relies on.
+   Finally, if your project uses |app|'s `static files
    <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
    add a :ref:`route <configuration-routes>` to :ref:`serve
    <configuration-static>` them with Unit.
@@ -49,9 +60,6 @@ To run your Django projects and apps in Unit:
       :prefix: django
 
       .. tab:: WSGI
-
-         Mind the :samp:`module` setting that references the
-         :file:`project/wsgi.py` file.
 
          .. code-block:: json
 
@@ -69,7 +77,7 @@ To run your Django projects and apps in Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_term:`/home/django/ <Thus, URIs starting with /static/ are served from /home/django/static/>`"
+                            "share": ":nxt_term:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -82,8 +90,10 @@ To run your Django projects and apps in Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "path": ":nxt_term:`/home/django/project/ <Project directory>`",
-                        "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",
+                        "user": ":nxt_term:`app_user <User and group values must have access to the project directory>`",
+                        "group": "app_group",
+                        "path": ":nxt_term:`/path/to/app/ <Project directory>`",
+                        "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
                         "module": ":nxt_term:`project.wsgi <Note the qualified name of the WSGI module>`",
                         "environment": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
@@ -102,9 +112,6 @@ To run your Django projects and apps in Unit:
 
             ASGI requires Python 3.5+ and Django 3.0+.
 
-         Mind the :samp:`module` setting that references the
-         :file:`project/asgi.py` file.
-
          .. code-block:: json
 
             {
@@ -121,7 +128,7 @@ To run your Django projects and apps in Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_term:`/home/django/ <Thus, URIs starting with /static/ are served from /home/django/static/>`"
+                            "share": ":nxt_term:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -134,8 +141,10 @@ To run your Django projects and apps in Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "path": ":nxt_term:`/home/django/project/ <Project directory>`",
-                        "home": ":nxt_term:`/home/django/venv/ <Virtual environment directory>`",
+                        "user": ":nxt_term:`app_user <User and group values must have access to the project directory>`",
+                        "group": "app_group",
+                        "path": ":nxt_term:`/path/to/app/ <Project directory>`",
+                        "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
                         "module": ":nxt_term:`project.asgi <Note the qualified name of the ASGI module>`",
                         "environment": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
@@ -148,23 +157,11 @@ To run your Django projects and apps in Unit:
                 }
             }
 
-   Here, the top-level :file:`project` directory becomes :samp:`path`; its
-   child :file:`project` and the WSGI or ASGI module in it are `imported
-   <https://docs.python.org/3/reference/import.html>`_ via :samp:`module`.  If
-   you reorder your directories, :ref:`set up <configuration-python>`
-   :samp:`path` and :samp:`module` accordingly.
-
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, your project and apps should be available on the
    listener's IP address and port:
 
-   .. code-block:: console
-
-      $ curl localhost/admin/
-      $ curl localhost/app1/
+   .. image:: ../images/django.png
+      :width: 100%
+      :alt: Django on Unit - Admin Login Screen
