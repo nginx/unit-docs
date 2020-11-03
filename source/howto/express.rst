@@ -1,25 +1,45 @@
+.. |app| replace:: Express
+.. |mod| replace:: Node.js
+
 #######
 Express
 #######
 
-To run your `Express <https://expressjs.com>`_ apps in Unit:
+To run apps built with the `Express <https://expressjs.com>`_ web framework
+using Unit:
 
-#. :ref:`Install Unit <installation-precomp-pkgs>` with the appropriate Node.js
-   language module version.
-
-#. If you haven't already done so, `create your Express app
-   <https://expressjs.com/en/starter/hello-world.html>`_ and store it as usual.
-
-#. Next, you need to have the :program:`unit-http` package :ref:`installed
-   <installation-nodejs-package>`.  If it's global, symlink it in your project
-   directory:
+#. Install :ref:`Unit <installation-precomp-pkgs>` with the
+   :samp:`unit-dev/unit-devel` package.  Next, :ref:`install
+   <installation-nodejs-package>` Unit's :samp:`unit-http` package:
 
    .. code-block:: console
 
-      # npm link unit-http
+      # npm install -g --unsafe-perm unit-http
 
-#. In your app, create a custom HTTP server (note :samp:`createServer`,
-   :samp:`ServerResponse`, and :samp:`IncomingMessage`):
+#. Create your app directory, `install
+   <https://expressjs.com/en/starter/installing.html>`_ |app|, and link
+   :samp:`unit-http`:
+
+   .. code-block:: console
+
+      $ mkdir -p /path/to/app/
+      $ cd /path/to/app/
+      $ npm init
+      $ npm install express --save
+      $ npm link unit-http
+
+#. Create your Express `app
+   <https://expressjs.com/en/starter/hello-world.html>`_; let's store it as
+   :file:`/path/to/app/app.js`.  Unit requires it to be executable:
+
+   .. code-block:: console
+
+      $ touch /path/to/app/app.js
+      $ chmod +x /path/to/app/app.js
+
+   In the code, create a custom HTTP server (note :samp:`createServer`,
+   :samp:`ServerResponse`, and :samp:`IncomingMessage`).  Also, mind that Unit
+   needs a shebang to recognize the script:
 
    .. code-block:: javascript
 
@@ -41,19 +61,39 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
 
       createServer(app).listen()
 
-#. .. include:: ../include/get-config.rst
+   .. note::
 
-   This creates a JSON file with Unit's current settings.  Edit the file,
-   adding a :ref:`listener <configuration-listeners>` in :samp:`listeners` and
-   pointing it to your app's :file:`.js` file in :samp:`applications`.  Your
-   project and apps will run on the listener's IP and port at their respective
-   URL paths.
+      The same modifications apply if you use the `app generator
+      <https://expressjs.com/en/starter/generator.html>`_ to create your
+      :file:`app.js`:
+
+      .. code-block:: javascript
+
+         #!/usr/bin/env node
+
+         const {
+           createServer,
+           IncomingMessage,
+           ServerResponse,
+         } = require('unit-http')
+
+         require('http').ServerResponse = ServerResponse
+         require('http').IncomingMessage = IncomingMessage
+
+         // skipping generated code
+
+         createServer(app).listen()
+
+#. .. include:: ../include/howto_change_ownership.rst
+
+#. Next, :ref:`put together <configuration-external-nodejs>` the |app|
+   configuration for Unit:
 
    .. code-block:: json
 
       {
           "listeners": {
-              "127.0.0.1:8080": {
+              "*:80": {
                   "pass": "applications/express"
               }
           },
@@ -61,22 +101,19 @@ To run your `Express <https://expressjs.com>`_ apps in Unit:
           "applications": {
               "express": {
                   "type": "external",
-                  "working_directory": "/path/to/express/app/",
-                  "executable": "app.js"
+                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
+                  "group": "app_group",
+                  "working_directory": ":nxt_term:`/path/to/app/ <Needed to use the installed NPM modules>`",
+                  "executable": ":nxt_term:`app.js <Make sure to make this file executable>`"
               }
           }
       }
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, your app should be available on the listener's IP
    address and port:
 
-   .. code-block:: console
-
-      $ curl 127.0.0.1:8080/
+   .. image:: ../images/express.png
+      :width: 100%
+      :alt: Express on Unit - Welcome Screen
