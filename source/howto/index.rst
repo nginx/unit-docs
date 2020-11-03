@@ -87,6 +87,7 @@ as:
    nextcloud
    phpbb
    redmine
+   reviewboard
    trac
    wordpress
 
