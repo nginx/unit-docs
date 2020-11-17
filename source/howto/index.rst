@@ -57,6 +57,7 @@ following frameworks:
    express
    fastapi
    flask
+   guillotina
    laravel
    pyramid
    quart
