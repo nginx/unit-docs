@@ -53,6 +53,7 @@ following frameworks:
    catalyst
    codeigniter
    django
+   djangochannels
    express
    fastapi
    flask
