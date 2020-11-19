@@ -1,13 +1,62 @@
 
+Changes with Unit 1.21.0                                         19 Nov 2020
+
+    *) Change: procfs is mounted by default for all languages when "rootfs"
+       isolation is used.
+
+    *) Change: any characters valid according to RFC 7230 are now allowed in
+       HTTP header field names.
+
+    *) Change: HTTP header fields with underscores ("_") are now discarded
+       from requests by default.
+
+    *) Feature: optional multithreaded request processing for Java, Python,
+       Perl, and Ruby apps.
+
+    *) Feature: regular expressions in route matching patterns.
+
+    *) Feature: compatibility with Python 3.9.
+
+    *) Feature: the Python module now supports ASGI 2.0 legacy applications.
+
+    *) Feature: the "protocol" option in Python applications aids choice
+       between ASGI and WSGI.
+
+    *) Feature: the fastcgi_finish_request() PHP function that finalizes
+       request processing and continues code execution without holding onto
+       the client connection.
+
+    *) Feature: the "discard_unsafe_fields" HTTP option that enables
+       discarding request header fields with irregular (but still valid)
+       characters in the field name.
+
+    *) Feature: the "procfs" and "tmpfs" automount isolation options to
+       disable automatic mounting of eponymous filesystems.
+
+    *) Bugfix: the router process could crash when running Go applications
+       under high load; the bug had appeared in 1.19.0.
+
+    *) Bugfix: some language dependencies could remain mounted after using
+       "rootfs" isolation.
+
+    *) Bugfix: various compatibility issues in Java applications.
+
+    *) Bugfix: the Java module built with the musl C library couldn't run
+       applications that use "rootfs" isolation.
+
+
 Changes with Unit 1.20.0                                         08 Oct 2020
 
-    *) Change: the PHP module is now initialized before chrooting; this enables
-       loading all extensions from the host system.
+    *) Change: the PHP module is now initialized before chrooting; this
+       enables loading all extensions from the host system.
 
-    *) Change: AVIF and APNG image formats added to the default MIME type list.
+    *) Change: AVIF and APNG image formats added to the default MIME type
+       list.
 
-    *) Feature: the Python module now fully supports applications that use the
-       ASGI 3.0 server interface.
+    *) Change: functional tests migrated to the pytest framework.
+
+    *) Feature: the Python module now fully supports applications that use
+       the ASGI 3.0 server interface.
 
     *) Feature: the Python module now has a built-in WebSocket server
        implementation for applications, compatible with the HTTP & WebSocket
@@ -16,17 +65,19 @@ Changes with Unit 1.20.0                                         08 Oct 2020
     *) Feature: automatic mounting of an isolated "/tmp" file system into
        chrooted application environments.
 
-    *) Feature: the $host variable contains a normalized "Host" request value.
+    *) Feature: the $host variable contains a normalized "Host" request
+       value.
 
-    *) Feature: the "callable" option sets Python application callable names.
+    *) Feature: the "callable" option sets Python application callable
+       names.
 
     *) Feature: compatibility with PHP 8 RC 1. Thanks to Remi Collet.
 
-    *) Feature: the "automount" option in the "isolation" object allows to turn
-       off the automatic mounting of language module dependencies.
+    *) Feature: the "automount" option in the "isolation" object allows to
+       turn off the automatic mounting of language module dependencies.
 
     *) Bugfix: "pass"-ing requests to upstreams from a route was broken; the
-       bug had appeared in 1.19.0.  Thanks to 洪志道 (Hong Zhi Dao) for
+       bug had appeared in 1.19.0. Thanks to 洪志道 (Hong Zhi Dao) for
        discovering and fixing it.
 
     *) Bugfix: the router process could crash during reconfiguration.
@@ -34,8 +85,8 @@ Changes with Unit 1.20.0                                         08 Oct 2020
     *) Bugfix: a memory leak occurring in the router process; the bug had
        appeared in 1.18.0.
 
-    *) Bugfix: the "!" (non-empty) pattern was matched incorrectly; the bug had
-       appeared in 1.19.0.
+    *) Bugfix: the "!" (non-empty) pattern was matched incorrectly; the bug
+       had appeared in 1.19.0.
 
     *) Bugfix: fixed building on platforms without sendfile() support,
        notably NetBSD; the bug had appeared in 1.16.0.
