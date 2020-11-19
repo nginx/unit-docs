@@ -54,7 +54,7 @@ the same language):
 - Go |_| 1.6 or later
 - Java |_| 8 or later
 - Node.js |_| 8.11 or later
-- PHP |_| 5, 7
+- PHP |_| 5, 7, 8
 - Perl |_| 5.12 or later
 - Python |_| 2.6, 2.7, 3
 - Ruby |_| 2.0 or later
