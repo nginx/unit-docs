@@ -2467,6 +2467,10 @@ following:
       - Additional lookup path for Python modules; this string is inserted into
         :samp:`sys.path`.
 
+    * - :samp:`protocol`
+      - A hint to instruct Unit that the app uses a certain interface; can
+        be :samp:`asgi` or :samp:`wsgi`.
+
 Example:
 
 .. code-block:: json
@@ -2495,7 +2499,7 @@ You can provide the callable in two forms.  The first one uses WSGI (`PEP 333
        start_response('200 OK', [('Content-Type', 'text/plain')])
        yield b'Hello, WSGI\n'
 
-The second one, supported for Python 3.5+, uses `ASGI 3.0
+The second one, supported for Python 3.5+, uses `ASGI
 <https://asgi.readthedocs.io/en/latest/>`__:
 
 .. code-block:: python
@@ -2512,14 +2516,15 @@ The second one, supported for Python 3.5+, uses `ASGI 3.0
            'body': b'Hello, ASGI\n'
        })
 
-.. warning::
+.. note::
 
    Legacy `two-callable
    <https://asgi.readthedocs.io/en/latest/specs/main.html#legacy-applications>`_
-   ASGI 2.0 applications are not supported.
+   ASGI 2.0 applications were not supported prior to Unit 1.21.0.
 
-Choose either one according to your needs; Unit will pick up your choice
-automatically.
+Choose either one according to your needs; Unit will attempt to infer your
+choice automatically.  If automatic inference fails, use the :samp:`protocol`
+option to name the interface explicitly.
 
 .. note::
 
@@ -3224,7 +3229,8 @@ Full Example
 
                "wiki": {
                    "type": "python",
-                   "module": "wsgi",
+                   "module": "asgi",
+                   "protocol": "asgi",
                    "callable": "app",
                    "environment": {
                        "DJANGO_SETTINGS_MODULE": "wiki.settings.prod",

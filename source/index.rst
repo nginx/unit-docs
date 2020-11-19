@@ -113,8 +113,8 @@ Supported App Languages
 
 - :ref:`PHP <configuration-php>`: via the :program:`embed` SAPI
 
-- :ref:`Python <configuration-python>`: via WSGI and ASGI |_| 3.0 with
-  WebSocket support
+- :ref:`Python <configuration-python>`: via WSGI and ASGI with WebSocket
+  support
 
 - :ref:`Ruby <configuration-ruby>`: via the Rack API
 
