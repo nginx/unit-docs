@@ -1830,19 +1830,23 @@ The :samp:`isolation` application option has the following members:
    * - :samp:`automount`
      - Object that controls mount behavior if :samp:`rootfs` is enabled.  By
        default, Unit automatically mounts the :ref:`language runtime
-       dependencies <configuration-lang-runtime>`, but you can disable this
-       behavior:
+       dependencies <configuration-lang-runtime>`, a `procfs
+       <https://man7.org/linux/man-pages/man5/procfs.5.html>`_ at
+       :file:`/proc/`, and a `tmpfs
+       <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`_ at :file:`/tmp/`,
+       but you can disable any of these default mounts:
 
        .. code-block:: json
 
           {
               "isolation": {
                   "automount": {
-                      "language_deps": false
+                      "language_deps": false,
+                      "procfs": false,
+                      "tmpfs": false
                   }
               }
           }
-
 
 .. note::
 
@@ -1916,8 +1920,7 @@ stays operational:
      - Language-Specific Mounts
 
    * - Java
-     - - The :file:`/proc/` directory tree, required by JVM
-       - JVM's :file:`libc.so` directory
+     - - JVM's :file:`libc.so` directory
        - Java module's :ref:`home <installation-modules-java>` directory
 
    * - Python
@@ -3255,7 +3258,9 @@ Full Example
                        ],
 
                        "automount": {
-                           "language_deps": false
+                           "language_deps": false,
+                           "procfs": false,
+                           "tmpfs": false
                        }
                    }
                },
