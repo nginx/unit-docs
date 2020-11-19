@@ -74,7 +74,7 @@ Installing a precompiled Unit binary package is best for most occasions;
 - Debian |_| 8, 9, 10
 - Fedora |_| 28, 29, 30, 31, 32
 - RHEL |_| 6, 7, 8
-- Ubuntu |_| 16.04, 18.04, 18.10, 19.04, 19.10, 20.04
+- Ubuntu |_| 16.04, 18.04, 18.10, 19.04, 19.10, 20.04, 20.10
 
 These include core Unit executables, developer files, and support packages for
 individual languages.
@@ -489,6 +489,38 @@ Ubuntu
 
 .. tabs::
    :prefix: ubuntu
+
+   .. tab:: 20.10
+
+      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
+
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
+
+         .. code-block:: console
+
+            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+
+         This eliminates the 'packages cannot be authenticated' warnings during
+         installation.
+
+      #. To configure Unit repository, create the following file named
+         :file:`/etc/apt/sources.list.d/unit.list`:
+
+         .. code-block:: none
+
+            deb https://packages.nginx.org/unit/ubuntu/ groovy unit
+            deb-src https://packages.nginx.org/unit/ubuntu/ groovy unit
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+            # apt install unit
+            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15 \
+                          unit-perl unit-php unit-python3.8 unit-ruby
 
    .. tab:: 20.04
 
