@@ -2699,12 +2699,23 @@ HTTP requests from the clients:
         error and closes the connection.
 
         The default value is 8388608 (8 MB).
+
     * - :samp:`static`
-      - An object that configures static asset handling, containing a single
+      - Object that configures static asset handling, containing a single
         object named :samp:`mime_types`.  In turn, :samp:`mime_types`
         defines specific MIME types as options.  An option's value can be a
         string or an array of strings; each string must specify a filename
         extension or a specific filename that is included in the MIME type.
+
+    * - :samp:`discard_unsafe_fields`
+
+      - Controls the parsing mode of header field names.  If set to
+        :samp:`true`, Unit only processes headers with names consisting of
+        alphanumeric characters and hyphens (:samp:`-`); otherwise, all valid
+        `RFC 7230 <https://tools.ietf.org/html/rfc7230#section-3.2>`_ header
+        fields are processed.
+
+        The default value is :samp:`true`.
 
 Example:
 
@@ -2726,7 +2737,8 @@ Example:
                             "CHANGES"
                        ]
                    }
-               }
+               },
+               "discard_unsafe_fields": false
            }
        }
    }
@@ -3068,7 +3080,8 @@ Full Example
                                 "CHANGES"
                            ]
                        }
-                   }
+                   },
+                   "discard_unsafe_fields": false
                }
            },
 
