@@ -62,6 +62,10 @@ Performance
 - Requests are asynchronously processed in threads with efficient event loops
   (epoll/kqueue)
 
+- Multithreaded request processing can be enabled for :ref:`Java
+  <configuration-java>`, :ref:`Perl <configuration-perl>`, :ref:`Python
+  <configuration-python>`, and :ref:`Ruby <configuration-ruby>` apps
+
 - Syscalls and data copy operations are kept to a necessary minimum
 
 - 10,000 inactive HTTP keep-alive connections take up only a few MBs of memory
@@ -70,7 +74,7 @@ Performance
   over shared memory
 
 - The number of per-app processes is defined statically or :ref:`scales
-  <configuration-proc-mgmt-prcs>`  preemptively within given limits
+  <configuration-proc-mgmt-prcs>` preemptively within given limits
 
 
 =====================

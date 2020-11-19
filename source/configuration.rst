@@ -2188,6 +2188,21 @@ following:
     * - :samp:`options`
       - Array of strings defining JVM runtime options.
 
+    * - :samp:`threads`
+      - Integer that sets the number of worker threads per app process.  When
+        started, each app process creates a corresponding number of threads to
+        handle requests.
+
+        The default value is :samp:`1`.
+
+    * - :samp:`thread_stack_size`
+      - Integer that defines the stack size of a worker thread (in bytes,
+        multiple of memory page size; the minimum value is usually architecture
+        specific).
+
+        The default value is system dependent and can be set with
+        :program:`ulimit -s <SIZE_KB>`.
+
 Example:
 
 .. code-block:: json
@@ -2224,6 +2239,21 @@ following:
 
     * - :samp:`script` (required)
       - PSGI script path.
+
+    * - :samp:`threads`
+      - Integer that sets the number of worker threads per app process.  When
+        started, each app process creates a corresponding number of threads to
+        handle requests.
+
+        The default value is :samp:`1`.
+
+    * - :samp:`thread_stack_size`
+      - Integer that defines the stack size of a worker thread (in bytes,
+        multiple of memory page size; the minimum value is usually architecture
+        specific).
+
+        The default value is system dependent and can be set with
+        :program:`ulimit -s <SIZE_KB>`.
 
 Example:
 
@@ -2459,9 +2489,9 @@ following:
         The default value is :samp:`application`.
 
     * - :samp:`home`
-      - Path to Python's `virtual environment <https://packaging.python.org/
-        tutorials/installing-packages/#creating-virtual-environments>`_ for the
-        app.  Absolute or relative to :samp:`working_directory`.
+      - Path to the app's `virtual environment <https://packaging.python.org/
+        tutorials/installing-packages/#creating-virtual-environments>`_.
+        Absolute or relative to :samp:`working_directory`.
 
         .. note::
 
@@ -2476,6 +2506,21 @@ following:
     * - :samp:`protocol`
       - A hint to instruct Unit that the app uses a certain interface; can
         be :samp:`asgi` or :samp:`wsgi`.
+
+    * - :samp:`threads`
+      - Integer that sets the number of worker threads per app process.  When
+        started, each app process creates a corresponding number of threads to
+        handle requests.
+
+        The default value is :samp:`1`.
+
+    * - :samp:`thread_stack_size`
+      - Integer that defines the stack size of a worker thread (in bytes,
+        multiple of memory page size; the minimum value is usually architecture
+        specific).
+
+        The default value is system dependent and can be set with
+        :program:`ulimit -s <SIZE_KB>`.
 
 Example:
 
@@ -2572,6 +2617,13 @@ following:
     * - :samp:`script` (required)
       - Rack script pathname, including the :file:`.ru` extension:
         :file:`/www/rubyapp/script.ru`.
+
+    * - :samp:`threads`
+      - Integer that sets the number of worker threads per app process.  When
+        started, each app process creates a corresponding number of threads to
+        handle requests.
+
+        The default value is :samp:`1`.
 
 Example:
 
@@ -3217,13 +3269,14 @@ Full Example
                "drive": {
                    "type": "perl",
                    "script": "app.psgi",
+                   "threads": 2,
+                   "thread_stack_size": 4096,
+                   "working_directory": "/www/drive/",
                    "processes": {
                        "max": 10,
                        "spare": 5,
                        "idle_timeout": 20
-                   },
-
-                   "working_directory": "/www/drive/"
+                   }
                },
 
                "store": {
