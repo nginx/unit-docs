@@ -2323,6 +2323,12 @@ Directives from :file:`php.ini` are overridden by settings supplied in
    :samp:`PHP_INI_*` modes, see the `PHP docs
    <https://php.net/manual/en/configuration.changes.modes.php>`_.
 
+.. note::
+
+   Unit implements the :samp:`fastcgi_finish_request()` `function
+   <https://www.php.net/manual/en/function.fastcgi-finish-request.php>`_ in a
+   manner similar to PHP-FPM.
+
 Example:
 
 .. code-block:: json
@@ -2346,7 +2352,6 @@ Example:
            }
        }
    }
-
 
 .. _configuration-php-targets:
 
@@ -2423,6 +2428,7 @@ App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
    :doc:`howto/nextcloud`, :doc:`howto/phpbb`, :doc:`howto/laravel`,
    :doc:`howto/symfony`, :doc:`howto/mediawiki`, and :doc:`howto/yii` howtos or
    a basic :ref:`sample <sample-php>`.
+
 
 .. _configuration-python:
 
