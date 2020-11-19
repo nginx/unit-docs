@@ -42,8 +42,9 @@ Flexibility
   <configuration-routes-proxy>`, and local :ref:`apps
   <configuration-applications>`
 
-- Requests are filtered and dispatched with compound :ref:`matching rules
-  <configuration-routes-matching>`
+- Requests are filtered and dispatched with complex :ref:`matching rules
+  <configuration-routes-matching>` that support :ref:`regular expressions
+  <installation-config-src-pcre>`
 
 - Apps in multiple languages and language versions run :ref:`side by side
   <configuration-applications>`

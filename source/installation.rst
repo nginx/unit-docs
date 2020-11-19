@@ -1356,6 +1356,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # apt install ruby-dev
          # apt install :nxt_term:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
          # apt install libssl-dev
+         # apt install libpcre2-dev
 
    .. tab:: Amazon, CentOS, Fedora, RHEL
 
@@ -1372,6 +1373,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # yum install ruby-devel
          # yum install :nxt_term:`java-1.8.0-openjdk-devel <Java 8 or later is supported. Different JDKs may be used>`
          # yum install openssl-devel
+         # yum install pcre2-devel
 
    .. tab:: FreeBSD
 
@@ -1388,6 +1390,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # cd :nxt_term:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
          # cd :nxt_term:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
          # cd /usr/ports/security/openssl/ && make install clean
+         # cd /usr/ports/devel/pcre/ && make install clean
 
       Packages:
 
@@ -1401,6 +1404,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # pkg install :nxt_term:`ruby25 <Ruby 2.0 is supported>`
          # pkg install :nxt_term:`openjdk8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
+         # pkg install pcre2
 
    .. tab:: Solaris
 
@@ -1412,6 +1416,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # pkg install ruby
          # pkg install :nxt_term:`jdk-8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
+         # pkg install pcre
 
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
       and installing <installation-bld-src>` Unit on Solaris.
@@ -1480,6 +1485,19 @@ These flags enable or disable support of certain features:
     :program:`./configure`.
 
     For details, see :ref:`configuration-ssl`.
+
+.. _installation-config-src-pcre:
+
+By default, Unit relies on `PCRE2 <https://www.pcre.org>`_ to support regular
+expessions in :ref:`routes <configuration-routes>`.  These flags alter its
+behavior:
+
+--no-regex
+    Turns off regex support.  Attempts to use a regex will cause
+    validation errors.
+
+--no-pcre2
+    Instead of PCRE2, the older PCRE 8.x library will be used.
 
 The last option group customizes Unit's :ref:`runtime directory
 structure <installation-src-dir>`:
@@ -1553,12 +1571,12 @@ structure <installation-src-dir>`:
 
     The default is :samp:`state`.
 
-
 --tmp=directory
 
     Defines the temporary files location (used to dump large request bodies).
 
     The default value is :samp:`tmp`.
+
 
 .. _installation-src-dir:
 

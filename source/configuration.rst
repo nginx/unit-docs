@@ -808,8 +808,8 @@ To be a match against the condition, the property must meet two requirements:
 
 - No negation-based patterns match the property value.
 
-Patterns must precisely match the value, taking negations (:samp:`!`),
-wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
+Patterns must be exact matches.  Regexes (:samp:`~`), negations (:samp:`!`),
+wildcards (:samp:`*`), and ranges (:samp:`-`) can be used:
 
 - A negation can only start a pattern; it rejects all matches to its remainder
   (:samp:`!<negated_pattern>`).
@@ -821,7 +821,16 @@ wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
 
 - In :samp:`source` and :samp:`destination`, wildcards can only be used to
   match any IPs (:samp:`*:<port>`).  Also, ranges can be used to specify IPs
-  (in respective notation) and ports (:samp:`<start_port>-<end-port>`).
+  (in respective notation) and ports (:samp:`<start_port>-<end_port>`).
+
+- A regex pattern starts with a tilde, optionally preceded by a negation:
+  :samp:`!~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+$` (note the escaping; this
+  is a JSON `requirement <https://www.json.org/json-en.html>`_).  By default,
+  regexes use the `PCRE
+  <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_ syntax; see the
+  :ref:`compilation options <installation-config-src-pcre>` for details.
+  However, :samp:`source`, :samp:`destination`, and :samp:`scheme` can't use
+  regexes.
 
 .. note::
 
@@ -834,6 +843,16 @@ wildcards (:samp:`*`), and ranges (:samp:`-`) into account:
    | *U* \\ *N* if *P* = ∅
 
 .. nxt_details:: Examples
+
+   .. code-block:: json
+
+      {
+          "uri": "~^/data/www/.*\\.php(/.*)?$"
+      }
+
+   A regular expression that matches any :file:`.php` files within the
+   :file:`/data/www/` directory and its subdirectiories.  Note the backslashes;
+   escaping is a JSON-specific requirement.
 
    .. code-block:: json
 
@@ -1055,7 +1074,7 @@ An example:
            },
            {
                "match": {
-                   "uri": "/share/*"
+                   "uri": "~\\.jpe?g$"
                },
 
                "action": {
