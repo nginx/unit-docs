@@ -27,9 +27,11 @@ rst_prolog = """
 .. |release_date| replace:: {}
 """.format(release_date)
 
+edit_on_github_project = 'nginx/unit-docs'
+edit_on_github_branch = 'master'
 
 exclude_patterns = ['include']
 suppress_warnings = ['misc.highlighting_failure']
 
 sys.path.append(os.path.abspath('./exts'))
-extensions = ['inline', 'nxt', 'subs']
+extensions = ['inline', 'nxt', 'subs', 'github']

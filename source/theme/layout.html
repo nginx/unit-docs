@@ -75,8 +75,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div id="content">
     {% block body %} {% endblock %}
+    {% if edit_on_github_url %}
+    <div class="nxt_github_link"><a href="{{ edit_on_github_url }}"><div></div>Improve this page</a></div>
+    {% endif %}
     <p id="footer">
-        Copyright © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
+        © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
     </p>
 </div>
 </div>
