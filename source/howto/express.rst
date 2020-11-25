@@ -59,7 +59,14 @@ using Unit:
 
       app.get('/', (req, res) => res.send('Hello, Unit!'))
 
-      createServer(app).listen()
+      const server = createServer(app)
+      server.on('close', ()=>{
+         setTimeout(()=>{
+            // cleanup, such as close file, close db connection and etc.
+            process.exit(0)
+         }, 0)
+      })
+      server.listen()
 
    .. note::
 
@@ -82,7 +89,14 @@ using Unit:
 
          // skipping generated code
 
-         createServer(app).listen()
+         const server = createServer(app)
+         server.on('close', ()=>{
+            setTimeout(()=>{
+               // cleanup, such as close file, close db connection and etc.
+               process.exit(0)
+            }, 0)
+         })
+         server.listen()
 
 #. .. include:: ../include/howto_change_ownership.rst
 
