@@ -1018,6 +1018,7 @@ Community Repositories
       .. code-block:: console
 
          # pkg install -y unit
+         # pkg install -y :nxt_term:`libunit <Required to install the Node.js module and build Go apps>`
          # pkg install -y unit-java8  \
                           unit-perl5.32  \
                           unit-php72 unit-php73 unit-php74 unit-php80  \
@@ -1048,25 +1049,15 @@ Community Repositories
          # make
          # make install
 
-      Repeat the steps for the other ports you need: `unit-java
+      Repeat the steps for the other ports you need: `libunit
+      <https://www.freshports.org/devel/libunit/>`_ (required to install the
+      :ref:`Node.js <installation-nodejs-package>` module and build :ref:`Go
+      <installation-go-package>` apps), `unit-java
       <https://www.freshports.org/www/unit-java/>`_, `unit-perl
       <https://www.freshports.org/www/unit-perl/>`_, `unit-php
       <https://www.freshports.org/www/unit-php/>`_, `unit-python
       <https://www.freshports.org/www/unit-python/>`_, or `unit-ruby
       <https://www.freshports.org/www/unit-ruby/>`_.
-
-      To build the :ref:`external modules <modules-ext>`, install the core Unit
-      port with the :samp:`DEVKIT` option enabled; next, see the
-      :ref:`installation-go-package` or :ref:`installation-nodejs-package`
-      section.  If you have already installed Unit, enable :samp:`DEVKIT` and
-      reinstall the port:
-
-      .. code-block:: console
-
-         # cd /usr/ports/www/unit/
-         # make config
-         # make
-         # make install
 
       Runtime details:
 
