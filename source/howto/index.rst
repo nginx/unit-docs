@@ -87,6 +87,7 @@ as:
    mercurial
    moin
    nextcloud
+   opengrok
    phpbb
    redmine
    reviewboard
