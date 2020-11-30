@@ -1461,53 +1461,50 @@ build instructions for Unit:
 To finalize the resulting :file:`Makefile`, configure the :ref:`language
 modules <installation-src-modules>` you need.
 
-General :program:`./configure` options:
+General options and settings that control compilation, runtime privileges,
+or support for certain features:
 
---help
-    Displays a summary of common :program:`./configure` options.
+.. list-table::
 
-    For language-specific details, run :command:`./configure <language>
-    --help` or see :ref:`below <installation-src-modules>`.
+   * - :samp:`--help`
+     -  Displays a summary of common :program:`./configure` options.
 
-These options control the compilation process:
+        For language-specific details, run :command:`./configure <language>
+        --help` or see :ref:`below <installation-src-modules>`.
 
---cc=pathname
-    Custom C compiler pathname.
+   * - :samp:`--cc=pathname`
+     - Custom C compiler pathname.
 
-    The default is :samp:`cc`.
+       The default is :samp:`cc`.
 
---cc-opt=options, --ld-opt=options
-    Extra options for the C compiler and linker.
+   * - :samp:`--cc-opt=options`, :samp:`--ld-opt=options`
+     - Extra options for the C compiler and linker.
 
-The following option pair controls Unit's runtime privileges:
+   * - :samp:`--group=name`, :samp:`--user=name`
+     - Group name and username to run Unit's non-privileged processes.
 
---group=name, --user=name
-    Group name and username to run Unit's non-privileged processes.
+       The defaults are :option:`!--user`'s primary group and
+       :samp:`nobody`, respectively.
 
-    The defaults are :option:`!--user`'s primary group and
-    :samp:`nobody`, respectively.
+   * - :samp:`--debug`
+     - Turns on the :ref:`debug log <troubleshooting-dbg-log>`.
 
-These flags enable or disable support of certain features:
+   * - :samp:`--no-ipv6`
+     - Turns off IPv6 support.
 
---debug
-    Turns on the :ref:`debug log <troubleshooting-dbg-log>`.
+   * - :samp:`--no-unix-sockets`
+     - Turns off Unix domain sockets support.
 
---no-ipv6
-    Turns off IPv6 support.
+   * - :samp:`--openssl`
+     - Turns on OpenSSL support.  Make sure that OpenSSL (1.0.1 and later)
+       header files and libraries are available in your compiler's search path.
 
---no-unix-sockets
-    Turns off Unix domain sockets support.
+       To customize the path, provide the :option:`!--cc-opt` and
+       :option:`!--ld-opt` options; you can also set the :envvar:`CFLAGS` and
+       :envvar:`LDFLAGS` environment variables before running
+       :program:`./configure`.
 
---openssl
-    Turns on OpenSSL support.  Make sure that OpenSSL (1.0.1 and later) header
-    files and libraries are available in your compiler's search path.
-
-    To customize the path, provide the :option:`!--cc-opt` and
-    :option:`!--ld-opt` options; you can also set the :envvar:`CFLAGS` and
-    :envvar:`LDFLAGS` environment variables before running
-    :program:`./configure`.
-
-    For details, see :ref:`configuration-ssl`.
+       For details, see :ref:`configuration-ssl`.
 
 .. _installation-config-src-pcre:
 
@@ -1515,90 +1512,96 @@ By default, Unit relies on `PCRE2 <https://www.pcre.org>`_ to support regular
 expessions in :ref:`routes <configuration-routes>`.  These flags alter its
 behavior:
 
---no-regex
-    Turns off regex support.  Attempts to use a regex will cause
-    validation errors.
+.. list-table::
 
---no-pcre2
-    Instead of PCRE2, the older PCRE 8.x library will be used.
+   * - :samp:`--no-regex`
+     - Turns off regex support.  Attempts to configure a regex will fail
+       validation.
 
-The last option group customizes Unit's :ref:`runtime directory
+   * - :samp:`--no-pcre2`
+     - Instead of PCRE2, the older PCRE 8.x library will be used.
+
+The next option group customizes Unit's :ref:`runtime directory
 structure <installation-src-dir>`:
 
-.. _installation-config-src-prefix:
+.. list-table::
 
---prefix=prefix
+   * - :samp:`--prefix=prefix`
 
-    Destination directory prefix for :ref:`path options
-    <installation-src-dir>`: :option:`!--bindir`, :option:`!--sbindir`,
-    :option:`!--libdir`, :option:`!--incdir`, :option:`!--modules`,
-    :option:`!--state`, :option:`!--pid`, :option:`!--log`, and
-    :option:`!--control`.
+     - .. _installation-config-src-prefix:
 
---bindir=directory, --sbindir=directory
-    Directory paths for end-user and sysadmin executables.
+       Destination directory prefix for :ref:`path options
+       <installation-src-dir>`: :option:`!--bindir`, :option:`!--sbindir`,
+       :option:`!--libdir`, :option:`!--incdir`, :option:`!--modules`,
+       :option:`!--state`, :option:`!--pid`, :option:`!--log`, and
+       :option:`!--control`.
 
-    The defaults are :samp:`bin` and :samp:`sbin`, respectively.
+   * - :samp:`--bindir=directory`, :samp:`--sbindir=directory`
+     - Directory paths for end-user and sysadmin executables.
 
---control=socket
-    Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
-    prefix) domain format:
+       The defaults are :samp:`bin` and :samp:`sbin`, respectively.
 
-    .. code-block:: console
+   * - :samp:`--control=socket`
+     - :ref:`Control API <configuration-mgmt>` socket address in IPv4, IPv6,
+       or Unix domain format:
 
-       $ ./configure --control=unix:/path/to/control.unit.sock
-       $ ./configure --control=127.0.0.1:8080
-       $ ./configure --control=[::1]:8080
+       .. code-block:: console
 
-    .. warning::
+          $ ./configure --control=:nxt_term:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
+          $ ./configure --control=127.0.0.1:8080
+          $ ./configure --control=[::1]:8080
 
-       Avoid exposing an unprotected control socket to public networks.  Use
-       :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH for
-       security and authentication.
+       .. warning::
 
-    The default is :samp:`unix:control.unit.sock`, created as
-    :samp:`root` with :samp:`600` permissions.
+          Avoid exposing an unprotected control socket to public networks.  Use
+          :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH
+          for security and authentication.
 
---incdir=directory, --libdir=directory
-    Directory paths for :program:`libunit` header files and libraries.
+       The default is :samp:`unix:control.unit.sock`, created as
+       :samp:`root` with :samp:`600` permissions.
 
-    The defaults are :samp:`include` and :samp:`lib`, respectively.
+   * - :samp:`--incdir=directory`, :samp:`--libdir=directory`
+     - Directory paths for :program:`libunit` header files and libraries.
 
---log=pathname
-    Pathname for Unit's log.
+       The defaults are :samp:`include` and :samp:`lib`, respectively.
 
-    The default is :samp:`unit.log`.
+   * - :samp:`--log=pathname`
+     - Pathname for Unit's log.
 
---modules=directory
-    Directory path for Unit's language modules.
+       The default is :samp:`unit.log`.
 
-    The default is :samp:`modules`.
+   * - :samp:`--modules=directory`
+     - Directory path for Unit's language modules.
 
---pid=pathname
-    Pathname for the PID file of Unit's daemon process.
+       The default is :samp:`modules`.
 
-    The default is :samp:`unit.pid`.
+   * - :samp:`--pid=pathname`
+     - Pathname for the PID file of Unit's daemon process.
 
-.. _installation-config-src-state:
+       The default is :samp:`unit.pid`.
 
---state=directory
-    Directory path for Unit's state storage.  It contains runtime
-    configuration, certificates, and other records; if you migrate your
-    installation, copy the entire directory.
 
-    .. warning::
+   * - :samp:`--state=directory`
+     - .. _installation-config-src-state:
 
-       Unit state includes sensitive data and must be owned by :samp:`root`
-       with :samp:`700` permissions.  Avoid updating the directory by outside
-       means; instead, use Unit's config API to ensure data consistency.
+       Directory path where Unit's state (configuration, certificates, other
+       records) is stored between runs.  If you migrate your installation, copy
+       the entire directory.
 
-    The default is :samp:`state`.
+       .. warning::
 
---tmp=directory
+          Unit's state includes sensitive data and must be owned by
+          :samp:`root` with :samp:`700` permissions.  Avoid updating the
+          directory by outside means; instead, use Unit's config API to ensure
+          data consistency.
 
-    Defines the temporary files location (used to dump large request bodies).
+       The default is :samp:`state`.
 
-    The default value is :samp:`tmp`.
+   * - :samp:`--tmp=directory`
+     - Defines the temporary files location (used to dump large request
+       bodies).
+
+       The default value is :samp:`tmp`.
 
 
 .. _installation-src-dir:
@@ -1702,16 +1705,18 @@ and place module-specific instructions in the :file:`Makefile`.
       To use the package, :ref:`install <installation-bld-src-ext>` it in your
       Go environment.  Available configuration options:
 
-      --go=pathname
-          Specific Go executable pathname, also used for :ref:`make
-          <installation-bld-src-ext>` targets.
+      .. list-table::
 
-          The default is :samp:`go`.
+         * - :samp:`--go=pathname`
+           - Specific Go executable pathname, also used in :ref:`make
+             <installation-bld-src-ext>` targets.
 
-      --go-path=directory
-          Custom directory path for Go package installation.
+             The default is :samp:`go`.
 
-          The default is :samp:`$GOPATH`.
+         * - :samp:`--go-path=directory`
+           - Custom directory path for Go package installation.
+
+             The default is :samp:`$GOPATH`.
 
       .. note::
 
@@ -1728,37 +1733,39 @@ and place module-specific instructions in the :file:`Makefile`.
       <https://download.oracle.com/otndocs/jcp/servlet-3_1-fr-spec/index.html>`_
       in Unit.  Available command options:
 
-      --home=directory
-          Directory path for Java utilities and header files (required to build
-          the module).
+      .. list-table::
 
-          The default is the :samp:`java.home` setting.
+         * - :samp:`--home=directory`
+           - Directory path for Java utilities and header files (required to build
+             the module).
 
-      --jars=directory
-          Directory path for Unit's custom :file:`.jar` files.
+             The default is the :samp:`java.home` setting.
 
-          The default is the Java module path.
+         * - :samp:`--jars=directory`
+           - Directory path for Unit's custom :file:`.jar` files.
 
-      --lib-path=directory
-          Directory path for the :file:`libjvm.so` library.
+             The default is the Java module path.
 
-          The default is based on JDK settings.
+         * - :samp:`--lib-path=directory`
+           - Directory path for the :file:`libjvm.so` library.
 
-      --local-repo=directory
-          Directory path for local :file:`.jar` repository.
+             The default is based on JDK settings.
 
-          The default is :samp:`$HOME/.m2/repository/`.
+         * - :samp:`--local-repo=directory`
+           - Directory path for local :file:`.jar` repository.
 
-      --repo=directory
-          URL path for remote Maven repository.
+             The default is :samp:`$HOME/.m2/repository/`.
 
-          The default is :samp:`http://central.maven.org/maven2/`.
+         * - :samp:`--repo=directory`
+           - URL path for remote Maven repository.
 
-      --module=filename
-          Name of the Java module to be built (:file:`<module>.unit.so`), also
-          used for :ref:`make <installation-bld-src-emb>` targets.
+             The default is :samp:`http://central.maven.org/maven2/`.
 
-          The default is :samp:`java`.
+         * - :samp:`--module=filename`
+           - Name of the module to be built (:file:`<module>.unit.so`), also
+             used in :ref:`make <installation-bld-src-emb>` targets.
+
+             The default is :samp:`java`.
 
       To configure a module called :file:`java11.unit.so` with OpenJDK |_|
       11.0.1:
@@ -1774,27 +1781,29 @@ and place module-specific instructions in the :file:`Makefile`.
       :program:`unit-http` module that lets your applications :ref:`run in Unit
       <configuration-external-nodejs>`.  Available configuration options:
 
-      --local=directory
-          Local directory path for Node.js module installation.
+      .. list-table::
 
-          By default, the module is installed globally :ref:`(recommended)
-          <installation-nodejs-package>`.
+         * - :samp:`--local=directory`
+           - Local directory path for Node.js module installation.
 
-      --node=pathname
-          Specific Node.js executable pathname, also used for
-          :ref:`make <installation-bld-src-ext>` targets.
+             By default, the module is installed globally :ref:`(recommended)
+             <installation-nodejs-package>`.
 
-          The default is :samp:`node`.
+         * - :samp:`--node=pathname`
+           - Specific Node.js executable pathname, also used in
+             :ref:`make <installation-bld-src-ext>` targets.
 
-      --npm=pathname
-          Specific NPM executable pathname.
+             The default is :samp:`node`.
 
-          The default is :samp:`npm`.
+         * - :samp:`--npm=pathname`
+           - Specific NPM executable pathname.
 
-      --node-gyp=pathname
-          Specific :program:`node-gyp` executable pathname.
+             The default is :samp:`npm`.
 
-          The default is :samp:`node-gyp`.
+         * - :samp:`--node-gyp=pathname`
+           - Specific :program:`node-gyp` executable pathname.
+
+             The default is :samp:`node-gyp`.
 
    .. tab:: Perl
 
@@ -1802,17 +1811,19 @@ and place module-specific instructions in the :file:`Makefile`.
       to support running Perl scripts as applications in Unit.  Available
       command options:
 
-      --perl=pathname
-              Specific Perl executable pathname.
+      .. list-table::
 
-              The default is :samp:`perl`.
+         * - :samp:`--perl=pathname`
+           - Specific Perl executable pathname.
 
-      --module=filename
-              Name of the Perl module to be built
-              (:file:`<module>.unit.so`), also used for :ref:`make
-              <installation-bld-src-emb>` targets.
+             The default is :samp:`perl`.
 
-              The default is the filename of the :option:`!--perl` executable.
+         * - :samp:`--module=filename`
+           - Name of the module to be built
+             (:file:`<module>.unit.so`), also used in :ref:`make
+             <installation-bld-src-emb>` targets.
+
+             The default is the filename of the :option:`!--perl` executable.
 
       To configure a module called :file:`perl-5.20.unit.so` for Perl |_|
       5.20.2:
@@ -1828,27 +1839,29 @@ and place module-specific instructions in the :file:`Makefile`.
       to support running PHP applications in Unit via PHP's :program:`embed`
       SAPI.  Available command options:
 
-      --config=pathname
-          Pathname of the :program:`php-config` script invoked to configure ther
-          PHP module.
+      .. list-table::
 
-          The default is :samp:`php-config`.
+         * - :samp:`--config=pathname`
+           - Pathname of the :program:`php-config` script invoked to configure the
+             PHP module.
 
-      --lib-path=directory
-          Directory path of PHP's :program:`embed` SAPI library file
-          (:file:`libphp<version>.so` or :file:`.a`).
+             The default is :samp:`php-config`.
 
-      --lib-static
-          Links the static :program:`embed` SAPI library
-          (:file:`libphp<version>.a`) instead of the dynamic one
-          (:file:`libphp<version>.so`); requires :option:`!--lib-path`.
+         * - :samp:`--lib-path=directory`
+           - Directory path of PHP's :program:`embed` SAPI library file
+             (:file:`libphp<version>.so` or :file:`.a`).
 
-      --module=filename
-          Name of the PHP module to be built (:file:`<module>.unit.so`), also
-          used for :ref:`make <installation-bld-src-emb>` targets.
+         * - :samp:`--lib-static`
+           - Links the static :program:`embed` SAPI library
+             (:file:`libphp<version>.a`) instead of the dynamic one
+             (:file:`libphp<version>.so`); requires :option:`!--lib-path`.
 
-          The default is :option:`!--config`'s filename minus the
-          `-config` suffix (:samp:`/path/php7-config` to :samp:`php7`).
+         * - :samp:`--module=filename`
+           - Name of the module to be built (:file:`<module>.unit.so`), also used
+             in :ref:`make <installation-bld-src-emb>` targets.
+
+             The default is :option:`!--config`'s filename minus the `-config`
+             suffix; thus, :samp:`/path/php7-config` turns into :samp:`php7`.
 
       To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
@@ -1864,21 +1877,23 @@ and place module-specific instructions in the :file:`Makefile`.
       module to support running Python scripts as applications in Unit.
       Available command options:
 
-      --config=pathname
-          Pathname of the :program:`python-config` script invoked to configure
-          the Python module.
+      .. list-table::
 
-          The default is :samp:`python-config`.
+         * - :samp:`--config=pathname`
+           - Pathname of the :program:`python-config` script invoked to configure
+             the Python module.
 
-      --lib-path=directory
-          Custom directory path of the Python runtime library to use with Unit.
+             The default is :samp:`python-config`.
 
-      --module=filename
-          Name of the Python module to be built (:samp:`<module>.unit.so`), also
-          used for :ref:`make <installation-bld-src-emb>` targets.
+         * - :samp:`--lib-path=directory`
+           - Custom directory path of the Python runtime library to use with Unit.
 
-          The default is :option:`!--config`'s filename minus the `-config`
-          suffix (:samp:`/path/python3-config` to :samp:`python3`).
+         * - :samp:`--module=filename`
+           - Name of the module to be built (:samp:`<module>.unit.so`), also
+             used in :ref:`make <installation-bld-src-emb>` targets.
+
+             The default is :option:`!--config`'s filename minus the `-config`
+             suffix; thus, :samp:`/path/python3-config` turns into :samp:`python3`.
 
       To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
@@ -1893,16 +1908,18 @@ and place module-specific instructions in the :file:`Makefile`.
       to support running Ruby scripts as applications in Unit.  Available
       command options:
 
-      --module=filename
-          Name of the Ruby module to be built (:file:`<module>.unit.so`), also
-          used for :ref:`make <installation-bld-src-emb>` targets.
+      .. list-table::
 
-          The default is the filename of the :option:`!--ruby` executable.
+         * - :samp:`--module=filename`
+           - Name of the module to be built (:file:`<module>.unit.so`), also
+             used in :ref:`make <installation-bld-src-emb>` targets.
 
-      --ruby=pathname
-          Specific Ruby executable pathname.
+             The default is the filename of the :option:`!--ruby` executable.
 
-          The default is :samp:`ruby`.
+         * - :samp:`--ruby=pathname`
+           - Specific Ruby executable pathname.
+
+             The default is :samp:`ruby`.
 
       To configure a module called :file:`ru23.unit.so` for Ruby |_| 2.3:
 
@@ -2013,44 +2030,44 @@ subdirectory.  Usually, the default compile-time settings don't require
 overrides; use the :option:`!--help` option to review their values.  For
 details and security notes, see :ref:`here <installation-config-src>`.
 
-General options:
+General options and :ref:`compile-time setting <installation-config-src>`
+overrides:
 
---help, -h
-    Displays a summary of Unit's command-line options and their
-    default values set at compile time.
+.. list-table::
 
---no-daemon
-    Runs Unit in non-daemon mode.
+   * - :samp:`--help`, :samp:`-h`
+     - Displays a summary of Unit's command-line options and their
+       default values set at compile time.
 
---version
-    Displays Unit's version and the :program:`./configure` settings it was
-    built with.
+   * - :samp:`--no-daemon`
+     - Runs Unit in non-daemon mode.
 
-The following options override :ref:`compile-time settings
-<installation-config-src>`:
+   * - :samp:`--version`
+     - Displays Unit's version and the :program:`./configure` settings it was
+       built with.
 
---control socket
-    Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
-    prefix) domain format:
+   * - :samp:`--control socket`
+     - Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
+       prefix) domain format:
 
-    .. code-block:: console
+       .. code-block:: console
 
-       # unitd --control unix:/path/to/control.unit.sock
-       # unitd --control 127.0.0.1:8080
-       # unitd --control [::1]:8080
+          # unitd --control unix:/path/to/control.unit.sock
+          # unitd --control 127.0.0.1:8080
+          # unitd --control [::1]:8080
 
---group name, --user name
-    Group name and user name used to run Unit's non-privileged processes.
+   * - :samp:`--group name`, :samp:`--user name`
+     - Group name and user name used to run Unit's non-privileged processes.
 
---log pathname
-    Pathname for the Unit log.
+   * - :samp:`--log pathname`
+     - Pathname for the Unit log.
 
---modules directory
-    Directory path for Unit language modules
-    (:file:`<module>.unit.so` files).
+   * - :samp:`--modules directory`
+     - Directory path for Unit language modules
+       (:file:`<module>.unit.so` files).
 
---pid pathname
-    Pathname for the PID file of Unit's :program:`main` process.
+   * - :samp:`--pid pathname`
+     - Pathname for the PID file of Unit's :program:`main` process.
 
---state directory
-    Directory path for Unit state storage.
+   * - :samp:`--state directory`
+     - Directory path for Unit state storage.
