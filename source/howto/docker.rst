@@ -280,7 +280,7 @@ image:
        && curl https://deb.nodesource.com/setup_12.x | bash -                 \
    # install build chain
        && apt update                                                          \
-       && apt install -y build-essential nodejs unit-dev                      \
+       && apt install -y build-essential nodejs unit-dev=$:nxt_term:`UNIT_VERSION <Makes sure the package version is the same as the base image version>`        \
    # add global dependencies
        && npm install -g --unsafe-perm unit-http                              \
    # add app dependencies locally

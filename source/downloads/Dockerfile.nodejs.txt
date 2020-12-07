@@ -13,7 +13,8 @@ RUN apt update                                                             \
     && curl https://deb.nodesource.com/setup_12.x | bash -                 \
     && apt update                                                          \
     && apt install --no-install-recommends --no-install-suggests -y        \
-           libpython2.7-stdlib build-essential nodejs unit-dev             \
+           libpython2.7-stdlib build-essential nodejs                      \
+           unit-dev=$UNIT_VERSION                                          \
     && npm install -g --unsafe-perm unit-http                              \
 # final cleanup
     && apt remove -y build-essential unit-dev apt-transport-https gnupg1   \
