@@ -1,5 +1,8 @@
 .. |app| replace:: Datasette
 .. |mod| replace:: Python 3.6+
+.. |app-pip-package| replace:: datasette
+.. |app-pip-link| replace:: PIP package
+.. _app-pip-link: https://docs.datasette.io/en/stable/installation.html#using-pip
 
 #########
 Datasette
@@ -10,16 +13,7 @@ To run the `Datasette
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Create a virtual environment to install |app|'s `PIP package
-   <https://docs.datasette.io/en/stable/installation.html#using-pip>`_:
-
-   .. code-block:: console
-
-      $ cd /path/to/app/
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install datasette
-      $ deactivate
+#. .. include:: ../include/howto_install_venv.rst
 
 #. Running |app| in Unit requires a wrapper to expose the `application object
    <https://github.com/simonw/datasette/blob/4f7c0ebd85ccd8c1853d7aa0147628f7c1b749cc/datasette/app.py#L169>`_
@@ -49,7 +43,7 @@ To run the `Datasette
 
           "applications": {
               "datasette": {
-                  "type": "python 3",
+                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",

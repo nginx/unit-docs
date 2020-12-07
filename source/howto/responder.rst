@@ -1,5 +1,8 @@
 .. |app| replace:: Responder
 .. |mod| replace:: Python 3.6+
+.. |app-pip-package| replace:: responder
+.. |app-pip-link| replace:: PIP package
+.. _app-pip-link: https://responder.kennethreitz.org/en/latest/#installing-responder
 
 #########
 Responder
@@ -10,16 +13,7 @@ To run apps built with the `Responder
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Create a virtual environment to install |app|'s `PIP package
-   <https://responder.kennethreitz.org/en/latest/#installing-responder>`_:
-
-   .. code-block:: console
-
-      $ cd /path/to/app/
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install responder
-      $ deactivate
+#. .. include:: ../include/howto_install_venv.rst
 
 #. Let's try a Unit-friendly version of a `tutorial app
    <https://responder.kennethreitz.org/en/latest/quickstart.html#declare-a-web-service>`_,
@@ -59,7 +53,7 @@ To run apps built with the `Responder
 
           "applications": {
               "responder": {
-                  "type": "python 3",
+                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
                   "user": ":nxt_term:`app_user <User and group values must have access to path, home, and working_directory>`",
                   "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",

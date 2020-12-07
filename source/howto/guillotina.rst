@@ -1,5 +1,8 @@
 .. |app| replace:: Guillotina
 .. |mod| replace:: Python 3.7+
+.. |app-pip-package| replace:: guillotina
+.. |app-pip-link| replace:: PIP package
+.. _app-pip-link: https://guillotina.readthedocs.io/en/latest/training/installation.html
 
 ##########
 Guillotina
@@ -10,16 +13,7 @@ To run apps built with the `Guillotina
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Create a virtual environment to install |app|'s `PIP package
-   <https://guillotina.readthedocs.io/en/latest/training/installation.html>`_:
-
-   .. code-block:: console
-
-      $ cd /path/to/app/
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install guillotina
-      $ deactivate
+#. .. include:: ../include/howto_install_venv.rst
 
 #. Let's try a version of the `tutorial app
    <https://guillotina.readthedocs.io/en/latest/#build-a-guillotina-app>`_,

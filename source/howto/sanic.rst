@@ -1,5 +1,8 @@
 .. |app| replace:: Sanic
 .. |mod| replace:: Python 3.6+
+.. |app-pip-package| replace:: sanic
+.. |app-pip-link| replace:: PIP package
+.. _app-pip-link: https://sanic.readthedocs.io/en/latest/sanic/getting_started.html#install-sanic
 
 #####
 Sanic
@@ -10,16 +13,7 @@ To run apps built with the `Sanic
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Create a virtual environment to install |app|'s `PIP package
-   <https://sanic.readthedocs.io/en/latest/sanic/getting_started.html#install-sanic>`_:
-
-   .. code-block:: console
-
-      $ cd /path/to/app/
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install sanic
-      $ deactivate
+#. .. include:: ../include/howto_install_venv.rst
 
 #. Let's try a version of a `tutorial app
    <https://sanic.readthedocs.io/en/latest/sanic/getting_started.html#create-a-file-called-main-py>`_,
@@ -52,7 +46,7 @@ To run apps built with the `Sanic
 
           "applications": {
               "sanic": {
-                  "type": "python 3",
+                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",

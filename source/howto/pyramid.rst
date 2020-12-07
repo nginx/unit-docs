@@ -1,5 +1,8 @@
 .. |app| replace:: Pyramid
 .. |mod| replace:: Python 3
+.. |app-pip-package| replace:: pyramid
+.. |app-pip-link| replace:: PIP package
+.. _app-pip-link: https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/install.html#installing-pyramid-on-a-unix-system
 
 #######
 Pyramid
@@ -10,17 +13,12 @@ using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Create a virtual environment to install |app|'s `PIP package
-   <https://docs.pylonsproject.org/projects/pyramid/en/latest/narr/install.html#installing-pyramid-on-a-unix-system>`_
-   (note that there's no need to set :samp:`$VENV`):
+#. .. include:: ../include/howto_install_venv.rst
 
-   .. code-block:: console
+   .. note::
 
-      $ cd /path/to/app/
-      $ python3 -m venv venv
-      $ source venv/bin/activate
-      $ pip install pyramid
-      $ deactivate
+      Here, :samp:`$VENV` isn't set because Unit picks up the virtual
+      environment from :samp:`home` in Step |_| 5.
 
 #. Let's try a modified version of a `tutorial app
    <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/hello_world.html#steps>`_,
@@ -59,7 +57,7 @@ using Unit:
 
           "applications": {
               "pyramid": {
-                  "type": "python 3",
+                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
                   "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",
                   "path": "/path/to/app/",
