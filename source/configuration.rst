@@ -1265,7 +1265,7 @@ Another obvious usage is employing the URI to choose between applications:
    {
        "listeners": {
            "*:80": {
-               ":nxt_term:`pass <Note that the variable includes the slash>`": "applications$uri"
+               "pass": ":nxt_term:`applications$uri <Note that the $uri variable value always includes a starting slash>`"
            }
        },
 
@@ -1319,7 +1319,7 @@ and request methods:
    {
        "listeners": {
            "*:80": {
-               ":nxt_term:`pass <Note that the uri variable includes the slash>`": "applications/app${uri}_${method}"
+               "pass": "applications/app${uri}_${method}"
            }
        }
    }
@@ -1559,7 +1559,7 @@ addresses using the :samp:`proxy` option of a step's :samp:`action`:
                },
 
                "action": {
-                   ":nxt_term:`proxy <Note the http:// scheme is still required>`": "http://unix:/path/to/unix.sock"
+                   "proxy": ":nxt_term:`http://unix:/path/to/unix.sock <Note the http:// scheme is still required>`"
                }
            }
        ]
@@ -1918,8 +1918,8 @@ Note the :samp:`path` and :samp:`home` settings:
 
    {
        "type": "python 2.7",
-       ":nxt_term:`path <Without rootfs, this would be /var/app/sandbox/>`": "/",
-       ":nxt_term:`home <Without rootfs, this would be /var/app/sandbox/venv/>`": "/venv/",
+       "path": ":nxt_term:`/ <Without rootfs, this would be /var/app/sandbox/>`",
+       "home": ":nxt_term:`/venv/ <Without rootfs, this would be /var/app/sandbox/venv/>`",
        "module": "wsgi",
        "isolation": {
            "rootfs": "/var/app/sandbox/"

@@ -39,7 +39,7 @@ Redmine
                   "working_directory": ":nxt_term:`/path/to/redmine/ <Where Redmine is installed>`",
                   "script": "config.ru",
                   "environment": {
-                      "RAILS_ENV": ":nxt_term:`production<Environment name in Redmine config>`"
+                      "RAILS_ENV": ":nxt_term:`production <Environment name in Redmine config>`"
                   }
               }
           }

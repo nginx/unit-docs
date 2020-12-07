@@ -95,7 +95,7 @@ Unit:
                   "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
                   "group": "app_group",
                   "working_directory": "/path/to/app/",
-                  ":nxt_term:`script <Full pathname of the PSGI file>`": "/path/to/app/app.psgi"
+                  "script": ":nxt_term:`/path/to/app/app.psgi <Full pathname of the PSGI file>`"
               }
           }
       }

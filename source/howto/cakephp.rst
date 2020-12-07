@@ -56,8 +56,8 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                   {
                       "action": {
                           ":nxt_term:`share <Serves all kinds of static files>`": ":nxt_term:`/path/to/app/webroot/ <Use a real path in your configuration>`",
-                          ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
-                              "pass": "applications/cakephp/index"
+                          "fallback": {
+                              "pass": ":nxt_term:`applications/cakephp/index <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }

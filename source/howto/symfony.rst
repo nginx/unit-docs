@@ -53,9 +53,9 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/app/public/",
-                          ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
-                              "pass": "applications/symfony/index"
+                          "share": ":nxt_term:`/path/to/app/public/ <Serves all kinds of static files>`",
+                          "fallback": {
+                              "pass": ":nxt_term:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }
@@ -73,7 +73,7 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ppublic/ <Path to the script>`",
+                          "root": ":nxt_term:`/path/to/app/public/ <Path to the script>`",
                           "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
                       }
                   }

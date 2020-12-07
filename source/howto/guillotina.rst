@@ -80,12 +80,12 @@ To run apps built with the `Guillotina
           "applications": {
               "guillotina": {
                   "type": "python 3",
-                  ":nxt_term:`user <User and group values must have access to path and home directories>`": "app_user",
+                  "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
                   "group": "app_group",
-                  ":nxt_term:`path <Path to the ASGI module>`": "/path/to/app/",
-                  ":nxt_term:`home <Path to the virtual environment, if any>`": "/path/to/app/venv/",
-                  ":nxt_term:`module <ASGI module filename with extension omitted>`": "asgi",
-                  ":nxt_term:`protocol <Protocol hint for Unit, required to run Guillotina apps>`": "asgi"
+                  "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
+                  "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
+                  "module": ":nxt_term:`asgi <ASGI module filename with extension omitted>`",
+                  "protocol": ":nxt_term:`asgi <Protocol hint for Unit, required to run Guillotina apps>`"
               }
           }
       }

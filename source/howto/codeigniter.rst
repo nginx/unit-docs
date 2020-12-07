@@ -39,7 +39,7 @@ framework using Unit:
                       },
 
                       "action": {
-                          ":nxt_term:`share <Public directory path>`": "/path/to/app/public/",
+                          "share": ":nxt_term:`/path/to/app/public/ <Public directory path>`",
                           "fallback": {
                               "pass": "applications/codeigniter"
                           }
@@ -53,7 +53,7 @@ framework using Unit:
                   "type": "php",
                   "user": ":nxt_term:`app_user <User and group values must have access to application directories such as app or public>`",
                   "group": "app_group",
-                  ":nxt_term:`root <Public directory path>`": "/path/to/app/public/",
+                  "root": ":nxt_term:`/path/to/app/public/ <Public directory path>`",
                   "script": "index.php"
               }
           }

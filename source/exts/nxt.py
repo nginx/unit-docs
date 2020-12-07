@@ -67,6 +67,7 @@ from sphinx.application import Sphinx
 from sphinx.builders.html import DirectoryHTMLBuilder
 from sphinx.domains.std import StandardDomain
 from sphinx.environment.collectors.toctree import TocTreeCollector
+from sphinx.errors import ExtensionError
 from sphinx.locale import __
 from sphinx.transforms import SphinxContentsFilter
 from sphinx.environment.adapters.toctree import TocTree
@@ -88,8 +89,8 @@ class nxt_term(nodes.container): pass
 
 logger = logging.getLogger(__name__)
 
-
-nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(r'[\w\s\.\,\?\!\-\/\:#_]')
+nxt_plain_text = r'[\w\s\.\*\+\,\?\!\-\$\/\:;#_\'%&"]'
+nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(nxt_plain_text)
 # matches `text w/punctuation <text w/punctuation>` in ':nxt_term:' directives
 
 
@@ -118,22 +119,26 @@ class nxt_highlighter(object):
     def __init__(self, highlighter):
         self.highlighter = highlighter
 
-    def highlight_block(self, *args, **kwargs):
-        groups = re.findall(nxt_term_regex, args[0])
+    def highlight_block(self, source, lang, opts=None, location=None,
+                        force=False, **kwargs):
 
-        rawsource = args[0]
-
-        for c, g in enumerate(groups):
-            rawsource = re.sub(':nxt_term:' + nxt_term_regex, \
-                'nxt_term_{0}'.format(c), rawsource, count=1)
-
-        highlighted = self.highlighter.highlight_block(rawsource, *args[1:], \
-            **kwargs)
+        groups = re.findall(nxt_term_regex, source)
 
         for c, g in enumerate(groups):
-            highlighted = re.sub('nxt_term_{0}'.format(c),      \
-                '<span class="nxt_term" title="{0}">{1}</span>'.\
-                format(g[1], g[0]), highlighted, count=1)
+            source = re.sub(':nxt_term:' + nxt_term_regex,
+                         'nxt_term_{0}'.format(c), source, count=1)
+
+        highlighted = self.highlighter.highlight_block(source, lang, opts,
+                          location, force, **kwargs)
+
+        for c, g in enumerate(groups):
+            highlighted = re.sub('nxt_term_{0}'.format(c), '<span '
+                              'class="nxt_term" title="{0}">{1}</span>'.
+                              format(g[1], g[0]), highlighted, count=1)
+
+        if ':nxt_term:' in highlighted:
+            raise ExtensionError(__('Could not lex nxt_term at {0}. ').
+                                    format(location))
 
         return highlighted
 

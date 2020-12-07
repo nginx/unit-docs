@@ -50,12 +50,12 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
               "laravel": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Avoids serving index.php as static content>`": "!/index.php"
+                          "uri": ":nxt_term:`!/index.php <Avoids serving index.php as static content>`"
                       },
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": "/path/to/app/blog/public/",
-                          ":nxt_term:`fallback <Uses the index.php at the root as the last resort>`": {
-                              "pass": "applications/laravel"
+                          "share": ":nxt_term:`/path/to/app/blog/public/ <Serves all kinds of static files>`",
+                          "fallback": {
+                              "pass": ":nxt_term:`applications/laravel <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }

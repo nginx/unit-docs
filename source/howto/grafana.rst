@@ -143,10 +143,10 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
           "applications": {
               "grafana": {
-                  ":nxt_term:`executable <Path to the grafana-server binary>`": "/path/to/go/bin/dir/grafana-server",
+                  "executable": ":nxt_term:`/path/to/go/bin/dir/grafana-server <Path to the grafana-server binary>`",
                   "type": "external",
                   "user": "grafanauser",
-                  ":nxt_term:`working_directory <Path to frontend files, usually the installation path>`": "/path/to/grafana/"
+                  "working_directory": ":nxt_term:`/path/to/grafana/ <Path to frontend files, usually the installation path>`"
                }
            }
        }

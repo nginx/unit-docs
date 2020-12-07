@@ -63,7 +63,7 @@ using Unit:
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
                   "module": "wsgi",
-                  ":nxt_term:`callable <Name of the callable in the module to run>`": "app"
+                  "callable": ":nxt_term:`app <Name of the callable in the module to run>`"
               }
           }
       }

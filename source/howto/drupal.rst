@@ -112,9 +112,9 @@ Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves valid static files>`": "/path/to/app/web/",
+                          "share": ":nxt_term:`/path/to/app/web/ <Serves valid static files>`",
                           "fallback": {
-                              ":nxt_term:`pass <Funnels all requests to index.php>`": "applications/drupal/index"
+                              "pass": ":nxt_term:`applications/drupal/index <Funnels all requests to index.php>`"
                           }
                       }
                   }

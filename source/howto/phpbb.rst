@@ -68,9 +68,9 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves static content>`": "/path/to/phpbb/",
-                          ":nxt_term:`fallback <Catch-all for requests not yet served by other rules>`": {
-                              "pass": "applications/phpbb/index"
+                          "share": ":nxt_term:`/path/to/phpbb/ <Serves static content>`",
+                          "fallback": {
+                              "pass": ":nxt_term:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
                           }
                       }
                   }
