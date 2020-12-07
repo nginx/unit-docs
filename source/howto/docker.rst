@@ -103,7 +103,7 @@ app:
        EOF
 
 Finally, let's create :file:`log` and :file:`state` directories to store Unit
-:ref:`log and state<installation-startup>` respectively:
+:ref:`log and state <installation-src-startup>` respectively:
 
 .. code-block:: console
 

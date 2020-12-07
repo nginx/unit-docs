@@ -40,7 +40,7 @@ your technology stack, or simply be tech-curious.  In any case:
           - Containerized Unit can be :doc:`run <docker>` with common
             :program:`docker` commands.
           - If none of the above applies, customize Unit :ref:`startup
-            <installation-startup>` manually.
+            <installation-src-startup>` manually.
 
    * - **Prepare** |_| **the** |_| **app** |_| **for** |_| **Unit**
 

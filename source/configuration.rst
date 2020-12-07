@@ -16,7 +16,7 @@ Quick Start
 To run an application in Unit, first set up an :ref:`application
 <configuration-applications>` object.  Let's store it in a file to :samp:`PUT`
 it into the :samp:`config/applications` section of Unit's control API,
-available via the :ref:`control socket <installation-startup>` at
+available via the :ref:`control socket <installation-src-startup>` at
 :samp:`http://localhost/`:
 
 .. code-block:: console
@@ -92,7 +92,7 @@ Configuration Management
 ************************
 
 Unit's configuration is JSON-based, accessed via the :ref:`control socket
-<installation-startup>`, and entirely manageable over HTTP.
+<installation-src-startup>`, and entirely manageable over HTTP.
 
 .. note::
 
@@ -1716,7 +1716,7 @@ App objects have a number of options shared between all application languages:
     * - :samp:`user`
       - Username that runs the app process.  If not set, the username
         configured at :ref:`build time <installation-config-src>` or :ref:`at
-        startup<installation-startup>` to run Unit's non-privileged processes
+        startup<installation-src-startup>` to run Unit's non-privileged processes
         is used.
 
     * - :samp:`group`

@@ -878,6 +878,8 @@ available or list its settings.  To manage the installation:
 
          # pkill unitd
 
+      For startup options, see :ref:`below <installation-src-startup>`.
+
 
 .. _installation-community-repos:
 
@@ -926,13 +928,13 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit.log`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`unit`
 
          * - Startup and shutdown
@@ -967,13 +969,13 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/run/nginx-unit.control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/nginx-unit.log`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -1063,13 +1065,13 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/var/run/unit/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`www`
 
          * - Startup and shutdown
@@ -1099,13 +1101,13 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/run/nginx-unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/nginx-unit`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -1136,17 +1138,17 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/run/unit/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`unit`
 
          * - Startup and shutdown
-           - :ref:`Manual <installation-startup>`
+           - :ref:`Manual <installation-src-startup>`
 
 
    .. tab:: Remi's RPM Repo
@@ -1174,13 +1176,13 @@ Community Repositories
 
       .. list-table::
 
-         * - Control :ref:`socket <installation-startup>`
+         * - Control :ref:`socket <installation-src-startup>`
            - :file:`/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-startup>`
+         * - Non-privileged :ref:`user <installation-src-startup>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -2011,33 +2013,51 @@ If you customize the executable pathname with :option:`!--go` or
    # make /usr/local/bin/go1.7-install
 
 
-.. _installation-startup:
+.. _installation-src-startup:
 
-=======
-Startup
-=======
-We advise installing Unit from :ref:`precompiled packages
-<installation-precomp-pkgs>`; in this case, startup is :ref:`configured
-<installation-precomp-startup>` automatically.
+====================
+Startup and Shutdown
+====================
 
-Even if you install Unit otherwise, manual startup isn't recommended.  Instead,
-configure a service manager such as :program:`OpenRC` or :program:`systemd` or
-create an :program:`rc.d` script to launch the Unit daemon using the options
-below.
+.. warning::
 
-Run :program:`unitd` as :samp:`root` from the :samp:`sbin` installation
-subdirectory.  Usually, the default compile-time settings don't require
-overrides; use the :option:`!--help` option to review their values.  For
-details and security notes, see :ref:`here <installation-config-src>`.
+   We advise installing Unit from :ref:`precompiled packages
+   <installation-precomp-pkgs>`; in this case, startup is :ref:`configured
+   <installation-precomp-startup>` automatically.
 
-General options and :ref:`compile-time setting <installation-config-src>`
+   Even if you install Unit otherwise, avoid manual startup.  Instead,
+   configure a service manager such as :program:`OpenRC` or :program:`systemd`
+   or create an :program:`rc.d` script to launch the Unit daemon using the
+   options below.
+
+The startup command depends on your :samp:`./configure` options.  If you have
+configured :ref:`absolute paths <installation-src-dir>`:
+
+.. code-block:: console
+
+   # :nxt_term:`unitd <Your PATH environment variable should list a path to unitd>`
+
+Otherwise, start :program:`unitd` from the :samp:`sbin` subdirectory relative
+to installation directory :ref:`prefix <installation-config-src-prefix>`:
+
+.. code-block:: console
+
+   # cd :nxt_term:`/path/to/unit/ <Destination prefix>`
+   # :nxt_term:`sbin/unitd <This preserves relative paths>`
+
+Run :command:`unitd -h` or :command:`unitd --version` to list Unit's
+compile-time settings.  Usually, the defaults don't require overrides; however,
+the following runtime options are available.  For details and security notes,
+see :ref:`here <installation-config-src>`.
+
+General runtime options and :ref:`compile-time setting <installation-config-src>`
 overrides:
 
 .. list-table::
 
    * - :samp:`--help`, :samp:`-h`
-     - Displays a summary of Unit's command-line options and their
-       default values set at compile time.
+     - Displays a summary of Unit's command-line options and their compile-time
+       defaults.
 
    * - :samp:`--no-daemon`
      - Runs Unit in non-daemon mode.
@@ -2071,3 +2091,11 @@ overrides:
 
    * - :samp:`--state directory`
      - Directory path for Unit state storage.
+
+Finally, to stop a running Unit:
+
+.. code-block:: console
+
+   # pkill unitd
+
+This command signals all Unit processes to terminate in a graceful manner.

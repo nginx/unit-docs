@@ -9,4 +9,4 @@ query the control API:
 .. note::
 
    Control socket path may vary; run :command:`unitd --help` or see
-   :ref:`installation-startup` for details.
+   :ref:`installation-src-startup` for details.

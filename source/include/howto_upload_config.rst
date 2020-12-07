@@ -9,4 +9,4 @@ Upload the updated configuration.  Assuming the JSON above was added to
 .. note::
 
    The control socket path may vary; run :program:`unitd --help` or see
-   :ref:`Startup <installation-startup>` for details.
+   :ref:`installation-src-startup` for details.
