@@ -34,8 +34,8 @@ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Finally, prepare and upload the app :ref:`configuration
-   <configuration-perl>` to Unit (note the use of :samp:`script`):
+#. Next, prepare the app :ref:`configuration <configuration-perl>` for Unit
+   (note the use of :samp:`script`):
 
    .. code-block:: json
 

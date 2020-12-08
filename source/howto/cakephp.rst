@@ -26,8 +26,8 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Finally, prepare and upload the app :ref:`configuration <configuration-php>`
-   to Unit (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
+#. Next, prepare the app :ref:`configuration <configuration-php>` for Unit
+   (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
 
    .. code-block:: json
 

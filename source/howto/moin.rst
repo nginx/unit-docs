@@ -35,7 +35,7 @@ using Unit:
       $ cp :nxt_term:`server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` ./moin.py
       # chown -R :nxt_term:`moin_user:moin_group <Used to configure the app in Unit>` /path/to/moin/
 
-#. Next, prepare and upload the :ref:`configuration <configuration-python>`
+#. Next, prepare and upload the app :ref:`configuration <configuration-python>`
    to Unit:
 
    .. code-block:: json

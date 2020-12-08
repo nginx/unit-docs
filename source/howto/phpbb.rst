@@ -21,7 +21,7 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
 
    In this example, the files will be stored in :file:`/path/to/phpbb/`.
 
-#. Next, prepare and upload the app configuration to Unit:
+#. Next, prepare the app :ref:`configuration <configuration-php>` for Unit:
 
    .. code-block:: json
 
