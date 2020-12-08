@@ -2751,9 +2751,9 @@ Example:
                "static": {
                    "mime_types": {
                        "text/plain": [
-                            ".log",
-                            "README",
-                            "CHANGES"
+                           ".log",
+                           "README",
+                           "CHANGES"
                        ]
                    }
                },
