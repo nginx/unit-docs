@@ -9,9 +9,8 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. `Install
-   <https://book.cakephp.org/4/en/installation.html>`_ CakePHP and
-   create or deploy your app.  Here, we use CakePHP's `basic template
+#. `Install <https://book.cakephp.org/4/en/installation.html>`_ |app| and
+   create or deploy your app.  Here, we use |app|'s `basic template
    <https://book.cakephp.org/4/en/installation.html#create-a-cakephp-project>`_
    and Composer:
 
@@ -94,7 +93,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
         for *any* URIs the target receives.
 
    For a detailed discussion, see `Fire It Up
-   <https://book.cakephp.org/4/en/installation.html#fire-it-up>`_ in CakePHP
+   <https://book.cakephp.org/4/en/installation.html#fire-it-up>`_ in |app|
    docs.
 
 #. .. include:: ../include/howto_upload_config.rst
