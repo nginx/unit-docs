@@ -89,7 +89,7 @@ class nxt_term(nodes.container): pass
 
 logger = logging.getLogger(__name__)
 
-nxt_plain_text = r'[\w\s\.\*\+\,\?\!\-\$\/\:;#_\'%&"]'
+nxt_plain_text = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
 nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(nxt_plain_text)
 # matches `text w/punctuation <text w/punctuation>` in ':nxt_term:' directives
 
@@ -106,7 +106,7 @@ def nxt_term_role_fn(name, rawtext, text, lineno, inliner,
         node.term, node.tip = groups.group(1), groups.group(2)
     except:
         msg = inliner.reporter.error(
-            'Inline term "%s" is invalid.' % text, line=lineno)
+            'Inline term "{0}" is invalid.'.format(text), line=lineno)
         prb = inliner.problematic(rawtext, rawtext, msg)
         return [prb], [msg]
 
