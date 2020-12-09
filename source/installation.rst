@@ -1198,48 +1198,77 @@ Community Repositories
 Docker Images
 *************
 
-To install and run Unit from NGINX's Docker `image repository <https://hub.
-docker.com/r/nginx/unit/>`_:
-
-.. code-block:: console
-
-   $ docker pull nginx/unit
-   $ docker run -d nginx/unit
-
-Default image tag is :samp:`:latest`; it resolves into a :samp:`-full`
-configuration of the latest Unit version.  Other tags:
+Unit's Docker images come in several flavors:
 
 .. list-table::
-    :header-rows: 1
+   :header-rows: 1
 
-    * - Tag
-      - Description
+   * - Tag
+     - Description
 
-    * - :samp:`|version|-full`
-      - Modules for all supported languages.
+   * - :samp:`|version|-full`
+     - Contains modules for all languages that Unit currently supports.
 
-    * - :samp:`|version|-minimal`
-      - No language modules.
+   * - :samp:`|version|-minimal`
+     - No language modules are included.
 
-    * - :samp:`|version|-<language>`
-      - A specific language module, for example :samp:`|version|-ruby2.3` or
-        :samp:`|version|-python2.7`.
+   * - :samp:`|version|-<language>`
+     - A specific language module only, for example :samp:`|version|-ruby2.3`
+       or :samp:`|version|-python2.7`.
 
-We also publish these images as tarballs on our `website
-<https://packages.nginx.org/unit/docker/>`_:
+You can obtain the images from these sources:
 
-.. subs-code-block:: console
+.. tabs::
 
-   $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz
-   $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz.sha512
-   $ sha512sum -c nginx-unit-|version|-full.tar.gz.sha512
-         nginx-unit-|version|-full.tar.gz: OK
-   $ docker load < nginx-unit-|version|-full.tar.gz
+   .. tab:: Docker Hub
 
-.. include:: include/socket-log-deb.rst
+      To install and run Unit from NGINX's `repository
+      <https://hub.docker.com/r/nginx/unit/>`__ at Docker Hub:
 
-For further details, see the `repository page <https://hub.docker.com/r/
-nginx/unit/>`_ and the official :doc:`Howto <howto/docker>`.
+      .. code-block:: console
+
+         $ docker pull docker.io/nginx/unit
+         $ docker run -d docker.io/nginx/unit
+
+      The default tag is :samp:`:latest`; it resolves into a :samp:`-full`
+      configuration of the latest Unit version.
+
+   .. tab:: Amazon ECR Public Gallery
+
+      To install and run Unit from NGINX's `repository
+      <https://gallery.ecr.aws/nginx/unit>`__ at Amazon ECR Public Gallery:
+
+      .. code-block:: console
+
+         $ docker pull public.ecr.aws/nginx/unit
+         $ docker run -d public.ecr.aws/nginx/unit
+
+      The default tag is :samp:`:latest`; it resolves into a :samp:`-full`
+      configuration of the latest Unit version.
+
+   .. tab:: packages.nginx.org
+
+      To install and run Unit from tarballs stored on our `website
+      <https://packages.nginx.org/unit/docker/>`_:
+
+      .. subs-code-block:: console
+
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz.sha512
+         $ sha512sum -c nginx-unit-|version|-full.tar.gz.sha512
+               nginx-unit-|version|-full.tar.gz: OK
+         $ docker load < nginx-unit-|version|-full.tar.gz
+
+.. note::
+
+   In our images, the control socket's pathname is
+   :file:`/var/run/control.unit.sock`, and the :ref:`log <troubleshooting-log>`
+   is forwarded to the `Docker log collector
+   <https://docs.docker.com/config/containers/logging/>`_.
+
+For more details, see the repository pages (`Docker Hub
+<https://hub.docker.com/r/nginx/unit/>`_, `Amazon ECR Public Gallery
+<https://gallery.ecr.aws/nginx/unit>`_) and our :doc:`Howto <howto/docker>`.
 
 
 .. _installation-docker-init:
