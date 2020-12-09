@@ -1415,7 +1415,7 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # cd :nxt_term:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
          # cd :nxt_term:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
          # cd /usr/ports/security/openssl/ && make install clean
-         # cd /usr/ports/devel/pcre/ && make install clean
+         # cd /usr/ports/devel/pcre2/ && make install clean
 
       Packages:
 
@@ -1510,18 +1510,19 @@ or support for certain features:
 
 .. _installation-config-src-pcre:
 
-By default, Unit relies on `PCRE2 <https://www.pcre.org>`_ to support regular
-expessions in :ref:`routes <configuration-routes>`.  These flags alter its
-behavior:
+By default, Unit relies on the installed version of the `PCRE
+<https://www.pcre.org>`_ library to support regular expressions in :ref:`routes
+<configuration-routes>`; if both major versions are present, Unit selects
+PCRE2.  Two additional flags alter this behavior:
 
 .. list-table::
 
    * - :samp:`--no-regex`
-     - Turns off regex support.  Attempts to configure a regex will fail
-       validation.
+     - Turns off regex support; any attempts to use a regex in Unit
+       configuration will fail.
 
    * - :samp:`--no-pcre2`
-     - Instead of PCRE2, the older PCRE 8.x library will be used.
+     - Skips the PCRE2 library; the older PCRE 8.x library is used instead.
 
 The next option group customizes Unit's :ref:`runtime directory
 structure <installation-src-dir>`:
