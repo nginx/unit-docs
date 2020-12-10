@@ -59,54 +59,52 @@ vary by install method.
    Debug log is meant for developers; it grows rapidly, so enable it only for
    detailed reports and inspection.
 
-=========================
-Installing From Our Repos
-=========================
+.. tabs::
+   :prefix: debug-log
+   :toc:
 
-Our :ref:`repositories <installation-precomp-pkgs>` provide a debug version of
-:program:`unitd` called :program:`unitd-debug` within the :program:`unit`
-package:
+   .. tab:: Installing From Our Repos
 
-.. code-block:: console
+      Our :ref:`repositories <installation-precomp-pkgs>` provide a debug
+      version of :program:`unitd` called :program:`unitd-debug` within the
+      :program:`unit` package:
 
-   # unitd-debug <command line options>
+      .. code-block:: console
 
-==========================
-Running From Docker Images
-==========================
+         # unitd-debug <command line options>
 
-To enable debug-level logging when using our Docker :ref:`images
-<installation-docker>`:
+   .. tab:: Running From Docker Images
 
-.. subs-code-block:: console
+      To enable debug-level logging when using our Docker :ref:`images
+      <installation-docker>`:
 
-   $ docker run -d nginx/unit:|version|-full unitd-debug --no-daemon \
-                --control unix:/var/run/control.unit.sock
+      .. subs-code-block:: console
 
-Another option is adding a new layer in a Dockerfile:
+         $ docker run -d nginx/unit:|version|-full unitd-debug --no-daemon  \
+               --control unix:/var/run/control.unit.sock
 
-.. subs-code-block:: docker
+      Another option is adding a new layer in a Dockerfile:
 
-   FROM nginx/unit:|version|-full
+      .. subs-code-block:: docker
 
-   CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
+         FROM nginx/unit:|version|-full
 
-The :samp:`CMD` instruction above replaces the default :program:`unitd`
-executable with its debug version.
+         CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
 
-====================
-Building From Source
-====================
+      The :samp:`CMD` instruction above replaces the default :program:`unitd`
+      executable with its debug version.
 
-To enable debug-level logging when :ref:`installing from source
-<installation-src>`, use the :option:`!--debug` option:
+   .. tab:: Building From Source
 
-.. code-block:: console
+      To enable debug-level logging when :ref:`installing from source
+      <installation-src>`, use the :option:`!--debug` option:
 
-   $ ./configure --debug <other options>
+      .. code-block:: console
 
-Then recompile and reinstall Unit and your specific :ref:`language modules
-<installation-src-modules>`.
+         $ ./configure --debug <other options>
+
+      Then recompile and reinstall Unit and your specific :ref:`language
+      modules <installation-src-modules>`.
 
 
 .. _troubleshooting-core-dumps:
@@ -129,134 +127,130 @@ such as :samp:`unit-dbg`.
 
    Disable core dumping on live production systems to avoid wasting disk space.
 
-===============
-Systemd Service
-===============
+.. tabs::
+   :prefix: core-dumps
+   :toc:
 
-To enable saving core dumps while running Unit as a :program:`systemd` service
-(for example, with :ref:`packaged installations <installation-precomp-pkgs>`),
-adjust the `service settings
-<https://www.freedesktop.org/software/systemd/man/systemd.exec.html>`_ in
-:file:`/lib/systemd/system/unit.service`:
+   .. tab:: Linux: systemd
 
-.. code-block:: ini
+      To enable saving core dumps while running Unit as a :program:`systemd`
+      service (for example, with :ref:`packaged installations
+      <installation-precomp-pkgs>`), adjust the `service settings
+      <https://www.freedesktop.org/software/systemd/man/systemd.exec.html>`_ in
+      :file:`/lib/systemd/system/unit.service`:
 
-   [Service]
-   ...
-   LimitCORE=infinity
-   LimitNOFILE=65535
+      .. code-block:: ini
 
-Alternatively, update the `global settings
-<https://www.freedesktop.org/software/systemd/man/systemd.directives.html>`_
-in :file:`/etc/systemd/system.conf`:
-
-.. code-block:: ini
-
-   [Manager]
-   ...
-   DefaultLimitCORE=infinity
-   DefaultLimitNOFILE=65535
-
-Next, reload the service configuration and restart Unit to reproduce the crash
-condition:
-
-.. code-block:: console
-
-   # systemctl daemon-reload
-   # systemctl restart unit.service
-
-After a crash, locate the core dump file:
-
-.. code-block:: console
-
-   # coredumpctl -1                     # optional
-
-         TIME                            PID   UID   GID SIG COREFILE  EXE
-         Mon 2020-07-27 11:05:40 GMT    1157     0     0  11 present   /usr/sbin/unitd
-
-   # ls -al /var/lib/systemd/coredump/  # default, see also /etc/systemd/coredump.conf and /etc/systemd/coredump.conf.d/*.conf
-
+         [Service]
          ...
-         -rw-r----- 1 root root 177662 Jul 27 11:05 core.unitd.0.6135489c850b4fb4a74795ebbc1e382a.1157.1590577472000000.lz4
+         LimitCORE=infinity
+         LimitNOFILE=65535
 
-============
-Manual Setup
-============
+      Alternatively, update the `global settings
+      <https://www.freedesktop.org/software/systemd/man/systemd.directives.html>`_
+      in :file:`/etc/systemd/system.conf`:
 
-Linux
-*****
+      .. code-block:: ini
 
-Check the `core dump settings
-<https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`__ in
-:file:`/etc/security/limits.conf`, adjusting them if necessary:
-
-.. code-block:: none
-
-   root           soft    core       0          # disables core dumps by default
-   root           hard    core       unlimited  # enables raising the size limit
-
-Next, `raise
-<https://www.man7.org/linux/man-pages/man1/bash.1.html>`_ the core dump size
-limit and restart Unit to reproduce the crash condition:
-
-.. code-block:: console
-
-   # ulimit -c unlimited
-   # cd /path/to/unit/
-   # sbin/unitd           # or sbin/unitd-debug
-
-After a crash, locate the core dump file:
-
-.. code-block:: console
-
-   # ls -al /path/to/unit/working/directory/  # default location, see /proc/sys/kernel/core_pattern
-
+         [Manager]
          ...
-         -rw-r----- 1 root root 177662 Jul 27 11:05 core.1157
+         DefaultLimitCORE=infinity
+         DefaultLimitNOFILE=65535
 
-FreeBSD
-*******
+      Next, reload the service configuration and restart Unit to reproduce the
+      crash condition:
 
-Check the `core dump settings
-<https://www.freebsd.org/cgi/man.cgi?query=sysctl>`__ in
-:file:`/etc/sysctl.conf`, adjusting them if necessary:
+      .. code-block:: console
 
-.. code-block:: ini
+         # systemctl daemon-reload
+         # systemctl restart unit.service
 
-   kern.coredump=1
-   # must be set to 1
-   kern.corefile=/path/to/core/files/%N.core
-   # must provide a valid pathname
+      After a crash, locate the core dump file:
 
-Alternatively, update the settings in runtime:
+      .. code-block:: console
 
-.. code-block:: console
+         # coredumpctl -1                     # optional
 
-   # sysctl kern.coredump=1
-   # sysctl kern.corefile=/path/to/core/files/%N.core
+               TIME                            PID   UID   GID SIG COREFILE  EXE
+               Mon 2020-07-27 11:05:40 GMT    1157     0     0  11 present   /usr/sbin/unitd
 
-Next, restart Unit to reproduce the crash condition.  If installed as a
-service:
+         # ls -al /var/lib/systemd/coredump/  # default, see also /etc/systemd/coredump.conf and /etc/systemd/coredump.conf.d/*.conf
 
-.. code-block:: console
+               ...
+               -rw-r----- 1 root root 177662 Jul 27 11:05 core.unitd.0.6135489c850b4fb4a74795ebbc1e382a.1157.1590577472000000.lz4
 
-   # service unitd restart
+   .. tab:: Linux: Manual Setup
 
-If installed manually:
+      Check the `core dump settings
+      <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`__ in
+      :file:`/etc/security/limits.conf`, adjusting them if necessary:
 
-.. code-block:: console
+      .. code-block:: none
 
-   # cd /path/to/unit/
-   # sbin/unitd
+         root           soft    core       0          # disables core dumps by default
+         root           hard    core       unlimited  # enables raising the size limit
 
-After a crash, locate the core dump file:
+      Next, `raise <https://www.man7.org/linux/man-pages/man1/bash.1.html>`_
+      the core dump size limit and restart Unit to reproduce the crash
+      condition:
 
-.. code-block:: console
+      .. code-block:: console
 
-   # ls -al /path/to/core/files/
+         # ulimit -c unlimited
+         # cd /path/to/unit/
+         # sbin/unitd           # or sbin/unitd-debug
 
-         ...
-         -rw-------  1 root     root  9912320 Jul 27 11:05 unitd.core
+      After a crash, locate the core dump file:
+
+      .. code-block:: console
+
+         # ls -al /path/to/unit/working/directory/  # default location, see /proc/sys/kernel/core_pattern
+
+               ...
+               -rw-r----- 1 root root 177662 Jul 27 11:05 core.1157
+
+   .. tab:: FreeBSD
+
+      Check the `core dump settings
+      <https://www.freebsd.org/cgi/man.cgi?query=sysctl>`__ in
+      :file:`/etc/sysctl.conf`, adjusting them if necessary:
+
+      .. code-block:: ini
+
+         kern.coredump=1
+         # must be set to 1
+         kern.corefile=/path/to/core/files/%N.core
+         # must provide a valid pathname
+
+      Alternatively, update the settings in runtime:
+
+      .. code-block:: console
+
+         # sysctl kern.coredump=1
+         # sysctl kern.corefile=/path/to/core/files/%N.core
+
+      Next, restart Unit to reproduce the crash condition.  If installed as a
+      service:
+
+      .. code-block:: console
+
+         # service unitd restart
+
+      If installed manually:
+
+      .. code-block:: console
+
+         # cd /path/to/unit/
+         # sbin/unitd
+
+      After a crash, locate the core dump file:
+
+      .. code-block:: console
+
+         # ls -al /path/to/core/files/
+
+               ...
+               -rw-------  1 root     root  9912320 Jul 27 11:05 unitd.core
 
 .. _troubleshooting-support:
 
