@@ -83,6 +83,7 @@ as:
    grafana
    jira
    joomla
+   matomo
    mediawiki
    mercurial
    moin
