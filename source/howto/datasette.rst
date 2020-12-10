@@ -56,7 +56,7 @@ To run the `Datasette
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, |app| should be available on the listener’s IP
+   After a successful update, |app| should be available on the listener’s IP
    address and port:
 
    .. image:: ../images/datasette.png

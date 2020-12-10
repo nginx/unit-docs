@@ -156,7 +156,8 @@ documentation platform using Unit:
                 "success": "Reconfiguration done."
             }
 
-   Finally, your wiki is ready!
+   After a successful update, |app| should be available on the listener’s IP
+   address and port:
 
    .. image:: ../images/mw_ready.png
       :width: 100%

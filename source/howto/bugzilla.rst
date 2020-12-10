@@ -102,7 +102,7 @@ Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, browse to http://localhost and `set up
+   After a successful update, browse to http://localhost and `set up
    <https://bugzilla.readthedocs.io/en/latest/installing/essential-post-install-config.html>`__
    your |app| installation:
 

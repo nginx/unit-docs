@@ -113,12 +113,16 @@ system using Unit:
    `hierarchy <https://trac.edgewall.org/wiki/TracDev/TracURLs>`_ from the
    :file:`static/` directory.
 
-   Assuming the config is saved as :file:`trac.json`:
+#. Upload the updated configuration.  Assuming the config above is saved as
+   :file:`trac.json`:
 
    .. code-block:: console
 
       # curl -X PUT --data-binary @trac.json --unix-socket \
              /var/run/control.unit.sock http://localhost/config
+
+   After a successful update, Trac should be available on the listener’s IP
+   address and port:
 
    .. image:: ../images/trac.png
       :width: 100%

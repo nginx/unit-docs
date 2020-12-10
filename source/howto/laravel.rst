@@ -75,7 +75,7 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, browse to http://localhost and `set up
+   After a successful update, browse to http://localhost and `set up
    <https://laravel.com/docs/7.x/configuration>`_ your |app| application:
 
   .. image:: ../images/laravel.png

@@ -112,7 +112,8 @@ versions 1.1 or 2.0 using Unit:
             # curl -X PUT --data-binary @yii.json --unix-socket \
                    :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
 
-      #. Finally, browse to http://localhost to check out your app locally:
+         After a successful update, your app should be available on the
+         listener’s IP address and port:
 
          .. image:: ../images/yii2.png
             :width: 100%
@@ -217,7 +218,8 @@ versions 1.1 or 2.0 using Unit:
             # curl -X PUT --data-binary @yii.json --unix-socket \
                    :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
 
-      #. Finally, browse to http://localhost to check out your app locally:
+         After a successful update, your app should be available on the
+         listener’s IP address and port:
 
          .. image:: ../images/yii1.1.png
             :width: 100%

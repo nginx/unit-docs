@@ -62,14 +62,15 @@ control system using Unit:
           }
       }
 
-   Assuming the config above is saved as :file:`hg.json`:
+#. Upload the updated configuration.  Assuming the config above is saved as
+   :file:`hg.json`:
 
    .. code-block:: console
 
       # curl -X PUT --data-binary @hg.json --unix-socket \
              :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
 
-#. After a successful update, you can proceed to work with your Mercurial
+   After a successful update, you can proceed to work with your Mercurial
    repository as usual:
 
    .. code-block:: console

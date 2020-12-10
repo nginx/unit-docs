@@ -98,6 +98,9 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
+   After a successful update, your app should be available on the listener’s IP
+   address and port:
+
    .. image:: ../images/cakephp.png
       :width: 100%
       :alt: CakePHP Basic Template App on Unit

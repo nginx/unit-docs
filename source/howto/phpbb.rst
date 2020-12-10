@@ -112,6 +112,13 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
       # curl -X PUT --data-binary @phpbb.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
+   After a successful update, your app should be available on the listener’s IP
+   address and port:
+
+   .. image:: ../images/phpbb.png
+      :width: 100%
+      :alt: phpBB on Unit
+
 #. Browse to :samp:`/install/app.php` to configure the settings from Step 2 and
    complete your installation.  Having done that, delete the :file:`install/`
    subdirectory to mitigate security risks:
@@ -119,9 +126,3 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
    .. code-block:: console
 
       $ rm -rf /path/to/phpbb/install/
-
-   Finally, your board is ready!
-
-   .. image:: ../images/phpbb.png
-      :width: 100%
-      :alt: phpBB on Unit

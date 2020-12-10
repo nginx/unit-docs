@@ -13,8 +13,7 @@ To `install NextCloud
 <https://docs.nextcloud.com/server/16/admin_manual/installation/index.html>`_
 if you haven't already done so:
 
-#. Download and extract NextCloud `files
-   <https://download.nextcloud.com/server/releases/nextcloud-16.0.4.tar.bz2>`_:
+#. Download and extract NextCloud files:
 
    .. code-block:: console
 
@@ -268,7 +267,9 @@ To run NextCloud in Unit:
       # curl -X PUT -d '{"http":{"max_body_size": 2147483648}}' --unix-socket \
              /path/to/control.unit.sock http://localhost/config/settings
 
-Finally, browse to your NextCloud site and complete the installation:
+   After a successful update, browse to http://localhost and `set up
+   <https://docs.nextcloud.com/server/16/admin_manual/installation/installation_wizard.html>`_
+   your NextCloud installation:
 
    .. image:: ../images/nextcloud.png
       :width: 100%

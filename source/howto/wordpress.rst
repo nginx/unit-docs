@@ -125,8 +125,9 @@ To run WordPress in Unit:
       # curl -X PUT --data-binary @config.json --unix-socket \
              /path/to/control.unit.sock http://localhost/config
 
-Finally, browse to your WordPress site and `complete the installation
-<https://wordpress.org/support/article/how-to-install-wordpress/#step-5-run-the-install-script>`_.
+   After a successful update, browse to http://localhost and `set up
+   <https://wordpress.org/support/article/how-to-install-wordpress/#step-5-run-the-install-script>`_
+   your WordPress installation.
 
 .. note::
 

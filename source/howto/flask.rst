@@ -56,7 +56,7 @@ To run apps built with the `Flask
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, your app should be available on the listener’s IP
+   After a successful update, your app should be available on the listener’s IP
    address and port:
 
    .. code-block:: console

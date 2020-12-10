@@ -57,12 +57,16 @@ using Unit:
           }
       }
 
-   Assuming the config is saved as :file:`moin.json`:
+#. Upload the updated configuration.  Assuming the config is saved as
+   :file:`moin.json`:
 
    .. code-block:: console
 
       # curl -X PUT --data-binary @moin.json --unix-socket \
              /var/run/control.unit.sock http://localhost/config
+
+   After a successful update, MoinMoin should be available on the listener’s IP
+   address and port:
 
    .. image:: ../images/moin.png
       :width: 100%

@@ -89,7 +89,7 @@ Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, browse to http://localhost and `set up
+   After a successful update, browse to http://localhost and `set up
    <https://docs.joomla.org/J3.x:Installing_Joomla#Main_Configuration>`_ your
    |app| installation:
 

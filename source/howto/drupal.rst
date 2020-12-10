@@ -152,7 +152,7 @@ Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. After a successful update, browse to http://localhost and `set up
+   After a successful update, browse to http://localhost and `set up
    <https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies#s-install-drupal-using-the-standard-web-interface>`_
    your |app| installation:
 
