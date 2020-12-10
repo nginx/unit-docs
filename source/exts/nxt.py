@@ -132,9 +132,9 @@ class nxt_highlighter(object):
                           location, force, **kwargs)
 
         for c, g in enumerate(groups):
-            highlighted = re.sub('nxt_term_{0}'.format(c), '<span '
-                              'class="nxt_term" title="{0}">{1}</span>'.
-                              format(g[1], g[0]), highlighted, count=1)
+            highlighted = highlighted.replace('nxt_term_{0}'.format(c),
+                              '<span class="nxt_term" title="{0}">{1}</span>'.
+                              format(g[1], g[0]), 1)
 
         if ':nxt_term:' in highlighted:
             raise ExtensionError(__('Could not lex nxt_term at {0}. ').
