@@ -25,9 +25,10 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, put together the |app| configuration for Unit.  The default
-   :file:`.htaccess` scheme in a |app| installation roughly translates into the
-   following:
+#. Next, :ref:`put together <configuration-perl>` the |app| configuration for
+   Unit.  The default :file:`.htaccess` scheme roughly translates into the
+   following (use real values for :samp:`share`, :samp:`script`,
+   :samp:`working_directory`, :samp:`user`, and :samp:`group`):
 
    .. code-block:: json
 
@@ -47,7 +48,7 @@ Unit:
                       },
 
                       "action": {
-                          "share": "/path/to/app/"
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -75,12 +76,12 @@ Unit:
                       },
 
                       "action": {
-                          "return": 403
+                          "return": 404
                       }
                   },
                   {
                       "action": {
-                          "share": "/path/to/app/",
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/bugzilla"
                           }
@@ -94,8 +95,8 @@ Unit:
                   "type": "perl",
                   "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
                   "group": "app_group",
-                  "working_directory": "/path/to/app/",
-                  "script": ":nxt_term:`/path/to/app/app.psgi <Full pathname of the PSGI file>`"
+                  "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                  "script": ":nxt_term:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
               }
           }
       }
