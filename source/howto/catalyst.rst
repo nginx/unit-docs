@@ -1,5 +1,7 @@
 .. |app| replace:: Catalyst
 .. |mod| replace:: Perl
+.. |app-link| replace:: core files
+.. _app-link: https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Intro.pod#Install
 
 ########
 Catalyst
@@ -10,8 +12,7 @@ framework using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Install |app|'s `core files
-   <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Intro.pod#Install>`_.
+#. .. include:: ../include/howto_install_app.rst
 
 #. `Create
    <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
@@ -34,8 +35,9 @@ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, prepare the app :ref:`configuration <configuration-perl>` for Unit
-   (note the use of :samp:`script`):
+#. Prepare the :ref:`configuration <configuration-perl>` for Unit (use real
+   values for :samp:`script`, :samp:`working_directory`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
