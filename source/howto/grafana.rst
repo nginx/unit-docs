@@ -14,14 +14,14 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
    .. code-block:: console
 
       $ go get github.com/grafana/grafana
-      $ cd $GOPATH/src/github.com/grafana/grafana # This is the /path/to/grafana/
+      $ cd $GOPATH/src/github.com/grafana/grafana # This is the /path/to/app/
 
 #. Update the code, adding Unit to Grafana's protocol list.  You can either
    apply a patch (:download:`grafana.patch <../downloads/grafana.patch>`):
 
    .. code-block:: console
 
-      $ cd /path/to/grafana/
+      $ cd /path/to/app/
       $ curl -O https://unit.nginx.org/_downloads/grafana.patch
       $ patch -p1 < grafana.patch
 
@@ -114,7 +114,7 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
    .. code-block:: console
 
-      $ cd /path/to/grafana
+      $ cd /path/to/app/
       $ go get ./...                  # install dependencies
       $ go run build.go setup
       $ go run build.go build
@@ -125,12 +125,11 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
    usually :file:`$GOPATH/bin/`; it's used by the :samp:`executable` option in
    Unit configuration.
 
-#. .. include:: ../include/get-config.rst
+#. .. include:: ../include/howto_change_ownership.rst
 
-   This creates a JSON file with Unit's current settings.  In
-   :samp:`listeners`, add a :ref:`listener <configuration-listeners>` that
-   points to your app in :samp:`applications`; the app must reference
-   the path to Grafana and the executable you've built:
+#. Prepare the Unit :ref:`configuration <configuration-php>` (use real values
+   for :samp:`executable`, :samp:`working_directory`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
@@ -145,23 +144,19 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
               "grafana": {
                   "executable": ":nxt_term:`/path/to/go/bin/dir/grafana-server <Path to the grafana-server binary>`",
                   "type": "external",
-                  "user": "grafanauser",
-                  "working_directory": ":nxt_term:`/path/to/grafana/ <Path to frontend files, usually the installation path>`"
-               }
-           }
-       }
+                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
+                  "group": "app_group",
+                  "working_directory": ":nxt_term:`/path/to/app/ <Path to frontend files, usually the installation path>`"
+              }
+          }
+      }
 
    See :ref:`Go application options <configuration-external>` and the Grafana
    `docs
    <https://grafana.com/docs/grafana/latest/installation/configuration/#static-root-path>`_
    for details.
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, Grafana should be available on the listener's IP
    and port:
