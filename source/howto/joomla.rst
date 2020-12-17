@@ -21,7 +21,8 @@ Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-php>` the |app| configuration for
-   Unit:
+   Unit (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
@@ -35,8 +36,8 @@ Unit:
           "routes": {
               "joomla": [
                   {
-                      ":nxt_term:`match <Matches direct URLs and the administrative section of the site>`": {
-                          "uri": [
+                      "match": {
+                          ":nxt_term:`uri <Matches direct URLs and the administrative section of the site>`": [
                               "*.php",
                               "*.php/*",
                               "/administrator/"
@@ -49,7 +50,7 @@ Unit:
                   },
                   {
                       "action": {
-                          "share": "/path/to/app/",
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": ":nxt_term:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
                           }
@@ -65,11 +66,11 @@ Unit:
                   "group": "app_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/app/"
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": "/path/to/app/",
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "script": "index.php"
                       }
                   }
@@ -89,9 +90,9 @@ Unit:
 
 #. .. include:: ../include/howto_upload_config.rst
 
-   After a successful update, browse to http://localhost and `set up
-   <https://docs.joomla.org/J3.x:Installing_Joomla#Main_Configuration>`_ your
-   |app| installation:
+   After a successful update, |app| should be available on the listener’s IP
+   and port to finish the `setup
+   <https://docs.joomla.org/J3.x:Installing_Joomla#Main_Configuration>`_:
 
   .. image:: ../images/joomla.png
      :width: 100%
