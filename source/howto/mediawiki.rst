@@ -16,8 +16,9 @@ documentation platform using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the |app| configuration for
-   Unit:
+#. Next, :ref:`put together <configuration-php>` the configuration for Unit
+   (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
@@ -74,7 +75,7 @@ documentation platform using Unit:
                           ":nxt_term:`uri <Enables static access to specific content locations>`": [
                               "!*.php",
                               "!*.json",
-                              "!*.:nxt_term:`htaccess <The negations deny access to file types listed here>`",
+                              ":nxt_term:`!*.htaccess <The negations deny access to the file types listed here>`",
                               "/extensions/*",
                               "/images/*",
                               "/resources/assets/*",
@@ -85,7 +86,7 @@ documentation platform using Unit:
                       },
 
                       "action": {
-                          "share": "/path/to/app/"
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -103,11 +104,11 @@ documentation platform using Unit:
                   "group": "app_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/app/"
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"
                       },
 
                       "index": {
-                          "root": "/path/to/app/",
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`",
                           "script": "index.php"
                       }
                   }
