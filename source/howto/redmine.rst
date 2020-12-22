@@ -1,33 +1,33 @@
+.. |app| replace:: Redmine
+.. |mod| replace:: Ruby
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://www.redmine.org/projects/redmine/wiki/RedmineInstall#Installation-procedure
+.. |app-link| replace:: core files
+.. _app-link: https://www.redmine.org/projects/redmine/wiki/RedmineInstall#Step-1-Redmine-application
+
 #######
 Redmine
 #######
 
-#. Install :ref:`Unit with Ruby support <installation-precomp-pkgs>`.
+To run the `Redmine <https://www.redmine.org>`__ project management system using
+Unit:
 
-#. Download and install Redmine with `necessary prerequisites
-   <https://www.redmine.org/projects/redmine/wiki/RedmineInstall>`_.  Make sure
-   your application works:
+#. .. include:: ../include/howto_install_unit.rst
 
-   .. code-block:: console
+#. .. include:: ../include/howto_install_prereq.rst
 
-      $ cd path/to/redmine
-      $ bundle exec rails server webrick -e :nxt_term:`production <Environment name, used for RAILS_ENV in Unit app config>` # refer to Redmine docs for details
-      $ curl localhost:3000
+#. .. include:: ../include/howto_install_app.rst
 
-   Next, we'll make this installation run on Unit.
+#. .. include:: ../include/howto_change_ownership.rst
 
-#. .. include:: ../include/get-config.rst
-
-   This creates a JSON file with Unit's current settings.  In
-   :samp:`listeners`, add a :ref:`listener <configuration-listeners>` that
-   points to your app in :samp:`applications`; the app must reference
-   the path to Redmine and the Rails environment to use:
+#. Prepare the app :ref:`configuration <configuration-ruby>` for Unit (use real
+   values for :samp:`working_directory`, :samp:`user`, and :samp:`group`):
 
    .. code-block:: json
 
       {
           "listeners": {
-              "*:3000": {
+              "*:80": {
                   "pass": "applications/redmine"
               }
           },
@@ -35,8 +35,9 @@ Redmine
           "applications": {
               "redmine": {
                   "type": "ruby",
-                  "user": "redmine",
-                  "working_directory": ":nxt_term:`/path/to/redmine/ <Where Redmine is installed>`",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
+                  "group": "app_group",
+                  "working_directory": ":nxt_term:`/path/to/app/ <Where Redmine is installed>`",
                   "script": "config.ru",
                   "environment": {
                       "RAILS_ENV": ":nxt_term:`production <Environment name in Redmine config>`"
@@ -45,16 +46,9 @@ Redmine
           }
       }
 
-   See :ref:`Ruby application options <configuration-ruby>` for details.
+#. .. include:: ../include/howto_upload_config.rst
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-   After a successful update, Redmine should be available on the listener's IP
+   After a successful update, |app| should be available on the listener's IP
    and port:
 
    .. image:: ../images/redmine.png
