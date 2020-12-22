@@ -541,19 +541,8 @@ Another form is an object with one or more named route arrays as members:
 Route Steps
 ===========
 
-A route array contains step objects as elements; a request passed to a route
-traverses them sequentially:
-
-- If the request meets all :samp:`match` conditions in a step, the step's
-  :samp:`action` is performed.
-
-- If the request doesn't match a step's condition, Unit proceeds to the next
-  step of the route.
-
-- If the request doesn't match any steps of the route, a 404 "Not Found"
-  response is returned.
-
-Step objects accept the following options:
+A route array contains step objects as elements; they accept the following
+options:
 
 .. list-table::
    :header-rows: 1
@@ -569,13 +558,22 @@ Step objects accept the following options:
      - Object that defines the step's :ref:`conditions
        <configuration-routes-matching>` to be matched.
 
+A request passed to a route traverses its steps sequentially:
+
+- If all :samp:`match` conditions in a step are met, the step's :samp:`action`
+  is performed.
+
+- If a step's condition isn't met, Unit proceeds to the next step of the route.
+
+- If no steps of the route match, a 404 "Not Found" response is returned.
+
 .. warning::
 
   If a step omits the :samp:`match` option, its :samp:`action` is
   performed automatically.  Thus, use no more than one such step per
   route, always placing it last to avoid potential routing issues.
 
-.. nxt_details:: Examples
+.. nxt_details:: Ad-Hoc Examples
 
    A basic one:
 
@@ -601,6 +599,12 @@ Step objects accept the following options:
               }
           ]
       }
+
+   This route passes all requests to the :samp:`/php/` subsection of the
+   :samp:`example.com` website via HTTPS to the :samp:`php_version` app.  All
+   other requests are served with static content from the
+   :samp:`/www/static_version` directory.  If there's no matching content. Unit
+   returns a 404 response code.
 
    A more elaborate example with chained routes and proxying:
 
@@ -638,11 +642,6 @@ Step objects accept the following options:
                       "action": {
                           "share": "/www/static/"
                       }
-                  },
-                  {
-                      "action": {
-                          "return": 404
-                      }
                   }
               ],
 
@@ -665,76 +664,101 @@ Step objects accept the following options:
           }
       }
 
+   Here, a route called :samp:`main` is explicitly defined, so :samp:`routes`
+   is an object instead of an array.  The first step of the route passes all
+   requests that arrive via HTTP to the :samp:`http_site` app.  The second step
+   passes all requests that target :samp:`blog.example.com` to the :samp:`blog`
+   app.  The final step serves requests for certain file types from the
+   :samp:`/www/static/` directory.  If none of the steps matches, a 404
+   response code is returned.
+
 
 .. _configuration-routes-matching:
 
-==================
-Condition Matching
-==================
+===================
+Matching Conditions
+===================
 
-To route incoming requests, Unit applies pattern-based conditions to individual
-request properties:
+Conditions in a :samp:`match` object define patterns to be compared to the
+requests' properties:
 
 .. list-table::
    :header-rows: 1
 
-   * - Option
-     - Matched Against
-     - Case |-| Sensitive
-     - Match |_| Type
+   * - Property
+     - Patterns Are Matched Against
+     - Case |-| :nxt_term:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
    * - :samp:`arguments`
-     - Parameter arguments supplied in the request target `query
-       <https://tools.ietf.org/html/rfc3986#section-3.4>`_.  Names and values
-       can be `percent encoded
-       <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
+
+     - Parameter arguments supplied with the request's target `query
+       <https://tools.ietf.org/html/rfc3986#section-3.4>`_.  In argument names
+       and values, plus signs (:samp:`+`) are replaced with spaces.
+
      - Yes
-     - Compound
+
    * - :samp:`cookies`
+
      - Cookies supplied with the request.
+
      - Yes
-     - Compound
+
    * - :samp:`destination`
+
      - Target IP address and optional port of the request.
+
      - No
-     - Simple
+
    * - :samp:`headers`
+
      - `Header fields <https://tools.ietf.org/html/rfc7230#section-3.2>`_
        supplied with the request.
+
      - No
-     - Compound
+
    * - :samp:`host`
-     - :samp:`Host`
-       `header field <https://tools.ietf.org/html/rfc7230#section-5.4>`_
-       without the port number and the trailing period (if any).
+
+     - :samp:`Host` `header field
+       <https://tools.ietf.org/html/rfc7230#section-5.4>`_, converted to lower
+       case and normalized by removing the port number and the trailing period
+       (if any).
+
      - No
-     - Simple
+
    * - :samp:`method`
-     - Method from the `request
-       line <https://tools.ietf.org/html/rfc7231#section-4>`_.
+
+     - Method from the `request line
+       <https://tools.ietf.org/html/rfc7231#section-4>`_, converted to upper
+       case.
+
      - No
-     - Simple
+
    * - :samp:`scheme`
+
      - URI `scheme
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
-       Currently, :samp:`http` and :samp:`https` are supported.
+       Currently, only :samp:`http` and :samp:`https` are supported.
+
      - No
-     - :samp:`http`/:samp:`https`
+
    * - :samp:`source`
+
      - Source IP address and optional port of the request.
+
      - No
-     - Simple
+
    * - :samp:`uri`
-     - Request target `path <https://tools.ietf.org/html/rfc7230#section-5.3>`_
-       without the query part, normalized by resolving relative path
-       references ("." and "..") and collapsing adjacent slashes.
-       Can be `percent encoded
-       <https://tools.ietf.org/html/rfc3986#section-2.1>`_.
+
+     - Request target `path
+       <https://tools.ietf.org/html/rfc7230#section-5.3>`_, normalized by
+       removing the query part, resolving relative path references ("." and
+       ".."), and collapsing adjacent slashes.
+
      - Yes
-     - Simple
 
-.. note::
+.. nxt_details:: Percent Encoding In Arguments and URIs
 
-   Both :samp:`arguments` and :samp:`uri` support `percent encoding
+   Names and values in :samp:`arguments` and values in :samp:`uri` additionally
+   support `percent encoding
    <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  Thus, you can escape
    characters which have special meaning in routing (:samp:`!` is :samp:`%21`,
    :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`), or even target
@@ -744,8 +768,14 @@ request properties:
    .. code-block:: json
 
       {
-          "arguments": {
-              "word": "*%C3*"
+          "match": {
+              "arguments": {
+                  "word": "*%C3*"
+              }
+          },
+
+          "action": {
+              "pass": "..."
           }
       }
 
@@ -780,20 +810,34 @@ request properties:
             < HTTP/1.1 200 OK
             ...
 
-.. _configuration-routes-simple:
 
-Simple Matching
-***************
+Match Resolution
+****************
 
-A simple property in a :samp:`match` object is matched against a string pattern
-or an array of patterns:
+To be a match, the property must meet two requirements:
+
+- If there are patterns without negation (the :samp:`!` prefix), at least one
+  of them matches the property value.
+
+- No negated patterns match the property value.
+
+.. note::
+
+   The :samp:`scheme` property accepts no patterns or arrays, but only two
+   string values: :samp:`http` or :samp:`https`.
+
+Here, the URI of the request must fit :samp:`pattern3`, but should not match
+:samp:`pattern1` or :samp:`pattern2`.
 
 .. code-block:: json
 
    {
        "match": {
-           "simple_property1": "pattern",
-           "simple_property2": ["pattern", "pattern", "..." ]
+           "uri": [
+               "!pattern1",
+               "!pattern2",
+               "pattern3"
+           ]
        },
 
        "action": {
@@ -801,171 +845,55 @@ or an array of patterns:
        }
    }
 
-To be a match against the condition, the property must meet two requirements:
+.. nxt_details:: Formal Explanation
 
-- If there are patterns without negation, at least one of them matches the
-  property value.
-
-- No negation-based patterns match the property value.
-
-Patterns must be exact matches.  Regexes (:samp:`~`), negations (:samp:`!`),
-wildcards (:samp:`*`), and ranges (:samp:`-`) can be used:
-
-- A negation can only start a pattern; it rejects all matches to its remainder
-  (:samp:`!<negated_pattern>`).
-
-- In :samp:`host`, :samp:`method`, and :samp:`uri`, a wildcard matches any
-  number of characters, and an arbitrary number of wildcards can be used in a
-  single pattern: :samp:`How*s*that*to*you?`.  However, ranges are not
-  supported.
-
-- In :samp:`source` and :samp:`destination`, wildcards can only be used to
-  match any IPs (:samp:`*:<port>`).  Also, ranges can be used to specify IPs
-  (in respective notation) and ports (:samp:`<start_port>-<end_port>`).
-
-- A regex pattern starts with a tilde, optionally preceded by a negation:
-  :samp:`!~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+$` (note the escaping; this
-  is a JSON `requirement <https://www.json.org/json-en.html>`_).  By default,
-  regexes use the `PCRE
-  <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_ syntax; see the
-  :ref:`compilation options <installation-config-src-pcre>` for details.
-  However, :samp:`source`, :samp:`destination`, and :samp:`scheme` can't use
-  regexes.
-
-.. note::
-
-   This type of matching can be explained with set operations.  Suppose set *U*
-   comprises all possible values of a property; set *P* comprises strings that
-   match any patterns without negation; set *N* comprises strings that match
-   any negation-based patterns.  In this scheme, the matching set will be:
+   This logic can be described with set operations.  Suppose set *U* comprises
+   all possible values of a property; set *P* comprises strings that match any
+   patterns without negation; set *N* comprises strings that match any
+   negation-based patterns.  In this scheme, the matching set will be:
 
    | *U* ∩ *P* \\ *N* if *P* ≠ ∅
    | *U* \\ *N* if *P* = ∅
 
-.. nxt_details:: Examples
+Additionally, special matching logic is used for :samp:`arguments`,
+:samp:`cookies`, and :samp:`headers`. Each of these can be a single object that
+lists custom-named properties and their patterns or an array of such objects.
 
-   .. code-block:: json
-
-      {
-          "uri": "~^/data/www/.*\\.php(/.*)?$"
-      }
-
-   A regular expression that matches any :file:`.php` files within the
-   :file:`/data/www/` directory and its subdirectiories.  Note the backslashes;
-   escaping is a JSON-specific requirement.
-
-   .. code-block:: json
-
-      {
-          "host": "*.example.com"
-      }
-
-   Only subdomains of :samp:`example.com` will match.
-
-   .. code-block:: json
-
-      {
-          "uri": "/admin/*/*.php"
-      }
-
-   Only requests for :samp:`.php` files located in :file:`/admin/`'s
-   subdirectories will match.
-
-   .. code-block:: json
-
-      {
-          "host": ["eu-*.example.com", "!eu-5.example.com"]
-      }
-
-   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
-   :samp:`eu-5.example.com`.
-
-   .. code-block:: json
-
-      {
-          "method": ["!HEAD", "!GET"]
-      }
-
-   Any methods will match except :samp:`HEAD` and :samp:`GET`.
-
-   You can also combine special characters in a pattern:
-
-   .. code-block:: json
-
-      {
-          "uri": "!*/api/*"
-      }
-
-   Here, any URIs will match except the ones containing :samp:`/api/`.
-
-   Individual addresses and address ranges can be specified in dot-decimal or
-   CIDR notation for IPv4:
-
-   .. code-block:: json
-
-     {
-         "match": {
-             "source": [
-                  "10.0.0.0-10.0.0.10",
-                  "10.0.0.100-11.0.0.100:1000",
-                  "127.0.0.100-127.0.0.255:8080-8090"
-             ],
-             "destination": [
-                 "10.0.0.0/8",
-                 "10.0.0.0/7:1000",
-                 "10.0.0.0/32:8080-8090"
-             ]
-         }
-     }
-
-   Or IPv6:
-
-   .. code-block:: json
-
-     {
-         "match": {
-             "source": [
-                  "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
-                  "[fe08::-feff::]:8000",
-                  "[fff0::-fff0::10]:8080-8090"
-             ],
-             "destination": [
-                  "2001::/16",
-                  "[0ff::/64]:8000",
-                  "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090"
-              ]
-         }
-     }
-
-
-.. _configuration-routes-compound:
-
-Compound Matching
-*****************
-
-This type of matching is used for :samp:`arguments`, :samp:`cookies`, and
-:samp:`headers` properties.
-
-A compound property is matched against an object with names and patterns or an
-array of such objects:
+To match a single object, the request must match *all* properties named in the
+object.  To match an object array, it's enough to match *any* single one of its
+item objects.  The following condition will match only if the request arguments
+include both :samp:`arg1` and :samp:`arg2` and they match their patterns:
 
 .. code-block:: json
 
    {
        "match": {
-           "compound_property1": {
-               "name1": "pattern",
-               "name2": ["pattern", "..."]
-           },
+           "arguments": {
+               "arg1": "pattern",
+               "arg2": "pattern"
+           }
+       },
 
-           "compound_property2": [
+       "action": {
+           "pass": "..."
+       }
+   }
+
+With an object array, the condition will match if the request's arguments
+include either :samp:`arg1` or :samp:`arg2` (or maybe both) that matches the
+respective pattern:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "arguments": [
                {
-                   "name1": "pattern",
-                   "name2": ["pattern", "pattern", "..."]
+                   "arg1": "pattern"
                },
+
                {
-                   "name1": "pattern",
-                   "name3": ["pattern", "pattern", "..."]
+                   "arg2": "pattern"
                }
            ]
        },
@@ -975,51 +903,360 @@ array of such objects:
        }
    }
 
-To match a single condition object, the request must contain *all* items
-explicitly named in the object; their values are matched against patterns in
-the same manner as property values during :ref:`simple matching
-<configuration-routes-simple>`.
+The following example combines all matching types.  Here, :samp:`host`,
+:samp:`method`, :samp:`uri`, :samp:`arg1` *and* :samp:`arg2`, either
+:samp:`cookie1` or :samp:`cookie2`, and either :samp:`header1` or
+:samp:`header2` *and* :samp:`header3` must be matched for the :samp:`action` to
+be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
+(header1 | (header2 & header3))`):
 
-To match an object array, it's sufficient to match *any* single one of its
-objects.
+.. code-block:: json
 
-.. nxt_details:: Examples
+   {
+       "match": {
+           "host": "pattern",
+           "method": "!pattern",
+           "uri": [
+               "pattern",
+               "!pattern"
+           ],
+
+           "arguments": {
+               "arg1": "pattern",
+               "arg2": "!pattern"
+           },
+
+           "cookies": [
+               {
+                   "cookie1": "pattern",
+               },
+
+               {
+                   "cookie2": "pattern",
+               }
+           ],
+
+           "headers": [
+               {
+                   "header1": "pattern",
+               },
+
+               {
+                   "header2": "pattern",
+                   "header3": "pattern"
+               }
+           ]
+       },
+
+       "action": {
+           "pass": "..."
+       }
+   }
+
+.. nxt_details:: Object Pattern Examples
 
    .. code-block:: json
 
       {
-          "arguments": {
-              "mode": "strict",
-              "access": "!full"
+          "match": {
+              "arguments": {
+                  "mode": "strict",
+                  "access": "!full"
+              }
+          },
+
+          "action": {
+              "pass": "..."
           }
       }
 
    This requires :samp:`mode=strict` and any :samp:`access` argument other than
-   :samp:`access=full` in the URI.
+   :samp:`access=full` in the URI query.
 
    .. code-block:: json
 
       {
-          "headers": [
-              {
-                  "Accept-Encoding": "*gzip*",
-                  "User-Agent": "Mozilla/5.0*"
-              },
+          "match": {
+              "headers": [
+                  {
+                      "Accept-Encoding": "*gzip*",
+                      "User-Agent": "Mozilla/5.0*"
+                  },
 
-              {
-                  "User-Agent": "curl*"
-              }
-          ]
+                  {
+                      "User-Agent": "curl*"
+                  }
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
       }
 
-   This matches all requests that either use :samp:`gzip` and identify as
-   :samp:`Mozilla/5.0` or list :program:`curl` as the user agent.
+   This matches requests that either use :samp:`gzip` and identify as
+   :samp:`Mozilla/5.0` or list :samp:`curl` as the user agent.
+
+
+.. _configuration-routes-matching-patterns:
+
+Pattern Syntax
+**************
+
+Individual patterns can be address-based (:samp:`source` and
+:samp:`destination`) or string-based (other properties).
+
+String-based patterns must match the property to a character; wildcards or
+regexes modify this behavior:
+
+- A wildcard pattern may contain any combination of wildcards (:samp:`*`), each
+  standing for an arbitrary number of characters: :samp:`How*s*that*to*you`.
+
+- A regex pattern starts with a tilde (:samp:`~`):
+  :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
+  JSON `requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE
+  <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
+
+.. nxt_details:: String Pattern Examples
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "uri": "~^/data/www/.*\\.php(/.*)?$"
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   A regular expression that matches any :file:`.php` files within the
+   :file:`/data/www/` directory and its subdirectories.  Note the backslashes;
+   escaping is a JSON-specific requirement.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "host": "*.example.com"
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Only subdomains of :samp:`example.com` will match.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "uri": "/admin/*/*.php"
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Only requests for :samp:`.php` files located in :file:`/admin/`'s
+   subdirectories will match.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "host": [
+                  "eu-*.example.com",
+                  "!eu-5.example.com"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
+   :samp:`eu-5.example.com`.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "method": [
+                  "!HEAD",
+                  "!GET"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Any methods will match except :samp:`HEAD` and :samp:`GET`.
+
+   You can also combine certain special characters in a pattern:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "uri": "!*/api/*"
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Here, any URIs will match except the ones containing :samp:`/api/`.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "uri": [
+                  "/articles/*",
+                  "!~/articles/\\d{4}-\\d{2}-\\d{2}"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Here, URIs of any articles that don't look like :samp:`YYYY-MM-DD` dates
+   will match.  Again, note the backslashes; this is a JSON requirement.
+
+Address-based patterns define individual IPv4 (dot-decimal or `CIDR
+<https://tools.ietf.org/html/rfc4632>`__) or IPv6 (hexadecimal or `CIDR
+<https://tools.ietf.org/html/rfc4291#section-2.3>`__) addresses that must
+exactly match the property value; wildcards and ranges modify this behavior:
+
+- Wildcards (:samp:`*`) can only be used to match arbitrary IPs
+  (:samp:`*:<port>`).
+
+- Ranges (:samp:`-`) can used with both IPs (in respective notation) and ports
+  (:samp:`<start_port>-<end_port>`).
+
+.. nxt_details::  Address Pattern Examples
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                  "10.0.0.0-10.255.255.255",
+                  "10.0.0.0-11.255.255.255:8000",
+                  "8.0.0.0-11.255.255.255:8080-8090",
+                  "*:80"
+              ],
+
+              "destination": [
+                  "10.0.0.0/8",
+                  "10.0.0.0/7:8000",
+                  "10.0.0.0/6:8080-8090",
+                  "*:80"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   This uses IPv4-based matching with wildcards and ranges.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                   "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+                   "[fe08::-feff::]:8000",
+                   "[fff0::-fff0::10]:8080-8090",
+                   "*:80"
+              ],
+
+              "destination": [
+                   "2001::/16",
+                   "[0ff::/64]:8000",
+                   "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090",
+                   "*:80"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   This uses IPv6-based matching with wildcards and ranges.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "destination": [
+                  "127.0.0.1",
+                  "192.168.0.1",
+                  "::1",
+                  "2002:c0a8:0001::c0a8:0001"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   This matches any of the listed IPv4 or IPv6 addresses.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                  "10.0.0.0-10.0.0.10",
+                  "!10.0.0.9"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   Here, any IPs from the range will match, except for :samp:`10.0.0.9`.
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": [
+                  "*:80",
+                  "*:443",
+                  "*:8000-8080"
+              ]
+          },
+
+          "action": {
+              "pass": "..."
+          }
+      }
+
+   This matches any IPs but limits the acceptable ports.
 
 
 .. _configuration-routes-action:
 
 ================
-Request Handling
+Handling Actions
 ================
 
 If a request matches all conditions of a route step, or the step itself omits
