@@ -55,8 +55,9 @@ To run the `Review Board
       $ chmod u+w /path/to/app/htdocs/media/uploaded/
       $ chmod u+w /path/to/app/data/
 
-#. Next, :ref:`put together <configuration-python>` the |app| configuration for
-   Unit:
+#. Next, :ref:`prepare <configuration-python>` the configuration for Unit (use
+   real values for :samp:`share`, :samp:`path`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
@@ -79,7 +80,7 @@ To run the `Review Board
                       },
 
                       "action": {
-                          "share": "/path/to/app/htdocs/"
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/htdocs/ <Use a real path in your configuration>`"
                       }
                   },
                   {
