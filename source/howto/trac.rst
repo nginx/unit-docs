@@ -1,7 +1,9 @@
+.. |app| replace:: Trac
+.. |mod| replace:: Python 2
+
 ####
 Trac
 ####
-
 
 .. warning::
 
@@ -10,11 +12,10 @@ Trac
   example, consider using `trac-oidc <https://pypi.org/project/trac-oidc/>`_ or
   `OAuth2Plugin <https://trac-hacks.org/wiki/OAuth2Plugin>`_.
 
-To install and run the `Trac <https://trac.edgewall.org/>`_ issue tracking
-system using Unit:
+To run the `Trac <https://trac.edgewall.org/>`_ issue tracking system using
+Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a Python 2 language
-   module.
+#. .. include:: ../include/howto_install_unit.rst
 
    .. note::
 
@@ -28,8 +29,8 @@ system using Unit:
 
    .. code-block:: console
 
-      $ mkdir /path/to/trac/
-      $ cd /path/to/trac
+      $ mkdir /path/to/app/
+      $ cd /path/to/app/
       $ virtualenv env
       $ source env/bin/activate
 
@@ -48,12 +49,12 @@ system using Unit:
       (env) $ trac-admin trac_env/ deploy static/           # extract Trac's static files
       (env) $ mv static/htdocs static/chrome                # align static file paths
       (env) $ rm -rf static/cgi-bin/                        # remove unneeded files
-      (env) # chown -R trac_user:trac_group /path/to/trac/
+      (env) # chown -R trac_user:trac_group /path/to/app/
 
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so a
    `wrapper <https://trac.edgewall.org/wiki/1.3/TracModWSGI#Averybasicscript>`_
    script is required to run Trac as a Unit app; let's save it as
-   :file:`/path/to/trac/trac_wsgi.py`.  Here, the :samp:`application` callable
+   :file:`/path/to/app/trac_wsgi.py`.  Here, the :samp:`application` callable
    serves as the entry point for the app:
 
     .. code-block:: python
@@ -64,8 +65,12 @@ system using Unit:
            environ["trac.locale"] = "en_US.UTF8"
            return trac.web.main.dispatch_request(environ, start_response)
 
-#. Finally, prepare and upload the :ref:`configuration <configuration-python>`
-   to Unit (note the use of :samp:`home` and :samp:`environment`):
+#. .. include:: ../include/howto_change_ownership.rst
+
+#. Prepare the :ref:`configuration <configuration-python>` for Unit (use real
+   values for :samp:`share`, :samp:`path`, :samp:`home`, :samp:`module`,
+   :samp:`user`, :samp:`group`, :samp:`TRAC_ENV`, and
+   :samp:`PYTHON_EGG_CACHE`):
 
    .. code-block:: json
 
@@ -83,7 +88,7 @@ system using Unit:
                           "uri": "/chrome/*"
                       },
                       "action": {
-                          "share": "/path/to/trac/static/"
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/static/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -97,13 +102,14 @@ system using Unit:
           "applications": {
               "trac": {
                   "type": "python 2",
-                  "path": ":nxt_term:`/path/to/trac/ <Path to the WSGI file>`",
-                  "home": ":nxt_term:`/path/to/trac/env/ <Path to the virtual environment where Trac is installed>`",
-                  "user": "trac_user",
-                  "module": ":nxt_term:`trac_wsgi <WSGI file basename>`",
+                  "path": ":nxt_term:`/path/to/app/ <Path to the WSGI file>`",
+                  "home": ":nxt_term:`/path/to/app/env/ <Path to the virtual environment where Trac is installed>`",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
+                  "module": ":nxt_term:`trac_wsgi <WSGI wrapper file basename from Step 4>`",
                   "environment": {
-                      "TRAC_ENV": ":nxt_term:`/path/to/trac/trac_env/ <Path to the Trac environment>`",
-                      "PYTHON_EGG_CACHE": ":nxt_term:`/path/to/trac/trac_env/eggs/ <Path to the Python egg cache for Trac>`"
+                      "TRAC_ENV": ":nxt_term:`/path/to/app/trac_env/ <Path to the Trac environment>`",
+                      "PYTHON_EGG_CACHE": ":nxt_term:`/path/to/app/trac_env/eggs/ <Path to the Python egg cache for Trac>`"
                   }
               }
           }
@@ -113,15 +119,9 @@ system using Unit:
    `hierarchy <https://trac.edgewall.org/wiki/TracDev/TracURLs>`_ from the
    :file:`static/` directory.
 
-#. Upload the updated configuration.  Assuming the config above is saved as
-   :file:`trac.json`:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @trac.json --unix-socket \
-             /var/run/control.unit.sock http://localhost/config
-
-   After a successful update, Trac should be available on the listener’s IP
+   After a successful update, |app| should be available on the listener’s IP
    address and port:
 
    .. image:: ../images/trac.png
