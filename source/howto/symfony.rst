@@ -25,8 +25,9 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the |app| configuration for
-   Unit (note the use of :samp:`uri`, :samp:`share`, and :samp:`fallback`):
+#. Next, :ref:`prepare <configuration-php>` the configuration for Unit (use
+   real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
