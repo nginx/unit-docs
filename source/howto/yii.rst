@@ -1,3 +1,6 @@
+.. |app| replace:: Yii
+.. |mod| replace:: PHP
+
 ###
 Yii
 ###
@@ -10,8 +13,7 @@ versions 1.1 or 2.0 using Unit:
 
    .. tab:: Yii 2.0
 
-      #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language
-         module.
+      #. .. include:: ../include/howto_install_unit.rst
 
       #. Next, `install
          <https://www.yiiframework.com/doc/guide/2.0/en/start-installation>`__
@@ -31,9 +33,11 @@ versions 1.1 or 2.0 using Unit:
          :file:`index.php` and the static files; if your app requires
          additional :file:`.php` scripts, also store them here.
 
-      #. Prepare and upload the app :ref:`configuration
-         <configuration-php>` to Unit (note the use of :samp:`uri`,
-         :samp:`share`, and :samp:`fallback`):
+      #. .. include:: ../include/howto_change_ownership.rst
+
+      #. Prepare the app :ref:`configuration <configuration-php>` for Unit (use
+         real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+         :samp:`group`):
 
          .. code-block:: json
 
@@ -61,7 +65,7 @@ versions 1.1 or 2.0 using Unit:
                         },
                         {
                             "action": {
-                                "share": "/path/to/app/web/",
+                                ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/web/ <Use a real path in your configuration>`",
                                 "fallback": {
                                     "pass": "applications/yii/index"
                                 }
@@ -73,14 +77,15 @@ versions 1.1 or 2.0 using Unit:
                 "applications": {
                     "yii": {
                         "type": "php",
-                        "user": "www-data",
+                        "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                        "group": "app_group",
                         "targets": {
                             "direct": {
-                                "root": "/path/to/app/web/"
+                                "root": ":nxt_term:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`"
                             },
-          
+
                             "index": {
-                                "root": "/path/to/app/web/",
+                                "root": ":nxt_term:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
                                 "script": "index.php"
                             }
                         }
@@ -104,13 +109,7 @@ versions 1.1 or 2.0 using Unit:
             - The :samp:`index` target specifies the :samp:`script` that Unit
               runs for *any* URIs the target receives.
 
-      #. Upload the configuration to Unit.  Assuming the config above is saved
-         as :file:`yii.json`:
-
-         .. code-block:: console
-
-            # curl -X PUT --data-binary @yii.json --unix-socket \
-                   :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
+      #. .. include:: ../include/howto_upload_config.rst
 
          After a successful update, your app should be available on the
          listener’s IP address and port:
@@ -121,8 +120,7 @@ versions 1.1 or 2.0 using Unit:
 
    .. tab:: Yii 1.1
 
-      #. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language
-         module.
+      #. .. include:: ../include/howto_install_unit.rst
 
       #. Next, `install
          <https://www.yiiframework.com/doc/guide/1.1/en/quickstart.installation>`__
@@ -139,9 +137,9 @@ versions 1.1 or 2.0 using Unit:
 
          This creates the app's directory tree at :file:`/path/to/app/`.
 
-      #. Prepare and upload the app :ref:`configuration
-         <configuration-php>` to Unit (note the use of :samp:`uri`,
-         :samp:`share`, and :samp:`fallback`):
+      #. Prepare the app :ref:`configuration <configuration-php>` for Unit (use
+         real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+         :samp:`group`):
 
          .. code-block:: json
 
@@ -171,7 +169,7 @@ versions 1.1 or 2.0 using Unit:
                         },
                         {
                             "action": {
-                                "share": "/path/to/app/",
+                                ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                                 "fallback": {
                                     "pass": "applications/yii/index"
                                 }
@@ -183,13 +181,14 @@ versions 1.1 or 2.0 using Unit:
                 "applications": {
                     "yii": {
                         "type": "php",
-                        "user": "www-data",
+                        "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                        "group": "app_group",
                         "targets": {
                             "direct": {
-                                "root": "/path/to/app/"
+                                "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                             },
                             "index": {
-                                "root": "/path/to/app/",
+                                "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                                 "script": "index.php"
                             }
                         }
@@ -210,13 +209,7 @@ versions 1.1 or 2.0 using Unit:
             - The :samp:`index` target specifies the :samp:`script` that Unit
               runs for *any* URIs the target receives.
 
-      #. Upload the configuration to Unit.  Assuming the config above is saved
-         as :file:`yii.json`:
-
-         .. code-block:: console
-
-            # curl -X PUT --data-binary @yii.json --unix-socket \
-                   :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>` http://localhost/config
+      #. .. include:: ../include/howto_upload_config.rst
 
          After a successful update, your app should be available on the
          listener’s IP address and port:
