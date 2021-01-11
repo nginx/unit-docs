@@ -1023,8 +1023,8 @@ Community Repositories
          # pkg install -y :nxt_term:`libunit <Required to install the Node.js module and build Go apps>`
          # pkg install -y unit-java8  \
                           unit-perl5.32  \
-                          unit-php72 unit-php73 unit-php74 unit-php80  \
-                          unit-python27 unit-python37  \
+                          unit-php73 unit-php74 unit-php80  \
+                          unit-python37  \
                           unit-ruby2.6
 
       To install Unit from `FreeBSD ports <https://www.
