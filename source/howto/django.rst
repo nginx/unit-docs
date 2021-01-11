@@ -10,10 +10,6 @@ using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-   .. warning::
-      |app|'s support for Python 2 `ends in 2020
-      <https://docs.djangoproject.com/en/3.1/faq/install/#what-python-version-should-i-use-with-django>`_.
-
 #. Install and configure the |app| `framework
    <https://www.djangoproject.com>`__.  The official docs `recommend
    <https://docs.djangoproject.com/en/stable/topics/install/#installing-an-official-release-with-pip>`_
