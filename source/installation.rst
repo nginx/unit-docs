@@ -1148,7 +1148,20 @@ Community Repositories
            - :samp:`unit`
 
          * - Startup and shutdown
-           - :ref:`Manual <installation-src-startup>`
+           - Add :samp:`services.unit.enable = true;` to
+             :file:`/etc/nixos/configuration.nix` and rebuild the
+             system configuration:
+
+             .. code-block:: console
+
+                # nixos-rebuild switch
+
+             After that, use :program:`systemctl`:
+
+             .. code-block:: console
+
+                # systemctl start unit
+                # systemctl stop unit
 
 
    .. tab:: Remi's RPM Repo
