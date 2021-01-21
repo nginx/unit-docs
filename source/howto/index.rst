@@ -62,6 +62,7 @@ following frameworks:
    pyramid
    quart
    responder
+   rails
    sanic
    starlette
    symfony

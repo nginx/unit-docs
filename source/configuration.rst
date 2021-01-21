@@ -2898,8 +2898,8 @@ Example:
 
 .. note::
 
-   For Ruby-based examples, see our :doc:`howto/redmine` howto or a basic
-   :ref:`sample <sample-ruby>`.
+   For Ruby-based examples, see our :doc:`howto/rails` and :doc:`howto/redmine`
+   howtos or a basic :ref:`sample <sample-ruby>`.
 
 
 .. _configuration-stngs:
