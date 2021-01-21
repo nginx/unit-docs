@@ -1132,7 +1132,9 @@ Community Repositories
 
       This installs most embedded language modules and such features as SSL or
       IPv6 support.  For a full list of optionals, see the `package definition
-      <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/default.nix>`_.
+      <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/default.nix>`_;
+      for a :file:`.nix` configuration file defining an app, see `this sample
+      <https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/web-servers/unit-php.nix>`_.
 
       Runtime details:
 
