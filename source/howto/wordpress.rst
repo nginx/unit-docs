@@ -1,63 +1,38 @@
+.. |app| replace:: WordPress
+.. |mod| replace:: PHP 7.3+
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://wordpress.org/support/article/before-you-install/
+.. |app-link| replace:: core files
+.. _app-link: https://wordpress.org/download/
+
 #########
 WordPress
 #########
 
-To `install WordPress
-<https://wordpress.org/support/article/how-to-install-wordpress/>`_ if you
-haven't already done so:
+To run the `WordPress <https://www.wordpress.org>`__ content management system
+using Unit:
 
-#. `Check <https://wordpress.org/support/article/before-you-install/>`_
-   prerequisites and `configure
-   <https://wordpress.org/support/article/creating-database-for-wordpress/>`_
-   the WordPress database.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. Download and extract WordPress `files <https://wordpress.org/download/>`_:
+#. .. include:: ../include/howto_install_prereq.rst
 
-   .. code-block:: console
+#. .. include:: ../include/howto_install_app.rst
 
-      $ cd /path/to/
-      $ curl -O https://wordpress.org/latest.tar.gz
-      $ tar xzf latest.tar.gz
+#. Update the :file:`wp-config.php` `file
+   <https://wordpress.org/support/article/editing-wp-config-php/>`_ with your
+   database settings and other customizations.
 
-   In this example, the files will be stored in :file:`/path/to/wordpress/`.
+#. .. include:: ../include/howto_change_ownership.rst
 
-#. `Update <https://wordpress.org/support/article/editing-wp-config-php/>`_ the
-   :file:`wp-config.php` file with your database settings and other
-   customizations.
-
-#. Set up proper `file permissions
-   <https://wordpress.org/support/article/changing-file-permissions/>`_ for
-   WordPress:
-
-   .. code-block:: console
-
-      # chown -R wp_user:wp_user /path/to/wordpress/
-      # find /path/to/wordpress/ -type d -exec chmod g+s {} \;
-      # chmod g+w /path/to/wordpress/wp-content
-      # chmod -R g+w /path/to/wordpress/wp-content/themes
-      # chmod -R g+w /path/to/wordpress/wp-content/plugins
-
-**********
-Unit Setup
-**********
-
-To run WordPress in Unit:
-
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
-
-#. .. include:: ../include/get-config.rst
-
-#. Edit the file, adding a listener, two apps, and a route.  First, the route
-   serves the :samp:`wp-admin` section of the WordPress site and other URIs
-   that explicitly name the :file:`.php` file; next, it filters out static
-   assets, relaying them to a :samp:`share`, and passes other requests to
-   WordPress's :samp:`/index.php` via the :samp:`wp_index` app:
+#. Next, :ref:`put together <configuration-php>` the configuration for Unit
+   (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
       {
           "listeners": {
-              "*:8080": {
+              "*:80": {
                   "pass": "routes/wordpress"
               }
 
@@ -80,7 +55,7 @@ To run WordPress in Unit:
                   },
                   {
                       "action": {
-                          "share": "/path/to/wordpress/",
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/wordpress/index"
                           }
@@ -92,15 +67,15 @@ To run WordPress in Unit:
           "applications": {
               "wordpress": {
                   "type": "php",
-                  "user": "wp_user",
-                  "group": "wp_user",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/wordpress/"
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"
                       },
 
                       "index": {
-                          "root": "/path/to/wordpress/",
+                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`",
                           "script": "index.php"
                       }
                   }
@@ -118,19 +93,19 @@ To run WordPress in Unit:
       - The :samp:`index` target specifies the :samp:`script` that Unit runs
         for *any* URIs the target receives.
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, browse to http://localhost and `set up
    <https://wordpress.org/support/article/how-to-install-wordpress/#step-5-run-the-install-script>`_
-   your WordPress installation.
+   your |app| installation:
 
-.. note::
+   .. image:: ../images/wordpress.png
+      :width: 100%
+      :alt: WordPress on Unit - Setup Screen
 
-   The resulting URI scheme will affect your WordPress configuration; updates
-   may require `extra steps
-   <https://wordpress.org/support/article/changing-the-site-url/>`_.
+   .. note::
+
+      The resulting URI scheme will affect your WordPress configuration; updates
+      may require `extra steps
+      <https://wordpress.org/support/article/changing-the-site-url/>`_.
+
