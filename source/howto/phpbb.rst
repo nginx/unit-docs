@@ -1,27 +1,27 @@
+.. |app| replace:: phpBB
+.. |mod| replace:: PHP
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://www.phpbb.com/support/docs/en/3.3/ug/quickstart/requirements/
+.. |app-link| replace:: core files
+.. _app-link: https://www.phpbb.com/downloads/
+
 #####
 phpBB
 #####
 
-To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
+To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. Check and configure phpBB's `prerequisites
-   <https://www.phpbb.com/support/docs/en/3.3/ug/quickstart/requirements/>`_.
+#. .. include:: ../include/howto_install_prereq.rst
 
-#. Download and extract phpBB `files <https://www.phpbb.com/downloads/>`_:
+#. .. include:: ../include/howto_install_app.rst
 
-   .. code-block:: console
+#. .. include:: ../include/howto_change_ownership.rst
 
-      $ cd /path/to/phpbb/
-      $ curl -O https://download.phpbb.com/pub/release/3.3/3.3.0/phpBB-3.3.0.zip
-      $ unzip phpBB-3.3.0.zip
-      $ mv :nxt_term:`phpBB3/* <optional, directory path normalization>` ./ && rm -rf phpBB3/
-      # chown -R :nxt_term:`phpbb_user:phpbb_group <Used to configure the apps in Unit>` .
-
-   In this example, the files will be stored in :file:`/path/to/phpbb/`.
-
-#. Next, prepare the app :ref:`configuration <configuration-php>` for Unit:
+#. Next, prepare the app :ref:`configuration <configuration-php>` for Unit (use
+   real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`):
 
    .. code-block:: json
 
@@ -68,7 +68,7 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
                   },
                   {
                       "action": {
-                          "share": ":nxt_term:`/path/to/phpbb/ <Serves static content>`",
+                          "share": ":nxt_term:`/path/to/app/ <Serves static content>`",
                           "fallback": {
                               "pass": ":nxt_term:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
                           }
@@ -80,14 +80,15 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
           "applications": {
               "phpbb": {
                   "type": "php",
-                  "user": ":nxt_term:`phpbb_user <Username that Unit runs the app as, with access to /path/to/phpbb/>`",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/phpbb/"
+                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": "/path/to/phpbb/",
+                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                           "script": "app.php"
                       }
                   }
@@ -105,12 +106,7 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
       - The :samp:`index` target specifies the :samp:`script` that Unit runs
         for *any* URIs the target receives.
 
-#. Assuming the config above is saved as :file:`phpbb.json`:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @phpbb.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, your app should be available on the listener’s IP
    address and port:
@@ -119,10 +115,10 @@ To install the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
       :width: 100%
       :alt: phpBB on Unit
 
-#. Browse to :samp:`/install/app.php` to configure the settings from Step 2 and
-   complete your installation.  Having done that, delete the :file:`install/`
-   subdirectory to mitigate security risks:
+#. Browse to :samp:`/install/app.php` to complete your installation.  Having
+   done that, delete the :file:`install/` subdirectory to mitigate security
+   risks:
 
    .. code-block:: console
 
-      $ rm -rf /path/to/phpbb/install/
+      $ rm -rf /path/to/app/install/
