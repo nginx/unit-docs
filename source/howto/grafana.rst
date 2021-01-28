@@ -1,22 +1,26 @@
+.. |app| replace:: Grafana
+.. |mod| replace:: Go
+
 #######
 Grafana
 #######
 
-Here, we install Grafana from `sources
+Here, we install |app| from `sources
 <https://grafana.com/docs/project/building_from_source/#building-grafana-from-source>`_
 so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
-#. Install :ref:`Unit with Go support <installation-precomp-pkgs>`,
-   making sure Unit's Go modules are available at :samp:`$GOPATH`.
+#. .. include:: ../include/howto_install_unit.rst
 
-#. Download Grafana's source files:
+   Also, make sure Unit's Go module is available at :samp:`$GOPATH`.
+
+#. Download |app|'s source files:
 
    .. code-block:: console
 
       $ go get github.com/grafana/grafana
       $ cd $GOPATH/src/github.com/grafana/grafana # This is the /path/to/app/
 
-#. Update the code, adding Unit to Grafana's protocol list.  You can either
+#. Update the code, adding Unit to |app|'s protocol list.  You can either
    apply a patch (:download:`grafana.patch <../downloads/grafana.patch>`):
 
    .. code-block:: console
@@ -110,7 +114,7 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
            Protocol = UNIT
        }
 
-#. Build your Grafana app:
+#. Build |app|:
 
    .. code-block:: console
 
@@ -127,7 +131,7 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare the Unit :ref:`configuration <configuration-php>` (use real values
+#. Prepare :ref:`configuration <configuration-php>` (use real values
    for :samp:`executable`, :samp:`working_directory`, :samp:`user`, and
    :samp:`group`):
 
@@ -151,14 +155,14 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
           }
       }
 
-   See :ref:`Go application options <configuration-external>` and the Grafana
+   See :ref:`Go application options <configuration-external>` and the |app|
    `docs
    <https://grafana.com/docs/grafana/latest/installation/configuration/#static-root-path>`_
    for details.
 
 #. .. include:: ../include/howto_upload_config.rst
 
-   After a successful update, Grafana should be available on the listener's IP
+   After a successful update, |app| should be available on the listener's IP
    and port:
 
    .. image:: ../images/grafana.png
