@@ -1,77 +1,31 @@
 .. include:: ../include/replace.rst
 
+.. |app| replace:: NextCloud
+.. |mod| replace:: PHP
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://docs.nextcloud.com/server/latest/admin_manual/installation/source_installation.html#prerequisites-for-manual-installation
+.. |app-link| replace:: core files
+.. _app-link: https://docs.nextcloud.com/server/latest/admin_manual/installation/command_line_installation.html
+
 #########
 NextCloud
 #########
 
-.. note::
+To run the `NextCloud <https://www.nextcloud.com>`__ share and collaboration
+platform using Unit:
 
-   This howto uses NextCloud |_| 16, PHP |_| 7.3, MariaDB, and :program:`apt`;
-   adjust it to your scenario as needed.
+#. .. include:: ../include/howto_install_unit.rst
 
-To `install NextCloud
-<https://docs.nextcloud.com/server/16/admin_manual/installation/index.html>`_
-if you haven't already done so:
+#. .. include:: ../include/howto_install_prereq.rst
 
-#. Download and extract NextCloud files:
-
-   .. code-block:: console
-
-      $ cd /path/to/
-      $ curl -O https://download.nextcloud.com/server/releases/nextcloud-16.0.4.tar.bz2
-      $ tar xf nextcloud-16.0.4.tar.bz2
-
-   This creates the :file:`/path/to/nextcloud` directory.
-
-#. Change the directory ownership, supplying a username that will be used to
-   configure and run Nextcloud:
-
-   .. code-block:: console
-
-      # chown -R nc_user:nc_user /path/to/nextcloud/
-
-#. Install and check NextCloud's `prerequisites
-   <https://docs.nextcloud.com/server/16/admin_manual/installation/source_installation.html#prerequisites-for-manual-installation>`_:
-
-   .. code-block:: console
-
-      # apt install mariadb-server
-      # apt install php7.3 php7.3-imagick php7.3-curl php7.3-gd php7.3-intl \
-            php7.3-mbstring php7.3-mysql php7.3-xml php7.3-zip
-      $ mysql --version
-      $ php --version
-
-#. Set up the NextCloud database (note the sample credentials):
-
-   .. code-block:: console
-
-      # mysql -u root -p
-
-          > CREATE DATABASE nextcloud;
-          > CREATE USER 'nextuser'@'localhost' IDENTIFIED BY 'nextpass';
-          > GRANT ALL PRIVILEGES ON nextcloud.* TO 'nextuser'@'localhost';
-          > FLUSH PRIVILEGES;
-
-#. Finish the installation (here, the :program:`occ` `utility
-   <https://docs.nextcloud.com/server/16/admin_manual/configuration_server/occ_command.html>`_
-   is used; note the credentials and the :program:`sudo -u` username):
-
-   .. code-block:: console
-
-      $ cd /path/to/nextcloud/
-      $ sudo -u nc_user php occ maintenance:install --database "mysql" \
-             --database-name "nextcloud" --database-user "nextuser"     \
-             --database-pass "nextpass" --admin-user "admin" --admin-pass "adminpass"
-
-            Nextcloud was successfully installed
+#. .. include:: ../include/howto_install_app.rst
 
    .. note::
 
-      Verify the resulting settings in
-      :file:`/path/to/nextcloud/config/config.php`; in particular, check the
-      `trusted domains
-      <https://docs.nextcloud.com/server/16/admin_manual/installation/installation_wizard.html#trusted-domains-label>`_
-      to ensure your installation will be accessible from within your network:
+      Verify the resulting settings in :file:`/path/to/app/config/config.php`;
+      in particular, check the `trusted domains
+      <https://docs.nextcloud.com/server/latest/admin_manual/installation/installation_wizard.html#trusted-domains-label>`_
+      to ensure the installation is accessible within your network:
 
     .. code-block:: php
 
@@ -81,19 +35,12 @@ if you haven't already done so:
          1 => '*.example.com',
        ),
 
-****
-Unit
-****
+#. .. include:: ../include/howto_change_ownership.rst
 
-To run NextCloud in Unit:
-
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a PHP language module.
-
-#. .. include:: ../include/get-config.rst
-
-#. Edit the configuration, adding a listener, routes, and an app (based on
-   NextCloud's own `guide
-   <https://docs.nextcloud.com/server/16/admin_manual/installation/nginx.html>`_):
+#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+   Unit (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
+   :samp:`group`).  The following is based on NextCloud's own `guide
+   <https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html>`_:
 
    .. code-block:: json
 
@@ -108,7 +55,7 @@ To run NextCloud in Unit:
               "nextcloud": [
                   {
                       "match": {
-                          "uri": [
+                          ":nxt_term:`uri <Denies access to files and directories best kept private>`": [
                               "/build/*",
                               "/tests/*",
                               "/config/*",
@@ -127,54 +74,24 @@ To run NextCloud in Unit:
                       },
 
                       "action": {
-                          "share": "/dev/null/"
+                          "return": 404
                       }
                   },
                   {
                       "match": {
-                          "uri": [
+                          ":nxt_term:`uri <Serves direct URIs with dedicated scripts>`": [
                               "/core/ajax/update.php*",
                               "/cron.php*",
                               "/index.php*",
+                              "/ocm-provider*.php*",
+                              "/ocs-provider*.php*",
                               "/ocs/v1.php*",
                               "/ocs/v2.php*",
                               "/public.php*",
                               "/remote.php*",
-                              "/status.php*"
+                              "/status.php*",
+                              "/updater*.php*"
                           ]
-                      },
-
-                      "action": {
-                          "pass": "applications/nextcloud/direct"
-                      }
-                  },
-                  {
-                      "match": {
-                          "uri": [
-                              "/ocm-provider*",
-                              "/ocs-provider*",
-                              "/updater*"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "routes/nextcloud_fallthrough"
-                      }
-                  },
-                  {
-                      "action": {
-                          "share": "/path/to/nextcloud/",
-                          "fallback": {
-                              "pass": "applications/nextcloud/index"
-                          }
-                      }
-                  }
-              ],
-
-              "nextcloud_fallthrough": [
-                  {
-                      "match": {
-                          "uri": "*.php*"
                       },
 
                       "action": {
@@ -200,8 +117,20 @@ To run NextCloud in Unit:
                       }
                   },
                   {
+                      "match": {
+                          "uri": "/updater*"
+                      },
+
                       "action": {
                           "pass": "applications/nextcloud/updater"
+                      }
+                  },
+                  {
+                      "action": {
+                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          "fallback": {
+                              "pass": "applications/nextcloud/index"
+                          }
                       }
                   }
               ]
@@ -210,31 +139,31 @@ To run NextCloud in Unit:
           "applications": {
               "nextcloud": {
                   "type": "php",
-                  "user": "nc_user",
-                  "group": "nc_user",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/nextcloud/"
+                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": "/path/to/nextcloud/",
+                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
                       "ocm": {
-                          "root": "/path/to/nextcloud/ocm-provider/",
+                          "root": ":nxt_term:`/path/to/app/ocm-provider/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
 
                       "ocs": {
-                          "root": "/path/to/nextcloud/ocs-provider/",
+                          "root": ":nxt_term:`/path/to/app/ocs-provider/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
                       "updater": {
-                          "root": "/path/to/nextcloud/updater/",
+                          "root": ":nxt_term:`/path/to/app/nextcloud/updater/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       }
                   }
@@ -249,15 +178,10 @@ To run NextCloud in Unit:
 
       - The :samp:`direct` target runs the :samp:`.php` script from the URI or
         defaults to :samp:`index.php` if the URI omits it.
-      - Other targers specify the :samp:`script` that Unit runs for *any* URIs
+      - Other targets specify the :samp:`script` that Unit runs for *any* URIs
         the target receives.
 
-#. Upload the updated configuration:
-
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
+#. .. include:: ../include/howto_upload_config.rst
 
 #. Adjust Unit's :samp:`max_body_size` :ref:`option <configuration-stngs>` to
    avoid potential issues with large file uploads, for example:
@@ -268,8 +192,8 @@ To run NextCloud in Unit:
              /path/to/control.unit.sock http://localhost/config/settings
 
    After a successful update, browse to http://localhost and `set up
-   <https://docs.nextcloud.com/server/16/admin_manual/installation/installation_wizard.html>`_
-   your NextCloud installation:
+   <https://docs.nextcloud.com/server/latest/admin_manual/installation/installation_wizard.html>`_
+   your |app| installation:
 
    .. image:: ../images/nextcloud.png
       :width: 100%
