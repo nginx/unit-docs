@@ -1,3 +1,10 @@
+.. |app| replace:: MoinMoin
+.. |mod| replace:: Python 2
+.. |app-preq| replace:: prerequisites
+.. _app-preq: https://moinmo.in/MoinMoinDependencies
+.. |app-link| replace:: core files
+.. _app-link: https://moinmo.in/MoinMoinDownload
+
 ########
 MoinMoin
 ########
@@ -10,33 +17,34 @@ MoinMoin
   full list of available authenticators, see `here
   <https://moinmo.in/HelpOnAuthentication>`_.
 
-To install and run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine
-using Unit:
+To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
-#. Install :ref:`Unit <installation-precomp-pkgs>` with a Python 2 language
-   module.
+#. .. include:: ../include/howto_install_unit.rst
 
    .. note::
 
       As of now, MoinMoin `doesn't fully support <https://moinmo.in/Python3>`_
       Python 3.  Mind that Python 2 is officially deprecated.
 
-#. Download MoinMoin `files <https://moinmo.in/MoinMoinDownload>`_, install the
-   `prerequisites <https://moinmo.in/MoinMoinDependencies>`_, and configure
-   ownership:
+#. .. include:: ../include/howto_install_prereq.rst
+
+#. .. include:: ../include/howto_install_app.rst
+
+   For example:
 
    .. code-block:: console
 
-      $ mkdir -p /path/to/moin/ /tmp/moin/ && cd :nxt_term:`/tmp/moin/ <Temporary location to download files to>`
-      $ curl -O http://static.moinmo.in/files/moin-1.9.10.tar.gz
-      $ tar xzf moin-1.9.10.tar.gz --strip-components 1 -C :nxt_term:`/path/to/moin/ <Target installation location>`
-      $ cd :nxt_term:`/path/to/moin/wiki/ <WSGI module location in a single-instance installation>`
+      $ mkdir -p /path/to/app/ /tmp/app/ && cd :nxt_term:`/tmp/app/ <Temporary location to download files to>`
+      $ curl -O http://static.moinmo.in/files/moin-1.9.11.tar.gz
+      $ tar xzf moin-1.9.11.tar.gz --strip-components 1 -C :nxt_term:`/path/to/app/ <Target installation location>`
+      $ cd :nxt_term:`/path/to/app/wiki/ <WSGI module location in a single-instance installation>`
       $ cp :nxt_term:`config/wikiconfig.py <Instance config, see https://moinmo.in/HelpOnConfiguration>` ./
       $ cp :nxt_term:`server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` ./moin.py
-      # chown -R :nxt_term:`moin_user:moin_group <Used to configure the app in Unit>` /path/to/moin/
 
-#. Next, prepare and upload the app :ref:`configuration <configuration-python>`
-   to Unit:
+#. .. include:: ../include/howto_change_ownership.rst
+
+#. Next, put together the app :ref:`configuration <configuration-python>` for
+   Unit (use real values for :samp:`path`, :samp:`user`, and :samp:`group`):
 
    .. code-block:: json
 
@@ -50,22 +58,17 @@ using Unit:
           "applications": {
               "moin": {
                   "type": "python 2",
-                  "path": ":nxt_term:`/path/to/moin/wiki/ <Path to the WSGI file>`",
-                  "user": ":nxt_term:`moin_user <Username that Unit runs the app as, with access to /path/to/moin/>`",
+                  "path": ":nxt_term:`/path/to/app/wiki/ <Path to the WSGI file>`",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
+                  "group": "app_group",
                   "module": ":nxt_term:`moin <WSGI file basename>`"
               }
           }
       }
 
-#. Upload the updated configuration.  Assuming the config is saved as
-   :file:`moin.json`:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @moin.json --unix-socket \
-             /var/run/control.unit.sock http://localhost/config
-
-   After a successful update, MoinMoin should be available on the listener’s IP
+   After a successful update, |app| should be available on the listener’s IP
    address and port:
 
    .. image:: ../images/moin.png
