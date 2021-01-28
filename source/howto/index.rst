@@ -17,6 +17,7 @@ experience with Unit.
    certbot
    Language Modules <modules>
    samples
+   security
    walkthrough
 
 - :doc:`docker`: Configure standalone Unit or a Unit-run app in a Docker
@@ -32,6 +33,8 @@ experience with Unit.
 
 - :doc:`samples`: Reuse sample app configurations for all languages
   supported by Unit.
+
+- :doc:`security`: Recommendations and considerations for hardening Unit.
 
 - :doc:`walkthrough`: Follow an end-to-end guide to application configuration
   in Unit.
