@@ -2759,8 +2759,8 @@ following:
            environment for performance considerations.
 
     * - :samp:`path`
-      - Additional lookup path for Python modules; this string is inserted into
-        :samp:`sys.path`.
+      - String or array of strings that represent additional Python module
+        lookup paths; these values are prepended to :samp:`sys.path`.
 
     * - :samp:`protocol`
       - A hint to instruct Unit that the app uses a certain interface; can
