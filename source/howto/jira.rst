@@ -1,26 +1,36 @@
 .. include:: ../include/replace.rst
+.. |app| replace:: Jira
+.. |mod| replace:: Java
+.. |app-link| replace:: core files
+.. _app-link: https://www.atlassian.com/software/jira/download
+
 
 ####
 Jira
 ####
 
-To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ in Unit,
-follow these steps.
-
 .. note::
 
-   Command samples below assume you're using Jira |_| Core |_| 7.13.0.
+   Command samples below assume you're using |app| |_| Core |_| 7.13.0.
 
-#. Install :ref:`Unit with Java support <installation-precomp-pkgs>`.
+To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
-#. Create an installation directory, adding a :samp:`lib` subdirectory to
-   download third-party dependencies:
+#. .. include:: ../include/howto_install_unit.rst
+
+#. .. include:: ../include/howto_install_app.rst
+
+   For example:
 
    .. code-block:: console
 
-      $ cd /path/to/jira
-      $ mkdir -p lib
-      $ cd lib
+      $ cd /path/to/app/
+      $ tar xzf atlassian-jira-core-7.13.0.tar.gz
+
+#. Add a :samp:`lib` subdirectory to download third-party dependencies:
+
+   .. code-block:: console
+
+      $ mkdir /path/to/app/lib/ && cd /path/to/app/lib/
       $ curl http://central.maven.org/maven2/com/atomikos/atomikos-util/3.9.1/atomikos-util-3.9.1.jar -O -C -
       $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-jndi/9.4.12.v20180830/jetty-jndi-9.4.12.v20180830.jar -O -C -
       $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-plus/9.4.12.v20180830/jetty-plus-9.4.12.v20180830.jar -O -C -
@@ -32,15 +42,10 @@ follow these steps.
       $ curl http://central.maven.org/maven2/com/atomikos/transactions-jta/3.9.1/transactions-jta-3.9.1.jar -O -C -
       $ curl https://github.com/mar0x/unit-transaction-init/releases/download/1.0/transaction-init-1.0.jar -O -C - -L
 
-#. `Download <https://www.atlassian.com/software/jira/download>`_ and extract
-   Jira files:
+   Later, these :file:`.jar` files will be listed in the :samp:`classpath`
+   option of Unit configuration.
 
-   .. code-block:: console
-
-      $ cd /path/to/jira
-      $ tar xzf atlassian-jira-core-7.13.0.tar.gz
-
-#. Patch your Jira configuration, dropping :samp:`env` from the
+#. Patch your |app| configuration, dropping :samp:`env` from the
    :samp:`comp/env/UserTransaction` object path.  This ensures the
    :samp:`UserTransaction` object will be found by your installation:
 
@@ -49,29 +54,28 @@ follow these steps.
       $ sed -i 's#comp/env/UserTransaction#comp/UserTransaction#g' \
             atlassian-jira-core-7.13.0-standalone/atlassian-jira/WEB-INF/classes/entityengine.xml
 
-#. .. include:: ../include/get-config.rst
+#. .. include:: ../include/howto_change_ownership.rst
 
-   This creates a JSON file with Unit's current settings.  Add a :ref:`listener
-   <configuration-listeners>` in :samp:`listeners` and point it to your
-   installation directory in :samp:`applications`.  Also, add the following
-   options and dependencies:
+#. Next, :ref:`put together <configuration-java>` the |app| configuration (use
+   real values for :samp:`working_directory`, :samp:`user`, and :samp:`group`):
 
    .. code-block:: json
 
       {
           "listeners": {
-              "*:8080": {
+              "*:80": {
                   "pass": "applications/jira"
               }
           },
 
           "applications": {
               "jira": {
-                  "working_directory": "/path/to/jira/",
-                  "processes": 1,
                   "type": "java",
+                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
+                  "group": "app_group",
+                  "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                   "webapp": "atlassian-jira-core-7.13.0-standalone/atlassian-jira",
-                  "options": [
+                  ":nxt_term:`options <App-specific startup options>`": [
                       "-Djava.awt.headless=true",
                       "-Djavax.accessibility.assistive_technologies= ",
                       "-Djira.home=/path/to/jira/home",
@@ -79,7 +83,7 @@ follow these steps.
                       "-Xms1024m",
                       "-Xmx1024m"
                   ],
-                  "classpath": [
+                  ":nxt_term:`classpath <Required dependencies>`": [
                       "lib/transaction-init-1.0.jar",
                       "lib/atomikos-util-3.9.1.jar",
                       "lib/jta-1.1.jar",
@@ -104,19 +108,14 @@ follow these steps.
 
    .. note::
 
-      You can't update Jira configuration in Unit after application startup due
-      to Jira's own restrictions.
+      You can't update |app| configuration in Unit after application startup
+      due to its own restrictions.
 
-#. Upload the updated configuration:
+#. .. include:: ../include/howto_upload_config.rst
 
-   .. code-block:: console
-
-      # curl -X PUT --data-binary @config.json --unix-socket \
-             /path/to/control.unit.sock http://localhost/config
-
-   After a successful update, Jira should be available on the listener's IP
-   address and port.  Navigate to Jira's URI path (:samp:`http://{IP
-   address}:{port}/jira`) to continue the setup in your browser:
+   After a successful update, |app| should be available on the listener's IP
+   address and port.  Browse to http://localhost/jira to continue the setup in
+   your browser:
 
    .. image:: ../images/jira.png
       :width: 100%
