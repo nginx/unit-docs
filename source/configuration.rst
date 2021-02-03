@@ -2763,8 +2763,8 @@ following:
         lookup paths; these values are prepended to :samp:`sys.path`.
 
     * - :samp:`protocol`
-      - A hint to instruct Unit that the app uses a certain interface; can
-        be :samp:`asgi` or :samp:`wsgi`.
+      - Hint to tell Unit that the app uses a certain interface; can be
+        :samp:`asgi` or :samp:`wsgi`.
 
     * - :samp:`threads`
       - Integer that sets the number of worker threads per app process.  When
