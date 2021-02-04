@@ -10,28 +10,28 @@ To run your apps in containerized Unit using the :ref:`images we provide
 
 For example:
 
-.. code-block:: console
+.. subs-code-block:: console
 
    $ export UNIT=$(                                             \
          docker run -d --mount type=bind,src="$(pwd)",dst=/www  \
-         -p 8080:8000 nginx/unit:latest                         \
+         -p 8080:8000 nginx/unit:|version|-python3.9               \
      )
 
-The command mounts current host directory (where your app files are stored) to
-the container's :file:`/www` directory and publishes the container's port
-:samp:`8000` (that the listener will use) as port :samp:`8080` on the host,
-saving the container ID in the :envvar:`UNIT` environment variable.
+The command mounts the host's current directory where your app files are stored
+to the container's :file:`/www/` directory and publishes the container's port
+:samp:`8000` that the listener will use as port :samp:`8080` on the host,
+saving the container's ID in the :envvar:`UNIT` environment variable.
 
-Next, you need to upload a configuration to Unit via the control socket:
+Next, upload a configuration to Unit via the control socket:
 
 .. code-block:: console
 
    $ docker exec -ti $UNIT curl -X PUT --data-binary @/www/config.json  \
          --unix-socket /var/run/control.unit.sock http://localhost/config
 
-This command assumes that your configuration is stored as :file:`config.json`
-in the container-mounted directory on the host.  If it has a listener on port
-:samp:`8000`, your app is now accessible at port :samp:`8080` of the host.  For
+This command assumes your configuration is stored as :file:`config.json` in the
+container-mounted directory on the host; if the file defines a listener on port
+:samp:`8000`, your app is now accessible on port :samp:`8080` of the host.  For
 details of Unit configuration, see :ref:`configuration-mgmt`.
 
 .. note::
@@ -48,11 +48,11 @@ details of Unit configuration, see :ref:`configuration-mgmt`.
 
 Now for a few detailed scenarios.
 
-Running Apps in a Containerized Unit
-####################################
+Apps in a Containerized Unit
+############################
 
 Suppose we have a web app with a few dependencies, say :doc:`Flask's <flask>`
-official :samp:`hello world` app:
+official :samp:`hello, world` app:
 
 .. code-block:: console
 
@@ -69,7 +69,7 @@ official :samp:`hello world` app:
        return 'Hello, World!'
    EOF
 
-However basic it is, there's already a dependency, so let's put it into a file
+However basic it is, there's already a dependency, so let's list it in a file
 called :file:`requirements.txt`:
 
 .. code-block:: console
@@ -104,7 +104,7 @@ app:
    }
    EOF
 
-Finally, let's create :file:`log` and :file:`state` directories to store Unit
+Finally, let's create :file:`log/` and :file:`state/` directories to store Unit
 :ref:`log and state <installation-src-startup>` respectively:
 
 .. code-block:: console
@@ -130,9 +130,9 @@ Our file structure so far:
 Everything is ready for a containerized Unit.  First, let's create a
 :file:`Dockerfile` to install app prerequisites:
 
-.. code-block:: docker
+.. subs-code-block:: docker
 
-   FROM nginx/unit:latest
+   FROM nginx/unit:|version|-python3.9
    COPY requirements.txt /config/requirements.txt
    RUN apt update && apt install -y python3-pip                                  \
        && pip3 install -r /config/requirements.txt                               \
@@ -160,14 +160,14 @@ Next, we start a container and map it to our directory structure:
 
 .. note::
 
-   With this mapping, Unit will store its state and log in your file structure.
-   By default, our Docker images forward their log output to the `Docker log
+   With this mapping, Unit stores its state and log in your file structure.  By
+   default, our Docker images forward their log output to the `Docker log
    collector <https://docs.docker.com/config/containers/logging/>`_.
 
 We've mapped the source :file:`config/` to :file:`/docker-entrypoint.d/` in the
 container; the official image :ref:`uploads <installation-docker-init>` any
-:file:`.json` files found there into Unit's :samp:`config` section if the state
-is empty.  Now we can test the app:
+:file:`.json` files found there into Unit's :samp:`config` section if the
+state is empty.  Now we can test the app:
 
 .. code-block:: console
 
@@ -187,7 +187,7 @@ To switch your app to another Unit image, prepare a corresponding
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.7
+   FROM nginx/unit:|version|-python3.9
    COPY requirements.txt /config/requirements.txt
    RUN apt update && apt install -y python3-pip                                  \
        && pip3 install -r /config/requirements.txt                               \
@@ -212,8 +212,8 @@ automatically:
 
 .. _docker-apps:
 
-Containerizing Apps
-###################
+Containerized Apps
+##################
 
 Suppose you have a Unit-ready :doc:`Express <express>` app:
 
@@ -275,33 +275,11 @@ image:
 
 .. subs-code-block:: docker
 
-   # keep our base image as small as possible
-   FROM nginx/unit:|version|-minimal
+   # keep our base image as specific as possible
+   FROM nginx/unit:|version|-node15
 
    # same as "working_directory" in config.json
    COPY myapp/app.js /www/
-
-   # add NGINX Unit and Node.js repos
-   RUN apt update                                                                \
-       && apt install -y apt-transport-https gnupg1 lsb-release                  \
-       && curl https://nginx.org/keys/nginx_signing.key | apt-key add -          \
-       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
-            > /etc/apt/sources.list.d/unit.list                                  \
-       && echo "deb-src https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
-            >> /etc/apt/sources.list.d/unit.list                                 \
-       && curl https://deb.nodesource.com/setup_12.x | bash -                    \
-   # install build chain
-       && apt update                                                             \
-       && apt install -y build-essential nodejs unit-dev=$UNIT_VERSION           \
-   # add global dependencies
-       && npm install -g --unsafe-perm unit-http                                 \
-   # add app dependencies locally
-       && cd /www && npm link unit-http && npm install express                   \
-   # final cleanup
-       && apt remove -y build-essential unit-dev apt-transport-https             \
-              gnupg1 lsb-release                                                 \
-       && apt autoremove --purge -y                                              \
-       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
    # port used by the listener in config.json
    EXPOSE 8080

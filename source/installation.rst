@@ -1232,7 +1232,7 @@ Community Repositories
 Docker Images
 *************
 
-Unit's Docker images come in several flavors:
+Unit's Docker images come in several language-specific flavors:
 
 .. list-table::
    :header-rows: 1
@@ -1240,15 +1240,49 @@ Unit's Docker images come in several flavors:
    * - Tag
      - Description
 
-   * - :samp:`|version|-full`
-     - Contains modules for all languages that Unit currently supports.
-
    * - :samp:`|version|-minimal`
      - No language modules are included.
 
-   * - :samp:`|version|-<language>`
-     - A specific language module only, for example :samp:`|version|-ruby2.3`
-       or :samp:`|version|-python2.7`.
+   * - :samp:`|version|-go1.15`
+     - Single-language image based on :samp:`golang:1.15`.
+
+   * - :samp:`|version|-jsc11`
+     - Single-language image based on :samp:`openjdk:11-jdk`.
+
+   * - :samp:`|version|-node15`
+     - Single-language image based on :samp:`node:15`.
+
+   * - :samp:`|version|-perl5.32`
+     - Single-language image based on :samp:`perl:5.32`.
+
+   * - :samp:`|version|-php8.0`
+     - Single-language image based on :samp:`php:8.0-cli`.
+
+   * - :samp:`|version|-python3.9`
+     - Single-language image based on :samp:`python:3.9`.
+
+   * - :samp:`|version|-ruby2.7`
+     - Single-language image based on :samp:`ruby:2.7`.
+
+.. nxt_details:: Images With Pre-1.22.0 Unit Versions
+
+   Before Unit 1.22.0 was released, the following tagging scheme was used:
+
+    .. list-table::
+       :header-rows: 1
+
+       * - Tag
+         - Description
+
+       * - :samp:`<version>-full`
+         - Contains modules for all languages that Unit currently supports.
+
+       * - :samp:`<version>-minimal`
+         - No language modules are included.
+
+       * - :samp:`<version>-<language>`
+         - A specific language module such as :samp:`1.21.0-ruby2.3` or
+           :samp:`1.21.0-python2.7`.
 
 You can obtain the images from these sources:
 
@@ -1259,26 +1293,20 @@ You can obtain the images from these sources:
       To install and run Unit from NGINX's `repository
       <https://hub.docker.com/r/nginx/unit/>`__ at Docker Hub:
 
-      .. code-block:: console
+      .. subs-code-block:: console
 
-         $ docker pull docker.io/nginx/unit
-         $ docker run -d docker.io/nginx/unit
-
-      The default tag is :samp:`:latest`; it resolves into a :samp:`-full`
-      configuration of the latest Unit version.
+         $ docker pull docker.io/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d docker.io/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: Amazon ECR Public Gallery
 
       To install and run Unit from NGINX's `repository
       <https://gallery.ecr.aws/nginx/unit>`__ at Amazon ECR Public Gallery:
 
-      .. code-block:: console
+      .. subs-code-block:: console
 
-         $ docker pull public.ecr.aws/nginx/unit
-         $ docker run -d public.ecr.aws/nginx/unit
-
-      The default tag is :samp:`:latest`; it resolves into a :samp:`-full`
-      configuration of the latest Unit version.
+         $ docker pull public.ecr.aws/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d public.ecr.aws/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: packages.nginx.org
 
@@ -1287,11 +1315,12 @@ You can obtain the images from these sources:
 
       .. subs-code-block:: console
 
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-full.tar.gz.sha512
-         $ sha512sum -c nginx-unit-|version|-full.tar.gz.sha512
-               nginx-unit-|version|-full.tar.gz: OK
-         $ docker load < nginx-unit-|version|-full.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+         $ sha512sum -c nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+               nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
+
+         $ docker load < nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
 .. note::
 
@@ -1369,11 +1398,11 @@ This feature comes in handy if you want to tie Unit to a certain app
 configuration for later use.  For ad-hoc initialization, you can mount a
 directory with configuration files to a container at startup:
 
-.. code-block:: console
+.. subs-code-block:: console
 
    $ docker run -d --mount \
             type=bind,src=/path/to/config/files/,dst=/docker-entrypoint.d/ \
-            nginx/unit:latest)
+            nginx/unit:|version|-minimal)
 
 
 .. _installation-src:

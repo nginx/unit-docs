@@ -1,6 +1,6 @@
-FROM docker.io/nginx/unit:1.21.0-go1.11-dev
+FROM docker.io/nginx/unit:1.22.0-go1.15
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.21.0-go1.11-dev
+# FROM public.ecr.aws/nginx/unit:1.22.0-go1.15
 
 # port used by the listener in config.json
 EXPOSE 8080
@@ -24,8 +24,8 @@ RUN mkdir /www/ && echo '                                                  \
     && apt update && apt install --no-install-recommends                   \
                          --no-install-suggests -y build-essential          \
 # make nginx/unit package available at $GOPATH to compile the app
-    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.11/src/                 \
-    && /usr/lib/go-1.11/bin/go build -o /www/app /www/app.go               \
+    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.15/src/                 \
+    && /usr/lib/go-1.15/bin/go build -o /www/app /www/app.go               \
 # final cleanup
     && apt remove -y build-essential                                       \
     && apt autoremove --purge -y                                           \
