@@ -35,9 +35,8 @@ versions 1.1 or 2.0 using Unit:
 
       #. .. include:: ../include/howto_change_ownership.rst
 
-      #. Prepare the app :ref:`configuration <configuration-php>` for Unit (use
-         real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-         :samp:`group`):
+      #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
+         Unit (use real values for :samp:`share` and :samp:`root`):
 
          .. code-block:: json
 
@@ -77,8 +76,6 @@ versions 1.1 or 2.0 using Unit:
                 "applications": {
                     "yii": {
                         "type": "php",
-                        "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                        "group": "app_group",
                         "targets": {
                             "direct": {
                                 "root": ":nxt_term:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`"
@@ -137,9 +134,8 @@ versions 1.1 or 2.0 using Unit:
 
          This creates the app's directory tree at :file:`/path/to/app/`.
 
-      #. Prepare the app :ref:`configuration <configuration-php>` for Unit (use
-         real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-         :samp:`group`):
+      #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
+         Unit (use real values for :samp:`share` and :samp:`root`):
 
          .. code-block:: json
 
@@ -181,8 +177,6 @@ versions 1.1 or 2.0 using Unit:
                 "applications": {
                     "yii": {
                         "type": "php",
-                        "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                        "group": "app_group",
                         "targets": {
                             "direct": {
                                 "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"

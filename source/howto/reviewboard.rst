@@ -55,9 +55,8 @@ To run the `Review Board
       $ chmod u+w /path/to/app/htdocs/media/uploaded/
       $ chmod u+w /path/to/app/data/
 
-#. Next, :ref:`prepare <configuration-python>` the configuration for Unit (use
-   real values for :samp:`share`, :samp:`path`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
+   (use real values for :samp:`share` and :samp:`path`):
 
    .. code-block:: json
 
@@ -94,8 +93,6 @@ To run the `Review Board
           "applications": {
               "rb": {
                   "type": "python 2",
-                  "user": ":nxt_term:`app_user <User and group values must have access to path directory>`",
-                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/htdocs/ <Path to the WSGI module>`",
                   "module": ":nxt_term:`wsgi <WSGI module filename with extension omitted>`"
               }

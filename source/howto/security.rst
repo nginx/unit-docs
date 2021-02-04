@@ -517,6 +517,8 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
 .. nxt_details:: Unit Process Summary
 
+   .. _security-processes:
+
    Unit's processes are detailed `elsewhere
    <https://www.nginx.com/blog/introducing-nginx-unit/>`_, but here's a
    synopsis of the different roles they have:
@@ -548,7 +550,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`nobody`.
+          <installation-src-startup>`; by default, :samp:`unit`.
 
         - Serves the control API, accepting reconfiguration requests,
           sanitizing them, and passing them to other processes for
@@ -560,7 +562,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`nobody`.
+          <installation-src-startup>`; by default, :samp:`unit`.
 
         - Discovers the language modules in the module directory at startup,
           then quits.

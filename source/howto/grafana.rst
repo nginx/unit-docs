@@ -131,9 +131,8 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare :ref:`configuration <configuration-php>` (use real values
-   for :samp:`executable`, :samp:`working_directory`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for
+   Unit (use real values for :samp:`executable` and :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -148,8 +147,6 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
               "grafana": {
                   "executable": ":nxt_term:`/path/to/go/bin/dir/grafana-server <Path to the grafana-server binary>`",
                   "type": "external",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Path to frontend files, usually the installation path>`"
               }
           }

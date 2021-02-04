@@ -20,8 +20,8 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare the app :ref:`configuration <configuration-ruby>` for Unit (use real
-   values for :samp:`working_directory`, :samp:`user`, and :samp:`group`):
+#. Next, :ref:`prepare <configuration-ruby>` the |app| configuration for Unit
+   (use a real value for :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -35,8 +35,6 @@ Unit:
           "applications": {
               "redmine": {
                   "type": "ruby",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Where Redmine is installed>`",
                   "script": "config.ru",
                   "environment": {

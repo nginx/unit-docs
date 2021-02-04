@@ -26,9 +26,9 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare the :ref:`configuration <configuration-ruby>` (use real values for
-   :samp:`share`, :samp:`script`, :samp:`working_directory`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-ruby>` the |app| configuration for Unit
+   (use real values for :samp:`share`, :samp:`script` and
+   :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -55,8 +55,6 @@ using Unit:
           "applications": {
               "rails": {
                   "type": "ruby",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "script": ":nxt_term:`config.ru <All requests are handled by a single script, relative to working_directory>`",
                   "working_directory": ":nxt_term:`/path/to/app/ <Needed for require_relative directives. Use a real path in your configuration>`"
               }

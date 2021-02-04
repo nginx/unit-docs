@@ -24,9 +24,8 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the configuration for Unit
-   (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
+   (use real values for :samp:`share` and :samp:`root`):
 
    .. code-block:: json
 
@@ -67,8 +66,6 @@ using Unit:
           "applications": {
               "wordpress": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"

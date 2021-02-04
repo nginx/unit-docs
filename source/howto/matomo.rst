@@ -19,10 +19,10 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, prepare the app :ref:`configuration <configuration-php>` for Unit (use
-   real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-   :samp:`group`).  The default :file:`.htaccess` scheme in a |app|
-   installation roughly translates into the following:
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
+   (use real values for :samp:`share` and :samp:`root`).  The default
+   :file:`.htaccess` scheme in a |app| installation roughly translates into the
+   following:
 
    .. code-block:: json
 
@@ -101,8 +101,6 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
           "applications": {
               "matomo": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"

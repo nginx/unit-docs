@@ -27,8 +27,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, prepare the app :ref:`configuration <configuration-php>` for Unit (use
-   real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-   :samp:`group`):
+   real values for :samp:`share` and :samp:`root`):
 
    .. code-block:: json
 
@@ -67,8 +66,6 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
           "applications": {
               "cakephp": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`"

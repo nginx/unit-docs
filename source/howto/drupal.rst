@@ -20,7 +20,7 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for
    Unit.  The default :file:`.htaccess` `scheme
    <https://github.com/drupal/drupal>`__ in a |app| installation roughly
    translates into the following:
@@ -124,8 +124,6 @@ Unit:
           "applications": {
               "drupal": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to target root directories>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": "/path/to/app/web/"

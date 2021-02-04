@@ -32,7 +32,7 @@ To run the `OpenGrok
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-java>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-java>` the |app| configuration for
    Unit:
 
    .. code-block:: json
@@ -47,8 +47,6 @@ To run the `OpenGrok
           "applications": {
               "opengrok": {
                   "type": "java",
-                  "user": ":nxt_term:`app_user <User and group values must have access to webapp directory>`",
-                  "group": "app_group",
                   "webapp": ":nxt_term:`/path/to/app/source.war <Repackaged in Step 2>`",
                   "options": [
                       "-Djava.awt.headless=true"

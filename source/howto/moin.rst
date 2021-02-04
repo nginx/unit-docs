@@ -43,8 +43,8 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, put together the app :ref:`configuration <configuration-python>` for
-   Unit (use real values for :samp:`path`, :samp:`user`, and :samp:`group`):
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for
+   Unit (use a real value for :samp:`path`):
 
    .. code-block:: json
 

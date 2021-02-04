@@ -86,7 +86,7 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-external-nodejs>` the |app|
+#. Next, :ref:`prepare <configuration-external-nodejs>` the |app|
    configuration for Unit:
 
    .. code-block:: json
@@ -101,8 +101,6 @@ using Unit:
           "applications": {
               "express": {
                   "type": "external",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Needed to use the installed NPM modules>`",
                   "executable": ":nxt_term:`app.js <Make sure to make this file executable>`"
               }

@@ -19,7 +19,7 @@ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-php>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for
    Unit:
 
    .. code-block:: json
@@ -51,8 +51,6 @@ framework using Unit:
           "applications": {
               "codeigniter": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to application directories such as app or public>`",
-                  "group": "app_group",
                   "root": ":nxt_term:`/path/to/app/public/ <Public directory path>`",
                   "script": "index.php"
               }

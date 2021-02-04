@@ -35,9 +35,8 @@ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare the :ref:`configuration <configuration-perl>` for Unit (use real
-   values for :samp:`script`, :samp:`working_directory`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-perl>` the |app| configuration for Unit
+   (use real values for :samp:`script` and :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -51,8 +50,6 @@ framework using Unit:
           "applications": {
               "catalyst": {
                   "type": "perl",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Needed to use modules from the local lib directory>`",
                   "script": ":nxt_term:`/path/to/app/app.psgi <Absolute pathname of the PSGI script>`"
               }

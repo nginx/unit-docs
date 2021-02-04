@@ -92,8 +92,6 @@ To run Django apps using the |app| `framework
           "applications": {
               "djangochannels": {
                   "type": "python 3",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the project directory>`",
-                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Project directory>`",
                   "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
                   "module": ":nxt_term:`mysite.asgi <Note the qualified name of the ASGI module>`",

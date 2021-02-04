@@ -757,11 +757,9 @@ To install Java, Perl, Python, and Ruby language modules from Homebrew:
 
 .. note::
 
-   | The control socket's pathname is
-     :file:`/usr/local/var/run/unit/control.sock`.
-
-   | The :ref:`log <troubleshooting-log>` is
-     :file:`/usr/local/var/log/unit/unit.log`.
+   Control :ref:`socket <security-socket-state>`'s pathname:
+   :file:`/usr/local/var/run/unit/control.sock`; log :ref:`file
+   <troubleshooting-log>`'s pathname: :file:`/usr/local/var/log/unit/unit.log`.
 
 
 .. _installation-go-package:
@@ -934,7 +932,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit.log`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`unit`
 
          * - Startup and shutdown
@@ -975,7 +973,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/nginx-unit.log`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -1071,7 +1069,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`www`
 
          * - Startup and shutdown
@@ -1107,7 +1105,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/nginx-unit`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -1146,7 +1144,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`unit`
 
          * - Startup and shutdown
@@ -1197,7 +1195,7 @@ Community Repositories
          * - Log :ref:`file <troubleshooting-log>`
            - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user <installation-src-startup>`
+         * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`nobody`
 
          * - Startup and shutdown
@@ -1276,10 +1274,11 @@ You can obtain the images from these sources:
 
 .. note::
 
-   In our images, the control socket's pathname is
-   :file:`/var/run/control.unit.sock`, and the :ref:`log <troubleshooting-log>`
-   is forwarded to the `Docker log collector
-   <https://docs.docker.com/config/containers/logging/>`_.
+   Control :ref:`socket <security-socket-state>`'s pathname:
+   :file:`/var/run/control.unit.sock`; log :ref:`file <troubleshooting-log>`'s
+   pathname: forwarded to the `Docker log collector
+   <https://docs.docker.com/config/containers/logging/>`_; non-privileged
+   process :ref:`accounts <security-apps>`: :samp:`unit:unit`.
 
 For more details, see the repository pages (`Docker Hub
 <https://hub.docker.com/r/nginx/unit/>`_, `Amazon ECR Public Gallery

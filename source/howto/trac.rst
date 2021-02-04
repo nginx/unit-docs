@@ -49,7 +49,6 @@ Unit:
       (env) $ trac-admin trac_env/ deploy static/           # extract Trac's static files
       (env) $ mv static/htdocs static/chrome                # align static file paths
       (env) $ rm -rf static/cgi-bin/                        # remove unneeded files
-      (env) # chown -R trac_user:trac_group /path/to/app/
 
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so a
    `wrapper <https://trac.edgewall.org/wiki/1.3/TracModWSGI#Averybasicscript>`_
@@ -67,10 +66,9 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Prepare the :ref:`configuration <configuration-python>` for Unit (use real
-   values for :samp:`share`, :samp:`path`, :samp:`home`, :samp:`module`,
-   :samp:`user`, :samp:`group`, :samp:`TRAC_ENV`, and
-   :samp:`PYTHON_EGG_CACHE`):
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
+   (use real values for :samp:`share`, :samp:`path`, :samp:`home`,
+   :samp:`module`, :samp:`TRAC_ENV`, and :samp:`PYTHON_EGG_CACHE`):
 
    .. code-block:: json
 
@@ -104,8 +102,6 @@ Unit:
                   "type": "python 2",
                   "path": ":nxt_term:`/path/to/app/ <Path to the WSGI file>`",
                   "home": ":nxt_term:`/path/to/app/env/ <Path to the virtual environment where Trac is installed>`",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "module": ":nxt_term:`trac_wsgi <WSGI wrapper file basename from Step 4>`",
                   "environment": {
                       "TRAC_ENV": ":nxt_term:`/path/to/app/trac_env/ <Path to the Trac environment>`",

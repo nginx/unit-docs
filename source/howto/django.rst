@@ -38,7 +38,7 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, put together the |app| :ref:`configuration <configuration-python>` for
+#. Next, prepare the |app| :ref:`configuration <configuration-python>` for
    Unit.  Here, the :file:`/path/to/app/` directory is stored in the
    :samp:`path` option; the virtual environment is :samp:`home`; the WSGI or
    ASGI module in the :file:`project/` subdirectory is `imported
@@ -86,8 +86,6 @@ using Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "user": ":nxt_term:`app_user <User and group values must have access to the project directory>`",
-                        "group": "app_group",
                         "path": ":nxt_term:`/path/to/app/ <Project directory>`",
                         "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
                         "module": ":nxt_term:`project.wsgi <Note the qualified name of the WSGI module>`",
@@ -137,8 +135,6 @@ using Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "user": ":nxt_term:`app_user <User and group values must have access to the project directory>`",
-                        "group": "app_group",
                         "path": ":nxt_term:`/path/to/app/ <Project directory>`",
                         "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
                         "module": ":nxt_term:`project.asgi <Note the qualified name of the ASGI module>`",

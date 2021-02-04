@@ -39,7 +39,7 @@ To run apps built with the `Responder
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-python>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for
    Unit:
 
    .. code-block:: json
@@ -54,8 +54,6 @@ To run apps built with the `Responder
           "applications": {
               "responder": {
                   "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
-                  "user": ":nxt_term:`app_user <User and group values must have access to path, home, and working_directory>`",
-                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
                   "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "working_directory": ":nxt_term:`/path/to/app/ <Path to the directory where Responder creates static_dir and templates_dir>`",

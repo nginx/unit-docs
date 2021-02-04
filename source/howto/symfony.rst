@@ -25,9 +25,8 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-php>` the configuration for Unit (use
-   real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-   :samp:`group`):
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
+   (use real values for :samp:`share` and :samp:`root`):
 
    .. code-block:: json
 
@@ -66,8 +65,6 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
           "applications": {
               "symfony": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to root directories>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/public/ <Path to the scripts>`"

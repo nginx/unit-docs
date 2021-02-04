@@ -39,8 +39,7 @@ control system using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, prepare the |app| :ref:`configuration
-   <configuration-python>` for Unit (use real values for :samp:`path`,
-   :samp:`user`, and :samp:`group`):
+   <configuration-python>` for Unit (use a real value for :samp:`path`):
 
    .. code-block:: json
 
@@ -55,8 +54,6 @@ control system using Unit:
               "hg": {
                   "type": "python",
                   "path": ":nxt_term:`/path/to/app/ <Path to WSGI file referenced by the module option>`",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the directory referenced in the path option>`",
-                  "group": "app_group",
                   "module": ":nxt_term:`hgweb <WSGI module name, not a filename>`"
               }
           }

@@ -29,7 +29,7 @@ To run the `Datasette
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-python>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for
    Unit:
 
    .. code-block:: json
@@ -44,8 +44,6 @@ To run the `Datasette
           "applications": {
               "datasette": {
                   "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
-                  "user": ":nxt_term:`app_user <User and group values must have access to path and home directories>`",
-                  "group": "app_group",
                   "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
                   "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_term:`asgi <ASGI module filename with extension omitted>`",

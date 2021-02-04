@@ -25,10 +25,10 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`put together <configuration-perl>` the |app| configuration for
+#. Next, :ref:`prepare <configuration-perl>` the |app| configuration for
    Unit.  The default :file:`.htaccess` scheme roughly translates into the
    following (use real values for :samp:`share`, :samp:`script`,
-   :samp:`working_directory`, :samp:`user`, and :samp:`group`):
+   and :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -93,8 +93,6 @@ Unit:
           "applications": {
               "bugzilla": {
                   "type": "perl",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                   "script": ":nxt_term:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
               }
