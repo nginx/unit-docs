@@ -72,7 +72,7 @@ Installing a precompiled Unit binary package is best for most occasions;
 - Amazon |_| Linux, Amazon |_| Linux |_| 2
 - CentOS |_| 6, 7, 8
 - Debian |_| 8, 9, 10
-- Fedora |_| 28, 29, 30, 31, 32
+- Fedora |_| 28, 29, 30, 31, 32, 33
 - RHEL |_| 6, 7, 8
 - Ubuntu |_| 16.04, 18.04, 18.10, 19.04, 19.10, 20.04, 20.10
 
@@ -330,6 +330,27 @@ Supported architectures: :samp:`x86-64`.
 
 .. tabs::
    :prefix: fedora
+
+   .. tab:: 33
+
+      #. To configure Unit repository, create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+                  unit-php unit-python39 unit-ruby
 
    .. tab:: 32
 
