@@ -1293,20 +1293,20 @@ You can obtain the images from these sources:
       To install and run Unit from NGINX's `repository
       <https://hub.docker.com/r/nginx/unit/>`__ at Docker Hub:
 
-      .. subs-code-block:: console
+      .. code-block:: console
 
-         $ docker pull docker.io/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d docker.io/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull docker.io/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d docker.io/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: Amazon ECR Public Gallery
 
       To install and run Unit from NGINX's `repository
       <https://gallery.ecr.aws/nginx/unit>`__ at Amazon ECR Public Gallery:
 
-      .. subs-code-block:: console
+      .. code-block:: console
 
-         $ docker pull public.ecr.aws/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d public.ecr.aws/nginx/unit:|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull public.ecr.aws/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d public.ecr.aws/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: packages.nginx.org
 
@@ -1315,12 +1315,12 @@ You can obtain the images from these sources:
 
       .. subs-code-block:: console
 
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-         $ sha512sum -c nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-               nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+         $ sha512sum -c nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+               nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
 
-         $ docker load < nginx-unit-|version|-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ docker load < nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
 .. note::
 
