@@ -5,8 +5,8 @@ import os, sys
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2021'
-version = '1.21.0'
-release_date = 'November 19, 2020'
+version = '1.22.0'
+release_date = 'February 4, 2021'
 release = version
 
 highlight_language = 'json'
