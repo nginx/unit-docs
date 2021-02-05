@@ -20,16 +20,8 @@ RUN mkdir /www/ && echo '                                                  \
         unit.ListenAndServe(":8080", nil)                                  \
     }                                                                      \
     ' > /www/app.go                                                        \
-# install build tools to compile the app
-    && apt update && apt install --no-install-recommends                   \
-                         --no-install-suggests -y build-essential          \
-# make nginx/unit package available at $GOPATH to compile the app
-    && cp -r /usr/share/gocode/src/* /usr/lib/go-1.15/src/                 \
-    && /usr/lib/go-1.15/bin/go build -o /www/app /www/app.go               \
+    && go build -o /www/app /www/app.go                                    \
 # final cleanup
-    && apt remove -y build-essential                                       \
-    && apt autoremove --purge -y                                           \
-    && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list          \
     && rm /www/app.go
 
 # prepare the app config for Unit
