@@ -1244,25 +1244,25 @@ Unit's Docker images come in several language-specific flavors:
      - No language modules are included.
 
    * - :samp:`|version|-go1.15`
-     - Single-language image based on :samp:`golang:1.15`.
+     - Single-language image based on the :samp:`golang:1.15` `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
-     - Single-language image based on :samp:`openjdk:11-jdk`.
+     - Single-language image based on the :samp:`openjdk:11-jdk` `image <https://hub.docker.com/_/openjdk>`__.
 
    * - :samp:`|version|-node15`
-     - Single-language image based on :samp:`node:15`.
+     - Single-language image based on the :samp:`node:15` `image <https://hub.docker.com/_/node>`__.
 
    * - :samp:`|version|-perl5.32`
-     - Single-language image based on :samp:`perl:5.32`.
+     - Single-language image based on the :samp:`perl:5.32` `image <https://hub.docker.com/_/perl>`__.
 
    * - :samp:`|version|-php8.0`
-     - Single-language image based on :samp:`php:8.0-cli`.
+     - Single-language image based on the :samp:`php:8.0-cli` `image <https://hub.docker.com/_/php>`__.
 
    * - :samp:`|version|-python3.9`
-     - Single-language image based on :samp:`python:3.9`.
+     - Single-language image based on the :samp:`python:3.9` `image <https://hub.docker.com/_/python>`__.
 
    * - :samp:`|version|-ruby2.7`
-     - Single-language image based on :samp:`ruby:2.7`.
+     - Single-language image based on the :samp:`ruby:2.7` `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Images With Pre-1.22.0 Unit Versions
 
