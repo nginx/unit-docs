@@ -2104,11 +2104,6 @@ The :samp:`isolation` application option has the following members:
               }
           }
 
-.. note::
-
-   The :samp:`uidmap` and :samp:`gidmap` options are available only if the
-   underlying OS supports user namespaces.
-
 A sample :samp:`isolation` object that enables all namespaces and sets mappings
 for user and group IDs:
 
@@ -2140,6 +2135,54 @@ for user and group IDs:
             }
         ]
     }
+
+.. nxt_details:: Using Uidmap And Gidmap
+
+   The :samp:`uidmap` and :samp:`gidmap` options are available only if the
+   underlying OS supports user namespaces.
+
+   If :samp:`uidmap` is omitted but :samp:`credential` isolation is enabled,
+   the effective UID (EUID) of the application process in the host namespace is
+   mapped to the same UID in the container namespace; the same applies to
+   :samp:`gidmap` and GID, respectively.  This means that the configuration
+   below:
+
+   .. code-block:: json
+
+      {
+          "user": "some_user",
+          "namespaces": {
+              "credential": true
+          }
+      }
+
+   Is equivalent to the following (assuming :samp:`some_user`'s EUID and EGID
+   are both equal to 1000):
+
+   .. code-block:: json
+
+      {
+          "user": "some_user",
+          "namespaces": {
+              "credential": true
+          },
+          "uidmap": [
+              {
+                  "host": "1000",
+                  "container": "1000",
+                  "size": 1
+              }
+          ],
+
+          "gidmap": [
+              {
+                  "host": "1000",
+                  "container": "1000",
+                  "size": 1
+              }
+          ]
+      }
+
 
 .. _configuration-rootfs:
 
