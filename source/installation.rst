@@ -71,10 +71,10 @@ Installing a precompiled Unit binary package is best for most occasions;
 
 - Amazon |_| Linux, Amazon |_| Linux |_| 2
 - CentOS |_| 6, 7, 8
-- Debian |_| 8, 9, 10
-- Fedora |_| 28, 29, 30, 31, 32, 33
+- Debian |_| 9, 10
+- Fedora |_| 29, 30, 31, 32, 33
 - RHEL |_| 6, 7, 8
-- Ubuntu |_| 16.04, 18.04, 18.10, 19.04, 19.10, 20.04, 20.10
+- Ubuntu |_| 16.04, 18.04, 19.10, 20.04, 20.10
 
 The packages we provide include core executables, developer files, and support
 for individual languages.
@@ -126,6 +126,11 @@ Supported architectures: :samp:`x86-64`.
                   unit-php unit-python27 unit-python37
 
    .. tab:: AMI
+
+      .. warning::
+
+         Unit 1.22+ packages aren't available for AMI.  This distribution is
+         obsolete; please update.
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -254,6 +259,10 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
    .. tab:: 9
 
+      .. warning::
+
+         Unit 1.22+ packages aren't available for Debian 9.
+
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
          :program:`apt`'s keyring:
@@ -281,41 +290,6 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # apt install unit
             # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
-
-   .. tab:: 8
-
-      .. warning::
-
-         Unit 1.12+ packages aren't available for Debian 8.  This distribution
-         is obsolete; please update.
-
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
-
-         .. code-block:: console
-
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
-
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
-
-         .. code-block:: none
-
-            deb https://packages.nginx.org/unit/debian/ jessie unit
-            deb-src https://packages.nginx.org/unit/debian/ jessie unit
-
-      #. Install the core package and other packages you need:
-
-         .. code-block:: console
-
-            # apt update
-            # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-perl unit-php unit-python2.7 \
-                  unit-python3.4 unit-ruby
 
 .. include:: include/socket-log-deb.rst
 
@@ -375,6 +349,12 @@ Supported architectures: :samp:`x86-64`.
 
    .. tab:: 31, 30
 
+      .. warning::
+
+         Unit 1.20+ packages aren't available for Fedora 30, and Unit 1.22+
+         packages aren't available for Fedora 31.  These distributions are
+         obsolete; please update.
+
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
@@ -396,6 +376,11 @@ Supported architectures: :samp:`x86-64`.
 
    .. tab:: 29
 
+      .. warning::
+
+         Unit 1.20+ packages aren't available for Fedora 29.  This
+         distribution is obsolete; please update.
+
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
@@ -414,32 +399,6 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
-
-   .. tab:: 28
-
-      .. warning::
-
-         Unit 1.12+ packages aren't available for Fedora 28.  This distribution
-         is obsolete; please update.
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install the core package and other packages you need:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
-                  unit-php unit-python27 unit-python36 unit-ruby
 
 .. include:: include/socket-log-rpm.rst
 
@@ -477,6 +436,11 @@ RHEL
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
+
+      .. warning::
+
+         Unit 1.20+ packages aren't available for RHEL 6.  This distribution
+         is obsolete; please update.
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
@@ -611,80 +575,6 @@ Ubuntu
             # apt install unit
             # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
-
-   .. tab:: 19.04
-
-      Supported architectures: :samp:`x86-64`.
-
-      .. warning::
-
-         Unit 1.16+ packages aren't available for Ubuntu 19.04.  This
-         distribution is obsolete; please update.
-
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
-
-         .. code-block:: console
-
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
-
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
-
-         .. code-block:: none
-
-            deb https://packages.nginx.org/unit/ubuntu/ disco unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ disco unit
-
-      #. Install the core package and other packages you need:
-
-         .. code-block:: console
-
-            # apt update
-            # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
-                  unit-php unit-python2.7 unit-python3.7 unit-ruby
-
-   .. tab:: 18.10
-
-      Supported architectures: :samp:`x86-64`.
-
-      .. warning::
-
-         Unit 1.12+ packages aren't available for Ubuntu 18.10.  This
-         distribution is obsolete; please update.
-
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
-
-         .. code-block:: console
-
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
-
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
-
-      #. To configure Unit repository, create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
-
-         .. code-block:: none
-
-            deb https://packages.nginx.org/unit/ubuntu/ cosmic unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ cosmic unit
-
-      #. Install the core package and other packages you need:
-
-         .. code-block:: console
-
-            # apt update
-            # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go1.10 unit-jsc8 unit-jsc11 unit-perl \
-                  unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 18.04
 
