@@ -410,8 +410,10 @@ host IP address and a port that Unit binds to; a wildcard matches any host IPs.
 .. note::
 
    On Linux-based systems, wildcard listeners can't overlap with other
-   listeners on the same port due to kernel-imposed limitations; for example,
-   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`.
+   listeners on the same port due to kernel-imposed limitations.  For example,
+   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; in partcular, this
+   also means you can't directly reconfigure a listener on :samp:`*:8080` to
+   use :samp:`127.0.0.1:8080` or vice versa without deleting it first.
 
 Unit dispatches the requests it receives to destinations referenced by
 listeners.  You can plug several listeners into one destination or use a
