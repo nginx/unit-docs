@@ -129,8 +129,8 @@ Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
-         Unit 1.22+ packages aren't available for AMI.  This distribution is
-         obsolete; please update.
+         Unit 1.22+ packages aren't available for Amazon Linux AMI.  This
+         distribution is obsolete; please update.
 
       #. To configure Unit repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
