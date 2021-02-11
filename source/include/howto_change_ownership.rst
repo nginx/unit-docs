@@ -3,7 +3,7 @@ Unit can access it:
 
 .. code-block:: console
 
-   # chown -R :nxt_term:`unit:unit <User and group that Unit's router runs as by default>` :nxt_term:`/path/to/app/ <Path to the application files such as /data/www/app/; use real path in your commands>`
+   # chown -R :nxt_term:`unit:unit <User and group that Unit's router runs as by default>` :nxt_term:`/path/to/app/ <Path to the application files such as /data/www/app/; use a real path in your commands>`
 
 .. note::
 
