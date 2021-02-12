@@ -2883,13 +2883,13 @@ option to name the interface explicitly.
 
 .. note::
 
-   For Python-based examples, see our :doc:`howto/datasette`,
-   :doc:`howto/django`, :doc:`howto/djangochannels`, :doc:`howto/fastapi`,
-   :doc:`howto/flask`, :doc:`howto/guillotina`, :doc:`howto/mercurial`,
-   :doc:`howto/moin`, :doc:`howto/pyramid`, :doc:`howto/quart`,
-   :doc:`howto/responder`, :doc:`howto/reviewboard`, :doc:`howto/sanic`,
-   :doc:`howto/starlette`, and :doc:`howto/trac` howtos or a basic :ref:`sample
-   <sample-python>`.
+   For Python-based examples, see our :doc:`howto/bottle`,
+   :doc:`howto/datasette`, :doc:`howto/django`, :doc:`howto/djangochannels`,
+   :doc:`howto/fastapi`, :doc:`howto/flask`, :doc:`howto/guillotina`,
+   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/pyramid`,
+   :doc:`howto/quart`, :doc:`howto/responder`, :doc:`howto/reviewboard`,
+   :doc:`howto/sanic`, :doc:`howto/starlette`, and :doc:`howto/trac` howtos or
+   a basic :ref:`sample <sample-python>`.
 
 .. _configuration-ruby:
 

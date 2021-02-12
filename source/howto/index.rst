@@ -52,6 +52,7 @@ following frameworks:
 .. toctree::
    :maxdepth: 1
 
+   bottle
    cakephp
    catalyst
    codeigniter
