@@ -59,8 +59,6 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
               "moin": {
                   "type": "python 2",
                   "path": ":nxt_term:`/path/to/app/wiki/ <Path to the WSGI file>`",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "module": ":nxt_term:`moin <WSGI file basename>`"
               }
           }

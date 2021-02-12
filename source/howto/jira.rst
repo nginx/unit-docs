@@ -57,7 +57,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-java>` the |app| configuration (use
-   real values for :samp:`working_directory`, :samp:`user`, and :samp:`group`):
+   a real value for :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -71,8 +71,6 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
           "applications": {
               "jira": {
                   "type": "java",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the working directory>`",
-                  "group": "app_group",
                   "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
                   "webapp": "atlassian-jira-core-7.13.0-standalone/atlassian-jira",
                   ":nxt_term:`options <App-specific startup options>`": [

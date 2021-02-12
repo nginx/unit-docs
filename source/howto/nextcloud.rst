@@ -38,8 +38,8 @@ platform using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-php>` the |app| configuration for
-   Unit (use real values for :samp:`share`, :samp:`root`, :samp:`user`, and
-   :samp:`group`).  The following is based on NextCloud's own `guide
+   Unit (use real values for :samp:`share` and :samp:`root`).  The following is
+   based on NextCloud's own `guide
    <https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html>`_:
 
    .. code-block:: json
@@ -139,8 +139,6 @@ platform using Unit:
           "applications": {
               "nextcloud": {
                   "type": "php",
-                  "user": ":nxt_term:`app_user <User and group values must have access to the app root directory>`",
-                  "group": "app_group",
                   "targets": {
                       "direct": {
                           "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"

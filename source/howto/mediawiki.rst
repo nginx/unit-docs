@@ -139,7 +139,7 @@ documentation platform using Unit:
 
       $ mv LocalSettings.php /path/to/app/
       $ chmod 600 /path/to/app/LocalSettings.php
-      # chown app_user /path/to/app/LocalSettings.php
+      # chown unit:unit /path/to/app/LocalSettings.php
 
 #. After installation, add a match condition to the first step to disable
    access to the :file:`mw-config/` directory:
