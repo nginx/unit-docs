@@ -58,11 +58,10 @@ official :samp:`hello, world` app:
 
    $ cd /path/to/app/
    $ mkdir webapp
-   $ cat << EOF > webapp/app.py
+   $ cat << EOF > webapp/wsgi.py
 
    from flask import Flask
    app = Flask(__name__)
-   application = app
 
    @app.route('/')
    def hello_world():
@@ -98,7 +97,8 @@ app:
            "webapp":{
                "type":"python 3",
                "path":"/www/",
-               "module":"app"
+               "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
+                "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
            }
        }
    }
@@ -125,7 +125,7 @@ Our file structure so far:
    ├── requirements.txt
    ├── state
    └── webapp
-       └── app.py
+       └── wsgi.py
 
 Everything is ready for a containerized Unit.  First, let's create a
 :file:`Dockerfile` to install app prerequisites:

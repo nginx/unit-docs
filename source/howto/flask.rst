@@ -22,9 +22,9 @@ To run apps built with the `Flask
    .. code-block:: python
 
       from flask import Flask
-      :nxt_hint:`application <Callable name expected by Unit>` = Flask(__name__)
+      :nxt_hint:`app <Callable name used in Unit condfiguration>` = Flask(__name__)
 
-      @application.route("/")
+      @app.route("/")
       def hello_world():
           return "Hello, World!"
 
@@ -47,7 +47,8 @@ To run apps built with the `Flask
                   "type": ":nxt_hint:`python 3.x <Must match language module version and virtual environment version>`",
                   "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI module>`",
                   "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
-                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`"
+                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
+                  "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }
       }
