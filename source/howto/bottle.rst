@@ -21,7 +21,7 @@ framework using Unit:
    .. subs-code-block:: console
 
       $ cd /path/to/app/
-      $ :nxt_term:`python --version <Make sure your virtual environment version matches the module version>`
+      $ :nxt_hint:`python --version <Make sure your virtual environment version matches the module version>`
             Python x.y.z
       $ python -m venv venv
       $ source venv/bin/activate
@@ -44,7 +44,7 @@ framework using Unit:
 
       from bottle import Bottle, template
 
-      :nxt_term:`app <Callable name used in Unit configuration>` = Bottle()
+      :nxt_hint:`app <Callable name used in Unit configuration>` = Bottle()
 
       @app.route('/hello/<name>')
       def hello(name):
@@ -70,11 +70,11 @@ framework using Unit:
 
           "applications": {
               "bottle": {
-                  "type": ":nxt_term:`python x.y <Must match language module version and virtual environment version>`",
-                  "path": ":nxt_term:`/path/to/app/ <Path to the WSGI module>`",
-                  "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
-                  "module": ":nxt_term:`wsgi <WSGI module filename with extension omitted>`",
-                  "callable": ":nxt_term:`app <Name of the callable in the module to run>`"
+                  "type": ":nxt_hint:`python x.y <Must match language module version and virtual environment version>`",
+                  "path": ":nxt_hint:`/path/to/app/ <Path to the WSGI module>`",
+                  "home": ":nxt_hint:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
+                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
+                  "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }
       }

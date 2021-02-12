@@ -71,9 +71,9 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
           "applications": {
               "jira": {
                   "type": "java",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                  "working_directory": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`",
                   "webapp": "atlassian-jira-core-7.13.0-standalone/atlassian-jira",
-                  ":nxt_term:`options <App-specific startup options>`": [
+                  ":nxt_hint:`options <App-specific startup options>`": [
                       "-Djava.awt.headless=true",
                       "-Djavax.accessibility.assistive_technologies= ",
                       "-Djira.home=/path/to/jira/home",
@@ -81,7 +81,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
                       "-Xms1024m",
                       "-Xmx1024m"
                   ],
-                  ":nxt_term:`classpath <Required dependencies>`": [
+                  ":nxt_hint:`classpath <Required dependencies>`": [
                       "lib/transaction-init-1.0.jar",
                       "lib/atomikos-util-3.9.1.jar",
                       "lib/jta-1.1.jar",

@@ -36,7 +36,7 @@ Unit:
               "joomla": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Matches direct URLs and the administrative section of the site>`": [
+                          ":nxt_hint:`uri <Matches direct URLs and the administrative section of the site>`": [
                               "*.php",
                               "*.php/*",
                               "/administrator/"
@@ -49,9 +49,9 @@ Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
+                              "pass": ":nxt_hint:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
                           }
                       }
                   }
@@ -63,11 +63,11 @@ Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "script": "index.php"
                       }
                   }

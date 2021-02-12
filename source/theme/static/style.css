@@ -551,9 +551,13 @@ body > div {
 }
 
 
-/* custom terms */
+/* custom terms, placeholders, and hints */
 
-.nxt_term {
+.nxt_ph {
+    background: #5b5b5b;
+    cursor: help;
+}
+.nxt_hint {
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
     cursor: help;

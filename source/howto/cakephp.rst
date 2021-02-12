@@ -42,7 +42,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
               "cakephp": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Handles all direct script-based requests>`": [
+                          ":nxt_hint:`uri <Handles all direct script-based requests>`": [
                               "*.php",
                               "*.php/*"
                           ]
@@ -54,9 +54,9 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": ":nxt_term:`/path/to/app/webroot/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves all kinds of static files>`": ":nxt_ph:`/path/to/app/webroot/ <Use a real path in your configuration>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/cakephp/index <Uses the index.php at the root as the last resort>`"
+                              "pass": ":nxt_hint:`applications/cakephp/index <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }
@@ -68,12 +68,12 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`"
+                          "root": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
-                          "script": ":nxt_term:`index.php <All requests are handled by a single script>`"
+                          "root": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }

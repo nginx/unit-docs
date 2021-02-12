@@ -33,7 +33,7 @@ documentation platform using Unit:
               "mediawiki": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Controls access to directories best kept private>`": [
+                          ":nxt_hint:`uri <Controls access to directories best kept private>`": [
                               "!/tests/qunit/*",
                               "/cache/*",
                               "/includes/*",
@@ -50,7 +50,7 @@ documentation platform using Unit:
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Enables access to application entry points>`": [
+                          ":nxt_hint:`uri <Enables access to application entry points>`": [
                               "/api.php*",
                               "/img_auth.php*",
                               "/index.php*",
@@ -71,10 +71,10 @@ documentation platform using Unit:
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Enables static access to specific content locations>`": [
+                          ":nxt_hint:`uri <Enables static access to specific content locations>`": [
                               "!*.php",
                               "!*.json",
-                              ":nxt_term:`!*.htaccess <The negations deny access to the file types listed here>`",
+                              ":nxt_hint:`!*.htaccess <The negations deny access to the file types listed here>`",
                               "/extensions/*",
                               "/images/*",
                               "/resources/assets/*",
@@ -85,7 +85,7 @@ documentation platform using Unit:
                       },
 
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -101,11 +101,11 @@ documentation platform using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`",
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`",
                           "script": "index.php"
                       }
                   }

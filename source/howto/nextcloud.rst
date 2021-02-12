@@ -55,7 +55,7 @@ platform using Unit:
               "nextcloud": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Denies access to files and directories best kept private>`": [
+                          ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
                               "/build/*",
                               "/tests/*",
                               "/config/*",
@@ -79,7 +79,7 @@ platform using Unit:
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Serves direct URIs with dedicated scripts>`": [
+                          ":nxt_hint:`uri <Serves direct URIs with dedicated scripts>`": [
                               "/core/ajax/update.php*",
                               "/cron.php*",
                               "/index.php*",
@@ -127,7 +127,7 @@ platform using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/nextcloud/index"
                           }
@@ -141,27 +141,27 @@ platform using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
+                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
                       "ocm": {
-                          "root": ":nxt_term:`/path/to/app/ocm-provider/ <Use a real path in your configuration>`",
+                          "root": ":nxt_hint:`/path/to/app/ocm-provider/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
 
                       "ocs": {
-                          "root": ":nxt_term:`/path/to/app/ocs-provider/ <Use a real path in your configuration>`",
+                          "root": ":nxt_hint:`/path/to/app/ocs-provider/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       },
 
                       "updater": {
-                          "root": ":nxt_term:`/path/to/app/nextcloud/updater/ <Use a real path in your configuration>`",
+                          "root": ":nxt_hint:`/path/to/app/nextcloud/updater/ <Use a real path in your configuration>`",
                           "script": "index.php"
                       }
                   }

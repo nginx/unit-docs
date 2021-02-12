@@ -689,7 +689,7 @@ requests' properties:
 
    * - Property
      - Patterns Are Matched Against
-     - Case |-| :nxt_term:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
+     - Case |-| :nxt_hint:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
    * - :samp:`arguments`
 
      - Parameter arguments supplied with the request's target `query
@@ -791,7 +791,7 @@ requests' properties:
           "routes": [
               {
                   "match": {
-                      "uri": "/:nxt_term:`static files <Note the unencoded space>`/*"
+                      "uri": "/:nxt_hint:`static files <Note the unencoded space>`/*"
                   },
 
                   "action": {
@@ -1504,7 +1504,7 @@ Another obvious usage is employing the URI to choose between applications:
    {
        "listeners": {
            "*:80": {
-               "pass": ":nxt_term:`applications$uri <Note that the $uri variable value always includes a starting slash>`"
+               "pass": ":nxt_hint:`applications$uri <Note that the $uri variable value always includes a starting slash>`"
            }
        },
 
@@ -1798,7 +1798,7 @@ addresses using the :samp:`proxy` option of a step's :samp:`action`:
                },
 
                "action": {
-                   "proxy": ":nxt_term:`http://unix:/path/to/unix.sock <Note the http:// scheme is still required>`"
+                   "proxy": ":nxt_hint:`http://unix:/path/to/unix.sock <Note the http:// scheme is still required>`"
                }
            }
        ]
@@ -1837,9 +1837,9 @@ API:
        },
 
        "upstreams": {
-           ":nxt_term:`rr-lb <Upstream object>`": {
-               ":nxt_term:`servers <Lists individual servers as object-valued options>`": {
-                   ":nxt_term:`192.168.0.100:8080 <Empty object needed due to JSON requirements>`": { },
+           ":nxt_hint:`rr-lb <Upstream object>`": {
+               ":nxt_hint:`servers <Lists individual servers as object-valued options>`": {
+                   ":nxt_hint:`192.168.0.100:8080 <Empty object needed due to JSON requirements>`": { },
                    "192.168.0.101:8080": {
                        "weight": 0.5
                    }
@@ -1863,13 +1863,13 @@ notation:
    {
        "servers": {
            "192.168.0.100:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 1e1
+               ":nxt_hint:`weight <All three values are equal>`": 1e1
            },
            "192.168.0.101:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 10.0
+               ":nxt_hint:`weight <All three values are equal>`": 10.0
            },
            "192.168.0.102:8080": {
-               ":nxt_term:`weight <All three values are equal>`": 10
+               ":nxt_hint:`weight <All three values are equal>`": 10
            }
        }
    }
@@ -2200,8 +2200,8 @@ Note the :samp:`path` and :samp:`home` settings:
 
    {
        "type": "python 2.7",
-       "path": ":nxt_term:`/ <Without rootfs, this would be /var/app/sandbox/>`",
-       "home": ":nxt_term:`/venv/ <Without rootfs, this would be /var/app/sandbox/venv/>`",
+       "path": ":nxt_hint:`/ <Without rootfs, this would be /var/app/sandbox/>`",
+       "home": ":nxt_hint:`/venv/ <Without rootfs, this would be /var/app/sandbox/venv/>`",
        "module": "wsgi",
        "isolation": {
            "rootfs": "/var/app/sandbox/"

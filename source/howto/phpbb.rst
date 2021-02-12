@@ -36,7 +36,7 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
               "phpbb": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Denies access to files and directories best kept private>`": [
+                          ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
                               "/cache/*",
                               "/common.php*",
                               "/config.php*",
@@ -67,9 +67,9 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
                   },
                   {
                       "action": {
-                          "share": ":nxt_term:`/path/to/app/ <Serves static content>`",
+                          "share": ":nxt_ph:`/path/to/app/ <Serves static content>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
+                              "pass": ":nxt_hint:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
                           }
                       }
                   }
@@ -81,11 +81,11 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
+                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`",
                           "script": "app.php"
                       }
                   }

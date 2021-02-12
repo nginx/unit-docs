@@ -53,8 +53,8 @@ control system using Unit:
           "applications": {
               "hg": {
                   "type": "python",
-                  "path": ":nxt_term:`/path/to/app/ <Path to WSGI file referenced by the module option>`",
-                  "module": ":nxt_term:`hgweb <WSGI module name, not a filename>`"
+                  "path": ":nxt_ph:`/path/to/app/ <Path to WSGI file referenced by the module option>`",
+                  "module": ":nxt_hint:`hgweb <WSGI module name, not a filename>`"
               }
           }
       }

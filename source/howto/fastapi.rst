@@ -56,11 +56,11 @@ To run apps built with the `FastAPI
 
           "applications": {
               "fastapi": {
-                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
-                  "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
-                  "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
-                  "module": ":nxt_term:`asgi <ASGI module filename with extension omitted>`",
-                  "callable": ":nxt_term:`app <Name of the callable in the module to run>`"
+                  "type": ":nxt_hint:`python 3.x <Must match language module version and virtual environment version>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the ASGI module>`",
+                  "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
+                  "module": ":nxt_hint:`asgi <ASGI module filename with extension omitted>`",
+                  "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }
       }

@@ -50,12 +50,12 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
               "laravel": [
                   {
                       "match": {
-                          "uri": ":nxt_term:`!/index.php <Avoids serving index.php as static content>`"
+                          "uri": ":nxt_hint:`!/index.php <Avoids serving index.php as static content>`"
                       },
                       "action": {
-                          "share": ":nxt_term:`/path/to/app/blog/public/ <Serves all kinds of static files>`",
+                          "share": ":nxt_ph:`/path/to/app/blog/public/ <Serves all kinds of static files>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/laravel <Uses the index.php at the root as the last resort>`"
+                              "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }
@@ -65,8 +65,8 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
           "applications": {
               "laravel": {
                   "type": "php",
-                  "root": ":nxt_term:`/path/to/app/blog/public/ <Path to the script>`",
-                  "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                  "root": ":nxt_ph:`/path/to/app/blog/public/ <Path to the script>`",
+                  "script": ":nxt_hint:`index.php <All requests are handled by a single file>`"
               }
           }
       }

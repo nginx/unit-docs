@@ -24,17 +24,17 @@ using Unit:
 
    .. code-block:: none
 
-      :nxt_term:`/path/to/app/ <Project directory>`
+      :nxt_ph:`/path/to/app/ <Project directory>`
       |-- manage.py
-      |-- :nxt_term:`django_app1/ <Individual app directory>`
+      |-- :nxt_hint:`django_app1/ <Individual app directory>`
       |   |-- ...
-      |-- :nxt_term:`django_app2/ <Individual app directory>`
+      |-- :nxt_hint:`django_app2/ <Individual app directory>`
       |   |-- ...
-      |-- :nxt_term:`project/ <Project subdirectory>`
+      |-- :nxt_hint:`project/ <Project subdirectory>`
       |   |-- ...
-      |   |-- :nxt_term:`asgi.py <ASGI application module>`
-      |   `-- :nxt_term:`wsgi.py <WSGI application module>`
-      `-- :nxt_term:`static/ <Static files subdirectory>`
+      |   |-- :nxt_hint:`asgi.py <ASGI application module>`
+      |   `-- :nxt_hint:`wsgi.py <WSGI application module>`
+      `-- :nxt_hint:`static/ <Static files subdirectory>`
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -73,7 +73,7 @@ using Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_term:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -86,9 +86,9 @@ using Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "path": ":nxt_term:`/path/to/app/ <Project directory>`",
-                        "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
-                        "module": ":nxt_term:`project.wsgi <Note the qualified name of the WSGI module>`",
+                        "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
+                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
+                        "module": ":nxt_hint:`project.wsgi <Note the qualified name of the WSGI module>`",
                         "environment": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
                             "DB_ENGINE": "django.db.backends.postgresql",
@@ -122,7 +122,7 @@ using Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_term:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -135,9 +135,9 @@ using Unit:
                 "applications": {
                     "django": {
                         "type": "python 3",
-                        "path": ":nxt_term:`/path/to/app/ <Project directory>`",
-                        "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
-                        "module": ":nxt_term:`project.asgi <Note the qualified name of the ASGI module>`",
+                        "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
+                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
+                        "module": ":nxt_hint:`project.asgi <Note the qualified name of the ASGI module>`",
                         "environment": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
                             "DB_ENGINE": "django.db.backends.postgresql",

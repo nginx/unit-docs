@@ -79,8 +79,8 @@ safe.
 
    .. code-block:: console
 
-      $ ssh -N -L :nxt_term:`./here.sock <Local socket>`::nxt_term:`/path/to/control.unit.sock <Socket on the Unit server>` root@:nxt_term:`unit.example.com <Unit server hostname>` &
-      $ curl --unix-socket :nxt_term:`./here.sock <Use local socket to configure Unit>`
+      $ ssh -N -L :nxt_hint:`./here.sock <Local socket>`::nxt_ph:`/path/to/control.unit.sock <Socket on the Unit server>` root@:nxt_hint:`unit.example.com <Unit server hostname>` &
+      $ curl --unix-socket :nxt_hint:`./here.sock <Use local socket to configure Unit>`
 
             {
                 "certificates": {},
@@ -212,14 +212,14 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       $ unitd --help
 
             --user USER          set non-privileged processes to run as specified user
-                                 default: ":nxt_term:`unit_user <Build-time setting, can be overridden>`"
+                                 default: ":nxt_hint:`unit_user <Build-time setting, can be overridden>`"
 
             --group GROUP        set non-privileged processes to run as specified group
                                  default: user's primary group
 
       $ ps ax | grep unitd
 
-            ... unit: main v|version| [... --user :nxt_term:`unit_user <Make sure to check for runtime overrides>` --group unit_group ...]
+            ... unit: main v|version| [... --user :nxt_hint:`unit_user <Make sure to check for runtime overrides>` --group unit_group ...]
 
    In particular, this is the account the router process runs as.  Use this
    information to set up permissions for the app code or binaries and shared
@@ -258,10 +258,10 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # :nxt_term:`useradd <Add user account without home directory>` -M app_user
+         # :nxt_hint:`useradd <Add user account without home directory>` -M app_user
          # groupadd app_group
-         # :nxt_term:`usermod <Deny interactive login>` -L app_user
-         # :nxt_term:`usermod <Add user to the group>` -a -G app_group app_user
+         # :nxt_hint:`usermod <Deny interactive login>` -L app_user
+         # :nxt_hint:`usermod <Add user to the group>` -a -G app_group app_user
 
       Even if you run a single app, this helps if you add more apps or need to
       decouple permissions later.
@@ -284,11 +284,11 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
          # ls -l /
 
-               :nxt_term:`drwxr-xr-x <Permissions are OK>`  some_user some_group  path
+               :nxt_hint:`drwxr-xr-x <Permissions are OK>`  some_user some_group  path
 
          # ls -l /path/
 
-               :nxt_term:`drwxr-x--- <Permissions are too restrictive>`  some_user some_group  to
+               :nxt_hint:`drwxr-x--- <Permissions are too restrictive>`  some_user some_group  to
 
       This may be a problem because the :samp:`to/` directory isn't owned by
       :samp:`app_user:app_group` and denies all permissions to non-owners (as
@@ -296,7 +296,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # :nxt_term:`chmod <Add read/execute permissions for non-owners>` o+rx /path/to/
+         # :nxt_hint:`chmod <Add read/execute permissions for non-owners>` o+rx /path/to/
 
       Another solution is to add :samp:`app_user` to :samp:`some_group`
       (assuming this was not done before):
@@ -310,24 +310,24 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # :nxt_term:`chown <Assign ownership for the app code>` -R app_user:app_group /path/to/app/
-         # :nxt_term:`chown <Assign ownership for the static files>` -R app_user:app_group /path/to/static/app/files/
-         # find /path/to/app/ -type d -exec :nxt_term:`chmod <Add read/execute permissions to app code directories for user and group>` u=rx,g=rx,o= {} \;
-         # find /path/to/static/app/files/ -type d -exec :nxt_term:`chmod <Add read/execute permissions to static file directories for user and group>` u=rx,g=rx,o= {} \;
+         # :nxt_hint:`chown <Assign ownership for the app code>` -R app_user:app_group /path/to/app/
+         # :nxt_hint:`chown <Assign ownership for the static files>` -R app_user:app_group /path/to/static/app/files/
+         # find /path/to/app/ -type d -exec :nxt_hint:`chmod <Add read/execute permissions to app code directories for user and group>` u=rx,g=rx,o= {} \;
+         # find /path/to/static/app/files/ -type d -exec :nxt_hint:`chmod <Add read/execute permissions to static file directories for user and group>` u=rx,g=rx,o= {} \;
 
    #. If the app needs to update specific directories or files, make sure
       they're writable for the app alone:
 
       .. code-block:: console
 
-         # :nxt_term:`chmod <Add write permissions for the user only; the group shouldn't have them>` u+w /path/to/writable/file/or/directory/
+         # :nxt_hint:`chmod <Add write permissions for the user only; the group shouldn't have them>` u+w /path/to/writable/file/or/directory/
 
       In case of a writable directory, you may also want to prevent non-owners
       from messing with its files:
 
       .. code-block:: console
 
-         # :nxt_term:`chmod <Sticky bit prevents non-owners from deleting or renaming files>` +t /path/to/writable/directory/
+         # :nxt_hint:`chmod <Sticky bit prevents non-owners from deleting or renaming files>` +t /path/to/writable/directory/
 
       .. note::
 
@@ -342,16 +342,16 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # find /path/to/app/code/ -type f -exec :nxt_term:`chmod <Add read rights to app code for user and group>` u=r,g=r,o= {} \;
-         # find /path/to/static/app/files/ -type f -exec :nxt_term:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
+         # find /path/to/app/code/ -type f -exec :nxt_hint:`chmod <Add read rights to app code for user and group>` u=r,g=r,o= {} \;
+         # find /path/to/static/app/files/ -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
    #. For :ref:`external <modules-emb>` apps, additionally make the app code or
       binaries executable:
 
       .. code-block:: console
 
-         # find /path/to/app/ -type f -exec :nxt_term:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
-         # find /path/to/static/app/files/ -type f -exec :nxt_term:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
+         # find /path/to/app/ -type f -exec :nxt_hint:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
+         # find /path/to/static/app/files/ -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
    #. To run a single app, :doc:`configure <../configuration>` Unit as follows:
 
@@ -359,7 +359,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
          {
              "listeners": {
-                 ":nxt_term:`*:80 <Or another suitable socket address>`": {
+                 ":nxt_hint:`*:80 <Or another suitable socket address>`": {
                      "pass": "routes"
                  }
              },
@@ -367,7 +367,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
              "routes": [
                  {
                      "action": {
-                         "share": ":nxt_term:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
                          "fallback": {
                              "pass": "applications/app"
                          }
@@ -393,7 +393,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
          {
              "listeners": {
-                 ":nxt_term:`*:80 <Or another suitable socket address>`": {
+                 ":nxt_hint:`*:80 <Or another suitable socket address>`": {
                      "pass": "routes"
                  }
              },
@@ -405,7 +405,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_term:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
                          "fallback": {
                              "pass": "applications/app1"
                          }
@@ -418,7 +418,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_term:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
                          "fallback": {
                              "pass": "applications/app2"
                          }
@@ -478,7 +478,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                  "app": [
                      {
                          "match": {
-                             ":nxt_term:`uri <Handles requests that target PHP scripts to avoid having them served as static files>`": [
+                             ":nxt_hint:`uri <Handles requests that target PHP scripts to avoid having them served as static files>`": [
                                  "*.php",
                                  "*.php/*"
                              ]
@@ -490,18 +490,18 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
                      {
                          "match": {
-                             ":nxt_term:`uri <Protects files and directories best kept hidden>`": [
-                                 ":nxt_term:`!/sensitive/* <Restricts access to a directory with sensitive data>`",
-                                 ":nxt_term:`!/data/* <Restricts access to a directory with sensitive data>`",
-                                 ":nxt_term:`!/app_config_values.ini <Restricts access to a specific file>`",
-                                 ":nxt_term:`!*/.* <Restricts access to hidden files and directories>`",
-                                 ":nxt_term:`!*~ <Restricts access to temporary files>`"
+                             ":nxt_hint:`uri <Protects files and directories best kept hidden>`": [
+                                 ":nxt_hint:`!/sensitive/* <Restricts access to a directory with sensitive data>`",
+                                 ":nxt_hint:`!/data/* <Restricts access to a directory with sensitive data>`",
+                                 ":nxt_hint:`!/app_config_values.ini <Restricts access to a specific file>`",
+                                 ":nxt_hint:`!*/.* <Restricts access to hidden files and directories>`",
+                                 ":nxt_hint:`!*~ <Restricts access to temporary files>`"
                              ]
                          },
 
                          "action": {
-                             ":nxt_term:`share <Serves valid requests with static content>`": "/path/to/app/",
-                             ":nxt_term:`fallback <Relays all requests not yet served to a catch-all app target>`": {
+                             ":nxt_hint:`share <Serves valid requests with static content>`": "/path/to/app/",
+                             ":nxt_hint:`fallback <Relays all requests not yet served to a catch-all app target>`": {
                                  "pass": "applications/app/index"
                              }
                          }
@@ -639,7 +639,7 @@ disk space.
 
    .. code-block:: none
 
-      :nxt_term:`/path/to/unit.log <Use a real path>` {
+      :nxt_ph:`/path/to/unit.log <Use a real path>` {
           daily
           missingok
           rotate 7
@@ -649,8 +649,8 @@ disk space.
           notifempty
           su root root
           postrotate
-              if [ -f :nxt_term:`/path/to/unit.pid <Use a real path>` ]; then
-                  :nxt_term:`/bin/kill <Signals Unit to reopen the log>` -SIGUSR1 `cat /path/to/unit.pid`
+              if [ -f :nxt_ph:`/path/to/unit.pid <Use a real path>` ]; then
+                  :nxt_hint:`/bin/kill <Signals Unit to reopen the log>` -SIGUSR1 `cat /path/to/unit.pid`
               fi
           endscript
       }
@@ -666,19 +666,19 @@ disk space.
 
    .. subs-code-block:: console
 
-      $ :nxt_term:`unitd <Check where the general-purpose log is>` --help
+      $ :nxt_hint:`unitd <Check where the general-purpose log is>` --help
 
             ...
             --log FILE           set log filename
                                  default: "/default/path/to/unit.log"
 
-      $ :nxt_term:`ps ax <Make sure the default log path is not overridden at startup>` | grep unitd
+      $ :nxt_hint:`ps ax <Make sure the default log path is not overridden at startup>` | grep unitd
 
-            ... unit: main v|version| [... --log :nxt_term:`/path/to/unit.log <If it's overridden, use the runtime setting>` ...]
+            ... unit: main v|version| [... --log :nxt_ph:`/path/to/unit.log <If it's overridden, use the runtime setting>` ...]
 
-      # :nxt_term:`chown <Assign ownership to the log user>` log_user:log_group /path/to/unit.log
+      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group /path/to/unit.log
 
-      # :nxt_term:`curl <Enable access log in Unit configuration at the given path>` -X PUT -d '"/path/to/access.log"'  \
+      # :nxt_hint:`curl <Enable access log in Unit configuration at the given path>` -X PUT -d '"/path/to/access.log"'  \
              --unix-socket /path/to/control.unit.sock \
              http://localhost/config/access_log
 
@@ -686,7 +686,7 @@ disk space.
                 "success": "Reconfiguration done."
             }
 
-      # :nxt_term:`chown <Assign ownership to the log user>` log_user:log_group /path/to/access.log
+      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group /path/to/access.log
 
    If you change the log file ownership, adjust your :program:`logrotate`
    settings accordingly:

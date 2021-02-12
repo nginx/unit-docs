@@ -55,13 +55,13 @@ Generating Certificates
 
    .. code-block:: none
 
-      :nxt_term:`/etc/letsencrypt/ <Location can be configured, see Certbot help>`
+      :nxt_hint:`/etc/letsencrypt/ <Location can be configured, see Certbot help>`
       └── live/
-          └── :nxt_term:`www.example.com <Your website name>`
-              ├── :nxt_term:`cert.pem <Leaf website certificate>`
-              ├── :nxt_term:`chain.pem <Root CA certificate chain>`
-              ├── :nxt_term:`fullchain.pem <Concatenation of the two PEMs above>`
-              └── :nxt_term:`privkey.pem <Your private key, must be kept secret>`
+          └── :nxt_hint:`www.example.com <Your website name>`
+              ├── :nxt_hint:`cert.pem <Leaf website certificate>`
+              ├── :nxt_hint:`chain.pem <Root CA certificate chain>`
+              ├── :nxt_hint:`fullchain.pem <Concatenation of the two PEMs above>`
+              └── :nxt_hint:`privkey.pem <Your private key, must be kept secret>`
 
 #. Create a certificate bundle fit for Unit and upload it to the
    :samp:`certificates` section of Unit's :ref:`control API
@@ -72,9 +72,9 @@ Generating Certificates
       # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
             /etc/letsencrypt/live/www.example.com/privkey.pem > bundle1.pem
 
-      # curl -X PUT --data-binary @:nxt_term:`bundle1.pem <Bundle file>` --unix-socket  \
-             :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
-             http://localhost/certificates/:nxt_term:`certbot1 <Internal bundle name in Unit>`
+      # curl -X PUT --data-binary @:nxt_hint:`bundle1.pem <Bundle file>` --unix-socket  \
+             :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+             http://localhost/certificates/:nxt_hint:`certbot1 <Internal bundle name in Unit>`
 
              {
                  "success": "Certificate chain uploaded."
@@ -87,7 +87,7 @@ Generating Certificates
 
       # curl -X PUT --data-binary  \
             '{"pass": "applications/ssl_app", "tls": {"certificate": "certbot1"}}'  \
-            --unix-socket :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+            --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
             'http://localhost/config/listeners/*:443'
 
 #. Try accessing your website via HTTPS:
@@ -143,9 +143,9 @@ For manual renewal and rollover:
       # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
             /etc/letsencrypt/live/www.example.com/privkey.pem > bundle2.pem
 
-      # curl -X PUT --data-binary @:nxt_term:`bundle2.pem <New bundle file>` --unix-socket  \
-             :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
-             http://localhost/certificates/:nxt_term:`certbot2 <New internal bundle name in Unit>`
+      # curl -X PUT --data-binary @:nxt_hint:`bundle2.pem <New bundle file>` --unix-socket  \
+             :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+             http://localhost/certificates/:nxt_hint:`certbot2 <New internal bundle name in Unit>`
 
              {
                  "success": "Certificate chain uploaded."
@@ -158,7 +158,7 @@ For manual renewal and rollover:
 
    .. code-block:: console
 
-      # curl --unix-socket :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+      # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
             'http://localhost/certificates'
 
 #. Update the :ref:`listener <configuration-listeners>`, switching it to the
@@ -167,7 +167,7 @@ For manual renewal and rollover:
    .. code-block:: console
 
       # curl -X PUT --data-binary 'certbot2' --unix-socket  \
-            :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+            :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
             'http://localhost/config/listeners/*:443/tls/certificate'
 
    .. note::
@@ -179,7 +179,7 @@ For manual renewal and rollover:
 
    .. code-block:: console
 
-      # curl -X DELETE --unix-socket :nxt_term:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
+      # curl -X DELETE --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit control socket in your installation>`  \
             'http://localhost/certificates/certbot1'
 
             {

@@ -35,10 +35,10 @@ Unit:
           "applications": {
               "redmine": {
                   "type": "ruby",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Where Redmine is installed>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Where Redmine is installed>`",
                   "script": "config.ru",
                   "environment": {
-                      "RAILS_ENV": ":nxt_term:`production <Environment name in Redmine config>`"
+                      "RAILS_ENV": ":nxt_hint:`production <Environment name in Redmine config>`"
                   }
               }
           }

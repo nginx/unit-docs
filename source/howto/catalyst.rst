@@ -50,8 +50,8 @@ framework using Unit:
           "applications": {
               "catalyst": {
                   "type": "perl",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Needed to use modules from the local lib directory>`",
-                  "script": ":nxt_term:`/path/to/app/app.psgi <Absolute pathname of the PSGI script>`"
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use modules from the local lib directory>`",
+                  "script": ":nxt_ph:`/path/to/app/app.psgi <Absolute pathname of the PSGI script>`"
               }
           }
       }

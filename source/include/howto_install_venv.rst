@@ -5,7 +5,7 @@ Create a virtual environment to install |app|'s |app-pip-link|_:
 .. subs-code-block:: console
 
    $ cd /path/to/app/
-   $ :nxt_term:`python3 --version <Make sure your virtual environment version matches the module version>`
+   $ :nxt_hint:`python3 --version <Make sure your virtual environment version matches the module version>`
          Python 3.x.y
    $ python3 -m venv venv
    $ source venv/bin/activate

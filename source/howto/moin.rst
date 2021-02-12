@@ -34,12 +34,12 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
    .. code-block:: console
 
-      $ mkdir -p /path/to/app/ /tmp/app/ && cd :nxt_term:`/tmp/app/ <Temporary location to download files to>`
+      $ mkdir -p /path/to/app/ /tmp/app/ && cd :nxt_hint:`/tmp/app/ <Temporary location to download files to>`
       $ curl -O http://static.moinmo.in/files/moin-1.9.11.tar.gz
-      $ tar xzf moin-1.9.11.tar.gz --strip-components 1 -C :nxt_term:`/path/to/app/ <Target installation location>`
-      $ cd :nxt_term:`/path/to/app/wiki/ <WSGI module location in a single-instance installation>`
-      $ cp :nxt_term:`config/wikiconfig.py <Instance config, see https://moinmo.in/HelpOnConfiguration>` ./
-      $ cp :nxt_term:`server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` ./moin.py
+      $ tar xzf moin-1.9.11.tar.gz --strip-components 1 -C :nxt_ph:`/path/to/app/ <Target installation location>`
+      $ cd :nxt_ph:`/path/to/app/wiki/ <WSGI module location in a single-instance installation>`
+      $ cp :nxt_hint:`config/wikiconfig.py <Instance config, see https://moinmo.in/HelpOnConfiguration>` ./
+      $ cp :nxt_hint:`server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` ./moin.py
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -58,8 +58,8 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
           "applications": {
               "moin": {
                   "type": "python 2",
-                  "path": ":nxt_term:`/path/to/app/wiki/ <Path to the WSGI file>`",
-                  "module": ":nxt_term:`moin <WSGI file basename>`"
+                  "path": ":nxt_hint:`/path/to/app/wiki/ <Path to the WSGI file>`",
+                  "module": ":nxt_hint:`moin <WSGI file basename>`"
               }
           }
       }

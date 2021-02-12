@@ -43,7 +43,7 @@ using Unit:
               "rails": [
                   {
                       "action": {
-                          ":nxt_term:`share <Serves all kinds of static files>`": ":nxt_term:`/path/to/app/public/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves all kinds of static files>`": ":nxt_ph:`/path/to/app/public/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/rails"
                           }
@@ -55,8 +55,8 @@ using Unit:
           "applications": {
               "rails": {
                   "type": "ruby",
-                  "script": ":nxt_term:`config.ru <All requests are handled by a single script, relative to working_directory>`",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Needed for require_relative directives. Use a real path in your configuration>`"
+                  "script": ":nxt_hint:`config.ru <All requests are handled by a single script, relative to working_directory>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed for require_relative directives. Use a real path in your configuration>`"
               }
           }
       }

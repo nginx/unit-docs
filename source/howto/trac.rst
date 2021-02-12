@@ -86,7 +86,7 @@ Unit:
                           "uri": "/chrome/*"
                       },
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/static/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -100,12 +100,12 @@ Unit:
           "applications": {
               "trac": {
                   "type": "python 2",
-                  "path": ":nxt_term:`/path/to/app/ <Path to the WSGI file>`",
-                  "home": ":nxt_term:`/path/to/app/env/ <Path to the virtual environment where Trac is installed>`",
-                  "module": ":nxt_term:`trac_wsgi <WSGI wrapper file basename from Step 4>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI file>`",
+                  "home": ":nxt_ph:`/path/to/app/env/ <Path to the virtual environment where Trac is installed>`",
+                  "module": ":nxt_hint:`trac_wsgi <WSGI wrapper file basename from Step 4>`",
                   "environment": {
-                      "TRAC_ENV": ":nxt_term:`/path/to/app/trac_env/ <Path to the Trac environment>`",
-                      "PYTHON_EGG_CACHE": ":nxt_term:`/path/to/app/trac_env/eggs/ <Path to the Python egg cache for Trac>`"
+                      "TRAC_ENV": ":nxt_ph:`/path/to/app/trac_env/ <Path to the Trac environment>`",
+                      "PYTHON_EGG_CACHE": ":nxt_ph:`/path/to/app/trac_env/eggs/ <Path to the Python egg cache for Trac>`"
                   }
               }
           }

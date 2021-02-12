@@ -122,7 +122,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37
 
    .. tab:: AMI
@@ -148,7 +148,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python27 unit-python34 unit-python35 unit-python36
 
 .. include:: include/socket-log-rpm.rst
@@ -183,7 +183,7 @@ CentOS
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
@@ -211,7 +211,7 @@ CentOS
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
 
 .. include:: include/socket-log-rpm.rst
 
@@ -254,7 +254,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
 
    .. tab:: 9
@@ -288,7 +288,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-log-deb.rst
@@ -323,7 +323,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python39 unit-ruby
 
    .. tab:: 32
@@ -344,7 +344,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python38 unit-ruby
 
    .. tab:: 31, 30
@@ -371,7 +371,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
 
    .. tab:: 29
@@ -397,7 +397,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
 
 .. include:: include/socket-log-rpm.rst
@@ -432,7 +432,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
 
    .. tab:: 6.x
@@ -460,7 +460,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_term:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python
 
 .. include:: include/socket-log-rpm.rst
@@ -504,7 +504,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15 \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15 \
                           unit-perl unit-php unit-python3.8 unit-ruby
 
    .. tab:: 20.04
@@ -536,7 +536,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.8 unit-ruby
 
    .. tab:: 19.10
@@ -573,7 +573,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
 
    .. tab:: 18.04
@@ -605,7 +605,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
 
    .. tab:: 16.04
@@ -637,7 +637,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_term:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python2.7 unit-python3.5 unit-ruby
 
 .. include:: include/socket-log-deb.rst
@@ -929,7 +929,7 @@ Community Repositories
       .. code-block:: console
 
          # pkg install -y unit
-         # pkg install -y :nxt_term:`libunit <Required to install the Node.js module and build Go apps>`
+         # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
          # pkg install -y unit-java8  \
                           unit-perl5.32  \
                           unit-php73 unit-php74 unit-php80  \
@@ -1185,8 +1185,8 @@ You can obtain the images from these sources:
 
       .. code-block:: console
 
-         $ docker pull docker.io/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d docker.io/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull docker.io/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d docker.io/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: Amazon ECR Public Gallery
 
@@ -1195,8 +1195,8 @@ You can obtain the images from these sources:
 
       .. code-block:: console
 
-         $ docker pull public.ecr.aws/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d public.ecr.aws/nginx/unit::nxt_term:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull public.ecr.aws/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d public.ecr.aws/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: packages.nginx.org
 
@@ -1205,12 +1205,12 @@ You can obtain the images from these sources:
 
       .. subs-code-block:: console
 
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-         $ sha512sum -c nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-               nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+         $ sha512sum -c nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+               nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
 
-         $ docker load < nginx-unit-:nxt_term:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ docker load < nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
 .. note::
 
@@ -1255,7 +1255,7 @@ container's :file:`/docker-entrypoint.d/` directory:
        to the :samp:`config` section of Unit's configuration.
 
    * - :file:`.sh`
-     - :nxt_term:`Shell scripts <Use shebang in your scripts to specify a
+     - :nxt_hint:`Shell scripts <Use shebang in your scripts to specify a
        custom shell>` that run in the container after the :file:`.pem` and
        :file:`.json` files are uploaded.
 
@@ -1355,14 +1355,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # apt install build-essential
          # apt install golang
-         # curl -sL :nxt_term:`https://deb.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
+         # curl -sL :nxt_hint:`https://deb.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
          # apt install nodejs
          # npm install -g node-gyp
          # apt install php-dev libphp-embed
          # apt install libperl-dev
          # apt install python-dev
          # apt install ruby-dev
-         # apt install :nxt_term:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
+         # apt install :nxt_hint:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
          # apt install libssl-dev
          # apt install libpcre2-dev
 
@@ -1372,14 +1372,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # yum install gcc make
          # yum install golang
-         # curl -sL :nxt_term:`https://rpm.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
+         # curl -sL :nxt_hint:`https://rpm.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
          # yum install nodejs
          # npm install -g node-gyp
          # yum install php-devel php-embedded
          # yum install perl-devel perl-libs
          # yum install python-devel
          # yum install ruby-devel
-         # yum install :nxt_term:`java-1.8.0-openjdk-devel <Java 8 or later is supported. Different JDKs may be used>`
+         # yum install :nxt_hint:`java-1.8.0-openjdk-devel <Java 8 or later is supported. Different JDKs may be used>`
          # yum install openssl-devel
          # yum install pcre2-devel
 
@@ -1392,11 +1392,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # cd /usr/ports/lang/go/ && make install clean
          # cd /usr/ports/www/node/ && make install clean
          # cd /usr/ports/www/npm/ && make install clean && npm i -g node-gyp
-         # cd :nxt_term:`/usr/ports/lang/php73/ <PHP versions 5 and 7 are supported>` && make install clean
-         # cd :nxt_term:`/usr/ports/lang/perl5.28/ <Perl 5.12 or later is supported>` && make install clean
+         # cd :nxt_hint:`/usr/ports/lang/php73/ <PHP versions 5 and 7 are supported>` && make install clean
+         # cd :nxt_hint:`/usr/ports/lang/perl5.28/ <Perl 5.12 or later is supported>` && make install clean
          # cd /usr/ports/lang/python/ && make install clean
-         # cd :nxt_term:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
-         # cd :nxt_term:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
+         # cd :nxt_hint:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
+         # cd :nxt_hint:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
          # cd /usr/ports/security/openssl/ && make install clean
          # cd /usr/ports/devel/pcre2/ && make install clean
 
@@ -1406,11 +1406,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install go
          # pkg install node && pkg install npm && npm i -g node-gyp
-         # pkg install :nxt_term:`php73 <PHP versions 5 and 7 are supported>`
-         # pkg install :nxt_term:`perl5 <Perl 5.12 or later is supported>`
+         # pkg install :nxt_hint:`php73 <PHP versions 5 and 7 are supported>`
+         # pkg install :nxt_hint:`perl5 <Perl 5.12 or later is supported>`
          # pkg install python
-         # pkg install :nxt_term:`ruby25 <Ruby 2.0 is supported>`
-         # pkg install :nxt_term:`openjdk8 <Java 8 or later is supported. Different JDKs may be used>`
+         # pkg install :nxt_hint:`ruby25 <Ruby 2.0 is supported>`
+         # pkg install :nxt_hint:`openjdk8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
          # pkg install pcre2
 
@@ -1420,9 +1420,9 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install gcc
          # pkg install golang
-         # pkg install :nxt_term:`php-71 <PHP versions 5 and 7 are supported>`
+         # pkg install :nxt_hint:`php-71 <PHP versions 5 and 7 are supported>`
          # pkg install ruby
-         # pkg install :nxt_term:`jdk-8 <Java 8 or later is supported. Different JDKs may be used>`
+         # pkg install :nxt_hint:`jdk-8 <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
          # pkg install pcre
 
@@ -1533,7 +1533,7 @@ structure <installation-src-dir>`:
 
        .. code-block:: console
 
-          $ ./configure --control=:nxt_term:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
+          $ ./configure --control=:nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
           $ ./configure --control=127.0.0.1:8080
           $ ./configure --control=[::1]:8080
 
@@ -1949,8 +1949,8 @@ configuration, run :command:`make <module>` and :command:`make
 
 .. code-block:: console
 
-   $ make :nxt_term:`perl-5.20 <This is the --module option value from ./configure perl>`
-   # make :nxt_term:`perl-5.20 <This is the --module option value from ./configure perl>`-install
+   $ make :nxt_hint:`perl-5.20 <This is the --module option value from ./configure perl>`
+   # make :nxt_hint:`perl-5.20 <This is the --module option value from ./configure perl>`-install
 
 
 .. _installation-bld-src-ext:
@@ -1964,8 +1964,8 @@ configuration, run :command:`make <go>-install` and :command:`make
 
 .. code-block:: console
 
-   # make :nxt_term:`go <This is the --go option value from ./configure go>`-install
-   # make :nxt_term:`node <This is the --node option value from ./configure nodejs>`-install
+   # make :nxt_hint:`go <This is the --go option value from ./configure go>`-install
+   # make :nxt_hint:`node <This is the --node option value from ./configure nodejs>`-install
 
 .. note::
 
@@ -1974,7 +1974,7 @@ configuration, run :command:`make <go>-install` and :command:`make
 
    .. code-block:: console
 
-      # make :nxt_term:`node <This is the --node option value from ./configure nodejs>`-local-install
+      # make :nxt_hint:`node <This is the --node option value from ./configure nodejs>`-local-install
 
    If you haven't specified the :option:`!--local` :ref:`directory
    <installation-modules-nodejs>` with :program:`./configure nodejs`
@@ -2019,15 +2019,15 @@ configured :ref:`absolute paths <installation-src-dir>`:
 
 .. code-block:: console
 
-   # :nxt_term:`unitd <Your PATH environment variable should list a path to unitd>`
+   # :nxt_hint:`unitd <Your PATH environment variable should list a path to unitd>`
 
 Otherwise, start :program:`unitd` from the :samp:`sbin` subdirectory relative
 to installation directory :ref:`prefix <installation-config-src-prefix>`:
 
 .. code-block:: console
 
-   # cd :nxt_term:`/path/to/unit/ <Destination prefix>`
-   # :nxt_term:`sbin/unitd <This preserves relative paths>`
+   # cd :nxt_ph:`/path/to/unit/ <Destination prefix>`
+   # :nxt_hint:`sbin/unitd <This preserves relative paths>`
 
 Run :command:`unitd -h` or :command:`unitd --version` to list Unit's
 compile-time settings.  Usually, the defaults don't require overrides; however,

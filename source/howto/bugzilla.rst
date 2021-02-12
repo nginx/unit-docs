@@ -42,18 +42,18 @@ Unit:
           "routes": {
               "bugzilla": [
                   {
-                      ":nxt_term:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
+                      ":nxt_hint:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
                           "source": "192.20.225.0/24",
                           "uri": "/data/webdot/*.dot"
                       },
 
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`"
                       }
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
+                          ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
                               "!/data/assets/*.css",
                               "!/data/assets/*.js",
                               "!/data/webdot/*.png",
@@ -81,7 +81,7 @@ Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/bugzilla"
                           }
@@ -93,8 +93,8 @@ Unit:
           "applications": {
               "bugzilla": {
                   "type": "perl",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
-                  "script": ":nxt_term:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                  "script": ":nxt_ph:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
               }
           }
       }

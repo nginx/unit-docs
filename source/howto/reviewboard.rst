@@ -71,7 +71,7 @@ To run the `Review Board
               "rb": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Static file directories>`": [
+                          ":nxt_hint:`uri <Static file directories>`": [
                               "/media/*",
                               "/static/*",
                               "/errordocs/*"
@@ -79,7 +79,7 @@ To run the `Review Board
                       },
 
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/htdocs/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/htdocs/ <Use a real path in your configuration>`"
                       }
                   },
                   {
@@ -93,8 +93,8 @@ To run the `Review Board
           "applications": {
               "rb": {
                   "type": "python 2",
-                  "path": ":nxt_term:`/path/to/app/htdocs/ <Path to the WSGI module>`",
-                  "module": ":nxt_term:`wsgi <WSGI module filename with extension omitted>`"
+                  "path": ":nxt_ph:`/path/to/app/htdocs/ <Path to the WSGI module>`",
+                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`"
               }
           }
       }

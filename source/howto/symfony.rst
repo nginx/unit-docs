@@ -41,7 +41,7 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
               "symfony": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Handles all direct script-based requests>`": [
+                          ":nxt_hint:`uri <Handles all direct script-based requests>`": [
                               "*.php",
                               "*.php/*"
                           ]
@@ -53,9 +53,9 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
                   },
                   {
                       "action": {
-                          "share": ":nxt_term:`/path/to/app/public/ <Serves all kinds of static files>`",
+                          "share": ":nxt_ph:`/path/to/app/public/ <Serves all kinds of static files>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
+                              "pass": ":nxt_hint:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
                           }
                       }
                   }
@@ -67,12 +67,12 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/public/ <Path to the scripts>`"
+                          "root": ":nxt_ph:`/path/to/app/public/ <Path to the scripts>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/public/ <Path to the script>`",
-                          "script": ":nxt_term:`index.php <All requests are handled by a single file>`"
+                          "root": ":nxt_ph:`/path/to/app/public/ <Path to the script>`",
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single file>`"
                       }
                   }
               }

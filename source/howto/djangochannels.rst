@@ -34,15 +34,15 @@ To run Django apps using the |app| `framework
 
    .. code-block:: none
 
-      :nxt_term:`/path/to/app/ <Project directory>`
+      :nxt_ph:`/path/to/app/ <Project directory>`
       |-- manage.py
-      |-- :nxt_term:`chat/ <Individual app directory>`
+      |-- :nxt_hint:`chat/ <Individual app directory>`
       |   |-- ...
-      |-- :nxt_term:`mysite/ <Project subdirectory>`
+      |-- :nxt_hint:`mysite/ <Project subdirectory>`
       |   |-- ...
-      |   |-- :nxt_term:`asgi.py <ASGI application module>`
-      |   `-- :nxt_term:`wsgi.py <WSGI application module>`
-      `-- :nxt_term:`static/ <Static files subdirectory>`
+      |   |-- :nxt_hint:`asgi.py <ASGI application module>`
+      |   `-- :nxt_hint:`wsgi.py <WSGI application module>`
+      `-- :nxt_hint:`static/ <Static files subdirectory>`
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -79,7 +79,7 @@ To run Django apps using the |app| `framework
                   },
 
                   "action": {
-                      "share": ":nxt_term:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                      "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                   }
               },
               {
@@ -92,9 +92,9 @@ To run Django apps using the |app| `framework
           "applications": {
               "djangochannels": {
                   "type": "python 3",
-                  "path": ":nxt_term:`/path/to/app/ <Project directory>`",
-                  "home": ":nxt_term:`/path/to/venv/ <Virtual environment directory>`",
-                  "module": ":nxt_term:`mysite.asgi <Note the qualified name of the ASGI module>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
+                  "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
+                  "module": ":nxt_hint:`mysite.asgi <Note the qualified name of the ASGI module>`",
                   "environment": {
                       "DJANGO_SETTINGS_MODULE": "mysite.settings"
                   }

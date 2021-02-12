@@ -57,11 +57,11 @@ using Unit:
 
           "applications": {
               "pyramid": {
-                  "type": ":nxt_term:`python 3.x <Must match language module version and virtual environment version>`",
+                  "type": ":nxt_hint:`python 3.x <Must match language module version and virtual environment version>`",
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
                   "module": "wsgi",
-                  "callable": ":nxt_term:`app <Name of the callable in the module to run>`"
+                  "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }
       }

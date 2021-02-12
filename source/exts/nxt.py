@@ -13,11 +13,17 @@
 #
 # .. markup:: (including literal blocks)
 #
-#    :nxt_term:`term <definition>` and more text
+#    :nxt_hint:`term <definition>` and more text
+#    .. code-block::
+#       code :nxt_hint:`code <Desc>`
+#       code :nxt_ph:`placeholder <Desc>`
 #
 # .html file:
 #
-#  <span style="nxt_term" title="definition">term</span> and more text
+#  <span style=nxt_hint title="definition">term</span> and more text
+#  <span style=code>code <span title='Desc' style=nxt_hint>code</span></span>
+#  <span style=code>code <span title='Desc' style=nxt_ph>placeholder</span>
+#  </span>
 #
 # 2. Enables adaptive CSS-based tabbing on pages.
 #
@@ -83,23 +89,23 @@ class nxt_details(nodes.container): pass
 class nxt_tab_body(nodes.container): pass
 class nxt_tab_head(nodes.Text): pass
 class nxt_tabs(nodes.container): pass
-class nxt_term(nodes.container): pass
+class nxt_hint(nodes.container): pass
 # dummy classes, required for docutils dispatcher's Visitor pattern
 
 
 logger = logging.getLogger(__name__)
 
 nxt_plain_text = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
-nxt_term_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(nxt_plain_text)
-# matches `text w/punctuation <text w/punctuation>` in ':nxt_term:' directives
+nxt_hint_regex = r'`({0}*[^\s])\s*<({0}+)>`'.format(nxt_plain_text)
+# matches `text w/punctuation <text w/punctuation>` in nxt_* directives
 
 
-def nxt_term_role_fn(name, rawtext, text, lineno, inliner,
+def nxt_hint_role_fn(name, rawtext, text, lineno, inliner,
         options={}, content=[]):
-# ':nxt_term:' role handler for inline text outside literal blocks
+# nxt_hint role handler for inline text outside code blocks
 
-    node = nxt_term()
-    groups = re.search(nxt_term_regex, \
+    node = nxt_hint()
+    groups = re.search(nxt_hint_regex, \
         rawtext.replace('\n', ' ').replace('\r', ''))
 
     try:
@@ -114,7 +120,7 @@ def nxt_term_role_fn(name, rawtext, text, lineno, inliner,
 
 
 class nxt_highlighter(object):
-# extends default highlighter to handle ':nxt_term:' inside literal blocks
+# extends default highlighter with nxt_ph/nxt_hint directives in code blocks
 
     def __init__(self, highlighter):
         self.highlighter = highlighter
@@ -122,23 +128,33 @@ class nxt_highlighter(object):
     def highlight_block(self, source, lang, opts=None, location=None,
                         force=False, **kwargs):
 
-        groups = re.findall(nxt_term_regex, source)
+        ph_groups = re.findall(':nxt_ph:' + nxt_hint_regex, source)
+        hint_groups = re.findall(':nxt_hint:' + nxt_hint_regex, source)
 
-        for c, g in enumerate(groups):
-            source = re.sub(':nxt_term:' + nxt_term_regex,
-                         'nxt_term_{0}'.format(c), source, count=1)
+        for c, g in enumerate(ph_groups):
+            source = re.sub(':nxt_ph:' + nxt_hint_regex,
+                            'nxt_ph_' + str(c), source, count=1)
+
+        for c, g in enumerate(hint_groups):
+            source = re.sub(':nxt_hint:' + nxt_hint_regex,
+                            'nxt_hint_' + str(c), source, count=1)
 
         highlighted = self.highlighter.highlight_block(source, lang, opts,
                           location, force, **kwargs)
 
-        for c, g in enumerate(groups):
-            highlighted = highlighted.replace('nxt_term_{0}'.format(c),
-                              '<span class="nxt_term" title="{0}">{1}</span>'.
+        for c, g in enumerate(ph_groups):
+            highlighted = highlighted.replace('nxt_ph_' + str(c),
+                              '<span class=nxt_ph title="{0}">{1}</span>'.
                               format(g[1], g[0]), 1)
 
-        if ':nxt_term:' in highlighted:
-            raise ExtensionError(__('Could not lex nxt_term at {0}. ').
-                                    format(location))
+        for c, g in enumerate(hint_groups):
+            highlighted = highlighted.replace('nxt_hint_' + str(c),
+                              '<span class=nxt_hint title="{0}">{1}</span>'.
+                              format(g[1], g[0]), 1)
+
+        if ':nxt_ph;' in highlighted or ':nxt_hint:' in highlighted:
+            raise ExtensionError(__('Could not lex nxt_* directive at {0}. ').
+                                 format(location))
 
         return highlighted
 
@@ -173,9 +189,10 @@ class nxt_builder(DirectoryHTMLBuilder):
 
 
 class nxt_translator(HTMLTranslator):
-    '''Adds dispatcher methods to handle 'nxt_tabs' and 'nxt_tab' doctree nodes,
-    replaces default highlighter to enable ':nxt_term:' inside literal blocks,
-    enables expandable .. nxt_details:: blocks.'''
+    '''Adds dispatcher methods to handle nxt_tabs and nxt_tab doctree nodes,
+    replaces default highlighter to enable nxt_* directives inside code blocks,
+    adds handlers to enable nxt_hint directives inline, enables expandable
+    nxt_details blocks.'''
 
     def __init__(self, builder, *args, **kwargs):
         HTMLTranslator.__init__(self, builder, *args, **kwargs)
@@ -230,12 +247,12 @@ class nxt_translator(HTMLTranslator):
         HTMLTranslator.depart_container(self,node)
 
 
-    def visit_nxt_term(self, node):
-        self.body.append('''<span class=nxt_term title="{1}">{0}</span>'''
-        .format(node.term, node.tip))
+    def visit_nxt_hint(self, node):
+        self.body.append('<span class=nxt_hint title="{1}">{0}</span>'
+                         .format(node.term, node.tip))
 
 
-    def depart_nxt_term(self, node):
+    def depart_nxt_hint(self, node):
         pass
 
 
@@ -435,4 +452,4 @@ def setup(app):
     app.set_translator('nxt_html', nxt_translator)
     app.connect('doctree-read', register_tabs_as_label)
 
-    roles.register_canonical_role('nxt_term', nxt_term_role_fn)
+    roles.register_canonical_role('nxt_hint', nxt_hint_role_fn)

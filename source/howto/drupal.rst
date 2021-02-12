@@ -38,7 +38,7 @@ Unit:
               "drupal": [
                   {
                       "match": {
-                          ":nxt_term:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations according to RFC 5785>`": [
+                          ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations according to RFC 5785>`": [
                               "!*/.well-known/*",
                               "/vendor/*",
                               "/core/profiles/demo_umami/modules/demo_umami_content/default_content/*",
@@ -80,7 +80,7 @@ Unit:
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Allows direct access to core PHP scripts>`": [
+                          ":nxt_hint:`uri <Allows direct access to core PHP scripts>`": [
                               "/core/authorize.php",
                               "/core/core.api.php",
                               "/core/globals.api.php",
@@ -99,7 +99,7 @@ Unit:
                   },
                   {
                       "match": {
-                          ":nxt_term:`uri <Explicitly denies access to any PHP scripts other than index.php>`": [
+                          ":nxt_hint:`uri <Explicitly denies access to any PHP scripts other than index.php>`": [
                               "!/index.php*",
                               "*.php",
                               "*.php/*"
@@ -112,9 +112,9 @@ Unit:
                   },
                   {
                       "action": {
-                          "share": ":nxt_term:`/path/to/app/web/ <Serves valid static files>`",
+                          "share": ":nxt_ph:`/path/to/app/web/ <Serves valid static files>`",
                           "fallback": {
-                              "pass": ":nxt_term:`applications/drupal/index <Funnels all requests to index.php>`"
+                              "pass": ":nxt_hint:`applications/drupal/index <Funnels all requests to index.php>`"
                           }
                       }
                   }

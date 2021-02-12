@@ -78,23 +78,23 @@ Use the following configuration template for NGINX:
        # Configure SSL encryption
        listen 443 ssl;
 
-       ssl_certificate :nxt_term:`/path/to/ssl/cert.pem <Path to your PEM file>`;
-       ssl_certificate_key :nxt_term:`/path/to/ssl/cert.key <Path to your key file>`;
+       ssl_certificate :nxt_ph:`/path/to/ssl/cert.pem <Path to your PEM file>`;
+       ssl_certificate_key :nxt_ph:`/path/to/ssl/cert.key <Path to your key file>`;
 
        # SSL client certificate validation
-       ssl_client_certificate :nxt_term:`/path/to/ca.pem <Path to certification authority PEM file>`;
+       ssl_client_certificate :nxt_ph:`/path/to/ca.pem <Path to certification authority PEM file>`;
        ssl_verify_client on;
 
        # Network ACLs
-       #:nxt_term:`allow 1.2.3.4 <Uncomment and update with the IP addresses and networks of your administrative systems>`;
+       #:nxt_hint:`allow 1.2.3.4 <Uncomment and update with the IP addresses and networks of your administrative systems>`;
        deny all;
 
        # HTTP Basic authentication
        auth_basic on;
-       auth_basic_user_file :nxt_term:`/path/to/htpasswd <Path to your htpasswd file>`;
+       auth_basic_user_file :nxt_ph:`/path/to/htpasswd <Path to your htpasswd file>`;
 
        location / {
-           proxy_pass :nxt_term:`http://unix:/path/to/control.unit.sock <Path to Unit control socket>`;
+           proxy_pass :nxt_hint:`http://unix:/path/to/control.unit.sock <Path to Unit control socket>`;
        }
    }
 

@@ -47,7 +47,7 @@ To run the `OpenGrok
           "applications": {
               "opengrok": {
                   "type": "java",
-                  "webapp": ":nxt_term:`/path/to/app/source.war <Repackaged in Step 2>`",
+                  "webapp": ":nxt_ph:`/path/to/app/source.war <Repackaged in Step 2>`",
                   "options": [
                       "-Djava.awt.headless=true"
                   ]

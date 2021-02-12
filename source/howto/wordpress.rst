@@ -54,7 +54,7 @@ using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_term:`share <Serves matching static files>`": ":nxt_term:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/wordpress/index"
                           }
@@ -68,11 +68,11 @@ using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`"
                       },
 
                       "index": {
-                          "root": ":nxt_term:`/path/to/app/ <Path to the application directory>`",
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`",
                           "script": "index.php"
                       }
                   }

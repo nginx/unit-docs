@@ -51,7 +51,7 @@ To run apps built with the `Guillotina
           return {"foobar": context.foobar}
 
 
-      :nxt_term:`application <Callable name that Unit looks for>` = make_app(
+      :nxt_hint:`application <Callable name that Unit looks for>` = make_app(
               settings={
                   "applications": ["__main__"],
                   "root_user": {"password": "root"},
@@ -80,10 +80,10 @@ To run apps built with the `Guillotina
           "applications": {
               "guillotina": {
                   "type": "python 3",
-                  "path": ":nxt_term:`/path/to/app/ <Path to the ASGI module>`",
-                  "home": ":nxt_term:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
-                  "module": ":nxt_term:`asgi <ASGI module filename with extension omitted>`",
-                  "protocol": ":nxt_term:`asgi <Protocol hint for Unit, required to run Guillotina apps>`"
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the ASGI module>`",
+                  "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
+                  "module": ":nxt_hint:`asgi <ASGI module filename with extension omitted>`",
+                  "protocol": ":nxt_hint:`asgi <Protocol hint for Unit, required to run Guillotina apps>`"
               }
           }
       }

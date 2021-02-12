@@ -39,7 +39,7 @@ framework using Unit:
                       },
 
                       "action": {
-                          "share": ":nxt_term:`/path/to/app/public/ <Public directory path>`",
+                          "share": ":nxt_ph:`/path/to/app/public/ <Public directory path>`",
                           "fallback": {
                               "pass": "applications/codeigniter"
                           }
@@ -51,7 +51,7 @@ framework using Unit:
           "applications": {
               "codeigniter": {
                   "type": "php",
-                  "root": ":nxt_term:`/path/to/app/public/ <Public directory path>`",
+                  "root": ":nxt_ph:`/path/to/app/public/ <Public directory path>`",
                   "script": "index.php"
               }
           }

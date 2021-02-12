@@ -101,8 +101,8 @@ using Unit:
           "applications": {
               "express": {
                   "type": "external",
-                  "working_directory": ":nxt_term:`/path/to/app/ <Needed to use the installed NPM modules>`",
-                  "executable": ":nxt_term:`app.js <Make sure to make this file executable>`"
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use the installed NPM modules>`",
+                  "executable": ":nxt_hint:`app.js <Make sure to make this file executable>`"
               }
           }
       }
