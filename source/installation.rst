@@ -1177,6 +1177,7 @@ Unit's Docker images come in several language-specific flavors:
 You can obtain the images from these sources:
 
 .. tabs::
+   :prefix: docker
 
    .. tab:: Docker Hub
 
