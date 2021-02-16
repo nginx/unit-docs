@@ -91,6 +91,7 @@ as:
    matomo
    mediawiki
    mercurial
+   modx
    moin
    nextcloud
    opengrok
