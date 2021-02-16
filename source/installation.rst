@@ -1154,6 +1154,41 @@ Unit's Docker images come in several language-specific flavors:
    * - :samp:`|version|-ruby2.7`
      - Single-language image based on the :samp:`ruby:2.7` `image <https://hub.docker.com/_/ruby>`__.
 
+.. nxt_details:: Customizing Language Versions in Docker Images
+
+   To create a Unit image with a different language version, clone the sources
+   and rebuild them locally on a machine with Docker installed.  The build
+   command has the following format:
+
+   .. code-block:: console
+
+      $ make build-<language name><language version> VERSION_<language name>=<language version>
+
+   The :program:`make` utility parses the command line to extract the language
+   name and version; these values must reference an existing official language
+   image to be used as the base for the build.  If not sure whether an official
+   image exists for a specific language version, follow the links in the tag
+   table above.
+
+   The language name can be :samp:`go`, :samp:`jsc`, :samp:`node`,
+   :samp:`perl`, :samp:`php`, :samp:`python`, or :samp:`ruby`; the version is
+   defined as :samp:`<major>.<minor>`, except for :samp:`jsc` and :samp:`node`
+   that take only major version numbers (as exemplified by the tag table).
+   Thus, to create a local image based on Python 3.6 and tagged as
+   :samp:`unit:|version|-python3.6`:
+
+   .. subs-code-block:: console
+
+      $ git clone https://github.com/nginx/unit
+      $ cd unit
+      $ git checkout |version|  # Optional; use to choose a specific Unit version
+      $ cd pkg/docker/
+      $ make build-:nxt_ph:`python3.6 <Language name and version>` VERSION_:nxt_ph:`python <Language name>`=:nxt_ph:`3.6 <Language version>`
+
+   For details, see the `Makefile
+   <https://github.com/nginx/unit/blob/master/pkg/docker/Makefile>`__.  For
+   other customization scenarios, see our :doc:`Howto <howto/docker>`.
+
 .. nxt_details:: Images With Pre-1.22.0 Unit Versions
 
    Before Unit 1.22.0 was released, the following tagging scheme was used:
