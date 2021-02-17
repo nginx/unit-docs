@@ -1,43 +1,44 @@
-# Copyright (C) 2019, NGINX, Inc.
-# Sphinx extension to support 'replace' directives in 'code-block' snippets.
-# Usage:
-#
-# conf.py:
-#
-# extensions += ['subs']
-#
-# .rst file:
-#
-# .. |token| replace:: some text
-#
-# .. subs-code-block:: none
-#
-#    |token| and more text
-#
-# .html file:
-#
-#  some text and more text
+"""
+Copyright (C) 2019-2021, NGINX, Inc.
+
+Sphinx extension to support replace directives in code-block snippets.
+
+Usage:
+
+conf.py:
+    extensions += ['subs']
+
+.rst file:
+    .. |token| replace:: some text
+
+    .. subs-code-block:: none
+       |token| and more text
+
+.html file:
+    some text and more text
+"""
 
 from docutils.nodes import Text
 from sphinx.directives.code import CodeBlock
 
+
 class SubsCodeBlock(CodeBlock):
+    """Extends code-block to enable replace directive substitutions."""
 
     def run(self):
 
         new_content = []
         doc = self.state.document
 
-        replacements = [(i.attributes['names'][0], i.children[0]) for \
-            i in doc.substitution_defs.values()]
+        replacements = [(i.attributes['names'][0], i.children[0])
+                        for i in doc.substitution_defs.values()]
 
-        # config values need to be added manually at this time
+        # Config values need to be added manually at this time.
         replacements.append(('version', Text(doc.settings.env.config.version)))
 
         for item in self.content:
             for rep in replacements:
                 item = item.replace('|' + rep[0] + '|', rep[1])
-
             new_content.append(item)
 
         self.content = new_content
@@ -46,5 +47,6 @@ class SubsCodeBlock(CodeBlock):
 
 
 def setup(app):
+    """Connects the extension to the app."""
 
     app.add_directive('subs-code-block', SubsCodeBlock)
