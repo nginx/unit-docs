@@ -1780,7 +1780,7 @@ addresses using the :samp:`proxy` option of a step's :samp:`action`:
                },
 
                "action": {
-                   "proxy": "http://127.0.0.1:8080"
+                   "proxy": ":nxt_hint:`http://127.0.0.1:8080 <Note that the http:// scheme is required>`"
                }
            },
            {
@@ -1789,7 +1789,7 @@ addresses using the :samp:`proxy` option of a step's :samp:`action`:
                },
 
                "action": {
-                   "proxy": "http://[::1]:8090"
+                   "proxy": ":nxt_hint:`http://[::1]:8080 <Note that the http:// scheme is required>`"
                }
            },
            {
@@ -1798,7 +1798,7 @@ addresses using the :samp:`proxy` option of a step's :samp:`action`:
                },
 
                "action": {
-                   "proxy": ":nxt_hint:`http://unix:/path/to/unix.sock <Note the http:// scheme is still required>`"
+                   "proxy": ":nxt_hint:`http://unix:/path/to/unix.sock <Note that the http:// scheme is required, followed by the unix: prefix>`"
                }
            }
        ]

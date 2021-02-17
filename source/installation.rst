@@ -1221,8 +1221,8 @@ You can obtain the images from these sources:
 
       .. code-block:: console
 
-         $ docker pull docker.io/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d docker.io/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: Amazon ECR Public Gallery
 
@@ -1231,8 +1231,8 @@ You can obtain the images from these sources:
 
       .. code-block:: console
 
-         $ docker pull public.ecr.aws/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d public.ecr.aws/nginx/unit::nxt_hint:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
    .. tab:: packages.nginx.org
 
@@ -1241,12 +1241,12 @@ You can obtain the images from these sources:
 
       .. subs-code-block:: console
 
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-         $ sha512sum -c nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
-               nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+         $ sha512sum -c nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+               nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
 
-         $ docker load < nginx-unit-:nxt_hint:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ docker load < nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
 .. note::
 
@@ -1327,7 +1327,7 @@ directory with configuration files to a container at startup:
 .. subs-code-block:: console
 
    $ docker run -d --mount \
-            type=bind,src=/path/to/config/files/,dst=/docker-entrypoint.d/ \
+            type=bind,src=:nxt_ph:`/path/to/config/files/ <Use a real path instead>`,dst=/docker-entrypoint.d/ \
             nginx/unit:|version|-minimal)
 
 
@@ -1378,8 +1378,9 @@ Before configuring and compiling Unit, install the required build tools plus
 the library files for available languages (Go, Node.js, PHP, Perl, Python, and
 Ruby) and other features you want Unit to support.
 
-The commands below assume you are configuring Unit with all supported
-languages and features; otherwise, skip the packages you aren’t going to use.
+The commands below assume you are configuring Unit with all supported languages
+and features (:samp:`X`, :samp:`Y`, and :samp:`Z` stand in for major, minor,
+and revision numbers, respectively); omit the packages you won't use.
 
 .. tabs::
    :prefix: prereq
@@ -1391,14 +1392,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # apt install build-essential
          # apt install golang
-         # curl -sL :nxt_hint:`https://deb.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
+         # curl -sL https://deb.nodesource.com/setup_:nxt_ph:`X.Y <Node.js 8.11 or later is supported>` | bash -
          # apt install nodejs
          # npm install -g node-gyp
          # apt install php-dev libphp-embed
          # apt install libperl-dev
          # apt install python-dev
          # apt install ruby-dev
-         # apt install :nxt_hint:`openjdk-8-jdk <Java 8 or later is supported. Different JDKs may be used>`
+         # apt install openjdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`-jdk
          # apt install libssl-dev
          # apt install libpcre2-dev
 
@@ -1408,14 +1409,14 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # yum install gcc make
          # yum install golang
-         # curl -sL :nxt_hint:`https://rpm.nodesource.com/setup_version.x <Node.js 8.11 or later is supported>` | bash -
+         # curl -sL https://rpm.nodesource.com/setup_:nxt_ph:`X.Y <Node.js 8.11 or later is supported>` | bash -
          # yum install nodejs
          # npm install -g node-gyp
          # yum install php-devel php-embedded
          # yum install perl-devel perl-libs
          # yum install python-devel
          # yum install ruby-devel
-         # yum install :nxt_hint:`java-1.8.0-openjdk-devel <Java 8 or later is supported. Different JDKs may be used>`
+         # yum install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
          # yum install openssl-devel
          # yum install pcre2-devel
 
@@ -1428,11 +1429,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
          # cd /usr/ports/lang/go/ && make install clean
          # cd /usr/ports/www/node/ && make install clean
          # cd /usr/ports/www/npm/ && make install clean && npm i -g node-gyp
-         # cd :nxt_hint:`/usr/ports/lang/php73/ <PHP versions 5 and 7 are supported>` && make install clean
-         # cd :nxt_hint:`/usr/ports/lang/perl5.28/ <Perl 5.12 or later is supported>` && make install clean
+         # cd /usr/ports/lang/php:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`/ && make install clean
+         # cd /usr/ports/lang/perl:nxt_ph:`X.Y <Perl 5.12 or later is supported>`/ && make install clean
          # cd /usr/ports/lang/python/ && make install clean
-         # cd :nxt_hint:`/usr/ports/lang/ruby25/ <Ruby 2.0 or later is supported>` && make install clean
-         # cd :nxt_hint:`/usr/ports/java/openjdk8/ <Java 8 or later is supported. Different JDKs may be used>` && make install clean
+         # cd /usr/ports/lang/ruby:nxt_ph:`XY <Ruby 2.0 or later is supported>`/ && make install clean
+         # cd /usr/ports/java/openjdk:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`/ && make install clean
          # cd /usr/ports/security/openssl/ && make install clean
          # cd /usr/ports/devel/pcre2/ && make install clean
 
@@ -1442,11 +1443,11 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install go
          # pkg install node && pkg install npm && npm i -g node-gyp
-         # pkg install :nxt_hint:`php73 <PHP versions 5 and 7 are supported>`
-         # pkg install :nxt_hint:`perl5 <Perl 5.12 or later is supported>`
+         # pkg install php:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`
+         # pkg install perl:nxt_ph:`X <Perl 5.12 or later is supported>`
          # pkg install python
-         # pkg install :nxt_hint:`ruby25 <Ruby 2.0 is supported>`
-         # pkg install :nxt_hint:`openjdk8 <Java 8 or later is supported. Different JDKs may be used>`
+         # pkg install ruby:nxt_ph:`XY <Ruby 2.0 is supported>`
+         # pkg install openjdk:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
          # pkg install pcre2
 
@@ -1456,9 +1457,9 @@ languages and features; otherwise, skip the packages you aren’t going to use.
 
          # pkg install gcc
          # pkg install golang
-         # pkg install :nxt_hint:`php-71 <PHP versions 5 and 7 are supported>`
+         # pkg install php-:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`
          # pkg install ruby
-         # pkg install :nxt_hint:`jdk-8 <Java 8 or later is supported. Different JDKs may be used>`
+         # pkg install jdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
          # pkg install pcre
 
@@ -1569,9 +1570,9 @@ structure <installation-src-dir>`:
 
        .. code-block:: console
 
-          $ ./configure --control=:nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
           $ ./configure --control=127.0.0.1:8080
           $ ./configure --control=[::1]:8080
+          $ ./configure --control=:nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
 
        .. warning::
 
@@ -1683,8 +1684,8 @@ An alternative scenario is a build that you can move around the filesystem:
 
    .. code-block:: console
 
-      $ cd <DESTDIR>
-      # movable/sbin/unitd <command-line options>
+      $ cd :nxt_ph:`DESTDIR <Use a real path instead>`
+      # movable/sbin/unitd
 
 You can combine these approaches, but take care to understand how your settings
 work together.
@@ -2087,14 +2088,13 @@ overrides:
        built with.
 
    * - :samp:`--control socket`
-     - Control API socket address in IPv4, IPv6, or Unix (with :samp:`unix:`
-       prefix) domain format:
+     - Control API socket address in IPv4, IPv6, or Unix domain format:
 
        .. code-block:: console
 
-          # unitd --control unix:/path/to/control.unit.sock
           # unitd --control 127.0.0.1:8080
           # unitd --control [::1]:8080
+          # unitd --control :nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
 
    * - :samp:`--group name`, :samp:`--user name`
      - Group name and user name used to run Unit's non-privileged processes.
