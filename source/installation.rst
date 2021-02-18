@@ -849,8 +849,10 @@ Community Repositories
          * - Startup and shutdown
            - .. code-block:: console
 
-                # service unit start
-                # service unit stop
+                # :nxt_hint:`service unit enable <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+                # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
+                # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
 
 
    .. tab:: Arch
@@ -890,17 +892,19 @@ Community Repositories
          * - Startup and shutdown
            - .. code-block:: console
 
-                # systemctl start unit
-                # systemctl stop unit
+                # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+                # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+                # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
    .. tab:: CentOS/RHEL SCLs
 
       If you use `SCLo Software Collections
-      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_ in your
-      environment, you can install Unit's PHP modules as packages from the
-      corresponding repo.  Besides other dependencies, the packages require
-      the :ref:`core Unit installation <installation-precomp-pkgs>`.
+      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
+      Unit's PHP modules as packages from the corresponding repo.  Besides
+      other dependencies, the packages require the :ref:`core Unit installation
+      <installation-precomp-pkgs>`.
 
       CentOS:
 
@@ -919,6 +923,10 @@ Community Repositories
          # yum install centos-release-scl
          # yum install --enablerepo=centos-sclo-sclo \
                        sclo-php72-unit-php sclo-php73-unit-php
+
+      Runtime details: see :ref:`installation-precomp-centos`,
+      :ref:`installation-precomp-rhel`, and
+      :ref:`installation-precomp-startup`.
 
    .. tab:: FreeBSD
 
@@ -986,9 +994,10 @@ Community Repositories
          * - Startup and shutdown
            - .. code-block:: console
 
-                # service unitd start
-                # service unitd stop
-
+                # :nxt_hint:`service unitd enable <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`service unitd restart <Start or restart Unit; one-time action>`
+                # :nxt_hint:`service unitd stop <Stop a running Unit; one-time action>`
+                # :nxt_hint:`service unitd disable <Disable Unit's automatic startup>`
 
    .. tab:: Gentoo
 
@@ -1022,9 +1031,10 @@ Community Repositories
          * - Startup and shutdown
            - .. code-block:: console
 
-                # openrc -s nginx-unit start
-                # openrc -s nginx-unit stop
-
+                # :nxt_hint:`rc-update add nginx-unit <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`rc-service nginx-unit restart <Start or restart Unit; one-time action>`
+                # :nxt_hint:`rc-service nginx-unit stop <Stop a running Unit; one-time action>`
+                # :nxt_hint:`rc-update del nginx-unit <Disable Unit's automatic startup>`
 
    .. tab:: Nix
 
@@ -1071,9 +1081,10 @@ Community Repositories
 
              .. code-block:: console
 
-                # systemctl start unit
-                # systemctl stop unit
-
+                # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+                # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+                # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
    .. tab:: Remi's RPM Repo
 
@@ -1112,8 +1123,10 @@ Community Repositories
          * - Startup and shutdown
            - .. code-block:: console
 
-                # systemctl start unit
-                # systemctl stop unit
+                # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+                # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+                # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
 .. _installation-docker:
