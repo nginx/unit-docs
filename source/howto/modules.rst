@@ -151,8 +151,8 @@ adjust the command samples as needed to fit your scenario.
          :file:`DEBIAN` folder will store the package definition.
 
       #. Run :program:`unitd --version` as root and note the
-               :program:`./configure` :ref:`flags <installation-config-src>`
-               for later use, omitting :option:`!--ld-opt`:
+         :program:`./configure` :ref:`flags <installation-config-src>`
+         for later use, omitting :option:`!--ld-opt`:
 
          .. subs-code-block:: console
 
