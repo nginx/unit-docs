@@ -63,6 +63,9 @@ To run Django apps using the |app| `framework
    add a :ref:`route <configuration-routes>` to :ref:`serve
    <configuration-static>` them with Unit.
 
+   Here's an example (use real values for :samp:`share`, :samp:`path`, and
+   :samp:`home`):
+
    .. code-block:: json
 
       {
