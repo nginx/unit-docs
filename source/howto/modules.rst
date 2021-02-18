@@ -162,7 +162,7 @@ adjust the command samples as needed to fit your scenario.
                 configured as ./configure <./configure flags>
 
       #. Download Unit sources, :ref:`configure <installation-src-modules>` and
-               build your custom module, then put it where Unit will find it:
+         build your custom module, then put it where Unit will find it:
 
          .. subs-code-block:: console
 
@@ -188,7 +188,7 @@ adjust the command samples as needed to fit your scenario.
             Architecture: amd64
             Comment1: To get current architecture, run 'dpkg --print-architecture'
             Comment2: For a list of other options, run 'dpkg-architecture -L'
-            Depends: unit (= |version|), php7.3, libphp-embed
+            Depends: unit (= |version|-1~buster), php7.3, libphp-embed
             Comment3: Specify Unit package version to avoid issues when Unit updates
             Comment4: Again, run 'apt show unit | grep Version' to get this value
             Maintainer: Jane Doe <j.doe@example.com>
@@ -201,7 +201,7 @@ adjust the command samples as needed to fit your scenario.
          .. subs-code-block:: console
 
             $ dpkg-deb -b $UNITTMP/unit-php7.3
-            # dpkg -i $UNITTMP/unit-7.3.deb
+            # dpkg -i $UNITTMP/unit-php7.3.deb
 
 
    .. tab:: .rpm
