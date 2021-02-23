@@ -104,7 +104,7 @@ Supported architectures: :samp:`x86-64`.
 
    .. tab:: 2.0 LTS
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -130,7 +130,7 @@ Supported architectures: :samp:`x86-64`.
          Unit 1.22+ packages aren't available for Amazon Linux AMI.  This
          distribution is obsolete; please update.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -165,7 +165,7 @@ CentOS
 
       Supported architectures: :samp:`x86-64`.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -193,7 +193,7 @@ CentOS
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -238,7 +238,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -272,7 +272,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -305,7 +305,7 @@ Supported architectures: :samp:`x86-64`.
 
    .. tab:: 33
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -326,7 +326,7 @@ Supported architectures: :samp:`x86-64`.
 
    .. tab:: 32
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -353,7 +353,7 @@ Supported architectures: :samp:`x86-64`.
          packages aren't available for Fedora 31.  These distributions are
          obsolete; please update.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -379,7 +379,7 @@ Supported architectures: :samp:`x86-64`.
          Unit 1.20+ packages aren't available for Fedora 29.  This
          distribution is obsolete; please update.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -414,7 +414,7 @@ RHEL
 
       Supported architectures: :samp:`x86-64`.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -442,7 +442,7 @@ RHEL
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
 
          .. code-block:: ini
@@ -488,7 +488,7 @@ Ubuntu
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -520,7 +520,7 @@ Ubuntu
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -557,7 +557,7 @@ Ubuntu
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -589,7 +589,7 @@ Ubuntu
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
@@ -621,7 +621,7 @@ Ubuntu
          This eliminates the 'packages cannot be authenticated' warnings during
          installation.
 
-      #. To configure Unit repository, create the following file named
+      #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
 
          .. code-block:: none
