@@ -658,7 +658,7 @@ This deploys the core Unit binary and the prerequisites for :ref:`Go
 <installation-go-package>` and :ref:`Node.js <installation-nodejs-package>`
 language module installation.
 
-To install Java, Perl, Python, and Ruby language modules from Homebrew:
+To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 
 .. code-block:: console
 
