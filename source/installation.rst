@@ -684,7 +684,7 @@ To install the Go language module:
    $ go get unit.nginx.org/go
 
 That's it; now, you can :ref:`use it <configuration-external-go>` to run your
-Go apps in Unit.
+Go apps on Unit.
 
 
 .. _installation-nodejs-package:
@@ -715,9 +715,9 @@ Unit:
        :ref:`relink <configuration-external-nodejs>` the migrated app.
 
 #. After that, :ref:`use <configuration-external-nodejs>` the module in your
-   Node.js app instead of the built-in :program:`http` to run it in Unit.  Mind
-   that such frameworks as Express may require extra
-   :doc:`changes in your code <howto/express>`.
+   Node.js app instead of the built-in :program:`http` to run the app on Unit.
+   Mind that such frameworks as Express may require extra :doc:`changes in your
+   code <howto/express>`.
 
 If you update Unit later, make sure to update the module as well:
 
@@ -1735,7 +1735,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Go
 
       When you run :command:`./configure go`, Unit sets up the Go package that
-      lets your applications :ref:`run in Unit <configuration-external-go>`.
+      lets your applications :ref:`run on Unit <configuration-external-go>`.
       To use the package, :ref:`install <installation-bld-src-ext>` it in your
       Go environment.  Available configuration options:
 
@@ -1765,7 +1765,7 @@ and place module-specific instructions in the :file:`Makefile`.
       When you run :command:`./configure java`, the script configures a module
       to support running `Java Web Applications
       <https://download.oracle.com/otndocs/jcp/servlet-3_1-fr-spec/index.html>`_
-      in Unit.  Available command options:
+      on Unit.  Available command options:
 
       .. list-table::
 
@@ -1812,7 +1812,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Node.js
 
       When you run :command:`./configure nodejs`, Unit sets up the
-      :program:`unit-http` module that lets your applications :ref:`run in Unit
+      :program:`unit-http` module that lets your applications :ref:`run on Unit
       <configuration-external-nodejs>`.  Available configuration options:
 
       .. list-table::
@@ -1842,7 +1842,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Perl
 
       When you run :command:`./configure perl`, the script configures a module
-      to support running Perl scripts as applications in Unit.  Available
+      to support running Perl scripts as applications on Unit.  Available
       command options:
 
       .. list-table::
@@ -1870,7 +1870,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: PHP
 
       When you run :command:`./configure php`, the script configures a module
-      to support running PHP applications in Unit via PHP's :program:`embed`
+      to support running PHP applications on Unit via PHP's :program:`embed`
       SAPI.  Available command options:
 
       .. list-table::
@@ -1908,7 +1908,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Python
 
       When you run :command:`./configure python`, the script configures a
-      module to support running Python scripts as applications in Unit.
+      module to support running Python scripts as applications on Unit.
       Available command options:
 
       .. list-table::
@@ -1939,7 +1939,7 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Ruby
 
       When you run :program:`./configure ruby`, the script configures a module
-      to support running Ruby scripts as applications in Unit.  Available
+      to support running Ruby scripts as applications on Unit.  Available
       command options:
 
       .. list-table::

@@ -45,7 +45,7 @@ your technology stack, or simply be tech-curious.  In any case:
    * - **Prepare** |_| **the** |_| **app** |_| **for** |_| **Unit**
 
      - #. *(Only applies to Go/Node.js)* :ref:`Patch <configuration-external>`
-          your app to run in Unit.
+          your app to run on Unit.
 
        #. Choose :ref:`common <configuration-applications>` options such as
           app type, working directory, user/group.

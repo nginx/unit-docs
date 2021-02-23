@@ -51,4 +51,4 @@ Unit:
 
    .. image:: ../images/redmine.png
       :width: 100%
-      :alt: Redmine in Unit - Sample Screen
+      :alt: Redmine on Unit - Sample Screen

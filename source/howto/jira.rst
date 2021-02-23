@@ -117,4 +117,4 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
    .. image:: ../images/jira.png
       :width: 100%
-      :alt: Jira in Unit - Setup Screen
+      :alt: Jira on Unit - Setup Screen

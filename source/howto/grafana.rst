@@ -7,7 +7,7 @@ Grafana
 
 Here, we install |app| from `sources
 <https://grafana.com/docs/project/building_from_source/#building-grafana-from-source>`_
-so we can :ref:`configure it <configuration-external-go>` to run in Unit.
+so we can :ref:`configure it <configuration-external-go>` to run on Unit.
 
 #. .. include:: ../include/howto_install_unit.rst
 
@@ -164,4 +164,4 @@ so we can :ref:`configure it <configuration-external-go>` to run in Unit.
 
    .. image:: ../images/grafana.png
       :width: 100%
-      :alt: Grafana in Unit - Setup Screen
+      :alt: Grafana on Unit - Setup Screen

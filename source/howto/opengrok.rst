@@ -62,4 +62,4 @@ To run the `OpenGrok
 
    .. image:: ../images/opengrok.png
       :width: 100%
-      :alt: |app| in Unit - Search Screen
+      :alt: OpenGrok on Unit - Search Screen

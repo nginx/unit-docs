@@ -13,7 +13,7 @@ Configuration
 Quick Start
 ***********
 
-To run an application in Unit, first set up an :ref:`application
+To run an application on Unit, first set up an :ref:`application
 <configuration-applications>` object.  Let's store it in a file to :samp:`PUT`
 it into the :samp:`config/applications` section of Unit's control API,
 available via the :ref:`control socket <installation-src-startup>` at
@@ -137,7 +137,7 @@ an updated app by uploading the same configuration it already has.
 .. note::
 
    While we're working on handy app reload control, there's a workaround to
-   forcefully restart an app in Unit by updating an :ref:`environment
+   forcefully restart an app on Unit by updating an :ref:`environment
    <configuration-apps-common>` variable.  First, check whether the app has an
    :samp:`environment` object:
 
@@ -2333,7 +2333,7 @@ idles after 20 seconds:
 Go/Node.js
 ==========
 
-To run your Go or Node.js applications in Unit, you need to configure them
+To run your Go or Node.js applications on Unit, you need to configure them
 `and` modify their source code as suggested below.  Let's start with the app
 configuration; besides :ref:`common options <configuration-apps-common>`, you
 have the following:

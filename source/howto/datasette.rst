@@ -15,7 +15,7 @@ To run the `Datasette
 
 #. .. include:: ../include/howto_install_venv.rst
 
-#. Running |app| in Unit requires a wrapper to expose the `application object
+#. Running |app| on Unit requires a wrapper to expose the `application object
    <https://github.com/simonw/datasette/blob/4f7c0ebd85ccd8c1853d7aa0147628f7c1b749cc/datasette/app.py#L169>`_
    as the ASGI callable. Let's use the following basic version, saving it as
    :file:`/path/to/app/asgi.py`:
@@ -59,4 +59,4 @@ To run the `Datasette
 
    .. image:: ../images/datasette.png
       :width: 100%
-      :alt: Datasette in Unit - Query Screen
+      :alt: Datasette on Unit - Query Screen

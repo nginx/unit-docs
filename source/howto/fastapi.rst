@@ -80,5 +80,5 @@ To run apps built with the `FastAPI
 
 .. image:: ../images/fastapi.png
    :width: 100%
-   :alt: FastAPI in Unit - Swagger Screen
+   :alt: FastAPI on Unit - Swagger Screen
 

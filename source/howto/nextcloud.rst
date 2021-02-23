@@ -195,4 +195,4 @@ platform using Unit:
 
    .. image:: ../images/nextcloud.png
       :width: 100%
-      :alt: NextCloud in Unit - Home Screen
+      :alt: NextCloud on Unit - Home Screen
