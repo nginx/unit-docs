@@ -77,9 +77,7 @@ Installing a precompiled Unit binary package is best for most occasions;
 - Ubuntu |_| 16.04, 18.04, 19.10, 20.04, 20.10
 
 The packages we provide include core executables, developer files, and support
-for individual languages.
-
-We also maintain an official Homebrew `tap
+for individual languages.  We also maintain an official Homebrew `tap
 <https://github.com/nginx/homebrew-unit>`_ for macOS users.
 
 .. note::
