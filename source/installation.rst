@@ -235,8 +235,8 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -269,8 +269,8 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -485,8 +485,8 @@ Ubuntu
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -517,8 +517,8 @@ Ubuntu
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -554,8 +554,8 @@ Ubuntu
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -586,8 +586,8 @@ Ubuntu
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
@@ -618,8 +618,8 @@ Ubuntu
 
             # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
 
-         This eliminates the 'packages cannot be authenticated' warnings during
-         installation.
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/apt/sources.list.d/unit.list`:
