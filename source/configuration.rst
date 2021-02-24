@@ -1593,6 +1593,15 @@ directory path in the :samp:`share` option of a :ref:`route
        ]
    }
 
+.. note::
+
+   To serve the assets, Unit's :nxt_hint:`router process <Not to be confused
+   with the routes configuration section>` must be able to access them; thus,
+   the account this process runs as must have proper permissions :ref:`assigned
+   <security-apps>`.  When Unit is installed from the :ref:`official packages
+   <installation-precomp-pkgs>`, the process runs as :samp:`unit:unit`; for
+   details of other installation methods, see :doc:`installation`.
+
 Suppose the :file:`/www/data/static/` directory has the following structure:
 
 .. code-block:: none
