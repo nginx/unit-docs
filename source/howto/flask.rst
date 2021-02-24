@@ -22,7 +22,7 @@ To run apps built with the `Flask
    .. code-block:: python
 
       from flask import Flask
-      :nxt_hint:`app <Callable name used in Unit condfiguration>` = Flask(__name__)
+      :nxt_hint:`app <Callable name used in Unit's condfiguration>` = Flask(__name__)
 
       @app.route("/")
       def hello_world():

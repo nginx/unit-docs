@@ -51,8 +51,8 @@ check if :option:`!--log` is set, and how.
 Debug Log
 *********
 
-Unit log has two verbosity modes: common and debug; steps to enable the latter
-vary by install method.
+Unit's log has two verbosity modes: common and debug; steps to enable the
+latter vary by install method.
 
 .. warning::
 
@@ -113,7 +113,7 @@ vary by install method.
 Core Dumps
 **********
 
-Core dumps help developers to resolve Unit crashes; providing them with your
+Core dumps help developers to resolve Unit's crashes; providing them with your
 feedback is recommended.  For builds from :ref:`our repositories
 <installation-precomp-pkgs>`, we maintain debug symbols in special packages;
 they have the original packages' names with the :samp:`-dbg` suffix appended,

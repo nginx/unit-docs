@@ -127,7 +127,7 @@ so we can :ref:`configure it <configuration-external-go>` to run on Unit.
 
    Note the directory where the newly-built :file:`grafana-server` is placed,
    usually :file:`$GOPATH/bin/`; it's used by the :samp:`executable` option in
-   Unit configuration.
+   the Unit configuration.
 
 #. .. include:: ../include/howto_change_ownership.rst
 

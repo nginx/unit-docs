@@ -2,7 +2,7 @@
 Unit in Docker
 ##############
 
-To run your apps in containerized Unit using the :ref:`images we provide
+To run your apps in a containerized Unit using the :ref:`images we provide
 <installation-docker>`, you need at least to:
 
 - Mount your application files to a directory in your container.
@@ -32,7 +32,7 @@ Next, upload a configuration to Unit via the control socket:
 This command assumes your configuration is stored as :file:`config.json` in the
 container-mounted directory on the host; if the file defines a listener on port
 :samp:`8000`, your app is now accessible on port :samp:`8080` of the host.  For
-details of Unit configuration, see :ref:`configuration-mgmt`.
+details of the Unit configuration, see :ref:`configuration-mgmt`.
 
 .. note::
 
@@ -182,7 +182,7 @@ structure:
 
    $ mv /path/to/app /new/path/to/app
 
-To switch your app to another Unit image, prepare a corresponding
+To switch your app to a different Unit image, prepare a corresponding
 :file:`Dockerfile` first:
 
 .. subs-code-block:: docker
@@ -309,7 +309,7 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
 
    .. code-block:: console
 
-      $ docker commit $UNIT unit-expressapp  # store non-empty Unit state in the image
+      $ docker commit $UNIT unit-expressapp  # store a non-empty Unit state in the image
 
       # cat << EOF > myapp/new-config.json   # let's attempt re-initialization
         ...

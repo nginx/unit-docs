@@ -26,14 +26,14 @@ from the app's runspace.
 In Go, Unit support is implemented with a package that you :ref:`import
 <configuration-external-go>` to your apps.  You can :ref:`install
 <installation-go>` the package from the official Unit repository; otherwise,
-:ref:`build <installation-go>` it for your version of Go using Unit sources.
+:ref:`build <installation-go>` it for your version of Go using Unit's sources.
 
 In Node.js, Unit is supported by an :program:`npm`-hosted `package
 <https://www.npmjs.com/package/unit-http>`__ that you :ref:`require
 <configuration-external-nodejs>` in your app code.  You can :ref:`install
 <installation-nodejs-package>` the package from the :program:`npm` repository;
 otherwise, :ref:`build <installation-nodejs>` it for your version of Node.js
-using Unit sources.
+using Unit's sources.
 
 
 .. _modules-emb:
@@ -161,13 +161,13 @@ adjust the command samples as needed to fit your scenario.
                 unit version: |version|
                 configured as ./configure <./configure flags>
 
-      #. Download Unit sources, :ref:`configure <installation-src-modules>` and
-         build your custom module, then put it where Unit will find it:
+      #. Download Unit's sources, :ref:`configure <installation-src-modules>`
+         and build your custom module, then put it where Unit will find it:
 
          .. subs-code-block:: console
 
             $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
-            $ tar xzf unit-|version|.tar.gz                                 # Puts Unit sources in the unit-|version| subdirectory
+            $ tar xzf unit-|version|.tar.gz                                 # Puts Unit's sources in the unit-|version| subdirectory
             $ cd unit-|version|
             $ ./configure <./configure flags w/o --ld-opt>               # Configures the build; use the ./configure flags from unitd output
             $ ./configure php --module=php7.3 --config=php-config        # Configures the module itself
@@ -184,12 +184,12 @@ adjust the command samples as needed to fit your scenario.
 
             Package: unit-php7.3
             Version: |version|
-            Comment0: Use Unit package version for consistency: 'apt show unit | grep Version'
+            Comment0: Use Unit's package version for consistency: 'apt show unit | grep Version'
             Architecture: amd64
             Comment1: To get current architecture, run 'dpkg --print-architecture'
             Comment2: For a list of other options, run 'dpkg-architecture -L'
             Depends: unit (= |version|-1~buster), php7.3, libphp-embed
-            Comment3: Specify Unit package version to avoid issues when Unit updates
+            Comment3: Specify Unit's package version to avoid issues when Unit updates
             Comment4: Again, run 'apt show unit | grep Version' to get this value
             Maintainer: Jane Doe <j.doe@example.com>
             Description: Custom PHP 7.3 language module for NGINX Unit |version|
@@ -246,7 +246,7 @@ adjust the command samples as needed to fit your scenario.
                 configured as ./configure <./configure flags>
 
       #. Edit the :file:`unit-php7.3.spec` file, adding the commands that
-         download Unit sources, :ref:`configure
+         download Unit's sources, :ref:`configure
          <installation-src-modules>` and build your custom module, then
          put it where Unit will find it:
 
@@ -254,7 +254,7 @@ adjust the command samples as needed to fit your scenario.
 
             Name:           unit-php7.3
             Version:        |version|
-            # Use Unit package version for consistency: 'yum info unit | grep Version'
+            # Use Unit's package version for consistency: 'yum info unit | grep Version'
             Release:        1%{?dist}
             Summary:        Custom language module for NGINX Unit
 
@@ -266,7 +266,7 @@ adjust the command samples as needed to fit your scenario.
             BuildRequires:  php-devel
             BuildRequires:  php-embedded
             Requires:       unit = |version|
-            # Specify Unit package version to avoid issues when Unit updates
+            # Specify Unit's package version to avoid issues when Unit updates
             # Again, run 'yum info unit | grep Version' to get this value
             Requires:       php >= 7.3
             Requires:       php-embedded
@@ -278,7 +278,7 @@ adjust the command samples as needed to fit your scenario.
 
             %prep
             curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
-            # Downloads Unit sources
+            # Downloads Unit's sources
             tar --strip-components=1 -xzf unit-|version|.tar.gz
             # Extracts them locally for compilation steps in the %build section
 

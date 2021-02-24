@@ -43,7 +43,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
       $ curl https://github.com/mar0x/unit-transaction-init/releases/download/1.0/transaction-init-1.0.jar -O -C - -L
 
    Later, these :file:`.jar` files will be listed in the :samp:`classpath`
-   option of Unit configuration.
+   option of the Unit configuration.
 
 #. Patch your |app| configuration, dropping :samp:`env` from the
    :samp:`comp/env/UserTransaction` object path.  This ensures the

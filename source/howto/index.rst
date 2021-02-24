@@ -20,7 +20,7 @@ experience with Unit.
    security
    walkthrough
 
-- :doc:`docker`: Configure standalone Unit or a Unit-run app in a Docker
+- :doc:`docker`: Configure a standalone Unit or a Unit-run app in a Docker
   container.
 
 - :doc:`integration`: Front or secure Unit with NGINX.

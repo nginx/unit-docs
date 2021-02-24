@@ -49,7 +49,7 @@ Secure Socket and State
 ***********************
 
 **Rationale**: Your :ref:`control socket and state directory
-<installation-src-dir>` provide unlimited access to Unit configuration, which
+<installation-src-dir>` provide unlimited access to Unit's configuration, which
 calls for stringent protection.
 
 **Actions**: Default configuration in our :ref:`official packages
@@ -125,9 +125,9 @@ safe.
 
 .. nxt_details:: State Directory
 
-   The state directory stores internal Unit configuration between launches.
+   The state directory stores Unit's internal configuration between launches.
    Avoid manipulating it or relying on its contents even if tempted to do so.
-   Instead, use only the control API to manage Unit configuration.
+   Instead, use only the control API to manage Unit's configuration.
 
    Also, the state directory should be available only to :samp:`root` (or the
    user that the :samp:`main` :ref:`process <security-apps>` runs as):
@@ -164,8 +164,8 @@ Error-Proof Your Routes
 ***********************
 
 **Rationale**: Arguably, :ref:`routes <configuration-routes>` are the most
-flexible and versatile part of Unit configuration.  Thus, they must be as clear
-and robust as possible to avoid loose ends and gaping holes.
+flexible and versatile part of the Unit configuration.  Thus, they must be as
+clear and robust as possible to avoid loose ends and gaping holes.
 
 **Actions**: Familiarize yourself with the :ref:`matching
 <configuration-routes-matching>` logic and double-check all :ref:`patterns
@@ -515,7 +515,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
    permissions to manage access.  For more info and real-life examples, refer
    to our app :doc:`howtos <index>` and the 'File Permissions' callout above.
 
-.. nxt_details:: Unit Process Summary
+.. nxt_details:: Unit's Process Summary
 
    .. _security-processes:
 
@@ -678,7 +678,7 @@ disk space.
 
       # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group /path/to/unit.log
 
-      # :nxt_hint:`curl <Enable access log in Unit configuration at the given path>` -X PUT -d '"/path/to/access.log"'  \
+      # :nxt_hint:`curl <Enable access log in the Unit configuration at the given path>` -X PUT -d '"/path/to/access.log"'  \
              --unix-socket /path/to/control.unit.sock \
              http://localhost/config/access_log
 

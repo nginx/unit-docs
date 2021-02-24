@@ -44,7 +44,7 @@ framework using Unit:
 
       from bottle import Bottle, template
 
-      :nxt_hint:`app <Callable name used in Unit configuration>` = Bottle()
+      :nxt_hint:`app <Callable name used in Unit's configuration>` = Bottle()
 
       @app.route('/hello/<name>')
       def hello(name):

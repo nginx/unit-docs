@@ -1767,7 +1767,7 @@ fail, the request is proxied to an external server.
 Proxying
 ********
 
-Unit :ref:`routes <configuration-routes>` support HTTP proxying to socket
+Unit's :ref:`routes <configuration-routes>` support HTTP proxying to socket
 addresses using the :samp:`proxy` option of a step's :samp:`action`:
 
 .. code-block:: json

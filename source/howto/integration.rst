@@ -56,9 +56,9 @@ support and advanced features are `also available <https://www.nginx.com>`_.
 
 .. _nginx-secure-api:
 
-**********************************
-Securely Proxying Unit Control API
-**********************************
+************************************
+Securely Proxying Unit's Control API
+************************************
 
 By default, Unit exposes its :ref:`control API <configuration-mgmt>` via a Unix
 domain socket.  These sockets aren't network accessible, so the API is local
@@ -94,7 +94,7 @@ Use the following configuration template for NGINX:
        auth_basic_user_file :nxt_ph:`/path/to/htpasswd <Path to your htpasswd file>`;
 
        location / {
-           proxy_pass :nxt_hint:`http://unix:/path/to/control.unit.sock <Path to Unit control socket>`;
+           proxy_pass :nxt_hint:`http://unix:/path/to/control.unit.sock <Path to Unit's control socket>`;
        }
    }
 

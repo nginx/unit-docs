@@ -127,7 +127,7 @@ Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
-         Unit 1.22+ packages aren't available for Amazon Linux AMI.  This
+         Unit's 1.22+ packages aren't available for Amazon Linux AMI.  This
          distribution is obsolete; please update.
 
       #. To configure Unit's repository, create the following file named
@@ -188,8 +188,8 @@ CentOS
 
       .. warning::
 
-         Unit 1.20+ packages aren't available for CentOS 6.  This distribution
-         is obsolete; please update.
+         Unit's 1.20+ packages aren't available for CentOS 6.  This
+         distribution is obsolete; please update.
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
@@ -259,7 +259,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
       .. warning::
 
-         Unit 1.22+ packages aren't available for Debian 9.
+         Unit's 1.22+ packages aren't available for Debian 9.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -349,9 +349,9 @@ Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
-         Unit 1.20+ packages aren't available for Fedora 30, and Unit 1.22+
-         packages aren't available for Fedora 31.  These distributions are
-         obsolete; please update.
+         Unit's 1.20+ packages aren't available for Fedora 30; 1.22+ packages
+         aren't available for Fedora 31.  These distributions are obsolete;
+         please update.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -376,7 +376,7 @@ Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
-         Unit 1.20+ packages aren't available for Fedora 29.  This
+         Unit's 1.20+ packages aren't available for Fedora 29.  This
          distribution is obsolete; please update.
 
       #. To configure Unit's repository, create the following file named
@@ -437,7 +437,7 @@ RHEL
 
       .. warning::
 
-         Unit 1.20+ packages aren't available for RHEL 6.  This distribution
+         Unit's 1.20+ packages aren't available for RHEL 6.  This distribution
          is obsolete; please update.
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
@@ -541,7 +541,7 @@ Ubuntu
 
       .. warning::
 
-         Unit 1.20+ packages aren't available for Ubuntu 19.10.  This
+         Unit's 1.20+ packages aren't available for Ubuntu 19.10.  This
          distribution is obsolete; please update.
 
       Supported architectures: :samp:`x86-64`.
@@ -779,7 +779,7 @@ available or list its settings.  To manage the installation:
 
          # unitd
 
-      Stop all Unit processes:
+      Stop all Unit's processes:
 
       .. code-block:: console
 
@@ -816,7 +816,7 @@ Community Repositories
 
    .. tab:: Alpine
 
-      To install core Unit executables from the `Alpine Linux packages
+      To install Unit's core executables from the `Alpine Linux packages
       <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
 
       .. code-block:: console
@@ -855,7 +855,7 @@ Community Repositories
 
    .. tab:: Arch
 
-      To install core Unit executables and all language modules, clone the
+      To install Unit's core executables and all language modules, clone the
       `Arch User Repository (AUR)
       <https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
 
@@ -1036,9 +1036,9 @@ Community Repositories
 
    .. tab:: Nix
 
-      To install core Unit executables and all language modules using the `Nix
-      package manager <https://nixos.org/nix/>`_, update the channel, check if
-      Unit's available, and install the `package
+      To install Unit's core executables and all language modules using the
+      `Nix package manager <https://nixos.org/nix/>`_, update the channel,
+      check if Unit's available, and install the `package
       <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/>`__:
 
       .. code-block:: console
@@ -1091,7 +1091,7 @@ Community Repositories
       which hosts the latest versions of the PHP stack for CentOS, Fedora, and
       RHEL, also has the core Unit package and the PHP modules.
 
-      To use Remi's versions of Unit packages, configure `Remi's RPM repo
+      To use Remi's versions of Unit's packages, configure `Remi's RPM repo
       <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
       modules are also compatible with the core Unit package from :ref:`our own
       repository <installation-precomp-pkgs>`.
@@ -1352,7 +1352,7 @@ Source Code
 Obtaining Sources
 =================
 
-You can get Unit source code from our official Mercurial repository, its
+You can get Unit's source code from our official Mercurial repository, its
 GitHub mirror, or in a tarball.
 
 If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
@@ -1643,7 +1643,7 @@ structure <installation-src-dir>`:
 Directory Structure
 *******************
 
-To customize Unit installation and runtime directories, you can both:
+To customize Unit's installation and runtime directories, you can both:
 
 - Set the :option:`!--prefix` and path options (their relative settings are
   prefix-based) during :ref:`configuration <installation-config-src-prefix>` to
@@ -1969,7 +1969,7 @@ and place module-specific instructions in the :file:`Makefile`.
 Building and Installing Unit
 ============================
 
-To build and install Unit executables and language modules that you have
+To build and install Unit's executables and language modules that you have
 :program:`./configure`'d earlier:
 
 .. code-block:: console
@@ -1983,7 +1983,7 @@ externally.
 
 .. note::
 
-   For further details about Unit language modules, see :doc:`howto/modules`.
+   For further details about Unit's language modules, see :doc:`howto/modules`.
 
 
 .. _installation-bld-src-emb:
@@ -1991,7 +1991,7 @@ externally.
 Embedded Language Modules
 *************************
 
-To build and install Unit modules for Java, PHP, Perl, Python, or Ruby after
+To build and install the modules for Java, PHP, Perl, Python, or Ruby after
 configuration, run :command:`make <module>` and :command:`make
 <module>-install`, for example:
 
@@ -2006,7 +2006,7 @@ configuration, run :command:`make <module>` and :command:`make
 External Language Modules
 *************************
 
-To build and install Unit modules for Go and Node.js globally after
+To build and install the modules for Go and Node.js globally after
 configuration, run :command:`make <go>-install` and :command:`make
 <node>-install`, for example:
 
@@ -2129,4 +2129,4 @@ Finally, to stop a running Unit:
 
    # pkill unitd
 
-This command signals all Unit processes to terminate in a graceful manner.
+This command signals all Unit's processes to terminate in a graceful manner.
