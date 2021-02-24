@@ -1386,8 +1386,8 @@ Installing Required Software
 ============================
 
 Before configuring and compiling Unit, install the required build tools plus
-the library files for available languages (Go, Node.js, PHP, Perl, Python, and
-Ruby) and other features you want Unit to support.
+the library files for the supported languages (Go, Java, Node.js, PHP, Perl,
+Python, and Ruby), and other features you want to use with Unit.
 
 The commands below assume you are configuring Unit with all supported languages
 and features (:samp:`X`, :samp:`Y`, and :samp:`Z` stand in for major, minor,
