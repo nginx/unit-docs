@@ -930,7 +930,7 @@ Community Repositories
 
       To install Unit from `FreeBSD packages <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
-      install the core package and other packages you need:
+      get the core package and other packages you need:
 
       .. code-block:: console
 
