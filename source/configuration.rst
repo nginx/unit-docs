@@ -1965,7 +1965,7 @@ App objects have a number of options shared between all application languages:
       - Username that runs the app process.  If not set, the username
         configured at :ref:`build time <installation-config-src>` or :ref:`at
         startup <installation-src-startup>` to run Unit's non-privileged
-        processes is used.
+        :ref:`processes <security-apps>` is used.
 
     * - :samp:`group`
       - Group name that runs the app process.  If not set, the :samp:`user`'s

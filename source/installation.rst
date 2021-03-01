@@ -1514,7 +1514,8 @@ or support for certain features:
      - Extra options for the C compiler and linker.
 
    * - :samp:`--group=name`, :samp:`--user=name`
-     - Group name and username to run Unit's non-privileged processes.
+     - Group name and username to run Unit's non-privileged :ref:`processes
+       <security-apps>`.
 
        The defaults are :option:`!--user`'s primary group and
        :samp:`nobody`, respectively.
@@ -1600,17 +1601,18 @@ structure <installation-src-dir>`:
        The defaults are :samp:`include` and :samp:`lib`, respectively.
 
    * - :samp:`--log=pathname`
-     - Pathname for Unit's log.
+     - Pathname for Unit's :ref:`log <troubleshooting-log>`.
 
        The default is :samp:`unit.log`.
 
    * - :samp:`--modules=directory`
-     - Directory path for Unit's language modules.
+     - Directory path for Unit's language :doc:`modules <howto/modules>`.
 
        The default is :samp:`modules`.
 
    * - :samp:`--pid=pathname`
-     - Pathname for the PID file of Unit's daemon process.
+     - Pathname for the PID file of Unit's :program:`main` :ref:`process
+       <security-apps>`.
 
        The default is :samp:`unit.pid`.
 
@@ -2108,17 +2110,19 @@ overrides:
           # unitd --control :nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
 
    * - :samp:`--group name`, :samp:`--user name`
-     - Group name and user name used to run Unit's non-privileged processes.
+     - Group name and user name used to run Unit's non-privileged
+       :ref:`processes <security-apps>`.
 
    * - :samp:`--log pathname`
-     - Pathname for the Unit log.
+     - Pathname for Unit's :ref:`log <troubleshooting-log>`.
 
    * - :samp:`--modules directory`
-     - Directory path for Unit language modules
+     - Directory path for Unit language :doc:`modules <howto/modules>`
        (:file:`<module>.unit.so` files).
 
    * - :samp:`--pid pathname`
-     - Pathname for the PID file of Unit's :program:`main` process.
+     - Pathname for the PID file of Unit's :program:`main` :ref:`process
+       <security-apps>`.
 
    * - :samp:`--state directory`
      - Directory path for Unit state storage.
