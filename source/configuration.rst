@@ -519,7 +519,7 @@ In its simplest form, :samp:`routes` can be a single route array:
             }
         },
 
-        "routes": [ "simply referred to as routes" ]
+        ":nxt_hint:`routes <Array-mode routes, simply referred to as 'routes'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ]
    }
 
 Another form is an object with one or more named route arrays as members:
@@ -534,8 +534,8 @@ Another form is an object with one or more named route arrays as members:
         },
 
         "routes": {
-            "main": [ "named route, qualified name: routes/main" ],
-            "route66": [ "named route, qualified name: routes/route66" ]
+            ":nxt_hint:`main <Named route, referred to as 'routes/main'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ],
+            ":nxt_hint:`route66 <Named route, referred to as 'routes/route66'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ]
         }
    }
 
@@ -777,7 +777,7 @@ requests' properties:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -843,7 +843,7 @@ Here, the URI of the request must fit :samp:`pattern3`, but should not match
        },
 
        "action": {
-           "pass": "..."
+           "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
        }
    }
 
@@ -877,7 +877,7 @@ include both :samp:`arg1` and :samp:`arg2` and they match their patterns:
        },
 
        "action": {
-           "pass": "..."
+           "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
        }
    }
 
@@ -901,7 +901,7 @@ respective pattern:
        },
 
        "action": {
-           "pass": "..."
+           "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
        }
    }
 
@@ -951,7 +951,7 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
        },
 
        "action": {
-           "pass": "..."
+           "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
        }
    }
 
@@ -968,7 +968,7 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -992,7 +992,7 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1029,7 +1029,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1045,7 +1045,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1059,7 +1059,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1077,7 +1077,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1095,7 +1095,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1111,7 +1111,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1128,7 +1128,7 @@ regexes modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1168,7 +1168,7 @@ exactly match the property value; wildcards and ranges modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1194,7 +1194,7 @@ exactly match the property value; wildcards and ranges modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1213,7 +1213,7 @@ exactly match the property value; wildcards and ranges modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1230,7 +1230,7 @@ exactly match the property value; wildcards and ranges modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1248,7 +1248,7 @@ exactly match the property value; wildcards and ranges modify this behavior:
           },
 
           "action": {
-              "pass": "..."
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
 
@@ -1444,7 +1444,7 @@ variable is immediately followed by these characters:
    {
        "listeners": {
            "*:80": {
-               "pass": "routes/${method}_route"
+               "pass": "routes/:nxt_hint:`${method} <The method variable is thus separated from the '_route' postfix>`_route"
            }
        },
 
