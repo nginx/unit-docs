@@ -79,7 +79,7 @@ To run apps built with the `Guillotina
 
           "applications": {
               "guillotina": {
-                  "type": "python 3",
+                  "type": "python 3.:nxt_ph:`Y <Must match language module version and virtual environment version>`",
                   "path": ":nxt_ph:`/path/to/app/ <Path to the ASGI module>`",
                   "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_hint:`asgi <ASGI module filename with extension omitted>`",

@@ -44,7 +44,7 @@ To run apps built with the `Flask
 
           "applications": {
               "flask": {
-                  "type": ":nxt_hint:`python 3.x <Must match language module version and virtual environment version>`",
+                  "type": "python 3.:nxt_ph:`Y <Must match language module version and virtual environment version>`",
                   "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI module>`",
                   "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",

@@ -57,7 +57,7 @@ using Unit:
 
           "applications": {
               "pyramid": {
-                  "type": ":nxt_hint:`python 3.x <Must match language module version and virtual environment version>`",
+                  "type": "python 3.:nxt_ph:`Y <Must match language module version and virtual environment version>`",
                   "path": "/path/to/app/",
                   "home": "/path/to/app/venv/",
                   "module": "wsgi",

@@ -20,18 +20,18 @@ framework using Unit:
 
    .. subs-code-block:: console
 
-      $ cd /path/to/app/
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
       $ :nxt_hint:`python --version <Make sure your virtual environment version matches the module version>`
-            Python x.y.z
-      $ python -m venv venv
-      $ source venv/bin/activate
+            Python :nxt_hint:`X.Y.Z <Major version, minor version, and revision number>`
+      $ python -m venv :nxt_hint:`venv <Arbitrary name of the virtual environment>`
+      $ source :nxt_hint:`venv <Name of the virtual environment from the previous command>`/bin/activate
       $ pip install |app-pip-package|
       $ deactivate
 
    .. warning::
 
       Create your virtual environment with a Python version that matches the
-      language module from Step |_| 1 up to the minor number (:samp:`x.y` in
+      language module from Step |_| 1 up to the minor number (:samp:`X.Y` in
       this example).  Also, the app :samp:`type` in Step |_| 5 must
       :ref:`resolve <configuration-apps-common>` to a similarly matching
       version; Unit doesn't infer it from the environment.
@@ -70,10 +70,10 @@ framework using Unit:
 
           "applications": {
               "bottle": {
-                  "type": ":nxt_hint:`python x.y <Must match language module version and virtual environment version>`",
-                  "path": ":nxt_hint:`/path/to/app/ <Path to the WSGI module>`",
-                  "home": ":nxt_hint:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
-                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
+                  "type": "python :nxt_ph:`X.Y <Must match language module version and virtual environment version>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI module; use a real path in your configuration>`",
+                  "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any; use a real path in your configuration>`",
+                  "module": ":nxt_hint:`wsgi <WSGI module basename with extension omitted>`",
                   "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }
