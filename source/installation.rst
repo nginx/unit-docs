@@ -1804,8 +1804,8 @@ and place module-specific instructions in the :file:`Makefile`.
 
              The default is :samp:`http://central.maven.org/maven2/`.
 
-         * - :samp:`--module=filename`
-           - Name of the module to be built (:file:`<module>.unit.so`), also
+         * - :samp:`--module=basename`
+           - Name of the module to be built (:file:`<basename>.unit.so`), also
              used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is :samp:`java`.
@@ -1861,10 +1861,9 @@ and place module-specific instructions in the :file:`Makefile`.
 
              The default is :samp:`perl`.
 
-         * - :samp:`--module=filename`
-           - Name of the module to be built
-             (:file:`<module>.unit.so`), also used in :ref:`make
-             <installation-bld-src-emb>` targets.
+         * - :samp:`--module=basename`
+           - Name of the module to be built (:file:`<basename>.unit.so`), also
+             used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is the filename of the :option:`!--perl` executable.
 
@@ -1899,9 +1898,9 @@ and place module-specific instructions in the :file:`Makefile`.
              (:file:`libphp<version>.a`) instead of the dynamic one
              (:file:`libphp<version>.so`); requires :option:`!--lib-path`.
 
-         * - :samp:`--module=filename`
-           - Name of the module to be built (:file:`<module>.unit.so`), also used
-             in :ref:`make <installation-bld-src-emb>` targets.
+         * - :samp:`--module=basename`
+           - Name of the module to be built (:file:`<basename>.unit.so`), also
+             used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is :option:`!--config`'s filename minus the `-config`
              suffix; thus, :samp:`/path/php7-config` turns into :samp:`php7`.
@@ -1932,8 +1931,8 @@ and place module-specific instructions in the :file:`Makefile`.
            - Custom directory path of the Python runtime library to use with
              Unit.
 
-         * - :samp:`--module=filename`
-           - Name of the module to be built (:samp:`<module>.unit.so`), also
+         * - :samp:`--module=basename`
+           - Name of the module to be built (:samp:`<basename>.unit.so`), also
              used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is :option:`!--config`'s filename minus the `-config`
@@ -1955,8 +1954,8 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. list-table::
 
-         * - :samp:`--module=filename`
-           - Name of the module to be built (:file:`<module>.unit.so`), also
+         * - :samp:`--module=basename`
+           - Name of the module to be built (:file:`<basename>.unit.so`), also
              used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is the filename of the :option:`!--ruby` executable.
@@ -2003,8 +2002,8 @@ Embedded Language Modules
 *************************
 
 To build and install the modules for Java, PHP, Perl, Python, or Ruby after
-configuration, run :command:`make <module>` and :command:`make
-<module>-install`, for example:
+configuration, run :command:`make <module basename>` and :command:`make
+<module basename>-install`, for example:
 
 .. code-block:: console
 
@@ -2127,7 +2126,7 @@ General runtime options and :ref:`compile-time setting
 
    * - :samp:`--modules directory`
      - Directory path for Unit's language :doc:`modules <howto/modules>`
-       (:file:`<module>.unit.so` files).
+       (:file:`*.unit.so` files).
 
    * - :samp:`--pid pathname`
      - Pathname for the PID file of Unit's :program:`main` :ref:`process
