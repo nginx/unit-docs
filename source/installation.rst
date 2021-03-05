@@ -2126,7 +2126,7 @@ General runtime options and :ref:`compile-time setting
      - Pathname for Unit's :ref:`log <troubleshooting-log>`.
 
    * - :samp:`--modules directory`
-     - Directory path for Unit language :doc:`modules <howto/modules>`
+     - Directory path for Unit's language :doc:`modules <howto/modules>`
        (:file:`<module>.unit.so` files).
 
    * - :samp:`--pid pathname`
@@ -2134,7 +2134,7 @@ General runtime options and :ref:`compile-time setting
        <security-apps>`.
 
    * - :samp:`--state directory`
-     - Directory path for Unit state storage.
+     - Directory path for Unit's state storage.
 
 Finally, to stop a running Unit:
 
