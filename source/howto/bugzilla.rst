@@ -43,12 +43,12 @@ Unit:
               "bugzilla": [
                   {
                       ":nxt_hint:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
-                          "source": "192.20.225.0/24",
+                          "source": ":nxt_hint:`192.20.225.0/24 <Well-known IP range>`",
                           "uri": "/data/webdot/*.dot"
                       },
 
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves static files that match the conditions above>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       }
                   },
                   {
@@ -81,9 +81,9 @@ Unit:
                   },
                   {
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "fallback": {
-                              "pass": "applications/bugzilla"
+                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/bugzilla"
                           }
                       }
                   }
@@ -93,7 +93,7 @@ Unit:
           "applications": {
               "bugzilla": {
                   "type": "perl",
-                  "working_directory": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                   "script": ":nxt_ph:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
               }
           }
