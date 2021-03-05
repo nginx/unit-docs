@@ -16,8 +16,8 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
 
    .. code-block:: console
 
-      $ cd /path/to/
-      $ composer create-project --prefer-dist cakephp/app:4.* app
+      $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
+      $ composer create-project --prefer-dist cakephp/app:4.* :nxt_ph:`app <Arbitrary app name>`
 
    This creates the app's directory tree at :file:`/path/to/app/`.  Its
    :file:`webroot/` subdirectory contains both the root :file:`index.php` and
@@ -42,7 +42,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
               "cakephp": [
                   {
                       "match": {
-                          ":nxt_hint:`uri <Handles all direct script-based requests>`": [
+                          ":nxt_hint:`uri <Handles all requests that explicitly target PHP scripts>`": [
                               "*.php",
                               "*.php/*"
                           ]
@@ -54,9 +54,9 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
                   },
                   {
                       "action": {
-                          ":nxt_hint:`share <Serves all kinds of static files>`": ":nxt_ph:`/path/to/app/webroot/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
                           "fallback": {
-                              "pass": ":nxt_hint:`applications/cakephp/index <Uses the index.php at the root as the last resort>`"
+                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/cakephp/index"
                           }
                       }
                   }
