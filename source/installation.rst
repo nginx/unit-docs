@@ -1145,25 +1145,32 @@ Unit's Docker images come in several language-specific flavors:
      - No language modules are included.
 
    * - :samp:`|version|-go1.15`
-     - Single-language image based on the :samp:`golang:1.15` `image <https://hub.docker.com/_/golang>`__.
+     - Single-language image based on the :samp:`golang:1.15`
+       `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
-     - Single-language image based on the :samp:`openjdk:11-jdk` `image <https://hub.docker.com/_/openjdk>`__.
+     - Single-language image based on the :samp:`openjdk:11-jdk`
+       `image <https://hub.docker.com/_/openjdk>`__.
 
    * - :samp:`|version|-node15`
-     - Single-language image based on the :samp:`node:15` `image <https://hub.docker.com/_/node>`__.
+     - Single-language image based on the :samp:`node:15`
+       `image <https://hub.docker.com/_/node>`__.
 
    * - :samp:`|version|-perl5.32`
-     - Single-language image based on the :samp:`perl:5.32` `image <https://hub.docker.com/_/perl>`__.
+     - Single-language image based on the :samp:`perl:5.32`
+       `image <https://hub.docker.com/_/perl>`__.
 
    * - :samp:`|version|-php8.0`
-     - Single-language image based on the :samp:`php:8.0-cli` `image <https://hub.docker.com/_/php>`__.
+     - Single-language image based on the :samp:`php:8.0-cli`
+       `image <https://hub.docker.com/_/php>`__.
 
    * - :samp:`|version|-python3.9`
-     - Single-language image based on the :samp:`python:3.9` `image <https://hub.docker.com/_/python>`__.
+     - Single-language image based on the :samp:`python:3.9`
+       `image <https://hub.docker.com/_/python>`__.
 
    * - :samp:`|version|-ruby2.7`
-     - Single-language image based on the :samp:`ruby:2.7` `image <https://hub.docker.com/_/ruby>`__.
+     - Single-language image based on the :samp:`ruby:2.7`
+       `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
 
@@ -1772,8 +1779,8 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--home=directory`
-           - Directory path for Java utilities and header files (required to build
-             the module).
+           - Directory path for Java utilities and header files (required to
+             build the module).
 
              The default is the :samp:`java.home` setting.
 
@@ -1878,8 +1885,8 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--config=pathname`
-           - Pathname of the :program:`php-config` script invoked to configure the
-             PHP module.
+           - Pathname of the :program:`php-config` script invoked to configure
+             the PHP module.
 
              The default is :samp:`php-config`.
 
@@ -1916,20 +1923,22 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--config=pathname`
-           - Pathname of the :program:`python-config` script invoked to configure
-             the Python module.
+           - Pathname of the :program:`python-config` script invoked to
+             configure the Python module.
 
              The default is :samp:`python-config`.
 
          * - :samp:`--lib-path=directory`
-           - Custom directory path of the Python runtime library to use with Unit.
+           - Custom directory path of the Python runtime library to use with
+             Unit.
 
          * - :samp:`--module=filename`
            - Name of the module to be built (:samp:`<module>.unit.so`), also
              used in :ref:`make <installation-bld-src-emb>` targets.
 
              The default is :option:`!--config`'s filename minus the `-config`
-             suffix; thus, :samp:`/path/python3-config` turns into :samp:`python3`.
+             suffix; thus, :samp:`/path/python3-config` turns into
+             :samp:`python3`.
 
       To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
@@ -2084,8 +2093,8 @@ compile-time settings.  Usually, the defaults don't require overrides; however,
 the following runtime options are available.  For details and security notes,
 see :ref:`here <installation-config-src>`.
 
-General runtime options and :ref:`compile-time setting <installation-config-src>`
-overrides:
+General runtime options and :ref:`compile-time setting
+<installation-config-src>` overrides:
 
 .. list-table::
 
