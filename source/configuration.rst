@@ -3127,7 +3127,7 @@ First, create a :file:`.pem` file with your certificate chain and private key:
 
 .. code-block:: console
 
-   $ cat cert.pem ca.pem key.pem > bundle.pem
+   $ cat :nxt_ph:`cert.pem <Leaf certificate file>` :nxt_ph:`ca.pem <CA certificate file>` :nxt_ph:`key.pem <Private key file>` > :nxt_ph:`bundle.pem <Arbitrary certificate bundle's filename>`
 
 .. note::
 
@@ -3135,12 +3135,13 @@ First, create a :file:`.pem` file with your certificate chain and private key:
    intermediate CA certificate) is enough to build a certificate chain.  If
    you add more certificates to your chain, order them leaf to root.
 
-Upload the resulting file to Unit's certificate storage under a suitable name:
+Upload the resulting file to Unit's certificate storage under a suitable name
+(in this case, :samp:`bundle`):
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary @bundle.pem --unix-socket \
-          /path/to/control.unit.sock http://localhost/certificates/<bundle>
+   # curl -X PUT --data-binary @:nxt_ph:`bundle.pem <Certificate bundle's filename>` --unix-socket \
+          /path/to/control.unit.sock http://localhost/certificates/:nxt_ph:`bundle <Certificate bundle name in Unit's configuration>`
 
        {
            "success": "Certificate chain uploaded."
@@ -3160,7 +3161,7 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
    {
        "certificates": {
-           "<bundle>": {
+           ":nxt_hint:`bundle <Certificate bundle name>`": {
                "key": "RSA (4096 bits)",
                "chain": [
                    {
@@ -3222,9 +3223,9 @@ them to a separate configuration section, aptly named :samp:`certificates`:
     .. code-block:: console
 
        # curl -X GET --unix-socket /path/to/control.unit.sock \
-              http://localhost/certificates/<bundle>/chain/0/
+              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/
        # curl -X GET --unix-socket /path/to/control.unit.sock \
-              http://localhost/certificates/<bundle>/chain/0/subject/alt_names/0/
+              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
 
 Next, add a :samp:`tls` object to the listener configuration, referencing the
 uploaded bundle in :samp:`certificate`:
@@ -3236,7 +3237,7 @@ uploaded bundle in :samp:`certificate`:
            "127.0.0.1:443": {
                "pass": "applications/wsgi-app",
                "tls": {
-                   "certificate": "<bundle>"
+                   "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
                }
            }
        }
@@ -3248,7 +3249,7 @@ The resulting control API configuration may look like this:
 
    {
        "certificates": {
-           "<bundle>": {
+           ":nxt_hint:`bundle <Certificate bundle name>`": {
                "key": "<key type>",
                "chain": ["<certificate chain, omitted for brevity>"]
            }
@@ -3259,7 +3260,7 @@ The resulting control API configuration may look like this:
                "127.0.0.1:443": {
                    "pass": "applications/wsgi-app",
                    "tls": {
-                       "certificate": "<bundle>"
+                       "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
                    }
                }
            },
@@ -3298,7 +3299,7 @@ anymore from the storage:
 .. code-block:: console
 
    # curl -X DELETE --unix-socket /path/to/control.unit.sock \
-          http://localhost/certificates/<bundle>
+          http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`
 
        {
            "success": "Certificate deleted."
