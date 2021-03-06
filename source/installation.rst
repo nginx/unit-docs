@@ -1877,9 +1877,9 @@ and place module-specific instructions in the :file:`Makefile`.
 
    .. tab:: PHP
 
-      When you run :command:`./configure php`, the script configures a module
-      to support running PHP applications on Unit via PHP's :program:`embed`
-      SAPI.  Available command options:
+      When you run :command:`./configure php`, the script configures a custom
+      SAPI module linked with the :program:`libphp` library to support running
+      PHP applications on Unit.  Available command options:
 
       .. list-table::
 
@@ -1890,13 +1890,20 @@ and place module-specific instructions in the :file:`Makefile`.
              The default is :samp:`php-config`.
 
          * - :samp:`--lib-path=directory`
-           - Directory path of PHP's :program:`embed` SAPI library file
-             (:file:`libphp<version>.so` or :file:`.a`).
+           - Directory path of the :program:`libphp` library file
+             (:file:`libphp*.so` or :file:`libphp*.a`), usually available with
+             an :option:`!--enable-embed` PHP build:
+
+             .. code-block:: console
+
+                $ php-config --php-sapis
+
+                      ... embed ...
 
          * - :samp:`--lib-static`
-           - Links the static :program:`embed` SAPI library
-             (:file:`libphp<version>.a`) instead of the dynamic one
-             (:file:`libphp<version>.so`); requires :option:`!--lib-path`.
+           - Links the static :program:`libphp` library (:file:`libphp*.a`)
+             instead of the dynamic one (:file:`libphp*.so`); requires
+             :option:`!--lib-path`.
 
          * - :samp:`--module=basename`
            - Name of the module to be built (:file:`<basename>.unit.so`), also

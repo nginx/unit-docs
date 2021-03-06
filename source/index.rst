@@ -116,7 +116,7 @@ Supported App Languages
 
 - :ref:`Perl <configuration-perl>`: via PSGI
 
-- :ref:`PHP <configuration-php>`: via the :program:`embed` SAPI
+- :ref:`PHP <configuration-php>`: via a custom SAPI module
 
 - :ref:`Python <configuration-python>`: via WSGI and ASGI with WebSocket
   support
