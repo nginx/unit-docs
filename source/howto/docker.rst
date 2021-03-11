@@ -187,11 +187,23 @@ To switch your app to a different Unit image, prepare a corresponding
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.9
+   FROM nginx/unit:|version|-minimal
    COPY requirements.txt /config/requirements.txt
-   RUN apt update && apt install -y python3-pip                                  \
+   # This time, we took a minimal Unit image to install a vanilla Python 3.7
+   # module, run PIP and perform cleanup just like we did earlier.
+
+   # First, we install the tooling required to add Unit's repo and import its key.
+   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
+       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+
+   # Next, we add Unit's repo, install the module, and perform creanup.
+   RUN echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit" \
+            > /etc/apt/sources.list.d/unit.list                                  \
+       && apt update && apt install -y unit-python3.7 python3-pip                \
        && pip3 install -r /config/requirements.txt                               \
+       && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
        && rm -rf /var/lib/apt/lists/*
+
 
 .. code-block:: console
 
