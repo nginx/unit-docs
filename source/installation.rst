@@ -896,7 +896,7 @@ Community Repositories
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
-   .. tab:: CentOS/RHEL SCLs
+   .. tab:: SCLo
 
       If you use `SCLo Software Collections
       <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
@@ -970,11 +970,11 @@ Community Repositories
       <https://www.freshports.org/devel/libunit/>`_ (required to install the
       :ref:`Node.js <installation-nodejs-package>` module and build :ref:`Go
       <installation-go-package>` apps), `unit-java
-      <https://www.freshports.org/www/unit-java/>`_, `unit-perl
-      <https://www.freshports.org/www/unit-perl/>`_, `unit-php
-      <https://www.freshports.org/www/unit-php/>`_, `unit-python
-      <https://www.freshports.org/www/unit-python/>`_, or `unit-ruby
-      <https://www.freshports.org/www/unit-ruby/>`_.
+      <https://www.freshports.org/www/unit-java/>`__, `unit-perl
+      <https://www.freshports.org/www/unit-perl/>`__, `unit-php
+      <https://www.freshports.org/www/unit-php/>`__, `unit-python
+      <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
+      <https://www.freshports.org/www/unit-ruby/>`__.
 
       Runtime details:
 
@@ -1033,6 +1033,71 @@ Community Repositories
                 # :nxt_hint:`rc-service nginx-unit restart <Start or restart Unit; one-time action>`
                 # :nxt_hint:`rc-service nginx-unit stop <Stop a running Unit; one-time action>`
                 # :nxt_hint:`rc-update del nginx-unit <Disable Unit's automatic startup>`
+
+   .. tab:: NetBSD
+
+      To install Unit from the `NetBSD Package Collection
+      <https://pkgsrc.se/www/unit>`__, start by updating your collection:
+
+      .. code-block:: console
+
+         # cd /usr/pkgsrc && cvs update -dP
+
+      Next, browse to the package path to build and install the core Unit
+      binaries:
+
+      .. code-block:: console
+
+         # cd /usr/pkgsrc/www/unit/
+         # make build install
+
+      Repeat the steps for the other packages you need: `libunit
+      <https://pkgsrc.se/devel/libunit/>`__  (required to install the
+      :ref:`Node.js <installation-nodejs-package>` module and build :ref:`Go
+      <installation-go-package>` apps), `unit-perl
+      <https://pkgsrc.se/www/unit-perl/>`__, `unit-php
+      <https://pkgsrc.se/www/unit-php/>`__, `unit-python
+      <https://pkgsrc.se/www/unit-python/>`__, or `unit-ruby
+      <https://pkgsrc.se/www/unit-ruby/>`__.
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <installation-src-startup>`
+           - :file:`/var/run/unit/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+         * - Startup and shutdown
+           - First, add Unit's startup script to the :file:`/etc/rc.d/`
+             directory:
+
+             .. code-block:: console
+
+                # cp /usr/pkg/share/examples/rc.d/unit /etc/rc.d/
+
+             After that, you can start and stop Unit as follows:
+
+             .. code-block:: console
+
+                # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+                # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
+
+             To enable or disable Unit's automatic startup, edit
+             :file:`/etc/rc.conf`:
+
+             .. code-block:: ini
+
+                # Enable service:
+                unit=YES
+
+                # Disable service:
+                unit=NO
 
    .. tab:: Nix
 
