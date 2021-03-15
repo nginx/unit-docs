@@ -447,16 +447,15 @@ Available listener options:
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
-        enables secure communication via the listener; it must name a
-        certificate chain that you have :ref:`configured <configuration-ssl>`
-        earlier.
+        is a string that refers to a certificate bundle that you have
+        :ref:`uploaded <configuration-ssl>` earlier, thus enabling secure
+        communication via the listener.
 
 Here, a local listener accepts requests at port 8300 and passes them to the
 :samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
 :samp:`uri` :ref:`variable <configuration-variables>`.  The wildcard listener
-on port 8400 is protected by the :samp:`blogs-cert` :ref:`certificate bundle
-<configuration-ssl>` and relays requests at any host IPs to the :samp:`main`
-:ref:`route <configuration-routes>`:
+on port 8400 relays requests at any host IPs to the :samp:`main` :ref:`route
+<configuration-routes>`:
 
 .. code-block:: json
 
@@ -466,14 +465,11 @@ on port 8400 is protected by the :samp:`blogs-cert` :ref:`certificate bundle
         },
 
         "*:8400": {
-            "pass": "routes/main",
-            "tls": {
-                "certificate": "blogs-cert"
-            }
+            "pass": "routes/main"
         }
     }
 
-Also, the :samp:`pass` values can be `percent encoded
+Also, :samp:`pass` values can be `percent encoded
 <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example, you can
 escape slashes in entity names:
 
@@ -488,6 +484,22 @@ escape slashes in entity names:
 
        "routes": {
             "slashes/in/route/name": []
+       }
+   }
+
+To use a certificate bundle you've :ref:`uploaded <configuration-ssl>` earlier,
+name it in the :samp:`certificate` option of the :samp:`tls` object:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "127.0.0.1:443": {
+               "pass": "applications/wsgi-app",
+               "tls": {
+                   "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
+               }
+           }
        }
    }
 
@@ -3107,11 +3119,12 @@ The log is written in the Combined Log Format.  Example of a log line:
 
    127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
 
+
 .. _configuration-ssl:
 
-************************
-SSL/TLS and Certificates
-************************
+**********************
+Certificate Management
+**********************
 
 To set up SSL/TLS access for your application, upload a :file:`.pem` file
 containing your certificate chain and private key to Unit.  Next, reference the
@@ -3129,14 +3142,12 @@ First, create a :file:`.pem` file with your certificate chain and private key:
 
    $ cat :nxt_ph:`cert.pem <Leaf certificate file>` :nxt_ph:`ca.pem <CA certificate file>` :nxt_ph:`key.pem <Private key file>` > :nxt_ph:`bundle.pem <Arbitrary certificate bundle's filename>`
 
-.. note::
+Usually, your website's certificate (optionally followed by the intermediate CA
+certificate) is enough to build a certificate chain.  If you add more
+certificates to your chain, order them leaf to root.
 
-   Usually, your website's certificate (optionally followed by the
-   intermediate CA certificate) is enough to build a certificate chain.  If
-   you add more certificates to your chain, order them leaf to root.
-
-Upload the resulting file to Unit's certificate storage under a suitable name
-(in this case, :samp:`bundle`):
+Upload the resulting bundle file to Unit's certificate storage under a suitable
+name (in this case, :samp:`bundle`):
 
 .. code-block:: console
 
@@ -3149,11 +3160,11 @@ Upload the resulting file to Unit's certificate storage under a suitable name
 
 .. warning::
 
-   Don't use :option:`!-d` for file upload; this option damages :file:`.pem`
-   files.  Use the :option:`!--data-binary` option when uploading file-based
-   data with :program:`curl` to avoid data corruption.
+   Don't use :option:`!-d` for file upload with :program:`curl`; this option
+   damages :file:`.pem` files.  Use the :option:`!--data-binary` option when
+   uploading file-based data to avoid data corruption.
 
-Internally, Unit stores uploaded certificate bundles along with other
+Internally, Unit stores the uploaded certificate bundles along with other
 configuration data in its :file:`state` subdirectory; Unit's control API maps
 them to a separate configuration section, aptly named :samp:`certificates`:
 
@@ -3161,7 +3172,7 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
    {
        "certificates": {
-           ":nxt_hint:`bundle <Certificate bundle name>`": {
+           ":nxt_ph:`bundle <Certificate bundle name>`": {
                "key": "RSA (4096 bits)",
                "chain": [
                    {
@@ -3217,39 +3228,24 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
 .. note::
 
-    You can access individual certificates in your chain, as well as specific
-    alternative names, by their indexes:
+   You can access individual certificates in your chain, as well as specific
+   alternative names, by their indexes:
 
-    .. code-block:: console
+   .. code-block:: console
 
-       # curl -X GET --unix-socket /path/to/control.unit.sock \
-              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/
-       # curl -X GET --unix-socket /path/to/control.unit.sock \
-              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
+      # curl -X GET --unix-socket /path/to/control.unit.sock \
+             http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/
+      # curl -X GET --unix-socket /path/to/control.unit.sock \
+             http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
 
-Next, add a :samp:`tls` object to the listener configuration, referencing the
-uploaded bundle in :samp:`certificate`:
-
-.. code-block:: json
-
-   {
-       "listeners": {
-           "127.0.0.1:443": {
-               "pass": "applications/wsgi-app",
-               "tls": {
-                   "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
-               }
-           }
-       }
-   }
-
-The resulting control API configuration may look like this:
+Next, :ref:`add <configuration-listeners>` the uploaded bundle to a listener;
+the resulting control API configuration may look like this:
 
 .. code-block:: json
 
    {
        "certificates": {
-           ":nxt_hint:`bundle <Certificate bundle name>`": {
+           ":nxt_ph:`bundle <Certificate bundle name>`": {
                "key": "<key type>",
                "chain": ["<certificate chain, omitted for brevity>"]
            }
@@ -3257,10 +3253,10 @@ The resulting control API configuration may look like this:
 
        "config": {
            "listeners": {
-               "127.0.0.1:443": {
+               "*:443": {
                    "pass": "applications/wsgi-app",
                    "tls": {
-                       "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
+                       "certificate": ":nxt_ph:`bundle <Certificate bundle name>`"
                    }
                }
            },
@@ -3275,11 +3271,11 @@ The resulting control API configuration may look like this:
        }
    }
 
-Now you're solid.  The application is accessible via SSL/TLS:
+Now you're solid; the application is accessible via SSL/TLS:
 
 .. code-block:: console
 
-   $ curl -v https://127.0.0.1
+   $ curl -v :nxt_hint:`https://127.0.0.1 <Port 443 is conventionally used for HTTPS connections>`
        ...
        * TLSv1.2 (OUT), TLS handshake, Client hello (1):
        * TLSv1.2 (IN), TLS handshake, Server hello (2):
@@ -3311,7 +3307,6 @@ anymore from the storage:
    configuration, overwrite existing bundles using :samp:`PUT`, or (obviously)
    delete non-existent ones.
 
-Happy SSLing!
 
 .. _configuration-full-example:
 
@@ -3401,7 +3396,7 @@ Full Example
                "*:8000": {
                    "pass": "routes",
                    "tls": {
-                       "certificate": "bundle"
+                       "certificate": "example.com"
                    }
                },
 
