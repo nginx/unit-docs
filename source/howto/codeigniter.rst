@@ -35,13 +35,13 @@ framework using Unit:
               "codeigniter": [
                   {
                       "match": {
-                          "uri": "!/index.php"
+                          "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
                       },
 
                       "action": {
-                          "share": ":nxt_ph:`/path/to/app/public/ <Public directory path>`",
+                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
                           "fallback": {
-                              "pass": "applications/codeigniter"
+                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/codeigniter"
                           }
                       }
                   }
@@ -51,8 +51,8 @@ framework using Unit:
           "applications": {
               "codeigniter": {
                   "type": "php",
-                  "root": ":nxt_ph:`/path/to/app/public/ <Public directory path>`",
-                  "script": "index.php"
+                  "root": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                  "script": ":nxt_hint:`index.php <All requests are served by a single script>`"
               }
           }
       }
