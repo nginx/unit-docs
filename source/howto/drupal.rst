@@ -20,10 +20,10 @@ Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-   Unit.  The default :file:`.htaccess` `scheme
-   <https://github.com/drupal/drupal>`__ in a |app| installation roughly
-   translates into the following:
+#. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit.
+   The default :file:`.htaccess` `scheme <https://github.com/drupal/drupal>`__
+   in a |app| installation roughly translates into the following (use real
+   values for :samp:`share` and :samp:`root`):
 
    .. code-block:: json
 
@@ -75,7 +75,7 @@ Unit:
                       },
 
                       "action": {
-                          "return": 403
+                          "return": 404
                       }
                   },
                   {
@@ -107,12 +107,12 @@ Unit:
                       },
 
                       "action": {
-                          "return": 403
+                          "return": 404
                       }
                   },
                   {
                       "action": {
-                          "share": ":nxt_ph:`/path/to/app/web/ <Serves valid static files>`",
+                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
                           "fallback": {
                               "pass": ":nxt_hint:`applications/drupal/index <Funnels all requests to index.php>`"
                           }
@@ -126,12 +126,12 @@ Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": "/path/to/app/web/"
+                          "root": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": "/path/to/app/web/",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
@@ -157,4 +157,3 @@ Unit:
   .. image:: ../images/drupal.png
      :width: 100%
      :alt: Drupal on Unit - Setup Screen
-
