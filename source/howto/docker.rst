@@ -27,7 +27,8 @@ Next, upload a configuration to Unit via the control socket:
 .. code-block:: console
 
    $ docker exec -ti $UNIT curl -X PUT --data-binary @/www/config.json  \
-         --unix-socket /var/run/control.unit.sock http://localhost/config
+         --unix-socket :nxt_hint:`/var/run/control.unit.sock <Socket path inside the container>`  \
+         http://localhost/config
 
 This command assumes your configuration is stored as :file:`config.json` in the
 container-mounted directory on the host; if the file defines a listener on port
@@ -56,7 +57,7 @@ official :samp:`hello, world` app:
 
 .. code-block:: console
 
-   $ cd /path/to/app/
+   $ cd :nxt_ph:`/path/to/app/ <Directory where all app-related files will be stored; use a real path in your configuration>`
    $ mkdir webapp
    $ cat << EOF > webapp/wsgi.py
 
@@ -96,8 +97,8 @@ app:
        "applications":{
            "webapp":{
                "type":"python 3",
-               "path":"/www/",
-               "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
+               "path":":nxt_hint:`/www/ <Directory inside the container where the app files will be stored>`",
+               "module": ":nxt_hint:`wsgi <WSGI module basename with extension omitted>`",
                 "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
            }
        }
@@ -117,7 +118,7 @@ Our file structure so far:
 
 .. code-block:: none
 
-   /path/to/app
+   :nxt_ph:`/path/to/app <Directory where all app-related files are stored; use a real path in your configuration>`
    ├── config
    │   └── config.json
    ├── log
@@ -134,6 +135,8 @@ Everything is ready for a containerized Unit.  First, let's create a
 
    FROM nginx/unit:|version|-python3.9
    COPY requirements.txt /config/requirements.txt
+   # PIP isn't installed by default, so we install it first.
+   # Next, we install the requirements, remove PIP, and perform image cleanup.
    RUN apt update && apt install -y python3-pip                                  \
        && pip3 install -r /config/requirements.txt                               \
        && apt remove -y python3-pip                                              \
@@ -143,7 +146,7 @@ Everything is ready for a containerized Unit.  First, let's create a
 
 .. code-block:: console
 
-   $ docker build --tag=unit-webapp .
+   $ docker build --tag=:nxt_hint:`unit-webapp <Arbitrary image tag>` .
 
 Next, we start a container and map it to our directory structure:
 
@@ -180,7 +183,7 @@ structure:
 
 .. code-block:: console
 
-   $ mv /path/to/app /new/path/to/app
+   $ mv :nxt_ph:`/path/to/app/ <Directory where all app-related files are stored>` :nxt_ph:`/new/path/to/app/ <New directory; use a real path in your configuration>`
 
 To switch your app to a different Unit image, prepare a corresponding
 :file:`Dockerfile` first:
@@ -227,7 +230,8 @@ automatically:
 Containerized Apps
 ##################
 
-Suppose you have a Unit-ready :doc:`Express <express>` app:
+Suppose you have a Unit-ready :doc:`Express <express>` app stored in the
+:file:`myapp/` directory:
 
    .. code-block:: javascript
 
@@ -249,7 +253,7 @@ Suppose you have a Unit-ready :doc:`Express <express>` app:
 
       createServer(app).listen()
 
-Its Unit configuration, stored as :file:`config.json`:
+Its Unit configuration, stored as :file:`config.json` in the same directory:
 
    .. code-block:: json
 
@@ -263,8 +267,8 @@ Its Unit configuration, stored as :file:`config.json`:
           "applications": {
               "express": {
                   "type": "external",
-                  "working_directory": "/www/",
-                  "executable": "app.js"
+                  "working_directory": ":nxt_hint:`/www/ <Directory inside the container where the app files will be stored>`",
+                  "executable": ":nxt_hint:`app.js <Filename of the app's entry point>`"
               }
           }
       }
@@ -287,13 +291,13 @@ image:
 
 .. subs-code-block:: docker
 
-   # keep our base image as specific as possible
+   # Keep our base image as specific as possible.
    FROM nginx/unit:|version|-node15
 
-   # same as "working_directory" in config.json
+   # Same as "working_directory" in config.json.
    COPY myapp/app.js /www/
 
-   # port used by the listener in config.json
+   # Port used by the listener in config.json.
    EXPOSE 8080
 
 When you start a container based on this image, mount the :file:`config.json`
@@ -301,7 +305,7 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
 
 .. code-block:: console
 
-   $ docker build --tag=unit-expressapp .
+   $ docker build --tag=:nxt_hint:`unit-expressapp <Arbitrary image tag>` .
 
    $ export UNIT=$(                                                                             \
          docker run -d                                                                          \
@@ -321,9 +325,9 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
 
    .. code-block:: console
 
-      $ docker commit $UNIT unit-expressapp  # store a non-empty Unit state in the image
+      $ docker commit $UNIT unit-expressapp  # Store a non-empty Unit state in the image.
 
-      # cat << EOF > myapp/new-config.json   # let's attempt re-initialization
+      # cat << EOF > myapp/new-config.json   # Let's attempt re-initialization.
         ...
         EOF
 
@@ -353,10 +357,12 @@ the :ref:`config API <configuration-mgmt>`:
      )
 
    $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/new-config.json  \
-         --unix-socket /var/run/control.unit.sock http://localhost/config
+            --unix-socket /var/run/control.unit.sock  \
+            http://localhost/config
 
-   $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"' --unix-socket  \
-         /var/run/control.unit.sock http://localhost/config/applications/express/working_directory
+   $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"'  \
+            --unix-socket  /var/run/control.unit.sock  \
+            http://localhost/config/applications/express/working_directory
 
 This approach is applicable to any Unit-supported apps with external
 dependencies.
