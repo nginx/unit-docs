@@ -12,7 +12,7 @@ framework using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. .. include:: ../include/howto_install_app.rst
+#. Install |app|'s |app-link|_.
 
 #. `Create
    <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
@@ -20,8 +20,8 @@ framework using Unit:
 
    .. code-block:: console
 
-      $ cd /path/to/
-      $ catalyst.pl app
+      $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
+      $ catalyst.pl :nxt_ph:`app <Arbitrary app name>`
       $ cd app
       $ perl Makefile.PL
 
@@ -50,8 +50,8 @@ framework using Unit:
           "applications": {
               "catalyst": {
                   "type": "perl",
-                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use modules from the local lib directory>`",
-                  "script": ":nxt_ph:`/path/to/app/app.psgi <Absolute pathname of the PSGI script>`"
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use modules from the local lib directory; use a real path in your configuration>`",
+                  "script": ":nxt_ph:`/path/to/app/app.psgi <Absolute pathname of the PSGI script; use a real path in your configuration>`"
               }
           }
       }
