@@ -22,7 +22,7 @@ using Unit:
 
    .. code-block:: console
 
-      $ mkdir -p /path/to/app/
+      $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
       $ cd /path/to/app/
       $ npm init
       $ npm install express --save
@@ -101,7 +101,7 @@ using Unit:
           "applications": {
               "express": {
                   "type": "external",
-                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use the installed NPM modules>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use the installed NPM modules; use a real path in your configuration>`",
                   "executable": ":nxt_hint:`app.js <Make sure to make this file executable>`"
               }
           }
