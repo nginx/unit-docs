@@ -20,7 +20,7 @@ To run Django apps using the |app| `framework
 
     .. code-block:: console
 
-       $ cd /path/to/venv/
+       $ cd :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your configuration>`
        $ source bin/activate
        $ pip install channels
        $ deactivate
@@ -40,8 +40,7 @@ To run Django apps using the |app| `framework
       |   |-- ...
       |-- :nxt_hint:`mysite/ <Project subdirectory>`
       |   |-- ...
-      |   |-- :nxt_hint:`asgi.py <ASGI application module>`
-      |   `-- :nxt_hint:`wsgi.py <WSGI application module>`
+      |   `-- :nxt_hint:`asgi.py <ASGI application module>`
       `-- :nxt_hint:`static/ <Static files subdirectory>`
 
 #. .. include:: ../include/howto_change_ownership.rst
@@ -57,14 +56,15 @@ To run Django apps using the |app| `framework
    you reorder your directories, :ref:`set up <configuration-python>`
    :samp:`path`, :samp:`home`, and :samp:`module` accordingly.
 
-   You can also set up some environment variables that your project relies on.
-   Finally, if your project uses Django's `static files
+   You can also set up some environment variables that your project relies on,
+   using the :samp:`environment` option.  Finally, if your project uses
+   Django's `static files
    <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
    add a :ref:`route <configuration-routes>` to :ref:`serve
    <configuration-static>` them with Unit.
 
-   Here's an example (use real values for :samp:`share`, :samp:`path`, and
-   :samp:`home`):
+   Here's an example (use real values for :samp:`share`, :samp:`path`,
+   :samp:`environment`, :samp:`module`, and :samp:`home`):
 
    .. code-block:: json
 
@@ -82,7 +82,7 @@ To run Django apps using the |app| `framework
                   },
 
                   "action": {
-                      "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/; use a real path in your configuration>`"
                   }
               },
               {
@@ -94,11 +94,11 @@ To run Django apps using the |app| `framework
 
           "applications": {
               "djangochannels": {
-                  "type": "python 3",
-                  "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
-                  "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
-                  "module": ":nxt_hint:`mysite.asgi <Note the qualified name of the ASGI module>`",
-                  "environment": {
+                  "type": "python :nxt_ph:`3.X <Must match language module version and virtual environment version>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Project directory; use a real path in your configuration>`",
+                  "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory; use a real path in your configuration>`",
+                  "module": ":nxt_ph:`mysite.asgi <Note the qualified name of the ASGI module; use a real site directory name in your configuration>`",
+                  ":nxt_hint:`environment <App-specific environment variables>`": {
                       "DJANGO_SETTINGS_MODULE": "mysite.settings"
                   }
               }
