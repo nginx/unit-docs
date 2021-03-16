@@ -18,14 +18,13 @@ so we can :ref:`configure it <configuration-external-go>` to run on Unit.
    .. code-block:: console
 
       $ go get github.com/grafana/grafana
-      $ cd $GOPATH/src/github.com/grafana/grafana # This is the /path/to/app/
 
 #. Update the code, adding Unit to |app|'s protocol list.  You can either
    apply a patch (:download:`grafana.patch <../downloads/grafana.patch>`):
 
    .. code-block:: console
 
-      $ cd /path/to/app/
+      $ cd :nxt_hint:`$GOPATH/src/github.com/grafana/grafana <The path where the previous step saves the application's files>`
       $ curl -O https://unit.nginx.org/_downloads/grafana.patch
       $ patch -p1 < grafana.patch
 
@@ -118,21 +117,38 @@ so we can :ref:`configure it <configuration-external-go>` to run on Unit.
 
    .. code-block:: console
 
-      $ cd /path/to/app/
-      $ go get ./...                  # install dependencies
+      $ cd :nxt_hint:`$GOPATH/src/github.com/grafana/grafana <The path where the previous step saves the application's files>`
+      $ :nxt_hint:`go get ./... <Installs dependencies>`
       $ go run build.go setup
       $ go run build.go build
       $ yarn install --pure-lockfile
       $ yarn start
 
    Note the directory where the newly-built :file:`grafana-server` is placed,
-   usually :file:`$GOPATH/bin/`; it's used by the :samp:`executable` option in
+   usually :file:`$GOPATH/bin/`; it's used for the :samp:`executable` option in
    the Unit configuration.
 
-#. .. include:: ../include/howto_change_ownership.rst
+#. Run the following commands so Unit can access |app|'s files:
 
-#. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-   Unit (use real values for :samp:`executable` and :samp:`working_directory`):
+   .. code-block:: console
+
+      # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_hint:`$GOPATH/src/github.com/grafana/grafana <Path to the application's files>`
+      # chown :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_hint:`$GOPATH/bin/grafana-server <Path to the application's executable>`
+
+   .. note::
+
+      The :samp:`unit:unit` user-group pair is available only with
+      :ref:`official packages <installation-precomp-pkgs>`, Docker :ref:`images
+      <installation-docker>`, and some :ref:`third-party repos
+      <installation-community-repos>`.  Otherwise, account names may differ;
+      run the :program:`ps aux | grep unitd` command to be sure.
+
+   For further details, including permissions, see the :ref:`security checklist
+   <security-apps>`.
+
+#. Next, :ref:`prepare <configuration-php>` the configuration (replace
+   :samp:`$GOPATH` with its value in :samp:`executable` and
+   :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -145,9 +161,9 @@ so we can :ref:`configure it <configuration-external-go>` to run on Unit.
 
           "applications": {
               "grafana": {
-                  "executable": ":nxt_ph:`/path/to/go/bin/dir/grafana-server <Path to the grafana-server binary>`",
+                  "executable": ":nxt_ph:`$GOPATH <Replace with the environment variable's value>`:nxt_hint:`/bin/grafana-server <Path to the application's executable>`",
                   "type": "external",
-                  "working_directory": ":nxt_ph:`/path/to/app/ <Path to frontend files, usually the installation path>`"
+                  "working_directory": ":nxt_ph:`$GOPATH <Replace with the environment variable's value>`:nxt_hint:`/src/github.com/grafana/grafana/ <Path to the application's files>`"
               }
           }
       }
