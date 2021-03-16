@@ -23,7 +23,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
    .. code-block:: console
 
-      $ cd /path/to/app/
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
       $ tar xzf atlassian-jira-core-7.13.0.tar.gz
 
 #. Add a :samp:`lib` subdirectory to download third-party dependencies:
@@ -71,7 +71,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
           "applications": {
               "jira": {
                   "type": "java",
-                  "working_directory": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                   "webapp": "atlassian-jira-core-7.13.0-standalone/atlassian-jira",
                   ":nxt_hint:`options <App-specific startup options>`": [
                       "-Djava.awt.headless=true",
