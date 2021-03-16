@@ -46,14 +46,15 @@ using Unit:
    you reorder your directories, :ref:`set up <configuration-python>`
    :samp:`path`, :samp:`home`, and :samp:`module` accordingly.
 
-   You can also set up some environment variables that your project relies on.
-   Finally, if your project uses |app|'s `static files
+   You can also set up some environment variables that your project relies on,
+   using the :samp:`environment` option.  Finally, if your project uses |app|'s
+   `static files
    <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
    add a :ref:`route <configuration-routes>` to :ref:`serve
    <configuration-static>` them with Unit.
 
-   Here's an example (use real values for :samp:`share`, :samp:`path`, and
-   :samp:`home`):
+   Here's an example (use real values for :samp:`share`, :samp:`path`,
+   :samp:`environment`, :samp:`module`, and :samp:`home`):
 
    .. tabs::
       :prefix: django
@@ -76,7 +77,7 @@ using Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -88,11 +89,11 @@ using Unit:
 
                 "applications": {
                     "django": {
-                        "type": "python 3",
-                        "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
-                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
-                        "module": ":nxt_hint:`project.wsgi <Note the qualified name of the WSGI module>`",
-                        "environment": {
+                        "type": "python :nxt_ph:`3.X <Must match language module version and virtual environment version>`",
+                        "path": ":nxt_ph:`/path/to/app/ <Project directory; use a real path in your configuration>`",
+                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory; use a real path in your configuration>`",
+                        "module": ":nxt_ph:`project.wsgi <Note the qualified name of the WSGI module; use a real project directory name in your configuration>`",
+                        ":nxt_hint:`environment <App-specific environment variables>`": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
                             "DB_ENGINE": "django.db.backends.postgresql",
                             "DB_NAME": "project",
@@ -125,7 +126,7 @@ using Unit:
                         },
 
                         "action": {
-                            "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
                         }
                     },
                     {
@@ -137,11 +138,11 @@ using Unit:
 
                 "applications": {
                     "django": {
-                        "type": "python 3",
-                        "path": ":nxt_ph:`/path/to/app/ <Project directory>`",
-                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory>`",
-                        "module": ":nxt_hint:`project.asgi <Note the qualified name of the ASGI module>`",
-                        "environment": {
+                        "type": "python :nxt_ph:`3.X <Must match language module version and virtual environment version>`",
+                        "path": ":nxt_ph:`/path/to/app/ <Project directory; use a real path in your configuration>`",
+                        "home": ":nxt_ph:`/path/to/venv/ <Virtual environment directory; use a real path in your configuration>`",
+                        "module": ":nxt_ph:`project.asgi <Note the qualified name of the ASGI module; use a real project directory name in your configuration>`",
+                        ":nxt_hint:`environment <App-specific environment variables>`": {
                             "DJANGO_SETTINGS_MODULE": "project.settings",
                             "DB_ENGINE": "django.db.backends.postgresql",
                             "DB_NAME": "project",
