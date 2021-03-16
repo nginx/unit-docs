@@ -49,7 +49,7 @@ Unit:
                   },
                   {
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "fallback": {
                               "pass": ":nxt_hint:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
                           }
@@ -68,7 +68,7 @@ Unit:
 
                       "index": {
                           "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "script": "index.php"
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
