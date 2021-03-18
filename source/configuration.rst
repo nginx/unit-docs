@@ -85,6 +85,7 @@ You can upload the entire configuration at once or update it in portions.  For
 details of configuration techniques, see :ref:`below <configuration-mgmt>`.
 For a full configuration sample, see :ref:`here <configuration-full-example>`.
 
+
 .. _configuration-mgmt:
 
 ************************
@@ -395,6 +396,69 @@ only the :samp:`pass` value and leaves other options intact.
                "error": "Invalid configuration.",
                "detail": "Request \"pass\" points to invalid location \"routes\"."
            }
+
+.. nxt_details:: Replicating Unit Configurations
+
+   Although Unit is fully dynamic, sometimes you just want to copy an existing
+   setup without the need for subsequent meddling.  Unit's :ref:`state
+   directories <installation-config-src-state>` are interchangeable, provided
+   they are used by the same version of Unit that created them, so you can use
+   a shortcut to replicate a Unit instance.
+
+   .. warning::
+
+      Unit's state can change its structure between versions and shouldn't be
+      edited by external means.
+
+   On the machine where the *reference* Unit instance runs, find out
+   where the state is stored:
+
+   .. code-block:: console
+
+      $ unitd --help
+
+            --state DIRECTORY    set state directory name
+                                 default: ":nxt_ph:`/path/to/reference/unit/state <The value we're looking for>`"
+
+   Double-check that the state location isn't overridden at startup:
+
+   .. subs-code-block:: console
+
+      $ ps ax | grep unitd
+            ...
+            unit: main v|version| [unitd --state :nxt_ph:`/runtime/path/to/reference/unit/state <The runtime value overrides the default>` ... ]
+
+   Repeat these commands on the second machine to see where the target instance
+   stores its state.
+
+   Stop both Unit instances, for example:
+
+   .. code-block:: console
+
+      # systemctl stop unit
+
+   .. note::
+
+      Different stop and start commands may be needed if you use a
+      :ref:`non-official <installation-community-repos>` installation
+      method.
+
+   Copy the reference state directory to the target state directory by
+   arbitrary means; make sure to include subdirectories and hidden files.
+   Finally, restart both Unit instances:
+
+   .. code-block:: console
+
+      # systemctl restart unit
+
+   .. note::
+
+      If you run your Unit instances manually, :option:`!--state` can be
+      used to set the state directory at :ref:`startup
+      <installation-src-startup>`.
+
+   After the restart, the target instance picks up the configuration you've
+   copied to the state directory.
 
 
 .. _configuration-listeners:
