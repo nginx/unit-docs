@@ -73,7 +73,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                       },
 
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       }
                   },
                   {
@@ -89,7 +89,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                       },
 
                       "action": {
-                          ":nxt_hint:`share <Serves all remaining static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "fallback": {
                               "pass": ":nxt_hint:`applications/matomo/index <A catch-all destination for the remaining requests>`"
                           }
@@ -103,11 +103,11 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`",
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
