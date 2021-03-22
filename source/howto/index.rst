@@ -13,6 +13,7 @@ experience with Unit.
    :maxdepth: 1
 
    docker
+   ansible
    integration
    certbot
    Language Modules <modules>
@@ -22,6 +23,9 @@ experience with Unit.
 
 - :doc:`docker`: Configure a standalone Unit or a Unit-run app in a Docker
   container.
+
+- :doc:`ansible`: Use a third-party Ansible collection to automate Unit
+  deployment.
 
 - :doc:`integration`: Front or secure Unit with NGINX.
 

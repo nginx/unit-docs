@@ -474,6 +474,7 @@ body > div {
     -webkit-user-select: none;
 }
 
+.highlight-yaml,
 .highlight-console,
 .highlight-control,
 .highlight-docker,
@@ -500,6 +501,9 @@ body > div {
     position: absolute;
     right: .5em;
     top: -1.2em;
+}
+.highlight-yaml .highlight::before {
+    content: "yaml";
 }
 .highlight-console .highlight::before {
     content: "console";
