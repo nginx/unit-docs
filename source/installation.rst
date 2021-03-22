@@ -2173,12 +2173,12 @@ General runtime options and :ref:`compile-time setting
      - Displays a summary of Unit's command-line options and their compile-time
        defaults.
 
-   * - :samp:`--no-daemon`
-     - Runs Unit in non-daemon mode.
-
    * - :samp:`--version`
      - Displays Unit's version and the :program:`./configure` settings it was
        built with.
+
+   * - :samp:`--no-daemon`
+     - Runs Unit in non-daemon mode.
 
    * - :samp:`--control socket`
      - Control API socket address in IPv4, IPv6, or Unix domain format:
