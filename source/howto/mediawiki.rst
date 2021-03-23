@@ -45,7 +45,7 @@ documentation platform using Unit:
                       },
 
                       "action": {
-                          "return": 403
+                          "return": 404
                       }
                   },
                   {
@@ -85,7 +85,7 @@ documentation platform using Unit:
                       },
 
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       }
                   },
                   {
@@ -101,12 +101,12 @@ documentation platform using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
@@ -137,18 +137,18 @@ documentation platform using Unit:
 
    .. code-block:: console
 
-      $ mv LocalSettings.php /path/to/app/
-      $ chmod 600 /path/to/app/LocalSettings.php
-      # chown unit:unit /path/to/app/LocalSettings.php
+      $ chmod 600 LocalSettings.php
+      # chown :nxt_ph:`unit:unit <Values from Step 3>` LocalSettings.php
+      # mv LocalSettings.php :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
 #. After installation, add a match condition to the first step to disable
    access to the :file:`mw-config/` directory:
 
    .. code-block:: console
 
-      # curl -X POST -d '"/mw-config/*"' --unix-socket \
-             /path/to/control.unit.sock                \
-             http://localhost/config/routes/mediawiki/0/match/uri/
+      # curl -X POST -d '"/mw-config/*"'  \
+             --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
+             http://localhost:nxt_hint:`/config/routes/mediawiki/0/match/uri/ <Path to the route's first step condition and the 'uri' value in it>`
 
             {
                 "success": "Reconfiguration done."
