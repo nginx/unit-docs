@@ -43,7 +43,7 @@ To run apps built with the `FastAPI
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit:
+   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
 
    .. code-block:: json
 

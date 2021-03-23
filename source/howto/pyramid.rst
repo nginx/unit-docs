@@ -44,7 +44,7 @@ using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit:
+   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
 
    .. code-block:: json
 
@@ -58,9 +58,9 @@ using Unit:
           "applications": {
               "pyramid": {
                   "type": "python 3.:nxt_ph:`Y <Must match language module version and virtual environment version>`",
-                  "path": "/path/to/app/",
-                  "home": "/path/to/app/venv/",
-                  "module": "wsgi",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the ASGI module>`",
+                  "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
+                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
                   "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
               }
           }

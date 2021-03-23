@@ -62,8 +62,9 @@ framework using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit, adding a :ref:`route <configuration-routes>` to serve static content:
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
+   (use real values for :samp:`type`, :samp:`home`, and :samp:`path`), adding a
+   :ref:`route <configuration-routes>` to serve static content:
 
    .. code-block:: json
 
