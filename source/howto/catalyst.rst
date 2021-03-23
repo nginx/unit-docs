@@ -20,8 +20,8 @@ framework using Unit:
 
    .. code-block:: console
 
-      $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
-      $ catalyst.pl :nxt_ph:`app <Arbitrary app name>`
+      $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+      $ catalyst.pl :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
       $ cd app
       $ perl Makefile.PL
 

@@ -23,8 +23,8 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
 
    .. code-block:: console
 
-      $ cd /path/to/app/
-      $ laravel new blog
+      $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+      $ laravel new :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -35,7 +35,7 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
       and `directory structure <https://laravel.com/docs/7.x/structure>`_.
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-   Unit:
+   Unit (use real values for :samp:`share` and :samp:`root`):
 
    .. code-block:: json
 
@@ -50,10 +50,10 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
               "laravel": [
                   {
                       "match": {
-                          "uri": ":nxt_hint:`!/index.php <Avoids serving index.php as static content>`"
+                          "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
                       },
                       "action": {
-                          "share": ":nxt_ph:`/path/to/app/blog/public/ <Serves all kinds of static files>`",
+                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
                           "fallback": {
                               "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
                           }
@@ -65,8 +65,8 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
           "applications": {
               "laravel": {
                   "type": "php",
-                  "root": ":nxt_ph:`/path/to/app/blog/public/ <Path to the script>`",
-                  "script": ":nxt_hint:`index.php <All requests are handled by a single file>`"
+                  "root": ":nxt_ph:`/path/to/app/public/ <Path to the script; use a real path in your configuration>`",
+                  "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
               }
           }
       }
