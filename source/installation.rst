@@ -1639,9 +1639,9 @@ structure <installation-src-dir>`:
 
        Destination directory prefix for :ref:`path options
        <installation-src-dir>`: :option:`!--bindir`, :option:`!--sbindir`,
-       :option:`!--libdir`, :option:`!--incdir`, :option:`!--modules`,
-       :option:`!--state`, :option:`!--pid`, :option:`!--log`, and
-       :option:`!--control`.
+       :option:`!--libdir`, :option:`!--incdir`, :option:`!--mandir`,
+       :option:`!--modules`, :option:`!--state`, :option:`!--pid`,
+       :option:`!--log`, and :option:`!--control`.
 
    * - :samp:`--bindir=directory`, :samp:`--sbindir=directory`
      - Directory paths for end-user and sysadmin executables.
@@ -1671,6 +1671,12 @@ structure <installation-src-dir>`:
      - Directory paths for :program:`libunit` header files and libraries.
 
        The defaults are :samp:`include` and :samp:`lib`, respectively.
+
+   * - :samp:`--mandir=directory`
+     - Directory path where the :samp:`unitd(8)` :program:`man` page is
+       installed.
+
+       The default is :samp:`share/man`.
 
    * - :samp:`--log=pathname`
      - Pathname for Unit's :ref:`log <troubleshooting-log>`.
