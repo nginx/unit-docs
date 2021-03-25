@@ -511,9 +511,9 @@ Available listener options:
 
     * - :samp:`tls`
       - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
-        is a string that refers to a certificate bundle that you have
-        :ref:`uploaded <configuration-ssl>` earlier, thus enabling secure
-        communication via the listener.
+        accepts a string or an array of strings that refer to one or more
+        certificate bundles you have :ref:`uploaded <configuration-ssl>`
+        earlier, thus enabling secure communication via the listener.
 
 Here, a local listener accepts requests at port 8300 and passes them to the
 :samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
@@ -566,6 +566,34 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
            }
        }
    }
+
+.. nxt_details:: Configuring Multiple Bundles
+
+   Since version 1.23.0, Unit supports configuring `Server Name Indication
+   (SNI) <https://tools.ietf.org/html/rfc6066#section-3>`__ on a listener by
+   supplying an array of certificate bundle names for the :samp:`certificate`
+   option value:
+
+   .. code-block:: json
+
+      {
+          "*:80": {
+              "pass": "routes",
+              "tls": {
+                  "certificate": [
+                      "bundleA",
+                      "bundleB",
+                      "bundleC"
+                  ]
+              }
+          }
+      }
+
+   If the connecting client sends a server name, Unit responds with the
+   matching certificate bundle.  If the name matches several bundles, exact
+   matches trump wildcards; if ambiguity remains, the one listed first is used.
+   If there's no match or no server name was sent, Unit uses the first bundle
+   on the list.
 
 
 .. _configuration-routes:
@@ -3382,7 +3410,7 @@ Full Example
 
    {
        "certificates": {
-           "bundle": {
+           "example.com": {
                "key": "RSA (4096 bits)",
                "chain": [
                    {
@@ -3432,6 +3460,58 @@ Full Example
                        }
                    }
                ]
+           },
+
+           "example.org": {
+               "key": "RSA (4096 bits)",
+               "chain": [
+                   {
+                       "subject": {
+                           "common_name": "example.org",
+                           "alt_names": [
+                               "example.org",
+                               "www.example.org"
+                           ],
+
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme, Inc."
+                       },
+
+                       "issuer": {
+                           "common_name": "intermediate.ca.example.org",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
+
+                       "validity": {
+                           "since": "Sep 18 19:46:19 2018 GMT",
+                           "until": "Jun 15 19:46:19 2021 GMT"
+                       }
+                   },
+
+                   {
+                       "subject": {
+                           "common_name": "intermediate.ca.example.org",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Certification Authority"
+                       },
+
+                       "issuer": {
+                           "common_name": "root.ca.example.org",
+                           "country": "US",
+                           "state_or_province": "CA",
+                           "organization": "Acme Root Certification Authority"
+                       },
+
+                       "validity": {
+                           "since": "Feb 22 22:45:55 2016 GMT",
+                           "until": "Feb 21 22:45:55 2019 GMT"
+                       }
+                   }
+               ]
            }
        },
 
@@ -3460,7 +3540,10 @@ Full Example
                "*:8000": {
                    "pass": "routes",
                    "tls": {
-                       "certificate": "example.com"
+                       "certificate": [
+                           "example.com",
+                           "example.org"
+                       ]
                    }
                },
 
