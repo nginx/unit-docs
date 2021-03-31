@@ -17,8 +17,8 @@ using Unit:
 
    .. code-block:: console
 
-      $ cd /path/to/
-      $ rails new app
+      $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+      $ rails new :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
 
    This creates the app's directory tree at :file:`/path/to/app/`; its
    :file:`public/` subdirectory contains the static files, while the entry
@@ -26,9 +26,8 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-ruby>` the |app| configuration for Unit
-   (use real values for :samp:`share`, :samp:`script` and
-   :samp:`working_directory`):
+#. Next, :ref:`prepare <configuration-ruby>` the |app| configuration (use real
+   values for :samp:`share` and :samp:`working_directory`):
 
    .. code-block:: json
 
@@ -43,7 +42,7 @@ using Unit:
               "rails": [
                   {
                       "action": {
-                          ":nxt_hint:`share <Serves all kinds of static files>`": ":nxt_ph:`/path/to/app/public/ <Use a real path in your configuration>`",
+                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ subdirectory; use a real path in your configuration>`",
                           "fallback": {
                               "pass": "applications/rails"
                           }
@@ -56,7 +55,7 @@ using Unit:
               "rails": {
                   "type": "ruby",
                   "script": ":nxt_hint:`config.ru <All requests are handled by a single script, relative to working_directory>`",
-                  "working_directory": ":nxt_ph:`/path/to/app/ <Needed for require_relative directives. Use a real path in your configuration>`"
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory, needed here for 'require_relative' directives; use a real path in your configuration>`"
               }
           }
       }
