@@ -26,7 +26,7 @@ To run the `Review Board
 
    .. code-block:: console
 
-      $ rb-site install /path/to/app/
+      $ rb-site install :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
             * Welcome to the Review Board site installation wizard
 
@@ -43,7 +43,8 @@ To run the `Review Board
 
    .. code-block:: console
 
-      $ mv /path/to/app/htdocs/reviewboard.wsgi /path/to/app/htdocs/wsgi.py
+      $ mv :nxt_ph:`/path/to/app/htdocs/reviewboard.wsgi <Filename of the WSGI module; use a real path in your configuration>`  \
+           :nxt_ph:`/path/to/app/htdocs/wsgi.py <New filename of the module with extension added; use a real path in your configuration>`
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -52,8 +53,8 @@ To run the `Review Board
 
    .. code-block:: console
 
-      $ chmod u+w /path/to/app/htdocs/media/uploaded/
-      $ chmod u+w /path/to/app/data/
+      $ chmod u+w :nxt_ph:`/path/to/app/htdocs/media/uploaded/ <Path to the application's upload subdirectory; use a real path in your configuration>`
+      $ chmod u+w :nxt_ph:`/path/to/app/data/ <Path to the application's data subdirectory; use a real path in your configuration>`
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
    (use real values for :samp:`share` and :samp:`path`):
@@ -79,7 +80,7 @@ To run the `Review Board
                       },
 
                       "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/htdocs/ <Use a real path in your configuration>`"
+                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/htdocs/ <Path to the htdocs/ subdirectory; use a real path in your configuration>`"
                       }
                   },
                   {
@@ -93,8 +94,8 @@ To run the `Review Board
           "applications": {
               "rb": {
                   "type": "python 2",
-                  "path": ":nxt_ph:`/path/to/app/htdocs/ <Path to the WSGI module>`",
-                  "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`"
+                  "path": ":nxt_ph:`/path/to/app/htdocs/ <Path to the WSGI module; use a real path in your configuration>`",
+                  "module": ":nxt_hint:`wsgi <WSGI module basename with extension omitted>`"
               }
           }
       }
