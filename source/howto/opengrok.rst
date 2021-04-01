@@ -16,8 +16,8 @@ To run the `OpenGrok
 
    .. code-block:: console
 
-      $ mkdir -p /path/to/app/{src,data,dist,etc,log}
-      $ tar -C /path/to/app/dist --strip-components=1 -xzf opengrok-X.Y.Z.tar.gz
+      $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`{src,data,dist,etc,log}
+      $ tar -C :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`dist --strip-components=1 -xzf opengrok-:nxt_ph:`X.Y.Z <Specific OpenGrok version>`.tar.gz
 
    Our servlet container is Unit so we can repackage the :file:`source.war`
    file to an arbitrary directory at `Step 2
@@ -25,8 +25,8 @@ To run the `OpenGrok
 
    .. code-block:: console
 
-      $ opengrok-deploy -c /path/to/app/etc/configuration.xml \
-            /path/to/app/dist/lib/source.war /path/to/app/
+      $ opengrok-deploy -c :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`etc/configuration.xml  \
+            :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`dist/lib/source.war :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
    The resulting pathname is :file:`/path/to/app/source.war`.
 
@@ -47,7 +47,7 @@ To run the `OpenGrok
           "applications": {
               "opengrok": {
                   "type": "java",
-                  "webapp": ":nxt_ph:`/path/to/app/source.war <Repackaged in Step 2>`",
+                  "webapp": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`:nxt_hint:`source.war <Repackaged in Step 2>`",
                   "options": [
                       "-Djava.awt.headless=true"
                   ]
