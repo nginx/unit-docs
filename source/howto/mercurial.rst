@@ -30,7 +30,7 @@ control system using Unit:
        from mercurial.hgweb import hgweb
 
        # path to a repo or a hgweb config file to serve (see 'hg help hgweb')
-       application = hgweb("/path/to/app/repo/or/config/file")
+       application = hgweb(":nxt_ph:`/path/to/app/repo/or/config/file <Replace with a real path in your configuration>`")
 
    This is a very basic script; to elaborate on it, see the
    Mercurial repo publishing `guide
@@ -53,8 +53,8 @@ control system using Unit:
           "applications": {
               "hg": {
                   "type": "python",
-                  "path": ":nxt_ph:`/path/to/app/ <Path to WSGI file referenced by the module option>`",
-                  "module": ":nxt_hint:`hgweb <WSGI module name, not a filename>`"
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI file referenced by the module option; use a real path in your configuration>`",
+                  "module": ":nxt_hint:`hgweb <WSGI module basename with extension omitted>`"
               }
           }
       }
