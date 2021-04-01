@@ -15,8 +15,6 @@ RUN mkdir /www/ && echo '#!/usr/bin/env node                             \n\
     ' > /www/app.js                                                        \
 # make app.js executable; link unit-http locally
     && cd /www && chmod +x app.js                                          \
-    && cp /usr/local/lib/node_modules/unit-http/binding_pub.gyp            \
-           /usr/local/lib/node_modules/unit-http/binding.gyp               \
     && npm link unit-http                                                  \
 # prepare the app config for Unit
     && echo '{                                                             \
