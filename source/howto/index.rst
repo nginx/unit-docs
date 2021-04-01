@@ -75,6 +75,7 @@ following frameworks:
    starlette
    symfony
    yii
+   zope
 
 ************
 Applications
