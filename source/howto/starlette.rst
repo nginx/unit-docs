@@ -1,6 +1,6 @@
 .. |app| replace:: Starlette
 .. |mod| replace:: Python 3.5+
-.. |app-pip-package| replace:: starlette[full]
+.. |app-pip-package| replace:: 'starlette[full]'
 .. |app-pip-link| replace:: PIP package
 .. _app-pip-link: https://www.starlette.io/#installation
 
@@ -82,7 +82,7 @@ framework using Unit:
                   },
 
                   "action": {
-                      "share": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/; use a real path in your configuration>`"
                   }
               },
 
