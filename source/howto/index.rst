@@ -101,6 +101,7 @@ as:
    nextcloud
    opengrok
    phpbb
+   plone
    redmine
    reviewboard
    trac

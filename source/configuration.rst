@@ -3000,10 +3000,11 @@ option to name the interface explicitly.
    For Python-based examples, see our :doc:`howto/bottle`,
    :doc:`howto/datasette`, :doc:`howto/django`, :doc:`howto/djangochannels`,
    :doc:`howto/fastapi`, :doc:`howto/flask`, :doc:`howto/guillotina`,
-   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/pyramid`,
-   :doc:`howto/quart`, :doc:`howto/responder`, :doc:`howto/reviewboard`,
-   :doc:`howto/sanic`, :doc:`howto/starlette`, :doc:`howto/trac`, and
-   :doc:`howto/zope` howtos or a basic :ref:`sample <sample-python>`.
+   :doc:`howto/mercurial`, :doc:`howto/moin`, :doc:`howto/plone`,
+   :doc:`howto/pyramid`, :doc:`howto/quart`, :doc:`howto/responder`,
+   :doc:`howto/reviewboard`, :doc:`howto/sanic`, :doc:`howto/starlette`,
+   :doc:`howto/trac`, and :doc:`howto/zope` howtos or a basic :ref:`sample
+   <sample-python>`.
 
 .. _configuration-ruby:
 
