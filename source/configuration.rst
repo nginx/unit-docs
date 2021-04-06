@@ -2491,91 +2491,93 @@ Example:
        "arguments": ["--tmp-files", "/tmp/go-cache"]
    }
 
-Before applying the configuration, update the application itself.
+Before applying the configuration, update the application source code.
 
 .. _configuration-external-go:
-
-Go
-**
-
-In the :samp:`import` section, reference the :samp:`"unit.nginx.org/go"`
-package that you have :ref:`installed <installation-precomp-pkgs>` or
-:ref:`built <installation-modules-go>` earlier:
-
-.. code-block:: go
-
-   import (
-       ...
-       "unit.nginx.org/go"
-       ...
-   )
-
-.. note::
-
-   The package is required only to build the app; there's no need to install it
-   in the target environment.
-
-In the :samp:`main()` function, replace the :samp:`http.ListenAndServe` call
-with :samp:`unit.ListenAndServe`:
-
-.. code-block:: go
-
-   func main() {
-       ...
-       http.HandleFunc("/", handler)
-       ...
-       //http.ListenAndServe(":8080", nil)
-       unit.ListenAndServe(":8080", nil)
-       ...
-   }
-
-The resulting application works as follows:
-
-- When you run it standalone, the :samp:`unit.ListenAndServe` call falls back
-  to :samp:`http` functionality.
-- When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
-  router process directly, ignoring the address supplied as its first argument
-  and relying on the :ref:`listener's settings <configuration-listeners>`
-  instead.
-
-.. note::
-
-   For Go-based examples, see our :doc:`howto/grafana` howto or a basic
-   :ref:`sample <sample-go>`.
-
 .. _configuration-external-nodejs:
 
-Node.js
-*******
+.. tabs::
+   :prefix: external
 
-First, you need to have the :program:`unit-http` module :ref:`installed
-<installation-nodejs-package>`.  If it's global, symlink it in your project
-directory:
+   .. tab:: Go
 
-.. code-block:: console
+      In the :samp:`import` section, reference the :samp:`unit.nginx.org/go`
+      package that you :ref:`installed <installation-precomp-pkgs>` or
+      :ref:`built <installation-modules-go>` earlier:
 
-   # npm link unit-http
+      .. code-block:: go
 
-Do the same if you move a Unit-hosted application to a new system where
-:program:`unit-http` is installed globally.
+         import (
+             ...
+             "unit.nginx.org/go"
+             ...
+         )
 
-Next, use :samp:`unit-http` instead of :samp:`http` in your code:
+      .. note::
 
-.. code-block:: javascript
+         The package is required only to build the app; there's no need to
+         install it in the target environment.
 
-   var http = require('unit-http');
+      In the :samp:`main()` function, replace the :samp:`http.ListenAndServe`
+      call with :samp:`unit.ListenAndServe`:
 
-Unit also supports the WebSocket protocol; your Node.js app only needs to
-replace the default :samp:`websocket`:
+      .. code-block:: go
 
-.. code-block:: javascript
+         func main() {
+             ...
+             http.HandleFunc("/", handler)
+             ...
+             //http.ListenAndServe(":8080", nil)
+             unit.ListenAndServe(":8080", nil)
+             ...
+         }
 
-  var webSocketServer = require('unit-http/websocket').server;
+      The resulting application works as follows:
 
-.. note::
+      - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
+        back to :samp:`http` functionality.
+      - When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
+        router process directly, ignoring the address supplied as its first
+        argument and relying on the :ref:`listener's settings
+        <configuration-listeners>` instead.
 
-   For Node.js-based examples, see our :doc:`howto/express` and
-   :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample <sample-nodejs>`.
+      .. note::
+
+         For Go-based examples, see our :doc:`howto/grafana` howto or a basic
+         :ref:`sample <sample-go>`.
+
+   .. tab:: Node.js
+
+      First, you need to have the :program:`unit-http` module :ref:`installed
+      <installation-nodejs-package>`.  If it's global, symlink it in your
+      project directory:
+
+      .. code-block:: console
+
+         # npm link unit-http
+
+      Do the same if you move a Unit-hosted app to a new system where
+      :program:`unit-http` is installed globally.
+
+      Next, use :samp:`unit-http` instead of :samp:`http` in your code:
+
+      .. code-block:: javascript
+
+         var http = require('unit-http');
+
+      Unit also supports the WebSocket protocol; your app only needs to replace
+      the default :samp:`websocket`:
+
+      .. code-block:: javascript
+
+        var webSocketServer = require('unit-http/websocket').server;
+
+      .. note::
+
+         For Node.js-based examples, see our :doc:`howto/express` and
+         :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
+         <sample-nodejs>`.
+
 
 .. _configuration-java:
 
