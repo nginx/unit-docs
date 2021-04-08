@@ -89,6 +89,7 @@ as:
 
    bugzilla
    datasette
+   dokuwiki
    drupal
    grafana
    jira
