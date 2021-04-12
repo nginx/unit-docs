@@ -35,47 +35,45 @@ using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/dokuwiki"
+                  "pass": "routes"
               }
 
           },
 
-          "routes": {
-              "dokuwiki": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
-                              "/data/*",
-                              "/conf/*",
-                              "/bin/*",
-                              "/inc/*",
-                              "/vendor/*"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
+                          "/data/*",
+                          "/conf/*",
+                          "/bin/*",
+                          "/inc/*",
+                          "/vendor/*"
+                      ]
                   },
-                  {
-                      "match": {
-                          "uri": [
-                              "/",
-                              "*.php"
-                          ]
-                      },
 
-                      "action": {
-                          "pass": "applications/dokuwiki"
-                      }
-                  },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                      }
+                  "action": {
+                      "return": 404
                   }
-              ]
-          },
+              },
+              {
+                  "match": {
+                      "uri": [
+                          "/",
+                          "*.php"
+                      ]
+                  },
+
+                  "action": {
+                      "pass": "applications/dokuwiki"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                  }
+              }
+          ],
 
           "applications": {
               "dokuwiki": {

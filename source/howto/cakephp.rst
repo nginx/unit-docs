@@ -34,34 +34,32 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/cakephp"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "cakephp": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Handles all requests that explicitly target PHP scripts>`": [
-                              "*.php",
-                              "*.php/*"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "applications/cakephp/direct"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Handles all requests that explicitly target PHP scripts>`": [
+                          "*.php",
+                          "*.php/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
-                          "fallback": {
-                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/cakephp/index"
-                          }
+
+                  "action": {
+                      "pass": "applications/cakephp/direct"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
+                      "fallback": {
+                          ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/cakephp/index"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "cakephp": {

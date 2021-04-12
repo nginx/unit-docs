@@ -28,35 +28,33 @@ Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/joomla"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "joomla": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Matches direct URLs and the administrative section of the site>`": [
-                              "*.php",
-                              "*.php/*",
-                              "/administrator/"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "applications/joomla/direct"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Matches direct URLs and the administrative section of the site>`": [
+                          "*.php",
+                          "*.php/*",
+                          "/administrator/"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
-                          }
+
+                  "action": {
+                      "pass": "applications/joomla/direct"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/joomla/index <Unconditionally matches all remaining URLs, including rewritten ones>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "joomla": {

@@ -47,94 +47,92 @@ platform using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/nextcloud"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "nextcloud": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
-                              "/build/*",
-                              "/tests/*",
-                              "/config/*",
-                              "/lib/*",
-                              "/3rdparty/*",
-                              "/templates/*",
-                              "/data/*",
-                              "/.*",
-                              "/autotest*",
-                              "/occ*",
-                              "/issue*",
-                              "/indie*",
-                              "/db_*",
-                              "/console*"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
+                          "/build/*",
+                          "/tests/*",
+                          "/config/*",
+                          "/lib/*",
+                          "/3rdparty/*",
+                          "/templates/*",
+                          "/data/*",
+                          "/.*",
+                          "/autotest*",
+                          "/occ*",
+                          "/issue*",
+                          "/indie*",
+                          "/db_*",
+                          "/console*"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Serves direct URIs with dedicated scripts>`": [
-                              "/core/ajax/update.php*",
-                              "/cron.php*",
-                              "/index.php*",
-                              "/ocm-provider*.php*",
-                              "/ocs-provider*.php*",
-                              "/ocs/v1.php*",
-                              "/ocs/v2.php*",
-                              "/public.php*",
-                              "/remote.php*",
-                              "/status.php*",
-                              "/updater*.php*"
-                          ]
-                      },
 
-                      "action": {
-                          "pass": "applications/nextcloud/direct"
-                      }
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Serves direct URIs with dedicated scripts>`": [
+                          "/core/ajax/update.php*",
+                          "/cron.php*",
+                          "/index.php*",
+                          "/ocm-provider*.php*",
+                          "/ocs-provider*.php*",
+                          "/ocs/v1.php*",
+                          "/ocs/v2.php*",
+                          "/public.php*",
+                          "/remote.php*",
+                          "/status.php*",
+                          "/updater*.php*"
+                      ]
                   },
-                  {
-                      "match": {
-                          "uri": "/ocm-provider*"
-                      },
 
-                      "action": {
-                          "pass": "applications/nextcloud/ocm"
-                      }
+                  "action": {
+                      "pass": "applications/nextcloud/direct"
+                  }
+              },
+              {
+                  "match": {
+                      "uri": "/ocm-provider*"
                   },
-                  {
-                      "match": {
-                          "uri": "/ocs-provider*"
-                      },
 
-                      "action": {
-                          "pass": "applications/nextcloud/ocs"
-                      }
+                  "action": {
+                      "pass": "applications/nextcloud/ocm"
+                  }
+              },
+              {
+                  "match": {
+                      "uri": "/ocs-provider*"
                   },
-                  {
-                      "match": {
-                          "uri": "/updater*"
-                      },
 
-                      "action": {
-                          "pass": "applications/nextcloud/updater"
-                      }
+                  "action": {
+                      "pass": "applications/nextcloud/ocs"
+                  }
+              },
+              {
+                  "match": {
+                      "uri": "/updater*"
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": "applications/nextcloud/index"
-                          }
+
+                  "action": {
+                      "pass": "applications/nextcloud/updater"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": "applications/nextcloud/index"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "nextcloud": {

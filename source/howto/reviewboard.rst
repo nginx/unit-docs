@@ -64,32 +64,30 @@ To run the `Review Board
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/rb"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "rb": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Static file directories>`": [
-                              "/media/*",
-                              "/static/*",
-                              "/errordocs/*"
-                          ]
-                      },
-
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/htdocs/ <Path to the htdocs/ subdirectory; use a real path in your configuration>`"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Static file directories>`": [
+                          "/media/*",
+                          "/static/*",
+                          "/errordocs/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          "pass": "applications/rb"
-                      }
+
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/htdocs/ <Path to the htdocs/ subdirectory; use a real path in your configuration>`"
                   }
-              ]
-          },
+              },
+              {
+                  "action": {
+                      "pass": "applications/rb"
+                  }
+              }
+          ],
 
           "applications": {
               "rb": {

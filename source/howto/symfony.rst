@@ -33,34 +33,32 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/symfony"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "symfony": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Handles all direct script-based requests>`": [
-                              "*.php",
-                              "*.php/*"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "applications/symfony/direct"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Handles all direct script-based requests>`": [
+                          "*.php",
+                          "*.php/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          "share": ":nxt_ph:`/path/to/app/public/ <Serves all kinds of static files>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
-                          }
+
+                  "action": {
+                      "pass": "applications/symfony/direct"
+                  }
+              },
+              {
+                  "action": {
+                      "share": ":nxt_ph:`/path/to/app/public/ <Serves all kinds of static files>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "symfony": {

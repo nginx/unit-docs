@@ -43,35 +43,33 @@ versions 1.1 or 2.0 using Unit:
             {
                 "listeners": {
                     "*:80": {
-                        "pass": "routes/yii"
+                        "pass": "routes"
                     }
                 },
 
-                "routes": {
-                    "yii": [
-                        {
-                            "match": {
-                                "uri": [
-                                    "!/assets/*",
-                                    "*.php",
-                                    "*.php/*"
-                                ]
-                            },
-
-                            "action": {
-                                "pass": "applications/yii/direct"
-                            }
+                "routes": [
+                    {
+                        "match": {
+                            "uri": [
+                                "!/assets/*",
+                                "*.php",
+                                "*.php/*"
+                            ]
                         },
-                        {
-                            "action": {
-                                ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/web/ <Use a real path in your configuration>`",
-                                "fallback": {
-                                    "pass": "applications/yii/index"
-                                }
+
+                        "action": {
+                            "pass": "applications/yii/direct"
+                        }
+                    },
+                    {
+                        "action": {
+                            ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/web/ <Use a real path in your configuration>`",
+                            "fallback": {
+                                "pass": "applications/yii/index"
                             }
                         }
-                    ]
-                },
+                    }
+                ],
 
                 "applications": {
                     "yii": {
@@ -142,37 +140,35 @@ versions 1.1 or 2.0 using Unit:
             {
                 "listeners": {
                     "*:80": {
-                        "pass": "routes/yii"
+                        "pass": "routes"
                     }
                 },
 
-                "routes": {
-                    "yii": [
-                        {
-                            "match": {
-                                "uri": [
-                                    "!/assets/*",
-                                    "!/protected/*",
-                                    "!/themes/*",
-                                    "*.php",
-                                    "*.php/*"
-                                ]
-                            },
-
-                            "action": {
-                                "pass": "applications/yii/direct"
-                            }
+                "routes": [
+                    {
+                        "match": {
+                            "uri": [
+                                "!/assets/*",
+                                "!/protected/*",
+                                "!/themes/*",
+                                "*.php",
+                                "*.php/*"
+                            ]
                         },
-                        {
-                            "action": {
-                                ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
-                                "fallback": {
-                                    "pass": "applications/yii/index"
-                                }
+
+                        "action": {
+                            "pass": "applications/yii/direct"
+                        }
+                    },
+                    {
+                        "action": {
+                            ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                            "fallback": {
+                                "pass": "applications/yii/index"
                             }
                         }
-                    ]
-                },
+                    }
+                ],
 
                 "applications": {
                     "yii": {

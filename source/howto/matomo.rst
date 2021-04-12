@@ -29,74 +29,72 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/matomo"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "matomo": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Handles all PHP scripts that should be public>`": [
-                              "/index.php",
-                              "/js/index.php",
-                              "/matomo.php",
-                              "/misc/cron/archive.php",
-                              "/piwik.php",
-                              "/plugins/HeatmapSessionRecording/configs.php"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "applications/matomo/direct"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Handles all PHP scripts that should be public>`": [
+                          "/index.php",
+                          "/js/index.php",
+                          "/matomo.php",
+                          "/misc/cron/archive.php",
+                          "/piwik.php",
+                          "/plugins/HeatmapSessionRecording/configs.php"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to files and directories best kept private, including internal PHP scripts>`": [
-                              "*.php",
-                              "*/.htaccess",
-                              "/config/*",
-                              "/core/*",
-                              "/lang/*",
-                              "/tmp/*"
-                          ]
-                      },
 
-                      "action": {
-                          "return": 404
-                      }
+                  "action": {
+                      "pass": "applications/matomo/direct"
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to files and directories best kept private, including internal PHP scripts>`": [
+                          "*.php",
+                          "*/.htaccess",
+                          "/config/*",
+                          "/core/*",
+                          "/lang/*",
+                          "/tmp/*"
+                      ]
                   },
-                  {
-                      "match": {
-                          "uri": ":nxt_hint:`~\\.(css|gif|html?|ico|jpg|js(on)?|png|svg|ttf|woff2?)$ <Enables access to static content only>`"
-                      },
 
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
-                      }
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "match": {
+                      "uri": ":nxt_hint:`~\\.(css|gif|html?|ico|jpg|js(on)?|png|svg|ttf|woff2?)$ <Enables access to static content only>`"
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Disables access to certain directories that may nonetheless contain public-facing static content served by the previous rule; forwards all unhandled requests to index.php in the root directory>`": [
-                              "!/libs/*",
-                              "!/node_modules/*",
-                              "!/plugins/*",
-                              "!/vendor/*",
-                              "!/misc/cron/*",
-                              "!/misc/user/*"
-                          ]
-                      },
 
-                      "action": {
-                          ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/matomo/index <A catch-all destination for the remaining requests>`"
-                          }
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Disables access to certain directories that may nonetheless contain public-facing static content served by the previous rule; forwards all unhandled requests to index.php in the root directory>`": [
+                          "!/libs/*",
+                          "!/node_modules/*",
+                          "!/plugins/*",
+                          "!/vendor/*",
+                          "!/misc/cron/*",
+                          "!/misc/user/*"
+                      ]
+                  },
+
+                  "action": {
+                      ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/matomo/index <A catch-all destination for the remaining requests>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "matomo": {

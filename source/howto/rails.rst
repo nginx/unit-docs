@@ -34,22 +34,20 @@ using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/rails"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "rails": [
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ subdirectory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": "applications/rails"
-                          }
+          "routes": [
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ subdirectory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": "applications/rails"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "rails": {

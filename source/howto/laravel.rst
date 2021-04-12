@@ -42,25 +42,23 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/laravel"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "laravel": [
-                  {
-                      "match": {
-                          "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
-                      },
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
-                          }
+          "routes": [
+              {
+                  "match": {
+                      "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
+                  },
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "laravel": {

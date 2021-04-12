@@ -35,60 +35,58 @@ Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/bugzilla"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "bugzilla": [
-                  {
-                      ":nxt_hint:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
-                          "source": ":nxt_hint:`192.20.225.0/24 <Well-known IP range>`",
-                          "uri": "/data/webdot/*.dot"
-                      },
-
-                      "action": {
-                          ":nxt_hint:`share <Serves static files that match the conditions above>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
-                      }
+          "routes": [
+              {
+                  ":nxt_hint:`match <Restricts access to .dot files to the public webdot server at research.att.com>`": {
+                      "source": ":nxt_hint:`192.20.225.0/24 <Well-known IP range>`",
+                      "uri": "/data/webdot/*.dot"
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
-                              "!/data/assets/*.css",
-                              "!/data/assets/*.js",
-                              "!/data/webdot/*.png",
-                              "!/graphs/*.gif",
-                              "!/graphs/*.png",
-                              "*.pl",
-                              "*.pm",
-                              "*.psgi",
-                              "*.tmpl",
-                              "*/cpanfile",
-                              "*/localconfig*",
-                              "/Bugzilla/*",
-                              "/contrib/*",
-                              "/data/*",
-                              "/lib/*",
-                              "/t/*",
-                              "/template/*",
-                              "/xt/*"
-                          ]
-                      },
 
-                      "action": {
-                          "return": 404
-                      }
+                  "action": {
+                      ":nxt_hint:`share <Serves static files that match the conditions above>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
+                          "!/data/assets/*.css",
+                          "!/data/assets/*.js",
+                          "!/data/webdot/*.png",
+                          "!/graphs/*.gif",
+                          "!/graphs/*.png",
+                          "*.pl",
+                          "*.pm",
+                          "*.psgi",
+                          "*.tmpl",
+                          "*/cpanfile",
+                          "*/localconfig*",
+                          "/Bugzilla/*",
+                          "/contrib/*",
+                          "/data/*",
+                          "/lib/*",
+                          "/t/*",
+                          "/template/*",
+                          "/xt/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "fallback": {
-                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/bugzilla"
-                          }
+
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      "fallback": {
+                          ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/bugzilla"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "bugzilla": {

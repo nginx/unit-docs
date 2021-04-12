@@ -75,27 +75,25 @@ Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/trac"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "trac": [
-                  {
-                      "match": {
-                          "uri": "/chrome/*"
-                      },
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Use a real path in your configuration>`"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      "uri": "/chrome/*"
                   },
-                  {
-                      "action": {
-                          "pass": "applications/trac"
-                      }
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Use a real path in your configuration>`"
                   }
-              ]
-          },
+              },
+              {
+                  "action": {
+                      "pass": "applications/trac"
+                  }
+              }
+          ],
 
           "applications": {
               "trac": {

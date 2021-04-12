@@ -30,96 +30,94 @@ Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/drupal"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "drupal": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations according to RFC 5785>`": [
-                              "!*/.well-known/*",
-                              "/vendor/*",
-                              "/core/profiles/demo_umami/modules/demo_umami_content/default_content/*",
-                              "*.engine",
-                              "*.inc",
-                              "*.install",
-                              "*.make",
-                              "*.module",
-                              "*.po",
-                              "*.profile",
-                              "*.sh",
-                              "*.theme",
-                              "*.tpl",
-                              "*.twig",
-                              "*.xtmpl",
-                              "*.yml",
-                              "*/.*",
-                              "*/Entries*",
-                              "*/Repository",
-                              "*/Root",
-                              "*/Tag",
-                              "*/Template",
-                              "*/composer.json",
-                              "*/composer.lock",
-                              "*/web.config",
-                              "*sql",
-                              "*.bak",
-                              "*.orig",
-                              "*.save",
-                              "*.swo",
-                              "*.swp",
-                              "*~"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations according to RFC 5785>`": [
+                          "!*/.well-known/*",
+                          "/vendor/*",
+                          "/core/profiles/demo_umami/modules/demo_umami_content/default_content/*",
+                          "*.engine",
+                          "*.inc",
+                          "*.install",
+                          "*.make",
+                          "*.module",
+                          "*.po",
+                          "*.profile",
+                          "*.sh",
+                          "*.theme",
+                          "*.tpl",
+                          "*.twig",
+                          "*.xtmpl",
+                          "*.yml",
+                          "*/.*",
+                          "*/Entries*",
+                          "*/Repository",
+                          "*/Root",
+                          "*/Tag",
+                          "*/Template",
+                          "*/composer.json",
+                          "*/composer.lock",
+                          "*/web.config",
+                          "*sql",
+                          "*.bak",
+                          "*.orig",
+                          "*.save",
+                          "*.swo",
+                          "*.swp",
+                          "*~"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Allows direct access to core PHP scripts>`": [
-                              "/core/authorize.php",
-                              "/core/core.api.php",
-                              "/core/globals.api.php",
-                              "/core/install.php",
-                              "/core/modules/statistics/statistics.php",
-                              "/core/modules/system/tests/http.php*",
-                              "/core/modules/system/tests/https.php*",
-                              "/core/rebuild.php",
-                              "/update.php"
-                          ]
-                      },
 
-                      "action": {
-                          "pass": "applications/drupal/direct"
-                      }
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Allows direct access to core PHP scripts>`": [
+                          "/core/authorize.php",
+                          "/core/core.api.php",
+                          "/core/globals.api.php",
+                          "/core/install.php",
+                          "/core/modules/statistics/statistics.php",
+                          "/core/modules/system/tests/http.php*",
+                          "/core/modules/system/tests/https.php*",
+                          "/core/rebuild.php",
+                          "/update.php"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Explicitly denies access to any PHP scripts other than index.php>`": [
-                              "!/index.php*",
-                              "*.php",
-                              "*.php/*"
-                          ]
-                      },
 
-                      "action": {
-                          "return": 404
-                      }
+                  "action": {
+                      "pass": "applications/drupal/direct"
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Explicitly denies access to any PHP scripts other than index.php>`": [
+                          "!/index.php*",
+                          "*.php",
+                          "*.php/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/drupal/index <Funnels all requests to index.php>`"
-                          }
+
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/drupal/index <Funnels all requests to index.php>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "drupal": {

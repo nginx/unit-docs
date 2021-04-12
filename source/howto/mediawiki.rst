@@ -24,77 +24,75 @@ documentation platform using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/mediawiki"
+                  "pass": "routes"
               }
 
           },
 
-          "routes": {
-              "mediawiki": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Controls access to directories best kept private>`": [
-                              "!/tests/qunit/*",
-                              "/cache/*",
-                              "/includes/*",
-                              "/languages/*",
-                              "/maintenance/*",
-                              "/tests/*",
-                              "/vendor/*"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Controls access to directories best kept private>`": [
+                          "!/tests/qunit/*",
+                          "/cache/*",
+                          "/includes/*",
+                          "/languages/*",
+                          "/maintenance/*",
+                          "/tests/*",
+                          "/vendor/*"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Enables access to application entry points>`": [
-                              "/api.php*",
-                              "/img_auth.php*",
-                              "/index.php*",
-                              "/load.php*",
-                              "/mw-config/*.php",
-                              "/opensearch_desc.php*",
-                              "/profileinfo.php*",
-                              "/rest.php*",
-                              "/tests/qunit/*.php",
-                              "/thumb.php*",
-                              "/thumb_handler.php*"
-                          ]
-                      },
 
-                      "action": {
-                          "pass": "applications/mw/direct"
-                      }
-                  },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Enables static access to specific content locations>`": [
-                              "!*.php",
-                              "!*.json",
-                              ":nxt_hint:`!*.htaccess <The negations deny access to the file types listed here>`",
-                              "/extensions/*",
-                              "/images/*",
-                              "/resources/assets/*",
-                              "/resources/lib/*",
-                              "/resources/src/*",
-                              "/skins/*"
-                          ]
-                      },
-
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
-                      }
-                  },
-                  {
-                      "action": {
-                          "pass": "applications/mw/index"
-                      }
+                  "action": {
+                      "return": 404
                   }
-              ]
-          },
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Enables access to application entry points>`": [
+                          "/api.php*",
+                          "/img_auth.php*",
+                          "/index.php*",
+                          "/load.php*",
+                          "/mw-config/*.php",
+                          "/opensearch_desc.php*",
+                          "/profileinfo.php*",
+                          "/rest.php*",
+                          "/tests/qunit/*.php",
+                          "/thumb.php*",
+                          "/thumb_handler.php*"
+                      ]
+                  },
+
+                  "action": {
+                      "pass": "applications/mw/direct"
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Enables static access to specific content locations>`": [
+                          "!*.php",
+                          "!*.json",
+                          ":nxt_hint:`!*.htaccess <The negations deny access to the file types listed here>`",
+                          "/extensions/*",
+                          "/images/*",
+                          "/resources/assets/*",
+                          "/resources/lib/*",
+                          "/resources/src/*",
+                          "/skins/*"
+                      ]
+                  },
+
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                  }
+              },
+              {
+                  "action": {
+                      "pass": "applications/mw/index"
+                  }
+              }
+          ],
 
           "applications": {
               "mw": {

@@ -27,54 +27,52 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/phpbb"
+                  "pass": "routes"
               }
 
           },
 
-          "routes": {
-              "phpbb": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
-                              "/cache/*",
-                              "/common.php*",
-                              "/config.php*",
-                              "/config/*",
-                              "/db/migration/data/*",
-                              "/files/*",
-                              "/images/avatars/upload/*",
-                              "/includes/*",
-                              "/store/*"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to files and directories best kept private>`": [
+                          "/cache/*",
+                          "/common.php*",
+                          "/config.php*",
+                          "/config/*",
+                          "/db/migration/data/*",
+                          "/files/*",
+                          "/images/avatars/upload/*",
+                          "/includes/*",
+                          "/store/*"
+                      ]
                   },
-                  {
-                      "match": {
-                          "uri": [
-                              "*.php",
-                              "*.php/*"
-                          ]
-                      },
 
-                      "action": {
-                          "pass": "applications/phpbb/direct"
-                      }
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "match": {
+                      "uri": [
+                          "*.php",
+                          "*.php/*"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
-                          }
+
+                  "action": {
+                      "pass": "applications/phpbb/direct"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/phpbb/index <Catch-all for requests not yet served by other rules>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "phpbb": {

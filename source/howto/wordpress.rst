@@ -32,36 +32,34 @@ using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/wordpress"
+                  "pass": "routes"
               }
 
           },
 
-          "routes": {
-              "wordpress": [
-                  {
-                      "match": {
-                          "uri": [
-                              "*.php",
-                              "*.php/*",
-                              "/wp-admin/"
-                          ]
-                      },
-
-                      "action": {
-                          "pass": "applications/wordpress/direct"
-                      }
+          "routes": [
+              {
+                  "match": {
+                      "uri": [
+                          "*.php",
+                          "*.php/*",
+                          "/wp-admin/"
+                      ]
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": "applications/wordpress/index"
-                          }
+
+                  "action": {
+                      "pass": "applications/wordpress/direct"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": "applications/wordpress/index"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "wordpress": {

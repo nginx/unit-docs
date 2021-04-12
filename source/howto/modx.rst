@@ -29,44 +29,42 @@ To run the `MODX <https://modx.com>`_ content application platform using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/modx"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "modx": [
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Denies access to directories best kept private>`": [
-                              "!/.well-known/",
-                              "/core/*",
-                              "*/.*"
-                          ]
-                      },
-
-                      "action": {
-                          "return": 404
-                      }
+          "routes": [
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Denies access to directories best kept private>`": [
+                          "!/.well-known/",
+                          "/core/*",
+                          "*/.*"
+                      ]
                   },
-                  {
-                      "match": {
-                          ":nxt_hint:`uri <Serves direct requests for PHP scripts>`": "*.php"
-                      },
 
-                      "action": {
-                          "pass": "applications/modx"
-                      }
+                  "action": {
+                      "return": 404
+                  }
+              },
+              {
+                  "match": {
+                      ":nxt_hint:`uri <Serves direct requests for PHP scripts>`": "*.php"
                   },
-                  {
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "fallback": {
-                              "pass": ":nxt_hint:`applications/modx <A catch-all destination for the remaining requests>`"
-                          }
+
+                  "action": {
+                      "pass": "applications/modx"
+                  }
+              },
+              {
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      "fallback": {
+                          "pass": ":nxt_hint:`applications/modx <A catch-all destination for the remaining requests>`"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "modx": {

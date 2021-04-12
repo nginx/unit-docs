@@ -27,26 +27,24 @@ framework using Unit:
       {
           "listeners": {
               "*:80": {
-                  "pass": "routes/codeigniter"
+                  "pass": "routes"
               }
           },
 
-          "routes": {
-              "codeigniter": [
-                  {
-                      "match": {
-                          "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
-                      },
+          "routes": [
+              {
+                  "match": {
+                      "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
+                  },
 
-                      "action": {
-                          ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
-                          "fallback": {
-                              ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/codeigniter"
-                          }
+                  "action": {
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                      "fallback": {
+                          ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/codeigniter"
                       }
                   }
-              ]
-          },
+              }
+          ],
 
           "applications": {
               "codeigniter": {
