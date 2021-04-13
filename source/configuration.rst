@@ -415,7 +415,7 @@ only the :samp:`pass` value and leaves other options intact.
 
    .. code-block:: console
 
-      $ unitd --help
+      $ unitd -h
 
             --state DIRECTORY    set state directory name
                                  default: ":nxt_ph:`/path/to/reference/unit/state <The value we're looking for>`"

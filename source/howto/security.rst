@@ -64,7 +64,7 @@ safe.
 
    .. code-block:: console
 
-      $ unitd --help
+      $ unitd -h
 
             ...
             --control ADDRESS    set address of control API socket
@@ -134,7 +134,7 @@ safe.
 
    .. code-block:: console
 
-      $ unitd --help
+      $ unitd -h
 
             ...
             --state DIRECTORY    set state directory name
@@ -209,7 +209,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
    .. subs-code-block:: console
 
-      $ unitd --help
+      $ unitd -h
 
             --user USER          set non-privileged processes to run as specified user
                                  default: ":nxt_hint:`unit_user <Build-time setting, can be overridden>`"

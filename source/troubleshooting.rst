@@ -19,7 +19,7 @@ installation:
 
 .. code-block:: console
 
-   $ unitd --help
+   $ unitd -h
 
        unit options:
        ...
