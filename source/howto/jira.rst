@@ -97,10 +97,10 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
                       "atlassian-jira-core-7.13.0-standalone/lib/slf4j-log4j12-1.7.9.jar",
                       "atlassian-jira-core-7.13.0-standalone/lib/log4j-1.2.16.jar",
                       "atlassian-jira-core-7.13.0-standalone/lib/jcl-over-slf4j-1.7.9.jar"
-                   ]
-               }
-           }
-       }
+                  ]
+              }
+          }
+      }
 
    See :ref:`Java application options <configuration-java>` for details.
 
