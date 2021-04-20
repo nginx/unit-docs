@@ -30,7 +30,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
    .. code-block:: console
 
-      $ mkdir /path/to/app/lib/ && cd /path/to/app/lib/
+      $ mkdir :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`lib/ && cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`lib/
       $ curl http://central.maven.org/maven2/com/atomikos/atomikos-util/3.9.1/atomikos-util-3.9.1.jar -O -C -
       $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-jndi/9.4.12.v20180830/jetty-jndi-9.4.12.v20180830.jar -O -C -
       $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-plus/9.4.12.v20180830/jetty-plus-9.4.12.v20180830.jar -O -C -
