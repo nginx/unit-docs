@@ -852,6 +852,39 @@ Community Repositories
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
                 # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
 
+   .. tab:: ALT
+
+      To install Unit's core executables and specific language modules from the
+      `Sisyphus packages
+      <https://packages.altlinux.org/en/sisyphus/srpms/unit>`__:
+
+      .. code-block:: console
+
+         # apt-get update
+         # apt-get install unit
+         # apt-get install unit-perl unit-php unit-ruby
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <installation-src-startup>`
+           - :file:`/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`_unit` (mind the :samp:`_` prefix)
+
+         * - Startup and shutdown
+           - .. code-block:: console
+
+                # :nxt_hint:`service unit enable <Enable Unit to launch automatically at system startup>`
+                # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+                # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
+                # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
+
 
    .. tab:: Arch
 
@@ -1149,7 +1182,7 @@ Community Repositories
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
-   .. tab:: Remi's RPM Repo
+   .. tab:: Remi's RPM
 
       `Remi's RPM repository
       <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
