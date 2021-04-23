@@ -1070,8 +1070,19 @@ Community Repositories
 
    .. tab:: NetBSD
 
-      To install Unit from the `NetBSD Package Collection
-      <https://pkgsrc.se/www/unit>`__, start by updating your collection:
+      To install Unit's core package and the other packages you need from the
+      `NetBSD Package Collection
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit/index.html>`_:
+
+      .. code-block:: console
+
+         # pkg_add unit
+         # pkg add :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
+         # pkg_add unit-perl  \
+                   unit-python2.7  \
+                   unit-python3.6 unit-python3.7 unit-python3.8 unit-python3.9
+
+      To build Unit manually, start by updating the package collection:
 
       .. code-block:: console
 
@@ -1086,13 +1097,16 @@ Community Repositories
          # make build install
 
       Repeat the steps for the other packages you need: `libunit
-      <https://pkgsrc.se/devel/libunit/>`__  (required to install the
-      :ref:`Node.js <installation-nodejs-package>` module and build :ref:`Go
-      <installation-go-package>` apps), `unit-perl
-      <https://pkgsrc.se/www/unit-perl/>`__, `unit-php
-      <https://pkgsrc.se/www/unit-php/>`__, `unit-python
-      <https://pkgsrc.se/www/unit-python/>`__, or `unit-ruby
-      <https://pkgsrc.se/www/unit-ruby/>`__.
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/libunit/index.html>`__
+      (required to install the :ref:`Node.js <installation-nodejs-package>`
+      module and build :ref:`Go <installation-go-package>` apps), `unit-perl
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-perl/index.html>`__,
+      `unit-php
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-php/index.html>`__,
+      `unit-python
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-python/index.html>`__,
+      or `unit-ruby
+      <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
 
       Runtime details:
 
