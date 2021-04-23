@@ -23,7 +23,7 @@ using Unit:
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
-      $ cd /path/to/app/
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
       $ npm init
       $ npm install express --save
       $ npm link unit-http
@@ -34,8 +34,8 @@ using Unit:
 
    .. code-block:: console
 
-      $ touch /path/to/app/app.js
-      $ chmod +x /path/to/app/app.js
+      $ touch :nxt_ph:`/path/to/app/app.js <Pathname of the application file; use a real path in your configuration>`
+      $ chmod +x :nxt_ph:`/path/to/app/app.js <Pathname of the application file; use a real path in your configuration>`
 
    In the code, create a custom HTTP server (note :samp:`createServer`,
    :samp:`ServerResponse`, and :samp:`IncomingMessage`).  Also, mind that Unit
@@ -102,7 +102,7 @@ using Unit:
               "express": {
                   "type": "external",
                   "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use the installed NPM modules; use a real path in your configuration>`",
-                  "executable": ":nxt_hint:`app.js <Make sure to make this file executable>`"
+                  "executable": ":nxt_ph:`app.js <Basename of the application file; be sure to make it executable>`"
               }
           }
       }

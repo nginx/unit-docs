@@ -41,7 +41,7 @@ using Unit:
           "routes": [
               {
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ subdirectory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                       "fallback": {
                           "pass": "applications/rails"
                       }

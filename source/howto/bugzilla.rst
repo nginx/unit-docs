@@ -92,7 +92,7 @@ Unit:
               "bugzilla": {
                   "type": "perl",
                   "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                  "script": ":nxt_ph:`/path/to/app/app.psgi <Full pathname of the PSGI file; use a real path in your configuration>`"
+                  "script": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`app.psgi"
               }
           }
       }

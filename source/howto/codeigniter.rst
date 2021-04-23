@@ -38,7 +38,7 @@ framework using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                       "fallback": {
                           ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/codeigniter"
                       }
@@ -49,7 +49,7 @@ framework using Unit:
           "applications": {
               "codeigniter": {
                   "type": "php",
-                  "root": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                  "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                   "script": ":nxt_hint:`index.php <All requests are served by a single script>`"
               }
           }

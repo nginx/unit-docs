@@ -52,7 +52,7 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
                       "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
                   },
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/public/ <Path to the public/ directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
                       }
@@ -63,7 +63,7 @@ To run apps based on the `Laravel <https://symfony.com>`_ framework using Unit:
           "applications": {
               "laravel": {
                   "type": "php",
-                  "root": ":nxt_ph:`/path/to/app/public/ <Path to the script; use a real path in your configuration>`",
+                  "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                   "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
               }
           }
