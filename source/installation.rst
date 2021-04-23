@@ -1760,7 +1760,7 @@ structure <installation-src-dir>`:
        The default is :samp:`state`.
 
    * - :samp:`--tmp=directory`
-     - Defines the temporary files location (used to dump large request
+     - Defines the temporary file storage location (used to dump large request
        bodies).
 
        The default value is :samp:`tmp`.
@@ -2260,6 +2260,9 @@ General runtime options and :ref:`compile-time setting
 
    * - :samp:`--state directory`
      - Directory path for Unit's state storage.
+
+   * - :samp:`--tmp directory`
+     - Directory path for Unit's temporary file storage.
 
 Finally, to stop a running Unit:
 
