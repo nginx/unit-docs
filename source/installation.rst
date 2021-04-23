@@ -1077,7 +1077,7 @@ Community Repositories
       .. code-block:: console
 
          # pkg_add unit
-         # pkg add :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
+         # pkg_add :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
          # pkg_add unit-perl  \
                    unit-python2.7  \
                    unit-python3.6 unit-python3.7 unit-python3.8 unit-python3.9
