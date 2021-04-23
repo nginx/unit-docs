@@ -677,7 +677,8 @@ To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 Go
 ==
 
-To install the Go language module:
+To install the Go package for Unit, use the :ref:`official packages
+<installation-precomp-pkgs>` or run:
 
 .. code-block:: console
 

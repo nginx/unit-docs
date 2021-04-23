@@ -2491,7 +2491,7 @@ Example:
        "arguments": ["--tmp-files", "/tmp/go-cache"]
    }
 
-Before applying the configuration, update the application source code.
+Before applying the configuration, update the application source code:
 
 .. _configuration-external-go:
 .. _configuration-external-nodejs:
@@ -2541,6 +2541,10 @@ Before applying the configuration, update the application source code.
         argument and relying on the :ref:`listener's settings
         <configuration-listeners>` instead.
 
+      If you update Unit later, update the Go package as well according to your
+      :ref:`installation method <installation-go-package>`.  You'll also need
+      to rebuild your app with the updated package.
+
       .. note::
 
          For Go-based examples, see our :doc:`howto/grafana` howto or a basic
@@ -2571,6 +2575,9 @@ Before applying the configuration, update the application source code.
       .. code-block:: javascript
 
         var webSocketServer = require('unit-http/websocket').server;
+
+      If you update Unit later, update the Node.js module as well according to
+      your :ref:`installation method <installation-nodejs-package>`.
 
       .. note::
 
