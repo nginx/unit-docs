@@ -2642,8 +2642,8 @@ Example:
 
 .. note::
 
-   For Java-based examples, see our :doc:`howto/jira` and :doc:`howto/opengrok`
-   howtos or a basic :ref:`sample <sample-java>`.
+   For Java-based examples, see our :doc:`howto/jira`, :doc:`howto/opengrok`,
+   and :doc:`howto/springboot` howtos or a basic :ref:`sample <sample-java>`.
 
 .. _configuration-perl:
 

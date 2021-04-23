@@ -72,6 +72,7 @@ following frameworks:
    responder
    rails
    sanic
+   springboot
    starlette
    symfony
    yii
