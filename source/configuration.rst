@@ -497,8 +497,9 @@ Available listener options:
 
         - :ref:`Application <configuration-applications>`:
           :samp:`applications/qwk2mart`
-        - :ref:`Target <configuration-php-targets>` in a PHP application:
-          :samp:`applications/my_php_app/section`
+        - :ref:`PHP <configuration-php-targets>` or :ref:`Python
+          <configuration-python-targets>` app target:
+          :samp:`applications/myapp/section`
         - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
           :samp:`routes`
         - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
@@ -2948,17 +2949,17 @@ application:
 
    {
        "applications": {
-           "php_app": {
+           "php-app": {
                "type": "php",
                "targets": {
-                   "phpinfo": {
-                       "script": "phpinfo.php",
-                       "root": "/www/data/admin/"
+                   "foo": {
+                       "script": "foo.php",
+                       "root": "/www/apps/php-app/foo/"
                    },
 
-                   "hello": {
-                       "script": "hello.php",
-                       "root": "/www/data/test/"
+                   "bar": {
+                       "script": "bar.php",
+                       "root": "/www/apps/php-app/bar/"
                    }
                }
            }
@@ -2975,7 +2976,7 @@ requests:
    {
        "listeners": {
            "127.0.0.1:8080": {
-               "pass": "applications/php_app/hello"
+               "pass": "applications/php-app/foo"
            },
 
            "127.0.0.1:80": {
@@ -2986,11 +2987,11 @@ requests:
        "routes": [
            {
                "match": {
-                   "uri": "/info"
+                   "uri": "/bar"
                },
 
                "action": {
-                   "pass": "applications/php_app/phpinfo"
+                   "pass": "applications/php-app/bar"
                }
            }
        ]
@@ -3060,6 +3061,11 @@ following:
     * - :samp:`protocol`
       - Hint to tell Unit that the app uses a certain interface; can be
         :samp:`asgi` or :samp:`wsgi`.
+
+    * - :samp:`targets`
+      - Object that defines application sections with :ref:`custom
+        <configuration-python-targets>` :samp:`module` and :samp:`callable`
+        values.
 
     * - :samp:`threads`
       - Integer that sets the number of worker threads per app process.  When
@@ -3131,6 +3137,75 @@ Choose either one according to your needs; Unit will attempt to infer your
 choice automatically.  If automatic inference fails, use the :samp:`protocol`
 option to name the interface explicitly.
 
+.. _configuration-python-targets:
+
+Targets
+*******
+
+You can configure up to 254 individual entry points for a single Python
+application:
+
+.. code-block:: json
+
+   {
+       "applications": {
+           "python-app": {
+               "type": "python",
+               "path": "/www/apps/python-app/",
+               "targets": {
+                   "foo": {
+                       "module": "foo.wsgi",
+                       "callable": "foo"
+                   },
+
+                   "bar": {
+                       "module": "bar.wsgi",
+                       "callable": "bar"
+                   }
+               }
+           }
+       }
+   }
+
+Each target is an object that specifies :samp:`module` and optionally
+:samp:`callable` just like a common application does.  Targets can be used by
+the :samp:`pass` options in listeners and routes to serve requests:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "127.0.0.1:8080": {
+               "pass": "applications/python-app/foo"
+           },
+
+           "127.0.0.1:80": {
+               "pass": "routes"
+           }
+       },
+
+       "routes": [
+           {
+               "match": {
+                   "uri": "/bar"
+               },
+
+               "action": {
+                   "pass": "applications/python-app/bar"
+               }
+           }
+       ]
+   }
+
+The :samp:`home`, :samp:`path`, :samp:`protocol`, :samp:`threads`, and
+:samp:`thread_stack_size` settings are shared by all targets in the app.
+
+.. warning::
+
+   If you specify :samp:`targets`, there should be no :samp:`module` or
+   :samp:`callable` defined at the application level.  Moreover, you can't
+   combine WSGI and ASGI targets within a single app.
+
 .. note::
 
    For Python-based examples, see our :doc:`howto/bottle`,
@@ -3141,6 +3216,7 @@ option to name the interface explicitly.
    :doc:`howto/reviewboard`, :doc:`howto/sanic`, :doc:`howto/starlette`,
    :doc:`howto/trac`, and :doc:`howto/zope` howtos or a basic :ref:`sample
    <sample-python>`.
+
 
 .. _configuration-ruby:
 
@@ -3758,11 +3834,20 @@ Full Example
                },
                {
                    "match": {
-                       "host": "wiki.example.com"
+                       "host": "extwiki.example.com"
                    },
 
                    "action": {
-                       "pass": "applications/wiki"
+                       "pass": "applications/wiki/external"
+                   }
+               },
+               {
+                   "match": {
+                       "host": "intwiki.example.com"
+                   },
+
+                   "action": {
+                       "pass": "applications/wiki/internal"
                    }
                },
                {
@@ -3902,9 +3987,17 @@ Full Example
 
                "wiki": {
                    "type": "python",
-                   "module": "asgi",
                    "protocol": "asgi",
-                   "callable": "app",
+                   "targets": {
+                       "internal": {
+                           "module": "internal.asgi"
+                       },
+
+                       "external": {
+                           "module": "external.asgi"
+                       }
+                   },
+
                    "environment": {
                        "DJANGO_SETTINGS_MODULE": "wiki.settings.prod",
                        "DB_ENGINE": "django.db.backends.postgresql",
