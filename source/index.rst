@@ -39,8 +39,7 @@ Flexibility
 
 - Requests are :ref:`routed <configuration-routes>` between :ref:`static
   content <configuration-static>`, upstream :ref:`servers
-  <configuration-routes-proxy>`, and local :ref:`apps
-  <configuration-applications>`
+  <configuration-proxy>`, and local :ref:`apps <configuration-applications>`
 
 - Requests are filtered and dispatched with complex :ref:`matching rules
   <configuration-routes-matching>` that support :ref:`regular expressions

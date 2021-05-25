@@ -606,11 +606,11 @@ The :samp:`config/routes` configuration entity defines internal request
 routing, receiving requests via :ref:`listeners <configuration-listeners>` and
 filtering them through :ref:`sets of conditions
 <configuration-routes-matching>` to be processed by :ref:`apps
-<configuration-applications>`, :ref:`proxied <configuration-routes-proxy>` to
-external servers or :ref:`load-balanced <configuration-upstreams>` between
-them, served with :ref:`static content <configuration-static>`, :ref:`answered
-<configuration-routes-return>` with arbitrary status codes, or :ref:`redirected
-<configuration-routes-location>`.
+<configuration-applications>`, :ref:`proxied <configuration-proxy>` to external
+servers or :ref:`load-balanced <configuration-upstreams>` between them, served
+with :ref:`static content <configuration-static>`, :ref:`answered
+<configuration-return>` with arbitrary status codes, or :ref:`redirected
+<configuration-return>`.
 
 In its simplest form, :samp:`routes` can be a single route array:
 
@@ -643,12 +643,15 @@ Another form is an object with one or more named route arrays as members:
         }
    }
 
+
+.. _configuration-routes-step:
+
 ===========
 Route Steps
 ===========
 
-A route array contains step objects as elements; they accept the following
-options:
+A :ref:`route <configuration-routes>` array contains step objects as elements;
+they accept the following options:
 
 .. list-table::
    :header-rows: 1
@@ -785,8 +788,8 @@ A request passed to a route traverses its steps sequentially:
 Matching Conditions
 ===================
 
-Conditions in a :samp:`match` object define patterns to be compared to the
-requests' properties:
+Conditions in a :ref:`route step <configuration-routes-step>`'s :samp:`match`
+object define patterns to be compared to the requests' properties:
 
 .. list-table::
    :header-rows: 1
@@ -1365,40 +1368,34 @@ exactly match the property value; wildcards and ranges modify this behavior:
 Handling Actions
 ================
 
-If a request matches all conditions of a route step, or the step itself omits
-the :samp:`match` object, Unit handles the request using the respective
-:samp:`action`.  Possible combinations of :samp:`action` options are:
+If a request matches all :ref:`conditions <configuration-routes-matching>` of a
+route step or the step itself omits the :samp:`match` object, Unit handles the
+request using the respective :samp:`action`.  The mutually exclusive
+:samp:`action` types are:
 
 .. list-table::
+   :header-rows: 1
 
-  * - :samp:`pass`
-    - Route's destination upon a match, identical to :samp:`pass` in a
-      listener.
+   * - Option
+     - Description
+     - Details
 
-      Read more: :ref:`configuration-listeners`.
+   * - :samp:`pass`
+     - Destination for the request, identical to a listener's
+       :samp:`pass` option.
+     - :ref:`configuration-listeners`
 
-  * - :samp:`share`, :samp:`fallback`
-    - The :samp:`share` is a static pathname from where files are served upon a
-      match. The optional :samp:`fallback` action (identical to
-      :samp:`match/action`) is performed if the requested file isn't found or
-      can't be accessed.  Thus, share-based :samp:`fallback` actions can be
-      nested.
+   * - :samp:`proxy`
+     - Socket address of an HTTP server where the request is proxied.
+     - :ref:`configuration-proxy`
 
-      Read more: :ref:`configuration-static`.
+   * - :samp:`return`
+     - HTTP status code with a context-dependent redirect location.
+     - :ref:`configuration-return`
 
-  * - :samp:`proxy`
-    - Socket address of an HTTP server where the request is proxied upon a
-      match.
-
-      Read more: :ref:`configuration-routes-proxy`.
-
-  * - :samp:`return`, :samp:`location`
-    - The :samp:`return` value defines the HTTP response status `code
-      <https://tools.ietf.org/html/rfc7231#section-6>`__ to be returned upon a
-      match.  The :samp:`location` is required if the :samp:`return` value
-      implies redirection (3xx).
-
-      Read more: :ref:`configuration-routes-return`.
+   * - :samp:`share`
+     - Directory location that serves the request with static content.
+     - :ref:`configuration-static`
 
 An example:
 
@@ -1450,47 +1447,6 @@ An example:
                }
            }
        ]
-   }
-
-
-.. _configuration-routes-return:
-
-===============================
-Instant Responses and Redirects
-===============================
-
-You can configure route actions to instantly respond to certain conditions with
-arbitrary HTTP status codes:
-
-.. code-block:: json
-
-   {
-       "match": {
-           "uri": "/admin_console/*"
-       },
-
-       "action": {
-           "return": 403
-       }
-   }
-
-The :samp:`return` option accepts any integer values within the 000-999 range.
-It is recommended to use the codes according to their `semantics
-<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
-make sure user agents can understand them.
-
-.. _configuration-routes-location:
-
-If you specify a redirect code (3xx), supply the destination using the
-:samp:`location` option alongside :samp:`return`:
-
-.. code-block:: json
-
-   {
-       "action": {
-           "return": 301,
-           "location": "https://www.example.com"
-       }
    }
 
 
@@ -1668,6 +1624,55 @@ and request methods:
    }
 
 
+.. _configuration-return:
+
+****************************
+Instant Responses, Redirects
+****************************
+
+You can use route step :ref:`actions <configuration-routes-action>` to
+instantly respond to certain conditions with arbitrary HTTP `status codes
+<https://tools.ietf.org/html/rfc7231#section-6>`__:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "uri": "/admin_console/*"
+       },
+
+       "action": {
+           "return": 403
+       }
+   }
+
+The :samp:`return` action provides the following options:
+
+.. list-table::
+
+   * - :samp:`return` (required)
+     - Integer (000-999), defines the HTTP response status code to be returned.
+
+   * - :samp:`location`
+     - URI, required if the :samp:`return` value implies redirection.
+
+It is recommended to use the codes according to their `semantics
+<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
+make sure that user agents can understand them.
+
+If you specify a redirect code (3xx), supply the destination using the
+:samp:`location` option alongside :samp:`return`:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "return": 301,
+           "location": "https://www.example.com"
+       }
+   }
+
+
 .. _configuration-static:
 
 ************
@@ -1676,8 +1681,8 @@ Static Files
 
 Unit is capable of acting as a standalone web server, serving requests for
 static assets from directories you configure; to use the feature, supply the
-directory path in the :samp:`share` option of a :ref:`route
-<configuration-routes>` step:
+directory path in the :samp:`share` option of a route step :ref:`action
+<configuration-routes-action>`:
 
 .. code-block:: json
 
@@ -1692,10 +1697,21 @@ directory path in the :samp:`share` option of a :ref:`route
            {
                "action": {
                    "share": "/www/data/static/"
-                }
+               }
            }
        ]
    }
+
+The :samp:`share` action provides the following options:
+
+.. list-table::
+
+   * - :samp:`share` (required)
+     - Directory pathname from where the static files are served.
+
+   * - :samp:`fallback`
+     - Action-like :ref:`object <configuration-fallback>`, used if the
+       requested file can't be served.
 
 .. note::
 
@@ -1729,7 +1745,7 @@ In the above configuration, you can request specific files by these URIs:
 
    Unit supports encoded symbols in URIs as the last query above suggests.
 
-If your query specifies only the directory name, Unit will attempt to serve
+If your query specifies only the directory name, Unit attempts to serve
 :file:`index.html` from this directory:
 
 .. subs-code-block:: console
@@ -1754,12 +1770,17 @@ Unit maintains a number of :ref:`built-in MIME types <configuration-mime>` like
 override built-ins in the :samp:`/config/settings/http/static/mime_types`
 section.
 
+
 .. _configuration-fallback:
+
+===============
+Fallback Action
+===============
 
 Finally, within an :samp:`action`, you can supply a :samp:`fallback` option
 beside a :samp:`share`.  It specifies the :ref:`action
-<configuration-routes-action>` to be taken if the requested file isn't found at
-the :samp:`share` path:
+<configuration-routes-action>` to be taken if the requested file can't be
+accessed at the :samp:`share` path:
 
 .. code-block:: json
 
@@ -1771,10 +1792,10 @@ the :samp:`share` path:
    }
 
 In the example above, an attempt to serve the requested file from the
-:samp:`/data/www/` directory is made first.  Only if there's no such file, the
-request is passed to the :samp:`php` application.
+:samp:`/data/www/` directory is made first.  Only if the file's not available,
+the request is passed to the :samp:`php` application.
 
-If a :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
+If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
 :samp:`fallback`:
 
 .. code-block:: json
@@ -1874,14 +1895,14 @@ fail, the request is proxied to an external server.
       }
 
 
-.. _configuration-routes-proxy:
+.. _configuration-proxy:
 
 ********
 Proxying
 ********
 
-Unit's :ref:`routes <configuration-routes>` support HTTP proxying to socket
-addresses using the :samp:`proxy` option of a step's :samp:`action`:
+Unit's routes support HTTP proxying to socket addresses using the :samp:`proxy`
+option of a route step :ref:`action <configuration-routes-action>`:
 
 .. code-block:: json
 
