@@ -1766,6 +1766,18 @@ The :samp:`share` action provides the following options:
      - Array of :ref:`MIME type <configuration-share-mime>` patterns, used
        to filter the shared files.
 
+   * - :samp:`chroot`
+     - Directory pathname that becomes the share's new
+       :ref:`root <configuration-share-path>`.
+
+   * - :samp:`follow_symlinks`, :samp:`traverse_mounts`
+     - Booleans, enable or disable symbolic link and mount point
+       :ref:`resolution <configuration-share-resolution>` respectively; if
+       :samp:`chroot` is set, their effect starts from the new
+       :ref:`root <configuration-share-path>`.
+
+       The default for both options is :samp:`true` (resolve links and mounts).
+
 .. note::
 
    To serve the assets, Unit's :nxt_hint:`router process <Not to be confused
@@ -1863,6 +1875,172 @@ to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
            "!"
        ]
    }
+
+
+.. _configuration-share-path:
+
+=================
+Path Restrictions
+=================
+
+.. note::
+
+   To provide these options, Unit must be built and run on a system with Linux
+   kernel version 5.6+.
+
+The :samp:`chroot` option effectively confines path resolution of files served
+from a share to a new root directory.  One notable effect of enabling
+:samp:`chroot` is that symbolic links to absolute pathnames are treated as
+relative to the new root; thus, a symlink to :file:`/log/app.log` in this
+example is resolved as :file:`/www/data/log/app.log`:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "share": "/www/data/static/",
+           "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
+       }
+   }
+
+The :samp:`share` path stays as is and won't be treated as relative; only the
+portions that occur after the new root (if any) are affected by the new
+behavior.  Moreover, any requests for files outside the new root will fail:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "share": "/www/",
+           "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
+       }
+   }
+
+In this configuration, a request for :samp:`/index.xml` will result in status
+code 403 because it will be resolved as :samp:`/www/index.xml`, which is
+outside the new root.
+
+.. _configuration-share-resolution:
+
+The :samp:`follow_symlinks` and :samp:`traverse_mounts` options disable
+resolution of symbolic links and traversal of mount points when set to
+:samp:`false` (both default to :samp:`true`):
+
+.. code-block:: json
+
+   {
+       "action": {
+           "share": "/www/data/static/",
+           "follow_symlinks": false,
+           "traverse_mounts": false
+       }
+   }
+
+Here, any request that involves a symlink or a mount point inside
+:file:`/www/data/static/` will fail; also, if a portion of the :samp:`share`
+path is a symlink or a mount point, this configuration will be accepted but
+won't work.
+
+With :samp:`chroot` set, :samp:`follow_symlinks` and :samp:`traverse_mounts`
+only affect portions of the path after the new root:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "share": "/www/data/static/",
+           "chroot": "/www/data/",
+           "follow_symlinks": false,
+           "traverse_mounts": false
+       }
+   }
+
+Here, :file:`www/` and :samp:`data/` can be symlinks or mount points, but any
+symlinks and mount points beyond them, including the :file:`static/` portion,
+won't be resolved.
+
+.. nxt_details:: Details
+
+   Suppose you want to serve files from a share that itself includes a symlink
+   (say, :file:`data/` in our example) but disable any symlinks inside the
+   share.  Initial configuration:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "share": "/www/data/static/",
+              "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
+          }
+      }
+
+   Let's create a symlink to :file:`/www/data/static/index.html`:
+
+   .. code-block:: console
+
+      $ cat > /www/data/static/index.html <<EOF
+
+            > index.html
+            > EOF
+
+      $ ln -s index.html /www/data/static/symlink
+
+   If symlink resolution is enabled (with or without :samp:`chroot`), a request
+   that targets the symlink works:
+
+   .. code-block:: console
+
+      $ curl localhost/index.html
+
+            index.html
+
+      $ curl localhost/symlink
+
+            index.html
+
+   Let's set :samp:`follow_symlinks` to :samp:`false`:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "share": "/www/data/static/",
+              "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`",
+              "follow_symlinks": false
+          }
+      }
+
+   Now the symlink request fails, which is the desired effect:
+
+   .. code-block:: console
+
+      $ curl localhost/index.html
+
+            index.html
+
+      $ curl localhost/symlink
+
+            <!DOCTYPE html><title>Error 403</title><p>Error 403.
+
+   Lastly, what difference does :samp:`chroot` make?  Let's remove it:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "share": "/www/data/static/",
+              "follow_symlinks": false
+          }
+      }
+
+   This request fails because :samp:`"follow_symlinks": false` affects the
+   entire share, and :samp:`data/` is a symlink:
+
+   .. code-block:: console
+
+      $ curl localhost/index.html
+
+            <!DOCTYPE html><title>Error 403</title><p>Error 403.
 
 
 .. _configuration-fallback:
@@ -3998,7 +4176,10 @@ Full Example
                },
                {
                    "action": {
-                       "share": "/www/static/",
+                       "share": "/www/data/static/",
+                       "chroot": "/www/data/",
+                       "traverse_mounts": false,
+                       "follow_symlinks": false,
                        "types": [
                            "image/*",
                            "video/*",
