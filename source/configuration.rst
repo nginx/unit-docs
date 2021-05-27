@@ -920,6 +920,8 @@ object define patterns to be compared to the requests' properties:
             ...
 
 
+.. _configuration-routes-matching-resolution:
+
 Match Resolution
 ****************
 
@@ -1713,6 +1715,10 @@ The :samp:`share` action provides the following options:
      - Action-like :ref:`object <configuration-fallback>`, used if the
        requested file can't be served.
 
+   * - :samp:`types`
+     - Array of :ref:`MIME type <configuration-share-mime>` patterns, used
+       to filter the shared files.
+
 .. note::
 
    To serve the assets, Unit's :nxt_hint:`router process <Not to be confused
@@ -1745,8 +1751,9 @@ In the above configuration, you can request specific files by these URIs:
 
    Unit supports encoded symbols in URIs as the last query above suggests.
 
-If your query specifies only the directory name, Unit attempts to serve
-:file:`index.html` from this directory:
+If the request URI specifies only the directory name, Unit attempts to serve an
+:file:`index.html` file from this directory but *doesn't* apply :ref:`MIME
+filtering <configuration-share-mime>`:
 
 .. subs-code-block:: console
 
@@ -1765,10 +1772,50 @@ If your query specifies only the directory name, Unit attempts to serve
    Unit's ETag response header fields use the following format:
    :samp:`%MTIME_HEX%-%FILESIZE_HEX%`.
 
-Unit maintains a number of :ref:`built-in MIME types <configuration-mime>` like
-:samp:`text/plain` or :samp:`text/html`; also, you can add extra types and
-override built-ins in the :samp:`/config/settings/http/static/mime_types`
-section.
+
+.. _configuration-share-mime:
+
+==============
+MIME Filtering
+==============
+
+To filter the files a :samp:`share` serves by their :ref:`MIME types
+<configuration-mime>`, define a :samp:`types` array of string patterns.
+They work like :ref:`route patterns <configuration-routes-matching-patterns>`
+but are matched to the MIME type of each file; the request is served only if
+it's a :ref:`match <configuration-routes-matching-resolution>`:
+
+.. code-block:: json
+
+   {
+       "share": "/www/data/static/",
+       "types": [
+           "!text/javascript",
+           "!text/css",
+           "text/*",
+           "~video/3gpp2?"
+       ]
+   }
+
+This sample configuration blocks JS and CSS files with :ref:`negation
+<configuration-routes-matching-resolution>` but allows all other text-based
+MIME types with a :ref:`wildcard pattern
+<configuration-routes-matching-patterns>`. Additionally, the :file:`.3gpp` and
+:file:`.3gpp2` file types are allowed by a :ref:`regex pattern
+<configuration-routes-matching-patterns>`.
+
+If the MIME type of a requested file isn't recognized, it is considered empty
+(:samp:`""`).  Thus, the :samp:`"!"` pattern ("deny empty strings") can be used
+to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
+
+.. code-block:: json
+
+   {
+       "share": "/www/data/known-types-only/",
+       "types": [
+           "!"
+       ]
+   }
 
 
 .. _configuration-fallback:
@@ -1780,20 +1827,29 @@ Fallback Action
 Finally, within an :samp:`action`, you can supply a :samp:`fallback` option
 beside a :samp:`share`.  It specifies the :ref:`action
 <configuration-routes-action>` to be taken if the requested file can't be
-accessed at the :samp:`share` path:
+served from the :samp:`share` path:
 
 .. code-block:: json
 
    {
-       "share": "/data/www/",
+       "share": "/www/data/static/",
        "fallback": {
            "pass": "applications/php"
        }
    }
 
+Serving a file can be impossible for different reasons, such as:
+
+- The file isn't found at the :samp:`share` path.
+- The file's :ref:`MIME type <configuration-share-mime>` doesn't match the
+  :samp:`types` array.
+- The router process has :ref:`insufficient permissions <security-apps>` to
+  access the file or an underlying directory.
+- The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
+
 In the example above, an attempt to serve the requested file from the
-:samp:`/data/www/` directory is made first.  Only if the file's not available,
-the request is passed to the :samp:`php` application.
+:samp:`/www/data/static/` directory is made first.  Only if the file can't be
+served, the request is passed to the :samp:`php` application.
 
 If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
 :samp:`fallback`:
@@ -1801,18 +1857,19 @@ If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
 .. code-block:: json
 
    {
-       "share": "/data/www/",
+       "share": "/www/data/static/",
        "fallback": {
-           "share": "/data/cache/",
+           "share": "/www/data/cache/",
            "fallback": {
                "proxy": "http://127.0.0.1:9000"
            }
        }
    }
 
-First, this configuration tries to serve a file from the :file:`/data/www/`
-directory; next, it queries the :file:`/data/cache/` path.  If both attempts
-fail, the request is proxied to an external server.
+First, this configuration tries to serve the request from the
+:file:`/www/data/static/` directory; on failure, it queries the
+:file:`/www/data/cache/` path.  Only if both attempts fail, the request is
+proxied to an external server.
 
 .. nxt_details:: Examples
 
@@ -1829,6 +1886,7 @@ fail, the request is proxied to an external server.
                   "match": {
                       "uri": "*.php"
                   },
+
                   "action": {
                       "pass": "applications/php-app"
                   }
@@ -1871,6 +1929,7 @@ fail, the request is proxied to an external server.
                           "*.xml"
                       ]
                   },
+
                   "action": {
                       "share": "/www/php-app/assets/files/",
                       "fallback": {
@@ -1893,6 +1952,53 @@ fail, the request is proxied to an external server.
               }
           }
       }
+
+   If image files should be served locally and other proxied, use the
+   :samp:`types` array in the first route step:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "uri": [
+                  "*.css",
+                  "*.ico",
+                  "*.jpg",
+                  "*.js",
+                  "*.png",
+                  "*.xml"
+              ]
+          },
+
+          "action": {
+              "share": "/www/php-app/assets/files/",
+              "types": [
+                  "image/*"
+              ],
+              "fallback": {
+                  "proxy": "http://127.0.0.1:9000"
+              }
+          }
+      }
+
+   Another way to combine :samp:`share`, :samp:`types`, and :samp:`fallback` is
+   exemplified by the following compact pattern:
+
+   .. code-block:: json
+
+      {
+          "share": "/www/php-app/assets/files/",
+          "types": [
+              "!application/x-httpd-php"
+          ],
+          "fallback": {
+              "pass": "applications/php-app"
+          }
+      }
+
+   It forwards explicit requests for PHP files to the app while serving all
+   other types of files from the share; note that a :samp:`match` object isn't
+   needed here to achieve this effect.
 
 
 .. _configuration-proxy:
@@ -3681,6 +3787,11 @@ Full Example
                {
                    "action": {
                        "share": "/www/static/",
+                       "types": [
+                           "image/*",
+                           "video/*",
+                           "application/json"
+                       ],
                        "fallback": {
                            "proxy": "http://127.0.0.1:9000"
                        }
