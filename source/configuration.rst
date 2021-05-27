@@ -3200,10 +3200,10 @@ Example:
    :file:`.iso`, :file:`.jpeg`, :file:`.jpg`, :file:`.js`, :file:`.json`,
    :file:`.md`, :file:`.mid`, :file:`.midi`, :file:`.mp3`, :file:`.mp4`,
    :file:`.mpeg`, :file:`.mpg`, :file:`.msi`, :file:`.ogg`, :file:`.otf`,
-   :file:`.pdf`, :file:`.png`, :file:`.rpm`, :file:`.rss`, :file:`.rst`,
-   :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`, :file:`.webm`,
-   :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`, and
-   :file:`.zip`.  Built-ins can be overridden, and new types can be added:
+   :file:`.pdf`, :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`,
+   :file:`.rst`, :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`,
+   :file:`.webm`, :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`,
+   and :file:`.zip`.  Built-ins can be overridden, and new types can be added:
 
    .. code-block:: console
 
