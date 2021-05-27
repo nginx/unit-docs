@@ -511,10 +511,7 @@ Available listener options:
            "Not Found" response is returned.
 
     * - :samp:`tls`
-      - SSL/TLS configuration object.  Its only option, :samp:`certificate`,
-        accepts a string or an array of strings that refer to one or more
-        certificate bundles you have :ref:`uploaded <configuration-ssl>`
-        earlier, thus enabling secure communication via the listener.
+      - SSL/TLS configuration :ref:`object <configuration-listener-ssl>`.
 
 Here, a local listener accepts requests at port 8300 and passes them to the
 :samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
@@ -552,6 +549,39 @@ escape slashes in entity names:
        }
    }
 
+.. _configuration-listener-ssl:
+
+=====================
+SSL/TLS Configuration
+=====================
+
+The :samp:`tls` object provides the following options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - :samp:`certificate` (required)
+     - String or string array, refers to one or more certificate bundles you
+       have :ref:`uploaded <configuration-ssl>` earlier, enabling secure
+       communication via the listener.
+
+   * - :samp:`conf_commands`
+     - Object, defines SSL `configuration commands
+       <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ to
+       be set for the listener.
+
+       To provide this option, Unit must be built and run on a system with
+       OpenSSL 1.0.2+:
+
+       .. code-block:: console
+
+          $ openssl version
+
+                OpenSSL 1.1.1d  10 Sep 2019
+
 To use a certificate bundle you've :ref:`uploaded <configuration-ssl>` earlier,
 name it in the :samp:`certificate` option of the :samp:`tls` object:
 
@@ -564,6 +594,22 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
                "tls": {
                    "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
                }
+           }
+       }
+   }
+
+To set custom OpenSSL `configuration commands
+<https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ for a
+listener, use the :samp:`conf_commands` object in :samp:`tls`:
+
+.. code-block:: json
+
+   {
+       "tls": {
+           "certificate": ":nxt_hint:`bundle <Certificate bundle name>`",
+           "conf_commands": {
+               "ciphersuites": ":nxt_hint:`TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256 <Mandatory cipher suites as per RFC8446, section 9.1>`",
+               "minprotocol": "TLSv1.3"
            }
        }
    }
@@ -3756,7 +3802,10 @@ Full Example
                        "certificate": [
                            "example.com",
                            "example.org"
-                       ]
+                       ],
+                       "conf_commands" : {
+                            "ciphersuites": "TLS_CHACHA20_POLY1305_SHA256"
+                       }
                    }
                },
 
