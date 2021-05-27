@@ -103,12 +103,12 @@ Supported App Languages
   <https://www.nginx.com/blog/nginx-unit-adds-assembly-language-support/>`_:
   via the embedded :program:`libunit` library
 
-- :ref:`Go <configuration-external>`: by :ref:`overloading
-  <installation-go-package>` the :program:`http` module
+- :ref:`Go <configuration-go>`: by :ref:`overloading <installation-go-package>`
+  the :program:`http` module
 
-- :ref:`JavaScript (Node.js)<configuration-external>`: by
-  :ref:`overloading <installation-nodejs-package>` the :program:`http` and
-  :program:`websocket` modules
+- :ref:`JavaScript (Node.js)<configuration-nodejs>`: by :ref:`overloading
+  <installation-nodejs-package>` the :program:`http` and :program:`websocket`
+  modules
 
 - :ref:`Java <configuration-java>`: via the Servlet Specification 3.1 and
   WebSocket APIs

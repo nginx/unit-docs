@@ -44,13 +44,13 @@ your technology stack, or simply be tech-curious.  In any case:
 
    * - **Prepare** |_| **the** |_| **app** |_| **for** |_| **Unit**
 
-     - #. *(Only applies to Go/Node.js)* :ref:`Patch <configuration-external>`
+     - #. *(Only applies to :ref:`Go <configuration-go>`)* Patch
           your app to run on Unit.
 
        #. Choose :ref:`common <configuration-applications>` options such as
           app type, working directory, user/group.
 
-       #. Add :ref:`language-specific <configuration-external>`
+       #. Add :ref:`language-specific <configuration-languages>`
           settings such as index, entry module, or executable.
 
    * - **Plug the app into Unit**

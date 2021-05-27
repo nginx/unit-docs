@@ -24,13 +24,13 @@ like any other.  They provide common web functionality, communicating with Unit
 from the app's runspace.
 
 In Go, Unit support is implemented with a package that you :ref:`import
-<configuration-external-go>` to your apps.  You can :ref:`install
-<installation-go>` the package from the official Unit repository; otherwise,
-:ref:`build <installation-go>` it for your version of Go using Unit's sources.
+<configuration-go>` to your apps.  You can :ref:`install <installation-go>` the
+package from the official Unit repository; otherwise, :ref:`build
+<installation-go>` it for your version of Go using Unit's sources.
 
 In Node.js, Unit is supported by an :program:`npm`-hosted `package
 <https://www.npmjs.com/package/unit-http>`__ that you :ref:`require
-<configuration-external-nodejs>` in your app code.  You can :ref:`install
+<configuration-nodejs>` in your app code.  You can :ref:`install
 <installation-nodejs-package>` the package from the :program:`npm` repository;
 otherwise, :ref:`build <installation-nodejs>` it for your version of Node.js
 using Unit's sources.

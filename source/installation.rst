@@ -721,8 +721,8 @@ To install the Go package for Unit, use the :ref:`official packages
 
    $ go get unit.nginx.org/go
 
-That's it; now, you can :ref:`use it <configuration-external-go>` to run your
-Go apps on Unit.
+That's it; now, you can :ref:`use it <configuration-go>` to run your Go apps on
+Unit.
 
 
 .. _installation-nodejs-package:
@@ -732,8 +732,8 @@ Node.js
 =======
 
 Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
-is :program:`unit-http`.  Your Node.js apps must :samp:`require` it to run in
-Unit:
+is called :program:`unit-http`; installing it is necessary to run Node.js apps
+on Unit:
 
 #. First, install the :samp:`unit-dev/unit-devel` :ref:`package
    <installation-precomp-pkgs>`, necessary to build :program:`unit-http`.
@@ -750,12 +750,13 @@ Unit:
        The :program:`unit-http` module is platform dependent due to
        optimizations; you can't move it across systems with the rest of
        :file:`node-modules`.  Global installation avoids such scenarios; just
-       :ref:`relink <configuration-external-nodejs>` the migrated app.
+       :ref:`relink <configuration-nodejs>` the migrated app.
 
-#. After that, :ref:`use <configuration-external-nodejs>` the module in your
-   Node.js app instead of the built-in :program:`http` to run the app on Unit.
-   Mind that such frameworks as Express may require extra :doc:`changes in your
-   code <howto/express>`.
+#. It's entirely possible to run Node.js apps on Unit :ref:`without
+   <configuration-nodejs>` mentioning :samp:`unit-http` in your app sources.
+   However, you can explicitly use :samp:`unit-http` in your code instead of
+   the built-in :samp:`http`, but mind that such frameworks as Express may
+   require extra :doc:`changes <howto/express>`.
 
 If you update Unit later, make sure to update the module as well:
 
@@ -1900,9 +1901,9 @@ and place module-specific instructions in the :file:`Makefile`.
    .. tab:: Go
 
       When you run :command:`./configure go`, Unit sets up the Go package that
-      lets your applications :ref:`run on Unit <configuration-external-go>`.
-      To use the package, :ref:`install <installation-bld-src-ext>` it in your
-      Go environment.  Available configuration options:
+      lets your applications :ref:`run on Unit <configuration-go>`.  To use the
+      package, :ref:`install <installation-bld-src-ext>` it in your Go
+      environment.  Available configuration options:
 
       .. list-table::
 
@@ -1978,7 +1979,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
       When you run :command:`./configure nodejs`, Unit sets up the
       :program:`unit-http` module that lets your applications :ref:`run on Unit
-      <configuration-external-nodejs>`.  Available configuration options:
+      <configuration-nodejs>`.  Available configuration options:
 
       .. list-table::
 

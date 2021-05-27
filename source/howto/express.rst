@@ -86,8 +86,8 @@ using Unit:
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-external-nodejs>` the |app|
-   configuration for Unit:
+#. Next, :ref:`prepare <configuration-nodejs>` the |app| configuration for
+   Unit:
 
    .. code-block:: json
 

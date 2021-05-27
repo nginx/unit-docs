@@ -2613,17 +2613,17 @@ idles after 20 seconds:
        "idle_timeout": 20
    }
 
+
 .. _configuration-languages:
-.. _configuration-external:
+.. _configuration-go:
 
-==========
-Go/Node.js
-==========
+==
+Go
+==
 
-To run your Go or Node.js applications on Unit, you need to configure them
-`and` modify their source code as suggested below.  Let's start with the app
-configuration; besides :ref:`common options <configuration-apps-common>`, you
-have the following:
+To run your Go apps on Unit, you need to configure them `and` modify their
+source code as suggested below.  Let's start with the app configuration;
+besides :ref:`common options <configuration-apps-common>`, you have:
 
 .. list-table::
     :header-rows: 1
@@ -2634,18 +2634,6 @@ have the following:
     * - :samp:`executable` (required)
       - Pathname of the application, absolute or relative to
         :samp:`working_directory`.
-
-        For Node.js, supply your :file:`.js` pathname and start the file itself
-        with a proper shebang:
-
-        .. code-block:: javascript
-
-           #!/usr/bin/env node
-
-        .. note::
-
-           Make sure to :command:`chmod +x` the file you list here so Unit can
-           start it.
 
     * - :samp:`arguments`
       - Command line arguments to be passed to the application.
@@ -2667,97 +2655,55 @@ Example:
 
 Before applying the configuration, update the application source code:
 
-.. _configuration-external-go:
-.. _configuration-external-nodejs:
 
-.. tabs::
-   :prefix: external
+In the :samp:`import` section, reference the :samp:`unit.nginx.org/go` package
+that you :ref:`installed <installation-precomp-pkgs>` or :ref:`built
+<installation-modules-go>` earlier:
 
-   .. tab:: Go
+.. code-block:: go
 
-      In the :samp:`import` section, reference the :samp:`unit.nginx.org/go`
-      package that you :ref:`installed <installation-precomp-pkgs>` or
-      :ref:`built <installation-modules-go>` earlier:
+   import (
+       ...
+       "unit.nginx.org/go"
+       ...
+   )
 
-      .. code-block:: go
+.. note::
 
-         import (
-             ...
-             "unit.nginx.org/go"
-             ...
-         )
+   The package is required only to build the app; there's no need to
+   install it in the target environment.
 
-      .. note::
+In the :samp:`main()` function, replace the :samp:`http.ListenAndServe` call
+with :samp:`unit.ListenAndServe`:
 
-         The package is required only to build the app; there's no need to
-         install it in the target environment.
+.. code-block:: go
 
-      In the :samp:`main()` function, replace the :samp:`http.ListenAndServe`
-      call with :samp:`unit.ListenAndServe`:
+   func main() {
+       ...
+       http.HandleFunc("/", handler)
+       ...
+       //http.ListenAndServe(":8080", nil)
+       unit.ListenAndServe(":8080", nil)
+       ...
+   }
 
-      .. code-block:: go
+The resulting application works as follows:
 
-         func main() {
-             ...
-             http.HandleFunc("/", handler)
-             ...
-             //http.ListenAndServe(":8080", nil)
-             unit.ListenAndServe(":8080", nil)
-             ...
-         }
+- When you run it standalone, the :samp:`unit.ListenAndServe` call falls
+  back to :samp:`http` functionality.
+- When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
+  router process directly, ignoring the address supplied as its first
+  argument and relying on the :ref:`listener's settings
+  <configuration-listeners>` instead.
 
-      The resulting application works as follows:
+If you update Unit later, update the Go package as well according to your
+:ref:`installation method <installation-go-package>`.  You'll also need to
+rebuild your app with the updated package.
 
-      - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
-        back to :samp:`http` functionality.
-      - When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
-        router process directly, ignoring the address supplied as its first
-        argument and relying on the :ref:`listener's settings
-        <configuration-listeners>` instead.
+.. note::
 
-      If you update Unit later, update the Go package as well according to your
-      :ref:`installation method <installation-go-package>`.  You'll also need
-      to rebuild your app with the updated package.
-
-      .. note::
-
-         For Go-based examples, see our :doc:`howto/grafana` howto or a basic
-         :ref:`sample <sample-go>`.
-
-   .. tab:: Node.js
-
-      First, you need to have the :program:`unit-http` module :ref:`installed
-      <installation-nodejs-package>`.  If it's global, symlink it in your
-      project directory:
-
-      .. code-block:: console
-
-         # npm link unit-http
-
-      Do the same if you move a Unit-hosted app to a new system where
-      :program:`unit-http` is installed globally.
-
-      Next, use :samp:`unit-http` instead of :samp:`http` in your code:
-
-      .. code-block:: javascript
-
-         var http = require('unit-http');
-
-      Unit also supports the WebSocket protocol; your app only needs to replace
-      the default :samp:`websocket`:
-
-      .. code-block:: javascript
-
-        var webSocketServer = require('unit-http/websocket').server;
-
-      If you update Unit later, update the Node.js module as well according to
-      your :ref:`installation method <installation-nodejs-package>`.
-
-      .. note::
-
-         For Node.js-based examples, see our :doc:`howto/express` and
-         :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
-         <sample-nodejs>`.
+   For Go-based examples, see our :doc:`howto/grafana` howto or a basic
+   :ref:`sample <sample-go>`.
 
 
 .. _configuration-java:
@@ -2818,6 +2764,138 @@ Example:
 
    For Java-based examples, see our :doc:`howto/jira`, :doc:`howto/opengrok`,
    and :doc:`howto/springboot` howtos or a basic :ref:`sample <sample-java>`.
+
+
+.. _configuration-nodejs:
+
+=======
+Node.js
+=======
+
+First, you need to have the :program:`unit-http` module :ref:`installed
+<installation-nodejs-package>`.  If it's global, symlink it in your
+project directory:
+
+.. code-block:: console
+
+   # npm link unit-http
+
+Do the same if you move a Unit-hosted app to a new system where
+:program:`unit-http` is installed globally.  Also, if you update Unit later,
+update the Node.js module as well according to your :ref:`installation method
+<installation-nodejs-package>`.
+
+Next, to run your Node.js apps on Unit, you need to configure them.  Besides
+:ref:`common options <configuration-apps-common>`, you have:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`executable` (required)
+      - Pathname of the application, absolute or relative to
+        :samp:`working_directory`.
+
+        Supply your :file:`.js` pathname here and start the file itself
+        with a proper shebang:
+
+        .. code-block:: javascript
+
+           #!/usr/bin/env node
+
+        .. note::
+
+           Make sure to :command:`chmod +x` the file you list here so Unit can
+           start it.
+
+    * - :samp:`arguments`
+      - Command line arguments to be passed to the application.
+        The example below is equivalent to
+        :samp:`/www/apps/node-app/app.js --tmp-files /tmp/node-cache`.
+
+Example:
+
+.. code-block:: json
+
+   {
+       "type": "external",
+       "working_directory": "/www/app/node-app/",
+       "executable": "app.js",
+       "user": "www-node",
+       "group": "www-node",
+       "arguments": [
+           "--tmp-files",
+           "/tmp/node-cache"
+       ]
+   }
+
+.. _configuration-nodejs-loader:
+
+You can run Node.js apps without altering their code, using a loader module we
+provide with :program:`unit-http`.  Apply the following app configuration,
+depending on your version of Node.js:
+
+.. tabs::
+   :prefix: nodejs
+
+   .. tab:: 14.16.x and later
+
+      .. code-block:: json
+
+         {
+             "type": "external",
+             "executable": ":nxt_hint:`/usr/bin/env <The external app type allows to run arbitrary executables, provided they establish communication with Unit>`",
+             "arguments": [
+                 "node",
+                 "--loader",
+                 "unit-http/loader.mjs"
+                 "--require",
+                 "unit-http/loader",
+                 ":nxt_ph:`app.js <Application script name>`"
+             ]
+         }
+
+   .. tab:: 14.15.x and earlier
+
+      .. code-block:: json
+
+         {
+             "type": "external",
+             "executable": ":nxt_hint:`/usr/bin/env <The external app type allows to run arbitrary executables, provided they establish communication with Unit>`",
+             "arguments": [
+                 "node",
+                 "--require",
+                 "unit-http/loader",
+                 ":nxt_ph:`app.js <Application script name>`"
+             ]
+         }
+
+The loader overrides the :samp:`http` and :samp:`websocket` modules with their
+Unit-aware versions and starts the app.
+
+You can also run your Node.js apps without the loader by updating the
+application source code.  For that, use :samp:`unit-http` instead of
+:samp:`http` in your code:
+
+.. code-block:: javascript
+
+   var http = require('unit-http');
+
+To use the WebSocket protocol, your app only needs to replace the default
+:samp:`websocket`:
+
+.. code-block:: javascript
+
+  var webSocketServer = require('unit-http/websocket').server;
+
+.. note::
+
+   For Node.js-based examples, see our :doc:`howto/express` and
+   :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
+   <sample-nodejs>`.
+
 
 .. _configuration-perl:
 

@@ -41,7 +41,7 @@ Compile it using the source code from the Go language package you have
    $ cp -r <package installation path>/src/* $GOPATH/src/
    $ go build -o /www/app /www/app.go
 
-Upload the :ref:`app config <configuration-external>` to Unit and test it:
+Upload the :ref:`app config <configuration-go>` to Unit and test it:
 
 .. code-block:: console
 
@@ -225,7 +225,7 @@ Make it executable and link the Node.js language package you've :ref:`installed
    $ chmod +x app.js
    $ npm link unit-http
 
-Upload the :ref:`app config <configuration-external>` to Unit and test it:
+Upload the :ref:`app config <configuration-nodejs>` to Unit and test it:
 
 .. code-block:: console
 
@@ -273,6 +273,12 @@ Try this sample out with the Dockerfile :download:`here
            res.end(JSON.stringify(r, null, "    ").toString("utf8"))
        })
    }).listen()
+
+.. note::
+
+   You can run a version of the same app :ref:`without
+   <configuration-nodejs-loader>` requiring the :samp:`unit-http` module
+   explicitly.
 
 
 .. _sample-perl:
