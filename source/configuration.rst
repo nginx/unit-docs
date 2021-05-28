@@ -1802,9 +1802,9 @@ In the above configuration, you can request specific files by these URIs:
 
 .. code-block:: console
 
-   $ curl 127.0.0.1:8300/html/index.html
-   $ curl 127.0.0.1:8300/stylesheet.css
-   $ curl 127.0.0.1:8300/js%20files/page.js
+   $ curl http://localhost:8300/html/index.html
+   $ curl http://localhost:8300/stylesheet.css
+   $ curl http://localhost:8300/js%20files/page.js
 
 If the request URI specifies only the directory name, Unit attempts to serve an
 :file:`index.html` file from this directory but *doesn't* apply :ref:`MIME
