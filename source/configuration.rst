@@ -2065,12 +2065,12 @@ served from the :samp:`share` path:
 
 Serving a file can be impossible for different reasons, such as:
 
-- The file isn't found at the :samp:`share` path.
+- The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
 - The file's :ref:`MIME type <configuration-share-mime>` doesn't match the
   :samp:`types` array.
+- The file isn't found at the :samp:`share` path.
 - The router process has :ref:`insufficient permissions <security-apps>` to
   access the file or an underlying directory.
-- The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
 
 In the example above, an attempt to serve the requested file from the
 :samp:`/www/data/static/` directory is made first.  Only if the file can't be
