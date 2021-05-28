@@ -1804,11 +1804,7 @@ In the above configuration, you can request specific files by these URIs:
 
    $ curl 127.0.0.1:8300/html/index.html
    $ curl 127.0.0.1:8300/stylesheet.css
-   $ curl '127.0.0.1:8300/js files/page.js'
-
-.. note::
-
-   Unit supports encoded symbols in URIs as the last query above suggests.
+   $ curl 127.0.0.1:8300/js%20files/page.js
 
 If the request URI specifies only the directory name, Unit attempts to serve an
 :file:`index.html` file from this directory but *doesn't* apply :ref:`MIME
