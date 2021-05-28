@@ -1812,7 +1812,7 @@ filtering <configuration-share-mime>`:
 
 .. subs-code-block:: console
 
-   $ curl -vL 127.0.0.1:8300/html/
+   $ curl -vL http://localhost:8300/html/
 
     ...
     < HTTP/1.1 200 OK
@@ -1824,8 +1824,9 @@ filtering <configuration-share-mime>`:
 
 .. note::
 
-   Unit's ETag response header fields use the following format:
-   :samp:`%MTIME_HEX%-%FILESIZE_HEX%`.
+   Unit's ETag response header fields use the :samp:`MTIME-FILESIZE` format,
+   where :samp:`MTIME` stands for file modification timestamp and
+   :samp:`FILESIZE` stands for file size in bytes, both in hexadecimal.
 
 
 .. _configuration-share-mime:
