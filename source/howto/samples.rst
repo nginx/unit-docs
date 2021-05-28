@@ -60,7 +60,7 @@ Upload the :ref:`app config <configuration-go>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, Go on Unit!
 
@@ -149,7 +149,7 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, JSP on Unit!
 
@@ -244,7 +244,7 @@ Upload the :ref:`app config <configuration-nodejs>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, Node.js on Unit!
 
@@ -318,7 +318,7 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, Perl on Unit!
 
@@ -385,7 +385,7 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, PHP on Unit!
 
@@ -448,7 +448,7 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, Python on Unit!
 
@@ -515,7 +515,7 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
      }
      }' --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-   $ curl localhost:8080
+   $ curl http://localhost:8080
 
        Hello, Ruby on Unit!
 

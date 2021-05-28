@@ -1990,11 +1990,11 @@ won't be resolved.
 
    .. code-block:: console
 
-      $ curl localhost/index.html
+      $ curl http://localhost/index.html
 
             index.html
 
-      $ curl localhost/symlink
+      $ curl http://localhost/symlink
 
             index.html
 
@@ -2014,11 +2014,11 @@ won't be resolved.
 
    .. code-block:: console
 
-      $ curl localhost/index.html
+      $ curl http://localhost/index.html
 
             index.html
 
-      $ curl localhost/symlink
+      $ curl http://localhost/symlink
 
             <!DOCTYPE html><title>Error 403</title><p>Error 403.
 
@@ -2038,7 +2038,7 @@ won't be resolved.
 
    .. code-block:: console
 
-      $ curl localhost/index.html
+      $ curl http://localhost/index.html
 
             <!DOCTYPE html><title>Error 403</title><p>Error 403.
 
