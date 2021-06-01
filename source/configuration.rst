@@ -3025,7 +3025,7 @@ depending on your version of Node.js:
              "arguments": [
                  "node",
                  "--loader",
-                 "unit-http/loader.mjs"
+                 "unit-http/loader.mjs",
                  "--require",
                  "unit-http/loader",
                  ":nxt_ph:`app.js <Application script name>`"
