@@ -100,8 +100,7 @@ Unit:
                   "match": {
                       ":nxt_hint:`uri <Explicitly denies access to any PHP scripts other than index.php>`": [
                           "!/index.php*",
-                          "*.php",
-                          "*.php/*"
+                          "*.php"
                       ]
                   },
 
