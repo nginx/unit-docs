@@ -157,7 +157,7 @@ class NxtHighlighter:
     def __init__(self, highlighter):
         self.highlighter = highlighter
 
-    def highlight_block(self, source, lang, opts, location, *args, **kwargs):
+    def highlight_block(self, source, lang, opts, force, location, *args, **kwargs):
         """Preserves nxt_ directives, highlights syntax, replaces directives.
         """
 
@@ -173,7 +173,7 @@ class NxtHighlighter:
                             'nxt_hint_' + str(i), source, count=1)
 
         highlighted = self.highlighter.highlight_block(
-            source, lang, opts, location, *args, **kwargs)
+            source, lang, opts, force, location, *args, **kwargs)
 
         for i, group in enumerate(ph_groups):
             highlighted = highlighted.replace(
@@ -233,8 +233,8 @@ class NxtTranslator(HTMLTranslator):
     nxt_details blocks.
     """
 
-    def __init__(self, builder, *args, **kwargs):
-        HTMLTranslator.__init__(self, builder, *args, **kwargs)
+    def __init__(self, document, builder, *args, **kwargs):
+        HTMLTranslator.__init__(self, document, builder, *args, **kwargs)
         self.highlighter = NxtHighlighter(builder.highlighter)
 
     def visit_nxt_details(self, node):

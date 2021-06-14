@@ -11,10 +11,12 @@ release = version
 
 highlight_language = 'json'
 
+root_doc = 'contents'
 html_theme = 'theme'
 html_theme_path = ["."]
 html_use_index = False
-html_add_permalinks = u'§'
+html_permalinks = True
+html_permalinks_icon = u'§'
 html_baseurl = 'https://unit.nginx.org/'
 html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
 html_context = {

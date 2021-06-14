@@ -46,11 +46,11 @@ def setup(app):
 
     # Inject the old_role keyword argument to ensure a seamless override.
     def spliced_role(*arg, **kwarg):
-        return new_literal_role(*arg, old_role=mod.emph_literal_role, **kwarg)
+        return new_literal_role(*arg, old_role=mod.EmphasizedLiteral, **kwarg)
 
     # Select all literal role names.
     names = [key for key, value in mod.specific_docroles.items()
-             if value is mod.emph_literal_role]
+             if value is mod.EmphasizedLiteral]
 
     # Override all literal roles with the extended handler.
     for name in names:
