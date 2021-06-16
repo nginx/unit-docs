@@ -2746,8 +2746,8 @@ The :samp:`processes` option offers a choice between static and dynamic process
 management.  If you set it to an integer, Unit immediately launches the given
 number of app processes and keeps them without scaling.
 
-To enable dynamic prefork model for your app, supply a :samp:`processes` object
-with the following options:
+To enable a dynamic prefork model for your app, supply a :samp:`processes`
+object with the following options:
 
 .. list-table::
     :header-rows: 1
