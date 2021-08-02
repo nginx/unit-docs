@@ -57,7 +57,8 @@ deploy: site
 	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
 	rsync -rcv --delete --exclude='*.gz' --exclude='/sitemap.xml' \
 		"$(TMP)/" "$(DEPLOYDIR)"
-	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" > "$(TMP)/sitemap.xml"
+	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" -e sitemapexclude.txt \
+		> "$(TMP)/sitemap.xml"
 	$(MINIFY) -v "$(TMP)/sitemap.xml" -o "$(TMP)/sitemap.xml"
 	rsync -rcv "$(TMP)/sitemap.xml" "$(DEPLOYDIR)"
 	-rm -rf "$(TMP)"
