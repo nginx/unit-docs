@@ -3665,6 +3665,7 @@ Example:
                        ]
                    }
                },
+
                "discard_unsafe_fields": false
            }
        }
@@ -4044,6 +4045,7 @@ Full Example
                            ]
                        }
                    },
+
                    "discard_unsafe_fields": false
                }
            },
