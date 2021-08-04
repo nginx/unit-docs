@@ -17,12 +17,17 @@ extensions += ['inline']
 """
 
 import sphinx.roles as mod
-from docutils.nodes import Text
+from docutils.nodes import Node, system_message, Text
 from docutils.parsers.rst import roles
+from docutils.parsers.rst.states import Inliner
+from sphinx.application import Sphinx
+from typing import Any, Dict, Callable, List, Tuple
 
 
-def new_literal_role(typ, rawtext, text, lineno, inliner, options=None,
-                     content=None, old_role=None):
+def new_literal_role(name: str, rawtext: str, text: str, lineno: int,
+        inliner: Inliner, options: Dict = {}, content: List[str] = [],
+        old_role: Callable[..., Tuple[List[Node], List[system_message]]]
+        = None) -> Tuple[List[Node], List[system_message]]:
     """Extends the literal role handler to allow replace substitutions."""
 
     node, _ = old_role(typ, rawtext, text, lineno, inliner, options,
@@ -41,11 +46,12 @@ def new_literal_role(typ, rawtext, text, lineno, inliner, options=None,
     return node, _
 
 
-def setup(app):
+def setup(app: Sphinx) -> None:
     """Overrides literal role handlers."""
 
     # Inject the old_role keyword argument to ensure a seamless override.
-    def spliced_role(*arg, **kwarg):
+    def spliced_role(*args: Any, **kwargs: Any) -> \
+            Tuple[List[Node], List[system_message]]:
         return new_literal_role(*arg, old_role=mod.EmphasizedLiteral, **kwarg)
 
     # Select all literal role names.

@@ -67,17 +67,22 @@ from hashlib import md5 as hashlib_md5
 from secrets import token_urlsafe
 
 from docutils import nodes
+from docutils.nodes import Element, Node, system_message
 from docutils.parsers.rst import Directive, directives, roles
+from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.builders import Builder
 from sphinx.builders.html import DirectoryHTMLBuilder
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.errors import ExtensionError
+from sphinx.highlighting import PygmentsBridge
 from sphinx.locale import __
 from sphinx.transforms import SphinxContentsFilter
 from sphinx.util import logging
 from sphinx.writers.html import HTMLTranslator
+from typing import Any, Dict, List, Tuple
 
 
 # Writer-related classes and functions.
@@ -96,7 +101,7 @@ class nxt_details(nodes.container):
     Only __init__ to initialize attributes.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.summary_text = None
 
@@ -105,7 +110,7 @@ class nxt_hint(nodes.container):
     Only __init__ to initialize attributes.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.term = None
         self.tip = None
@@ -116,7 +121,7 @@ class nxt_tab_head(nodes.Text):
     Only __init__ to initialize attributes.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.checked = None
         self.label_id = None
@@ -130,7 +135,8 @@ NXT_PLAIN_TEXT = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
 NXT_HINT_REGEX = r'`({0}*[^\s])\s*<({0}+)>`'.format(NXT_PLAIN_TEXT)
 
 
-def nxt_hint_role_fn(_, rawtext, text, lineno, inliner):
+def nxt_hint_role_fn(_: str, rawtext: str, text: str, lineno: int, inliner:
+        Inliner, *args: Any) -> Tuple[List[Node], List[system_message]]:
     """The nxt_hint role handler for inline text outside code blocks."""
 
     node = nxt_hint()
@@ -154,10 +160,11 @@ class NxtHighlighter:
     in code blocks.
     """
 
-    def __init__(self, highlighter):
+    def __init__(self, highlighter: PygmentsBridge) -> None:
         self.highlighter = highlighter
 
-    def highlight_block(self, source, lang, opts, force, location, *args, **kwargs):
+    def highlight_block(self, source: str, lang: str, opts: Dict = None,
+            force: bool = False, location: Any = None, **kwargs: Any) -> str:
         """Preserves nxt_ directives, highlights syntax, replaces directives.
         """
 
@@ -173,7 +180,7 @@ class NxtHighlighter:
                             'nxt_hint_' + str(i), source, count=1)
 
         highlighted = self.highlighter.highlight_block(
-            source, lang, opts, force, location, *args, **kwargs)
+            source, lang, opts, force, location, **kwargs)
 
         for i, group in enumerate(ph_groups):
             highlighted = highlighted.replace(
@@ -201,15 +208,16 @@ class NxtBuilder(DirectoryHTMLBuilder):
 
     name = 'nxt_html'
 
-    def __init__(self, app):
-        DirectoryHTMLBuilder.__init__(self, app)
+    def __init__(self, app: Sphinx) -> None:
+        super().__init__(app)
 
-    def update_page_context(self, pagename, templatename, ctx, event_arg):
+    def update_page_context(self, pagename: str, templatename: str,
+            ctx: Dict, event_arg: Any) -> None:
         """Extends builder context to make the MD5 function available at
         build time.
         """
 
-        def md5(fname):
+        def md5(fname: str) -> str:
             """Calculates MD5 for a file relative to source directory."""
 
             pathname = self.srcdir + '/' + fname
@@ -233,11 +241,11 @@ class NxtTranslator(HTMLTranslator):
     nxt_details blocks.
     """
 
-    def __init__(self, document, builder, *args, **kwargs):
-        HTMLTranslator.__init__(self, document, builder, *args, **kwargs)
+    def __init__(self, document: nodes.document, builder: Builder) -> None:
+        super().__init__(document, builder)
         self.highlighter = NxtHighlighter(builder.highlighter)
 
-    def visit_nxt_details(self, node):
+    def visit_nxt_details(self, node: Element) -> None:
         """Handles the nxt_details directive."""
 
         self.body.append("""<details>
@@ -247,29 +255,29 @@ class NxtTranslator(HTMLTranslator):
 
         HTMLTranslator.visit_container(self, node)
 
-    def depart_nxt_details(self, node):
+    def depart_nxt_details(self, node: Element) -> None:
         """Handles the nxt_details directive."""
 
         HTMLTranslator.depart_container(self, node)
         self.body.append('</details>')
 
-    def visit_nxt_hint(self, node):
+    def visit_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
         self.body.append('<span class=nxt_hint title="{1}">{0}</span>'
                          .format(node.term, node.tip))
 
-    def depart_nxt_hint(self, node):
+    def depart_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
 
-    def visit_nxt_tab_body(self, node):
+    def visit_nxt_tab_body(self, node: Element) -> None:
         """Handles the nxt_tab_body node in an individual tab."""
         HTMLTranslator.visit_container(self, node)
 
-    def depart_nxt_tab_body(self, node):
+    def depart_nxt_tab_body(self, node: Element) -> None:
         """Handles the nxt_tab_body node in an individual tab."""
         HTMLTranslator.depart_container(self, node)
 
-    def visit_nxt_tab_head(self, node):
+    def visit_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
         self.body.append("""
             <input name={0} type=radio id={1} class=nojs {2}/>"""
@@ -281,23 +289,23 @@ class NxtTranslator(HTMLTranslator):
 
         HTMLTranslator.visit_Text(self, node)
 
-    def depart_nxt_tab_head(self, node):
+    def depart_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
         self.body.append('</a></label>')
         HTMLTranslator.depart_Text(self, node)
 
-    def visit_nxt_tabs(self, node):
+    def visit_nxt_tabs(self, node: Element) -> None:
         """Handles the nxt_tabs node in a tab group."""
         HTMLTranslator.visit_container(self, node)
 
-    def depart_nxt_tabs(self, node):
+    def depart_nxt_tabs(self, node: Element) -> None:
         """Handles the nxt_tabs node in a tab group."""
         HTMLTranslator.depart_container(self, node)
 
-    def unimplemented_visit(self, node):
+    def unimplemented_visit(self, node: Element) -> None:
         """Dummpy implementation for an abstract method."""
 
-    def unknown_visit(self, node):
+    def unknown_visit(self, node: Element) -> None:
         """Dummpy implementation for an abstract method."""
 
 
@@ -306,8 +314,7 @@ class NxtCollector(TocTreeCollector):
     include tab titles in the resulting TOC.
     """
 
-    def process_doc(self, app, doctree):
-        # type: (Sphinx, nodes.Node) -> None
+    def process_doc(self, app: Sphinx, doctree: Node) -> None:
         """Build a TOC from the doctree and store it in the inventory.
         Copied intact from Sphinx 1.8.0 sources with nxt_tab_head traversal
         added; look for 'Extension code starts here'.
@@ -316,8 +323,7 @@ class NxtCollector(TocTreeCollector):
         docname = app.env.docname
         numentries = [0]  # nonlocal again...
 
-        def traverse_in_section(node, cls):
-            # type: (nodes.Node, Any) -> List[nodes.Node]
+        def traverse_in_section(node: Node, cls: Any) -> List[Node]:
             """Like traverse(), but stay within the same section."""
 
             result = []
@@ -329,8 +335,7 @@ class NxtCollector(TocTreeCollector):
                 result.extend(traverse_in_section(child, cls))
             return result
 
-        def build_toc(node, depth=1):
-            # type: (nodes.Node, int) -> List[nodes.Node]
+        def build_toc(node: Node, depth: int = 1) -> List[Node]:
             entries = []
             for sectionnode in node:
                 # find all toctree nodes in this section and add them
@@ -410,7 +415,7 @@ class DetailsDirective(Directive):
 
     has_content = True
 
-    def run(self):
+    def run(self) -> List[Node]:
         self.assert_has_content()
 
         node = nxt_details()
@@ -430,7 +435,7 @@ class TabsDirective(Directive):
         'toc': directives.unchanged
     }
 
-    def run(self):
+    def run(self) -> List[Node]:
         self.assert_has_content()
         env = self.state.document.settings.env
 
@@ -455,7 +460,7 @@ class TabDirective(Directive):
 
     has_content = True
 
-    def run(self):
+    def run(self) -> List[Node]:
         self.assert_has_content()
         env = self.state.document.settings.env
 
@@ -480,7 +485,7 @@ class TabDirective(Directive):
         return [tab_head, tab_body]
 
 
-def register_tabs_as_label(app, document):
+def register_tabs_as_label(app: Sphinx, document: nodes.document) -> None:
     """Registers tabs as anchors in TOC."""
 
     docname = app.env.docname
@@ -498,7 +503,7 @@ def register_tabs_as_label(app, document):
         labels[node.label_id] = docname, node.label_id, node.astext()
 
 
-def setup(app):
+def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
 
     app.add_directive('nxt_details', DetailsDirective)

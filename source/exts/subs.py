@@ -17,15 +17,16 @@ conf.py:
 .html file:
     some text and more text
 """
-
-from docutils.nodes import Text
+from docutils.nodes import Node, Text
+from sphinx.application import Sphinx
 from sphinx.directives.code import CodeBlock
+from typing import List
 
 
 class SubsCodeBlock(CodeBlock):
     """Extends code-block to enable replace directive substitutions."""
 
-    def run(self):
+    def run(self) -> List[Node]:
 
         new_content = []
         doc = self.state.document
@@ -46,7 +47,7 @@ class SubsCodeBlock(CodeBlock):
         return CodeBlock.run(self)
 
 
-def setup(app):
+def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
 
     app.add_directive('subs-code-block', SubsCodeBlock)
