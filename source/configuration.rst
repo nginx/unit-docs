@@ -1928,8 +1928,8 @@ resolution of symbolic links and traversal of mount points when set to
    {
        "action": {
            "share": "/www/data/static/",
-           "follow_symlinks": false,
-           "traverse_mounts": false
+           "follow_symlinks": :nxt_hint:`false <Disables symlink traversal>`,
+           "traverse_mounts": :nxt_hint:`false <Disables mount point traversal>`
        }
    }
 

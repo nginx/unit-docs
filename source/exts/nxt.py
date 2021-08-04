@@ -62,6 +62,7 @@ Features:
 """
 
 import re
+import pygments.lexers.data
 
 from hashlib import md5 as hashlib_md5
 from secrets import token_urlsafe
@@ -505,6 +506,11 @@ def register_tabs_as_label(app: Sphinx, document: nodes.document) -> None:
 
 def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
+    pygments.lexers.data.JsonLexer.constants = \
+        set('truefalsenullxphi_0123456789')
+    # Adding 'nxt_ph_N' and 'nxt_hint_N' to the charset allows
+    # NxtHightlighter.highlight_block() to run w/o resetting lexer to 'none'
+    # when constants such as false and true are commented with nxt_ directives.
 
     app.add_directive('nxt_details', DetailsDirective)
     app.add_directive('tabs', TabsDirective)
