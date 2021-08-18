@@ -3555,6 +3555,10 @@ following:
 
         The default value is :samp:`1`.
 
+    * - :samp:`hooks`
+      - Pathname of the :file:`.rb` file defining the event hooks to be
+        called during the app's lifecycle.
+
 Example:
 
 .. code-block:: json
@@ -3564,8 +3568,52 @@ Example:
        "processes": 5,
        "user": "www",
        "group": "www",
-       "script": "/www/cms/config.ru"
+       "script": "/www/cms/config.ru",
+       "hooks": "hooks.rb"
    }
+
+The :samp:`hooks` script is evaluated when the application starts.  If set, it
+can define blocks of Ruby code named :samp:`on_worker_boot`,
+:samp:`on_worker_shutdown`, :samp:`on_thread_boot`, or
+:samp:`on_thread_shutdown`.  If provided, these blocks are called at the
+respective points of the application's lifecycle, for example:
+
+.. code-block:: ruby
+
+   @mutex = Mutex.new
+
+   File.write("./hooks.#{Process.pid}", "hooks evaluated")
+   # Runs once at app load.
+
+   on_worker_boot do
+       File.write("./worker_boot.#{Process.pid}", "worker boot")
+   end
+   # Runs at worker process boot.
+
+   on_thread_boot do
+       @mutex.synchronize do
+           # Avoids a race condition that may crash the app.
+           File.write("./thread_boot.#{Process.pid}.#{Thread.current.object_id}",
+                      "thread boot")
+       end
+   end
+   # Runs at worker thread boot.
+
+   on_thread_shutdown do
+       @mutex.synchronize do
+           # Avoids a race condition that may crash the app.
+           File.write("./thread_shutdown.#{Process.pid}.#{Thread.current.object_id}",
+                      "thread shutdown")
+       end
+   end
+   # Runs at worker thread shutdown.
+
+   on_worker_shutdown do
+       File.write("./worker_shutdown.#{Process.pid}", "worker shutdown")
+   end
+   # Runs at worker process shutdown.
+
+Use these hooks to add custom runtime logic to your application.
 
 .. note::
 
@@ -4269,7 +4317,8 @@ Full Example
                "cms": {
                    "type": "ruby",
                    "script": "/www/cms/main.ru",
-                   "working_directory": "/www/cms/"
+                   "working_directory": "/www/cms/",
+                   "hooks": "hooks.rb"
                },
 
                "drive": {
