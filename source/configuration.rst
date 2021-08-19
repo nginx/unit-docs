@@ -439,10 +439,10 @@ host IP address and a port that Unit binds to; a wildcard matches any host IPs.
 .. note::
 
    On Linux-based systems, wildcard listeners can't overlap with other
-   listeners on the same port due to kernel-imposed limitations.  For example,
-   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; in partcular, this
-   also means you can't directly reconfigure a listener on :samp:`*:8080` to
-   use :samp:`127.0.0.1:8080` or vice versa without deleting it first.
+   listeners on the same port due to kernel-imposed rules.  For example,
+   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; this means a listener
+   can't be directly reconfigured from :samp:`*:8080` to :samp:`127.0.0.1:8080`
+   or vice versa without deleting it first.
 
 Unit dispatches the requests it receives to destinations referenced by
 listeners.  You can plug several listeners into one destination or use a
@@ -476,7 +476,13 @@ Available listener options:
            "Not Found" response is returned.
 
     * - :samp:`tls`
-      - SSL/TLS configuration :ref:`object <configuration-listener-ssl>`.
+      - Object, defines SSL/TLS :ref:`settings
+        <configuration-listeners-ssl>`.
+
+    * - :samp:`client_ip`
+      - Object, configures client IP address :ref:`replacement
+        <configuration-listeners-xff>`.
+
 
 Here, a local listener accepts requests at port 8300 and passes them to the
 :samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
@@ -514,7 +520,7 @@ escape slashes in entity names:
        }
    }
 
-.. _configuration-listener-ssl:
+.. _configuration-listeners-ssl:
 
 =====================
 SSL/TLS Configuration
@@ -606,6 +612,93 @@ listener, use the :samp:`conf_commands` object in :samp:`tls`:
    matches trump wildcards; if ambiguity remains, the one listed first is used.
    If there's no match or no server name was sent, Unit uses the first bundle
    on the list.
+
+.. _configuration-listeners-xff:
+
+=============================
+Originating IP Identification
+=============================
+
+Unit supports identification of the clients' originating IPs with the
+:samp:`client_ip` object and its options:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`header` (required)
+      - String, defines the relevant HTTP header fields to expect in the
+        request.  Unit expects them to follow the `X-Forwarded-For
+        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
+        notation with the field value being a comma- or space-separated list of
+        IPv4 or IPv6 addresses.
+
+    * - :samp:`source` (required)
+      - String or array of strings, defines :ref:`address-based patterns
+        <configuration-routes-matching-patterns>` for trusted addresses; the
+        replacement occurs only if the source IP of the request is a
+        :ref:`match <configuration-routes-matching-resolution>`.
+
+    * - :samp:`recursive`
+      - Boolean, controls how the header fields are traversed.
+
+        The default value is :samp:`false` (no recursion).
+
+Unit proceeds to inspect the :samp:`header` fields only if the source IP of the
+request :ref:`matches <configuration-routes-matching-resolution>` the
+:samp:`source` option.
+
+Consider the following :samp:`client_ip` configuration:
+
+.. code-block:: json
+
+   {
+       "client_ip": {
+           "header": "X-Forwarded-For",
+           "recursive": false,
+           "source": [
+               "10.0.0.0/8",
+               "150.172.238.0/24"
+           ]
+       }
+   }
+
+Suppose a request arrives with the following header fields:
+
+.. code-block:: none
+
+   X-Forwarded-For: 203.0.113.195
+   X-Forwarded-For: 70.41.3.18, 150.172.238.178
+
+If :samp:`recursive` is set to :samp:`false` (default), Unit chooses the
+*rightmost* address of the *last* :samp:`header` field as the originating IP.
+In the example, it is set to 150.172.238.178 for requests from 10.0.0.0/8 or
+150.172.238.0/24.
+
+If :samp:`recursive` is set to :samp:`true`, Unit inspects all :samp:`header`
+fields in reverse order.  Each is traversed from right to left until the first
+non-trusted address; if found, it's chosen as the originating IP.  In the
+example above with :samp:`"recursive": true`, the client IP would be set to
+70.41.3.18 because 150.172.238.178 is also trusted; this simplifies working
+behind multiple reverse proxies.
+
+Finally, mind that :samp:`source` can use not only subnets but any
+:ref:`address-based patterns <configuration-routes-matching-patterns>`:
+
+.. code-block:: json
+
+   {
+       "client_ip": {
+           "header": "X-Forwarded-For",
+           "source": [
+               ":nxt_hint:`!10.0.0.0/8 <Negation rejects any addresses originating here>`",
+               ":nxt_hint:`82.204.252.1-82.204.252.254 <Ranges can be specified explicitly>`",
+               ":nxt_hint:`203.0.113.195 <Individual addresses are supported as well>`"
+           ]
+       }
+   }
 
 
 .. _configuration-routes:
@@ -3666,7 +3759,6 @@ HTTP requests from the clients:
         extension or a specific filename that is included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
-
       - Controls the parsing mode of header field names.  If set to
         :samp:`true`, Unit only processes headers with names consisting of
         alphanumeric characters and hyphens (:samp:`-`); otherwise, all valid
@@ -4100,7 +4192,13 @@ Full Example
                },
 
                "*:8080": {
-                   "pass": "upstreams/rr-lb"
+                   "pass": "upstreams/rr-lb",
+                   "client_ip": {
+                       "header": "X-Forwarded-For",
+                       "source": [
+                           "10.0.0.0/8"
+                       ]
+                   }
                }
            },
 

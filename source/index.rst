@@ -54,6 +54,9 @@ Flexibility
 - Upstream :ref:`server groups <configuration-upstreams>` enable dynamic
   load balancing using a weighted round-robin method
 
+- Originating IP identification :ref:`supports <configuration-listeners-xff>`
+  :samp:`X-Forwarded-For` or similar header fields
+
 
 ============
 Performance
