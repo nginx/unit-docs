@@ -540,7 +540,7 @@ The :samp:`tls` object provides the following options:
        communication via the listener.
 
    * - :samp:`conf_commands`
-     - Object, defines SSL `configuration commands
+     - Object, defines the SSL `configuration commands
        <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ to
        be set for the listener.
 
@@ -552,6 +552,9 @@ The :samp:`tls` object provides the following options:
           $ openssl version
 
                 OpenSSL 1.1.1d  10 Sep 2019
+
+   * - :samp:`session`
+     - Object, configures the TLS session cache and tickets for the listener.
 
 To use a certificate bundle you've :ref:`uploaded <configuration-ssl>` earlier,
 name it in the :samp:`certificate` option of the :samp:`tls` object:
@@ -565,22 +568,6 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
                "tls": {
                    "certificate": ":nxt_hint:`bundle <Certificate bundle name>`"
                }
-           }
-       }
-   }
-
-To set custom OpenSSL `configuration commands
-<https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ for a
-listener, use the :samp:`conf_commands` object in :samp:`tls`:
-
-.. code-block:: json
-
-   {
-       "tls": {
-           "certificate": ":nxt_hint:`bundle <Certificate bundle name>`",
-           "conf_commands": {
-               "ciphersuites": ":nxt_hint:`TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256 <Mandatory cipher suites as per RFC8446, section 9.1>`",
-               "minprotocol": "TLSv1.3"
            }
        }
    }
@@ -612,6 +599,133 @@ listener, use the :samp:`conf_commands` object in :samp:`tls`:
    matches trump wildcards; if ambiguity remains, the one listed first is used.
    If there's no match or no server name was sent, Unit uses the first bundle
    on the list.
+
+To set custom OpenSSL `configuration commands
+<https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ for a
+listener, use the :samp:`conf_commands` object in :samp:`tls`:
+
+.. code-block:: json
+
+   {
+       "tls": {
+           "certificate": ":nxt_hint:`bundle <Certificate bundle name>`",
+           "conf_commands": {
+               "ciphersuites": ":nxt_hint:`TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256 <Mandatory cipher suites as per RFC8446, section 9.1>`",
+               "minprotocol": "TLSv1.3"
+           }
+       }
+   }
+
+.. _configuration-listeners-ssl-sessions:
+
+The :samp:`session` object in :samp:`tls` configures the session settings of
+the listener:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - :samp:`cache_size`
+     - Integer, sets the number of sessions in the TLS session cache.
+
+       The default is :samp:`0` (caching is disabled).
+
+   * - :samp:`timeout`
+     - Integer, sets the session timeout for the TLS session cache.
+
+       When a new session is created, it is assigned a lifetime based on its
+       creation time and current timeout value.  If a cached session is
+       requested past its lifetime, it is not reused.
+
+       The default is :samp:`300` (5 minutes).
+
+   * - :samp:`tickets`
+     - Boolean, string, or an array of strings; configures TLS session tickets.
+
+       The default is :samp:`false` (tickets are disabled).
+
+Example:
+
+.. code-block:: json
+
+   {
+       "tls": {
+           "certificate": ":nxt_hint:`bundle <Certificate bundle name>`",
+           "session": {
+               "cache_size": 10240,
+               "timeout": 60,
+               "tickets": [
+                   "k5qMHi7IMC7ktrPY3lZ+sL0Zm8oC0yz6re+y/zCj0H0/sGZ7yPBwGcb77i5vw6vCx8vsQDyuvmFb6PZbf03Auj/cs5IHDTYkKIcfbwz6zSU=",
+                   "3Cy+xMFsCjAek3TvXQNmCyfXCnFNAcAOyH5xtEaxvrvyyCS8PJnjOiq2t4Rtf/Gq",
+                   "8dUI0x3LRnxfN0miaYla46LFslJJiBDNdFiPJdqr37mYQVIzOWr+ROhyb1hpmg/QCM2qkIEWJfrJX3I+rwm0t0p4EGdEVOXQj7Z8vHFcbiA="
+               ]
+           }
+       }
+   }
+
+The :samp:`tickets` option works as follows:
+
+- Boolean values enable or disable session tickets; when enabled, a random
+  session ticket key is used:
+
+  .. code-block:: json
+
+     {
+         "session": {
+             "tickets": :nxt_hint:`true <Enables session tickets>`
+         }
+     }
+
+- A string enables tickets and explicitly sets the session ticket key:
+
+  .. code-block:: json
+
+     {
+         "session": {
+             ":nxt_hint:`tickets <Enables session tickets, sets a single session ticket key>`": "IAMkP16P8OBuqsijSDGKTpmxrzfFNPP4EdRovXH2mqstXsodPC6MqIce5NlMzHLP"
+         }
+     }
+
+  This can be employed to implement ticket reuse in scenarios where the key
+  is shared between servers.
+
+  Unit supports AES256 (80-byte keys) or AES128 (48-byte keys); the bytes
+  should be encoded in Base64:
+
+  .. code-block:: console
+
+     $ openssl rand -base64 48
+
+           LoYjFVxpUFFOj4TzGkr5MsSIRMjhuh8RCsVvtIJiQ12FGhn0nhvvQsEND1+OugQ7
+
+     $ openssl rand -base64 80
+
+           GQczhdXawyhTrWrtOXI7l3YYUY98PrFYzjGhBbiQsAWgaxm+mbkm4MmZZpDw0tkK
+           YTqYWxofDtDC4VBznbBwTJTCgYkJXknJc4Gk2zqD1YA=
+
+- An array of strings just like the one above:
+
+  .. code-block:: json
+
+     {
+         "session": {
+             ":nxt_hint:`tickets <Enables session tickets, sets two session ticket keys>`": [
+                 "IAMkP16P8OBuqsijSDGKTpmxrzfFNPP4EdRovXH2mqstXsodPC6MqIce5NlMzHLP",
+                 "Ax4bv/JvMWoQG+BfH0feeM9Qb32wSaVVKOj1+1hmyU8ORMPHnf3Tio8gLkqm2ifC"
+             ]
+         }
+     }
+
+  Unit uses these keys to decrypt the tickets submitted by clients who want to
+  recover their session state; the last key is always used to create new
+  session tickets and update the tickets created earlier.
+
+  .. note::
+
+     An empty array effectively disables session tickets, same as setting
+     :samp:`tickets` to :samp:`false`.
 
 .. _configuration-listeners-xff:
 
@@ -699,6 +813,7 @@ Finally, mind that :samp:`source` can use not only subnets but any
            ]
        }
    }
+
 
 
 .. _configuration-routes:
@@ -4181,8 +4296,19 @@ Full Example
                            "example.com",
                            "example.org"
                        ],
+
                        "conf_commands" : {
                             "ciphersuites": "TLS_CHACHA20_POLY1305_SHA256"
+                       },
+
+                       "session": {
+                           "cache_size": 10240,
+                           "timeout": 60,
+                           "tickets": [
+                               "k5qMHi7IMC7ktrPY3lZ+sL0Zm8oC0yz6re+y/zCj0H0/sGZ7yPBwGcb77i5vw6vCx8vsQDyuvmFb6PZbf03Auj/cs5IHDTYkKIcfbwz6zSU=",
+                               "3Cy+xMFsCjAek3TvXQNmCyfXCnFNAcAOyH5xtEaxvrvyyCS8PJnjOiq2t4Rtf/Gq",
+                               "8dUI0x3LRnxfN0miaYla46LFslJJiBDNdFiPJdqr37mYQVIzOWr+ROhyb1hpmg/QCM2qkIEWJfrJX3I+rwm0t0p4EGdEVOXQj7Z8vHFcbiA="
+                           ]
                        }
                    }
                },

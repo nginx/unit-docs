@@ -89,8 +89,9 @@ Security & Robustness
 - Low-resource conditions (out of memory or descriptors) and app crashes are
   handled gracefully
 
-- :ref:`SSL/TLS <configuration-ssl>` with :ref:`SNI <configuration-listeners>`
-  is supported seamlessly (OpenSSL |_| 1.0.1 and later)
+- :ref:`SSL/TLS <configuration-ssl>` with :ref:`SNI <configuration-listeners>`,
+  :ref:`session cache and tickets <configuration-listeners-ssl-sessions>` is
+  supported seamlessly (OpenSSL |_| 1.0.1 and later)
 
 - Different apps are isolated in separate processes
 
