@@ -16,48 +16,33 @@ extensions += ['inline']
  <literal classes="samp" role="samp">Unit 1.22.0</literal> and more text
 """
 
-import sphinx.roles as mod
 from docutils.nodes import Node, system_message, Text
 from docutils.parsers.rst import roles
-from docutils.parsers.rst.states import Inliner
 from sphinx.application import Sphinx
-from typing import Any, Dict, Callable, List, Tuple
+from sphinx.roles import EmphasizedLiteral, specific_docroles
+from typing import List
 
+class NxtEmphasizedLiteral(EmphasizedLiteral):
+    def parse(self, text: str) -> List[Node]:
 
-def new_literal_role(name: str, rawtext: str, text: str, lineno: int,
-        inliner: Inliner, options: Dict = {}, content: List[str] = [],
-        old_role: Callable[..., Tuple[List[Node], List[system_message]]]
-        = None) -> Tuple[List[Node], List[system_message]]:
-    """Extends the literal role handler to allow replace substitutions."""
+        doc = self.inliner.document
+        replacements = [(i.attributes['names'][0], i.children[0])
+                        for i in doc.substitution_defs.values()]
 
-    node, _ = old_role(typ, rawtext, text, lineno, inliner, options,
-                       content)
-    doc = inliner.document
+        # some items due for replacement are stored as config values
+        replacements.append(('version', Text(doc.settings.env.config.version)))
 
-    replacements = [(i.attributes['names'][0], i.children[0])
-                    for i in doc.substitution_defs.values()]
+        for rep in replacements:
+            text = text.replace('|' + rep[0] + '|', rep[1])
 
-    # some items due for replacement are stored as config values
-    replacements.append(('version', Text(doc.settings.env.config.version)))
-
-    for rep in replacements:
-        node[0][0] = Text(node[0][0].replace('|' + rep[0] + '|', rep[1]))
-
-    return node, _
+        return super().parse(text)
 
 
 def setup(app: Sphinx) -> None:
     """Overrides literal role handlers."""
 
-    # Inject the old_role keyword argument to ensure a seamless override.
-    def spliced_role(*args: Any, **kwargs: Any) -> \
-            Tuple[List[Node], List[system_message]]:
-        return new_literal_role(*arg, old_role=mod.EmphasizedLiteral, **kwarg)
-
     # Select all literal role names.
-    names = [key for key, value in mod.specific_docroles.items()
-             if value is mod.EmphasizedLiteral]
-
-    # Override all literal roles with the extended handler.
-    for name in names:
-        roles.register_local_role(name, spliced_role)
+    for rolename, nodeclass in specific_docroles.items():
+        if isinstance(nodeclass, EmphasizedLiteral):
+            # Override all literal roles with the extended handler.
+            roles.register_local_role(rolename, NxtEmphasizedLiteral())
