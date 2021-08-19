@@ -132,44 +132,9 @@ You can manipulate the API with the following HTTP methods:
        HTTP response body.
 
 Before a change, Unit evaluates the difference it causes in the entire
-configuration; if there's none, nothing is done. For example, you can't restart
-an updated app by uploading the same configuration it already has.
-
-.. note::
-
-   While we're working on handy app reload control, there's a workaround to
-   forcefully restart an app on Unit by updating an :ref:`environment
-   <configuration-apps-common>` variable.  First, check whether the app has an
-   :samp:`environment` object:
-
-   .. code-block:: console
-
-      # curl --unix-socket /path/to/control.unit.sock \
-             http://localhost/config/applications/app/environment
-
-            {
-                "error": "Value doesn't exist."
-            }
-
-   Here, it doesn't, so you can safely add a new variable with a
-   shell-interpolated value:
-
-   .. code-block:: console
-
-      # curl -X PUT -d '{"APPGEN":"'$(date +"%s")'"}' --unix-socket \
-             /path/to/control.unit.sock http://localhost/config/applications/app/environment
-
-   Otherwise, take care and target the individual variable to avoid overwriting
-   the entire :samp:`environment`:
-
-   .. code-block:: console
-
-      # curl -X PUT -d '"'$(date +"%s")'"' --unix-socket \
-             /path/to/control.unit.sock http://localhost/config/applications/app/environment/APPGEN
-
-   To make Unit reload the app, repeat the :samp:`PUT` command,
-   updating the :samp:`APPGEN` variable.
-
+configuration; if there's none, nothing is done.  For example, you can't
+:ref:`restart <configuration-proc-mgmt>` an updated app by uploading the same
+configuration it already has.
 
 Unit performs actual reconfiguration steps as gracefully as possible: running
 tasks expire naturally, connections are properly closed, processes end
@@ -2450,12 +2415,25 @@ Also, you need to set :samp:`type`-specific :ref:`options
        }
    }
 
+.. _configuration-proc-mgmt:
+
 ==================
 Process Management
 ==================
 
-Unit supports three per-app options that control the app's processes:
-:samp:`isolation`, :samp:`limits`, and :samp:`processes`.
+Unit has three per-app options that control how the app's processes behave:
+:samp:`isolation`, :samp:`limits`, and :samp:`processes`.  Also, you can send a
+:samp:`GET` request to the :samp:`/control/applications/` API section to
+restart an app:
+
+.. code-block:: json
+
+   curl http://localhost/control/applications/:nxt_ph:`app_name <Your application's name as defined in the /config/applications/ section>`/restart
+
+Unit handles the rollover gracefully, allowing the old processes to deal with
+the existing requests and starting a new set of processes (as defined by the
+:samp:`processes` :ref:`option <configuration-proc-mgmt-prcs>`) to accept new
+requests.
 
 .. _configuration-proc-mgmt-isolation:
 
@@ -2739,8 +2717,8 @@ Example:
 
 .. _configuration-proc-mgmt-prcs:
 
-Process Management
-******************
+Application Processes
+*********************
 
 The :samp:`processes` option offers a choice between static and dynamic process
 management.  If you set it to an integer, Unit immediately launches the given
@@ -2787,6 +2765,11 @@ idles after 20 seconds:
        "spare": 5,
        "idle_timeout": 20
    }
+
+.. note::
+
+   For details of manual application process restart, see
+   :ref:`here <configuration-proc-mgmt>`.
 
 
 .. _configuration-languages:
