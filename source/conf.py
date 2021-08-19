@@ -8,6 +8,7 @@ copyright = '2017-2021'
 version = '1.24.0'
 release_date = 'May 27, 2021'
 release = version
+needs_sphinx = '4.0'
 
 highlight_language = 'json'
 
