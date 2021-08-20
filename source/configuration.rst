@@ -2634,9 +2634,10 @@ Unit has three per-app options that control how the app's processes behave:
 :samp:`GET` request to the :samp:`/control/applications/` API section to
 restart an app:
 
-.. code-block:: json
+.. code-block:: console
 
-   curl http://localhost/control/applications/:nxt_ph:`app_name <Your application's name as defined in the /config/applications/ section>`/restart
+   # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
+         http://localhost/control/applications/:nxt_ph:`app_name <Your application's name as defined in the /config/applications/ section>`/restart
 
 Unit handles the rollover gracefully, allowing the old processes to deal with
 the existing requests and starting a new set of processes (as defined by the
