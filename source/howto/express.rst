@@ -24,65 +24,37 @@ using Unit:
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
-      $ npm init
       $ npm install express --save
-      $ npm link unit-http
+      # npm link unit-http
 
 #. Create your Express `app
    <https://expressjs.com/en/starter/hello-world.html>`_; let's store it as
-   :file:`/path/to/app/app.js`.  Unit requires it to be executable:
+   :file:`/path/to/app/app.js`.  First, initialize the directory:
 
    .. code-block:: console
 
-      $ touch :nxt_ph:`/path/to/app/app.js <Pathname of the application file; use a real path in your configuration>`
-      $ chmod +x :nxt_ph:`/path/to/app/app.js <Pathname of the application file; use a real path in your configuration>`
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+      $ npm init
 
-   In the code, create a custom HTTP server (note :samp:`createServer`,
-   :samp:`ServerResponse`, and :samp:`IncomingMessage`).  Also, mind that Unit
-   needs a shebang to recognize the script:
+   Next, add your application code:
 
    .. code-block:: javascript
 
       #!/usr/bin/env node
 
-      const {
-        createServer,
-        IncomingMessage,
-        ServerResponse,
-      } = require('unit-http')
-
-      require('http').ServerResponse = ServerResponse
-      require('http').IncomingMessage = IncomingMessage
-
+      const http = require('http')
       const express = require('express')
       const app = express()
 
-      app.get('/', (req, res) => res.send('Hello, Unit!'))
+      app.get('/', (req, res) => res.send('Hello, Express on Unit!'))
 
-      createServer(app).listen()
+      http.createServer(app).listen()
 
-   .. note::
+   The file should be made executable so the application can run on Unit:
 
-      The same modifications apply if you use the `app generator
-      <https://expressjs.com/en/starter/generator.html>`_ to create your
-      :file:`app.js`:
+   .. code-block:: console
 
-      .. code-block:: javascript
-
-         #!/usr/bin/env node
-
-         const {
-           createServer,
-           IncomingMessage,
-           ServerResponse,
-         } = require('unit-http')
-
-         require('http').ServerResponse = ServerResponse
-         require('http').IncomingMessage = IncomingMessage
-
-         // skipping generated code
-
-         createServer(app).listen()
+      $ chmod +x :nxt_ph:`app.js <Application file; use a real path in your configuration>`
 
 #. .. include:: ../include/howto_change_ownership.rst
 
@@ -102,7 +74,15 @@ using Unit:
               "express": {
                   "type": "external",
                   "working_directory": ":nxt_ph:`/path/to/app/ <Needed to use the installed NPM modules; use a real path in your configuration>`",
-                  "executable": ":nxt_ph:`app.js <Basename of the application file; be sure to make it executable>`"
+                  "executable": ":nxt_hint:`/usr/bin/env <The external app type allows to run arbitrary executables, provided they establish communication with Unit>`",
+                  ":nxt_hint:`arguments <The env executable runs Node.js, supplying Unit's loader module and your app code as arguments>`": [
+                      "node",
+                      "--loader",
+                      "unit-http/loader.mjs",
+                      "--require",
+                      "unit-http/loader",
+                      ":nxt_ph:`app.js <Basename of the application file; be sure to make it executable>`"
+                  ]
               }
           }
       }

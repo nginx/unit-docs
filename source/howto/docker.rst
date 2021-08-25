@@ -231,28 +231,20 @@ automatically:
 Containerized Apps
 ##################
 
-Suppose you have a Unit-ready :doc:`Express <express>` app stored in the
-:file:`myapp/` directory:
+Suppose you have a Unit-ready :doc:`Express <express>` app, stored in the
+:file:`myapp/` directory as :file:`app.js`:
 
    .. code-block:: javascript
 
       #!/usr/bin/env node
 
-      const {
-        createServer,
-        IncomingMessage,
-        ServerResponse,
-      } = require('unit-http')
-
-      require('http').ServerResponse = ServerResponse
-      require('http').IncomingMessage = IncomingMessage
-
+      const http = require('http')
       const express = require('express')
       const app = express()
 
       app.get('/', (req, res) => res.send('Hello, Unit!'))
 
-      createServer(app).listen()
+      http.createServer(app).listen()
 
 Its Unit configuration, stored as :file:`config.json` in the same directory:
 
@@ -269,7 +261,15 @@ Its Unit configuration, stored as :file:`config.json` in the same directory:
               "express": {
                   "type": "external",
                   "working_directory": ":nxt_hint:`/www/ <Directory inside the container where the app files will be stored>`",
-                  "executable": ":nxt_hint:`app.js <Filename of the app's entry point>`"
+                  "executable": ":nxt_hint:`/usr/bin/env <The external app type allows to run arbitrary executables, provided they establish communication with Unit>`",
+                  ":nxt_hint:`arguments <The env executable runs Node.js, supplying Unit's loader module and your app code as arguments>`": [
+                      "node",
+                      "--loader",
+                      "unit-http/loader.mjs",
+                      "--require",
+                      "unit-http/loader",
+                      ":nxt_ph:`app.js <Basename of the application file; be sure to make it executable>`"
+                  ]
               }
           }
       }
@@ -297,6 +297,9 @@ image:
 
    # Same as "working_directory" in config.json.
    COPY myapp/app.js /www/
+
+   # Install and link Express in the app directory.
+   RUN cd /www && npm install express && npm link unit-http
 
    # Port used by the listener in config.json.
    EXPOSE 8080
