@@ -501,6 +501,12 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
                          "action": {
                              ":nxt_hint:`share <Serves valid requests with static content>`": "/path/to/app/",
+                             ":nxt_hint:`types <Limits file types served from the share>`": [
+                                 "image/*",
+                                 "text/*",
+                                 "application/javascript"
+                             ],
+
                              ":nxt_hint:`fallback <Relays all requests not yet served to a catch-all app target>`": {
                                  "pass": "applications/app/index"
                              }
@@ -689,15 +695,19 @@ disk space.
 
 .. _security-isolation:
 
-**********************
-Use Isolation Features
-**********************
+***************************
+Add Restrictions, Isolation
+***************************
 
-**Rationale**: If the underlying OS allows, Unit can provide namespace and file
-system root :ref:`isolation features <configuration-proc-mgmt-isolation>` that
-create an additional level of separation and containment for your apps.
+**Rationale**: If the underlying OS allows, Unit provides features that create an
+additional level of separation and containment for your apps, such as:
 
-**Actions**: For details, see our two blog posts about `namespace
-<https://www.nginx.com/blog/application-isolation-nginx-unit/>`_ and `file
-system <https://www.nginx.com/blog/filesystem-isolation-nginx-unit/>`_
+- Share :ref:`path restrictions <configuration-share-path>`
+- Namespace and file system root :ref:`isolation
+  <configuration-proc-mgmt-isolation>`
+
+**Actions**: For more details, see our blog posts on `path restrictions
+<https://www.nginx.com/blog/nginx-unit-updates-for-summer-2021-now-available/#Static-Content:-Chrooting-and-Path-Restrictions>`__,
+`namespace <https://www.nginx.com/blog/application-isolation-nginx-unit/>`_ and
+`file system <https://www.nginx.com/blog/filesystem-isolation-nginx-unit/>`_
 isolation.
