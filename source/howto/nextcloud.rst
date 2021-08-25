@@ -174,6 +174,7 @@ platform using Unit:
 
       - The :samp:`direct` target runs the :samp:`.php` script from the URI or
         defaults to :samp:`index.php` if the URI omits it.
+
       - Other targets specify the :samp:`script` that Unit runs for *any* URIs
         the target receives.
 

@@ -8,6 +8,7 @@ Languages supported by Unit fall into these two categories:
 
 - :ref:`External <modules-ext>` (Go, Node.js): Run outside Unit and communicate
   with it via wrapper packages.
+
 - :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby): Execute in
   runtimes that Unit loads at startup.
 

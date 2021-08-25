@@ -1755,7 +1755,6 @@ structure <installation-src-dir>`:
 .. list-table::
 
    * - :samp:`--prefix=prefix`
-
      - .. _installation-config-src-prefix:
 
        Destination directory prefix for :ref:`path options

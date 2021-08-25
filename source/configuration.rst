@@ -462,11 +462,14 @@ Available listener options:
 
         - :ref:`Application <configuration-applications>`:
           :samp:`applications/qwk2mart`
+
         - :ref:`PHP <configuration-php-targets>` or :ref:`Python
           <configuration-python-targets>` app target:
           :samp:`applications/myapp/section`
+
         - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
           :samp:`routes`
+
         - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
 
         .. note::
@@ -1017,71 +1020,54 @@ object define patterns to be compared to the requests' properties:
    * - Property
      - Patterns Are Matched Against
      - Case |-| :nxt_hint:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
-   * - :samp:`arguments`
 
+   * - :samp:`arguments`
      - Parameter arguments supplied with the request's target `query
        <https://tools.ietf.org/html/rfc3986#section-3.4>`_.  In argument names
        and values, plus signs (:samp:`+`) are replaced with spaces.
-
      - Yes
 
    * - :samp:`cookies`
-
      - Cookies supplied with the request.
-
      - Yes
 
    * - :samp:`destination`
-
      - Target IP address and optional port of the request.
-
      - No
 
    * - :samp:`headers`
-
      - `Header fields <https://tools.ietf.org/html/rfc7230#section-3.2>`_
        supplied with the request.
-
      - No
 
    * - :samp:`host`
-
      - :samp:`Host` `header field
        <https://tools.ietf.org/html/rfc7230#section-5.4>`_, converted to lower
        case and normalized by removing the port number and the trailing period
        (if any).
-
      - No
 
    * - :samp:`method`
-
      - Method from the `request line
        <https://tools.ietf.org/html/rfc7231#section-4>`_, converted to upper
        case.
-
      - No
 
    * - :samp:`scheme`
-
      - URI `scheme
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
        Currently, only :samp:`http` and :samp:`https` are supported.
-
      - No
 
    * - :samp:`source`
-
      - Source IP address and optional port of the request.
-
      - No
 
    * - :samp:`uri`
-
      - Request target `path
        <https://tools.ietf.org/html/rfc7230#section-5.3>`_, normalized by
        removing the query part, resolving relative path references ("." and
        ".."), and collapsing adjacent slashes.
-
      - Yes
 
 .. nxt_details:: Percent Encoding In Arguments and URIs
@@ -2236,9 +2222,12 @@ served from the :samp:`share` path:
 Serving a file can be impossible for different reasons, such as:
 
 - The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
+
 - The file's :ref:`MIME type <configuration-share-mime>` doesn't match the
   :samp:`types` array.
+
 - The file isn't found at the :samp:`share` path.
+
 - The router process has :ref:`insufficient permissions <security-apps>` to
   access the file or an underlying directory.
 
@@ -2871,6 +2860,7 @@ stays operational:
 
    * - Java
      - - JVM's :file:`libc.so` directory
+
        - Java module's :ref:`home <installation-modules-java>` directory
 
    * - Python
@@ -2882,7 +2872,9 @@ stays operational:
          <https://idiosyncratic-ruby.com/42-ruby-config.html>`__:
          :samp:`rubyarchhdrdir`, :samp:`rubyhdrdir`, :samp:`rubylibdir`,
          :samp:`rubylibprefix`, :samp:`sitedir`, and :samp:`topdir`
+
        - Ruby's gem installation directory (:samp:`gem env gemdir`)
+
        - Ruby's entire gem path list (:samp:`gem env gempath`)
 
 
@@ -3058,6 +3050,7 @@ The resulting application works as follows:
 
 - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
   back to :samp:`http` functionality.
+
 - When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
   router process directly, ignoring the address supplied as its first
   argument and relying on the :ref:`listener's settings

@@ -527,66 +527,48 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       :header-rows: 1
 
       * - Process
-
         - Privileged?
-
         - User and Group
-
         - Description
 
       * - Main
-
         - Yes
-
         - Whoever starts the :file:`unitd` executable; by default,
           :samp:`root`.
-
         - Runs as a daemon, spawning Unit's non-privileged and app processes;
           requires numerous system capabilities and privileges for operation.
 
       * - Controller
-
         - No
-
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <installation-config-src>` or :ref:`execution
           <installation-src-startup>`; by default, :samp:`unit`.
-
         - Serves the control API, accepting reconfiguration requests,
           sanitizing them, and passing them to other processes for
           implementation.
 
       * - Discovery
-
         - No
-
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <installation-config-src>` or :ref:`execution
           <installation-src-startup>`; by default, :samp:`unit`.
-
         - Discovers the language modules in the module directory at startup,
           then quits.
 
       * - Router
-
         - No
-
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <installation-config-src>` or :ref:`execution
           <installation-src-startup>`; by default, :samp:`unit`.
-
         - Serves client requests, accepting them, processing them on the spot,
           passing them to app processes, or proxying them further; requires
           access to static content paths you configure.
 
       * - App processes
-
         - No
-
         - Set by per-app :samp:`user` and :samp:`group`
           :ref:`options <configuration-applications>`; by default,
           :option:`!--user` and :option:`!--group` values.
-
         - Serve client requests that are routed to apps; require access to
           paths and namespaces you configure for the app.
 

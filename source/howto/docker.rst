@@ -6,6 +6,7 @@ To run your apps in a containerized Unit using the :ref:`images we provide
 <installation-docker>`, you need at least to:
 
 - Mount your application files to a directory in your container.
+
 - Publish Unit's listener port to the host machine.
 
 For example:

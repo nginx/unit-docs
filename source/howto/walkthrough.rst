@@ -23,13 +23,15 @@ your technology stack, or simply be tech-curious.  In any case:
           external issues.
 
    * - **Get Unit on the system**
-
      - #. Install Unit with the language modules you need.  Your options:
 
           - Official :samp:`.deb/.rpm` :ref:`packages
             <installation-precomp-pkgs>`
+
           - Docker :ref:`images <installation-docker>`
+
           - Third-party :ref:`packages <installation-community-repos>`
+
           - Source :ref:`build <installation-src>`
 
        #. Configure and launch Unit on your system:
@@ -37,13 +39,14 @@ your technology stack, or simply be tech-curious.  In any case:
           - Our own and third-party packages :ref:`rely on
             <installation-precomp-startup>` :program:`systemctl` or
             :program:`service`.
+
           - Containerized Unit can be :doc:`run <docker>` with common
             :program:`docker` commands.
+
           - If none of the above applies, customize Unit's :ref:`startup
             <installation-src-startup>` manually.
 
    * - **Prepare** |_| **the** |_| **app** |_| **for** |_| **Unit**
-
      - #. *(Only applies to :ref:`Go <configuration-go>`)* Patch
           your app to run on Unit.
 
@@ -54,7 +57,6 @@ your technology stack, or simply be tech-curious.  In any case:
           settings such as index, entry module, or executable.
 
    * - **Plug the app into Unit**
-
      - #. *(Optional)* Add Unit-wide :ref:`settings <configuration-stngs>` to
           your app's config to run it smoothly.
 

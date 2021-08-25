@@ -84,6 +84,7 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
 
       - The :samp:`direct` target runs the :samp:`.php` script from the URI or
         defaults to :samp:`index.php` if the URI omits it.
+
       - The :samp:`index` target specifies the :samp:`script` that Unit runs
         for *any* URIs the target receives.
 
