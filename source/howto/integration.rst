@@ -10,49 +10,66 @@ notable use case for NGINX here is securing the Unit control socket.
 Fronting Unit with NGINX
 ************************
 
-Assume you've configured a Unit :ref:`listener <configuration-listeners>` on
-:samp:`127.0.0.1:8300`:
+Configure a :ref:`listener <configuration-listeners>` in Unit:
 
    .. code-block:: json
 
       {
-          "127.0.0.1:8300": {
-              "pass": "applications/blogs"
+          ":nxt_ph:`127.0.0.1:8080 <Socket address where NGINX proxies requests>`": {
+              "pass": ":nxt_ph:`... <Unit's internal request destination>`",
+              "client_ip": {
+                  "header": ":nxt_hint:`X-Forwarded-For <The header field set by NGINX>`",
+                  "source": [
+                      ":nxt_ph:`127.0.0.1 <The IP address where NGINX runs>`"
+                  ]
+              }
           }
       }
 
-In NGINX configuration, create an upstream in the :samp:`http` context,
-adding the listener's socket as a :samp:`server`:
+Here, :samp:`client_ip` is optional; it enables identifying the
+:ref:`originating IPs <configuration-listeners-xff>` of requests proxied from
+:samp:`source`.
+
+In NGINX configuration, create an upstream in the :samp:`http` context, adding
+the listener's socket as a :samp:`server`:
 
 .. code-block:: nginx
 
    http {
        upstream unit_backend {
-           server 127.0.0.1:8300;
+           server :nxt_ph:`127.0.0.1:8080 <Unit's listener socket address>`;
        }
 
        server {
            location :nxt_hint:`/unit/ <Arbitrary location>` {
                proxy_pass http://unit_backend;
                proxy_set_header Host $host;
+               proxy_set_header :nxt_hint:`X-Forwarded-For <Unit's listener must list the same name in client_ip/header>` $proxy_add_x_forwarded_for;
            }
        }
    }
 
-A simpler alternative is a direct :samp:`proxy_pass` in your :samp:`location`:
+A more compact alternative would be a direct :samp:`proxy_pass` in your
+:samp:`location`:
 
 .. code-block:: nginx
 
    http {
        server {
            location :nxt_hint:`/unit/ <Arbitrary location>` {
-               proxy_pass http://127.0.0.1:8300;
+               proxy_pass http://:nxt_ph:`127.0.0.1:8080 <Unit's listener socket address>`;
+               proxy_set_header Host $host;
+               proxy_set_header :nxt_hint:`X-Forwarded-For <Unit's listener must list the same name in client_ip/header>` $proxy_add_x_forwarded_for;
            }
        }
    }
 
+The :samp:`proxy_set_header X-Forwarded-For` directives work together with the
+listener's :samp:`client_ip` option.
+
 For details, see the `NGINX documentation <https://nginx.org>`_.  Commercial
 support and advanced features are `also available <https://www.nginx.com>`_.
+
 
 .. _nginx-secure-api:
 
@@ -69,7 +86,7 @@ only.  To enable secure remote access, you can use NGINX as a reverse proxy.
    Avoid exposing an unprotected control socket to public networks.  Use NGINX
    or a different solution such as SSH for security and authentication.
 
-Use this configuration template for NGINX (replace the placeholders in
+Use this configuration template for NGINX (replace placeholders in
 :samp:`ssl_certificate`, :samp:`ssl_certificate_key`,
 :samp:`ssl_client_certificate`, :samp:`allow`, :samp:`auth_basic_user_file`,
 and :samp:`proxy_pass` with real values):
@@ -101,12 +118,10 @@ and :samp:`proxy_pass` with real values):
        }
    }
 
-.. note::
+The same approach works for an IP-based control socket:
 
-   The same approach can be used for an IP-based control socket:
+.. code-block:: nginx
 
-   .. code-block:: nginx
-
-       location / {
-           proxy_pass http://:nxt_ph:`127.0.0.1:8080 <Socket address>`;
-       }
+   location / {
+       proxy_pass http://:nxt_ph:`127.0.0.1:8080 <Unit's control socket address>`;
+   }
