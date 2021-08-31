@@ -50,8 +50,12 @@ details of the Unit configuration, see :ref:`configuration-mgmt`.
 
 Now for a few detailed scenarios.
 
+
+.. _docker-apps-containerized-unit:
+
+****************************
 Apps in a Containerized Unit
-############################
+****************************
 
 Suppose we have a web app with a few dependencies, say :doc:`Flask's <flask>`
 official :samp:`hello, world` app:
@@ -194,19 +198,20 @@ To switch your app to a different Unit image, prepare a corresponding
    FROM nginx/unit:|version|-minimal
    COPY requirements.txt /config/requirements.txt
    # This time, we took a minimal Unit image to install a vanilla Python 3.7
-   # module, run PIP and perform cleanup just like we did earlier.
+   # module, run PIP, and perform cleanup just like we did earlier.
 
-   # First, we install the tooling required to add Unit's repo and import its key.
+   # First, we install the required tooling and add Unit's repo.
    RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
-       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
+       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+              > /etc/apt/sources.list.d/unit.list
 
-   # Next, we add Unit's repo, install the module, and perform creanup.
-   RUN echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit" \
-            > /etc/apt/sources.list.d/unit.list                                  \
-       && apt update && apt install -y unit-python3.7 python3-pip                \
+   # Next, we install the module, download app requirements, and perform creanup.
+   RUN apt update && apt install -y unit-python3.7 python3-pip                   \
        && pip3 install -r /config/requirements.txt                               \
-       && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
-       && rm -rf /var/lib/apt/lists/*
+       && apt remove -y curl apt-transport-https gnupg1 lsb-release python3-pip  \
+       && apt autoremove --purge -y                                              \
+       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 
 .. code-block:: console
@@ -226,10 +231,12 @@ automatically:
          -p 8080:8000 unit-pruned-webapp                                    \
      )
 
+
 .. _docker-apps:
 
+******************
 Containerized Apps
-##################
+******************
 
 Suppose you have a Unit-ready :doc:`Express <express>` app, stored in the
 :file:`myapp/` directory as :file:`app.js`:
@@ -370,3 +377,35 @@ the :ref:`config API <configuration-mgmt>`:
 
 This approach is applicable to any Unit-supported apps with external
 dependencies.
+
+
+.. _docker-multi:
+
+********************
+Multilanguage Images
+********************
+
+Earlier, Unit had a :samp:`-full` Docker image with modules for all supported
+languages, but it was discontinued with version 1.22.0.  If you still need a
+multilanguage image, use the following :file:`Dockerfile` template:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+   # We take a minimal Unit image and install language-specific modules.
+
+   # First, we install the required tooling and add Unit's repo.
+   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
+       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
+       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+              > /etc/apt/sources.list.d/unit.list
+
+   # Next, we install the necessary language module packages and perform cleanup.
+   RUN apt update && apt install -y                                              \
+           :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php unit-python3.7 unit-ruby <List packages for the language versions you need>`        \
+       && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
+       && apt autoremove --purge -y                                              \
+       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
+
+Our images are based on :ref:`Debian 10 <debian-10>`; the choice of individual
+language packages is defined by this version.
