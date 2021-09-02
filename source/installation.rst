@@ -132,6 +132,8 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: AMI
 
@@ -158,6 +160,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python27 unit-python34 unit-python35 unit-python36
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-rpm.rst
 
@@ -193,6 +196,7 @@ CentOS
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 6.x
 
@@ -220,6 +224,7 @@ CentOS
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-rpm.rst
 
@@ -264,6 +269,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.9 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 10
 
@@ -294,6 +300,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 9
 
@@ -328,6 +335,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-deb.rst
 
@@ -363,6 +371,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python39 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 32
 
@@ -384,6 +393,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python38 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 31, 30
 
@@ -411,6 +421,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 29
 
@@ -437,6 +448,7 @@ Supported architectures: :samp:`x86-64`.
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python27 unit-python37 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-rpm.rst
 
@@ -472,6 +484,7 @@ RHEL
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
                   unit-perl unit-php unit-python27 unit-python36
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 6.x
 
@@ -500,6 +513,7 @@ RHEL
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
                   unit-php unit-python
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-rpm.rst
 
@@ -544,6 +558,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17 \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 20.10
 
@@ -581,6 +596,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15 \
                           unit-perl unit-php unit-python3.8 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 20.04
 
@@ -613,6 +629,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.8 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 19.10
 
@@ -650,6 +667,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 18.04
 
@@ -682,6 +700,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
    .. tab:: 16.04
 
@@ -719,6 +738,7 @@ Ubuntu
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
                   unit-python2.7 unit-python3.5 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 .. include:: include/socket-log-deb.rst
 
@@ -745,6 +765,8 @@ To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 .. code-block:: console
 
    $ brew install unit-java unit-perl unit-python unit-python3 unit-ruby
+   # pkill unitd  # Stop Unit
+   # unitd        # Start Unit to pick up any changes in language module setup
 
 .. note::
 
@@ -914,6 +936,7 @@ Community Repositories
       .. code-block:: console
 
          # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
+         # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
@@ -947,6 +970,7 @@ Community Repositories
          # apt-get update
          # apt-get install unit
          # apt-get install unit-perl unit-php unit-ruby
+         # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
@@ -1028,6 +1052,7 @@ Community Repositories
          # yum install centos-release-scl
          # yum install --enablerepo=centos-sclo-sclo \
                        sclo-php72-unit-php sclo-php73-unit-php
+         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       RHEL:
 
@@ -1038,6 +1063,7 @@ Community Repositories
          # yum install centos-release-scl
          # yum install --enablerepo=centos-sclo-sclo \
                        sclo-php72-unit-php sclo-php73-unit-php
+         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details: see :ref:`installation-precomp-centos`,
       :ref:`installation-precomp-rhel`, and
@@ -1058,6 +1084,7 @@ Community Repositories
                           unit-php73 unit-php74 unit-php80  \
                           unit-python37  \
                           unit-ruby2.7
+         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
       To install Unit from `FreeBSD ports <https://www.
       freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
@@ -1091,7 +1118,12 @@ Community Repositories
       <https://www.freshports.org/www/unit-perl/>`__, `unit-php
       <https://www.freshports.org/www/unit-php/>`__, `unit-python
       <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
-      <https://www.freshports.org/www/unit-ruby/>`__.
+      <https://www.freshports.org/www/unit-ruby/>`__.  Having done that,
+      restart Unit:
+
+      .. code-block:: console
+
+         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
@@ -1164,6 +1196,7 @@ Community Repositories
          # pkg_add unit-perl  \
                    unit-python2.7  \
                    unit-python3.6 unit-python3.7 unit-python3.8 unit-python3.9
+         # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       To build Unit manually, start by updating the package collection:
 
@@ -1190,6 +1223,11 @@ Community Repositories
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-python/index.html>`__,
       or `unit-ruby
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
+      Having done that, restart Unit:
+
+      .. code-block:: console
+
+         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
@@ -1300,6 +1338,7 @@ Community Repositories
                php54-unit-php php55-unit-php php56-unit-php  \
                php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
                php80-unit-php
+         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
