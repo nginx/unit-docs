@@ -104,8 +104,9 @@ Unit's configuration is JSON-based, accessed via the :ref:`control socket
 
 To address parts of the configuration, query the control socket over HTTP; URI
 path segments of your requests to the API must be names of its `JSON object
-members <https://tools.ietf.org/html/rfc8259#section-4>`_ or indexes of its
-`array elements <https://tools.ietf.org/html/rfc8259#section-5>`_.
+members <https://datatracker.ietf.org/doc/html/rfc8259#section-4>`_ or indexes
+of its `array elements
+<https://datatracker.ietf.org/doc/html/rfc8259#section-5>`_.
 
 You can manipulate the API with the following HTTP methods:
 
@@ -506,8 +507,8 @@ on port 8400 relays requests at any host IPs to the :samp:`main` :ref:`route
     }
 
 Also, :samp:`pass` values can be `percent encoded
-<https://tools.ietf.org/html/rfc3986#section-2.1>`_.  For example, you can
-escape slashes in entity names:
+<https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_.  For example,
+you can escape slashes in entity names:
 
 .. code-block:: json
 
@@ -578,9 +579,9 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
 .. nxt_details:: Configuring Multiple Bundles
 
    Since version 1.23.0, Unit supports configuring `Server Name Indication
-   (SNI) <https://tools.ietf.org/html/rfc6066#section-3>`__ on a listener by
-   supplying an array of certificate bundle names for the :samp:`certificate`
-   option value:
+   (SNI) <https://datatracker.ietf.org/doc/html/rfc6066#section-3>`__ on a
+   listener by supplying an array of certificate bundle names for the
+   :samp:`certificate` option value:
 
    .. code-block:: json
 
@@ -1023,8 +1024,9 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`arguments`
      - Parameter arguments supplied with the request's target `query
-       <https://tools.ietf.org/html/rfc3986#section-3.4>`_.  In argument names
-       and values, plus signs (:samp:`+`) are replaced with spaces.
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`_.  In
+       argument names and values, plus signs (:samp:`+`) are replaced with
+       spaces.
      - Yes
 
    * - :samp:`cookies`
@@ -1036,21 +1038,22 @@ object define patterns to be compared to the requests' properties:
      - No
 
    * - :samp:`headers`
-     - `Header fields <https://tools.ietf.org/html/rfc7230#section-3.2>`_
-       supplied with the request.
+     - `Header fields
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ supplied
+       with the request.
      - No
 
    * - :samp:`host`
      - :samp:`Host` `header field
-       <https://tools.ietf.org/html/rfc7230#section-5.4>`_, converted to lower
-       case and normalized by removing the port number and the trailing period
-       (if any).
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
+       to lower case and normalized by removing the port number and the
+       trailing period (if any).
      - No
 
    * - :samp:`method`
      - Method from the `request line
-       <https://tools.ietf.org/html/rfc7231#section-4>`_, converted to upper
-       case.
+       <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_, converted
+       to upper case.
      - No
 
    * - :samp:`scheme`
@@ -1065,20 +1068,21 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`uri`
      - Request target `path
-       <https://tools.ietf.org/html/rfc7230#section-5.3>`_, normalized by
-       removing the query part, resolving relative path references ("." and
-       ".."), and collapsing adjacent slashes.
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_,
+       normalized by removing the query part, resolving relative path
+       references ("." and ".."), and collapsing adjacent slashes.
      - Yes
 
 .. nxt_details:: Percent Encoding In Arguments and URIs
 
    Names and values in :samp:`arguments` and values in :samp:`uri` additionally
    support `percent encoding
-   <https://tools.ietf.org/html/rfc3986#section-2.1>`_.  Thus, you can escape
-   characters which have special meaning in routing (:samp:`!` is :samp:`%21`,
-   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`), or even target
-   individual bytes.  For example, to select an entire class of diacritic
-   characters such as Ö or Å by their starting byte :samp:`0xC3` in UTF-8:
+   <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_.  Thus, you
+   can escape characters which have special meaning in routing (:samp:`!` is
+   :samp:`%21`, :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`), or even
+   target individual bytes.  For example, to select an entire class of
+   diacritic characters such as Ö or Å by their starting byte :samp:`0xC3` in
+   UTF-8:
 
    .. code-block:: json
 
@@ -1451,9 +1455,10 @@ regexes modify this behavior:
    will match.  Again, note the backslashes; this is a JSON requirement.
 
 Address-based patterns define individual IPv4 (dot-decimal or `CIDR
-<https://tools.ietf.org/html/rfc4632>`__) or IPv6 (hexadecimal or `CIDR
-<https://tools.ietf.org/html/rfc4291#section-2.3>`__) addresses that must
-exactly match the property value; wildcards and ranges modify this behavior:
+<https://datatracker.ietf.org/doc/html/rfc4632>`__) or IPv6 (hexadecimal or
+`CIDR <https://datatracker.ietf.org/doc/html/rfc4291#section-2.3>`__) addresses
+that must exactly match the property value; wildcards and ranges modify this
+behavior:
 
 - Wildcards (:samp:`*`) can only be used to match arbitrary IPs
   (:samp:`*:<port>`).
@@ -1685,21 +1690,22 @@ Available variables:
 
    * - :samp:`host`
      - :samp:`Host`
-       `header field <https://tools.ietf.org/html/rfc7230#section-5.4>`_ in
+       `header field
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_ in
        lowercase, without the port number and the trailing period (if any).
 
    * - :samp:`method`
      - Method from the `request
-       line <https://tools.ietf.org/html/rfc7231#section-4>`_.
+       line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
 
    * - :samp:`uri`
-     - Request target `path <https://tools.ietf.org/html/rfc7230#section-5.3>`_
-       without the query part, normalized by resolving relative path
-       references ("." and "..") and collapsing adjacent slashes.
-       The value is `percent decoded
-       <https://tools.ietf.org/html/rfc3986#section-2.1>`_: Unit interpolates
-       all percent-encoded entities in the request target `path
-       <https://tools.ietf.org/html/rfc7230#section-5.3>`_.
+     - Request target `path
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_ without
+       the query part, normalized by resolving relative path references ("."
+       and "..") and collapsing adjacent slashes.  The value is `percent
+       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_:
+       Unit interpolates all percent-encoded entities in the request target
+       `path <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_.
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1840,7 +1846,7 @@ Instant Responses, Redirects
 
 You can use route step :ref:`actions <configuration-routes-action>` to
 instantly respond to certain conditions with arbitrary HTTP `status codes
-<https://tools.ietf.org/html/rfc7231#section-6>`__:
+<https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__:
 
 .. code-block:: json
 
@@ -1865,8 +1871,8 @@ The :samp:`return` action provides the following options:
      - URI, required if the :samp:`return` value implies redirection.
 
 It is recommended to use the codes according to their `semantics
-<https://tools.ietf.org/html/rfc7231#section-6>`_; if you use custom codes,
-make sure that user agents can understand them.
+<https://datatracker.ietf.org/doc/html/rfc7231#section-6>`_; if you use custom
+codes, make sure that user agents can understand them.
 
 If you specify a redirect code (3xx), supply the destination using the
 :samp:`location` option alongside :samp:`return`:
@@ -3871,8 +3877,8 @@ HTTP requests from the clients:
       - Controls the parsing mode of header field names.  If set to
         :samp:`true`, Unit only processes headers with names consisting of
         alphanumeric characters and hyphens (:samp:`-`); otherwise, all valid
-        `RFC 7230 <https://tools.ietf.org/html/rfc7230#section-3.2>`_ header
-        fields are processed.
+        `RFC 7230 <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_
+        header fields are processed.
 
         The default value is :samp:`true`.
 
