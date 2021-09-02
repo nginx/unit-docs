@@ -1925,7 +1925,7 @@ One common scenario is installation based on absolute paths:
    relative structure.  Otherwise, omit :option:`!DESTDIR` for direct
    installation.
 
-An alternative scenario is a build that you can move around the filesystem:
+An alternative scenario is a build that you can move around the file system:
 
 #. Set relative runtime paths with :option:`!--prefix` and path options:
 

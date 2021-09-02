@@ -183,7 +183,7 @@ state is empty.  Now we can test the app:
 
        Hello, World!
 
-To relocate the app in your filesystem, you only need to move the file
+To relocate the app in your file system, you only need to move the file
 structure:
 
 .. code-block:: console
