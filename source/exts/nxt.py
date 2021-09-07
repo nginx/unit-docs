@@ -442,8 +442,17 @@ class TabsDirective(Directive):
 
         node = nxt_tabs()
         node['classes'] = ['nxt_tabs']
-        env.temp_data['tabs_id'] = self.options.get('prefix', token_urlsafe())
-        env.temp_data['tab_id'] = 0
+        if 'tabs_id' in env.temp_data:
+            env.temp_data['tabs_id'].append(self.options.get('prefix',
+                                                             token_urlsafe()))
+        else:
+            env.temp_data['tabs_id'] = [self.options.get('prefix',
+                                                         token_urlsafe())]
+
+        if 'tab_id' in env.temp_data:
+            env.temp_data['tab_id'].append(0)
+        else:
+            env.temp_data['tab_id'] = [0]
 
         if 'toc' in self.options:
             env.temp_data['tab_toc'] = True
@@ -452,6 +461,9 @@ class TabsDirective(Directive):
             env.temp_data['tab_toc'] = False
 
         self.state.nested_parse(self.content, self.content_offset, node)
+
+        env.temp_data['tabs_id'].pop()
+        env.temp_data['tab_id'].pop()
 
         return [node]
 
@@ -467,16 +479,16 @@ class TabDirective(Directive):
 
         tab_head = nxt_tab_head(self.content[0])
 
-        tab_head.tabs_id = env.temp_data['tabs_id']
-        tab_head.checked = 'checked' if env.temp_data['tab_id'] == 0 else ''
-        tab_head.tab_id = '{0}_{1}'.format(env.temp_data['tabs_id'],
-                                           env.temp_data['tab_id'])
+        tab_head.tabs_id = env.temp_data['tabs_id'][-1]
+        tab_head.checked = 'checked' if env.temp_data['tab_id'][-1] == 0 else ''
+        tab_head.tab_id = '{0}_{1}'.format(env.temp_data['tabs_id'][-1],
+                                           env.temp_data['tab_id'][-1])
         tab_head.label_id = '{0}-{1}'.format(
-            env.temp_data['tabs_id'],
+            env.temp_data['tabs_id'][-1],
             re.sub(r'[^\w\-]+', '', self.content[0])).lower()
         tab_head.tab_toc = env.temp_data['tab_toc']
 
-        env.temp_data['tab_id'] += 1
+        env.temp_data['tab_id'][-1] += 1
 
         text = '\n'.join(self.content)
         tab_body = nxt_tab_body(text)
