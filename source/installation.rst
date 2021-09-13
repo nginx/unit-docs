@@ -893,6 +893,11 @@ available or list its settings.  To manage the installation:
 
       For startup options, see :ref:`below <installation-src-startup>`.
 
+.. note::
+
+   Restarting Unit is necessary after installing or uninstalling any language
+   modules to pick up the changes.
+
 
 .. _installation-community-repos:
 
