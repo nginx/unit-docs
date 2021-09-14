@@ -154,7 +154,10 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
        Hello, JSP on Unit!
 
 Try this sample out with the Dockerfile :download:`here
-<../downloads/Dockerfile.java.txt>` or use a more elaborate app example:
+<../downloads/Dockerfile.java.txt>` or use a more elaborate app example (you'll
+need to `download <https://cliftonlabs.github.io/json-simple/>`__ and :ref:`add
+<configuration-java>` the :program:`json-simple` library to your app's
+:samp:`classpath` option):
 
 .. subs-code-block:: jsp
 
