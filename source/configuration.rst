@@ -1328,7 +1328,8 @@ Individual patterns can be address-based (:samp:`source` and
 :samp:`destination`) or string-based (other properties).
 
 String-based patterns must match the property to a character; wildcards or
-regexes modify this behavior:
+:nxt_hint:`regexes <Available only if Unit was built with PCRE support enabled,
+which is the default for the official packages>` modify this behavior:
 
 - A wildcard pattern may contain any combination of wildcards (:samp:`*`), each
   standing for an arbitrary number of characters: :samp:`How*s*that*to*you`.
