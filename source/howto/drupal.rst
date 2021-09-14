@@ -85,7 +85,7 @@ Unit:
                           "/core/globals.api.php",
                           "/core/install.php",
                           "/core/modules/statistics/statistics.php",
-                          "~^/core/modules/system/tests/https?\.php",
+                          "~^/core/modules/system/tests/https?\\.php",
                           "/core/rebuild.php",
                           "/update.php"
                       ]
