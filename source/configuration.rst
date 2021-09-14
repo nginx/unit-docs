@@ -2654,7 +2654,7 @@ if Unit's underlying OS supports them:
 
    $ ls /proc/self/ns/
 
-       cgroup  ipc  mnt  net  pid  ...  user  uts
+       cgroup :nxt_hint:`mnt <The mount namespace>` :nxt_hint:`net <The network namespace>` pid ... :nxt_hint:`user <The credential namespace>` :nxt_hint:`uts <The uname namespace>`
 
 The :samp:`isolation` application option has the following members:
 
