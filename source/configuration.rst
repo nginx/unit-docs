@@ -936,8 +936,8 @@ A request passed to a route traverses its steps sequentially:
    This route passes all requests to the :samp:`/php/` subsection of the
    :samp:`example.com` website via HTTPS to the :samp:`php_version` app.  All
    other requests are served with static content from the
-   :samp:`/www/static_version` directory.  If there's no matching content. Unit
-   returns a 404 response code.
+   :samp:`/www/static_version` directory.  If there's no matching content, a
+   404 "Not Found" response is returned.
 
    A more elaborate example with chained routes and proxying:
 
@@ -1002,8 +1002,8 @@ A request passed to a route traverses its steps sequentially:
    requests that arrive via HTTP to the :samp:`http_site` app.  The second step
    passes all requests that target :samp:`blog.example.com` to the :samp:`blog`
    app.  The final step serves requests for certain file types from the
-   :samp:`/www/static/` directory.  If none of the steps matches, a 404
-   response code is returned.
+   :samp:`/www/static/` directory.  If no steps match, a 404 "Not Found"
+   response is returned.
 
 
 .. _configuration-routes-matching:
