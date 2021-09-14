@@ -8,8 +8,8 @@ Contribution
 ############
 
 NGINX Unit is released under the `Apache 2.0 license
-<https://hg.nginx.org/unit/file/tip/LICENSE>`_; we use `Mercurial
-<https://hg.nginx.org>`_ repositories with mirrors on `GitHub
+<https://hg.nginx.org/unit/file/tip/LICENSE>`_; we maintain `Mercurial
+<https://hg.nginx.org>`_ repos, with mirrors on `GitHub
 <https://github.com/nginx>`_.
 
 To contribute changes in code or documentation and ask questions, best
