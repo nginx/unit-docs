@@ -15,7 +15,7 @@ framework using Unit:
 #. Install |app|'s |app-link|_.
 
 #. `Create
-   <https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
+   <https://metacpan.org/dist/Catalyst-Manual/view/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
    a Catalyst app.  Here, let's store it at :file:`/path/to/app/`:
 
    .. code-block:: console

@@ -2672,32 +2672,32 @@ The :samp:`isolation` application option has the following members:
 
           * - :samp:`cgroup`
             - Creates a new `cgroup
-              <http://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html>`_
               namespace for the app.
 
           * - :samp:`credential`
             - Creates a new `user
-              <http://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
               namespace for the app.
 
           * - :samp:`mount`
             - Creates a new `mount
-              <http://man7.org/linux/man-pages/man7/mount_namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/mount_namespaces.7.html>`_
               namespace for the app.
 
           * - :samp:`network`
             - Creates a new `network
-              <http://man7.org/linux/man-pages/man7/network_namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/network_namespaces.7.html>`_
               namespace for the app.
 
           * - :samp:`pid`
             - Creates a new `PID
-              <http://man7.org/linux/man-pages/man7/pid_namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/pid_namespaces.7.html>`_
               namespace for the app.
 
           * - :samp:`uname`
             - Creates a new `UTS
-              <http://man7.org/linux/man-pages/man7/namespaces.7.html>`_
+              <https://man7.org/linux/man-pages/man7/namespaces.7.html>`_
               namespace for the app.
 
        All options listed above are Boolean; to isolate the app, set the
@@ -3378,13 +3378,13 @@ You can customize :file:`php.ini` via the :samp:`options` object:
 
     * - :samp:`file`
       - Pathname of the :file:`php.ini` file with `PHP configuration directives
-        <https://php.net/manual/en/ini.list.php>`_.
+        <https://www.php.net/manual/en/ini.list.php>`_.
 
     * - :samp:`admin`, :samp:`user`
       - Objects for extra directives.  Values in :samp:`admin` are set in
         :samp:`PHP_INI_SYSTEM` mode, so the app can't alter them; :samp:`user`
         values are set in :samp:`PHP_INI_USER` mode and may `be updated
-        <https://php.net/manual/en/function.ini-set.php>`_ in runtime.
+        <https://www.php.net/manual/en/function.ini-set.php>`_ in runtime.
 
 Directives from :file:`php.ini` are overridden by settings supplied in
 :samp:`admin` and :samp:`user` objects.
@@ -3395,7 +3395,7 @@ Directives from :file:`php.ini` are overridden by settings supplied in
    :samp:`"max_file_uploads": "4"`, not :samp:`"max_file_uploads": 4`); for
    boolean flags, use :samp:`"0"` and :samp:`"1"` only.  For details about
    :samp:`PHP_INI_*` modes, see the `PHP docs
-   <https://php.net/manual/en/configuration.changes.modes.php>`_.
+   <https://www.php.net/manual/en/configuration.changes.modes.php>`_.
 
 .. note::
 

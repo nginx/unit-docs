@@ -2,8 +2,7 @@
 .. |app| replace:: Jira
 .. |mod| replace:: Java
 .. |app-link| replace:: core files
-.. _app-link: https://www.atlassian.com/software/jira/download
-
+.. _app-link: https://www.atlassian.com/software/jira/update
 
 ####
 Jira

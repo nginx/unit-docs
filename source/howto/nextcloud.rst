@@ -11,7 +11,7 @@
 NextCloud
 #########
 
-To run the `NextCloud <https://www.nextcloud.com>`__ share and collaboration
+To run the `NextCloud <https://nextcloud.com>`__ share and collaboration
 platform using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst

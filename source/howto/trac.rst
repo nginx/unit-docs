@@ -12,7 +12,7 @@ Trac
   example, consider using `trac-oidc <https://pypi.org/project/trac-oidc/>`_ or
   `OAuth2Plugin <https://trac-hacks.org/wiki/OAuth2Plugin>`_.
 
-To run the `Trac <https://trac.edgewall.org/>`_ issue tracking system using
+To run the `Trac <https://trac.edgewall.org>`_ issue tracking system using
 Unit:
 
 #. .. include:: ../include/howto_install_unit.rst

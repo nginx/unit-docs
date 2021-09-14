@@ -7,7 +7,7 @@
 MediaWiki
 #########
 
-To run the `MediaWiki <https://www.mediawiki.org/>`_ collaboration and
+To run the `MediaWiki <https://www.mediawiki.org>`_ collaboration and
 documentation platform using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst

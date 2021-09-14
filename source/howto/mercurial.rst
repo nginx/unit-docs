@@ -7,7 +7,7 @@
 Mercurial
 #########
 
-To install and run the `Mercurial <https://www.mercurial-scm.org/>`_ source
+To install and run the `Mercurial <https://www.mercurial-scm.org>`_ source
 control system using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst

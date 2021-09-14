@@ -6,7 +6,7 @@ Grafana
 #######
 
 Here, we install |app| from `sources
-<https://grafana.com/docs/project/building_from_source/#building-grafana-from-source>`_
+<https://github.com/grafana/grafana/blob/main/contribute/developer-guide.md>`_
 so we can :ref:`configure it <configuration-go>` to run on Unit.
 
 #. .. include:: ../include/howto_install_unit.rst
@@ -169,7 +169,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
       }
 
    See :ref:`Go application options <configuration-go>` and the |app| `docs
-   <https://grafana.com/docs/grafana/latest/installation/configuration/#static-root-path>`_
+   <https://grafana.com/docs/grafana/latest/administration/configuration/#static_root_path>`_
    for details.
 
 #. .. include:: ../include/howto_upload_config.rst

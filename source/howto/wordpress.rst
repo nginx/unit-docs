@@ -9,7 +9,7 @@
 WordPress
 #########
 
-To run the `WordPress <https://www.wordpress.org>`__ content management system
+To run the `WordPress <https://wordpress.org>`__ content management system
 using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
