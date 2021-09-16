@@ -69,22 +69,26 @@ Official Packages
 Installing a precompiled Unit binary package is best for most occasions;
 `official <https://packages.nginx.org/unit/>`_ binaries are available for:
 
-- Amazon |_| Linux :ref:`AMI <amazon-ami>`, Amazon |_| Linux |_| :ref:`2
-  <amazon-20lts>`
+- Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`, Amazon |_| Linux |_|
+  :ref:`2 <installation-amazon-20lts>`
 
-- CentOS |_| :ref:`6 <centos-6x>`, :ref:`7 <centos-8x7x>`, :ref:`8
-  <centos-8x7x>`
+- CentOS |_| :ref:`6 <installation-centos-6x>`, :ref:`7
+  <installation-centos-8x7x>`, :ref:`8 <installation-centos-8x7x>`
 
-- Debian |_| :ref:`9 <debian-9>`, :ref:`10 <debian-10>`
+- Debian |_| :ref:`9 <installation-debian-9>`, :ref:`10
+  <installation-debian-10>`
 
-- Fedora |_| :ref:`29 <fedora-29>`, :ref:`30 <fedora-3130>`, :ref:`31
-  <fedora-3130>`, :ref:`32 <fedora-32>`, :ref:`33 <fedora-33>`
+- Fedora |_| :ref:`29 <installation-fedora-29>`, :ref:`30
+  <installation-fedora-3130>`, :ref:`31 <installation-fedora-3130>`, :ref:`32
+  <installation-fedora-32>`, :ref:`33 <installation-fedora-33>`
 
-- RHEL |_| :ref:`6 <rhel-6x>`, :ref:`7 <rhel-8x7x>`, :ref:`8 <rhel-8x7x>`
+- RHEL |_| :ref:`6 <installation-rhel-6x>`, :ref:`7 <installation-rhel-8x7x>`,
+  :ref:`8 <installation-rhel-8x7x>`
 
-- Ubuntu |_| :ref:`16.04 <ubuntu-1604>`, :ref:`18.04 <ubuntu-1804>`,
-  :ref:`19.10 <ubuntu-1910>`, :ref:`20.04 <ubuntu-2004>`, :ref:`20.10
-  <ubuntu-2010>`, :ref:`21.04 <ubuntu-2104>`
+- Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`, :ref:`18.04
+  <installation-ubuntu-1804>`, :ref:`19.10 <installation-ubuntu-1910>`,
+  :ref:`20.04 <installation-ubuntu-2004>`, :ref:`20.10
+  <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`
 
 The packages we provide include core executables, developer files, and support
 for individual languages.  We also maintain an official Homebrew `tap
@@ -1983,7 +1987,7 @@ and place module-specific instructions in the :file:`Makefile`.
 .. _installation-ruby:
 
 .. tabs::
-   :prefix: installation-modules
+   :prefix: modules
    :toc:
 
    .. tab:: Go

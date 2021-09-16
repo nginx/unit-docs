@@ -49,6 +49,20 @@ Features:
           .. markup::
              Foo bar
 
+The following in test.rst:
+
+.. tabs::
+   :prefix: foo
+
+   .. tab:: bar
+      ...
+
+   .. tab:: baz
+      ...
+
+Produces two :ref: links, :ref:`test-foo-bar` and :ref:`test-foo-baz`, that
+compile into /test/#foo-bar and /test/#foo-baz respectively.
+
 3. Enables collapsible sections.
 
 .rst file:
@@ -125,7 +139,8 @@ class nxt_tab_head(nodes.Text):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.checked = None
-        self.label_id = None
+        self.rstref_id = None
+        self.anchor_id = None
         self.tab_id = None
         self.tab_toc = None
         self.tabs_id = None
@@ -286,7 +301,7 @@ class NxtTranslator(HTMLTranslator):
 
         self.body.append("""<label for={0} id={1}>
             <a href=#{1} onclick="nxt_tab_click(event)">"""
-            .format(node.tab_id, node.label_id))
+            .format(node.tab_id, node.anchor_id))
 
         HTMLTranslator.visit_Text(self, node)
 
@@ -355,7 +370,7 @@ class NxtCollector(TocTreeCollector):
                         sectionnode, nxt_tab_head):
                         if tabnode.tab_toc:
                             nodetext = [nodes.Text(tabnode)]
-                            anchorname = '#' + tabnode.label_id
+                            anchorname = '#' + tabnode.anchor_id
                             numentries[0] += 1
                             reference = nodes.reference(
                                 '', '', internal=True, refuri=docname,
@@ -483,9 +498,10 @@ class TabDirective(Directive):
         tab_head.checked = 'checked' if env.temp_data['tab_id'][-1] == 0 else ''
         tab_head.tab_id = '{0}_{1}'.format(env.temp_data['tabs_id'][-1],
                                            env.temp_data['tab_id'][-1])
-        tab_head.label_id = '{0}-{1}'.format(
-            env.temp_data['tabs_id'][-1],
+        tab_head.rstref_id = '{0}-{1}'.format(
+            env.docname + '-' + env.temp_data['tabs_id'][-1],
             re.sub(r'[^\w\-]+', '', self.content[0])).lower()
+        tab_head.anchor_id = tab_head.rstref_id.split('-', 1)[1]
         tab_head.tab_toc = env.temp_data['tab_toc']
 
         env.temp_data['tab_id'][-1] += 1
@@ -506,14 +522,14 @@ def register_tabs_as_label(app: Sphinx, document: nodes.document) -> None:
     anonlabels = app.env.domaindata['std']['anonlabels']
 
     for node in document.traverse(nxt_tab_head):
-        if node.label_id in labels:
+        if node.rstref_id in labels:
             logging.getLogger(__name__).warning(
                 __('duplicate label %s, other instance in %s'),
-                node.label_id,
-                app.env.doc2path(labels[node.label_id][0]),
+                node.rstref_id,
+                app.env.doc2path(labels[node.rstref_id][0]),
                 location=node)
-        anonlabels[node.label_id] = docname, node.label_id
-        labels[node.label_id] = docname, node.label_id, node.astext()
+        anonlabels[node.rstref_id] = docname, node.anchor_id
+        labels[node.rstref_id] = docname, node.anchor_id, node.astext()
 
 
 def setup(app: Sphinx) -> None:

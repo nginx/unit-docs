@@ -57,7 +57,7 @@ using Unit:
    :samp:`environment`, :samp:`module`, and :samp:`home`):
 
    .. tabs::
-      :prefix: django
+      :prefix: interface
 
       .. tab:: WSGI
 

@@ -17,7 +17,7 @@ To run apps built with the `Zope <https://zope.org>`_ web framework using Unit:
    in your configuration.
 
    .. tabs::
-      :prefix: zope
+      :prefix: installation
 
       .. tab:: Buildout
 
