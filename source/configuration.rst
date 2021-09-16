@@ -586,7 +586,7 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
    .. code-block:: json
 
       {
-          "*:80": {
+          "*:443": {
               "pass": "routes",
               "tls": {
                   "certificate": [
@@ -847,7 +847,9 @@ In its simplest form, :samp:`routes` can be a single route array:
             }
         },
 
-        ":nxt_hint:`routes <Array-mode routes, simply referred to as 'routes'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ]
+        ":nxt_hint:`routes <Array-mode routes, simply referred to as 'routes'>`": [
+            ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`"
+        ]
    }
 
 Another form is an object with one or more named route arrays as members:
@@ -862,8 +864,13 @@ Another form is an object with one or more named route arrays as members:
         },
 
         "routes": {
-            ":nxt_hint:`main <Named route, referred to as 'routes/main'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ],
-            ":nxt_hint:`route66 <Named route, referred to as 'routes/route66'>`": [ ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`" ]
+            ":nxt_hint:`main <Named route, referred to as 'routes/main'>`": [
+                ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`"
+            ],
+
+            ":nxt_hint:`route66 <Named route, referred to as 'routes/route66'>`": [
+                ":nxt_ph:`... <Any acceptable route array may go here; see the 'Route Steps' section for details>`"
+            ]
         }
    }
 
@@ -965,13 +972,14 @@ A request passed to a route traverses its steps sequentially:
                       }
                   },
                   {
-                       "match": {
-                           "uri": [
-                               "*.css",
-                               "*.jpg",
-                               "*.js"
-                           ]
-                       },
+                      "match": {
+                          "uri": [
+                              "*.css",
+                              "*.jpg",
+                              "*.js"
+                          ]
+                      },
+
                       "action": {
                           "share": "/www/static/"
                       }
@@ -1212,7 +1220,6 @@ respective pattern:
                {
                    "arg1": "pattern"
                },
-
                {
                    "arg2": "pattern"
                }
@@ -1251,7 +1258,6 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
                {
                    "cookie1": "pattern",
                },
-
                {
                    "cookie2": "pattern",
                }
@@ -1261,7 +1267,6 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
                {
                    "header1": "pattern",
                },
-
                {
                    "header2": "pattern",
                    "header3": "pattern"
@@ -1303,7 +1308,6 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
                       "Accept-Encoding": "*gzip*",
                       "User-Agent": "Mozilla/5.0*"
                   },
-
                   {
                       "User-Agent": "curl*"
                   }
@@ -2366,6 +2370,7 @@ proxied to an external server.
               "types": [
                   "image/*"
               ],
+
               "fallback": {
                   "proxy": "http://127.0.0.1:9000"
               }
@@ -2382,6 +2387,7 @@ proxied to an external server.
           "types": [
               "!application/x-httpd-php"
           ],
+
           "fallback": {
               "pass": "applications/php-app"
           }
@@ -2470,7 +2476,7 @@ API:
        "upstreams": {
            ":nxt_hint:`rr-lb <Upstream object>`": {
                ":nxt_hint:`servers <Lists individual servers as object-valued options>`": {
-                   ":nxt_hint:`192.168.0.100:8080 <Empty object needed due to JSON requirements>`": { },
+                   ":nxt_hint:`192.168.0.100:8080 <Empty object needed due to JSON requirements>`": {},
                    "192.168.0.101:8080": {
                        "weight": 0.5
                    }
@@ -2496,9 +2502,11 @@ notation:
            "192.168.0.100:8080": {
                ":nxt_hint:`weight <All three values are equal>`": 1e1
            },
+
            "192.168.0.101:8080": {
                ":nxt_hint:`weight <All three values are equal>`": 10.0
            },
+
            "192.168.0.102:8080": {
                ":nxt_hint:`weight <All three values are equal>`": 10
            }
@@ -2813,6 +2821,7 @@ for user and group IDs:
           "namespaces": {
               "credential": true
           },
+
           "uidmap": [
               {
                   "host": "1000",
@@ -3016,7 +3025,10 @@ Example:
        "executable": "bin/chat_app",
        "user": "www-go",
        "group": "www-go",
-       "arguments": ["--tmp-files", "/tmp/go-cache"]
+       "arguments": [
+           "--tmp-files",
+           "/tmp/go-cache"
+       ]
    }
 
 Before applying the configuration, update the application source code:
@@ -3122,8 +3134,14 @@ Example:
 
    {
        "type": "java",
-       "classpath": ["/www/qwk2mart/lib/qwk2mart-2.0.0.jar"],
-       "options": ["-Dlog_path=/var/log/qwk2mart.log"],
+       "classpath": [
+           "/www/qwk2mart/lib/qwk2mart-2.0.0.jar"
+       ],
+
+       "options": [
+           "-Dlog_path=/var/log/qwk2mart.log"
+       ],
+
        "webapp": "/www/qwk2mart/qwk2mart.war"
    }
 
@@ -3414,7 +3432,6 @@ Example:
        "root": "/www/blogs/scripts/",
        "user": "www-blogs",
        "group": "www-blogs",
-
        "options": {
            "file": "/etc/php.ini",
            "admin": {
@@ -3422,6 +3439,7 @@ Example:
                "variables_order": "EGPCS",
                "expose_php": "0"
            },
+
            "user": {
                "display_errors": "0"
            }
@@ -4044,7 +4062,6 @@ them to a separate configuration section, aptly named :samp:`certificates`:
                            "until": "Jun 15 19:46:19 2021 GMT"
                        }
                    },
-
                    {
                        "subject": {
                            "common_name": "intermediate.ca.example.com",
@@ -4091,7 +4108,9 @@ the resulting control API configuration may look like this:
        "certificates": {
            ":nxt_ph:`bundle <Certificate bundle name>`": {
                "key": "<key type>",
-               "chain": ["<certificate chain, omitted for brevity>"]
+               "chain": [
+                   "<certificate chain, omitted for brevity>"
+               ]
            }
        },
 
@@ -4190,7 +4209,6 @@ Full Example
                            "until": "Jun 15 19:46:19 2021 GMT"
                        }
                    },
-
                    {
                        "subject": {
                            "common_name": "intermediate.ca.example.com",
@@ -4242,7 +4260,6 @@ Full Example
                            "until": "Jun 15 19:46:19 2021 GMT"
                        }
                    },
-
                    {
                        "subject": {
                            "common_name": "intermediate.ca.example.org",
@@ -4360,7 +4377,11 @@ Full Example
                },
                {
                    "match": {
-                       "host": ["blog.example.com", "blog.*.org"],
+                       "host": [
+                           "blog.example.com",
+                           "blog.*.org"
+                       ],
+
                        "source": "*:8000-9000"
                    },
 
@@ -4440,6 +4461,7 @@ Full Example
                            "video/*",
                            "application/json"
                        ],
+
                        "fallback": {
                            "proxy": "http://127.0.0.1:9000"
                        }
@@ -4545,8 +4567,13 @@ Full Example
                "store": {
                    "type": "java",
                    "webapp": "/www/store/store.war",
-                   "classpath": ["/www/store/lib/store-2.0.0.jar"],
-                   "options": ["-Dlog_path=/var/log/store.log"]
+                   "classpath": [
+                       "/www/store/lib/store-2.0.0.jar"
+                   ],
+
+                   "options": [
+                       "-Dlog_path=/var/log/store.log"
+                   ]
                },
 
                "wiki": {
@@ -4578,7 +4605,7 @@ Full Example
            "upstreams": {
                "rr-lb": {
                    "servers": {
-                       "192.168.1.100:8080": { },
+                       "192.168.1.100:8080": {},
                        "192.168.1.101:8080": {
                            "weight": 2
                        }
