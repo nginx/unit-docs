@@ -1740,7 +1740,7 @@ build instructions for Unit:
 
 .. code-block:: console
 
-   $ ./configure <command-line options>
+   $ ./configure :nxt_ph:`COMPILE-TIME OPTIONS <See the table below>`
 
 To finalize the resulting :file:`Makefile`, configure the :ref:`language
 modules <installation-src-modules>` you need.
@@ -1921,8 +1921,8 @@ One common scenario is installation based on absolute paths:
 
    .. code-block:: console
 
-      $ ./configure --state=/var/lib/unit --log=/var/log/unit.log \
-                    --control=unix:/run/control.unit.sock --prefix=/usr/local/
+      $ ./configure --state=:nxt_hint:`/var/lib/unit <Sample absolute path>` --log=:nxt_hint:`/var/log/unit.log <Sample absolute pathname>` \
+                    --control=:nxt_hint:`unix:/run/control.unit.sock <Sample absolute pathname; note the unix: prefix>` --prefix=:nxt_hint:`/usr/local/ <Sample absolute path>`
 
    Configured thus, Unit will store its state, log, and control socket at
    custom locations; other files will have default prefix-based paths.  Here,
@@ -1940,8 +1940,8 @@ An alternative scenario is a build that you can move around the file system:
 
    .. code-block:: console
 
-      $ ./configure --state=config --log=log/unit.log \
-                    --control=unix:control/control.unit.sock --prefix=movable
+      $ ./configure --state=:nxt_hint:`config <Sample relative path>` --log=:nxt_hint:`log/unit.log <Sample relative pathname>` \
+                    --control=:nxt_hint:`unix:control/control.unit.sock <Sample relative pathname>` --prefix=:nxt_hint:`movable <Sample relative path>`
 
    Configured this way, Unit will store its files by prefix-based paths (both
    default and custom), for example, :file:`<working directory>/movable/sbin/`
@@ -2304,11 +2304,11 @@ If you customize the executable pathname with :option:`!--go` or
 
 .. code-block:: console
 
-   $ ./configure nodejs --node=/usr/local/bin/node8.12
-   # make /usr/local/bin/node8.12-install
+   $ ./configure nodejs --node=:nxt_hint:`/usr/local/bin/node8.12 <Executable pathname>`
+   # make :nxt_hint:`/usr/local/bin/node8.12 <Executable pathname becomes a part of the target>`-install
 
-   $ ./configure go --go=/usr/local/bin/go1.7
-   # make /usr/local/bin/go1.7-install
+   $ ./configure go --go=:nxt_hint:`/usr/local/bin/go1.7 <Executable pathname>`
+   # make :nxt_hint:`/usr/local/bin/go1.7 <Executable pathname becomes a part of the target>`-install
 
 
 .. _installation-src-startup:
@@ -2333,7 +2333,7 @@ configured :ref:`absolute paths <installation-src-dir>`:
 
 .. code-block:: console
 
-   # :nxt_hint:`unitd <Your PATH environment variable should list a path to unitd>`
+   # :nxt_hint:`unitd <Your PATH environment variable should list a path to unitd>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
 
 Otherwise, start :program:`unitd` from the :samp:`sbin` subdirectory relative
 to installation directory :ref:`prefix <installation-config-src-prefix>`:
@@ -2341,7 +2341,7 @@ to installation directory :ref:`prefix <installation-config-src-prefix>`:
 .. code-block:: console
 
    # cd :nxt_ph:`/path/to/unit/ <Destination prefix>`
-   # :nxt_hint:`sbin/unitd <This preserves relative paths>`
+   # :nxt_hint:`sbin/unitd <This preserves relative paths>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
 
 Run :command:`unitd -h` or :command:`unitd --version` to list Unit's
 compile-time settings.  Usually, the defaults don't require overrides; however,
