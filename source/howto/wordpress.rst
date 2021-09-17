@@ -9,6 +9,12 @@
 WordPress
 #########
 
+.. note::
+
+   For a more specific walkthrough that includes SSL setup and NGINX as a
+   proxy, see our `blog post
+   <https://www.nginx.com/blog/automating-installation-wordpress-with-nginx-unit-on-ubuntu/>`__.
+
 To run the `WordPress <https://wordpress.org>`__ content management system
 using Unit:
 
@@ -53,7 +59,7 @@ using Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                       "fallback": {
                           "pass": "applications/wordpress/index"
                       }
@@ -66,11 +72,11 @@ using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory>`",
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                           "script": "index.php"
                       }
                   }
@@ -104,4 +110,3 @@ using Unit:
       The resulting URI scheme will affect your WordPress configuration; updates
       may require `extra steps
       <https://wordpress.org/support/article/changing-the-site-url/>`_.
-
