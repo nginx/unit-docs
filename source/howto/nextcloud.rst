@@ -126,7 +126,7 @@ platform using Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                       "fallback": {
                           "pass": "applications/nextcloud/index"
                       }
@@ -139,28 +139,27 @@ platform using Unit:
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
                       },
 
                       "index": {
-                          "root": ":nxt_hint:`/path/to/app/ <Use a real path in your configuration>`",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
                       "ocm": {
-                          "root": ":nxt_hint:`/path/to/app/ocm-provider/ <Use a real path in your configuration>`",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`ocm-provider/",
+                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
-
                       "ocs": {
-                          "root": ":nxt_hint:`/path/to/app/ocs-provider/ <Use a real path in your configuration>`",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`ocs-provider/",
+                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
                       "updater": {
-                          "root": ":nxt_hint:`/path/to/app/nextcloud/updater/ <Use a real path in your configuration>`",
-                          "script": "index.php"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`nextcloud/updater/",
+                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
@@ -186,7 +185,7 @@ platform using Unit:
    .. code-block:: console
 
       # curl -X PUT -d '{"http":{"max_body_size": 2147483648}}' --unix-socket \
-             /path/to/control.unit.sock http://localhost/config/settings
+             :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` :nxt_hint:`http://localhost/config/settings <Path to the 'config/settings' section in Unit's control API>`
 
    After a successful update, browse to http://localhost and `set up
    <https://docs.nextcloud.com/server/latest/admin_manual/installation/installation_wizard.html>`_
