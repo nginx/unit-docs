@@ -15,8 +15,8 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
 
    .. code-block:: console
 
-      $ cd /path/to/
-      $ symfony new --demo app
+      $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+      $ symfony new --demo :nxt_ph:`app <Arbitrary app name>`
 
    This creates the app's directory tree at :file:`/path/to/app/`.  Its
    :file:`public/` subdirectory contains both the root :file:`index.php` and
@@ -52,7 +52,7 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
               },
               {
                   "action": {
-                      "share": ":nxt_ph:`/path/to/app/public/ <Serves all kinds of static files>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
                       }
@@ -65,12 +65,12 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
                   "type": "php",
                   "targets": {
                       "direct": {
-                          "root": ":nxt_ph:`/path/to/app/public/ <Path to the scripts>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/"
                       },
 
                       "index": {
-                          "root": ":nxt_ph:`/path/to/app/public/ <Path to the script>`",
-                          "script": ":nxt_hint:`index.php <All requests are handled by a single file>`"
+                          "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
