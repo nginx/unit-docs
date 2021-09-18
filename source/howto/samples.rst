@@ -58,12 +58,11 @@ Upload the :ref:`app config <configuration-go>` to Unit and test it:
              "executable": "/www/app"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
        Hello, Go on Unit!
-
 
 Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.go.txt>` or use a more elaborate app example:
@@ -147,7 +146,7 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
              "webapp": "/www/"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
@@ -214,7 +213,7 @@ Let's configure the following basic app, saved as :file:`/www/app.js`:
 
    #!/usr/bin/env node
 
-   require("unit-http").createServer(function (req, res) {
+   require(":nxt_hint:`unit-http <It's important to use unit-http instead of the regular http module>`").createServer(function (req, res) {
        res.writeHead(200, {"Content-Type": "text/plain"});
        res.end("Hello, Node.js on Unit!")
    }).listen()
@@ -245,7 +244,7 @@ Upload the :ref:`app config <configuration-nodejs>` to Unit and test it:
              "executable": "app.js"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
@@ -319,7 +318,7 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
              "script": "/www/app.psgi"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
@@ -386,7 +385,7 @@ Upload the :ref:`app config <configuration-php>` to Unit and test it:
              "root": "/www/"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
@@ -449,7 +448,7 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
              "module": "wsgi"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
@@ -516,7 +515,7 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
              "script": "config.ru"
          }
      }
-     }' --unix-socket /path/to/control.unit.sock http://localhost/config/
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
    $ curl http://localhost:8080
 
