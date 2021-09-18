@@ -29,10 +29,10 @@ Unit:
 
    .. code-block:: console
 
-      $ mkdir /path/to/app/
-      $ cd /path/to/app/
-      $ virtualenv env
-      $ source env/bin/activate
+      $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+      $ virtualenv venv
+      $ source venv/bin/activate
 
 #. Next, `install Trac <https://trac.edgewall.org/wiki/TracInstall>`_ and its
    optional dependencies, then initialize a `Trac environment
@@ -40,15 +40,16 @@ Unit:
 
    .. code-block:: console
 
-      (env) $ pip install Trac
-      (env) $ pip install babel docutils genshi \
-                          pygments pytz textile             # optional dependencies
-      (env) $ mkdir static/                                 # will store Trac's /chrome/ tree
-      (env) $ mkdir trac_env/
-      (env) $ trac-admin trac_env/ initenv                  # initialize Trac environment
-      (env) $ trac-admin trac_env/ deploy static/           # extract Trac's static files
-      (env) $ mv static/htdocs static/chrome                # align static file paths
-      (env) $ rm -rf static/cgi-bin/                        # remove unneeded files
+      $ pip install Trac
+      $ pip install babel docutils genshi \
+                    pygments pytz textile             # optional dependencies
+      $ mkdir :nxt_ph:`static/ <Arbitrary directory name>`                                 # will store Trac's /chrome/ tree
+      $ mkdir :nxt_ph:`trac_env/ <Arbitrary directory name>`
+      $ trac-admin trac_env/ initenv                  # initialize Trac environment
+      $ trac-admin trac_env/ deploy static/           # extract Trac's static files
+      $ mv static/htdocs static/chrome                # align static file paths
+      $ rm -rf static/cgi-bin/                        # remove unneeded files
+      $ deactivate
 
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so a
    `wrapper <https://trac.edgewall.org/wiki/1.3/TracModWSGI#Averybasicscript>`_
@@ -85,7 +86,7 @@ Unit:
                       "uri": "/chrome/*"
                   },
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Path to the static files; use a real path in your configuration>`"
                   }
               },
               {
@@ -98,12 +99,12 @@ Unit:
           "applications": {
               "trac": {
                   "type": "python 2",
-                  "path": ":nxt_ph:`/path/to/app/ <Path to the WSGI file>`",
-                  "home": ":nxt_ph:`/path/to/app/env/ <Path to the virtual environment where Trac is installed>`",
-                  "module": ":nxt_hint:`trac_wsgi <WSGI wrapper file basename from Step 4>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                  "home": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`venv/",
+                  "module": ":nxt_hint:`trac_wsgi <WSGI module basename from Step 4 with extension omitted>`",
                   "environment": {
-                      "TRAC_ENV": ":nxt_ph:`/path/to/app/trac_env/ <Path to the Trac environment>`",
-                      "PYTHON_EGG_CACHE": ":nxt_ph:`/path/to/app/trac_env/eggs/ <Path to the Python egg cache for Trac>`"
+                      "TRAC_ENV": ":nxt_ph:`/path/to/app/trac_env/ <Path to the Trac environment; use a real path in your configuration>`",
+                      "PYTHON_EGG_CACHE": ":nxt_ph:`/path/to/app/trac_env/ <Path to the Python egg cache for Trac; use a real path in your configuration>`eggs/"
                   }
               }
           }
