@@ -25,8 +25,8 @@ versions 1.1 or 2.0 using Unit:
 
          .. code-block:: console
 
-            $ cd /path/to/
-            $ composer create-project --prefer-dist yiisoft/yii2-app-basic app
+            $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
+            $ composer create-project --prefer-dist yiisoft/yii2-app-basic :nxt_ph:`app <Arbitrary app name>`
 
          This creates the app's directory tree at :file:`/path/to/app/`.
          Its :file:`web/` subdirectory contains both the root
@@ -51,7 +51,7 @@ versions 1.1 or 2.0 using Unit:
                     {
                         "match": {
                             "uri": [
-                                "!/assets/*",
+                                "!:nxt_hint:`/assets/* <This path stores application data that shouldn't be run as code>`",
                                 "*.php",
                                 "*.php/*"
                             ]
@@ -63,7 +63,7 @@ versions 1.1 or 2.0 using Unit:
                     },
                     {
                         "action": {
-                            ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/web/ <Use a real path in your configuration>`",
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`web/",
                             "fallback": {
                                 "pass": "applications/yii/index"
                             }
@@ -76,12 +76,12 @@ versions 1.1 or 2.0 using Unit:
                         "type": "php",
                         "targets": {
                             "direct": {
-                                "root": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`"
+                                "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`web/"
                             },
 
                             "index": {
-                                "root": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
-                                "script": "index.php"
+                                "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`web/",
+                                "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                             }
                         }
                     }
@@ -128,8 +128,8 @@ versions 1.1 or 2.0 using Unit:
 
          .. code-block:: console
 
-            $ git clone git@github.com:yiisoft/yii.git /path/to/yii1.1/
-            $ /path/to/yii1.1/framework/yiic webapp /path/to/app
+            $ git clone git@github.com:yiisoft/yii.git :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`
+            $ :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`framework/yiic webapp :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
          This creates the app's directory tree at :file:`/path/to/app/`.
 
@@ -149,7 +149,7 @@ versions 1.1 or 2.0 using Unit:
                     {
                         "match": {
                             "uri": [
-                                "!/assets/*",
+                                "!:nxt_hint:`/assets/* <This path stores application data that shouldn't be run as code>`",
                                 "!/protected/*",
                                 "!/themes/*",
                                 "*.php",
@@ -163,7 +163,7 @@ versions 1.1 or 2.0 using Unit:
                     },
                     {
                         "action": {
-                            ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Use a real path in your configuration>`",
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                             "fallback": {
                                 "pass": "applications/yii/index"
                             }
@@ -180,7 +180,7 @@ versions 1.1 or 2.0 using Unit:
                             },
                             "index": {
                                 "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                                "script": "index.php"
+                                "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                             }
                         }
                     }
