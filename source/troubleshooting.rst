@@ -1,5 +1,8 @@
 .. meta::
-   :og:description: Troubleshoot issues using logs, core dumps, and community support.
+   :og:description: Troubleshoot issues using logs, core dumps, and community
+                    support.
+
+.. include:: include/replace.rst
 
 ###############
 Troubleshooting
@@ -14,7 +17,7 @@ Logging
 Unit maintains a single general-purpose :nxt_hint:`log <A system-wide log for
 runtime messaging, usually found at /var/log/unit.log>` for diagnostics and
 troubleshooting (not to be confused with the :ref:`access log
-<configuration-access-log>`).  To find out its default location in your Unit
+<configuration-access-log>`).  To find out its default location in your
 installation:
 
 .. code-block:: console
@@ -51,8 +54,8 @@ check if :option:`!--log` is set, and how.
 Debug Log
 *********
 
-Unit's log has two verbosity modes: common and debug; steps to enable the
-latter vary by install method.
+Unit's log has two verbosity modes, common and debug; the steps to enable debug
+vary by install method.
 
 .. warning::
 
@@ -103,8 +106,8 @@ latter vary by install method.
 
          $ ./configure --debug <other options>
 
-      Then recompile and reinstall Unit and your specific :ref:`language
-      modules <installation-src-modules>`.
+      Then recompile and reinstall Unit and your :ref:`language
+      modules <installation-src-modules>` of choice.
 
 
 .. _troubleshooting-core-dumps:
@@ -113,8 +116,8 @@ latter vary by install method.
 Core Dumps
 **********
 
-Core dumps help developers to resolve Unit's crashes; providing them with your
-feedback is recommended.  For builds from :ref:`our repositories
+Core dumps help us investigate crashes; attach them when :ref:`reporting an
+issue <troubleshooting-support>`.  For builds from :ref:`our repositories
 <installation-precomp-pkgs>`, we maintain debug symbols in special packages;
 they have the original packages' names with the :samp:`-dbg` suffix appended,
 such as :samp:`unit-dbg`.
@@ -122,10 +125,6 @@ such as :samp:`unit-dbg`.
 .. note::
 
    This section assumes you're running Unit as :samp:`root` (recommended).
-
-.. warning::
-
-   Disable core dumping on live production systems to avoid wasting disk space.
 
 .. tabs::
    :prefix: core-dumps
@@ -229,14 +228,14 @@ such as :samp:`unit-dbg`.
          # sysctl kern.coredump=1
          # sysctl kern.corefile=/path/to/core/files/%N.core
 
-      Next, restart Unit to reproduce the crash condition.  If installed as a
-      service:
+      Next, restart Unit to reproduce the crash condition.  If Unit is
+      installed as a service:
 
       .. code-block:: console
 
          # service unitd restart
 
-      If installed manually:
+      If it's installed manually:
 
       .. code-block:: console
 
@@ -252,16 +251,34 @@ such as :samp:`unit-dbg`.
                ...
                -rw-------  1 root     root  9912320 Jul 27 11:05 unitd.core
 
+
 .. _troubleshooting-support:
 
 ***************
 Getting Support
 ***************
 
-Post your questions to our mailing list at unit@nginx.org; to subscribe, email
-unit-subscribe@nginx.org or sign up `here
-<https://mailman.nginx.org/mailman/listinfo/unit>`_.  You can also visit our
-`GitHub repo <https://github.com/nginx/unit>`_ to report an issue, suggest a
-feature, or share a problem.
+.. list-table::
+   :header-rows: 1
+
+   * - Support |_| Channel
+     - Details
+
+   * - GitHub
+     - Visit our `repo <https://github.com/nginx/unit>`__ to submit issues,
+       suggest features, ask questions, or see the roadmap.
+
+   * - Mailing lists
+     - To post questions to unit@nginx.org and get notifications, including
+       release news, email unit-subscribe@nginx.org or sign up `here
+       <https://mailman.nginx.org/mailman/listinfo/unit>`_.  To receive all OSS
+       release announcements from NGINX, join the general mailing list `here
+       <https://mailman.nginx.org/mailman/listinfo/nginx-announce>`__.
+
+   * - Security alerts
+     - Send security reports to `security-alert@nginx.org
+       <security-alert@nginx.org?subject=NGINX%20Unit%20security%20issue>`__,
+       using `CVSS v3.1
+       <https://www.first.org/cvss/v3.1/specification-document>`_ as reference.
 
 In addition, we offer `commercial support <https://www.nginx.com/support/>`_.
