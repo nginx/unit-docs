@@ -20,31 +20,63 @@ using Unit:
       Here, :samp:`$VENV` isn't set because Unit picks up the virtual
       environment from :samp:`home` in Step |_| 5.
 
-#. Let's try a modified version of a `tutorial app
-   <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/hello_world.html#steps>`_,
-   saving it as :file:`/path/to/app/wsgi.py`:
+#. Let's see how the apps from the Pyramid `tutorial
+   <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial>`__
+   run on Unit.
 
-   .. code-block:: python
+   .. tabs::
+      :prefix: pyramid
 
-      from pyramid.config import Configurator
-      from pyramid.response import Response
+      .. tab:: Single-File
+
+         We modify the `tutorial app
+         <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/hello_world.html#steps>`_,
+         saving it as :file:`/path/to/app/wsgi.py`:
+
+         .. code-block:: python
+
+            from pyramid.config import Configurator
+            from pyramid.response import Response
+
+            def hello_world(request):
+                return Response('<body><h1>Hello, World!</h1></body>')
+
+            with Configurator() as config:
+                config.add_route('hello', '/')
+                config.add_view(hello_world, route_name='hello')
+                :nxt_hint:`app <Callable's name is used in Unit configuration>` = config.make_wsgi_app()
+            # serve(app, host='0.0.0.0', port=6543)
+
+         Note that we've dropped the server code; also, mind that Unit imports
+         the module, so the :samp:`if __name__ == '__main__'` idiom would be
+         irrelevant.
 
 
-      def hello_world(request):
-          return Response('<body><h1>Hello, World!</h1></body>')
+      .. tab:: INI-Based
 
-      with Configurator() as config:
-          config.add_route('hello', '/')
-          config.add_view(hello_world, route_name='hello')
-          app = config.make_wsgi_app()
-      # serve(app, host='0.0.0.0', port=6543)
+         To load the `configuration
+         <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/ini.html>`__,
+         we place a :file:`wsgi.py` file next to :file:`development.ini` in
+         :file:`/path/to/app/`:
 
-   Note that we've dropped the server code.
+         .. code-block:: python
+
+            from pyramid.paster import get_app, setup_logging
+
+            :nxt_hint:`app <Callable's name is used in Unit configuration>` = get_app('development.ini')
+            setup_logging('development.ini')
+
+         This `sets up
+         <https://docs.pylonsproject.org/projects/pyramid/en/latest/api/paster.html>`__
+         the WSGI application for Unit; if the :file:`.ini`'s pathname is
+         relative, provide the appropriate :samp:`working_directory` in Unit
+         configuration.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
-#. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+#. Next, :ref:`prepare <configuration-python>` the |app| configuration
+   for Unit (use real values for :samp:`type`, :samp:`home`, and
+   :samp:`path`):
 
    .. code-block:: json
 
@@ -58,7 +90,8 @@ using Unit:
           "applications": {
               "pyramid": {
                   "type": "python 3.:nxt_ph:`Y <Must match language module version and virtual environment version>`",
-                  "path": ":nxt_ph:`/path/to/app/ <Path to the ASGI module>`",
+                  "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                  "path": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
                   "home": ":nxt_ph:`/path/to/app/venv/ <Path to the virtual environment, if any>`",
                   "module": ":nxt_hint:`wsgi <WSGI module filename with extension omitted>`",
                   "callable": ":nxt_hint:`app <Name of the callable in the module to run>`"
