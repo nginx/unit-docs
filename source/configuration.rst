@@ -3031,11 +3031,9 @@ Example:
        ]
    }
 
-Before applying the configuration, update the application source code:
-
-
-In the :samp:`import` section, reference the :samp:`unit.nginx.org/go` package
-that you :ref:`installed <installation-precomp-pkgs>` or :ref:`built
+Before applying the configuration, update the application source code.  In the
+:samp:`import` section, reference the :samp:`unit.nginx.org/go` package that
+you :ref:`installed <installation-precomp-pkgs>` or :ref:`built
 <installation-modules-go>` earlier:
 
 .. code-block:: go
@@ -3065,7 +3063,21 @@ with :samp:`unit.ListenAndServe`:
        ...
    }
 
-The resulting application works as follows:
+Next, create a `Go module <https://blog.golang.org/using-go-modules>`__ and
+build your application:
+
+.. code-block:: console
+
+   $ go mod init :nxt_ph:`example.com/app <Module designation>`
+
+         go: creating new go.mod: module example.com/app
+
+   $ go build -o :nxt_ph:`app <Executable name>` :nxt_ph:`app.go <Application source code>`
+
+         go: finding unit.nginx.org latest
+
+This links the :program:`unit-http` module to your app and adds it as a
+dependency to your :file:`go.mod`.  The resulting executable works as follows:
 
 - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
   back to :samp:`http` functionality.

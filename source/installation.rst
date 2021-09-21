@@ -788,12 +788,12 @@ Go
 To install the Go package for Unit, use the :ref:`official packages
 <installation-precomp-pkgs>` or run:
 
-.. code-block:: console
+.. subs-code-block:: console
 
-   $ go get unit.nginx.org/go
+   $ go get unit.nginx.org/go@|version|
 
-That's it; now, you can :ref:`use it <configuration-go>` to run your Go apps on
-Unit.
+Now, it's ready to :ref:`use <configuration-go>`.  If you update Unit later,
+make sure to update the module from the same source.
 
 
 .. _installation-nodejs-package:
