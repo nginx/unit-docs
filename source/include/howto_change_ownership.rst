@@ -1,5 +1,6 @@
-Run the following command for each directory containing app code or data so
-Unit can access it:
+Run the following command so Unit can access :nxt_hint:`the application
+directory <If the application uses several directories, run the command for
+each one>`:
 
 .. code-block:: console
 
