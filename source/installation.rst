@@ -108,12 +108,12 @@ the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 Amazon Linux
 ============
 
-Supported architectures: :samp:`x86-64`.
-
 .. tabs::
    :prefix: amazon
 
    .. tab:: 2.0 LTS
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -135,6 +135,19 @@ Supported architectures: :samp:`x86-64`.
                   unit-php unit-python27 unit-python37
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: AMI
 
@@ -142,6 +155,8 @@ Supported architectures: :samp:`x86-64`.
 
          Unit's 1.22+ packages aren't built for Amazon Linux AMI.  This
          distribution is obsolete; please update.
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -163,7 +178,18 @@ Supported architectures: :samp:`x86-64`.
                   unit-python27 unit-python34 unit-python35 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-rpm.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-precomp-centos:
@@ -177,7 +203,7 @@ CentOS
 
    .. tab:: 8.x, 7.x
 
-      Supported architectures: :samp:`x86-64`.
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -200,6 +226,20 @@ CentOS
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 6.x
 
       .. warning::
@@ -207,7 +247,7 @@ CentOS
          Unit's 1.20+ packages aren't built for CentOS 6.  This distribution is
          obsolete; please update.
 
-      Supported architectures: :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: i386, x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -228,7 +268,18 @@ CentOS
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-rpm.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-precomp-deb:
@@ -237,12 +288,12 @@ CentOS
 Debian
 ======
 
-Supported architectures: :samp:`i386`, :samp:`x86-64`.
-
 .. tabs::
    :prefix: debian
 
    .. tab:: 11
+
+      Supported architectures: i386, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -274,7 +325,23 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 10
+
+      Supported architectures: i386, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -305,12 +372,27 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 9
 
       .. warning::
 
          Unit's 1.22+ packages aren't built for Debian 9.
+
+      Supported architectures: i386, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -341,7 +423,18 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-deb.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-precomp-fedora:
@@ -350,12 +443,12 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 Fedora
 ======
 
-Supported architectures: :samp:`x86-64`.
-
 .. tabs::
    :prefix: fedora
 
    .. tab:: 33
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -378,7 +471,23 @@ Supported architectures: :samp:`x86-64`.
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 32
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -401,6 +510,20 @@ Supported architectures: :samp:`x86-64`.
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 31, 30
 
       .. warning::
@@ -408,6 +531,8 @@ Supported architectures: :samp:`x86-64`.
          Unit's 1.20+ packages aren't built for Fedora 30; 1.22+ packages
          aren't built for Fedora 31.  These distributions are obsolete; please
          update.
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -430,12 +555,28 @@ Supported architectures: :samp:`x86-64`.
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 29
 
       .. warning::
 
          Unit's 1.20+ packages aren't built for Fedora 29.  This distribution
          is obsolete; please update.
+
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -457,7 +598,18 @@ Supported architectures: :samp:`x86-64`.
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-rpm.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-precomp-rhel:
@@ -471,7 +623,7 @@ RHEL
 
    .. tab:: 8.x, 7.x
 
-      Supported architectures: :samp:`x86-64`.
+      Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -494,6 +646,19 @@ RHEL
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
    .. tab:: 6.x
 
       .. warning::
@@ -501,7 +666,7 @@ RHEL
          Unit's 1.20+ packages aren't built for RHEL 6.  This distribution is
          obsolete; please update.
 
-      Supported architectures: :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: i386, x86-64.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -523,7 +688,18 @@ RHEL
                   unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-rpm.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-precomp-ubuntu:
@@ -537,7 +713,7 @@ Ubuntu
 
    .. tab:: 21.04
 
-      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
+      Supported architectures: arm64, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -569,6 +745,20 @@ Ubuntu
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 20.10
 
       .. warning::
@@ -576,7 +766,7 @@ Ubuntu
          Unit's 1.25+ packages aren't built for Ubuntu 20.10.  This
          distribution is obsolete; please update.
 
-      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
+      Supported architectures: arm64, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -608,9 +798,23 @@ Ubuntu
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 20.04
 
-      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
+      Supported architectures: arm64, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -642,6 +846,20 @@ Ubuntu
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 19.10
 
       .. warning::
@@ -649,7 +867,7 @@ Ubuntu
          Unit's 1.20+ packages aren't built for Ubuntu 19.10.  This
          distribution is obsolete; please update.
 
-      Supported architectures: :samp:`x86-64`.
+      Supported architecture: x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -681,9 +899,23 @@ Ubuntu
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 18.04
 
-      Supported architectures: :samp:`arm64`, :samp:`x86-64`.
+      Supported architectures: arm64, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -715,6 +947,20 @@ Ubuntu
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 16.04
 
       .. warning::
@@ -722,7 +968,7 @@ Ubuntu
          Unit's 1.24+ packages aren't built for Ubuntu 16.04.  This
          distribution is obsolete; please update.
 
-      Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
+      Supported architectures: arm64, i386, x86-64.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -753,7 +999,18 @@ Ubuntu
                   unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-.. include:: include/socket-log-deb.rst
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
 
 
 .. _installation-homebrew:
@@ -781,11 +1038,18 @@ To install the Java, Perl, Python, and Ruby language modules from Homebrew:
    # pkill unitd  # Stop Unit
    # unitd        # Start Unit to pick up any changes in language module setup
 
-.. note::
+Runtime details:
 
-   Control :ref:`socket <security-socket-state>`'s pathname:
-   :file:`/usr/local/var/run/unit/control.sock`; log :ref:`file
-   <troubleshooting-log>`'s pathname: :file:`/usr/local/var/log/unit/unit.log`.
+.. list-table::
+
+   * - Control :ref:`socket <security-socket-state>`
+     - :file:`/usr/local/var/run/unit/control.sock`
+
+   * - Log :ref:`file <troubleshooting-log>`
+     - :file:`/usr/local/var/log/unit/unit.log`
+
+   * - Non-privileged :ref:`user and group <security-apps>`
+     - :samp:`nobody`
 
 
 .. _installation-go-package:
@@ -1517,13 +1781,19 @@ You can obtain the images from these sources:
 
          $ docker load < nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
-.. note::
+Runtime details:
 
-   Control :ref:`socket <security-socket-state>`'s pathname:
-   :file:`/var/run/control.unit.sock`; log :ref:`file <troubleshooting-log>`'s
-   pathname: forwarded to the `Docker log collector
-   <https://docs.docker.com/config/containers/logging/>`_; non-privileged
-   process :ref:`accounts <security-apps>`: :samp:`unit:unit`.
+.. list-table::
+
+   * - Control :ref:`socket <security-socket-state>`
+     - :file:`/var/run/control.unit.sock`
+
+   * - Log :ref:`file <troubleshooting-log>`
+     - Forwarded to the `Docker log collector
+       <https://docs.docker.com/config/containers/logging/>`_
+
+   * - Non-privileged :ref:`user and group <security-apps>`
+     - :samp:`unit`
 
 For more details, see the repository pages (`Docker Hub
 <https://hub.docker.com/r/nginx/unit/>`_, `Amazon ECR Public Gallery
