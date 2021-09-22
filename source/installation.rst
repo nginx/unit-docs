@@ -1,5 +1,6 @@
 .. meta::
-   :og:description: Download official packages, use third-party repositories, or configure a custom build from source.
+   :og:description: Download official packages, use third-party repositories,
+                    or configure a custom build from source.
 
 .. include:: include/replace.rst
 
@@ -10,7 +11,7 @@ Installation
 You can install NGINX Unit in four alternative ways:
 
 - Choose from our official :ref:`binary packages <installation-precomp-pkgs>`
-  for a few popular systems.  They are as easy to use as any other packaged
+  for a few popular systems.  They're as easy to use as any other packaged
   software and suit most purposes straight out of the box.
 
 - If your preferred OS or language version is missing from the official package
@@ -66,8 +67,8 @@ the same language):
 Official Packages
 *****************
 
-Installing a precompiled Unit binary package is best for most occasions;
-`official <https://packages.nginx.org/unit/>`_ binaries are available for:
+Installing an official precompiled Unit binary package is best on most
+occasions; they're available for:
 
 - Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`, Amazon |_| Linux |_|
   :ref:`2 <installation-amazon-20lts>`
@@ -90,14 +91,10 @@ Installing a precompiled Unit binary package is best for most occasions;
   :ref:`20.04 <installation-ubuntu-2004>`, :ref:`20.10
   <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`
 
-The packages we provide include core executables, developer files, and support
-for individual languages.  We also maintain an official Homebrew `tap
-<https://github.com/nginx/homebrew-unit>`_ for macOS users.
-
-.. note::
-
-   Unit's language :ref:`module <installation-nodejs-package>` for Node.js is
-   available at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
+The packages include core executables, developer files, and support for
+individual languages.  We also maintain a Homebrew `tap <#homebrew>`__ for
+macOS users and a :ref:`module <installation-nodejs-package>` for Node.js at
+the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
 .. note::
 
@@ -134,7 +131,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -143,7 +140,7 @@ Supported architectures: :samp:`x86-64`.
 
       .. warning::
 
-         Unit's 1.22+ packages aren't available for Amazon Linux AMI.  This
+         Unit's 1.22+ packages aren't built for Amazon Linux AMI.  This
          distribution is obsolete; please update.
 
       #. To configure Unit's repository, create the following file named
@@ -162,7 +159,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php  \
                   unit-python27 unit-python34 unit-python35 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -198,16 +195,17 @@ CentOS
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 6.x
 
       .. warning::
 
-         Unit's 1.20+ packages aren't available for CentOS 6.  This
-         distribution is obsolete; please update.
+         Unit's 1.20+ packages aren't built for CentOS 6.  This distribution is
+         obsolete; please update.
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
@@ -271,9 +269,10 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 10
 
@@ -302,15 +301,16 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 9
 
       .. warning::
 
-         Unit's 1.22+ packages aren't available for Debian 9.
+         Unit's 1.22+ packages aren't built for Debian 9.
 
       #. Download NGINX's `signing key
          <https://nginx.org/keys/nginx_signing.key>`_ and add it to
@@ -337,7 +337,7 @@ Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -373,9 +373,10 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python39 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 32
 
@@ -395,17 +396,18 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python38 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 31, 30
 
       .. warning::
 
-         Unit's 1.20+ packages aren't available for Fedora 30; 1.22+ packages
-         aren't available for Fedora 31.  These distributions are obsolete;
-         please update.
+         Unit's 1.20+ packages aren't built for Fedora 30; 1.22+ packages
+         aren't built for Fedora 31.  These distributions are obsolete; please
+         update.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -423,16 +425,17 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 29
 
       .. warning::
 
-         Unit's 1.20+ packages aren't available for Fedora 29.  This
-         distribution is obsolete; please update.
+         Unit's 1.20+ packages aren't built for Fedora 29.  This distribution
+         is obsolete; please update.
 
       #. To configure Unit's repository, create the following file named
          :file:`/etc/yum.repos.d/unit.repo`:
@@ -450,7 +453,7 @@ Supported architectures: :samp:`x86-64`.
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -486,16 +489,17 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 6.x
 
       .. warning::
 
-         Unit's 1.20+ packages aren't available for RHEL 6.  This distribution
-         is obsolete; please update.
+         Unit's 1.20+ packages aren't built for RHEL 6.  This distribution is
+         obsolete; please update.
 
       Supported architectures: :samp:`i386`, :samp:`x86-64`.
 
@@ -515,7 +519,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
                   unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -560,15 +564,16 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17 \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17  \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 20.10
 
       .. warning::
 
-         Unit's 1.25+ packages aren't available for Ubuntu 20.10.  This
+         Unit's 1.25+ packages aren't built for Ubuntu 20.10.  This
          distribution is obsolete; please update.
 
       Supported architectures: :samp:`arm64`, :samp:`x86-64`.
@@ -598,9 +603,10 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15 \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15  \
                           unit-perl unit-php unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 20.04
 
@@ -631,15 +637,16 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 19.10
 
       .. warning::
 
-         Unit's 1.20+ packages aren't available for Ubuntu 19.10.  This
+         Unit's 1.20+ packages aren't built for Ubuntu 19.10.  This
          distribution is obsolete; please update.
 
       Supported architectures: :samp:`x86-64`.
@@ -669,9 +676,10 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 18.04
 
@@ -702,15 +710,16 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 16.04
 
       .. warning::
 
-         Unit's 1.24+ packages aren't available for Ubuntu 16.04.  This
+         Unit's 1.24+ packages aren't built for Ubuntu 16.04.  This
          distribution is obsolete; please update.
 
       Supported architectures: :samp:`arm64`, :samp:`i386`, :samp:`x86-64`.
@@ -740,7 +749,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php  \
                   unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -753,16 +762,16 @@ Ubuntu
 Homebrew
 ========
 
-To install Unit on macOS from our official Homebrew `tap
+To install Unit on macOS, use the official Homebrew `tap
 <https://github.com/nginx/homebrew-unit>`_:
 
 .. code-block:: console
 
    $ brew install nginx/unit/unit
 
-This deploys the core Unit binary and the prerequisites for :ref:`Go
+This deploys the core Unit binary and the prerequisites for the :ref:`Go
 <installation-go-package>` and :ref:`Node.js <installation-nodejs-package>`
-language module installation.
+language modules.
 
 To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 
@@ -785,15 +794,16 @@ To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 Go
 ==
 
-To install the Go package for Unit, use the :ref:`official packages
-<installation-precomp-pkgs>` or run:
+To build Go apps capable of running on Unit, use the official :samp:`unit-go`
+:ref:`package <installation-precomp-pkgs>` or type:
 
 .. subs-code-block:: console
 
    $ go get unit.nginx.org/go@|version|
 
-Now, it's ready to :ref:`use <configuration-go>`.  If you update Unit later,
-make sure to update the module from the same source.
+Both methods install a Go package that you :ref:`import <configuration-go>` in
+your app code.  If you update Unit later, make sure to upgrade the package
+using the same method and rebuild your apps.
 
 
 .. _installation-nodejs-package:
@@ -803,13 +813,12 @@ Node.js
 =======
 
 Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
-is called :program:`unit-http`; installing it is necessary to run Node.js apps
-on Unit:
+is called :program:`unit-http`.  Install it to run Node.js apps on Unit:
 
 #. First, install the :samp:`unit-dev/unit-devel` :ref:`package
-   <installation-precomp-pkgs>`, necessary to build :program:`unit-http`.
+   <installation-precomp-pkgs>`; it's needed to build :program:`unit-http`.
 
-#. Next, build and install :program:`unit-http` globally (this step requires
+#. Next, build and install :program:`unit-http` globally (this requires
    :program:`npm` and :program:`node-gyp`):
 
     .. code-block:: console
@@ -848,9 +857,6 @@ If you update Unit later, make sure to update the module as well:
 Startup and Shutdown
 ====================
 
-Run :command:`unitd -h` or :command:`unitd --version` to verify Unit is
-available or list its settings.  To manage the installation:
-
 .. tabs::
    :prefix: startup-shutdown
    :toc:
@@ -880,6 +886,7 @@ available or list its settings.  To manage the installation:
       .. code-block:: console
 
          # systemctl disable unit
+
 
    .. tab:: Homebrew
 
