@@ -407,5 +407,5 @@ multilanguage image, use the following :file:`Dockerfile` template:
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-Our images are based on :ref:`Debian 10 <installation-debian-10>`; the choice
-of individual language packages is defined by this version.
+Our minimal image is based on :ref:`Debian 10 <installation-debian-10>`; the
+choice of individual language packages is dictated by this.

@@ -1657,7 +1657,8 @@ Unit's Docker images come in several language-specific flavors:
      - Description
 
    * - :samp:`|version|-minimal`
-     - No language modules are included.
+     - No language modules; based on the :samp:`debian:buster-slim` `image
+       <https://hub.docker.com/_/debian>`__.
 
    * - :samp:`|version|-go1.15`
      - Single-language image based on the :samp:`golang:1.15`
