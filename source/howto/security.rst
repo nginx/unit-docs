@@ -1,4 +1,3 @@
-##################
 Security Checklist
 ##################
 
@@ -62,15 +61,19 @@ safe.
    If you use a Unix
    control socket, ensure it is available to :samp:`root` only:
 
-   .. code-block:: console
+   .. subs-code-block:: console
 
       $ unitd -h
 
             ...
             --control ADDRESS    set address of control API socket
-                                 default: "unix:/path/to/control.unit.sock"
+                                 default: "unix::nxt_ph:`/default/path/to/control.unit.sock <Build-time setting, can be overridden>`"
 
-      # ls -l /path/to/control.unit.sock
+      $ ps ax | grep unitd
+
+            ... unit: main v|version| [... --control :nxt_ph:`/path/to/control.sock <Make sure to check for runtime overrides>` ...]
+
+      # ls -l :nxt_ph:`/path/to/control.unit.sock <If it's overridden, use the runtime setting>`
 
             srw------- 1 root root 0 ... /path/to/control.unit.sock
 
@@ -79,8 +82,8 @@ safe.
 
    .. code-block:: console
 
-      $ ssh -N -L :nxt_hint:`./here.sock <Local socket>`::nxt_ph:`/path/to/control.unit.sock <Socket on the Unit server>` root@:nxt_hint:`unit.example.com <Unit server hostname>` &
-      $ curl --unix-socket :nxt_hint:`./here.sock <Use local socket to configure Unit>`
+      $ ssh -N -L :nxt_hint:`./here.sock <Local socket>`::nxt_ph:`/path/to/control.unit.sock <Socket on the Unit server; use a real path in your command>` root@:nxt_hint:`unit.example.com <Unit server hostname>` &
+      $ curl --unix-socket :nxt_hint:`./here.sock <Use the local socket to configure Unit>`
 
             {
                 "certificates": {},
@@ -132,15 +135,19 @@ safe.
    Also, the state directory should be available only to :samp:`root` (or the
    user that the :samp:`main` :ref:`process <security-apps>` runs as):
 
-   .. code-block:: console
+   .. subs-code-block:: console
 
       $ unitd -h
 
             ...
             --state DIRECTORY    set state directory name
-                                 default: "/path/to/unit/state/"
+                                 default: ":nxt_ph:`/default/path/to/unit/state/ <Build-time setting, can be overridden>`"
 
-      # ls -l /path/to/unit/state/
+      $ ps ax | grep unitd
+
+            ... unit: main v|version| [... --state :nxt_ph:`/path/to/unit/state/ <Make sure to check for runtime overrides>` ...]
+
+      # ls -l :nxt_ph:`/path/to/unit/state/ <If it's overridden, use the runtime setting>`
 
             drwx------ 2 root root 4096 ...
 
@@ -211,15 +218,16 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       $ unitd -h
 
+            ...
             --user USER          set non-privileged processes to run as specified user
-                                 default: ":nxt_hint:`unit_user <Build-time setting, can be overridden>`"
+                                 default: ":nxt_ph:`unit_user <Build-time setting, can be overridden>`"
 
             --group GROUP        set non-privileged processes to run as specified group
                                  default: user's primary group
 
       $ ps ax | grep unitd
 
-            ... unit: main v|version| [... --user :nxt_hint:`unit_user <Make sure to check for runtime overrides>` --group unit_group ...]
+            ... unit: main v|version| [... --user :nxt_ph:`unit_user <Make sure to check for runtime overrides>` --group :nxt_ph:`unit_group <Make sure to check for runtime overrides>` ...]
 
    In particular, this is the account the router process runs as.  Use this
    information to set up permissions for the app code or binaries and shared
@@ -310,24 +318,24 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # :nxt_hint:`chown <Assign ownership for the app code>` -R app_user:app_group /path/to/app/
-         # :nxt_hint:`chown <Assign ownership for the static files>` -R app_user:app_group /path/to/static/app/files/
-         # find /path/to/app/ -type d -exec :nxt_hint:`chmod <Add read/execute permissions to app code directories for user and group>` u=rx,g=rx,o= {} \;
-         # find /path/to/static/app/files/ -type d -exec :nxt_hint:`chmod <Add read/execute permissions to static file directories for user and group>` u=rx,g=rx,o= {} \;
+         # :nxt_hint:`chown <Assign ownership for the app code>` -R app_user:app_group :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>`
+         # :nxt_hint:`chown <Assign ownership for the static files>` -R app_user:app_group :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>`
+         # find :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>` -type d -exec :nxt_hint:`chmod <Add read/execute permissions to app code directories for user and group>` u=rx,g=rx,o= {} \;
+         # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type d -exec :nxt_hint:`chmod <Add read/execute permissions to static file directories for user and group>` u=rx,g=rx,o= {} \;
 
    #. If the app needs to update specific directories or files, make sure
       they're writable for the app alone:
 
       .. code-block:: console
 
-         # :nxt_hint:`chmod <Add write permissions for the user only; the group shouldn't have them>` u+w /path/to/writable/file/or/directory/
+         # :nxt_hint:`chmod <Add write permissions for the user only; the group shouldn't have them>` u+w :nxt_ph:`/path/to/writable/file/or/directory/ <Repeat for each file or directory that must be writable>`
 
       In case of a writable directory, you may also want to prevent non-owners
       from messing with its files:
 
       .. code-block:: console
 
-         # :nxt_hint:`chmod <Sticky bit prevents non-owners from deleting or renaming files>` +t /path/to/writable/directory/
+         # :nxt_hint:`chmod <Sticky bit prevents non-owners from deleting or renaming files>` +t :nxt_ph:`/path/to/writable/directory/ <Repeat for each directory that must be writable>`
 
       .. note::
 
@@ -342,16 +350,16 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       .. code-block:: console
 
-         # find /path/to/app/code/ -type f -exec :nxt_hint:`chmod <Add read rights to app code for user and group>` u=r,g=r,o= {} \;
-         # find /path/to/static/app/files/ -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
+         # find :nxt_ph:`/path/to/app/code/ <Path to the application's code directory; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to app code for user and group>` u=r,g=r,o= {} \;
+         # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
    #. For :ref:`external <modules-emb>` apps, additionally make the app code or
       binaries executable:
 
       .. code-block:: console
 
-         # find /path/to/app/ -type f -exec :nxt_hint:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
-         # find /path/to/static/app/files/ -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
+         # find :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
+         # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
    #. To run a single app, :doc:`configure <../configuration>` Unit as follows:
 
@@ -401,7 +409,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
              "routes": [
                  {
                      "match": {
-                         "uri": "/app1/*"
+                         "uri": ":nxt_hint:`/app1/* <Arbitrary matching condition>`"
                      },
 
                      "action": {
@@ -414,7 +422,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
                  {
                      "match": {
-                         "uri": "/app2/*"
+                         "uri": ":nxt_hint:`/app2/* <Arbitrary matching condition>`"
                      },
 
                      "action": {
@@ -500,7 +508,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                          },
 
                          "action": {
-                             ":nxt_hint:`share <Serves valid requests with static content>`": "/path/to/app/",
+                             ":nxt_hint:`share <Serves valid requests with static content>`": ":nxt_ph:`/path/to/app/static/ <Path to the application's static file directory; use a real path in your configuration>`",
                              ":nxt_hint:`types <Limits file types served from the share>`": [
                                  "image/*",
                                  "text/*",
@@ -622,12 +630,11 @@ disk space.
    If you enable debug-mode or access logging, rotate these logs with tools
    such as :program:`logrotate` to avoid overgrowth.  A sample
    :program:`logrotate` `configuration
-   <https://man7.org/linux/man-pages/man8/logrotate.8.html#CONFIGURATION_FILE_DIRECTIVES>`_
-   (use real log and PID file paths):
+   <https://man7.org/linux/man-pages/man8/logrotate.8.html#CONFIGURATION_FILE_DIRECTIVES>`_:
 
    .. code-block:: none
 
-      :nxt_ph:`/path/to/unit.log <Use a real path>` {
+      :nxt_ph:`/path/to/unit.log <Use a real path in your configuration>` {
           daily
           missingok
           rotate 7
@@ -637,11 +644,28 @@ disk space.
           notifempty
           su root root
           postrotate
-              if [ -f :nxt_ph:`/path/to/unit.pid <Use a real path>` ]; then
-                  :nxt_hint:`/bin/kill <Signals Unit to reopen the log>` -SIGUSR1 `cat /path/to/unit.pid`
+              if [ -f :nxt_ph:`/path/to/unit.pid <Use a real path in your configuration>` ]; then
+                  :nxt_hint:`/bin/kill <Signals Unit to reopen the log>` -SIGUSR1 `cat :nxt_ph:`/path/to/unit.pid <Use a real path in your configuration>``
               fi
           endscript
       }
+
+   To figure out the log and PID file paths:
+
+   .. subs-code-block:: console
+
+      $ unitd -h
+
+            ...
+            --pid FILE           set pid filename
+                                 default: ":nxt_ph:`/default/path/to/unit.pid <Build-time setting, can be overridden>`"
+
+            --log FILE           set log filename
+                                 default: ":nxt_ph:`/default/path/to/unit.log <Build-time setting, can be overridden>`"
+
+      $ ps ax | grep unitd
+
+            ... unit: main v|version| [... --pid :nxt_ph:`/path/to/unit.pid <Make sure to check for runtime overrides>` --log :nxt_ph:`/path/to/unit.log <Make sure to check for runtime overrides>` ...]
 
    Another issue is the logs' accessibility.  Logs are opened and updated by
    the :ref:`main process <security-apps>` that usually runs as :samp:`root`.
@@ -652,36 +676,26 @@ disk space.
    ownership to the consumer's account.  Suppose you have a log utility running
    as :samp:`log_user:log_group`:
 
-   .. subs-code-block:: console
+   .. code-block:: console
 
-      $ :nxt_hint:`unitd <Check where the general-purpose log is>` --help
+      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group :nxt_ph:`/path/to/unit.log <If it's overridden, use the runtime setting>`
 
-            ...
-            --log FILE           set log filename
-                                 default: "/default/path/to/unit.log"
-
-      $ :nxt_hint:`ps ax <Make sure the default log path is not overridden at startup>` | grep unitd
-
-            ... unit: main v|version| [... --log :nxt_ph:`/path/to/unit.log <If it's overridden, use the runtime setting>` ...]
-
-      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group /path/to/unit.log
-
-      # :nxt_hint:`curl <Enable access log in the Unit configuration at the given path>` -X PUT -d '"/path/to/access.log"'  \
-             --unix-socket /path/to/control.unit.sock \
+      # :nxt_hint:`curl <Enable access log in the Unit configuration at the given path>` -X PUT -d '":nxt_ph:`/path/to/access.log <Use a real path in your configuration>`"'  \
+             --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket>` \
              http://localhost/config/access_log
 
             {
                 "success": "Reconfiguration done."
             }
 
-      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group /path/to/access.log
+      # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group :nxt_ph:`/path/to/access.log <Use a real path in your command>`
 
    If you change the log file ownership, adjust your :program:`logrotate`
    settings accordingly:
 
    .. code-block:: none
 
-      /path/to/unit.log {
+      :nxt_ph:`/path/to/unit.log <Use a real path in your configuration>` {
           ...
           su log_user log_group
           ...
