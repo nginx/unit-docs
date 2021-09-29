@@ -81,7 +81,7 @@ that lists your managed hosts' addresses:
      children:
        unit_hosts:
          hosts:
-           :nxt_hint:`10.0.2.15 <Arbitrary host address>`:
+           :nxt_hint:`203.0.113.1 <Arbitrary host address>`:
 
 With everything in place, start the playbook:
 
@@ -94,16 +94,16 @@ With everything in place, start the playbook:
          ...
 
          TASK [Expose application via port 3000] ***
-         ok: [10.0.2.15]
+         ok: [203.0.113.1]
 
          PLAY RECAP ********************************
-         10.0.2.15                  : ok=15   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+         203.0.113.1                  : ok=15   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 If it's OK, try the app at the host address from the inventory and the port
 number set in the playbook:
 
 .. code-block:: console
 
-   $ curl 10.0.2.15:3000
+   $ curl 203.0.113.1:3000
 
          Hello, Python on Unit!

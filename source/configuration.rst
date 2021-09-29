@@ -777,8 +777,8 @@ Consider the following :samp:`client_ip` configuration:
            "header": "X-Forwarded-For",
            "recursive": false,
            "source": [
-               "10.0.0.0/8",
-               "150.172.238.0/24"
+               "192.0.2.0/24",
+               "198.51.100.0/24"
            ]
        }
    }
@@ -787,19 +787,19 @@ Suppose a request arrives with the following header fields:
 
 .. code-block:: none
 
-   X-Forwarded-For: 203.0.113.195
-   X-Forwarded-For: 70.41.3.18, 150.172.238.178
+   X-Forwarded-For: 192.0.2.18
+   X-Forwarded-For: 203.0.113.195, 198.51.100.178
 
 If :samp:`recursive` is set to :samp:`false` (default), Unit chooses the
 *rightmost* address of the *last* :samp:`header` field as the originating IP.
-In the example, it is set to 150.172.238.178 for requests from 10.0.0.0/8 or
-150.172.238.0/24.
+In the example, it is set to 198.51.100.178 for requests from 192.0.2.0/24 or
+198.51.100.0/24.
 
 If :samp:`recursive` is set to :samp:`true`, Unit inspects all :samp:`header`
 fields in reverse order.  Each is traversed from right to left until the first
 non-trusted address; if found, it's chosen as the originating IP.  In the
 example above with :samp:`"recursive": true`, the client IP would be set to
-70.41.3.18 because 150.172.238.178 is also trusted; this simplifies working
+203.0.113.195 because 198.51.100.178 is also trusted; this simplifies working
 behind multiple reverse proxies.
 
 Finally, mind that :samp:`source` can use not only subnets but any
@@ -811,8 +811,8 @@ Finally, mind that :samp:`source` can use not only subnets but any
        "client_ip": {
            "header": "X-Forwarded-For",
            "source": [
-               ":nxt_hint:`!10.0.0.0/8 <Negation rejects any addresses originating here>`",
-               ":nxt_hint:`82.204.252.1-82.204.252.254 <Ranges can be specified explicitly>`",
+               ":nxt_hint:`198.51.100.1-198.51.100.254 <Ranges can be specified explicitly>`",
+               ":nxt_hint:`!198.51.100.128/26 <Negation rejects any addresses originating here>`",
                ":nxt_hint:`203.0.113.195 <Individual addresses are supported as well>`"
            ]
        }
@@ -1478,16 +1478,16 @@ behavior:
       {
           "match": {
               "source": [
-                  "10.0.0.0-10.255.255.255",
-                  "10.0.0.0-11.255.255.255:8000",
-                  "8.0.0.0-11.255.255.255:8080-8090",
+                  "192.0.2.1-192.0.2.200",
+                  "198.51.100.1-198.51.100.200:8000",
+                  "203.0.113.1-203.0.113.200:8080-8090",
                   "*:80"
               ],
 
               "destination": [
-                  "10.0.0.0/8",
-                  "10.0.0.0/7:8000",
-                  "10.0.0.0/6:8080-8090",
+                  "192.0.2.0/24",
+                  "198.51.100.0/24:8000",
+                  "203.0.113.0/24:8080-8090",
                   "*:80"
               ]
           },
@@ -1504,16 +1504,16 @@ behavior:
       {
           "match": {
               "source": [
-                   "2001::-200f:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
-                   "[fe08::-feff::]:8000",
-                   "[fff0::-fff0::10]:8080-8090",
+                   "2001:0db8::-2001:0db8:aaa9:ffff:ffff:ffff:ffff:ffff",
+                   "[2001:0db8:aaaa::-2001:0db8:bbbb::]:8000",
+                   "[2001:0db8:bbbb::1-2001:0db8:cccc::]:8080-8090",
                    "*:80"
               ],
 
               "destination": [
-                   "2001::/16",
-                   "[0ff::/64]:8000",
-                   "[fff0:abcd:ffff:ffff:ffff::/128]:8080-8090",
+                   "2001:0db8:cccd::/48",
+                   "[2001:0db8:ccce::/48]:8000",
+                   "[2001:0db8:ccce:ffff::/64]:8080-8090",
                    "*:80"
               ]
           },
@@ -1533,7 +1533,7 @@ behavior:
                   "127.0.0.1",
                   "192.168.0.1",
                   "::1",
-                  "2002:c0a8:0001::c0a8:0001"
+                  "2001:0db8:1::c0a8:1"
               ]
           },
 
@@ -1549,8 +1549,8 @@ behavior:
       {
           "match": {
               "source": [
-                  "10.0.0.0-10.0.0.10",
-                  "!10.0.0.9"
+                  "192.0.2.1-192.0.2.10",
+                  "!192.0.2.9"
               ]
           },
 
@@ -1559,7 +1559,7 @@ behavior:
           }
       }
 
-   Here, any IPs from the range will match, except for :samp:`10.0.0.9`.
+   Here, any IPs from the range will match, except for :samp:`192.0.2.9`.
 
    .. code-block:: json
 
@@ -4352,7 +4352,7 @@ Full Example
                    "client_ip": {
                        "header": "X-Forwarded-For",
                        "source": [
-                           "10.0.0.0/8"
+                           "192.168.0.0.0/16"
                        ]
                    }
                }
@@ -4404,7 +4404,7 @@ Full Example
                {
                    "match": {
                        "host": "example.com",
-                       "source": "127.0.0.0-127.0.0.255:8080-8090",
+                       "source": "127.0.0.1-127.0.0.254:8080-8090",
                        "uri": "/chat/*"
                    },
 
@@ -4416,8 +4416,8 @@ Full Example
                    "match": {
                        "host": "example.com",
                        "source": [
-                           "10.0.0.0/7:1000",
-                           "10.0.0.0/32:8080-8090"
+                           "198.51.100.0/24:8000",
+                           "203.0.113.0/24:8080-8090"
                        ]
                    },
 

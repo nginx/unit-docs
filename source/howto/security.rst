@@ -100,8 +100,8 @@ safe.
 
    .. code-block:: console
 
-      # unitd --control 10.1.1.14:8080
-      $ curl 10.1.1.14:8080
+      # unitd --control 203.0.113.14:8080
+      $ curl 203.0.113.14:8080
 
             {
                 "certificates": {},
@@ -117,9 +117,9 @@ safe.
    .. code-block:: console
 
       # unitd --control 127.0.0.1:8080
-      $ curl 10.1.1.14:8080
+      $ curl 203.0.113.14:8080
 
-          curl: (7) Failed to connect to 10.1.1.14 port 8080: Connection refused
+          curl: (7) Failed to connect to 203.0.113.14 port 8080: Connection refused
 
    However, any processes local to the same system can access the local socket,
    which calls for additional measures.  A go-to solution would be using NGINX
