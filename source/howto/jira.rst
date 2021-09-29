@@ -10,7 +10,8 @@ Jira
 
 .. note::
 
-   Command samples below assume you're using |app| |_| Core |_| 7.13.0.
+   This howto uses the 8.19.1 version; other versions may have different
+   dependencies and options.
 
 To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
@@ -23,23 +24,24 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
-      $ tar xzf atlassian-jira-core-7.13.0.tar.gz
+      $ curl https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-8.19.1.tar.gz -O -C -
+      $ tar xzf atlassian-jira-core-8.19.1.tar.gz --strip-components 1
 
-#. Add a :samp:`lib` subdirectory to download third-party dependencies:
+#. Download |app|'s third-party dependencies to the :samp:`lib` subdirectory:
 
    .. code-block:: console
 
-      $ mkdir :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`lib/ && cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`lib/
-      $ curl http://central.maven.org/maven2/com/atomikos/atomikos-util/3.9.1/atomikos-util-3.9.1.jar -O -C -
-      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-jndi/9.4.12.v20180830/jetty-jndi-9.4.12.v20180830.jar -O -C -
-      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-plus/9.4.12.v20180830/jetty-plus-9.4.12.v20180830.jar -O -C -
-      $ curl http://central.maven.org/maven2/org/eclipse/jetty/jetty-util/9.4.12.v20180830/jetty-util-9.4.12.v20180830.jar -O -C -
-      $ curl http://central.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar -O -C -
-      $ curl http://central.maven.org/maven2/com/atomikos/transactions/3.9.1/transactions-3.9.1.jar -O -C -
-      $ curl http://central.maven.org/maven2/com/atomikos/transactions-api/3.9.1/transactions-api-3.9.1.jar -O -C -
-      $ curl http://central.maven.org/maven2/com/atomikos/transactions-jdbc/3.9.1/transactions-jdbc-3.9.1.jar -O -C -
-      $ curl http://central.maven.org/maven2/com/atomikos/transactions-jta/3.9.1/transactions-jta-3.9.1.jar -O -C -
-      $ curl https://github.com/mar0x/unit-transaction-init/releases/download/1.0/transaction-init-1.0.jar -O -C - -L
+      $ cd lib/
+      $ curl https://github.com/mar0x/unit-transaction-init/releases/download/2.0/transaction-init-2.0.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/com/atomikos/atomikos-util/5.0.8/atomikos-util-5.0.8.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-api/5.0.8/transactions-api-5.0.8.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-jdbc/5.0.8/transactions-jdbc-5.0.8.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-jta/5.0.8/transactions-jta-5.0.8.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/com/atomikos/transactions/5.0.8/transactions-5.0.8.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-jndi/11.0.6/jetty-jndi-10.0.6.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-plus/11.0.6/jetty-plus-10.0.6.jar -O -C -
+      $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-util/11.0.6/jetty-util-10.0.6.jar -O -C -
 
    Later, these :file:`.jar` files will be listed in the :samp:`classpath`
    option of the Unit configuration.
@@ -50,13 +52,14 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
    .. code-block:: console
 
-      $ sed -i 's#comp/env/UserTransaction#comp/UserTransaction#g' \
-            atlassian-jira-core-7.13.0-standalone/atlassian-jira/WEB-INF/classes/entityengine.xml
+      $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+      $ sed -i 's#comp/env/UserTransaction#comp/UserTransaction#g'  \
+            atlassian-jira/WEB-INF/classes/entityengine.xml
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-java>` the |app| configuration (use
-   a real value for :samp:`working_directory`):
+   real values for :samp:`working_directory` and :samp:`jira.home`):
 
    .. code-block:: json
 
@@ -71,31 +74,31 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
               "jira": {
                   "type": "java",
                   "working_directory": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                  "webapp": "atlassian-jira-core-7.13.0-standalone/atlassian-jira",
-                  ":nxt_hint:`options <App-specific startup options>`": [
+                  "webapp": "atlassian-jira",
+                  ":nxt_hint:`options <Jira-specific startup options>`": [
                       "-Djava.awt.headless=true",
                       "-Djavax.accessibility.assistive_technologies= ",
-                      "-Djira.home=/path/to/jira/home",
+                      "-Djira.home=:nxt_ph:`/path/to/jira/home/ <Path to your Jira home directory; use a real path in your configuration>`",
                       "-Dnginx.unit.context.listener=nginx.unit.TransactionInit",
                       "-Xms1024m",
                       "-Xmx1024m"
                   ],
-                  ":nxt_hint:`classpath <Required dependencies>`": [
-                      "lib/transaction-init-1.0.jar",
-                      "lib/atomikos-util-3.9.1.jar",
+                  ":nxt_hint:`classpath <Required third-party dependencies from Step 3>`": [
+                      "lib/atomikos-util-5.0.8.jar",
+                      "lib/hsqldb-1.8.0.10.jar",
+                      "lib/jcl-over-slf4j-1.7.30.jar",
+                      "lib/jetty-jndi-10.0.6.jar",
+                      "lib/jetty-plus-10.0.6.jar",
+                      "lib/jetty-util-10.0.6.jar",
                       "lib/jta-1.1.jar",
-                      "lib/transactions-3.9.1.jar",
-                      "lib/transactions-api-3.9.1.jar",
-                      "lib/transactions-jdbc-3.9.1.jar",
-                      "lib/transactions-jta-3.9.1.jar",
-                      "lib/jetty-jndi-9.4.12.v20180830.jar",
-                      "lib/jetty-util-9.4.12.v20180830.jar",
-                      "lib/jetty-plus-9.4.12.v20180830.jar",
-                      "atlassian-jira-core-7.13.0-standalone/lib/hsqldb-1.8.0.5.jar",
-                      "atlassian-jira-core-7.13.0-standalone/lib/slf4j-api-1.7.9.jar",
-                      "atlassian-jira-core-7.13.0-standalone/lib/slf4j-log4j12-1.7.9.jar",
-                      "atlassian-jira-core-7.13.0-standalone/lib/log4j-1.2.16.jar",
-                      "atlassian-jira-core-7.13.0-standalone/lib/jcl-over-slf4j-1.7.9.jar"
+                      "lib/log4j-1.2.17-atlassian-3.jar",
+                      "lib/slf4j-api-1.7.30.jar",
+                      "lib/slf4j-log4j12-1.7.30.jar",
+                      "lib/transaction-init-2.0.jar",
+                      "lib/transactions-5.0.8.jar",
+                      "lib/transactions-api-5.0.8.jar",
+                      "lib/transactions-jdbc-5.0.8.jar",
+                      "lib/transactions-jta-5.0.8.jar"
                   ]
               }
           }
@@ -105,8 +108,8 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 
    .. note::
 
-      You can't update |app| configuration in Unit after application startup
-      due to its own restrictions.
+      You can't update the configuration in Unit after startup due to |app|'s
+      own restrictions.
 
 #. .. include:: ../include/howto_upload_config.rst
 
