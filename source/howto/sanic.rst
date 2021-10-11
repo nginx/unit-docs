@@ -1,5 +1,5 @@
 .. |app| replace:: Sanic
-.. |mod| replace:: Python 3.6+
+.. |mod| replace:: Python 3.7+
 .. |app-pip-package| replace:: sanic
 .. |app-pip-link| replace:: PIP package
 .. _app-pip-link: https://sanicframework.org/en/guide/getting-started.html
@@ -8,8 +8,8 @@
 Sanic
 #####
 
-To run apps built with the `Sanic
-<https://sanic.readthedocs.io/en/latest/>`_ web framework using Unit:
+To run apps built with the `Sanic <https://sanicframework.org>`_ web framework
+using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
