@@ -139,11 +139,11 @@ Unit interoperates with:
 Reporting Issues
 ****************
 
-Report any security-related issues concerning Unit to `security-alert@nginx.org
-<security-alert@nginx.org?subject=NGINX%20Unit%20security%20issue>`__.  For our
-mutual convenience, consult the `CVSS v3.1
-<https://www.first.org/cvss/v3.1/specification-document>`__ specification
-before submitting the report.
+Please report any security-related issues concerning Unit to
+`security-alert@nginx.org <security-alert@nginx.org>`__.  For our mutual
+convenience, specifically mention NGINX Unit in the subject and follow the
+`CVSS v3.1 <https://www.first.org/cvss/v3.1/specification-document>`__
+specification.
 
 With other issue types, please refer to :doc:`troubleshooting` for guidance.
 

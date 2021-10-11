@@ -276,9 +276,10 @@ Getting Support
        <https://mailman.nginx.org/mailman/listinfo/nginx-announce>`__.
 
    * - Security alerts
-     - Send security reports to `security-alert@nginx.org
-       <security-alert@nginx.org?subject=NGINX%20Unit%20security%20issue>`__,
-       using `CVSS v3.1
-       <https://www.first.org/cvss/v3.1/specification-document>`_ as reference.
+     - Please report security issues to `security-alert@nginx.org
+       <security-alert@nginx.org>`__, specifically mentioning NGINX Unit in the
+       subject and following the `CVSS v3.1
+       <https://www.first.org/cvss/v3.1/specification-document>`_
+       specification.
 
 In addition, we offer `commercial support <https://www.nginx.com/support/>`_.
