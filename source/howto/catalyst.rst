@@ -1,14 +1,14 @@
 .. |app| replace:: Catalyst
 .. |mod| replace:: Perl
 .. |app-link| replace:: core files
-.. _app-link: https://metacpan.org/pod/distribution/Catalyst-Manual/lib/Catalyst/Manual/Intro.pod#Install
+.. _app-link: https://metacpan.org/dist/Catalyst-Manual/view/lib/Catalyst/Manual/Intro.pod#Install
 
 ########
 Catalyst
 ########
 
-To run apps based on the `Catalyst <https://www.catalystframework.org>`_ 5.9+
-framework using Unit:
+To run apps based on the `Catalyst
+<https://metacpan.org/dist/Catalyst-Manual>`_ 5.9+ framework using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
@@ -28,10 +28,10 @@ framework using Unit:
    Make sure the app's :file:`.psgi` file includes the :file:`lib/`
    directory:
 
-      .. code-block:: perl
+   .. code-block:: perl
 
-         use lib 'lib';
-         use app;
+      use lib 'lib';
+      use app;
 
 #. .. include:: ../include/howto_change_ownership.rst
 
