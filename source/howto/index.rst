@@ -66,6 +66,7 @@ following frameworks:
    fastapi
    flask
    guillotina
+   koa
    laravel
    pyramid
    quart

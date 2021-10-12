@@ -3289,8 +3289,8 @@ To use the WebSocket protocol, your app only needs to replace the default
 
 .. note::
 
-   For Node.js-based examples, see our :doc:`howto/express` and
-   :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
+   For Node.js-based examples, see our :doc:`howto/express`, :doc:`howto/koa`,
+   and :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
    <sample-nodejs>`.
 
 
