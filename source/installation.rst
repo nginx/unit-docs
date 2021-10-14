@@ -645,7 +645,6 @@ RHEL
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-
       Runtime details:
 
       .. list-table::
@@ -700,6 +699,11 @@ RHEL
 
          * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`unit`
+
+.. note::
+
+   Use the same steps for binary-compatible distributions such as AlmaLinux,
+   Oracle Linux, or Rocky Linux.
 
 
 .. _installation-precomp-ubuntu:
