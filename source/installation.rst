@@ -716,13 +716,22 @@ Ubuntu
       Supported architectures: arm64, x86-64.
 
       #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+         <https://nginx.org/keys/nginx_signing.key>`_ convert it to gpg,
+         move it to a keyrings store and enable the key for the unit package.
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
-
+            wget https://nginx.org/keys/nginx_signing.key
+            gpg --no-default-keyring --keyring ./temp-keyring.gpg --import nginx_signing.key
+            gpg --no-default-keyring --keyring ./temp-keyring.gpg --export --output nginx_signing.gpg
+            mkdir /usr/local/share/keyrings
+            mv nginx_signing.gpg /usr/local/share/keyrings
+            rm temp-keyring.gpg temp-keyring.gpg~ nginx_signing.key
+            nano /etc/apt/sources.list.d/unit.list
+           
+         paste in [signed-by=/usr/local/share/keyrings/nginx_signing.gpg] after 'deb' and 'deb-src'
+         then save and exit nano.
+           
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
 
