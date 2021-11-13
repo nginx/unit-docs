@@ -1,7 +1,7 @@
 .. |app| replace:: Laravel
 .. |mod| replace:: PHP
 .. |app-preq| replace:: prerequisites
-.. _app-preq: https://laravel.com/docs/8.x/installation#server-requirements
+.. _app-preq: https://laravel.com/docs/7.x/installation#server-requirements
 
 #######
 Laravel
@@ -14,7 +14,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
 #. .. include:: ../include/howto_install_prereq.rst
 
 #. Install |app|'s `core files
-   <https://laravel.com/docs/8.x/installation#installing-laravel>`__.
+   <https://laravel.com/docs/7.x/installation#installing-laravel>`__.
 
 #. Create a |app| project.  For our purposes, the path is
    :file:`/path/to/app/`:
@@ -29,8 +29,8 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
    .. note::
 
       See the |app| docs for further details on `server configuration
-      <https://laravel.com/docs/8.x/installation#web-server-configuration>`_
-      and `directory structure <https://laravel.com/docs/8.x/structure>`_.
+      <https://laravel.com/docs/7.x/installation#web-server-configuration>`_
+      and `directory structure <https://laravel.com/docs/7.x/structure>`_.
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
    Unit (use real values for :samp:`share` and :samp:`root`):
@@ -70,7 +70,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
 #. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, browse to http://localhost and `set up
-   <https://laravel.com/docs/8.x/configuration>`_ your |app| application:
+   <https://laravel.com/docs/7.x/configuration>`_ your |app| application:
 
   .. image:: ../images/laravel.png
      :width: 100%
