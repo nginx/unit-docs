@@ -1031,10 +1031,11 @@ object define patterns to be compared to the requests' properties:
      - Case |-| :nxt_hint:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
 
    * - :samp:`arguments`
-     - Parameter arguments supplied with the request's target `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`_.  In
-       argument names and values, plus signs (:samp:`+`) are replaced with
-       spaces.
+     - Arguments supplied with the request's `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__; these
+       names and value pairs are `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__ with plus
+       signs (:samp:`+`) replaced by spaces.
      - Yes
 
    * - :samp:`cookies`
@@ -1064,6 +1065,13 @@ object define patterns to be compared to the requests' properties:
        to upper case.
      - No
 
+   * - :samp:`query`
+     - `Query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`_, `percent
+       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       with plus signs (:samp:`+`) replaced by spaces.
+     - Yes
+
    * - :samp:`scheme`
      - URI `scheme
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
@@ -1075,67 +1083,63 @@ object define patterns to be compared to the requests' properties:
      - No
 
    * - :samp:`uri`
-     - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_,
-       normalized by removing the query part, resolving relative path
-       references ("." and ".."), and collapsing adjacent slashes.
+     - `Request target
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_, `percent
+       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       and normalized by removing the `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ and
+       resolving `relative references
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__ ("." and
+       "..", "//").
      - Yes
 
-.. nxt_details:: Percent Encoding In Arguments and URIs
+.. nxt_details:: Arguments vs. Query
 
-   Names and values in :samp:`arguments` and values in :samp:`uri` additionally
-   support `percent encoding
-   <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_.  Thus, you
-   can escape characters which have special meaning in routing (:samp:`!` is
-   :samp:`%21`, :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`), or even
-   target individual bytes.  For example, to select an entire class of
-   diacritic characters such as Ö or Å by their starting byte :samp:`0xC3` in
-   UTF-8:
+   Both :samp:`arguments` and :samp:`query` operate on the query string, but
+   :samp:`query` is matched against the entire string whereas :samp:`arguments`
+   considers only the key-value pairs such as :samp:`key1=foo&key2=bar`.
+
+   Use :samp:`arguments` to define conditions based on key-value pairs in the
+   query string:
 
    .. code-block:: json
 
-      {
-          "match": {
-              "arguments": {
-                  "word": "*%C3*"
-              }
-          },
-
-          "action": {
-              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
-          }
+      "arguments": {
+         "key1": "foo",
+         "key2": "bar"
       }
 
-   This requires mentioning that actual arguments and URIs passed with requests
-   are percent *decoded*: Unit interpolates all percent-encoded entities in
-   these properties.  Thus, the following configuration:
+   Argument order is irrelevant: :samp:`key1=foo&key2=bar` and
+   :samp:`key2=bar&key1=foo` are considered the same.  Also, multiple
+   occurences of an argument must all match, which means
+   :samp:`key=foo&key=bar` matches this:
 
    .. code-block:: json
 
-      {
-          "routes": [
-              {
-                  "match": {
-                      "uri": "/:nxt_hint:`static files <Note the unencoded space>`/*"
-                  },
-
-                  "action": {
-                      "share": "/www/data$uri"
-                  }
-              }
-          ]
+      "arguments":{
+          "key": "*"
       }
 
-   Matches this percent-encoded request:
+   But not this:
 
-   .. subs-code-block:: console
+   .. code-block:: json
 
-      $ curl http://127.0.0.1/static%20files/test.txt -v
+      "arguments":{
+          "key": "b*"
+      }
 
-            > GET /static%20files/test.txt HTTP/1.1
-            ...
-            < HTTP/1.1 200 OK
-            ...
+   To the contrary, use :samp:`query` if your conditions concern query strings
+   but don't rely on key-value pairs:
+
+   .. code-block:: json
+
+      "query": [
+          "utf8",
+          "utf16"
+      ]
+
+   This only matches query strings of the form
+   :samp:`https://example.com?utf8` or :samp:`https://example.com?utf16`.
 
 
 .. _configuration-routes-matching-resolution:
@@ -1342,6 +1346,65 @@ which is the default for the official packages>` modify this behavior:
   :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
   JSON `requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE
   <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
+
+.. nxt_details:: Percent Encoding In Arguments, Query, and URI Patterns
+
+   Argument names, non-regex string patterns in :samp:`arguments`,
+   :samp:`query`, and :samp:`uri` can be `percent encoded
+   <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_ to mask
+   special characters (:samp:`!` is :samp:`%21`, :samp:`~` is :samp:`%7E`,
+   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`) or even target single
+   bytes.  For example, you can select diacritics such as Ö or Å by their
+   starting byte :samp:`0xC3` in UTF-8:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "arguments": {
+                  "word": "*%C3*"
+              }
+          },
+
+          "action": {
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
+          }
+      }
+
+   Unit decodes such strings and matches them against respective request
+   entities, decoding these as well:
+
+   .. code-block:: json
+
+      {
+          "routes": [
+              {
+                  "match": {
+                      "query": ":nxt_ph:`%7E <Tilde>`fuzzy word search"
+                  },
+
+                  "action": {
+                      "return": 200
+                  }
+              }
+          ]
+      }
+
+   This condition matches the following percent-encoded request:
+
+   .. subs-code-block:: console
+
+      $ curl http://127.0.0.1/?~fuzzy:nxt_ph:`%20 <Space>`word:nxt_ph:`%20 <Space>`search -v
+
+            > GET /?~fuzzy%20word%20search HTTP/1.1
+            ...
+            < HTTP/1.1 200 OK
+            ...
+
+   Note that the encoded spaces (:samp:`%20`) in the request match their
+   unencoded counterparts in the pattern; vice versa, the encoded tilde
+   (:samp:`%7E`) in the condition matches :samp:`~` in the request.
+
 
 .. nxt_details:: String Pattern Examples
 
@@ -4455,7 +4518,14 @@ Full Example
                    "match": {
                        "host": "example.com",
                        "source": "127.0.0.1-127.0.0.254:8080-8090",
-                       "uri": "/chat/*"
+                       "uri": "/chat/*",
+                       "query": [
+                           "en-CA",
+                           "en-IE",
+                           "en-IN",
+                           "en-UK",
+                           "en-US"
+                       ]
                    },
 
                    "action": {
