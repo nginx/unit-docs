@@ -81,7 +81,9 @@ occasions; they're available for:
 
 - Fedora |_| :ref:`29 <installation-fedora-29>`, :ref:`30
   <installation-fedora-3130>`, :ref:`31 <installation-fedora-3130>`, :ref:`32
-  <installation-fedora-32>`, :ref:`33 <installation-fedora-33>`
+  <installation-fedora-32>`, :ref:`33 <installation-fedora-3433>`, :ref:`34
+  <installation-fedora-3433>`, :ref:`35 <installation-fedora-35>`
+
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`, :ref:`7 <installation-rhel-8x7x>`,
   :ref:`8 <installation-rhel-8x7x>`
@@ -446,7 +448,46 @@ Fedora
 .. tabs::
    :prefix: fedora
 
-   .. tab:: 33
+   .. tab:: 35
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository, create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
+                  unit-php unit-python39 unit-python310 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
+   .. tab:: 34, 33
 
       Supported architecture: x86-64.
 
