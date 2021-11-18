@@ -91,7 +91,8 @@ occasions; they're available for:
 - Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`, :ref:`18.04
   <installation-ubuntu-1804>`, :ref:`19.10 <installation-ubuntu-1910>`,
   :ref:`20.04 <installation-ubuntu-2004>`, :ref:`20.10
-  <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`
+  <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`,
+  :ref:`21.10 <installation-ubuntu-2110>`
 
 The packages include core executables, developer files, and support for
 individual languages.  We also maintain a Homebrew `tap <#homebrew>`__ for
@@ -755,6 +756,54 @@ Ubuntu
 
 .. tabs::
    :prefix: ubuntu
+
+   .. tab:: 21.10
+
+      Supported architectures: arm64, x86-64.
+
+      #. Download NGINX's `signing key
+         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
+         :program:`apt`'s keyring:
+
+         .. code-block:: console
+
+            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
+
+      #. To configure Unit's repository, create the following file named
+         :file:`/etc/apt/sources.list.d/unit.list`:
+
+         .. code-block:: none
+
+            deb https://packages.nginx.org/unit/ubuntu/ impish unit
+            deb-src https://packages.nginx.org/unit/ubuntu/ impish unit
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+            # apt install unit
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
+                          unit-perl unit-php unit-python2.7 unit-python3.9 unit-python3.10 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 21.04
 
