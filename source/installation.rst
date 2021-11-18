@@ -1333,6 +1333,7 @@ Community Repositories
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
                 # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
 
+
    .. tab:: ALT
 
       To install Unit's core executables and specific language modules from the
@@ -1411,114 +1412,83 @@ Community Repositories
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
-   .. tab:: SCLo
-
-      If you use `SCLo Software Collections
-      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
-      Unit's PHP modules as packages from the corresponding repo.  Besides
-      other dependencies, the packages require the :ref:`core Unit installation
-      <installation-precomp-pkgs>`.
-
-      CentOS:
-
-      .. code-block:: console
-
-         # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo \
-                       sclo-php72-unit-php sclo-php73-unit-php
-         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      RHEL:
-
-      .. code-block:: console
-
-         # cd /etc/yum.repos.d/
-         # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
-         # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo \
-                       sclo-php72-unit-php sclo-php73-unit-php
-         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      Runtime details: see :ref:`installation-precomp-centos`,
-      :ref:`installation-precomp-rhel`, and
-      :ref:`installation-precomp-startup`.
-
    .. tab:: FreeBSD
 
-      To install Unit from `FreeBSD packages
-      <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_, get
-      the core package and other packages you need:
+        To install Unit from `FreeBSD packages <https://www.
+        freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
+        get the core package and other packages you need:
 
-      .. code-block:: console
+        .. code-block:: console
 
-         # pkg install -y unit
-         # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
-         # pkg install -y unit-java8  \
-                          unit-perl5.32  \
-                          unit-php73 unit-php74 unit-php80  \
-                          unit-python37  \
-                          unit-ruby2.7
-         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
+           # pkg install -y unit
+           # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
+           # pkg install -y unit-java8  \
+                            unit-perl5.32  \
+                            unit-php73 unit-php74 unit-php80  \
+                            unit-python37  \
+                            unit-ruby2.7
+           # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
-      To install Unit from `FreeBSD ports
-      <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_, start
-      by updating your port collection.
+        To install Unit from `FreeBSD ports <https://www.
+        freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
+        start by updating your port collection.
 
-      With :program:`portsnap`:
+        With :program:`portsnap`:
 
-      .. code-block:: console
+        .. code-block:: console
 
-         # portsnap fetch update
+           # portsnap fetch update
 
-      With :program:`svn`:
+        With :program:`svn`:
 
-      .. code-block:: console
+        .. code-block:: console
 
-         # svn update /usr/ports
+           # svn update /usr/ports
 
-      Next, browse to the port path to build and install the core Unit port:
+        Next, browse to the port path to build and install the core Unit port:
 
-      .. code-block:: console
+        .. code-block:: console
 
-         # cd /usr/ports/www/unit/
-         # make
-         # make install
+           # cd /usr/ports/www/unit/
+           # make
+           # make install
 
-      Repeat the steps for the other ports you need: `libunit
-      <https://www.freshports.org/devel/libunit/>`_ (required to install the
-      :ref:`Node.js <installation-nodejs-package>` module and build :ref:`Go
-      <installation-go-package>` apps), `unit-java
-      <https://www.freshports.org/www/unit-java/>`__, `unit-perl
-      <https://www.freshports.org/www/unit-perl/>`__, `unit-php
-      <https://www.freshports.org/www/unit-php/>`__, `unit-python
-      <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
-      <https://www.freshports.org/www/unit-ruby/>`__.  Having done that,
-      restart Unit:
+        Repeat the steps for the other ports you need: `libunit
+        <https://www.freshports.org/devel/libunit/>`_ (required to
+        install the :ref:`Node.js <installation-nodejs-package>` module
+        and build :ref:`Go <installation-go-package>` apps), `unit-java
+        <https://www.freshports.org/www/unit-java/>`__, `unit-perl
+        <https://www.freshports.org/www/unit-perl/>`__, `unit-php
+        <https://www.freshports.org/www/unit-php/>`__, `unit-python
+        <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
+        <https://www.freshports.org/www/unit-ruby/>`__.  Having done
+        that, restart Unit:
 
-      .. code-block:: console
+        .. code-block:: console
 
-         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
+           # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
-      Runtime details:
+        Runtime details:
 
-      .. list-table::
+        .. list-table::
 
-         * - Control :ref:`socket <installation-src-startup>`
-           - :file:`/var/run/unit/control.unit.sock`
+           * - Control :ref:`socket <installation-src-startup>`
+             - :file:`/var/run/unit/control.unit.sock`
 
-         * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           * - Log :ref:`file <troubleshooting-log>`
+             - :file:`/var/log/unit/unit.log`
 
-         * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`www`
+           * - Non-privileged :ref:`user and group <security-apps>`
+             - :samp:`www`
 
-         * - Startup and shutdown
-           - .. code-block:: console
+           * - Startup and shutdown
+             - .. code-block:: console
 
-                # :nxt_hint:`service unitd enable <Enable Unit to launch automatically at system startup>`
-                # :nxt_hint:`service unitd restart <Start or restart Unit; one-time action>`
-                # :nxt_hint:`service unitd stop <Stop a running Unit; one-time action>`
-                # :nxt_hint:`service unitd disable <Disable Unit's automatic startup>`
+                  # :nxt_hint:`service unitd enable <Enable Unit to launch automatically at system startup>`
+                  # :nxt_hint:`service unitd restart <Start or restart Unit; one-time action>`
+                  # :nxt_hint:`service unitd stop <Stop a running Unit; one-time action>`
+                  # :nxt_hint:`service unitd disable <Disable Unit's automatic startup>`
+
 
    .. tab:: Gentoo
 
@@ -1557,10 +1527,11 @@ Community Repositories
                 # :nxt_hint:`rc-service nginx-unit stop <Stop a running Unit; one-time action>`
                 # :nxt_hint:`rc-update del nginx-unit <Disable Unit's automatic startup>`
 
+
    .. tab:: NetBSD
 
-      To install Unit's core package and the other packages you need from the
-      `NetBSD Package Collection
+      To install Unit's core package and the other packages you need from
+      the `NetBSD Package Collection
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit/index.html>`_:
 
       .. code-block:: console
@@ -1588,8 +1559,9 @@ Community Repositories
 
       Repeat the steps for the other packages you need: `libunit
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/libunit/index.html>`__
-      (required to install the :ref:`Node.js <installation-nodejs-package>`
-      module and build :ref:`Go <installation-go-package>` apps), `unit-perl
+      (required to install the :ref:`Node.js
+      <installation-nodejs-package>` module and build :ref:`Go
+      <installation-go-package>` apps), `unit-perl
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-perl/index.html>`__,
       `unit-php
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-php/index.html>`__,
@@ -1642,6 +1614,7 @@ Community Repositories
                 # Disable service:
                 unit=NO
 
+
    .. tab:: Nix
 
       To install Unit's core executables and all language modules using the
@@ -1692,6 +1665,55 @@ Community Repositories
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
+
+   .. tab:: OpenBSD
+
+        To install Unit from `OpenBSD ports <https://openports.se/www/unit>`_,
+        start by updating your port collection, for example:
+
+        .. code-block:: console
+
+           $ cd /usr/
+           $ cvs -d anoncvs@anoncvs.spacehopper.org:/cvs checkout -P ports
+
+        Next, browse to the port path to build and install Unit:
+
+        .. code-block:: console
+
+           $ cd /usr/ports/www/unit/
+           $ make
+           # make install
+
+        This also installs the language modules for Perl, Python, and Ruby;
+        other modules can be built and installed from :ref:`source
+        <installation-src>`.  Having done that, restart Unit:
+
+        .. code-block:: console
+
+           # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+        Runtime details:
+
+        .. list-table::
+
+           * - Control :ref:`socket <installation-src-startup>`
+             - :file:`/var/run/unit/control.unit.sock`
+
+           * - Log :ref:`file <troubleshooting-log>`
+             - :file:`/var/log/unit/unit.log`
+
+           * - Non-privileged :ref:`user and group <security-apps>`
+             - :samp:`_unit`
+
+           * - Startup and shutdown
+             - .. code-block:: console
+
+                  # :nxt_hint:`rcctl enable unit <Enable Unit to launch automatically at system startup>`
+                  # :nxt_hint:`rcctl restart unit <Start or restart Unit; one-time action>`
+                  # :nxt_hint:`rcctl stop unit <Stop a running Unit; one-time action>`
+                  # :nxt_hint:`rcctl disable unit <Disable Unit's automatic startup>`
+
+
    .. tab:: Remi's RPM
 
       `Remi's RPM repository
@@ -1734,6 +1756,39 @@ Community Repositories
                 # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
+
+
+   .. tab:: SCLo
+
+      If you use `SCLo Software Collections
+      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
+      Unit's PHP modules as packages from the corresponding repo.  Besides
+      other dependencies, the packages require the :ref:`core Unit installation
+      <installation-precomp-pkgs>`.
+
+      CentOS:
+
+      .. code-block:: console
+
+         # yum install centos-release-scl
+         # yum install --enablerepo=centos-sclo-sclo \
+                       sclo-php72-unit-php sclo-php73-unit-php
+         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      RHEL:
+
+      .. code-block:: console
+
+         # cd /etc/yum.repos.d/
+         # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
+         # yum install centos-release-scl
+         # yum install --enablerepo=centos-sclo-sclo \
+                       sclo-php72-unit-php sclo-php73-unit-php
+         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details: see :ref:`installation-precomp-centos`,
+      :ref:`installation-precomp-rhel`, and
+      :ref:`installation-precomp-startup`.
 
 
 .. _installation-docker:
