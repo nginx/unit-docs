@@ -201,15 +201,19 @@ To switch your app to a different Unit image, prepare a corresponding
    # module, run PIP, and perform cleanup just like we did earlier.
 
    # First, we install the required tooling and add Unit's repo.
-   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
-       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
-       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+   RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
+           debian-archive-keyring                                                \
+       &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
+              https://unit.nginx.org/_downloads/nginx-keyring.gpg                \
+       && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
+              https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
 
    # Next, we install the module, download app requirements, and perform creanup.
    RUN apt update && apt install -y unit-python3.7 python3-pip                   \
        && pip3 install -r /config/requirements.txt                               \
-       && apt remove -y curl apt-transport-https gnupg1 lsb-release python3-pip  \
+       && apt remove -y curl apt-transport-https gnupg2 lsb-release python3-pip  \
+              debian-archive-keyring                                             \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
@@ -397,16 +401,20 @@ and installs official language module packages:
    # We take a minimal Unit image and install language-specific modules.
 
    # First, we install the required tooling and add Unit's repo.
-   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
-       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
-       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+   RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
+           debian-archive-keyring                                                \
+       &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
+              https://unit.nginx.org/_downloads/nginx-keyring.gpg                \
+       && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
+              https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
 
    # Next, we install the necessary language module packages and perform cleanup.
    RUN apt update && apt install -y                                              \
            :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php <Leave only packages for the languages you need, removeing the rest>`                                 \
            :nxt_hint:`unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>`                               \
-       && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
+       && apt remove -y curl apt-transport-https gnupg2 lsb-release              \
+              debian-archive-keyring                                             \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 

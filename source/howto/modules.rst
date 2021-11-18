@@ -132,10 +132,11 @@ adjust the command samples as needed to fit your scenario.
          .. code-block:: console
 
             # apt update
-            # apt install :nxt_hint:`ca-certificates apt-transport-https <Needed to install the php7.3 package from the PHP repo>`
-            # curl -sL :nxt_hint:`https://packages.sury.org/php/apt.gpg | apt-key add - <Adding the repo key to make it usable>`
-            # echo "deb https://packages.sury.org/php/ buster main" \
-                   > /etc/apt/sources.list.d/php.list
+            # apt install :nxt_hint:`ca-certificates apt-transport-https debian-archive-keyring <Needed to install the php7.3 package from the PHP repo>`
+            # curl --output /usr/share/keyrings/php-keyring.gpg  \
+                  :nxt_hint:`https://packages.sury.org/php/apt.gpg <Adding the repo key to make it usable>`
+            # echo "deb [signed-by=/usr/share/keyrings/php-keyring.gpg]  \
+                  https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list
             # apt update
             # apt install php7.3
             # apt install :nxt_hint:`php-dev libphp-embed <Needed to build the module and the package>`

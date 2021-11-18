@@ -298,13 +298,12 @@ Debian
 
       Supported architectures: i386, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -314,8 +313,8 @@ Debian
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/debian/ bullseye unit
-            deb-src https://packages.nginx.org/unit/debian/ bullseye unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
 
       #. Install the core package and other packages you need:
 
@@ -346,13 +345,12 @@ Debian
 
       Supported architectures: i386, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -362,8 +360,8 @@ Debian
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/debian/ buster unit
-            deb-src https://packages.nginx.org/unit/debian/ buster unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
 
       #. Install the core package and other packages you need:
 
@@ -397,13 +395,12 @@ Debian
 
       Supported architectures: i386, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -413,8 +410,8 @@ Debian
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/debian/ stretch unit
-            deb-src https://packages.nginx.org/unit/debian/ stretch unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
 
       #. Install the core package and other packages you need:
 
@@ -761,13 +758,12 @@ Ubuntu
 
       Supported architectures: arm64, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -825,8 +821,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ hirsute unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ hirsute unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
 
       #. Install the core package and other packages you need:
 
@@ -862,13 +858,12 @@ Ubuntu
 
       Supported architectures: arm64, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -878,8 +873,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ groovy unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ groovy unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
 
       #. Install the core package and other packages you need:
 
@@ -910,13 +905,12 @@ Ubuntu
 
       Supported architectures: arm64, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -926,8 +920,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ focal unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ focal unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
 
       #. Install the core package and other packages you need:
 
@@ -963,13 +957,12 @@ Ubuntu
 
       Supported architecture: x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -979,8 +972,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ eoan unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ eoan unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
 
       #. Install the core package and other packages you need:
 
@@ -1011,13 +1004,12 @@ Ubuntu
 
       Supported architectures: arm64, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -1027,8 +1019,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ bionic unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ bionic unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
 
       #. Install the core package and other packages you need:
 
@@ -1064,13 +1056,12 @@ Ubuntu
 
       Supported architectures: arm64, i386, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -1080,8 +1071,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ xenial unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ xenial unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
 
       #. Install the core package and other packages you need:
 
