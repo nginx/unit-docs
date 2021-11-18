@@ -387,7 +387,9 @@ Multilanguage Images
 
 Earlier, Unit had a :samp:`-full` Docker image with modules for all supported
 languages, but it was discontinued with version 1.22.0.  If you still need a
-multilanguage image, use the following :file:`Dockerfile` template:
+multilanguage image, use the following :file:`Dockerfile` template that starts
+with the minimal Unit image based on :ref:`Debian 11 <installation-debian-11>`
+and installs official language module packages:
 
 .. subs-code-block:: docker
 
@@ -402,10 +404,12 @@ multilanguage image, use the following :file:`Dockerfile` template:
 
    # Next, we install the necessary language module packages and perform cleanup.
    RUN apt update && apt install -y                                              \
-           :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php unit-python3.7 unit-ruby <List packages for the language versions you need>`        \
+           :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php <Leave only packages for the languages you need, removeing the rest>`                                 \
+           :nxt_hint:`unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>`                               \
        && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-Our minimal image is based on :ref:`Debian 10 <installation-debian-10>`; the
-choice of individual language packages is dictated by this.
+Instead of packages, you can build custom :ref:`modules
+<installation-src-modules>`; use these :file:`Dockerfile.*` `templates
+<https://github.com/nginx/unit/tree/master/pkg/docker>`__ as reference.
