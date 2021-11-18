@@ -3614,9 +3614,9 @@ following:
 
         .. note::
 
-           The Python version used to run the app depends on the :samp:`type`
-           value; Unit ignores the command-line interpreter from the virtual
-           environment for performance considerations.
+           The Python version used to run the app depends on :samp:`type`; for
+           performance, Unit doesn't use the command-line interpreter from the
+           virtual environment.
 
     * - :samp:`path`
       - String or array of strings that represent additional Python module
@@ -3653,14 +3653,21 @@ Example:
    {
        "type": "python",
        "processes": 10,
-       "working_directory": "/www/store/",
-       "path": "/www/store/cart/",
-       "home": "/www/store/.virtualenv/",
-       "module": "wsgi",
+       "working_directory": "/www/store/cart/",
+       "path": ":nxt_hint:`/www/store/ <Added to sys.path for lookup; store the application module within this directory>`",
+       "home": ":nxt_hint:`.virtualenv/ <Path where the virtual environment is located; here, it's relative to the working directory>`",
+       "module": ":nxt_hint:`cart.run <Looks for a 'run.py' module in /www/store/cart/>`",
        "callable": "app",
        "user": "www",
        "group": "www"
    }
+
+This snippet runs the :samp:`app` callable from the
+:file:`/www/store/cart/run.py` module with :file:`/www/store/cart/` as the
+working directory and :file:`/www/store/.virtualenv/` as the virtual
+environment; the :samp:`path` value accommodates for situations when some
+modules of the application are imported from outside the :file:`cart/`
+subdirectory.
 
 .. _configuration-python-asgi:
 
