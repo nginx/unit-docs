@@ -204,7 +204,7 @@ To switch your app to a different Unit image, prepare a corresponding
    RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
            debian-archive-keyring                                                \
        &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
-              https://unit.nginx.org/_downloads/nginx-keyring.gpg                \
+              https://unit.nginx.org/keys/nginx-keyring.gpg                      \
        && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
               https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
@@ -404,7 +404,7 @@ and installs official language module packages:
    RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
            debian-archive-keyring                                                \
        &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
-              https://unit.nginx.org/_downloads/nginx-keyring.gpg                \
+              https://unit.nginx.org/keys/nginx-keyring.gpg                      \
        && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
               https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list

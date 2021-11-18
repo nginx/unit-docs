@@ -53,8 +53,7 @@ ping:
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	mkdir "$(BUILDDIR)"/keys/
-	curl https://nginx.org/keys/nginx_signing.key \
-		| tee "$(BUILDDIR)"/keys/nginx_signing.key | gpg --dearmor \
+	curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
 		| tee "$(BUILDDIR)"/keys/nginx-keyring.gpg > /dev/null
 	gpg --dry-run --quiet --import --import-options import-show \
 		"$(BUILDDIR)"/keys/nginx-keyring.gpg

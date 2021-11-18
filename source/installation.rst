@@ -303,7 +303,7 @@ Debian
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -350,7 +350,7 @@ Debian
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -400,7 +400,7 @@ Debian
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -763,7 +763,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -863,7 +863,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -910,7 +910,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -962,7 +962,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -1009,7 +1009,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
@@ -1061,7 +1061,7 @@ Ubuntu
          .. code-block:: console
 
             # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
-                  https://unit.nginx.org/_downloads/nginx-keyring.gpg
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
