@@ -47,7 +47,7 @@ Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves static files that match the conditions above>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves static files that match the conditions above>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri"
                   }
               },
               {
@@ -80,7 +80,7 @@ Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/bugzilla"
                       }

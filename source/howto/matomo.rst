@@ -72,7 +72,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri"
                   }
               },
               {
@@ -88,7 +88,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/matomo/index <A catch-all destination for the remaining requests>`"
                       }

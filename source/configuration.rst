@@ -934,7 +934,7 @@ A request passed to a route traverses its steps sequentially:
               },
               {
                   "action": {
-                      "share": "/www/static_version/"
+                      "share": "/www/static_version$uri"
                   }
               }
           ]
@@ -943,7 +943,7 @@ A request passed to a route traverses its steps sequentially:
    This route passes all requests to the :samp:`/php/` subsection of the
    :samp:`example.com` website via HTTPS to the :samp:`php_version` app.  All
    other requests are served with static content from the
-   :samp:`/www/static_version` directory.  If there's no matching content, a
+   :samp:`/www/static_version/` directory.  If there's no matching content, a
    404 "Not Found" response is returned.
 
    A more elaborate example with chained routes and proxying:
@@ -981,7 +981,7 @@ A request passed to a route traverses its steps sequentially:
                       },
 
                       "action": {
-                          "share": "/www/static/"
+                          "share": "/www/static$uri"
                       }
                   }
               ],
@@ -1120,7 +1120,7 @@ object define patterns to be compared to the requests' properties:
                   },
 
                   "action": {
-                      "share": "/www/data/"
+                      "share": "/www/data$uri"
                   }
               }
           ]
@@ -1612,7 +1612,7 @@ request using the respective :samp:`action`.  The mutually exclusive
      - :ref:`configuration-return`
 
    * - :samp:`share`
-     - Directory location that serves the request with static content.
+     - File paths that serve the request with static content.
      - :ref:`configuration-static`
 
 An example:
@@ -1636,9 +1636,9 @@ An example:
                },
 
                "action": {
-                   "share": "/var/www/static/",
+                   "share": "/var/www/static$uri",
                    "fallback": {
-                       "share": "/var/www/static/assets",
+                       "share": "/var/www/static/assets$uri",
                        "fallback": {
                             "pass": "upstreams/cdn"
                        }
@@ -1674,16 +1674,16 @@ An example:
 Variables
 *********
 
-While configuring Unit, you can use built-in variables that are replaced by
-dynamic values in runtime.  This enables flexible request processing, making
-the configuration more compact and straightforward.
+Some options in Unit configuration allow the use of variables whose values are
+set in runtime:
 
-.. note::
+- :samp:`pass` in :ref:`listeners <configuration-listeners>` and
+  :ref:`actions <configuration-routes-action>` to choose between routes,
+  applications, app targets, or upstreams.
 
-   Currently, the only place where variables are recognized is the :samp:`pass`
-   option in :ref:`listeners <configuration-listeners>` and :ref:`actions
-   <configuration-routes-action>`.  This means you can use them to guide
-   requests between sets of routes, applications, targets, or upstreams.
+- :samp:`share` and :samp:`chroot` in :ref:`actions
+  <configuration-routes-action>` to control :ref:`static content serving
+  <configuration-static>`.
 
 Available variables:
 
@@ -1898,16 +1898,58 @@ If you specify a redirect code (3xx), supply the destination using the
 Static Files
 ************
 
-Unit is capable of acting as a standalone web server, serving requests for
-static assets from directories you configure; to use the feature, supply the
-directory path in the :samp:`share` option of a route step :ref:`action
-<configuration-routes-action>`:
+Unit is capable of acting as a standalone web server, efficiently serving
+static files from the local file system; to use the feature, list the file
+paths in the :samp:`share` option of a route step :ref:`action
+<configuration-routes-action>`.
+
+A :samp:`share`-based action provides the following options:
+
+.. list-table::
+
+   * - :samp:`share` (required)
+     - String or array of strings, listing file paths that are tried until a
+       file is found; if it's not, :samp:`fallback` is used if set.
+
+       The value is :ref:`variable <configuration-variables>`-interpolated.
+
+   * - :samp:`fallback`
+     - Action-like :ref:`object <configuration-fallback>`, used if the
+       request can't be served by the :samp:`share`.
+
+   * - :samp:`types`
+     - Array of :ref:`MIME type <configuration-share-mime>` patterns, used
+       to filter the shared files.
+
+   * - :samp:`chroot`
+     - Directory pathname that :ref:`restricts <configuration-share-path>`
+       the shareable paths.
+
+       The value is :ref:`variable <configuration-variables>`-interpolated.
+
+   * - :samp:`follow_symlinks`, :samp:`traverse_mounts`
+     - Booleans, enable or disable symbolic link and mount point
+       :ref:`resolution <configuration-share-resolution>` respectively; if
+       :samp:`chroot` is set, they only :ref:`affect <configuration-share-path>`
+       the insides of :samp:`chroot`.
+
+       The default for both options is :samp:`true` (resolve links and mounts).
+
+.. note::
+
+   To serve the files, Unit's router process must be able to access them; thus,
+   the account this process runs as must have proper permissions :ref:`assigned
+   <security-apps>`.  When Unit is installed from the :ref:`official packages
+   <installation-precomp-pkgs>`, the process runs as :samp:`unit:unit`; for
+   details of other installation methods, see :doc:`installation`.
+
+Consider the following configuration:
 
 .. code-block:: json
 
    {
        "listeners": {
-           "127.0.0.1:8300": {
+           "*:80": {
                "pass": "routes"
            }
         },
@@ -1915,78 +1957,76 @@ directory path in the :samp:`share` option of a route step :ref:`action
        "routes": [
            {
                "action": {
-                   "share": "/www/data/static/"
+                   "share": "/www/static/$uri"
                }
            }
        ]
    }
 
-The :samp:`share` action provides the following options:
+It uses :ref:`variable interpolation <configuration-variables>`: Unit replaces
+the :samp:`$uri` reference with its current value and tries the resulting path.
+If it doesn't yield a servable file, a 404 "Not Found" response is returned.
 
-.. list-table::
+.. warning::
 
-   * - :samp:`share` (required)
-     - Directory pathname from where the static files are served.
+   Before version 1.26.0, Unit used :samp:`share` as the document root.  This
+   was changed for flexibility, so now :samp:`share` must resolve to specific
+   files.  A common solution is to append :samp:`$uri` to your document root.
 
-   * - :samp:`fallback`
-     - Action-like :ref:`object <configuration-fallback>`, used if the
-       requested file can't be served.
+   In fact, if you update an existing Unit instance to 1.26+, its shares are
+   automatically amended in this manner.  Pre-1.26, the snippet above would've
+   looked like this:
 
-   * - :samp:`types`
-     - Array of :ref:`MIME type <configuration-share-mime>` patterns, used
-       to filter the shared files.
+   .. code-block:: json
 
-   * - :samp:`chroot`
-     - Directory pathname that becomes the share's new
-       :ref:`root <configuration-share-path>`.
+      "action": {
+          "share": "/www/static/"
+      }
 
-   * - :samp:`follow_symlinks`, :samp:`traverse_mounts`
-     - Booleans, enable or disable symbolic link and mount point
-       :ref:`resolution <configuration-share-resolution>` respectively; if
-       :samp:`chroot` is set, their effect starts from the new
-       :ref:`root <configuration-share-path>`.
+   Mind that URI paths always start with a slash, so there's no need to
+   separate the directory from :samp:`$uri`; even if you do, Unit compacts
+   adjacent slashes during path resolution, so there won't be an issue.
 
-       The default for both options is :samp:`true` (resolve links and mounts).
+If :samp:`share` is an array, its items are searched in order of appearance
+until a servable file is found:
 
-.. note::
+.. code-block:: json
 
-   To serve the assets, Unit's :nxt_hint:`router process <Not to be confused
-   with the routes configuration section>` must be able to access them; thus,
-   the account this process runs as must have proper permissions :ref:`assigned
-   <security-apps>`.  When Unit is installed from the :ref:`official packages
-   <installation-precomp-pkgs>`, the process runs as :samp:`unit:unit`; for
-   details of other installation methods, see :doc:`installation`.
+   "share": [
+       "/www/$host$uri",
+       "/www/global_static$uri",
+   ]
 
-Suppose the :file:`/www/data/static/` directory has the following structure:
+This tries a :samp:`$host`-based directory first; if a suitable file isn't
+found there, the search continues in :file:`/www/global_static/`.  If it also
+fails, a 404 "Not Found" response is returned.
+
+Finally, if a file path points to a directory, Unit attempts to serve an
+:file:`index.html` file from it.  Suppose we have the following directory
+structure and share configuration:
 
 .. code-block:: none
 
-   /www/data/static/
-   ├── stylesheet.css
-   ├── html
-   │   └──index.html
-   └── js files
-       └──page.js
+   /www/static/
+   ├── ...
+   └──index.html
 
-In the above configuration, you can request specific files by these URIs:
+.. code-block:: json
 
-.. code-block:: console
+   "action": {
+       "share": "/www/static$uri"
+   }
 
-   $ curl http://localhost:8300/html/index.html
-   $ curl http://localhost:8300/stylesheet.css
-   $ curl http://localhost:8300/js%20files/page.js
-
-If the request URI specifies only the directory name, Unit attempts to serve an
-:file:`index.html` file from this directory but *doesn't* apply :ref:`MIME
-filtering <configuration-share-mime>`:
+The following request returns :file:`index.html` even though the file isn't
+named explicitly:
 
 .. subs-code-block:: console
 
-   $ curl -vL http://localhost:8300/html/
+   $ curl http://localhost/ -v
 
     ...
     < HTTP/1.1 200 OK
-    < Last-Modified: Fri, 20 Sep 2019 04:14:43 GMT
+    < Last-Modified: Fri, 20 Sep 2021 04:14:43 GMT
     < ETag: "5d66459d-d"
     < Content-Type: text/html
     < Server: Unit/|version|
@@ -2014,7 +2054,7 @@ it's a :ref:`match <configuration-routes-matching-resolution>`:
 .. code-block:: json
 
    {
-       "share": "/www/data/static/",
+       "share": "/www/data/static$uri",
        "types": [
            "!text/javascript",
            "!text/css",
@@ -2037,11 +2077,14 @@ to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
 .. code-block:: json
 
    {
-       "share": "/www/data/known-types-only/",
+       "share": "/www/data/known-types-only$uri",
        "types": [
            "!"
        ]
    }
+
+If a share path specifies only the directory name, Unit *doesn't* apply
+:ref:`MIME filtering <configuration-share-mime>`.
 
 
 .. _configuration-share-path:
@@ -2055,37 +2098,37 @@ Path Restrictions
    To provide these options, Unit must be built and run on a system with Linux
    kernel version 5.6+.
 
-The :samp:`chroot` option effectively confines path resolution of files served
-from a share to a new root directory.  One notable effect of enabling
-:samp:`chroot` is that symbolic links to absolute pathnames are treated as
-relative to the new root; thus, a symlink to :file:`/log/app.log` in this
-example is resolved as :file:`/www/data/log/app.log`:
+The :samp:`chroot` option confines the path resolution of files served from a
+share to a certain directory.  One notable effect of defining :samp:`chroot` is
+that symbolic links to absolute pathnames are treated as relative to this
+directory; thus, a symlink to :file:`/log/app.log` in this example is resolved
+as :file:`/www/data/log/app.log`:
 
 .. code-block:: json
 
    {
        "action": {
-           "share": "/www/data/static/",
+           "share": "/www/data/static$uri",
            "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
        }
    }
 
 The :samp:`share` path stays as is and won't be treated as relative; only the
-portions that occur after the new root (if any) are affected by the new
-behavior.  Moreover, any requests for files outside the new root will fail:
+portions that occur after the :samp:`chroot` value (if any) are affected by the
+new behavior.  Moreover, any requests for files outside :samp:`chroot` fail:
 
 .. code-block:: json
 
    {
        "action": {
-           "share": "/www/",
+           "share": "/www$uri",
            "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
        }
    }
 
-In this configuration, a request for :samp:`/index.xml` will result in status
-code 403 because it will be resolved as :samp:`/www/index.xml`, which is
-outside the new root.
+In this configuration, a request for :samp:`/index.xml` results in a 403
+"Forbidden" response because it is resolved as :samp:`/www/index.xml`, which is
+outside :samp:`chroot`.
 
 .. _configuration-share-resolution:
 
@@ -2097,7 +2140,7 @@ resolution of symbolic links and traversal of mount points when set to
 
    {
        "action": {
-           "share": "/www/data/static/",
+           "share": "/www/data/static$uri",
            "follow_symlinks": :nxt_hint:`false <Disables symlink traversal>`,
            "traverse_mounts": :nxt_hint:`false <Disables mount point traversal>`
        }
@@ -2109,13 +2152,13 @@ path is a symlink or a mount point, this configuration will be accepted but
 won't work.
 
 With :samp:`chroot` set, :samp:`follow_symlinks` and :samp:`traverse_mounts`
-only affect portions of the path after the new root:
+only affect portions of the path after :samp:`chroot`:
 
 .. code-block:: json
 
    {
        "action": {
-           "share": "/www/data/static/",
+           "share": "/www/data/static$uri",
            "chroot": "/www/data/",
            "follow_symlinks": false,
            "traverse_mounts": false
@@ -2136,7 +2179,7 @@ won't be resolved.
 
       {
           "action": {
-              "share": "/www/data/static/",
+              "share": "/www/data/static$uri",
               "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
           }
       }
@@ -2171,7 +2214,7 @@ won't be resolved.
 
       {
           "action": {
-              "share": "/www/data/static/",
+              "share": "/www/data/static$uri",
               "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`",
               "follow_symlinks": false
           }
@@ -2195,7 +2238,7 @@ won't be resolved.
 
       {
           "action": {
-              "share": "/www/data/static/",
+              "share": "/www/data/static$uri",
               "follow_symlinks": false
           }
       }
@@ -2224,7 +2267,7 @@ served from the :samp:`share` path:
 .. code-block:: json
 
    {
-       "share": "/www/data/static/",
+       "share": "/www/data/static$uri",
        "fallback": {
            "pass": "applications/php"
        }
@@ -2252,9 +2295,9 @@ If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
 .. code-block:: json
 
    {
-       "share": "/www/data/static/",
+       "share": "/www/data/static$uri",
        "fallback": {
-           "share": "/www/data/cache/",
+           "share": "/www/data/cache$uri",
            "fallback": {
                "proxy": "http://127.0.0.1:9000"
            }
@@ -2288,7 +2331,7 @@ proxied to an external server.
               },
               {
                   "action": {
-                      "share": "/www/php-app/assets/files/",
+                      "share": "/www/php-app/assets/files$uri",
                       "fallback": {
                           "proxy": "http://127.0.0.1:9000"
                       }
@@ -2326,7 +2369,7 @@ proxied to an external server.
                   },
 
                   "action": {
-                      "share": "/www/php-app/assets/files/",
+                      "share": "/www/php-app/assets/files$uri",
                       "fallback": {
                           "proxy": "http://127.0.0.1:9000"
                       }
@@ -2366,7 +2409,7 @@ proxied to an external server.
           },
 
           "action": {
-              "share": "/www/php-app/assets/files/",
+              "share": "/www/php-app/assets/files$uri",
               "types": [
                   "image/*"
               ],
@@ -2383,7 +2426,7 @@ proxied to an external server.
    .. code-block:: json
 
       {
-          "share": "/www/php-app/assets/files/",
+          "share": "/www/php-app/assets/files$uri",
           "types": [
               "!application/x-httpd-php"
           ],
@@ -4464,8 +4507,12 @@ Full Example
                },
                {
                    "action": {
-                       "share": "/www/data/static/",
-                       "chroot": "/www/data/",
+                       "share": [
+                           "/www/$host$uri",
+                           "/www/global_static$uri"
+                       ],
+
+                       "chroot": "/www/data/$host/",
                        "traverse_mounts": false,
                        "follow_symlinks": false,
                        "types": [

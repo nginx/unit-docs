@@ -50,7 +50,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
                       "uri": ":nxt_hint:`!/index.php <Denies access to index.php as a static file>`"
                   },
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/laravel <Uses the index.php at the root as the last resort>`"
                       }

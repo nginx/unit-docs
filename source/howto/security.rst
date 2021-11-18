@@ -375,7 +375,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
              "routes": [
                  {
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app"
                          }
@@ -413,7 +413,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app1"
                          }
@@ -426,7 +426,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app2"
                          }
@@ -508,7 +508,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                          },
 
                          "action": {
-                             ":nxt_hint:`share <Serves valid requests with static content>`": ":nxt_ph:`/path/to/app/static/ <Path to the application's static file directory; use a real path in your configuration>`",
+                             ":nxt_hint:`share <Serves valid requests with static content>`": ":nxt_ph:`/path/to/app/static <Path to the application's static file directory; use a real path in your configuration>`$uri",
                              ":nxt_hint:`types <Limits file types served from the share>`": [
                                  "image/*",
                                  "text/*",

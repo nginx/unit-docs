@@ -109,7 +109,7 @@ Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/web/ <Path to the web/ directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/web <Path to the web/ directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/drupal/index <Funnels all requests to index.php>`"
                       }

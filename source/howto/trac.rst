@@ -86,7 +86,7 @@ Unit:
                       "uri": "/chrome/*"
                   },
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static/ <Path to the static files; use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/static <Path to the static files; use a real path in your configuration>`$uri"
                   }
               },
               {

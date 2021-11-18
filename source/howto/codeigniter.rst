@@ -38,7 +38,7 @@ framework using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public$uri",
                       "fallback": {
                           ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/codeigniter"
                       }

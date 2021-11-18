@@ -63,7 +63,7 @@ versions 1.1 or 2.0 using Unit:
                     },
                     {
                         "action": {
-                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`web/",
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`web$uri",
                             "fallback": {
                                 "pass": "applications/yii/index"
                             }
@@ -163,7 +163,7 @@ versions 1.1 or 2.0 using Unit:
                     },
                     {
                         "action": {
-                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                             "fallback": {
                                 "pass": "applications/yii/index"
                             }

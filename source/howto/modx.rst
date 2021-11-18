@@ -58,7 +58,7 @@ To run the `MODX <https://modx.com>`_ content application platform using Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/modx <A catch-all destination for the remaining requests>`"
                       }

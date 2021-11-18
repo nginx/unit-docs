@@ -77,7 +77,7 @@ using Unit:
                         },
 
                         "action": {
-                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app <Thus, URIs starting with /static/ are served from /path/to/app/static/>`$uri"
                         }
                     },
                     {
@@ -126,7 +126,7 @@ using Unit:
                         },
 
                         "action": {
-                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/>`"
+                            ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app <Thus, URIs starting with /static/ are served from /path/to/app/static/>`$uri"
                         }
                     },
                     {

@@ -59,7 +59,7 @@ using Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           "pass": "applications/wordpress/index"
                       }
