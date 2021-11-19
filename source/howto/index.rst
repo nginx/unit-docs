@@ -68,6 +68,7 @@ following frameworks:
    guillotina
    koa
    laravel
+   lumen
    pyramid
    quart
    responder
