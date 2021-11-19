@@ -2161,24 +2161,27 @@ Path Restrictions
    To provide these options, Unit must be built and run on a system with Linux
    kernel version 5.6+.
 
-The :samp:`chroot` option confines the path resolution of files served from a
-share to a certain directory.  One notable effect of defining :samp:`chroot` is
-that symbolic links to absolute pathnames are treated as relative to this
-directory; thus, a symlink to :file:`/log/app.log` in this example is resolved
-as :file:`/www/data/log/app.log`:
+The :samp:`chroot` option confines the path resolution within a share to a
+certain directory.  First, it affects symbolic links: any attempts to go up the
+directory tree with relative symlinks like :samp:`../../var/log` stop at the
+:samp:`chroot` directory, and absolute symlinks are treated as relative to this
+directory to avoid breaking out:
 
 .. code-block:: json
 
    {
        "action": {
-           "share": "/www/data/static$uri",
+           "share": "/www/data$uri",
            "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
        }
    }
 
-The :samp:`share` path stays as is and won't be treated as relative; only the
-portions that occur after the :samp:`chroot` value (if any) are affected by the
-new behavior.  Moreover, any requests for files outside :samp:`chroot` fail:
+Here, a request for :file:`/log` initially resolves to :file:`/www/data/log`;
+however, if that's an absolute symlink to :file:`/var/log/app.log`, the
+resulting path is :file:`/www/data/var/log/app.log`.
+
+Another effect is that any requests for paths that resolve outside the
+:samp:`chroot` directory are forbidden:
 
 .. code-block:: json
 
@@ -2187,32 +2190,29 @@ new behavior.  Moreover, any requests for files outside :samp:`chroot` fail:
            "share": "/www$uri",
            "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
        }
-   }
+  }
 
-In this configuration, a request for :samp:`/index.xml` results in a 403
-"Forbidden" response because it is resolved as :samp:`/www/index.xml`, which is
-outside :samp:`chroot`.
+Here, a request for :samp:`/index.xml` elicits a 403 "Forbidden" response
+because it resolves to :samp:`/www/index.xml`, which is outside :samp:`chroot`.
 
 .. _configuration-share-resolution:
 
 The :samp:`follow_symlinks` and :samp:`traverse_mounts` options disable
-resolution of symbolic links and traversal of mount points when set to
-:samp:`false` (both default to :samp:`true`):
+resolution of symlinks and traversal of mount points when set to :samp:`false`
+(both default to :samp:`true`):
 
 .. code-block:: json
 
    {
        "action": {
-           "share": "/www/data/static$uri",
+           "share": "/www/$host/static$uri",
            "follow_symlinks": :nxt_hint:`false <Disables symlink traversal>`,
            "traverse_mounts": :nxt_hint:`false <Disables mount point traversal>`
        }
    }
 
-Here, any request that involves a symlink or a mount point inside
-:file:`/www/data/static/` will fail; also, if a portion of the :samp:`share`
-path is a symlink or a mount point, this configuration will be accepted but
-won't work.
+Here, any symlink or mount point in the entire :samp:`share` path will result
+in a 403 "Forbidden" response.
 
 With :samp:`chroot` set, :samp:`follow_symlinks` and :samp:`traverse_mounts`
 only affect portions of the path after :samp:`chroot`:
@@ -2221,42 +2221,45 @@ only affect portions of the path after :samp:`chroot`:
 
    {
        "action": {
-           "share": "/www/data/static$uri",
-           "chroot": "/www/data/",
+           "share": "/www/$host/static$uri",
+           "chroot": "/www/$host/",
            "follow_symlinks": false,
            "traverse_mounts": false
        }
    }
 
-Here, :file:`www/` and :samp:`data/` can be symlinks or mount points, but any
-symlinks and mount points beyond them, including the :file:`static/` portion,
-won't be resolved.
+Here, :file:`www/` and interpolated :samp:`$host` can be symlinks or mount
+points, but any symlinks and mount points beyond them, including the
+:file:`static/` portion, won't be resolved.
 
 .. nxt_details:: Details
 
    Suppose you want to serve files from a share that itself includes a symlink
-   (say, :file:`data/` in our example) but disable any symlinks inside the
-   share.  Initial configuration:
+   (let's assume :samp:`$host` always resolves to :samp:`localhost` and make it
+   a symlink in our example) but disable any symlinks inside the share.
+
+   Initial configuration:
 
    .. code-block:: json
 
       {
           "action": {
-              "share": "/www/data/static$uri",
-              "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
+              "share": "/www/$host/static$uri",
+              "chroot": ":nxt_hint:`/www/$host/ <Now, any paths accessible via the share are confined to this directory>`"
           }
       }
 
-   Let's create a symlink to :file:`/www/data/static/index.html`:
+   Create a symlink to :file:`/www/localhost/static/index.html`:
 
    .. code-block:: console
 
-      $ cat > /www/data/static/index.html <<EOF
+      $ mkdir -p /www/localhost/static/ && cd /www/localhost/static/
+      $ cat > index.html << EOF
 
             > index.html
             > EOF
 
-      $ ln -s index.html /www/data/static/symlink
+      $ ln -s index.html /www/localhost/static/symlink
 
    If symlink resolution is enabled (with or without :samp:`chroot`), a request
    that targets the symlink works:
@@ -2271,19 +2274,19 @@ won't be resolved.
 
             index.html
 
-   Let's set :samp:`follow_symlinks` to :samp:`false`:
+   Now set :samp:`follow_symlinks` to :samp:`false`:
 
    .. code-block:: json
 
       {
           "action": {
-              "share": "/www/data/static$uri",
-              "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`",
+              "share": "/www/$host/static$uri",
+              "chroot": ":nxt_hint:`/www/$host/ <Now, any paths accessible via the share are confined to this directory>`",
               "follow_symlinks": false
           }
       }
 
-   Now the symlink request fails, which is the desired effect:
+   The symlink request is forbidden, which is presumably the desired effect:
 
    .. code-block:: console
 
@@ -2295,19 +2298,19 @@ won't be resolved.
 
             <!DOCTYPE html><title>Error 403</title><p>Error 403.
 
-   Lastly, what difference does :samp:`chroot` make?  Let's remove it:
+   Lastly, what difference does :samp:`chroot` make?  To see, remove it:
 
    .. code-block:: json
 
       {
           "action": {
-              "share": "/www/data/static$uri",
+              "share": "/www/$host/static$uri",
               "follow_symlinks": false
           }
       }
 
-   This request fails because :samp:`"follow_symlinks": false` affects the
-   entire share, and :samp:`data/` is a symlink:
+   Now, :samp:`"follow_symlinks": false` affects the entire share, and
+   :samp:`localhost` is a symlink, so it's forbidden:
 
    .. code-block:: console
 
