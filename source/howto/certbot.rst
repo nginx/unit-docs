@@ -48,7 +48,7 @@ Generating Certificates
       You must be able to edit the server's DNS entries to use the second
       method.  Certbot offers other domain validation methods
       (`authenticators
-      <https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins>`_)
+      <https://eff-certbot.readthedocs.io/en/stable/using.html#getting-certificates-and-choosing-plugins>`_)
       as well, but they're not discussed here for brevity.
 
    Both commands above store the resulting :file:`.pem` files as follows:
@@ -124,8 +124,9 @@ Renewing Certificates
 *********************
 
 Certbot enables renewing the certificates `manually
-<https://certbot.eff.org/docs/using.html#renewing-certificates>`_ or
-`automatically <https://certbot.eff.org/docs/using.html#automated-renewals>`_.
+<https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates>`_
+or `automatically
+<https://eff-certbot.readthedocs.io/en/stable/using.html#automated-renewals>`_.
 For manual renewal and rollover:
 
 #. Repeat the steps above to renew the certificates and upload the new bundle
@@ -189,8 +190,8 @@ For manual renewal and rollover:
 .. note::
 
    Currently, Certbot doesn't have `installer plugins
-   <https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins>`_
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#getting-certificates-and-choosing-plugins>`_
    that enable automatic certificate rollover in Unit.  However, you can set up
    Certbot's `hooks
-   <https://certbot.eff.org/docs/using.html?highlight=hooks#renewing-certificates>`_
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates>`_
    using the commands above to the same effect.

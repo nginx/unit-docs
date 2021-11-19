@@ -2821,8 +2821,8 @@ The :samp:`isolation` application option has the following members:
 
    * - :samp:`uidmap`
      - Array of `ID mapping
-       <http://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_ objects;
-       each array item must define the following:
+       <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
+       objects; each array item must define the following:
 
        .. list-table::
 
@@ -3169,7 +3169,7 @@ with :samp:`unit.ListenAndServe`:
        ...
    }
 
-Next, create a `Go module <https://blog.golang.org/using-go-modules>`__ and
+Next, create a `Go module <https://go.dev/blog/using-go-modules>`__ and
 build your application:
 
 .. code-block:: console

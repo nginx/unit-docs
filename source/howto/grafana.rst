@@ -124,7 +124,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
       $ yarn install --pure-lockfile
       $ yarn start
 
-   Note the directory where the newly-built :file:`grafana-server` is placed,
+   Note the directory where the newly built :file:`grafana-server` is placed,
    usually :file:`$GOPATH/bin/`; it's used for the :samp:`executable` option in
    the Unit configuration.
 

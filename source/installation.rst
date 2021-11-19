@@ -1405,9 +1405,9 @@ Community Repositories
 
    .. tab:: FreeBSD
 
-        To install Unit from `FreeBSD packages <https://www.
-        freebsd.org/doc/en_US.ISO8859-1/books/handbook/pkgng-intro.html>`_,
-        get the core package and other packages you need:
+        To install Unit from `FreeBSD packages
+        <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_, get
+        the core package and other packages you need:
 
         .. code-block:: console
 
@@ -1420,8 +1420,8 @@ Community Repositories
                             unit-ruby2.7
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
-        To install Unit from `FreeBSD ports <https://www.
-        freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html>`_,
+        To install Unit from `FreeBSD ports
+        <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_,
         start by updating your port collection.
 
         With :program:`portsnap`:
