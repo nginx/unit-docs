@@ -773,8 +773,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb https://packages.nginx.org/unit/ubuntu/ impish unit
-            deb-src https://packages.nginx.org/unit/ubuntu/ impish unit
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
 
       #. Install the core package and other packages you need:
 
@@ -805,13 +805,12 @@ Ubuntu
 
       Supported architectures: arm64, x86-64.
 
-      #. Download NGINX's `signing key
-         <https://nginx.org/keys/nginx_signing.key>`_ and add it to
-         :program:`apt`'s keyring:
+      #. Download and save NGINX's signing key:
 
          .. code-block:: console
 
-            # curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the ``packages cannot be authenticated`` warnings
          during installation.
