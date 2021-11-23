@@ -84,14 +84,14 @@ vary by install method.
 
       .. subs-code-block:: console
 
-         $ docker run -d nginx/unit:|version|-full unitd-debug --no-daemon  \
+         $ docker run -d nginx/unit:|version|-minimal unitd-debug --no-daemon  \
                --control unix:/var/run/control.unit.sock
 
       Another option is adding a new layer in a Dockerfile:
 
       .. subs-code-block:: docker
 
-         FROM nginx/unit:|version|-full
+         FROM nginx/unit:|version|-minimal
 
          CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
 
