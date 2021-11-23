@@ -76,6 +76,7 @@ vary by install method.
 
          # unitd-debug <command line options>
 
+
    .. tab:: Running From Docker Images
 
       To enable debug-level logging when using our Docker :ref:`images
@@ -96,6 +97,7 @@ vary by install method.
 
       The :samp:`CMD` instruction above replaces the default :program:`unitd`
       executable with its debug version.
+
 
    .. tab:: Building From Source
 
@@ -178,6 +180,7 @@ such as :samp:`unit-dbg`.
                ...
                -rw-r----- 1 root root 177662 Jul 27 11:05 core.unitd.0.6135489c850b4fb4a74795ebbc1e382a.1157.1590577472000000.lz4
 
+
    .. tab:: Linux: Manual Setup
 
       Check the `core dump settings
@@ -207,6 +210,7 @@ such as :samp:`unit-dbg`.
 
                ...
                -rw-r----- 1 root root 177662 Jul 27 11:05 core.1157
+
 
    .. tab:: FreeBSD
 

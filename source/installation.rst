@@ -697,6 +697,7 @@ RHEL
          * - Non-privileged :ref:`user and group <security-apps>`
            - :samp:`unit`
 
+
    .. tab:: 6.x
 
       .. warning::
@@ -1897,6 +1898,7 @@ You can obtain the images from these sources:
          $ docker pull docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
          $ docker run -d docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
+
    .. tab:: Amazon ECR Public Gallery
 
       To install and run Unit from NGINX's `repository
@@ -1906,6 +1908,7 @@ You can obtain the images from these sources:
 
          $ docker pull public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
          $ docker run -d public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+
 
    .. tab:: packages.nginx.org
 
@@ -2082,6 +2085,7 @@ and revision numbers, respectively); omit the packages you won't use.
          # apt install libssl-dev
          # apt install libpcre2-dev
 
+
    .. tab:: Amazon, CentOS, Fedora, RHEL
 
       .. code-block:: console
@@ -2098,6 +2102,7 @@ and revision numbers, respectively); omit the packages you won't use.
          # yum install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
          # yum install openssl-devel
          # yum install pcre2-devel
+
 
    .. tab:: FreeBSD
 
@@ -2129,6 +2134,7 @@ and revision numbers, respectively); omit the packages you won't use.
          # pkg install openjdk:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`
          # pkg install openssl
          # pkg install pcre2
+
 
    .. tab:: Solaris
 
@@ -2435,6 +2441,7 @@ and place module-specific instructions in the :file:`Makefile`.
          compile-time :envvar:`GOPATH`) must be coherent at build time for Go
          to locate the Unit package.
 
+
    .. tab:: Java
 
       When you run :command:`./configure java`, the script configures a module
@@ -2484,6 +2491,7 @@ and place module-specific instructions in the :file:`Makefile`.
          $ ./configure java --module=java11 \
                             --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 
+
    .. tab:: Node.js
 
       When you run :command:`./configure nodejs`, Unit sets up the
@@ -2514,6 +2522,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
              The default is :samp:`node-gyp`.
 
+
    .. tab:: Perl
 
       When you run :command:`./configure perl`, the script configures a module
@@ -2540,6 +2549,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
          $ ./configure perl --module=perl-5.20 \
                             --perl=perl5.20.2
+
 
    .. tab:: PHP
 
@@ -2586,6 +2596,7 @@ and place module-specific instructions in the :file:`Makefile`.
                            --config=/usr/lib64/php7.0/bin/php-config \
                            --lib-path=/usr/lib64/php7.0/lib64
 
+
    .. tab:: Python
 
       When you run :command:`./configure python`, the script configures a
@@ -2618,6 +2629,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
          $ ./configure python --module=py33 \
                               --config=python-config-3.3
+
 
    .. tab:: Ruby
 
