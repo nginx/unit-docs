@@ -570,6 +570,12 @@ and place module-specific instructions in the :file:`Makefile`.
              suffix; thus, :samp:`/path/python3-config` turns into
              :samp:`python3`.
 
+      .. note::
+
+         The Python interpreter set by :program:`python-config` must be
+         compiled with the :option:`!--enable-shared` `option
+         <https://docs.python.org/3/using/configure.html#linker-options>`__.
+
       To configure a module called :file:`py33.unit.so` for Python |_| 3.3:
 
       .. code-block:: console
