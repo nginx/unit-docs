@@ -102,14 +102,14 @@ vary by install method.
    .. tab:: Building From Source
 
       To enable debug-level logging when :ref:`installing from source
-      <installation-src>`, use the :option:`!--debug` option:
+      <source>`, use the :option:`!--debug` option:
 
       .. code-block:: console
 
          $ ./configure --debug <other options>
 
       Then recompile and reinstall Unit and your :ref:`language
-      modules <installation-src-modules>` of choice.
+      modules <source-modules>` of choice.
 
 
 .. _troubleshooting-core-dumps:

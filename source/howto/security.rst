@@ -37,7 +37,7 @@ versions shortly after they are released.
      <installation-community-repos>`, consult the maintainer's documentation
      for details.
 
-   - If you install Unit from :ref:`source files <installation-src>`,
+   - If you install Unit from :ref:`source files <source>`,
      rebuild and reinstall Unit and its modules from scratch.
 
 
@@ -48,7 +48,7 @@ Secure Socket and State
 ***********************
 
 **Rationale**: Your :ref:`control socket and state directory
-<installation-src-dir>` provide unlimited access to Unit's configuration, which
+<source-dir>` provide unlimited access to Unit's configuration, which
 calls for stringent protection.
 
 **Actions**: Default configuration in our :ref:`official packages
@@ -555,8 +555,8 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       * - Controller
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Serves the control API, accepting reconfiguration requests,
           sanitizing them, and passing them to other processes for
           implementation.
@@ -564,16 +564,16 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       * - Discovery
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Discovers the language modules in the module directory at startup,
           then quits.
 
       * - Router
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Serves client requests, accepting them, processing them on the spot,
           passing them to app processes, or proxying them further; requires
           access to static content paths you configure.

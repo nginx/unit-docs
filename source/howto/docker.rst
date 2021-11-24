@@ -111,7 +111,7 @@ app:
    EOF
 
 Finally, let's create :file:`log/` and :file:`state/` directories to store Unit
-:ref:`log and state <installation-src-startup>` respectively:
+:ref:`log and state <source-startup>` respectively:
 
 .. code-block:: console
 
@@ -419,7 +419,7 @@ and installs official language module packages:
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 Instead of packages, you can build custom :ref:`modules
-<installation-src-modules>`; use these :file:`Dockerfile.*` `templates
+<source-modules>`; use these :file:`Dockerfile.*` `templates
 <https://github.com/nginx/unit/tree/master/pkg/docker>`__ as reference.
 
 
@@ -440,7 +440,7 @@ Dockerfile layer:
 
 The :samp:`CMD` instruction above replaces the default :program:`unitd`
 executable with its debug version.  Use Unit's :ref:`command-line options
-<installation-src-startup>` to alter its startup behavior, for example:
+<source-startup>` to alter its startup behavior, for example:
 
 .. subs-code-block:: docker
 

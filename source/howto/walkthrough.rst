@@ -16,7 +16,7 @@ your technology stack, or simply be tech-curious.  In any case:
      - Things to do
 
    * - **Check the prerequisites**
-     - #. Verify that Unit :ref:`supports <installation-prereqs>` your
+     - #. Verify that Unit :ref:`supports <source-prereqs>` your
           platform and app language version.
 
        #. If possible, ensure the app can run beside Unit to rule out
@@ -32,7 +32,7 @@ your technology stack, or simply be tech-curious.  In any case:
 
           - Third-party :ref:`packages <installation-community-repos>`
 
-          - Source :ref:`build <installation-src>`
+          - Source :ref:`build <source>`
 
        #. Configure and launch Unit on your system:
 
@@ -44,7 +44,7 @@ your technology stack, or simply be tech-curious.  In any case:
             :program:`docker` commands.
 
           - If none of the above applies, customize Unit's :ref:`startup
-            <installation-src-startup>` manually.
+            <source-startup>` manually.
 
    * - **Prepare** |_| **the** |_| **app** |_| **for** |_| **Unit**
      - #. *(Only applies to :ref:`Go <configuration-go>`)* Patch

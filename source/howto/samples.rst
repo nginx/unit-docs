@@ -34,7 +34,7 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
 
 Compile it using the source code from the Go language package you have
 :ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<installation-modules-go>` earlier:
+<howto/source-modules-go>` earlier:
 
 .. code-block:: console
 

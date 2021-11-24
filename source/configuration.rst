@@ -16,7 +16,7 @@ Quick Start
 To run an application on Unit, first set up an :ref:`application
 <configuration-applications>` object.  Let's store it in a file to :samp:`PUT`
 it into the :samp:`config/applications` section of Unit's control API,
-available via the :ref:`control socket <installation-src-startup>` at
+available via the :ref:`control socket <source-startup>` at
 :samp:`http://localhost/`:
 
 .. code-block:: console
@@ -93,7 +93,7 @@ Configuration Management
 ************************
 
 Unit's configuration is JSON-based, accessed via the :ref:`control socket
-<installation-src-startup>`, and entirely manageable over HTTP.
+<source-startup>`, and entirely manageable over HTTP.
 
 .. note::
 
@@ -367,7 +367,7 @@ only the :samp:`pass` value and leaves other options intact.
 
    Although Unit is fully dynamic, sometimes you just want to copy an existing
    setup without the need for subsequent meddling.  Unit's :ref:`state
-   directories <installation-config-src-state>` are interchangeable, provided
+   directories <source-config-src-state>` are interchangeable, provided
    they are used by the same version of Unit that created them, so you can use
    a shortcut to replicate a Unit instance.
 
@@ -421,7 +421,7 @@ only the :samp:`pass` value and leaves other options intact.
 
       If you run your Unit instances manually, :option:`!--state` can be
       used to set the state directory at :ref:`startup
-      <installation-src-startup>`.
+      <source-startup>`.
 
    After the restart, the target instance picks up the configuration you've
    copied to the state directory.
@@ -2704,8 +2704,8 @@ App objects have a number of options shared between all application languages:
 
     * - :samp:`user`
       - Username that runs the app process.  If not set, the username
-        configured at :ref:`build time <installation-config-src>` or :ref:`at
-        startup <installation-src-startup>` to run Unit's non-privileged
+        configured at :ref:`build time <source-config-src>` or :ref:`at
+        startup <source-startup>` to run Unit's non-privileged
         :ref:`processes <security-apps>` is used.
 
     * - :samp:`group`
@@ -2988,7 +2988,7 @@ stays operational:
    * - Java
      - - JVM's :file:`libc.so` directory
 
-       - Java module's :ref:`home <installation-modules-java>` directory
+       - Java module's :ref:`home <howto/source-modules-java>` directory
 
    * - Python
      - Python's :samp:`sys.path` `directories
@@ -3145,7 +3145,7 @@ Example:
 Before applying the configuration, update the application source code.  In the
 :samp:`import` section, reference the :samp:`unit.nginx.org/go` package that
 you :ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<installation-modules-go>` earlier:
+<howto/source-modules-go>` earlier:
 
 .. code-block:: go
 

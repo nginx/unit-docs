@@ -25,16 +25,17 @@ like any other.  They provide common web functionality, communicating with Unit
 from the app's runspace.
 
 In Go, Unit support is implemented with a package that you :ref:`import
-<configuration-go>` to your apps.  You can :ref:`install <installation-go>` the
-package from the official Unit repository; otherwise, :ref:`build
-<installation-go>` it for your version of Go using Unit's sources.
+<configuration-go>` to your apps.  You can :ref:`install
+<installation-go-package>` the package from the official Unit repository;
+otherwise, :ref:`build <howto/source-modules-go>` it for your version of Go
+using Unit's sources.
 
 In Node.js, Unit is supported by an :program:`npm`-hosted `package
 <https://www.npmjs.com/package/unit-http>`__ that you :ref:`require
 <configuration-nodejs>` in your app code.  You can :ref:`install
 <installation-nodejs-package>` the package from the :program:`npm` repository;
-otherwise, :ref:`build <installation-nodejs>` it for your version of Node.js
-using Unit's sources.
+otherwise, :ref:`build <howto/source-modules-nodejs>` it for your version of
+Node.js using Unit's sources.
 
 
 .. _modules-emb:
@@ -102,14 +103,15 @@ this case, you can build your own package to be installed alongside the
 official distribution, adding the latter as a prerequisite.
 
 Here, we are packaging a custom PHP |_| 7.3 :ref:`module
-<installation-modules-php>` to be installed next to the official Unit package;
+<howto/source-modules-php>` to be installed next to the official Unit package;
 adjust the command samples as needed to fit your scenario.
 
 .. note::
 
-   For elaborate Unit packaging examples, refer to our packaging system
+   For details of building Unit language modules, see the source code
+   :ref:`howto <source-modules>`; it also describes building
+   :doc:`Unit <source>` itself.  For more packaging examples, see our package
    `sources <https://hg.nginx.org/unit/file/tip/pkg/>`_.
-
 
 ..
    Legacy anchors to preserve existing external links.
@@ -126,7 +128,7 @@ adjust the command samples as needed to fit your scenario.
       Unit package installed:
 
       #. Make sure to install the :ref:`prerequisites
-         <installation-prereq-build>` for the package.  In our example,
+         <source-prereq-build>` for the package.  In our example,
          it's PHP |_| 7.3 on Debian |_| 10:
 
          .. code-block:: console
@@ -153,7 +155,7 @@ adjust the command samples as needed to fit your scenario.
          :file:`DEBIAN` folder will store the package definition.
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
-         :ref:`flags <installation-config-src>` for later use, omitting
+         :ref:`flags <source-config-src>` for later use, omitting
          :option:`!--ld-opt`:
 
          .. subs-code-block:: console
@@ -163,7 +165,7 @@ adjust the command samples as needed to fit your scenario.
                 unit version: |version|
                 configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt>`
 
-      #. Download Unit's sources, :ref:`configure <installation-src-modules>`
+      #. Download Unit's sources, :ref:`configure <source-modules>`
          and build your custom module, then put it where Unit will find it:
 
          .. subs-code-block:: console
@@ -211,7 +213,7 @@ adjust the command samples as needed to fit your scenario.
       Unit package installed:
 
       #. Make sure to install the :ref:`prerequisites
-         <installation-prereq-build>` for the package.  In our example,
+         <source-prereq-build>` for the package.  In our example,
          it's PHP |_| 7.3 on Fedora |_| 30:
 
          .. code-block:: console
@@ -236,7 +238,7 @@ adjust the command samples as needed to fit your scenario.
             $ rpmdev-newspec unit-php7.3
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
-         :ref:`flags <installation-config-src>` for later use, omitting
+         :ref:`flags <source-config-src>` for later use, omitting
          :option:`!--ld-opt`:
 
          .. subs-code-block:: console
@@ -248,7 +250,7 @@ adjust the command samples as needed to fit your scenario.
 
       #. Edit the :file:`unit-php7.3.spec` file, adding the commands that
          download Unit's sources, :ref:`configure
-         <installation-src-modules>` and build your custom module, then
+         <source-modules>` and build your custom module, then
          put it where Unit will find it:
 
          .. subs-code-block:: spec
