@@ -1699,12 +1699,13 @@ An example:
                },
 
                "action": {
-                   "share": "/var/www/static$uri",
+                   "share": [
+                       "/var/www/static$uri",
+                       "/var/www/static/assets$uri"
+                    ],
+
                    "fallback": {
-                       "share": "/var/www/static/assets$uri",
-                       "fallback": {
-                            "pass": "upstreams/cdn"
-                       }
+                        "pass": "upstreams/cdn"
                    }
                }
            },
@@ -2363,17 +2364,18 @@ If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
    {
        "share": "/www/data/static$uri",
        "fallback": {
-           "share": "/www/data/cache$uri",
+           "share": "/www/cache$uri",
+           "chroot": "/www/",
            "fallback": {
                "proxy": "http://127.0.0.1:9000"
            }
        }
    }
 
-First, this configuration tries to serve the request from the
-:file:`/www/data/static/` directory; on failure, it queries the
-:file:`/www/data/cache/` path.  Only if both attempts fail, the request is
-proxied to an external server.
+The first :samp:`share` tries to serve the request from
+:file:`/www/data/static/`; on failure, the second :samp:`share` tries the
+:file:`/www/cache/` path with :samp:`chroot` enabled.  If both attempts fail,
+the request is proxied elsewhere.
 
 .. nxt_details:: Examples
 
