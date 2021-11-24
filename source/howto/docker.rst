@@ -421,3 +421,32 @@ and installs official language module packages:
 Instead of packages, you can build custom :ref:`modules
 <installation-src-modules>`; use these :file:`Dockerfile.*` `templates
 <https://github.com/nginx/unit/tree/master/pkg/docker>`__ as reference.
+
+
+.. _docker-startup:
+
+*********************
+Startup Customization
+*********************
+
+Finally, you can customize the way Unit starts in a container by adding a new
+Dockerfile layer:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+
+   CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
+
+The :samp:`CMD` instruction above replaces the default :program:`unitd`
+executable with its debug version.  Use Unit's :ref:`command-line options
+<installation-src-startup>` to alter its startup behavior, for example:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+
+   CMD ["unitd","--no-daemon","--control","0.0.0.0:8080"]
+
+This replaces Unit's default Unix domain control socket with an IP socket
+address.
