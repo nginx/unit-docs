@@ -1075,7 +1075,7 @@ object define patterns to be compared to the requests' properties:
    * - :samp:`scheme`
      - URI `scheme
        <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
-       Currently, only :samp:`http` and :samp:`https` are supported.
+       Accepts only two patterns, either :samp:`http` or :samp:`https`.
      - No
 
    * - :samp:`source`
@@ -1154,10 +1154,15 @@ To be a match, the property must meet two requirements:
 
 - No negated patterns match the property value.
 
-.. note::
+.. nxt_details:: Formal Explanation
 
-   The :samp:`scheme` property accepts no patterns or arrays, but only two
-   string values: :samp:`http` or :samp:`https`.
+   This logic can be described with set operations.  Suppose set *U* comprises
+   all possible values of a property; set *P* comprises strings that match any
+   patterns without negation; set *N* comprises strings that match any
+   negation-based patterns.  In this scheme, the matching set will be:
+
+   | *U* ∩ *P* \\ *N* if *P* ≠ ∅
+   | *U* \\ *N* if *P* = ∅
 
 Here, the URI of the request must fit :samp:`pattern3`, but should not match
 :samp:`pattern1` or :samp:`pattern2`.
@@ -1177,16 +1182,6 @@ Here, the URI of the request must fit :samp:`pattern3`, but should not match
            "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
        }
    }
-
-.. nxt_details:: Formal Explanation
-
-   This logic can be described with set operations.  Suppose set *U* comprises
-   all possible values of a property; set *P* comprises strings that match any
-   patterns without negation; set *N* comprises strings that match any
-   negation-based patterns.  In this scheme, the matching set will be:
-
-   | *U* ∩ *P* \\ *N* if *P* ≠ ∅
-   | *U* \\ *N* if *P* = ∅
 
 Additionally, special matching logic is used for :samp:`arguments`,
 :samp:`cookies`, and :samp:`headers`. Each of these can be a single object that
