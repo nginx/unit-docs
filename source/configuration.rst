@@ -900,8 +900,8 @@ they accept the following options:
 
 A request passed to a route traverses its steps sequentially:
 
-- If all :samp:`match` conditions in a step are met, the step's :samp:`action`
-  is performed.
+- If all :samp:`match` conditions in a step are met, the traversal ends and the
+  step's :samp:`action` is performed.
 
 - If a step's condition isn't met, Unit proceeds to the next step of the route.
 
