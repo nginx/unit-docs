@@ -6,7 +6,7 @@ FROM docker.io/nginx/unit:1.26.0-go1.17
 EXPOSE 8080
 
 # application setup
-RUN mkdir /www/ && echo '                                                  \
+RUN mkdir /www/ && go env -w GO111MODULE=auto && echo '                    \
     package main;                                                          \
     import (                                                               \
         "io";                                                              \
