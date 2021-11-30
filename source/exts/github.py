@@ -21,9 +21,9 @@ import warnings
 def get_github_url(app, view, path):
     """Forms a URL of the corresponding GitHub page."""
 
-    return 'https://github.com/{project}/{view}/{branch}/source/{path}'.format(
-        project=app.config.edit_on_github_project, view=view,
-        branch=app.config.edit_on_github_branch, path=path)
+    project = app.config.edit_on_github_project
+    branch = app.config.edit_on_github_branch
+    return f'https://github.com/{project}/{view}/{branch}/source/{path}'
 
 
 def html_page_context(app, pagename, templatename, context, doctree):

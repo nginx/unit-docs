@@ -148,7 +148,7 @@ class nxt_tab_head(nodes.Text):
 
 # Regex to match `text w/punctuation <text w/punctuation>` in nxt_* directives.
 NXT_PLAIN_TEXT = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
-NXT_HINT_REGEX = r'`({0}*[^\s])\s*<({0}+)>`'.format(NXT_PLAIN_TEXT)
+NXT_HINT_REGEX = fr'`({NXT_PLAIN_TEXT}*[^\s])\s*<({NXT_PLAIN_TEXT}+)>`'
 NXT_VAR_REGEX = r'(\$[a-zA-Z_]+|\${[a-zA-Z_]+})'
 
 
@@ -164,8 +164,7 @@ def nxt_hint_role_fn(_: str, rawtext: str, text: str, lineno: int, inliner:
         node.term, node.tip = groups.group(1), groups.group(2)
     except IndexError:
         msg = inliner.reporter.error(
-            'Inline term "{0}" is invalid.'.format(text),
-            line=lineno)
+            f'Inline term "{text}" is invalid.', line=lineno)
         prb = inliner.problematic(rawtext, rawtext, msg)
         return [prb], [msg]
 
@@ -267,10 +266,10 @@ class NxtTranslator(HTMLTranslator):
     def visit_nxt_details(self, node: Element) -> None:
         """Handles the nxt_details directive."""
 
-        self.body.append("""<details>
+        self.body.append(f"""<details>
             <summary onclick="this.addEventListener('click',
-            e => e.preventDefault())"><span>{0}</span></summary>"""
-            .format(node.summary_text))
+            e => e.preventDefault())"><span>{node.summary_text}</span>
+            </summary>""")
 
         HTMLTranslator.visit_container(self, node)
 
@@ -282,8 +281,8 @@ class NxtTranslator(HTMLTranslator):
 
     def visit_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
-        self.body.append('<span class=nxt_hint title="{1}">{0}</span>'
-                         .format(node.term, node.tip))
+        self.body.append(f'''<span class=nxt_hint title="{node.tip}">
+                         {node.term}</span>''')
 
     def depart_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
@@ -298,13 +297,11 @@ class NxtTranslator(HTMLTranslator):
 
     def visit_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
-        self.body.append("""
-            <input name={0} type=radio id={1} class=nojs {2}/>"""
-            .format(node.tabs_id, node.tab_id, node.checked))
+        self.body.append(f"""<input name={node.tabs_id} type=radio
+            id={node.tab_id} class=nojs {node.checked}/>""")
 
-        self.body.append("""<label for={0} id={1}>
-            <a href=#{1} onclick="nxt_tab_click(event)">"""
-            .format(node.tab_id, node.anchor_id))
+        self.body.append(f"""<label for={node.tab_id} id={node.anchor_id}>
+            <a href=#{node.anchor_id} onclick="nxt_tab_click(event)">""")
 
         HTMLTranslator.visit_Text(self, node)
 
@@ -499,10 +496,10 @@ class TabDirective(Directive):
 
         tab_head.tabs_id = env.temp_data['tabs_id'][-1]
         tab_head.checked = 'checked' if env.temp_data['tab_id'][-1] == 0 else ''
-        tab_head.tab_id = '{0}_{1}'.format(env.temp_data['tabs_id'][-1],
-                                           env.temp_data['tab_id'][-1])
-        tab_head.rstref_id = '{0}-{1}'.format(
-            env.docname + '-' + env.temp_data['tabs_id'][-1],
+        tab_head.tab_id = '{}_{}'.format(env.temp_data['tabs_id'][-1],
+            env.temp_data['tab_id'][-1])
+        tab_head.rstref_id = '{}-{}-{}'.format(env.docname,
+            env.temp_data['tabs_id'][-1],
             re.sub(r'[^\w\-]+', '', self.content[0])).lower()
         tab_head.anchor_id = tab_head.rstref_id.split('-', 1)[1]
         tab_head.tab_toc = env.temp_data['tab_toc']
