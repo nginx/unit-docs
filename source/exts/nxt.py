@@ -149,6 +149,7 @@ class nxt_tab_head(nodes.Text):
 # Regex to match `text w/punctuation <text w/punctuation>` in nxt_* directives.
 NXT_PLAIN_TEXT = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
 NXT_HINT_REGEX = r'`({0}*[^\s])\s*<({0}+)>`'.format(NXT_PLAIN_TEXT)
+NXT_VAR_REGEX = r'(\$[a-zA-Z_]+|\${[a-zA-Z_]+})'
 
 
 def nxt_hint_role_fn(_: str, rawtext: str, text: str, lineno: int, inliner:
@@ -184,37 +185,39 @@ class NxtHighlighter:
         """Preserves nxt_ directives, highlights syntax, replaces directives.
         """
 
-        ph_groups = re.findall(':nxt_ph:' + NXT_HINT_REGEX, source)
-        hint_groups = re.findall(':nxt_hint:' + NXT_HINT_REGEX, source)
 
-        for i in range(len(ph_groups)):
-            source = re.sub(':nxt_ph:' + NXT_HINT_REGEX,
-                            'nxt_ph_' + str(i), source, count=1)
+        groups = {}
 
-        for i in range(len(hint_groups)):
-            source = re.sub(':nxt_hint:' + NXT_HINT_REGEX,
-                            'nxt_hint_' + str(i), source, count=1)
+        groups['var'] = re.findall(NXT_VAR_REGEX, source)
+        for i in range(len(groups['var'])):
+            source = re.sub(NXT_VAR_REGEX, f'nxt_var_{i}', source, count=1)
+
+        categories = ['ph', 'hint']
+        for cat in categories:
+            groups[cat] = re.findall(f':nxt_{cat}:{NXT_HINT_REGEX}', source)
+            for i in range(len(groups[cat])):
+                source = re.sub(f':nxt_{cat}:{NXT_HINT_REGEX}',
+                                f'nxt_{cat}_{i}', source, count=1)
 
         highlighted = self.highlighter.highlight_block(
             source, lang, opts, force, location, **kwargs)
 
-        for i, group in enumerate(ph_groups):
-            highlighted = highlighted.replace(
-                'nxt_ph_' + str(i),
-                '<span class=nxt_ph title="{0}">{1}</span>'.format(group[1],
-                                                                   group[0]),
-                1)
+        for cat in categories:
+            for i, group in enumerate(groups[cat]):
+                txt, hnt = group
+                for j, var in enumerate(groups['var']):
+                    hnt = hnt.replace(f'nxt_var_{j}', var, 1)
 
-        for i, group in enumerate(hint_groups):
-            highlighted = highlighted.replace(
-                'nxt_hint_' + str(i),
-                '<span class=nxt_hint title="{0}">{1}</span>'.format(group[1],
-                                                                     group[0]),
-                1)
+                highlighted = highlighted.replace(f'nxt_{cat}_' + str(i),
+                    f'<span class=nxt_{cat} title="{hnt}">{txt}</span>', 1)
 
-        if ':nxt_ph:' in highlighted or ':nxt_hint:' in highlighted:
-            raise ExtensionError(__('Could not lex nxt_* directive at {0}. ').
-                                 format(location))
+            if f':nxt_{cat}:' in highlighted:
+                raise ExtensionError(
+                    __(f'Could not lex nxt_* entity at {location}. '))
+
+        for i, var in enumerate(groups['var']):
+            highlighted = highlighted.replace(f'nxt_var_{i}',
+                f'<span class=nxt_var>{var}</span>', 1)
 
         return highlighted
 

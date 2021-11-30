@@ -570,6 +570,9 @@ body > div {
     text-decoration: underline dotted;
     cursor: help;
 }
+.highlight-json .nxt_var {
+    color: #fada5e;
+}
 
 /* Tabs */
 
