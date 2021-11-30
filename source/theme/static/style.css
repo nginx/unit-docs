@@ -600,7 +600,7 @@ body > div {
     cursor: pointer;
     display: block;
     overflow: hidden;
-    padding: .3em 1em;
+    padding: .3em .6em;
     text-decoration: none;
     white-space: nowrap;
 }
