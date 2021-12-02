@@ -1,6 +1,6 @@
-FROM docker.io/nginx/unit:1.26.0-php8.0
+FROM docker.io/nginx/unit:1.26.1-php8.0
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.26.0-php8.0
+# FROM public.ecr.aws/nginx/unit:1.26.1-php8.0
 
 # port used by the listener in config.json
 EXPOSE 8080
