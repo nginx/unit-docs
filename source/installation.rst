@@ -60,6 +60,13 @@ the same language):
 - Python |_| 2.6, 2.7, 3
 - Ruby |_| 2.0 or later
 
+Optional dependencies:
+
+- OpenSSL 1.0.2+ for :ref:`TLS <configuration-ssl>` support
+
+- PCRE (8.0+) or PCRE2 (10.23+) for :ref:`regular expression matching
+  <configuration-routes-matching-patterns>`
+
 
 .. _installation-precomp-pkgs:
 
