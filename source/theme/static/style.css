@@ -24,10 +24,23 @@ body > div {
     padding: 0 1.5em;
     max-width: 70em;
 }
+#rennab {
+    max-width: 100%;
+    padding: .3em 0;
+    background: #00974d;
+    font-size: .9em;
+    text-align: center;
+    box-shadow: 0 .2em .5em #333;
+}
+#rennab a {
+    color: white;
+}
 #side {
-    position: fixed;
+    position: sticky;
+    float: left;
+    top: 0;
     width: 18em;
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
 }
 #side h1 {
@@ -693,6 +706,8 @@ body > div {
 @media (max-width: 53em) {
     #side {
         position: relative;
+        float: inherit;
+        height: 100%;
     }
     #side h1 {
         margin-left: 7.5em;
