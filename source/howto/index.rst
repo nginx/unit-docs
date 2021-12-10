@@ -111,6 +111,7 @@ as:
    plone
    redmine
    reviewboard
+   roundcube
    trac
    wordpress
 

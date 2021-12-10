@@ -3639,8 +3639,9 @@ App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
    :doc:`howto/codeigniter`, :doc:`howto/dokuwiki`, :doc:`howto/drupal`,
    :doc:`howto/laravel`, :doc:`howto/lumen`, :doc:`howto/matomo`,
    :doc:`howto/mediawiki`, :doc:`howto/modx`, :doc:`howto/nextcloud`,
-   :doc:`howto/phpbb`, :doc:`howto/symfony`, :doc:`howto/wordpress`, and
-   :doc:`howto/yii` howtos or a basic :ref:`sample <sample-php>`.
+   :doc:`howto/phpbb`, :doc:`howto/roundcube`, :doc:`howto/symfony`,
+   :doc:`howto/wordpress`, and :doc:`howto/yii` howtos or a basic :ref:`sample
+   <sample-php>`.
 
 
 .. _configuration-python:
