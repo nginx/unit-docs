@@ -68,7 +68,7 @@ To run the `Roundcube <https://roundcube.net>`_ webmail platform using Unit:
       :width: 100%
       :alt: Roundcube on Unit - Setup Screen
 
-   After installation, switch :samp:`share` and :samp:`root` to the
+#. After installation, switch :samp:`share` and :samp:`root` to the
    :file:`public_html/` subdirectory to `protect
    <https://github.com/roundcube/roundcubemail/wiki/Installation#protect-your-installation>`__
    sensitive data:
