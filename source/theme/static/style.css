@@ -19,21 +19,21 @@ a:hover {
 iframe {
     border: none;
 }
-body > div {
-    margin: 0 auto;
-    padding: 0 1.5em;
-    max-width: 70em;
-}
 #rennab {
-    max-width: 100%;
     padding: .3em 0;
     background: #00974d;
     font-size: .9em;
+    font-weight: bold;
     text-align: center;
     box-shadow: 0 .2em .5em #333;
 }
 #rennab a {
     color: white;
+}
+#main {
+    margin: 0 auto;
+    padding: 0 1.5em;
+    max-width: 70em;
 }
 #side {
     position: sticky;
@@ -73,6 +73,9 @@ body > div {
     visibility: hidden;
     opacity: 0;
     transition: none;
+}
+#side > ul {
+    margin-bottom: 2em;
 }
 #side ul {
     margin-left: .2em;
