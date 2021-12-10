@@ -1529,6 +1529,46 @@ behavior:
 - Ranges (:samp:`-`) can used with both IPs (in respective notation) and ports
   (:samp:`<start_port>-<end_port>`).
 
+.. nxt_details:: Address-Based Allow-Deny Lists
+
+   Addresses come in handy when implementing an allow-deny mechanism with
+   routes, for instance:
+
+   .. code-block:: json
+
+      "routes": [
+          {
+              "match": {
+                  "source": [
+                      "192.168.1.0/24",
+                      "2001:0db8::/32",
+                      "!192.168.1.1",
+                      "!10.1.1.0/16"
+                  ]
+              },
+
+              "action": {
+                  "share": "/www/data$uri"
+              }
+          }
+      ]
+
+   See :ref:`here <configuration-routes-matching-resolution>` for details of
+   pattern resolution order; this corresponds to the following :program:`nginx`
+   directive:
+
+   .. code-block:: nginx
+
+      location / {
+          deny  10.1.1.0/16;
+          deny  192.168.1.1;
+          allow 192.168.1.0/24;
+          allow 2001:0db8::/32;
+          deny  all;
+
+          root /www/data;
+      }
+
 .. nxt_details::  Address Pattern Examples
 
    .. code-block:: json
@@ -1949,6 +1989,39 @@ If you specify a redirect code (3xx), supply the destination using the
            "location": "https://www.example.com"
        }
    }
+
+Besides enriching the response semantics, :samp:`return` simplifies allow-deny
+lists: instead of guarding each action with a filter, add :ref:`conditions
+<configuration-routes-matching>` to deny unwanted requests as early as possible,
+for example:
+
+.. code-block:: json
+
+    "routes": [
+        {
+            "match": {
+                "scheme": "http"
+            },
+
+            "action": {
+                "return": 403
+            }
+        },
+        {
+            "match": {
+                "source": [
+                    "!192.168.1.0/24",
+                    "!2001:0db8::/32",
+                    "192.168.1.1",
+                    "10.1.1.0/16"
+                ],
+            },
+
+            "action": {
+                "return": 403
+            }
+        }
+    ]
 
 
 .. _configuration-static:
