@@ -8,7 +8,7 @@ About
 #####
 
 NGINX Unit is a polyglot app server, a reverse proxy, and a static file server,
-:ref:`available <source-prereqs>` for Unix-like systems.  It was built by
+available for :ref:`Unix-like systems <source-prereqs>`.  It was built by
 `nginx <https://nginx.org/en/>`_ team members from scratch to be highly
 efficient and fully configurable at runtime.
 
@@ -44,7 +44,7 @@ Flexibility
 
 - Request filtering and dispatching uses elaborate :ref:`matching rules
   <configuration-routes-matching>` that allow :ref:`regular expressions
-  <source-config-src-pcre>`
+  <configuration-routes-matching-patterns>`
 
 - Apps in multiple languages and language versions run :ref:`side by side
   <configuration-applications>`
@@ -90,9 +90,10 @@ Security & Robustness
 - Low-resource conditions (out of memory or descriptors) and app crashes are
   handled gracefully
 
-- :ref:`SSL/TLS <configuration-ssl>` with :ref:`SNI <configuration-listeners>`,
-  :ref:`session cache and tickets <configuration-listeners-ssl-sessions>` is
-  integrated (OpenSSL |_| 1.0.1 and later)
+- :ref:`SSL/TLS <configuration-ssl>` with
+  :ref:`SNI <configuration-listeners-ssl>`, :ref:`session cache and tickets
+  <configuration-listeners-ssl-sessions>` is integrated (OpenSSL |_| 1.0.1 and
+  later)
 
 - Different apps are isolated in separate processes
 
