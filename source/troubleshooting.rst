@@ -79,7 +79,7 @@ vary by install method.
 
    .. tab:: Running From Docker Images
 
-      To enable debug-level logging when using our Docker :ref:`images
+      To enable debug-level logging when using our :ref:`Docker images
       <installation-docker>`:
 
       .. subs-code-block:: console
@@ -192,9 +192,9 @@ such as :samp:`unit-dbg`.
          root           soft    core       0          # disables core dumps by default
          root           hard    core       unlimited  # enables raising the size limit
 
-      Next, `raise <https://www.man7.org/linux/man-pages/man1/bash.1.html>`_
-      the core dump size limit and restart Unit to reproduce the crash
-      condition:
+      Next, raise the core dump size limit with `ulimit
+      <https://www.man7.org/linux/man-pages/man1/bash.1.html#SHELL_BUILTIN_COMMANDS>`_,
+      then restart Unit to reproduce the crash condition:
 
       .. code-block:: console
 
@@ -215,7 +215,7 @@ such as :samp:`unit-dbg`.
    .. tab:: FreeBSD
 
       Check the `core dump settings
-      <https://www.freebsd.org/cgi/man.cgi?query=sysctl>`__ in
+      <https://www.freebsd.org/cgi/man.cgi?sysctl.conf(5)>`__ in
       :file:`/etc/sysctl.conf`, adjusting them if necessary:
 
       .. code-block:: ini
