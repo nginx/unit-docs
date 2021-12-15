@@ -62,10 +62,10 @@ the same language):
 
 Optional dependencies:
 
-- OpenSSL 1.0.2+ for :ref:`TLS <configuration-ssl>` support
+- OpenSSL 1.0.1 or later for :ref:`TLS <configuration-ssl>` support
 
-- PCRE (8.0+) or PCRE2 (10.23+) for :ref:`regular expression matching
-  <configuration-routes-matching-patterns>`
+- PCRE (8.0 or later) or PCRE2 (10.23 or later) for
+  :ref:`regular expression matching <configuration-routes-matching-patterns>`
 
 
 .. _installation-precomp-pkgs:
