@@ -45,8 +45,12 @@ function nxt_nav_init() {
 
             const selector = '#side .toctree-l1 a[href="#' + toc_id + '"]'
 
-            document.querySelector(selector).classList.toggle('nxt_active',
-                entry.intersectionRatio > 0)
+            const anchor = document.querySelector(selector)
+
+            if (anchor) {
+                anchor.classList.toggle('nxt_active',
+                                        entry.intersectionRatio > 0)
+            }
         }
     })
 
