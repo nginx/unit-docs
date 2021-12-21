@@ -97,7 +97,9 @@ from sphinx.locale import __
 from sphinx.transforms import SphinxContentsFilter
 from sphinx.util import logging
 from sphinx.writers.html import HTMLTranslator
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Type, TypeVar
+
+N = TypeVar('N')
 
 
 # Writer-related classes and functions.
@@ -131,7 +133,7 @@ class nxt_hint(nodes.container):
         self.tip = None
 
 
-class nxt_tab_head(nodes.Text):
+class nxt_tab_head(nodes.container):
     """Dummy class, required for docutils dispatcher's Visitor pattern.
     Only __init__ to initialize attributes.
     """
@@ -298,17 +300,16 @@ class NxtTranslator(HTMLTranslator):
     def visit_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
         self.body.append(f"""<input name={node.tabs_id} type=radio
-            id={node.tab_id} class=nojs {node.checked}/>""")
-
-        self.body.append(f"""<label for={node.tab_id} id={node.anchor_id}>
+            id={node.tab_id} class=nojs {node.checked}/>
+            <label for={node.tab_id} id={node.anchor_id}>
             <a href=#{node.anchor_id} onclick="nxt_tab_click(event)">""")
 
-        HTMLTranslator.visit_Text(self, node)
+        HTMLTranslator.visit_container(self, node)
 
     def depart_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
+        HTMLTranslator.depart_container(self, node)
         self.body.append('</a></label>')
-        HTMLTranslator.depart_Text(self, node)
 
     def visit_nxt_tabs(self, node: Element) -> None:
         """Handles the nxt_tabs node in a tab group."""
@@ -332,44 +333,75 @@ class NxtCollector(TocTreeCollector):
 
     def process_doc(self, app: Sphinx, doctree: Node) -> None:
         """Build a TOC from the doctree and store it in the inventory.
-        Copied intact from Sphinx 1.8.0 sources with nxt_tab_head traversal
-        added; look for 'Extension code starts here'.
+        Copied intact from Sphinx 4.3 sources with nxt_tab_head traversal added;
+        look for 'Extension code starts here'.
         """
-
         docname = app.env.docname
         numentries = [0]  # nonlocal again...
 
-        def traverse_in_section(node: Node, cls: Any) -> List[Node]:
+        def traverse_in_section(node: Element, cls: Type[N]) -> List[N]:
             """Like traverse(), but stay within the same section."""
-
-            result = []
+            result: List[N] = []
             if isinstance(node, cls):
                 result.append(node)
             for child in node.children:
                 if isinstance(child, nodes.section):
                     continue
-                result.extend(traverse_in_section(child, cls))
+                elif isinstance(child, nodes.Element):
+                    result.extend(traverse_in_section(child, cls))
             return result
 
-        def build_toc(node: Node, depth: int = 1) -> List[Node]:
-            entries = []
+        def build_toc(node: Element, depth: int = 1) -> nodes.bullet_list:
+            entries: List[Element] = []
             for sectionnode in node:
                 # find all toctree nodes in this section and add them
                 # to the toc (just copying the toctree node which is then
                 # resolved in self.get_and_resolve_doctree)
-                if isinstance(sectionnode, addnodes.only):
+                if isinstance(sectionnode, nodes.section):
+                    title = sectionnode[0]
+                    # copy the contents of the section title, but without references
+                    # and unnecessary stuff
+                    visitor = SphinxContentsFilter(doctree)
+                    title.walkabout(visitor)
+                    nodetext = visitor.get_entry_text()
+                    if not numentries[0]:
+                        # for the very first toc entry, don't add an anchor
+                        # as it is the file's title anyway
+                        anchorname = ''
+                    else:
+                        anchorname = '#' + sectionnode['ids'][0]
+                    numentries[0] += 1
+                    # make these nodes:
+                    # list_item -> compact_paragraph -> reference
+                    reference = nodes.reference(
+                        '', '', internal=True, refuri=docname,
+                        anchorname=anchorname, *nodetext)
+                    para = addnodes.compact_paragraph('', '', reference)
+                    item: Element = nodes.list_item('', para)
+                    sub_item = build_toc(sectionnode, depth + 1)
+                    if sub_item:
+                        item += sub_item
+                    entries.append(item)
+                elif isinstance(sectionnode, addnodes.only):
                     onlynode = addnodes.only(expr=sectionnode['expr'])
                     blist = build_toc(sectionnode, depth)
                     if blist:
-                        onlynode += blist.children  # type: ignore
+                        onlynode += blist.children
                         entries.append(onlynode)
-                    continue
+                elif isinstance(sectionnode, nodes.Element):
+                    for toctreenode in traverse_in_section(sectionnode,
+                                                           addnodes.toctree):
+                        item = toctreenode.copy()
+                        entries.append(item)
+                        # important: do the inventory stuff
+                        TocTree(app.env).note(docname, toctreenode)
+
+                # Extension code starts here.
                 if not isinstance(sectionnode, nodes.section):
-                    # Extension code starts here.
                     for tabnode in traverse_in_section(
                         sectionnode, nxt_tab_head):
                         if tabnode.tab_toc:
-                            nodetext = [nodes.Text(tabnode)]
+                            nodetext = [nodes.Text(tabnode.children[0])]
                             anchorname = '#' + tabnode.anchor_id
                             numentries[0] += 1
                             reference = nodes.reference(
@@ -379,40 +411,11 @@ class NxtCollector(TocTreeCollector):
                                                               reference)
                             item = nodes.list_item('', para)
                             entries.append(item)
-                    # Extension code ends here.
-                    for toctreenode in traverse_in_section(sectionnode,
-                                                           addnodes.toctree):
-                        item = toctreenode.copy()
-                        entries.append(item)
-                        # important: do the inventory stuff
-                        TocTree(app.env).note(docname, toctreenode)
-                    continue
-                title = sectionnode[0]
-                # copy the contents of the section title, but without references
-                # and unnecessary stuff
-                visitor = SphinxContentsFilter(doctree)
-                title.walkabout(visitor)
-                nodetext = visitor.get_entry_text()
-                if not numentries[0]:
-                    # for the very first toc entry, don't add an anchor
-                    # as it is the file's title anyway
-                    anchorname = ''
-                else:
-                    anchorname = '#' + sectionnode['ids'][0]
-                numentries[0] += 1
-                # make these nodes:
-                # list_item -> compact_paragraph -> reference
-                reference = nodes.reference(
-                    '', '', internal=True, refuri=docname,
-                    anchorname=anchorname, *nodetext)
-                para = addnodes.compact_paragraph('', '', reference)
-                item = nodes.list_item('', para)
-                sub_item = build_toc(sectionnode, depth + 1)
-                item += sub_item
-                entries.append(item)
+                # Extension code ends here.
+
             if entries:
                 return nodes.bullet_list('', *entries)
-            return []
+            return None
         toc = build_toc(doctree)
         if toc:
             app.env.tocs[docname] = toc
@@ -492,7 +495,8 @@ class TabDirective(Directive):
         self.assert_has_content()
         env = self.state.document.settings.env
 
-        tab_head = nxt_tab_head(self.content[0])
+        tab_head = nxt_tab_head()
+        tab_head += nodes.Text(self.content[0])
 
         tab_head.tabs_id = env.temp_data['tabs_id'][-1]
         tab_head.checked = 'checked' if env.temp_data['tab_id'][-1] == 0 else ''

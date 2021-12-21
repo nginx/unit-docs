@@ -24,7 +24,7 @@ function nxt_scroll_init() {
 function nxt_tab_click(e) {
     e.preventDefault()
     history.replaceState({}, '', e.target.href)
-    e.target.parentElement.previousElementSibling.checked=true
+    e.target.parentElement.parentElement.previousElementSibling.checked=true
 }
 
 
