@@ -88,7 +88,7 @@ from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.builders import Builder
-from sphinx.builders.html import DirectoryHTMLBuilder
+from sphinx.builders.dirhtml import DirectoryHTMLBuilder
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.errors import ExtensionError
