@@ -1342,8 +1342,11 @@ Community Repositories
 
          # apt-get update
          # apt-get install unit
-         # apt-get install unit-perl unit-php unit-ruby
+         # apt-get install unit-perl unit-php unit-python3 unit-ruby
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
+
+      Versions of these packages with the :samp:`*-debuginfo` suffix
+      contain symbols for :ref:`debugging <troubleshooting-core-dumps>`.
 
       Runtime details:
 
