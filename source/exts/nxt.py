@@ -427,7 +427,7 @@ class NxtCollector(TocTreeCollector):
 # Doctree-related classes and functions.
 
 
-class DetailsDirective(Directive):
+class NxtDetailsDirective(Directive):
     """Handles the nxt_details directive, adding an nxt_details
     container node.
     """
@@ -445,7 +445,7 @@ class DetailsDirective(Directive):
         return [node]
 
 
-class TabsDirective(Directive):
+class NxtTabsDirective(Directive):
     """Handles the tabs directive, adding an nxt_tabs container node."""
 
     has_content = True
@@ -486,7 +486,7 @@ class TabsDirective(Directive):
         return [node]
 
 
-class TabDirective(Directive):
+class NxtTabDirective(Directive):
     """Handles the tab directive, adding an nxt_tab container node."""
 
     has_content = True
@@ -518,7 +518,7 @@ class TabDirective(Directive):
         return [tab_head, tab_body]
 
 
-def register_tabs_as_label(app: Sphinx, document: nodes.document) -> None:
+def nxt_register_tabs_as_labels(app: Sphinx, document: nodes.document) -> None:
     """Registers tabs as anchors in TOC."""
 
     docname = app.env.docname
@@ -544,13 +544,13 @@ def setup(app: Sphinx) -> None:
     # NxtHightlighter.highlight_block() to run w/o resetting lexer to 'none'
     # when constants such as false and true are commented with nxt_ directives.
 
-    app.add_directive('nxt_details', DetailsDirective)
-    app.add_directive('tabs', TabsDirective)
-    app.add_directive('tab', TabDirective)
+    app.add_directive('nxt_details', NxtDetailsDirective)
+    app.add_directive('tabs', NxtTabsDirective)
+    app.add_directive('tab', NxtTabDirective)
 
     app.add_env_collector(NxtCollector)
     app.add_builder(NxtBuilder)
     app.set_translator('nxt_html', NxtTranslator)
-    app.connect('doctree-read', register_tabs_as_label)
+    app.connect('doctree-read', nxt_register_tabs_as_labels)
 
     roles.register_canonical_role('nxt_hint', nxt_hint_role_fn)
