@@ -3305,6 +3305,10 @@ following:
     * - :samp:`options`
       - Array of strings defining JVM runtime options.
 
+        Unit itself exposes the :samp:`-Dnginx.unit.context.path` option that
+        defaults to :file:`/`; use it to customize the `context path
+        <https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletContext.html#getContextPath-->`__.
+
     * - :samp:`threads`
       - Integer that sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
