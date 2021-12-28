@@ -101,6 +101,7 @@ as:
    grafana
    jira
    joomla
+   mailman
    matomo
    mediawiki
    mercurial
