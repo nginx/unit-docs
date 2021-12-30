@@ -133,7 +133,7 @@ class nxt_hint(nodes.container):
         self.tip = None
 
 
-class nxt_tab_head(nodes.container):
+class nxt_tab_head(nodes.Element):
     """Dummy class, required for docutils dispatcher's Visitor pattern.
     Only __init__ to initialize attributes.
     """
@@ -304,11 +304,8 @@ class NxtTranslator(HTMLTranslator):
             <label for={node.tab_id} id={node.anchor_id}>
             <a href=#{node.anchor_id} onclick="nxt_tab_click(event)">""")
 
-        HTMLTranslator.visit_container(self, node)
-
     def depart_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
-        HTMLTranslator.depart_container(self, node)
         self.body.append('</a></label>')
 
     def visit_nxt_tabs(self, node: Element) -> None:
