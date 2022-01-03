@@ -1338,6 +1338,8 @@ which is the default for the official packages>` modify this behavior:
 - A wildcard pattern may contain any combination of wildcards (:samp:`*`), each
   standing for an arbitrary number of characters: :samp:`How*s*that*to*you`.
 
+.. _configuration-routes-matching-patterns-regex:
+
 - A regex pattern starts with a tilde (:samp:`~`):
   :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
   JSON `requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE

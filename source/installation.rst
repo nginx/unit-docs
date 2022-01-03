@@ -64,8 +64,8 @@ Optional dependencies:
 
 - OpenSSL 1.0.1 or later for :ref:`TLS <configuration-ssl>` support
 
-- PCRE (8.0 or later) or PCRE2 (10.23 or later) for
-  :ref:`regular expression matching <configuration-routes-matching-patterns>`
+- PCRE (8.0 or later) or PCRE2 (10.23 or later) for :ref:`regular expression
+  matching <configuration-routes-matching-patterns-regex>`
 
 
 .. _installation-precomp-pkgs:
@@ -1168,7 +1168,7 @@ using the same method and rebuild your apps.
 Node.js
 =======
 
-Unit's `npm-hosted <https://www.npmjs.com/package/unit-http>`_ Node.js module
+Unit's npm-hosted Node.js `module <https://www.npmjs.com/package/unit-http>`__
 is called :program:`unit-http`.  Install it to run Node.js apps on Unit:
 
 #. First, install the :samp:`unit-dev/unit-devel` :ref:`package
@@ -1188,11 +1188,11 @@ is called :program:`unit-http`.  Install it to run Node.js apps on Unit:
        :file:`node-modules`.  Global installation avoids such scenarios; just
        :ref:`relink <configuration-nodejs>` the migrated app.
 
-#. It's entirely possible to run Node.js apps on Unit :ref:`without
-   <configuration-nodejs>` mentioning :samp:`unit-http` in your app sources.
-   However, you can explicitly use :samp:`unit-http` in your code instead of
-   the built-in :samp:`http`, but mind that such frameworks as Express may
-   require extra :doc:`changes <howto/express>`.
+#. It's entirely possible to run :ref:`Node.js apps <configuration-nodejs>` on
+   Unit without mentioning :samp:`unit-http` in your app sources.  However, you
+   can explicitly use :samp:`unit-http` in your code instead of the built-in
+   :samp:`http`, but mind that such frameworks as Express may require extra
+   :doc:`changes <howto/express>`.
 
 If you update Unit later, make sure to update the module as well:
 
@@ -1456,8 +1456,8 @@ Community Repositories
 
         Repeat the steps for the other ports you need: `libunit
         <https://www.freshports.org/devel/libunit/>`_ (required to
-        install the :ref:`Node.js <installation-nodejs-package>` module
-        and build :ref:`Go <installation-go-package>` apps), `unit-java
+        install the Node.js :ref:`module <installation-nodejs-package>`
+        and build :ref:`Go apps <configuration-go>`), `unit-java
         <https://www.freshports.org/www/unit-java/>`__, `unit-perl
         <https://www.freshports.org/www/unit-perl/>`__, `unit-php
         <https://www.freshports.org/www/unit-php/>`__, `unit-python
@@ -1560,9 +1560,9 @@ Community Repositories
 
       Repeat the steps for the other packages you need: `libunit
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/libunit/index.html>`__
-      (required to install the :ref:`Node.js
-      <installation-nodejs-package>` module and build :ref:`Go
-      <installation-go-package>` apps), `unit-perl
+      (required to install the Node.js :ref:`module
+      <installation-nodejs-package>` and build :ref:`Go apps
+      <configuration-go>`), `unit-perl
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-perl/index.html>`__,
       `unit-php
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-php/index.html>`__,
@@ -1875,7 +1875,7 @@ Unit's Docker images come in several language-specific flavors:
 
    For details, see the `Makefile
    <https://github.com/nginx/unit/blob/master/pkg/docker/Makefile>`__.  For
-   other customization scenarios, see our :doc:`Howto <howto/docker>`.
+   other customization scenarios, see the :doc:`Docker howto <howto/docker>`.
 
 .. nxt_details:: Images With Pre-1.22.0 Unit Versions
 
@@ -1954,7 +1954,8 @@ Runtime details:
 
 For more details, see the repository pages (`Docker Hub
 <https://hub.docker.com/r/nginx/unit/>`_, `Amazon ECR Public Gallery
-<https://gallery.ecr.aws/nginx/unit>`_) and our :doc:`Howto <howto/docker>`.
+<https://gallery.ecr.aws/nginx/unit>`_) and our :doc:`Docker howto
+<howto/docker>`.
 
 
 .. _installation-docker-init:
@@ -2060,5 +2061,5 @@ To download the sources directly from `our site
       $ cd unit-|version|
 
 To build Unit and specific language modules from these sources, refer to the
-source code :doc:`howto <howto/source>`; to package custom modules, see the
-module :ref:`howto <modules-pkg>`.
+:doc:`source code howto <howto/source>`; to package custom modules, see the
+:ref:`module howto <modules-pkg>`.
