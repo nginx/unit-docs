@@ -1281,6 +1281,9 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
 
 .. nxt_details:: Object Pattern Examples
 
+   This requires :samp:`mode=strict` and any :samp:`access` argument other than
+   :samp:`access=full` in the URI query:
+
    .. code-block:: json
 
       {
@@ -1296,8 +1299,8 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
           }
       }
 
-   This requires :samp:`mode=strict` and any :samp:`access` argument other than
-   :samp:`access=full` in the URI query.
+   This matches requests that either use :samp:`gzip` and identify as
+   :samp:`Mozilla/5.0` or list :samp:`curl` as the user agent:
 
    .. code-block:: json
 
@@ -1318,9 +1321,6 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
               "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
-
-   This matches requests that either use :samp:`gzip` and identify as
-   :samp:`Mozilla/5.0` or list :samp:`curl` as the user agent.
 
 
 .. _configuration-routes-matching-patterns:
@@ -1406,6 +1406,10 @@ which is the default for the official packages>` modify this behavior:
 
 .. nxt_details:: String Pattern Examples
 
+   A regular expression that matches any :file:`.php` files within the
+   :file:`/data/www/` directory and its subdirectories.  Note the backslashes;
+   escaping is a JSON-specific requirement:
+
    .. code-block:: json
 
       {
@@ -1418,9 +1422,7 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   A regular expression that matches any :file:`.php` files within the
-   :file:`/data/www/` directory and its subdirectories.  Note the backslashes;
-   escaping is a JSON-specific requirement.
+   Only subdomains of :samp:`example.com` will match:
 
    .. code-block:: json
 
@@ -1434,7 +1436,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Only subdomains of :samp:`example.com` will match.
+   Only requests for :samp:`.php` files located in :file:`/admin/`'s
+   subdirectories will match:
 
    .. code-block:: json
 
@@ -1448,8 +1451,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Only requests for :samp:`.php` files located in :file:`/admin/`'s
-   subdirectories will match.
+   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
+   :samp:`eu-5.example.com`:
 
    .. code-block:: json
 
@@ -1466,8 +1469,7 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
-   :samp:`eu-5.example.com`.
+   Any methods will match except :samp:`HEAD` and :samp:`GET`:
 
    .. code-block:: json
 
@@ -1484,9 +1486,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Any methods will match except :samp:`HEAD` and :samp:`GET`.
-
-   You can also combine certain special characters in a pattern:
+   You can also combine certain special characters in a pattern.  Here, any
+   URIs will match except the ones containing :samp:`/api/`:
 
    .. code-block:: json
 
@@ -1500,7 +1501,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Here, any URIs will match except the ones containing :samp:`/api/`.
+   Here, URIs of any articles that don't look like :samp:`YYYY-MM-DD` dates
+   will match.  Again, note the backslashes; this is a JSON requirement:
 
    .. code-block:: json
 
@@ -1516,9 +1518,6 @@ which is the default for the official packages>` modify this behavior:
               "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
-
-   Here, URIs of any articles that don't look like :samp:`YYYY-MM-DD` dates
-   will match.  Again, note the backslashes; this is a JSON requirement.
 
 Address-based patterns define individual IPv4 (dot-decimal or `CIDR
 <https://datatracker.ietf.org/doc/html/rfc4632>`__) or IPv6 (hexadecimal or
@@ -1574,6 +1573,8 @@ behavior:
 
 .. nxt_details::  Address Pattern Examples
 
+   This uses IPv4-based matching with wildcards and ranges:
+
    .. code-block:: json
 
       {
@@ -1598,7 +1599,7 @@ behavior:
           }
       }
 
-   This uses IPv4-based matching with wildcards and ranges.
+   This uses IPv6-based matching with wildcards and ranges:
 
    .. code-block:: json
 
@@ -1624,7 +1625,7 @@ behavior:
           }
       }
 
-   This uses IPv6-based matching with wildcards and ranges.
+   This matches any of the listed IPv4 or IPv6 addresses:
 
    .. code-block:: json
 
@@ -1643,7 +1644,7 @@ behavior:
           }
       }
 
-   This matches any of the listed IPv4 or IPv6 addresses.
+   Here, any IPs from the range will match, except for :samp:`192.0.2.9`:
 
    .. code-block:: json
 
@@ -1660,7 +1661,7 @@ behavior:
           }
       }
 
-   Here, any IPs from the range will match, except for :samp:`192.0.2.9`.
+   This matches any IPs but limits the acceptable ports:
 
    .. code-block:: json
 
@@ -1677,8 +1678,6 @@ behavior:
               "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
-
-   This matches any IPs but limits the acceptable ports.
 
 
 .. _configuration-routes-action:
