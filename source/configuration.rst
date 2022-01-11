@@ -160,8 +160,8 @@ only the :samp:`pass` value and leaves other options intact.
 .. nxt_details:: Examples
 
    To minimize typos and effort, avoid embedding JSON payload in your commands;
-   instead, consider storing your configuration snippets for review and reuse.
-   Suppose you save your application object as :file:`wiki.json`:
+   instead, store your configuration snippets for review and reuse.  For
+   instance, save your application object as :file:`wiki.json`:
 
    .. code-block:: json
 
@@ -4139,17 +4139,17 @@ Example:
 
 .. note::
 
-   Built-in support for MIME types includes :file:`.aac`, :file:`.apng`,
-   :file:`.atom`, :file:`.avi`, :file:`.avif`, :file:`avifs`, :file:`.bin`,
-   :file:`.css`, :file:`.deb`, :file:`.dll`, :file:`.exe`, :file:`.flac`,
-   :file:`.gif`, :file:`.htm`, :file:`.html`, :file:`.ico`, :file:`.img`,
-   :file:`.iso`, :file:`.jpeg`, :file:`.jpg`, :file:`.js`, :file:`.json`,
-   :file:`.md`, :file:`.mid`, :file:`.midi`, :file:`.mp3`, :file:`.mp4`,
-   :file:`.mpeg`, :file:`.mpg`, :file:`.msi`, :file:`.ogg`, :file:`.otf`,
-   :file:`.pdf`, :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`,
-   :file:`.rst`, :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`,
-   :file:`.webm`, :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`,
-   and :file:`.zip`.  Built-ins can be overridden, and new types can be added:
+   Built-in MIME types are :file:`.aac`, :file:`.apng`, :file:`.atom`,
+   :file:`.avi`, :file:`.avif`, :file:`avifs`, :file:`.bin`, :file:`.css`,
+   :file:`.deb`, :file:`.dll`, :file:`.exe`, :file:`.flac`, :file:`.gif`,
+   :file:`.htm`, :file:`.html`, :file:`.ico`, :file:`.img`, :file:`.iso`,
+   :file:`.jpeg`, :file:`.jpg`, :file:`.js`, :file:`.json`, :file:`.md`,
+   :file:`.mid`, :file:`.midi`, :file:`.mp3`, :file:`.mp4`, :file:`.mpeg`,
+   :file:`.mpg`, :file:`.msi`, :file:`.ogg`, :file:`.otf`, :file:`.pdf`,
+   :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`, :file:`.rst`,
+   :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`, :file:`.webm`,
+   :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`, and
+   :file:`.zip`.  You can override built-ins or add new types:
 
    .. code-block:: console
 
