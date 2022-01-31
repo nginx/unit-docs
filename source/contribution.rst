@@ -21,6 +21,11 @@ Source code:
 - Mercurial repository: https://hg.nginx.org/unit
 - GitHub mirror: https://github.com/nginx/unit
 
+CLI:
+
+- Mercurial repository: https://hg.nginx.org/unit-cli
+- GitHub mirror: https://github.com/nginx/unit-cli
+
 Documentation:
 
 - Mercurial repository: https://hg.nginx.org/unit-docs
