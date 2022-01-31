@@ -1834,8 +1834,8 @@ Unit's Docker images come in several language-specific flavors:
      - Single-language image based on the :samp:`php:8.1-cli`
        `image <https://hub.docker.com/_/php>`__.
 
-   * - :samp:`|version|-python3.9`
-     - Single-language image based on the :samp:`python:3.9`
+   * - :samp:`|version|-python3.10`
+     - Single-language image based on the :samp:`python:3.10`
        `image <https://hub.docker.com/_/python>`__.
 
    * - :samp:`|version|-ruby3.0`

@@ -15,7 +15,7 @@ For example:
 
    $ export UNIT=$(                                             \
          docker run -d --mount type=bind,src="$(pwd)",dst=/www  \
-         -p 8080:8000 nginx/unit:|version|-python3.9               \
+         -p 8080:8000 nginx/unit:|version|-python3.10              \
      )
 
 The command mounts the host's current directory where your app files are stored
@@ -138,7 +138,7 @@ Everything is ready for a containerized Unit.  First, let's create a
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.9
+   FROM nginx/unit:|version|-python3.10
    COPY requirements.txt /config/requirements.txt
    # PIP isn't installed by default, so we install it first.
    # Next, we install the requirements, remove PIP, and perform image cleanup.
