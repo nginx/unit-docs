@@ -4181,7 +4181,9 @@ In the example below, all requests will be logged to
            "success": "Reconfiguration done."
        }
 
-The log is written in the Combined Log Format.  Example of a log line:
+The log is written in the `Combined Log Format
+<https://httpd.apache.org/docs/2.2/logs.html#combined>`__.  Example of a log
+line:
 
 .. code-block:: none
 
