@@ -67,6 +67,7 @@ following frameworks:
    django
    djangochannels
    express
+   falcon
    fastapi
    flask
    guillotina
