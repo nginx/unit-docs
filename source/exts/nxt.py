@@ -73,13 +73,66 @@ compile into /test/#foo-bar and /test/#foo-baz respectively.
     <details><summary>Plain Text Foo</summary>
     Foo Bar
     </details>
+
+ 4. Enables adding files to an RSS feed and a responsive news collection:
+
+ *.rst file:
+
+  #######
+  Foo Bar
+  #######
+
+  .. nxt_news_entry::
+     :author: Jane Doe
+     :email: unit@nginx.org
+     :date: date
+     :title: Foo bar
+     :description: Bar foo foo bar lorem ipsum
+     :url: https://example.com/news/article/
+
+Each directive renders a news entry; URLs can be relative (site-local) or
+external; if there's no URL, no link is generated.
+
+  .. nxt_news_recent::
+     :number: 10
+
+Lists N latest news entries from the entire site, reverse sorted by date.
+
+ rss.xml (filename can be set in conf.py):
+
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <atom:link href="https://unit.nginx.org/rss.xml" rel="self"
+            type="application/rss+xml" />
+        <title>NGINX Unit</title>
+        <link>https://unit.nginx.org/</link>
+        <copyright>NGINX, Inc., 2017-2021</copyright>
+        <description>NGINX Unit news and articles</description>
+        <generator>nxt-newsfeed</generator>
+            <item>
+                <title>Foo bar</title>
+                <link>https://example.com/news/article/</link>
+                <guid>https://example.com/news/article/</guid>
+                <author>unit@nginx.org (Jane Doe)</author>
+                <description>Bar foo foo bar lorem ipsum</description>
+                <pubDate>date in RFC-822</pubDate>
+            </item>
+    </channel>
+</rss>
 """
 
 import re
-import pygments.lexers.data
+import xml.dom.minidom
 
+from email.utils import formatdate
+from datetime import datetime
+from time import mktime
 from hashlib import md5 as hashlib_md5
 from secrets import token_urlsafe
+from typing import Any, Dict, List, Tuple, Type, TypeVar
+
+import pygments.lexers.data
 
 from docutils import nodes
 from docutils.nodes import Element, Node, system_message
@@ -97,12 +150,24 @@ from sphinx.locale import __
 from sphinx.transforms import SphinxContentsFilter
 from sphinx.util import logging
 from sphinx.writers.html import HTMLTranslator
-from typing import Any, Dict, List, Tuple, Type, TypeVar
+
 
 N = TypeVar('N')
 
 
+def nxt_make_id(s: str) -> str:
+    """Creates a href-able id from a string by stripping extra characters."""
+    return re.sub(r'[^\w\-]+', '', s).lower()
+
+
 # Writer-related classes and functions.
+
+class nxt_news_recent(nodes.raw):
+    """Dummy class, required for docutils dispatcher's Visitor pattern."""
+
+
+class nxt_news_entry(nodes.raw):
+    """Dummy class, required for docutils dispatcher's Visitor pattern."""
 
 
 class nxt_tab_body(nodes.container):
@@ -121,6 +186,7 @@ class nxt_details(nodes.container):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.summary_text = None
+
 
 class nxt_hint(nodes.container):
     """Dummy class, required for docutils dispatcher's Visitor pattern.
@@ -258,7 +324,7 @@ class NxtTranslator(HTMLTranslator):
     """Adds dispatcher methods to handle nxt_tabs and nxt_tab doctree nodes,
     replaces default highlighter to enable nxt_* directives inside code blocks,
     adds handlers to enable nxt_hint directives inline, enables expandable
-    nxt_details blocks.
+    nxt_details blocks.  Also handles the news entries.
     """
 
     def __init__(self, document: nodes.document, builder: Builder) -> None:
@@ -315,6 +381,46 @@ class NxtTranslator(HTMLTranslator):
     def depart_nxt_tabs(self, node: Element) -> None:
         """Handles the nxt_tabs node in a tab group."""
         HTMLTranslator.depart_container(self, node)
+
+    def __write_news_entry(self, e: List[dict], prefix: str = '') -> None:
+        self.body.append(f'''
+            <div class=nxt_news_item>
+             <h3>
+                 {e['title']}
+                 <a class=headerlink href={prefix + e['anchor']}
+                     title="Permalink to this headline">§</a>
+             </h3>
+             <p class=nxt_news_authordate>
+                 {e['author']}&nbsp;on&nbsp;{e['date']}
+             </p>
+             <p>{e['description']}</p>
+             {f'<p class=nxt_newslink><a href={e["relurl"]}>Read More</a><p>'
+              if 'relurl' in e
+              else ''}
+            </div>''')
+
+    def visit_nxt_news_recent(self, node: Element) -> None:
+        """Handles the nxt_news_recent directive."""
+        if not NewsEntryDirective.items:
+            return
+
+        sorted_entries = sorted(NewsEntryDirective.items,
+            key=lambda x: x['date'], reverse=True)[:node.number]
+
+        self.body.append('<div class=nxt_news>')
+        for e in sorted_entries:
+            self.__write_news_entry(e, node.prefix)
+
+    def depart_nxt_news_recent(self, node: Element) -> None:
+        """Handles the nxt_news_recent directive."""
+        self.body.append('</div>')
+
+    def visit_nxt_news_entry(self, node: Element) -> None:
+        """Handles the nxt_news_entry directive."""
+        self.__write_news_entry(node.options, node.prefix)
+
+    def depart_nxt_news_entry(self, node: Element) -> None:
+        """Handles the nxt_news_entry directive."""
 
     def unimplemented_visit(self, node: Element) -> None:
         """Dummpy implementation for an abstract method."""
@@ -408,6 +514,24 @@ class NxtCollector(TocTreeCollector):
                                                               reference)
                             item = nodes.list_item('', para)
                             entries.append(item)
+
+                    for newsnode in traverse_in_section(
+                        sectionnode, nxt_news_entry):
+                        nodetext = [nodes.Text(newsnode.options['title'])]
+                        if 'relurl' in newsnode.options:
+                            anchorname = newsnode.options['relurl']
+                        else:
+                            anchorname = '#' + nxt_make_id(
+                                             newsnode.options['title'])
+
+                        numentries[0] += 1
+                        reference = nodes.reference(
+                            '', '', internal=True, refuri=docname,
+                            anchorname=anchorname, *nodetext)
+                        para = addnodes.compact_paragraph('', '',
+                                                          reference)
+                        item = nodes.list_item('', para)
+                        entries.append(item)
                 # Extension code ends here.
 
             if entries:
@@ -419,6 +543,58 @@ class NxtCollector(TocTreeCollector):
         else:
             app.env.tocs[docname] = nodes.bullet_list('')
         app.env.toc_num_entries[docname] = numentries[0]
+
+
+class NewsRecentDirective(Directive):
+    """Handles the '.. nxt_news_recent::' directive, adding N latest news items.
+    """
+
+    has_content = True
+
+    option_spec = {
+            'number':       directives.unchanged_required
+    }
+
+    def run(self) -> List[Node]:
+
+        node = nxt_news_recent()
+        node.number = int(self.options['number'])
+        node.prefix = '../' * (
+            self.state.document.settings.env.docname.count('/') + 1)
+        return [node]
+
+
+class NewsEntryDirective(Directive):
+    """Handles the '.. nxt_news_entry' directive, adding a class-local
+    news item for _recent and _list directives and emitting a news entry.
+    """
+
+    items = []
+
+    has_content = True
+
+    option_spec = {
+            'author':       directives.unchanged_required,
+            'date':         directives.unchanged_required,
+            'description':  directives.unchanged,
+            'email':        directives.unchanged_required,
+            'title':        directives.unchanged_required,
+            'url':          directives.unchanged
+    }
+
+    def run(self) -> List[Node]:
+        env = self.state.document.settings.env
+        self.items.append(self.options)
+        node = nxt_news_entry()
+        node.options = self.options
+        node.prefix = '../' * (env.docname.count('/') + 1)
+        self.options['anchor'] = (env.docname.rsplit('/', 1)[0]
+                                  +'/#'
+                                  + nxt_make_id(self.options['title']))
+        if 'url' in self.options:
+            self.options['relurl'] = ('' if '://' in self.options['url']
+                                      else node.prefix) + self.options['url']
+        return [node]
 
 
 # Doctree-related classes and functions.
@@ -500,8 +676,7 @@ class NxtTabDirective(Directive):
         tab_head.tab_id = '{}_{}'.format(env.temp_data['tabs_id'][-1],
             env.temp_data['tab_id'][-1])
         tab_head.rstref_id = '{}-{}-{}'.format(env.docname,
-            env.temp_data['tabs_id'][-1],
-            re.sub(r'[^\w\-]+', '', self.content[0])).lower()
+            env.temp_data['tabs_id'][-1], nxt_make_id(self.content[0]))
         tab_head.anchor_id = tab_head.rstref_id.split('-', 1)[1]
         tab_head.tab_toc = env.temp_data['tab_toc']
 
@@ -533,6 +708,50 @@ def nxt_register_tabs_as_labels(app: Sphinx, document: nodes.document) -> None:
         labels[node.rstref_id] = docname, node.anchor_id, node.astext()
 
 
+def nxt_write_rss(app: Sphinx, error: Exception) -> None:
+    """Writes the .rss file."""
+    cfg = app.config
+
+    lines = [f'''<?xml version="1.0" encoding="utf-8"?>
+        <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+        <atom:link href="{cfg.html_baseurl}{cfg.html_context['nxt_rss_file']}"
+              rel="self" type="application/rss+xml" />
+        <title>{cfg.project}</title>
+        <link>{cfg.html_baseurl}</link>
+        <copyright>{cfg.author}, {cfg.copyright}</copyright>
+        <description>{cfg.project} news and articles</description>
+        <generator>nxt-newsfeed</generator>'''
+    ]
+
+    sorted_entries = sorted(NewsEntryDirective.items, key=lambda x: x['date'],
+                            reverse=True)
+
+    for e in sorted_entries:
+        date = formatdate(mktime(datetime.strptime(e['date'], "%Y-%m-%d").
+                          timetuple()))
+        lines.append(f'''<item><title>{e['title']}</title>
+            <author>{e['email']} ({e['author']})</author>
+            <pubDate>{date}</pubDate>''')
+
+        if 'url' in e:  # adjusting for local links
+            url = ('' if '://' in e['url'] else cfg.html_baseurl) + e['url']
+            lines.append(f'<link>{url}</link><guid>{url}</guid>')
+
+        if 'description' in e:
+            lines.append(f'<description>{e["description"]}</description>')
+
+        lines.append('</item>')
+
+    lines.append('</channel></rss>')
+
+
+    dom = xml.dom.minidom.parseString(re.sub('&', '&amp;', ''.join(lines)))
+    with open(app.outdir + '/' + cfg.html_context['nxt_rss_file'], 'w',
+              encoding='utf-8') as f:
+        f.write(dom.toprettyxml())
+
+
 def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
     pygments.lexers.data.JsonLexer.constants = \
@@ -544,10 +763,14 @@ def setup(app: Sphinx) -> None:
     app.add_directive('nxt_details', NxtDetailsDirective)
     app.add_directive('tabs', NxtTabsDirective)
     app.add_directive('tab', NxtTabDirective)
+    app.add_directive('nxt_news_entry', NewsEntryDirective)
+    app.add_directive('nxt_news_recent', NewsRecentDirective)
 
     app.add_env_collector(NxtCollector)
     app.add_builder(NxtBuilder)
     app.set_translator('nxt_html', NxtTranslator)
+
     app.connect('doctree-read', nxt_register_tabs_as_labels)
+    app.connect('build-finished', nxt_write_rss)
 
     roles.register_canonical_role('nxt_hint', nxt_hint_role_fn)

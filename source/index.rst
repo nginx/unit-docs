@@ -13,9 +13,9 @@ available for :ref:`Unix-like systems <source-prereqs>`.  It was built by
 efficient and fully configurable at runtime.
 
 | The latest version is |version|, released on |release_date|.
-| See the changelog `here </CHANGES.txt>`_; a GitHub-based
-  `roadmap <https://github.com/orgs/nginx/projects/1>`_ outlines
-  our plans for the future.
+| See the changelog `here </CHANGES.txt>`_ or subscribe to our
+  `RSS feed </rss.xml>`_; a GitHub-based
+  `roadmap <https://github.com/orgs/nginx/projects/1>`_ outlines our next plans.
 
 | The sources are distributed under the `Apache 2.0
   <https://hg.nginx.org/unit/file/tip/LICENSE>`_ license.

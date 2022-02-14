@@ -23,7 +23,8 @@ html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
 html_context = {
     'release_date'  : release_date,
     'author'        : author,
-    'nxt_baseurl'   : html_baseurl
+    'nxt_baseurl'   : html_baseurl,
+    'nxt_rss_file'  : 'rss.xml'
 }
 
 rst_prolog = """
