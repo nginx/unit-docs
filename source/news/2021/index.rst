@@ -102,6 +102,22 @@ News archive for the year 2021.
    :url: https://medium.com/analytics-vidhya/well-done-nginx-unit-a70960de68b7
 
 .. nxt_news_entry::
+   :author: Timo Stark
+   :description: How to install and run CakePHP4 on NGINX Unit.
+   :email: unit-owner@nginx.org
+   :title: NGINX Unit with CakePHP 4
+   :date: 2021-03-31
+   :url: https://www.youtube.com/watch?v=CTDnonMlo4w
+
+.. nxt_news_entry::
+   :author: Timo Stark
+   :description: How to run NGINX Unit with SNI support.
+   :email: unit-owner@nginx.org
+   :title: NGINX Unit 1.23 - SNI Deep Dive
+   :date: 2021-03-26
+   :url: https://www.youtube.com/watch?v=absaan-8y1Q
+
+.. nxt_news_entry::
    :author: Valentin V. Bartenev
    :description: Version 1.23.0 has been released, featuring SNI support
                  and a number of bugfixes.
@@ -109,6 +125,14 @@ News archive for the year 2021.
    :title: Unit 1.23.0 Released
    :date: 2021-03-25
    :url: news/2021/unit-1.23.0-released
+
+.. nxt_news_entry::
+   :author: Timo Stark
+   :description: How NGINX Unit works.
+   :email: unit-owner@nginx.org
+   :title: NGINX Unit 1st Steps
+   :date: 2021-03-22
+   :url: https://www.youtube.com/watch?v=sDWrogpVyOQ
 
 .. nxt_news_entry::
    :author: Valentin V. Bartenev
