@@ -129,6 +129,7 @@ from email.utils import formatdate
 from datetime import datetime
 from time import mktime
 from hashlib import md5 as hashlib_md5
+from urllib.parse import urlparse
 from secrets import token_urlsafe
 from typing import Any, Dict, List, Tuple, Type, TypeVar
 
@@ -383,21 +384,28 @@ class NxtTranslator(HTMLTranslator):
         HTMLTranslator.depart_container(self, node)
 
     def __write_news_entry(self, e: List[dict], prefix: str = '') -> None:
+        date = datetime.strptime(e['date'], "%Y-%m-%d").strftime('%B %-d, %Y')
         self.body.append(f'''
             <div class=nxt_news_item>
-             <h3>
+             <h2>
                  {e['title']}
                  <a class=headerlink href={prefix + e['anchor']}
                      title="Permalink to this headline">§</a>
-             </h3>
+             </h2>
              <p class=nxt_news_authordate>
-                 {e['author']}&nbsp;on&nbsp;{e['date']}
+                 {e['author']}&nbsp;on&nbsp;{date}
              </p>
-             <p>{e['description']}</p>
-             {f'<p class=nxt_newslink><a href={e["relurl"]}>Read More</a><p>'
-              if 'relurl' in e
-              else ''}
-            </div>''')
+             <p>{e['description']}</p>''')
+        if 'relurl' in e:
+            domain = urlparse(e["relurl"]).netloc
+            if domain.startswith('www.'):
+                domain = domain[4:]
+            self.body.append(f"""
+                <p class=nxt_newslink>
+                <a href={e["relurl"]}>Details</a>"""
+                + (f' on {domain.capitalize()}' if domain else '')
+                + '</p>')
+        self.body.append('</div>')
 
     def visit_nxt_news_recent(self, node: Element) -> None:
         """Handles the nxt_news_recent directive."""
