@@ -93,6 +93,15 @@ News archive for the year 2021.
    :url: news/2021/unit-1.24.0-released
 
 .. nxt_news_entry::
+   :author: Ibrahim Sha
+   :description: On my programming journey, I always felt that server
+                 configuration for an application was taking more time than expected.
+   :email: unit-owner@nginx.org
+   :title: Well Done @ NGINX Unit
+   :date: 2021-05-26
+   :url: https://medium.com/analytics-vidhya/well-done-nginx-unit-a70960de68b7
+
+.. nxt_news_entry::
    :author: Valentin V. Bartenev
    :description: Version 1.23.0 has been released, featuring SNI support
                  and a number of bugfixes.

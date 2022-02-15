@@ -34,6 +34,15 @@ News archive for the year 2019.
    :url: https://www.nginx.com/blog/application-isolation-nginx-unit/
 
 .. nxt_news_entry::
+   :author: Matthew Casperson
+   :description: In this blog post, we’ll look at some of the advantages
+                 provided by NGINX Unit.
+   :email: unit-owner@nginx.org
+   :title: What are the benefits of using NGINX Unit?
+   :date: 2019-11-04
+   :url: https://octopus.com/blog/why-use-nginx-unit
+
+.. nxt_news_entry::
    :author: Artem Konev
    :description: NGINX Unit 1.11.0 introduces support for static file serving,
                  a much requested feature ever since NGINX Unit debuted.  It
@@ -146,6 +155,15 @@ News archive for the year 2019.
    :title: NGINX Unit: A Modern App Server for Modern Apps
    :date: 2019-05-28
    :url: https://www.nginx.com/blog/nginx-unit-modern-app-server-for-modern-apps/
+
+.. nxt_news_entry::
+   :author: Sudo Null
+   :description: The goal was to compare the characteristics of services under
+                 different loads and find the best option.
+   :email: unit-owner@nginx.org
+   :title: Compare PHP FPM, PHP PPM, Nginx Unit, React PHP and RoadRunner
+   :date: 2019-05-04
+   :url: https://sudonull.com/post/7528-Compare-PHP-FPM-PHP-PPM-Nginx-Unit-React-PHP-and-RoadRunner
 
 .. nxt_news_entry::
    :author: Artem Konev

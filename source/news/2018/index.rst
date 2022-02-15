@@ -27,6 +27,16 @@ News archive for the year 2018.
    :url: https://www.nginx.com/blog/configuring-nginx-unit-for-production-applications-serving-django-project/
 
 .. nxt_news_entry::
+   :author: Paris Nakita Kejser
+   :description: NGINX Unit its a new way to deploy your microservices and
+                 nanoservices, its very nice way to do Python Falcon apps and
+                 its will be easy for you over time to management your apps.
+   :email: unit-owner@nginx.org
+   :title: [VIDEO] How to use Falcon on NGINX Unit
+   :date: 2018-11-23
+   :url: https://www.youtube.com/watch?v=BZAgM2WU5cw
+
+.. nxt_news_entry::
    :author: Valentin V. Bartenev
    :description: Version 1.6 has been released, featuring improved Node.js
                  support.
@@ -55,6 +65,14 @@ News archive for the year 2018.
    :title: Unit 1.5 Released
    :date: 2018-10-25
    :url: news/2018/unit-1.5-released
+
+.. nxt_news_entry::
+   :author: Daniel P. Shannon
+   :description: Peeking Under the Hood of nginx Unit’s Node.js Integration.
+   :email: unit-owner@nginx.org
+   :title: What An Absolute Unit
+   :date: 2018-10-18
+   :url: https://medium.com/house-organ/what-an-absolute-unit-a36851e72554
 
 .. nxt_news_entry::
    :author: Gus Robertson
@@ -169,6 +187,17 @@ News archive for the year 2018.
    :url: https://www.nginx.com/blog/updating-nginx-application-platform/
 
 .. nxt_news_entry::
+   :author: Nate Berkopec
+   :description: NGINX Inc. has just released Ruby support for their new
+                 multi-language application server, NGINX Unit.  What does this
+                 mean for Ruby web applications?  Should you be paying attention
+                 to NGINX Unit?
+   :email: unit-owner@nginx.org
+   :title: A New Ruby Application Server: NGINX Unit
+   :date: 2018-03-28
+   :url: https://www.speedshop.co/2018/03/28/nginx-unit-for-ruby.html
+
+.. nxt_news_entry::
    :author: Valentin V. Bartenev
    :description: Beta version 0.7 has been released with Ruby module.
    :email: unit-owner@nginx.org
@@ -184,6 +213,16 @@ News archive for the year 2018.
    :title: Unit Beta 0.6 Released
    :date: 2018-02-09
    :url: news/2018/unit-beta-0.6-released
+
+.. nxt_news_entry::
+   :author: Mike Gavrilov
+   :description: This article will show performance of two web application
+                 servers, nginx-unit (a new modern application web server) and
+                 uWSGI (the best one application server)
+   :email: unit-owner@nginx.org
+   :title: Concurrency comparison between NGINX Unit and uWSGI (python3)
+   :date: 2018-01-18
+   :url: https://itnext.io/performance-comparison-between-nginx-unit-and-uwsgi-python3-4511fc172a4c
 
 .. nxt_news_entry::
    :author: Valentin V. Bartenev
