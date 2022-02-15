@@ -11,4 +11,4 @@ News archive for the year 2022.
    :email: unit-owner@nginx.org
    :title: Comparing PHP-FPM, NGINX Unit, and Laravel Octane
    :date: 2022-01-18
-   :url: https://habr.com/ru/post/646397/
+   :url: https://habr.com/en/post/646397/
