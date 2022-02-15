@@ -76,7 +76,7 @@ News archive for the year 2019.
                  we’ve made on this innovative technology, as well as the art of
                  what’s possible as we continue to develop it.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] NGINX Open Source, NGINX Plus, & Unit 2019 Update
+   :title: NGINX Open Source, NGINX Plus, & Unit 2019 Update
    :date: 2019-09-26
    :url: https://www.youtube.com/watch?v=2_svSq8guOQ&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW
 
@@ -86,7 +86,7 @@ News archive for the year 2019.
                  Nick Shadrin (Consulting Manager, F5 Networks) and Igor Sysoev
                  (Founder, NGINX, F5 Networks).
    :email: unit-owner@nginx.org
-   :title: [VIDEO] NGINX Unit Demo
+   :title: NGINX Unit Demo
    :date: 2019-09-25
    :url: https://www.youtube.com/watch?v=izcCI_TXCYk&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW
 
@@ -99,7 +99,7 @@ News archive for the year 2019.
                  Node.js on top of NGINX Unit. He shares some libraries he wrote
                  for controlling NGINX Unit from Node.js and PHP.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] NGINX Unit: Make the App Server Part of Your Application
+   :title: NGINX Unit: Make the App Server Part of Your Application
    :date: 2019-09-25
    :url: https://www.youtube.com/watch?v=iU9PE88Jfs8&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW
 

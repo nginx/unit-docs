@@ -46,7 +46,7 @@ News archive for the year 2017.
                  integrated and deployed within popular platforms such as the
                  upcoming release of the OpenShift Service Catalog.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] NGINX Unit OpenShift Service Catalog Integration Demo
+   :title: NGINX Unit OpenShift Service Catalog Integration Demo
    :date: 2017-09-20
    :url: https://www.youtube.com/watch?v=5dL2RokJfxU&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW
 
@@ -56,6 +56,6 @@ News archive for the year 2017.
                  various PHP, Python, and Go apps simultaneously using the
                  NGINX Unit JSON REST API.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] NGINX Unit In-Depth Demo
+   :title: NGINX Unit In-Depth Demo
    :date: 2017-09-20
    :url: https://www.youtube.com/watch?v=I4IWEz2lBWU&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW

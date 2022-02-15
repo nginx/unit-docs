@@ -32,7 +32,7 @@ News archive for the year 2018.
                  nanoservices, its very nice way to do Python Falcon apps and
                  its will be easy for you over time to management your apps.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] How to use Falcon on NGINX Unit
+   :title: How to use Falcon on NGINX Unit
    :date: 2018-11-23
    :url: https://www.youtube.com/watch?v=BZAgM2WU5cw
 
@@ -113,7 +113,7 @@ News archive for the year 2018.
                  source web and application server built to meet the demands of
                  today’s dynamic and distributed applications.
    :email: unit-owner@nginx.org
-   :title: [VIDEO] What is NGINX Unit?
+   :title: What is NGINX Unit?
    :date: 2019-07-25
    :url: https://www.youtube.com/watch?v=TdzGzXIxJNM&list=PLGz_X9w9raXf3fVkUnWB-g9siSZIIVjYW
 
