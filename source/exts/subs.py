@@ -31,15 +31,17 @@ class SubsCodeBlock(CodeBlock):
         new_content = []
         doc = self.state.document
 
-        replacements = [(i.attributes['names'][0], i.children[0])
-                        for i in doc.substitution_defs.values()]
+        replacements = [
+            (i.attributes["names"][0], i.children[0])
+            for i in doc.substitution_defs.values()
+        ]
 
         # Config values need to be added manually at this time.
-        replacements.append(('version', Text(doc.settings.env.config.version)))
+        replacements.append(("version", Text(doc.settings.env.config.version)))
 
         for item in self.content:
             for rep in replacements:
-                item = item.replace('|' + rep[0] + '|', rep[1])
+                item = item.replace("|" + rep[0] + "|", rep[1])
             new_content.append(item)
 
         self.content = new_content
@@ -50,4 +52,4 @@ class SubsCodeBlock(CodeBlock):
 def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
 
-    app.add_directive('subs-code-block', SubsCodeBlock)
+    app.add_directive("subs-code-block", SubsCodeBlock)

@@ -153,15 +153,16 @@ from sphinx.util import logging
 from sphinx.writers.html import HTMLTranslator
 
 
-N = TypeVar('N')
+N = TypeVar("N")
 
 
 def nxt_make_id(s: str) -> str:
     """Creates a href-able id from a string by stripping extra characters."""
-    return re.sub(r'[^\w\-]+', '', s).lower()
+    return re.sub(r"[^\w\-]+", "", s).lower()
 
 
 # Writer-related classes and functions.
+
 
 class nxt_news_recent(nodes.raw):
     """Dummy class, required for docutils dispatcher's Visitor pattern."""
@@ -217,23 +218,26 @@ class nxt_tab_head(nodes.Element):
 
 # Regex to match `text w/punctuation <text w/punctuation>` in nxt_* directives.
 NXT_PLAIN_TEXT = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
-NXT_HINT_REGEX = fr'`({NXT_PLAIN_TEXT}*[^\s])\s*<({NXT_PLAIN_TEXT}+)>`'
-NXT_VAR_REGEX = r'(\$[a-zA-Z_]+|\${[a-zA-Z_]+})'
+NXT_HINT_REGEX = rf"`({NXT_PLAIN_TEXT}*[^\s])\s*<({NXT_PLAIN_TEXT}+)>`"
+NXT_VAR_REGEX = r"(\$[a-zA-Z_]+|\${[a-zA-Z_]+})"
 
 
-def nxt_hint_role_fn(_: str, rawtext: str, text: str, lineno: int, inliner:
-        Inliner, *args: Any) -> Tuple[List[Node], List[system_message]]:
+def nxt_hint_role_fn(
+    _: str, rawtext: str, text: str, lineno: int, inliner: Inliner, *args: Any
+) -> Tuple[List[Node], List[system_message]]:
     """The nxt_hint role handler for inline text outside code blocks."""
 
     node = nxt_hint()
-    groups = re.search(NXT_HINT_REGEX,
-                       rawtext.replace('\n', ' ').replace('\r', ''))
+    groups = re.search(
+        NXT_HINT_REGEX, rawtext.replace("\n", " ").replace("\r", "")
+    )
 
     try:
         node.term, node.tip = groups.group(1), groups.group(2)
     except IndexError:
         msg = inliner.reporter.error(
-            f'Inline term "{text}" is invalid.', line=lineno)
+            f'Inline term "{text}" is invalid.', line=lineno
+        )
         prb = inliner.problematic(rawtext, rawtext, msg)
         return [prb], [msg]
 
@@ -248,44 +252,59 @@ class NxtHighlighter:
     def __init__(self, highlighter: PygmentsBridge) -> None:
         self.highlighter = highlighter
 
-    def highlight_block(self, source: str, lang: str, opts: Dict = None,
-            force: bool = False, location: Any = None, **kwargs: Any) -> str:
-        """Preserves nxt_ directives, highlights syntax, replaces directives.
-        """
-
+    def highlight_block(
+        self,
+        source: str,
+        lang: str,
+        opts: Dict = None,
+        force: bool = False,
+        location: Any = None,
+        **kwargs: Any,
+    ) -> str:
+        """Preserves nxt_ directives, highlights syntax, replaces directives."""
 
         groups = {}
 
-        groups['var'] = re.findall(NXT_VAR_REGEX, source)
-        for i in range(len(groups['var'])):
-            source = re.sub(NXT_VAR_REGEX, f'nxt_var_{i}', source, count=1)
+        groups["var"] = re.findall(NXT_VAR_REGEX, source)
+        for i in range(len(groups["var"])):
+            source = re.sub(NXT_VAR_REGEX, f"nxt_var_{i}", source, count=1)
 
-        categories = ['ph', 'hint']
+        categories = ["ph", "hint"]
         for cat in categories:
-            groups[cat] = re.findall(f':nxt_{cat}:{NXT_HINT_REGEX}', source)
+            groups[cat] = re.findall(f":nxt_{cat}:{NXT_HINT_REGEX}", source)
             for i in range(len(groups[cat])):
-                source = re.sub(f':nxt_{cat}:{NXT_HINT_REGEX}',
-                                f'nxt_{cat}_{i}', source, count=1)
+                source = re.sub(
+                    f":nxt_{cat}:{NXT_HINT_REGEX}",
+                    f"nxt_{cat}_{i}",
+                    source,
+                    count=1,
+                )
 
         highlighted = self.highlighter.highlight_block(
-            source, lang, opts, force, location, **kwargs)
+            source, lang, opts, force, location, **kwargs
+        )
 
         for cat in categories:
             for i, group in enumerate(groups[cat]):
                 txt, hnt = group
-                for j, var in enumerate(groups['var']):
-                    hnt = hnt.replace(f'nxt_var_{j}', var, 1)
+                for j, var in enumerate(groups["var"]):
+                    hnt = hnt.replace(f"nxt_var_{j}", var, 1)
 
-                highlighted = highlighted.replace(f'nxt_{cat}_' + str(i),
-                    f'<span class=nxt_{cat} title="{hnt}">{txt}</span>', 1)
+                highlighted = highlighted.replace(
+                    f"nxt_{cat}_" + str(i),
+                    f'<span class=nxt_{cat} title="{hnt}">{txt}</span>',
+                    1,
+                )
 
-            if f':nxt_{cat}:' in highlighted:
+            if f":nxt_{cat}:" in highlighted:
                 raise ExtensionError(
-                    __(f'Could not lex nxt_* entity at {location}. '))
+                    __(f"Could not lex nxt_* entity at {location}. ")
+                )
 
-        for i, var in enumerate(groups['var']):
-            highlighted = highlighted.replace(f'nxt_var_{i}',
-                f'<span class=nxt_var>{var}</span>', 1)
+        for i, var in enumerate(groups["var"]):
+            highlighted = highlighted.replace(
+                f"nxt_var_{i}", f"<span class=nxt_var>{var}</span>", 1
+            )
 
         return highlighted
 
@@ -293,13 +312,14 @@ class NxtHighlighter:
 class NxtBuilder(DirectoryHTMLBuilder):
     """Adds a custom function to enable MD5-based versioning."""
 
-    name = 'nxt_html'
+    name = "nxt_html"
 
     def __init__(self, app: Sphinx) -> None:
         super().__init__(app)
 
-    def update_page_context(self, pagename: str, templatename: str,
-            ctx: Dict, event_arg: Any) -> None:
+    def update_page_context(
+        self, pagename: str, templatename: str, ctx: Dict, event_arg: Any
+    ) -> None:
         """Extends builder context to make the MD5 function available at
         build time.
         """
@@ -307,18 +327,19 @@ class NxtBuilder(DirectoryHTMLBuilder):
         def md5(fname: str) -> str:
             """Calculates MD5 for a file relative to source directory."""
 
-            pathname = self.srcdir + '/' + fname
+            pathname = self.srcdir + "/" + fname
             hsh = hashlib_md5()
 
-            with open(pathname, 'rb') as hashed_file:
-                for chunk in iter(lambda: hashed_file.read(65536), b''):
+            with open(pathname, "rb") as hashed_file:
+                for chunk in iter(lambda: hashed_file.read(65536), b""):
                     hsh.update(chunk)
 
             return hsh.hexdigest()
 
-        DirectoryHTMLBuilder.update_page_context(self, pagename, templatename,
-                                                 ctx, event_arg)
-        ctx['md5'] = md5
+        DirectoryHTMLBuilder.update_page_context(
+            self, pagename, templatename, ctx, event_arg
+        )
+        ctx["md5"] = md5
 
 
 class NxtTranslator(HTMLTranslator):
@@ -335,10 +356,12 @@ class NxtTranslator(HTMLTranslator):
     def visit_nxt_details(self, node: Element) -> None:
         """Handles the nxt_details directive."""
 
-        self.body.append(f"""<details>
+        self.body.append(
+            f"""<details>
             <summary onclick="this.addEventListener('click',
             e => e.preventDefault())"><span>{node.summary_text}</span>
-            </summary>""")
+            </summary>"""
+        )
 
         HTMLTranslator.visit_container(self, node)
 
@@ -346,12 +369,14 @@ class NxtTranslator(HTMLTranslator):
         """Handles the nxt_details directive."""
 
         HTMLTranslator.depart_container(self, node)
-        self.body.append('</details>')
+        self.body.append("</details>")
 
     def visit_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
-        self.body.append(f'''<span class=nxt_hint title="{node.tip}">
-                         {node.term}</span>''')
+        self.body.append(
+            f"""<span class=nxt_hint title="{node.tip}">
+                         {node.term}</span>"""
+        )
 
     def depart_nxt_hint(self, node: Element) -> None:
         """Handles the nxt_hint directive *outside* literal blocks."""
@@ -366,14 +391,16 @@ class NxtTranslator(HTMLTranslator):
 
     def visit_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
-        self.body.append(f"""<input name={node.tabs_id} type=radio
+        self.body.append(
+            f"""<input name={node.tabs_id} type=radio
             id={node.tab_id} class=nojs {node.checked}/>
             <label for={node.tab_id} id={node.anchor_id}>
-            <a href=#{node.anchor_id} onclick="nxt_tab_click(event)">""")
+            <a href=#{node.anchor_id} onclick="nxt_tab_click(event)">"""
+        )
 
     def depart_nxt_tab_head(self, node: Element) -> None:
         """Handles the nxt_tab_head node in an individual tab."""
-        self.body.append('</a></label>')
+        self.body.append("</a></label>")
 
     def visit_nxt_tabs(self, node: Element) -> None:
         """Handles the nxt_tabs node in a tab group."""
@@ -383,9 +410,10 @@ class NxtTranslator(HTMLTranslator):
         """Handles the nxt_tabs node in a tab group."""
         HTMLTranslator.depart_container(self, node)
 
-    def __write_news_entry(self, e: List[dict], prefix: str = '') -> None:
-        date = datetime.strptime(e['date'], "%Y-%m-%d").strftime('%B %-d, %Y')
-        self.body.append(f'''
+    def __write_news_entry(self, e: List[dict], prefix: str = "") -> None:
+        date = datetime.strptime(e["date"], "%Y-%m-%d").strftime("%B %-d, %Y")
+        self.body.append(
+            f"""
             <div class=nxt_news_item>
              <h2>
                  {e['title']}
@@ -395,33 +423,37 @@ class NxtTranslator(HTMLTranslator):
              <p class=nxt_news_authordate>
                  {e['author']}&nbsp;on&nbsp;{date}
              </p>
-             <p>{e['description']}</p>''')
-        if 'relurl' in e:
+             <p>{e['description']}</p>"""
+        )
+        if "relurl" in e:
             domain = urlparse(e["relurl"]).netloc
-            if domain.startswith('www.'):
+            if domain.startswith("www."):
                 domain = domain[4:]
-            self.body.append(f"""
+            self.body.append(
+                f"""
                 <p class=nxt_newslink>
                 <a href={e["relurl"]}>Details</a>"""
-                + (f' on {domain.capitalize()}' if domain else '')
-                + '</p>')
-        self.body.append('</div>')
+                + (f" on {domain.capitalize()}" if domain else "")
+                + "</p>"
+            )
+        self.body.append("</div>")
 
     def visit_nxt_news_recent(self, node: Element) -> None:
         """Handles the nxt_news_recent directive."""
         if not NewsEntryDirective.items:
             return
 
-        sorted_entries = sorted(NewsEntryDirective.items,
-            key=lambda x: x['date'], reverse=True)[:node.number]
+        sorted_entries = sorted(
+            NewsEntryDirective.items, key=lambda x: x["date"], reverse=True
+        )[: node.number]
 
-        self.body.append('<div class=nxt_news>')
+        self.body.append("<div class=nxt_news>")
         for e in sorted_entries:
             self.__write_news_entry(e, node.prefix)
 
     def depart_nxt_news_recent(self, node: Element) -> None:
         """Handles the nxt_news_recent directive."""
-        self.body.append('</div>')
+        self.body.append("</div>")
 
     def visit_nxt_news_entry(self, node: Element) -> None:
         """Handles the nxt_news_entry directive."""
@@ -478,30 +510,36 @@ class NxtCollector(TocTreeCollector):
                     if not numentries[0]:
                         # for the very first toc entry, don't add an anchor
                         # as it is the file's title anyway
-                        anchorname = ''
+                        anchorname = ""
                     else:
-                        anchorname = '#' + sectionnode['ids'][0]
+                        anchorname = "#" + sectionnode["ids"][0]
                     numentries[0] += 1
                     # make these nodes:
                     # list_item -> compact_paragraph -> reference
                     reference = nodes.reference(
-                        '', '', internal=True, refuri=docname,
-                        anchorname=anchorname, *nodetext)
-                    para = addnodes.compact_paragraph('', '', reference)
-                    item: Element = nodes.list_item('', para)
+                        "",
+                        "",
+                        internal=True,
+                        refuri=docname,
+                        anchorname=anchorname,
+                        *nodetext,
+                    )
+                    para = addnodes.compact_paragraph("", "", reference)
+                    item: Element = nodes.list_item("", para)
                     sub_item = build_toc(sectionnode, depth + 1)
                     if sub_item:
                         item += sub_item
                     entries.append(item)
                 elif isinstance(sectionnode, addnodes.only):
-                    onlynode = addnodes.only(expr=sectionnode['expr'])
+                    onlynode = addnodes.only(expr=sectionnode["expr"])
                     blist = build_toc(sectionnode, depth)
                     if blist:
                         onlynode += blist.children
                         entries.append(onlynode)
                 elif isinstance(sectionnode, nodes.Element):
-                    for toctreenode in traverse_in_section(sectionnode,
-                                                           addnodes.toctree):
+                    for toctreenode in traverse_in_section(
+                        sectionnode, addnodes.toctree
+                    ):
                         item = toctreenode.copy()
                         entries.append(item)
                         # important: do the inventory stuff
@@ -510,65 +548,75 @@ class NxtCollector(TocTreeCollector):
                 # Extension code starts here.
                 if not isinstance(sectionnode, nodes.section):
                     for tabnode in traverse_in_section(
-                        sectionnode, nxt_tab_head):
+                        sectionnode, nxt_tab_head
+                    ):
                         if tabnode.tab_toc:
                             nodetext = [nodes.Text(tabnode.children[0])]
-                            anchorname = '#' + tabnode.anchor_id
+                            anchorname = "#" + tabnode.anchor_id
                             numentries[0] += 1
                             reference = nodes.reference(
-                                '', '', internal=True, refuri=docname,
-                                anchorname=anchorname, *nodetext)
-                            para = addnodes.compact_paragraph('', '',
-                                                              reference)
-                            item = nodes.list_item('', para)
+                                "",
+                                "",
+                                internal=True,
+                                refuri=docname,
+                                anchorname=anchorname,
+                                *nodetext,
+                            )
+                            para = addnodes.compact_paragraph("", "", reference)
+                            item = nodes.list_item("", para)
                             entries.append(item)
 
                     for newsnode in traverse_in_section(
-                        sectionnode, nxt_news_entry):
-                        nodetext = [nodes.Text(newsnode.options['title'])]
-                        if 'relurl' in newsnode.options:
-                            anchorname = newsnode.options['relurl']
+                        sectionnode, nxt_news_entry
+                    ):
+                        nodetext = [nodes.Text(newsnode.options["title"])]
+                        if "relurl" in newsnode.options:
+                            anchorname = newsnode.options["relurl"]
                         else:
-                            anchorname = '#' + nxt_make_id(
-                                             newsnode.options['title'])
+                            anchorname = "#" + nxt_make_id(
+                                newsnode.options["title"]
+                            )
 
                         numentries[0] += 1
                         reference = nodes.reference(
-                            '', '', internal=True, refuri=docname,
-                            anchorname=anchorname, *nodetext)
-                        para = addnodes.compact_paragraph('', '',
-                                                          reference)
-                        item = nodes.list_item('', para)
+                            "",
+                            "",
+                            internal=True,
+                            refuri=docname,
+                            anchorname=anchorname,
+                            *nodetext,
+                        )
+                        para = addnodes.compact_paragraph("", "", reference)
+                        item = nodes.list_item("", para)
                         entries.append(item)
                 # Extension code ends here.
 
             if entries:
-                return nodes.bullet_list('', *entries)
+                return nodes.bullet_list("", *entries)
             return None
+
         toc = build_toc(doctree)
         if toc:
             app.env.tocs[docname] = toc
         else:
-            app.env.tocs[docname] = nodes.bullet_list('')
+            app.env.tocs[docname] = nodes.bullet_list("")
         app.env.toc_num_entries[docname] = numentries[0]
 
 
 class NewsRecentDirective(Directive):
-    """Handles the '.. nxt_news_recent::' directive, adding N latest news items.
-    """
+    """Handles the '.. nxt_news_recent::' directive, adding N latest news items."""
 
     has_content = True
 
-    option_spec = {
-            'number':       directives.unchanged_required
-    }
+    option_spec = {"number": directives.unchanged_required}
 
     def run(self) -> List[Node]:
 
         node = nxt_news_recent()
-        node.number = int(self.options['number'])
-        node.prefix = '../' * (
-            self.state.document.settings.env.docname.count('/') + 1)
+        node.number = int(self.options["number"])
+        node.prefix = "../" * (
+            self.state.document.settings.env.docname.count("/") + 1
+        )
         return [node]
 
 
@@ -582,12 +630,12 @@ class NewsEntryDirective(Directive):
     has_content = True
 
     option_spec = {
-            'author':       directives.unchanged_required,
-            'date':         directives.unchanged_required,
-            'description':  directives.unchanged,
-            'email':        directives.unchanged_required,
-            'title':        directives.unchanged_required,
-            'url':          directives.unchanged
+        "author": directives.unchanged_required,
+        "date": directives.unchanged_required,
+        "description": directives.unchanged,
+        "email": directives.unchanged_required,
+        "title": directives.unchanged_required,
+        "url": directives.unchanged,
     }
 
     def run(self) -> List[Node]:
@@ -595,13 +643,16 @@ class NewsEntryDirective(Directive):
         self.items.append(self.options)
         node = nxt_news_entry()
         node.options = self.options
-        node.prefix = '../' * (env.docname.count('/') + 1)
-        self.options['anchor'] = (env.docname.rsplit('/', 1)[0]
-                                  +'/#'
-                                  + nxt_make_id(self.options['title']))
-        if 'url' in self.options:
-            self.options['relurl'] = ('' if '://' in self.options['url']
-                                      else node.prefix) + self.options['url']
+        node.prefix = "../" * (env.docname.count("/") + 1)
+        self.options["anchor"] = (
+            env.docname.rsplit("/", 1)[0]
+            + "/#"
+            + nxt_make_id(self.options["title"])
+        )
+        if "url" in self.options:
+            self.options["relurl"] = (
+                "" if "://" in self.options["url"] else node.prefix
+            ) + self.options["url"]
         return [node]
 
 
@@ -630,39 +681,38 @@ class NxtTabsDirective(Directive):
     """Handles the tabs directive, adding an nxt_tabs container node."""
 
     has_content = True
-    option_spec = {
-        'prefix': directives.unchanged,
-        'toc': directives.unchanged
-    }
+    option_spec = {"prefix": directives.unchanged, "toc": directives.unchanged}
 
     def run(self) -> List[Node]:
         self.assert_has_content()
         env = self.state.document.settings.env
 
         node = nxt_tabs()
-        node['classes'] = ['nxt_tabs']
-        if 'tabs_id' in env.temp_data:
-            env.temp_data['tabs_id'].append(self.options.get('prefix',
-                                                             token_urlsafe()))
+        node["classes"] = ["nxt_tabs"]
+        if "tabs_id" in env.temp_data:
+            env.temp_data["tabs_id"].append(
+                self.options.get("prefix", token_urlsafe())
+            )
         else:
-            env.temp_data['tabs_id'] = [self.options.get('prefix',
-                                                         token_urlsafe())]
+            env.temp_data["tabs_id"] = [
+                self.options.get("prefix", token_urlsafe())
+            ]
 
-        if 'tab_id' in env.temp_data:
-            env.temp_data['tab_id'].append(0)
+        if "tab_id" in env.temp_data:
+            env.temp_data["tab_id"].append(0)
         else:
-            env.temp_data['tab_id'] = [0]
+            env.temp_data["tab_id"] = [0]
 
-        if 'toc' in self.options:
-            env.temp_data['tab_toc'] = True
-            node['classes'].append('nxt_toc')
+        if "toc" in self.options:
+            env.temp_data["tab_toc"] = True
+            node["classes"].append("nxt_toc")
         else:
-            env.temp_data['tab_toc'] = False
+            env.temp_data["tab_toc"] = False
 
         self.state.nested_parse(self.content, self.content_offset, node)
 
-        env.temp_data['tabs_id'].pop()
-        env.temp_data['tab_id'].pop()
+        env.temp_data["tabs_id"].pop()
+        env.temp_data["tab_id"].pop()
 
         return [node]
 
@@ -679,21 +729,24 @@ class NxtTabDirective(Directive):
         tab_head = nxt_tab_head()
         tab_head += nodes.Text(self.content[0])
 
-        tab_head.tabs_id = env.temp_data['tabs_id'][-1]
-        tab_head.checked = 'checked' if env.temp_data['tab_id'][-1] == 0 else ''
-        tab_head.tab_id = '{}_{}'.format(env.temp_data['tabs_id'][-1],
-            env.temp_data['tab_id'][-1])
-        tab_head.rstref_id = '{}-{}-{}'.format(env.docname,
-            env.temp_data['tabs_id'][-1], nxt_make_id(self.content[0]))
-        tab_head.anchor_id = tab_head.rstref_id.split('-', 1)[1]
-        tab_head.tab_toc = env.temp_data['tab_toc']
+        tab_head.tabs_id = env.temp_data["tabs_id"][-1]
+        tab_head.checked = "checked" if env.temp_data["tab_id"][-1] == 0 else ""
+        tab_head.tab_id = "{}_{}".format(
+            env.temp_data["tabs_id"][-1], env.temp_data["tab_id"][-1]
+        )
+        tab_head.rstref_id = "{}-{}-{}".format(
+            env.docname,
+            env.temp_data["tabs_id"][-1],
+            nxt_make_id(self.content[0]),
+        )
+        tab_head.anchor_id = tab_head.rstref_id.split("-", 1)[1]
+        tab_head.tab_toc = env.temp_data["tab_toc"]
 
-        env.temp_data['tab_id'][-1] += 1
+        env.temp_data["tab_id"][-1] += 1
 
-        text = '\n'.join(self.content)
+        text = "\n".join(self.content)
         tab_body = nxt_tab_body(text)
-        self.state.nested_parse(self.content[2:], self.content_offset,
-                                tab_body)
+        self.state.nested_parse(self.content[2:], self.content_offset, tab_body)
 
         return [tab_head, tab_body]
 
@@ -702,16 +755,17 @@ def nxt_register_tabs_as_labels(app: Sphinx, document: nodes.document) -> None:
     """Registers tabs as anchors in TOC."""
 
     docname = app.env.docname
-    labels = app.env.domaindata['std']['labels']
-    anonlabels = app.env.domaindata['std']['anonlabels']
+    labels = app.env.domaindata["std"]["labels"]
+    anonlabels = app.env.domaindata["std"]["anonlabels"]
 
     for node in document.traverse(nxt_tab_head):
         if node.rstref_id in labels:
             logging.getLogger(__name__).warning(
-                __('duplicate label %s, other instance in %s'),
+                __("duplicate label %s, other instance in %s"),
                 node.rstref_id,
                 app.env.doc2path(labels[node.rstref_id][0]),
-                location=node)
+                location=node,
+            )
         anonlabels[node.rstref_id] = docname, node.anchor_id
         labels[node.rstref_id] = docname, node.anchor_id, node.astext()
 
@@ -720,7 +774,8 @@ def nxt_write_rss(app: Sphinx, error: Exception) -> None:
     """Writes the .rss file."""
     cfg = app.config
 
-    lines = [f'''<?xml version="1.0" encoding="utf-8"?>
+    lines = [
+        f"""<?xml version="1.0" encoding="utf-8"?>
         <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
         <channel>
         <atom:link href="{cfg.html_baseurl}{cfg.html_context['nxt_rss_file']}"
@@ -729,56 +784,63 @@ def nxt_write_rss(app: Sphinx, error: Exception) -> None:
         <link>{cfg.html_baseurl}</link>
         <copyright>{cfg.author}, {cfg.copyright}</copyright>
         <description>{cfg.project} news and articles</description>
-        <generator>nxt-newsfeed</generator>'''
+        <generator>nxt-newsfeed</generator>"""
     ]
 
-    sorted_entries = sorted(NewsEntryDirective.items, key=lambda x: x['date'],
-                            reverse=True)
+    sorted_entries = sorted(
+        NewsEntryDirective.items, key=lambda x: x["date"], reverse=True
+    )
 
     for e in sorted_entries:
-        date = formatdate(mktime(datetime.strptime(e['date'], "%Y-%m-%d").
-                          timetuple()))
-        lines.append(f'''<item><title>{e['title']}</title>
+        date = formatdate(
+            mktime(datetime.strptime(e["date"], "%Y-%m-%d").timetuple())
+        )
+        lines.append(
+            f"""<item><title>{e['title']}</title>
             <author>{e['email']} ({e['author']})</author>
-            <pubDate>{date}</pubDate>''')
+            <pubDate>{date}</pubDate>"""
+        )
 
-        if 'url' in e:  # adjusting for local links
-            url = ('' if '://' in e['url'] else cfg.html_baseurl) + e['url']
-            lines.append(f'<link>{url}</link><guid>{url}</guid>')
+        if "url" in e:  # adjusting for local links
+            url = ("" if "://" in e["url"] else cfg.html_baseurl) + e["url"]
+            lines.append(f"<link>{url}</link><guid>{url}</guid>")
 
-        if 'description' in e:
+        if "description" in e:
             lines.append(f'<description>{e["description"]}</description>')
 
-        lines.append('</item>')
+        lines.append("</item>")
 
-    lines.append('</channel></rss>')
+    lines.append("</channel></rss>")
 
-
-    dom = xml.dom.minidom.parseString(re.sub('&', '&amp;', ''.join(lines)))
-    with open(app.outdir + '/' + cfg.html_context['nxt_rss_file'], 'w',
-              encoding='utf-8') as f:
+    dom = xml.dom.minidom.parseString(re.sub("&", "&amp;", "".join(lines)))
+    with open(
+        app.outdir + "/" + cfg.html_context["nxt_rss_file"],
+        "w",
+        encoding="utf-8",
+    ) as f:
         f.write(dom.toprettyxml())
 
 
 def setup(app: Sphinx) -> None:
     """Connects the extension to the app."""
-    pygments.lexers.data.JsonLexer.constants = \
-        set('truefalsenullxphi_0123456789')
+    pygments.lexers.data.JsonLexer.constants = set(
+        "truefalsenullxphi_0123456789"
+    )
     # Adding 'nxt_ph_N' and 'nxt_hint_N' to the charset allows
     # NxtHightlighter.highlight_block() to run w/o resetting lexer to 'none'
     # when constants such as false and true are commented with nxt_ directives.
 
-    app.add_directive('nxt_details', NxtDetailsDirective)
-    app.add_directive('tabs', NxtTabsDirective)
-    app.add_directive('tab', NxtTabDirective)
-    app.add_directive('nxt_news_entry', NewsEntryDirective)
-    app.add_directive('nxt_news_recent', NewsRecentDirective)
+    app.add_directive("nxt_details", NxtDetailsDirective)
+    app.add_directive("tabs", NxtTabsDirective)
+    app.add_directive("tab", NxtTabDirective)
+    app.add_directive("nxt_news_entry", NewsEntryDirective)
+    app.add_directive("nxt_news_recent", NewsRecentDirective)
 
     app.add_env_collector(NxtCollector)
     app.add_builder(NxtBuilder)
-    app.set_translator('nxt_html', NxtTranslator)
+    app.set_translator("nxt_html", NxtTranslator)
 
-    app.connect('doctree-read', nxt_register_tabs_as_labels)
-    app.connect('build-finished', nxt_write_rss)
+    app.connect("doctree-read", nxt_register_tabs_as_labels)
+    app.connect("build-finished", nxt_write_rss)
 
-    roles.register_canonical_role('nxt_hint', nxt_hint_role_fn)
+    roles.register_canonical_role("nxt_hint", nxt_hint_role_fn)
