@@ -88,7 +88,7 @@ Try this sample out with the Dockerfile :download:`here
        m := make(map[string]string)
        t := make(map[string]interface{})
 
-       m["message"] = "Kirov reporting"
+       m["message"] = "Unit reporting"
        m["agent"] = "NGINX Unit |version|"
 
        body, _ := ioutil.ReadAll(r.Body)
@@ -171,7 +171,7 @@ need to `download <https://cliftonlabs.github.io/json-simple/>`__ and :ref:`add
    <%
    JsonObject r = new JsonObject();
 
-   r.put("message", "Kirov reporting");
+   r.put("message", "Unit reporting");
    r.put("agent", "NGINX Unit |version|");
 
    JsonObject headers = new JsonObject();
@@ -265,7 +265,7 @@ Try this sample out with the Dockerfile :download:`here
 
            var r = {
                "agent":    "NGINX Unit |version|",
-               "message":  "Kirov reporting"
+               "message":  "Unit reporting"
            }
 
            r["headers"] = req.headers
@@ -343,7 +343,7 @@ Try this sample out with the Dockerfile :download:`here
        $res->header("Content-Type" => "application/json; charset=utf-8");
 
        my $r = {
-           "message"   => "Kirov reporting",
+           "message"   => "Unit reporting",
            "agent"     => "NGINX Unit |version|",
            "headers"   => $req->headers->psgi_flatten(),
            "body"      => $req->content,
@@ -401,7 +401,7 @@ Try this sample out with the Dockerfile :download:`here
    header("Content-Type: application/json; charset=utf-8");
 
    $r = array (
-      "message" => "Kirov reporting",
+      "message" => "Unit reporting",
       "agent"   => "NGINX Unit |version|"
    );
 
@@ -467,7 +467,7 @@ Try this sample out with the Dockerfile :download:`here
 
        r = {}
 
-       r["message"] = "Kirov reporting"
+       r["message"] = "Unit reporting"
        r["agent"] = "NGINX Unit |version|"
 
        r["headers"] = {}
@@ -532,7 +532,7 @@ Try this sample out with the Dockerfile :download:`here
    app = Proc.new do |env|
        body = env["rack.input"].read
        r = {
-           "message" => "Kirov reporting",
+           "message" => "Unit reporting",
            "agent"   => "NGINX Unit |version|",
            "body"    => body,
            "headers" => env.select { |key, value| key.include?("HTTP_") },
