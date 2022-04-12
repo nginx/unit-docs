@@ -22,7 +22,7 @@ Also, you can open a pull request at the appropriate GitHub mirror.
 
 Source code:
 
-- Mercurial repository: <https://hg.nginx.org/unit>
+- Mercurial repository: https://hg.nginx.org/unit
 - GitHub mirror: https://github.com/nginx/unit
 
 CLI:
