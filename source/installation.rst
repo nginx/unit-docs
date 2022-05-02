@@ -791,7 +791,7 @@ Ubuntu
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
-                          unit-perl unit-php unit-python2.7 unit-python3.9 unit-python3.10 unit-ruby
+                          unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
