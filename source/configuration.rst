@@ -3603,8 +3603,15 @@ You can customize :file:`php.ini` via the :samp:`options` object:
         values are set in :samp:`PHP_INI_USER` mode and may `be updated
         <https://www.php.net/manual/en/function.ini-set.php>`_ in runtime.
 
-Directives from :file:`php.ini` are overridden by settings supplied in
-:samp:`admin` and :samp:`user` objects.
+        - The objects override the settings from any :file:`*.ini` files
+
+        - The :samp:`admin` object can only set what's `listed
+          <https://www.php.net/manual/en/ini.list.php>`__ as
+          :samp:`PHP_INI_SYSTEM`; for other modes, set :samp:`user`
+
+        - Neither :samp:`admin` nor :samp:`user` can set directives listed as
+          `php.ini only <https://www.php.net/manual/en/ini.list.php>`__ except
+          for :samp:`disable_classes` and :samp:`disable_functions`
 
 .. note::
 
@@ -3634,8 +3641,7 @@ Example:
            "file": "/etc/php.ini",
            "admin": {
                "memory_limit": "256M",
-               "variables_order": "EGPCS",
-               "expose_php": "0"
+               "variables_order": "EGPCS"
            },
 
            "user": {
