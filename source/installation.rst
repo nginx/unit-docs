@@ -1752,6 +1752,20 @@ Community Repositories
 
    .. tab:: OpenBSD
 
+        To install Unit from `OpenBSD packages
+        <https://www.openbsd.org/faq/faq15.html>`_, get the core package and
+        other packages you need:
+
+        .. code-block:: console
+
+           # pkg_add unit
+           # pkg_add unit-perl
+           # pkg_add unit-php74
+           # pkg_add unit-php80
+           # pkg_add unit-python
+           # pkg_add unit-ruby
+           # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
         To install Unit from `OpenBSD ports <https://openports.se/www/unit>`_,
         start by updating your port collection, for example:
 
