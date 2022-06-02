@@ -562,6 +562,9 @@ The :samp:`tls` object provides the following options:
 
                 OpenSSL 1.1.1d  10 Sep 2019
 
+       Also, make sure your OpenSSL version supports the commands set in this
+       option.
+
    * - :samp:`session`
      - Object, configures the TLS session cache and tickets for the listener.
 
