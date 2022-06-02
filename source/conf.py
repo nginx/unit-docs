@@ -5,10 +5,10 @@ import os, sys
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2022'
-version = '1.26.1'
-release_date = 'December 2, 2021'
+version = '1.27.0'
+release_date = 'June 2, 2022'
 release = version
-needs_sphinx = '4.4'
+needs_sphinx = '4.5'
 
 highlight_language = 'json'
 
