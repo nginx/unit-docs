@@ -1844,8 +1844,8 @@ Unit's Docker images come in several language-specific flavors:
      - No language modules; based on the :samp:`debian:buster-slim` `image
        <https://hub.docker.com/_/debian>`__.
 
-   * - :samp:`|version|-go1.17`
-     - Single-language image based on the :samp:`golang:1.17`
+   * - :samp:`|version|-go1.18`
+     - Single-language image based on the :samp:`golang:1.18`
        `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
@@ -1872,8 +1872,8 @@ Unit's Docker images come in several language-specific flavors:
      - Single-language image based on the :samp:`python:3.10`
        `image <https://hub.docker.com/_/python>`__.
 
-   * - :samp:`|version|-ruby3.0`
-     - Single-language image based on the :samp:`ruby:3.0`
+   * - :samp:`|version|-ruby3.1`
+     - Single-language image based on the :samp:`ruby:3.1`
        `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
