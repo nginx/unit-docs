@@ -3768,6 +3768,28 @@ following:
            performance, Unit doesn't use the command-line interpreter from the
            virtual environment.
 
+        .. nxt_details:: ImportError: No module named 'encodings'
+
+           Seeing this in Unit's :ref:`log <troubleshooting-log>` after you set
+           up :samp:`home` for your app?  This usually occurs if the
+           interpreter can't use the virtual environment, possible reasons
+           including:
+
+           - Version mismatch between the :samp:`type` setting and the virtual
+             environment; check the environment's version:
+
+             .. code-block:: console
+
+                $ source :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`bin/activate
+                (venv) $ python --version
+
+           - Unit's unprivileged user (usually :samp:`unit`) having no access
+             to the environment's files; assign the necessary rights:
+
+             .. code-block:: console
+
+                # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`
+
     * - :samp:`path`
       - String or array of strings that represent additional Python module
         lookup paths; these values are prepended to :samp:`sys.path`.
