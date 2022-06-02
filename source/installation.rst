@@ -89,7 +89,8 @@ occasions; they're available for:
 - Fedora |_| :ref:`29 <installation-fedora-29>`, :ref:`30
   <installation-fedora-3130>`, :ref:`31 <installation-fedora-3130>`, :ref:`32
   <installation-fedora-32>`, :ref:`33 <installation-fedora-3433>`, :ref:`34
-  <installation-fedora-3433>`, :ref:`35 <installation-fedora-35>`
+  <installation-fedora-3433>`, :ref:`35 <installation-fedora-3635>`, :ref:`36
+  <installation-fedora-3635>`
 
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`, :ref:`7 <installation-rhel-8x7x>`,
@@ -454,7 +455,7 @@ Fedora
 .. tabs::
    :prefix: fedora
 
-   .. tab:: 35
+   .. tab:: 36, 35
 
       Supported architecture: x86-64.
 
@@ -495,6 +496,11 @@ Fedora
 
    .. tab:: 34, 33
 
+      .. warning::
+
+         Unit's 1.27+ packages aren't built for Fedora 33 and Fedora 34.  These
+         distributions are obsolete; please update.
+
       Supported architecture: x86-64.
 
       #. To configure Unit's repository, create the following file named
@@ -533,6 +539,11 @@ Fedora
 
 
    .. tab:: 32
+
+      .. warning::
+
+         Unit's 1.24+ packages aren't built for Fedora 32.  These distributions
+         are obsolete; please update.
 
       Supported architecture: x86-64.
 
