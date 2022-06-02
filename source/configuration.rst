@@ -83,8 +83,9 @@ Finally, check the resulting configuration:
        }
 
 You can upload the entire configuration at once or update it in portions.  For
-details of configuration techniques, see :ref:`below <configuration-mgmt>`.
-For a full configuration sample, see :ref:`here <configuration-full-example>`.
+details of configuration techniques, see the :ref:`next section
+<configuration-mgmt>`.  For a full configuration sample, see :ref:`here
+<configuration-full-example>`.
 
 
 .. _configuration-mgmt:
@@ -105,9 +106,9 @@ Unit's configuration is JSON-based, accessed via the :ref:`control socket
 
 To address parts of the configuration, query the control socket over HTTP; URI
 path segments of your requests to the API must be names of its `JSON object
-members <https://datatracker.ietf.org/doc/html/rfc8259#section-4>`_ or indexes
-of its `array elements
-<https://datatracker.ietf.org/doc/html/rfc8259#section-5>`_.
+<https://datatracker.ietf.org/doc/html/rfc8259#section-4>`_ members or indexes
+of its `JSON array <https://datatracker.ietf.org/doc/html/rfc8259#section-5>`_
+elements.
 
 You can manipulate the API with the following HTTP methods:
 
@@ -133,10 +134,10 @@ You can manipulate the API with the following HTTP methods:
      - Deletes the entity at the request URI and returns status message in the
        HTTP response body.
 
-Before a change, Unit evaluates the difference it causes in the entire
-configuration; if there's none, nothing is done.  For example, you can't
-:ref:`restart <configuration-proc-mgmt>` an updated app by uploading the same
-configuration it already has.
+Before a change, Unit checks the difference it makes in the entire
+configuration; if there's none, nothing is done.  Thus, you can't restart an
+app by reuploading its unchanged configuration; still, there is another
+:ref:`way <configuration-proc-mgmt>`.
 
 Unit performs actual reconfiguration steps as gracefully as possible: running
 tasks expire naturally, connections are properly closed, processes end
@@ -406,9 +407,9 @@ only the :samp:`pass` value and leaves other options intact.
 
    .. note::
 
-      Different stop and start commands may be needed if you use a
-      :ref:`non-official <installation-community-repos>` installation
-      method.
+      Stop and start commands may differ if Unit was installed from a
+      :ref:`non-official <installation-community-repos>` repo or built from
+      :ref:`source <source>`.
 
    Copy the reference state directory to the target state directory by
    arbitrary means; make sure to include subdirectories and hidden files.
@@ -465,8 +466,8 @@ Available listener options:
         - :ref:`Application <configuration-applications>`:
           :samp:`applications/qwk2mart`
 
-        - :ref:`PHP <configuration-php-targets>` or :ref:`Python
-          <configuration-python-targets>` app target:
+        - :ref:`PHP target <configuration-php-targets>` or :ref:`Python target
+          <configuration-python-targets>`:
           :samp:`applications/myapp/section`
 
         - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
@@ -540,9 +541,9 @@ The :samp:`tls` object provides the following options:
      - Description
 
    * - :samp:`certificate` (required)
-     - String or string array, refers to one or more certificate bundles you
-       have :ref:`uploaded <configuration-ssl>` earlier, enabling secure
-       communication via the listener.
+     - String or string array, refers to one or more :ref:`certificate bundles
+       <configuration-ssl>` uploaded earlier, enabling secure communication via
+       the listener.
 
    * - :samp:`conf_commands`
      - Object, defines the SSL `configuration commands
@@ -561,8 +562,8 @@ The :samp:`tls` object provides the following options:
    * - :samp:`session`
      - Object, configures the TLS session cache and tickets for the listener.
 
-To use a certificate bundle you've :ref:`uploaded <configuration-ssl>` earlier,
-name it in the :samp:`certificate` option of the :samp:`tls` object:
+To use an earlier uploaded :ref:`certificate bundle <configuration-ssl>`, name
+it in the :samp:`certificate` option of the :samp:`tls` object:
 
 .. code-block:: json
 
@@ -1061,9 +1062,8 @@ object define patterns to be compared to the requests' properties:
      - No
 
    * - :samp:`method`
-     - Method from the `request line
-       <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_, converted
-       to upper case.
+     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_ from
+       the request line, converted to upper case.
      - No
 
    * - :samp:`query`
@@ -1342,7 +1342,7 @@ which is the default for the official packages>` modify this behavior:
 
 - A regex pattern starts with a tilde (:samp:`~`):
   :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
-  JSON `requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE
+  `JSON requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE
   <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
 
 .. nxt_details:: Percent Encoding In Arguments, Query, and URI Patterns
@@ -1810,8 +1810,8 @@ Available variables:
        the query part, normalized by resolving relative path references ("."
        and "..") and collapsing adjacent slashes.  The value is `percent
        decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_:
-       Unit interpolates all percent-encoded entities in the request target
-       `path <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_.
+       Unit interpolates all percent-encoded entities in the `request target
+       path <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_.
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1951,7 +1951,7 @@ Instant Responses, Redirects
 ****************************
 
 You can use route step :ref:`actions <configuration-routes-action>` to
-instantly respond to certain conditions with arbitrary HTTP `status codes
+instantly respond to certain conditions with arbitrary `HTTP status codes
 <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__:
 
 .. code-block:: json
@@ -2052,8 +2052,9 @@ A :samp:`share`-based action provides the following options:
        request can't be served by the :samp:`share`.
 
    * - :samp:`types`
-     - Array of :ref:`MIME type <configuration-share-mime>` patterns, used
-       to filter the shared files.
+     - :ref:`Array <configuration-share-mime>` of `MIME type
+       <https://www.iana.org/assignments/media-types/media-types.xhtml>`__
+       patterns, used to filter the shared files.
 
    * - :samp:`chroot`
      - Directory pathname that :ref:`restricts <configuration-share-path>`
@@ -2179,11 +2180,12 @@ named explicitly:
 MIME Filtering
 ==============
 
-To filter the files a :samp:`share` serves by their :ref:`MIME types
-<configuration-mime>`, define a :samp:`types` array of string patterns.
-They work like :ref:`route patterns <configuration-routes-matching-patterns>`
-but are matched to the MIME type of each file; the request is served only if
-it's a :ref:`match <configuration-routes-matching-resolution>`:
+To filter the files a :samp:`share` serves by their `MIME types
+<https://www.iana.org/assignments/media-types/media-types.xhtml>`__, define a
+:samp:`types` array of string patterns.  They work like :ref:`route patterns
+<configuration-routes-matching-patterns>` but are matched to the MIME type of
+each file; the request is served only if it's a :ref:`match
+<configuration-routes-matching-resolution>`:
 
 .. code-block:: json
 
@@ -2218,7 +2220,7 @@ to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
    }
 
 If a share path specifies only the directory name, Unit *doesn't* apply
-:ref:`MIME filtering <configuration-share-mime>`.
+MIME filtering.
 
 
 .. _configuration-share-path:
@@ -2414,8 +2416,8 @@ Serving a file can be impossible for different reasons, such as:
 
 - The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
 
-- The file's :ref:`MIME type <configuration-share-mime>` doesn't match the
-  :samp:`types` array.
+- The file's MIME type doesn't match the :samp:`types` :ref:`array
+  <configuration-share-mime>`.
 
 - The file isn't found at the :samp:`share` path.
 
@@ -2785,9 +2787,8 @@ App objects have a number of options shared between all application languages:
     * - :samp:`environment`
       - Environment variables to be passed to the application.
 
-Also, you need to set :samp:`type`-specific :ref:`options
-<configuration-languages>` to run the app.  This :ref:`Python app
-<configuration-python>` uses :samp:`path` and :samp:`module`:
+Also, you need to set :samp:`type`-specific options to run the app.  This
+:ref:`Python app <configuration-python>` uses :samp:`path` and :samp:`module`:
 
 .. code-block:: json
 
@@ -4121,17 +4122,20 @@ HTTP requests from the clients:
 
     * - :samp:`static`
       - Object that configures static asset handling, containing a single
-        object named :samp:`mime_types`.  In turn, :samp:`mime_types`
-        defines specific MIME types as options.  An option's value can be a
-        string or an array of strings; each string must specify a filename
-        extension or a specific filename that is included in the MIME type.
+        object named :samp:`mime_types`.  In turn, :samp:`mime_types` defines
+        specific `MIME types
+        <https://www.iana.org/assignments/media-types/media-types.xhtml>`__ as
+        options.  An option's value can be a string or an array of strings;
+        each string must specify a filename extension or a specific filename
+        that is included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
       - Controls the parsing mode of header field names.  If set to
         :samp:`true`, Unit only processes headers with names consisting of
         alphanumeric characters and hyphens (:samp:`-`); otherwise, all valid
-        `RFC 7230 <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_
-        header fields are processed.
+        RFC 7230 `header fields
+        <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ are
+        processed.
 
         The default value is :samp:`true`.
 
@@ -4335,7 +4339,7 @@ them to a separate configuration section, aptly named :samp:`certificates`:
       # curl -X GET --unix-socket /path/to/control.unit.sock \
              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
 
-Next, :ref:`add <configuration-listeners>` the uploaded bundle to a listener;
+Next, add the uploaded bundle to a :ref:`listener <configuration-listeners>`;
 the resulting control API configuration may look like this:
 
 .. code-block:: json
