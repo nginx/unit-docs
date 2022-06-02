@@ -2224,12 +2224,12 @@ until a servable file is found:
 
    "share": [
        "/www/$host$uri",
-       "/www/global_static$uri",
+       "/www/error_pages/not_found.html"
    ]
 
-This tries a :samp:`$host`-based directory first; if a suitable file isn't
-found there, the search continues in :file:`/www/global_static/`.  If it also
-fails, a 404 "Not Found" response is returned.
+This snippet tries a :samp:`$host`-based directory first; if a suitable file
+isn't found there, the :file:`not_found.html` file is tried.  If neither is
+accessible, a 404 "Not Found" response is returned.
 
 Finally, if a file path points to a directory, Unit attempts to serve an
 :samp:`index`-indicated file from it.  Suppose we have the following directory
