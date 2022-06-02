@@ -102,7 +102,10 @@ Unit's configuration is JSON-based, accessed via the :ref:`control socket
    Here, we use :program:`curl` to query Unit's control API, prefixing URIs
    with :samp:`http://localhost` as expected by this utility.  You can use any
    tool capable of making HTTP requests; also, the hostname is irrelevant for
-   Unit.
+   Unit.  If you often configure Unit manually, JSON command-line tools such as
+   `jq <https://stedolan.github.io/jq/>`__ and `jo
+   <https://jpmens.net/2016/03/05/a-shell-command-to-create-json-jo/>`__ may
+   come in handy.
 
 To address parts of the configuration, query the control socket over HTTP; URI
 path segments of your requests to the API must be names of its `JSON object
