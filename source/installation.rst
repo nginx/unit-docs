@@ -99,7 +99,8 @@ occasions; they're available for:
   <installation-ubuntu-1804>`, :ref:`19.10 <installation-ubuntu-1910>`,
   :ref:`20.04 <installation-ubuntu-2004>`, :ref:`20.10
   <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`,
-  :ref:`21.10 <installation-ubuntu-2110>`
+  :ref:`21.10 <installation-ubuntu-2110>`, :ref:`22.04
+  <installation-ubuntu-2204>`
 
 The packages include core executables, developer files, and support for
 individual languages.  We also maintain a Homebrew `tap <#homebrew>`__ for
@@ -761,6 +762,39 @@ Ubuntu
 
 .. tabs::
    :prefix: ubuntu
+
+   .. tab:: 22.04
+
+      Supported architectures: arm64, x86-64.
+
+      #. Download and save NGINX's signing key:
+
+         .. code-block:: console
+
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
+
+         This eliminates the ``packages cannot be authenticated`` warnings
+         during installation.
+
+      #. To configure Unit's repository, create the following file named
+         :file:`/etc/apt/sources.list.d/unit.list`:
+
+         .. code-block:: none
+
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+            # apt install unit
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
+                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
 
    .. tab:: 21.10
 
