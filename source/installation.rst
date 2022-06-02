@@ -93,7 +93,7 @@ occasions; they're available for:
 
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`, :ref:`7 <installation-rhel-8x7x>`,
-  :ref:`8 <installation-rhel-8x7x>`
+  :ref:`8 <installation-rhel-8x7x>`, :ref:`9 <installation-rhel-9x>`
 
 - Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`, :ref:`18.04
   <installation-ubuntu-1804>`, :ref:`19.10 <installation-ubuntu-1910>`,
@@ -667,6 +667,44 @@ RHEL
 
 .. tabs::
    :prefix: rhel
+
+   .. tab:: 9.x
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository, create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
+                  unit-perl unit-php unit-python39
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <security-socket-state>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 8.x, 7.x
 
