@@ -1781,16 +1781,6 @@ Variables
 Some options in Unit configuration allow the use of variables whose values are
 set in runtime:
 
-- :samp:`pass` in :ref:`listeners <configuration-listeners>` and
-  :ref:`actions <configuration-routes-action>` to choose between routes,
-  applications, app targets, or upstreams.
-
-- :samp:`share` and :samp:`chroot` in :ref:`actions
-  <configuration-routes-action>` to control :ref:`static content serving
-  <configuration-static>`.
-
-Available variables:
-
 .. list-table::
    :header-rows: 1
 
@@ -1807,14 +1797,37 @@ Available variables:
      - Method from the `request
        line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
 
+   * - :samp:`request_uri`
+     - Request target `path
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`_
+       *including* the `query
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__,
+       normalized by resolving relative path references ("." and "..") and
+       collapsing adjacent slashes.
+
    * - :samp:`uri`
      - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_ without
-       the query part, normalized by resolving relative path references ("."
-       and "..") and collapsing adjacent slashes.  The value is `percent
-       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_:
-       Unit interpolates all percent-encoded entities in the `request target
-       path <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_.
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`_ *without*
+       the `query
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ part,
+       normalized by resolving relative path references ("." and "..") and
+       collapsing adjacent slashes.  The value is `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__: Unit
+       interpolates all percent-encoded entities in the request target `path
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__.
+
+These variables can be used with:
+
+- :samp:`pass` in :ref:`listeners <configuration-listeners>` and
+  :ref:`actions <configuration-routes-action>` to choose between routes,
+  applications, app targets, or upstreams.
+
+- :samp:`share` and :samp:`chroot` in :ref:`actions
+  <configuration-routes-action>` to control :ref:`static content serving
+  <configuration-static>`.
+
+- :samp:`location` in :samp:`return` :ref:`actions <configuration-return>` to
+  enable HTTP redirects.
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1880,71 +1893,144 @@ picking individual ones by HTTP verbs that the incoming requests use:
 
        HTTP/1.1 404 Not Found
 
-Another obvious usage is employing the URI to choose between applications:
+.. nxt_details:: Examples
 
-.. code-block:: json
+   This configuration selects the static file location based on the requested
+   hostname; if nothing's found, it attempts to retrieve the requested file
+   from a common storage:
 
-   {
-       "listeners": {
-           "*:80": {
-               "pass": ":nxt_hint:`applications$uri <Note that the $uri variable value always includes a starting slash>`"
-           }
-       },
+   .. code-block:: json
 
-       "applications": {
-           "blog": {
-               "root": "/path/to/blog_app/",
-               "script": "index.php"
-           },
+      {
+          "listeners": {
+              "*:80": {
+                  "pass": "routes"
+              }
+          },
 
-           "sandbox": {
-               "type": "php",
-               "root": "/path/to/sandbox_app/",
-               "script": "index.php"
-           }
-       }
-   }
+          "routes": [
+              {
+                  "action": {
+                      "share": [
+                          "/www/$host:nxt_hint:`$uri <Note that the $uri variable value always includes a starting slash>`",
+                          "/www/storage:nxt_hint:`$uri <Note that the $uri variable value always includes a starting slash>`"
+                      ]
+                  }
+              }
+          ]
+      }
 
-This way, we can route requests to applications by request target URIs.  A
-different approach can route requests between applications by the :samp:`Host`
-header field received from the client:
+   Another use case is employing the URI to choose between applications:
 
-.. code-block:: json
+   .. code-block:: json
 
-   {
-       "listeners": {
-           "*:80": {
-               "pass": "applications/$host"
-           }
-       },
+      {
+          "listeners": {
+              "*:80": {
+                  "pass": "applications:nxt_hint:`$uri <Note that the $uri variable value always includes a starting slash>`"
+              }
+          },
 
-       "applications": {
-           "localhost": {
-               "root": "/path/to/admin_section/",
-               "script": "index.php"
-           },
+          "applications": {
+              "blog": {
+                  "root": "/path/to/blog_app/",
+                  "script": "index.php"
+              },
 
-           "www.example.com": {
-               "type": "php",
-               "root": "/path/to/public_app/",
-               "script": "index.php"
-           }
-       }
-   }
+              "sandbox": {
+                  "type": "php",
+                  "root": "/path/to/sandbox_app/",
+                  "script": "index.php"
+              }
+          }
+      }
 
-You can combine variables as you see fit, repeating them or placing them in
-arbitrary order.  This configuration picks application targets by their names
-and request methods:
+   This way, we can route requests to applications by the requests' target
+   URIs:
 
-.. code-block:: json
+   .. code-block:: console
 
-   {
-       "listeners": {
-           "*:80": {
-               "pass": "applications/app${uri}_${method}"
-           }
-       }
-   }
+         $ curl http://localhost/blog     # Targets the 'blog' app
+         $ curl http://localhost/sandbox  # Targets the 'sandbox' app
+
+   A different approach can dispatch requests by the :samp:`Host` header field
+   received from the client:
+
+   .. code-block:: json
+
+      {
+          "listeners": {
+              "*:80": {
+                  "pass": "applications/$host"
+              }
+          },
+
+          "applications": {
+              "localhost": {
+                  "root": "/path/to/admin_section/",
+                  "script": "index.php"
+              },
+
+              "www.example.com": {
+                  "type": "php",
+                  "root": "/path/to/public_app/",
+                  "script": "index.php"
+              }
+          }
+      }
+
+   You can use multiple variables in a string, repeating and placing them
+   arbitrarily.  This configuration picks an app target (supported for
+   :ref:`PHP <configuration-php-targets>` and :ref:`Python
+   <configuration-python-targets>` apps) based on the requested hostname and
+   URI:
+
+   .. code-block:: json
+
+      {
+          "listeners": {
+              "*:80": {
+                  "pass": "applications/app_$host:nxt_hint:`$uri <Note that the $uri value doesn't include the request's query part>`"
+              }
+          }
+      }
+
+   At runtime, a request for :samp:`example.com/myapp` is passed to
+   :samp:`applications/app_example.com/myapp`.
+
+   To select a share directory based on an :samp:`app_session` cookie:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "share": "/data/www/$cookie_app_session"
+          }
+      }
+
+   Here, if :samp:`$uri` in :samp:`share` resolves to a directory, the choice
+   of an index file to be served is dictated by :samp:`index`:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "share": "/www/data:nxt_hint:`$uri <Note that the $uri variable value always includes a starting slash>`",
+              "index": "index.htm"
+          }
+      }
+
+   Here, a redirect uses the :samp:`$request_uri` variable value to relay the
+   request, *including* the query part, to the same website over HTTPS:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "return": 301,
+              "location": "https://$host$request_uri"
+          }
+      }
 
 
 .. _configuration-return:
@@ -4688,7 +4774,7 @@ Full Example
 
                    "action": {
                        "return": 301,
-                       "location": "https://legacy.example.com"
+                       "location": "https://legacy.example.com$request_uri"
                    }
                },
                {
