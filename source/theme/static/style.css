@@ -138,7 +138,7 @@ iframe {
 #side .toctree-l2 a.nxt_active + ul,
 #side .toctree-l1 li.current > ul,
 #side .toctree-l1 li:hover > ul {
-    max-height: 50em;
+    max-height: 100em;
 }
 #side .toctree-l1 li:hover > ul {
     transition-delay: .3s;
