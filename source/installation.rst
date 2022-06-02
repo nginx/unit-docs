@@ -113,6 +113,18 @@ the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
    For details of packaging custom modules that install alongside the official
    Unit, see :ref:`here <modules-pkg>`.
 
+.. nxt_details:: Repo Installation Script
+
+   We provide a :download:`script <downloads/setup-unit.sh>` that adds our
+   official repos on the systems we support:
+
+   .. code-block:: console
+
+      $ curl -sL 'https://unit.nginx.org/_downloads/setup-unit.sh' | sudo -E bash
+
+   Use it at your discretion; explicit steps are provided below for each
+   distribution.
+
 
 .. _installation-precomp-amazon:
 
