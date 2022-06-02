@@ -2132,13 +2132,19 @@ A :samp:`share`-based action provides the following options:
 
    * - :samp:`share` (required)
      - String or array of strings, listing file paths that are tried until a
-       file is found; if it's not, :samp:`fallback` is used if set.
+       file is found.  When no file is found, :samp:`fallback` is used if set.
 
        The value is :ref:`variable <configuration-variables>`-interpolated.
 
+   * - :samp:`index`
+     - Filename to be tried if :samp:`share` is a directory.  When no file is
+       found, :samp:`fallback` is used if set.
+
+       The default is :file:`index.html`.
+
    * - :samp:`fallback`
      - Action-like :ref:`object <configuration-fallback>`, used if the
-       request can't be served by the :samp:`share`.
+       request can't be served by :samp:`share` or :samp:`index`.
 
    * - :samp:`types`
      - :ref:`Array <configuration-share-mime>` of `MIME type
@@ -2226,22 +2232,23 @@ found there, the search continues in :file:`/www/global_static/`.  If it also
 fails, a 404 "Not Found" response is returned.
 
 Finally, if a file path points to a directory, Unit attempts to serve an
-:file:`index.html` file from it.  Suppose we have the following directory
+:samp:`index`-indicated file from it.  Suppose we have the following directory
 structure and share configuration:
 
 .. code-block:: none
 
    /www/static/
    ├── ...
-   └──index.html
+   └──default.html
 
 .. code-block:: json
 
    "action": {
-       "share": "/www/static$uri"
+       "share": "/www/static$uri",
+       "index": "default.html"
    }
 
-The following request returns :file:`index.html` even though the file isn't
+The following request returns :file:`default.html` even though the file isn't
 named explicitly:
 
 .. subs-code-block:: console
@@ -4793,6 +4800,7 @@ Full Example
                            "/www/global_static$uri"
                        ],
 
+                       "index": "index.htm",
                        "chroot": "/www/data/$host/",
                        "traverse_mounts": false,
                        "follow_symlinks": false,
