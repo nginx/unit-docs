@@ -1,0 +1,26 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Canonical: https://unit.nginx.org/.well-known/security.txt
+Contact: mailto:security-alert@nginx.org
+Encryption: https://nginx.org/keys/maxim.key
+Encryption: https://nginx.org/keys/sb.key
+Encryption: https://nginx.org/keys/thresh.key
+Expires: 2023-01-01T00:00:00.000Z
+Hiring: https://ffive.wd5.myworkdayjobs.com/en-US/NGINX/job/Ireland-Homebase/Software-Architect-C-C---NGINX-Unit-Open-source_RP1025422
+Policy: https://www.first.org/cvss/v3.1/specification-document
+Preferred-Languages: en
+-----BEGIN PGP SIGNATURE-----
+
+iQHEBAEBCAAuFiEEE8gqY7YDV2FW4wpOoOqYG2aw2WcFAmK8YmAQHGsucGF2bG92
+QGY1LmNvbQAKCRCg6pgbZrDZZzGeC/9rbY3rXOW4TZT+HtaZL8DWjU42+9gx8pG9
+AZwHQqOCOOpjsCHbJ3AtA4GkFJrvVq0v3Y+6kfGqr+TOpzBWPD1pYZQ2jhAxwb7J
+4gtXrIo0oFhNESePiC3RiRRtwK4TKw1S2QvsGdABW80ZSQ3cok8bfh/cznXOZEfE
+BbKkQEjCmVmzSogQfuFheiAQN6pxZd13g259dZRf4HoPr+POqGidFTqkMFv78lKD
+RpDrUwcEAkQ3SD4ptuR4t6n+PLbF3GwIwI+yhogrElnvCunUnhOGKwAIxdXpzms1
+Jaq7syZ+Dw6CjHf1EikoBkO5TxvCVabk353N6R4Kh20T2dLxEC8ZHx9FzLLMFOPQ
+3hKZ+SeD4YFwmVJw5QYIGeCFa99+INawL+fXodGHbhgifcbjSky+mIVmbvw1EA+z
+kQPxOS7PJwaVjP1n3qeZp+O8o5MisoVedF6WqVO2HF+sFZBUlVM6c8cZs0IdMXGY
+M2Ej9SuraUIcpt+dv6eoexFlYeK/1rw=
+=nKmJ
+-----END PGP SIGNATURE-----

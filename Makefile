@@ -57,6 +57,8 @@ deploy: site
 		| tee "$(BUILDDIR)"/keys/nginx-keyring.gpg > /dev/null
 	gpg --dry-run --quiet --import --import-options import-show \
 		"$(BUILDDIR)"/keys/nginx-keyring.gpg
+	mkdir "$(BUILDDIR)"/.well-known/
+	cp security.txt "$(BUILDDIR)"/.well-known/
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
 	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
