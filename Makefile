@@ -36,7 +36,7 @@ site: $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir "$(BUILDDIR)"
-	mkdir "$(BUILDDIR)"/keys/
+	mkdir "$(BUILDDIR)/keys/"
 
 serve: site
 	@cd "$(BUILDDIR)" && $(SERVER)
@@ -54,9 +54,9 @@ ping:
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-		| tee "$(BUILDDIR)"/keys/nginx-keyring.gpg > /dev/null
+		| tee "$(BUILDDIR)/keys/nginx-keyring.gpg" > /dev/null
 	gpg --dry-run --quiet --import --import-options import-show \
-		"$(BUILDDIR)"/keys/nginx-keyring.gpg
+		"$(BUILDDIR)/keys/nginx-keyring.gpg"
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
 	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
