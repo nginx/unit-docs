@@ -24,6 +24,7 @@ features </CHANGES.txt>`_ that improve your installation's security.
 versions shortly after they are released.
 
 .. nxt_details:: Details
+   :hash: sec-updates
 
    Specific upgrade steps depend on your installation method:
 
@@ -57,6 +58,7 @@ installation method, ensure the control socket and the state directory are
 safe.
 
 .. nxt_details:: Control Socket
+   :hash: sec-socket
 
    If you use a Unix
    control socket, ensure it is available to :samp:`root` only:
@@ -127,6 +129,7 @@ safe.
 
 
 .. nxt_details:: State Directory
+   :hash: sec-state
 
    The state directory stores Unit's internal configuration between launches.
    Avoid manipulating it or relying on its contents even if tempted to do so.
@@ -179,6 +182,7 @@ clear and robust as possible to avoid loose ends and gaping holes.
 <configuration-routes-matching-patterns>` that you use.
 
 .. nxt_details:: Details
+   :hash: sec-routes
 
    Some considerations:
 
@@ -210,6 +214,7 @@ router process need access to them.  Still, avoid loose rights such as the
 notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
 .. nxt_details:: File Permissions
+   :hash: sec-files
 
    To configure file permissions for your apps, check Unit's build-time and
    run-time options first:
@@ -455,6 +460,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       ACLs.
 
 .. nxt_details:: App Internals
+   :hash: sec-app-internals
 
    Unfortunately, quite a few web apps are built in a manner that mixes their
    source code, data, and configuration files with static content, which calls
@@ -530,6 +536,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
    to our app :doc:`howtos <index>` and the 'File Permissions' callout above.
 
 .. nxt_details:: Unit's Process Summary
+   :hash: sec-processes
 
    .. _security-processes:
 
@@ -618,6 +625,7 @@ logs; their size can also become a concern if debug mode is enabled.
 disk space.
 
 .. nxt_details:: Details
+   :hash: sec-logs
 
    Unit can maintain two different logs:
 

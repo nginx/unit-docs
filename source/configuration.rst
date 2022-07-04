@@ -162,6 +162,7 @@ any other options you could have configured, whereas the second one replaces
 only the :samp:`pass` value and leaves other options intact.
 
 .. nxt_details:: Examples
+   :hash: conf-examples
 
    To minimize typos and effort, avoid embedding JSON payload in your commands;
    instead, store your configuration snippets for review and reuse.  For
@@ -369,6 +370,7 @@ only the :samp:`pass` value and leaves other options intact.
            }
 
 .. nxt_details:: Replicating Unit Configurations
+   :hash: conf-replication
 
    Although Unit is fully dynamic, sometimes you just want to copy an existing
    setup without the need for subsequent meddling.  Unit's :ref:`state
@@ -585,6 +587,7 @@ it in the :samp:`certificate` option of the :samp:`tls` object:
    }
 
 .. nxt_details:: Configuring Multiple Bundles
+   :hash: conf-bundles
 
    Since version 1.23.0, Unit supports configuring `Server Name Indication
    (SNI) <https://datatracker.ietf.org/doc/html/rfc6066#section-3>`__ on a
@@ -922,6 +925,7 @@ A request passed to a route traverses its steps sequentially:
   route, always placing it last to avoid potential routing issues.
 
 .. nxt_details:: Ad-Hoc Examples
+   :hash: conf-route-examples
 
    A basic one:
 
@@ -1101,6 +1105,7 @@ object define patterns to be compared to the requests' properties:
      - Yes
 
 .. nxt_details:: Arguments vs. Query
+   :hash: args-vs-query
 
    Both :samp:`arguments` and :samp:`query` operate on the query string, but
    :samp:`query` is matched against the entire string whereas :samp:`arguments`
@@ -1162,6 +1167,7 @@ To be a match, the property must meet two requirements:
 - No negated patterns match the property value.
 
 .. nxt_details:: Formal Explanation
+   :hash: pattern-set-theory
 
    This logic can be described with set operations.  Suppose set *U* comprises
    all possible values of a property; set *P* comprises strings that match any
@@ -1286,6 +1292,7 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
    }
 
 .. nxt_details:: Object Pattern Examples
+   :hash: conf-obj-pattern-examples
 
    This requires :samp:`mode=strict` and any :samp:`access` argument other than
    :samp:`access=full` in the URI query:
@@ -1352,6 +1359,7 @@ which is the default for the official packages>` modify this behavior:
   <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
 
 .. nxt_details:: Percent Encoding In Arguments, Query, and URI Patterns
+   :hash: percent-encoding
 
    Argument names, non-regex string patterns in :samp:`arguments`,
    :samp:`query`, and :samp:`uri` can be `percent encoded
@@ -1411,6 +1419,7 @@ which is the default for the official packages>` modify this behavior:
 
 
 .. nxt_details:: String Pattern Examples
+   :hash: conf-str-pattern-examples
 
    A regular expression that matches any :file:`.php` files within the
    :file:`/data/www/` directory and its subdirectories.  Note the backslashes;
@@ -1538,6 +1547,7 @@ behavior:
   (:samp:`<start_port>-<end_port>`).
 
 .. nxt_details:: Address-Based Allow-Deny Lists
+   :hash: allow-deny
 
    Addresses come in handy when implementing an allow-deny mechanism with
    routes, for instance:
@@ -1578,6 +1588,7 @@ behavior:
       }
 
 .. nxt_details::  Address Pattern Examples
+   :hash: conf-addr-pattern-examples
 
    This uses IPv4-based matching with wildcards and ranges:
 
@@ -1897,6 +1908,7 @@ picking individual ones by HTTP verbs that the incoming requests use:
        HTTP/1.1 404 Not Found
 
 .. nxt_details:: Examples
+   :hash: variables-examples
 
    This configuration selects the static file location based on the requested
    hostname; if nothing's found, it attempts to retrieve the requested file
@@ -2405,6 +2417,7 @@ points, but any symlinks and mount points beyond them, including the
 :file:`static/` portion, won't be resolved.
 
 .. nxt_details:: Details
+   :hash: chroot-details
 
    Suppose you want to serve files from a share that itself includes a symlink
    (let's assume :samp:`$host` always resolves to :samp:`localhost` and make it
@@ -2549,6 +2562,7 @@ The first :samp:`share` tries to serve the request from
 the request is proxied elsewhere.
 
 .. nxt_details:: Examples
+   :hash: conf-variable-examples
 
    One common use case that this feature enables is the separation of requests
    for static and dynamic content into independent routes.  The following
@@ -3073,6 +3087,7 @@ for user and group IDs:
     }
 
 .. nxt_details:: Using Uidmap And Gidmap
+   :hash: conf-uidgid-mapping
 
    The :samp:`uidmap` and :samp:`gidmap` options are available only if the
    underlying OS supports user namespaces.
@@ -3869,6 +3884,7 @@ following:
            virtual environment.
 
         .. nxt_details:: ImportError: No module named 'encodings'
+           :hash: encodings-error
 
            Seeing this in Unit's :ref:`log <troubleshooting-log>` after you set
            up :samp:`home` for your app?  This usually occurs if the

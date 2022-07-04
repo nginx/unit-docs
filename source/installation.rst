@@ -114,6 +114,7 @@ the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
    Unit, see :ref:`here <modules-pkg>`.
 
 .. nxt_details:: Repo Installation Script
+   :hash: repo-install
 
    We provide a :download:`script <downloads/setup-unit.sh>` that adds our
    official repos on the systems we support:
@@ -163,7 +164,7 @@ Amazon Linux
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -206,7 +207,7 @@ Amazon Linux
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -254,7 +255,7 @@ CentOS
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -296,7 +297,7 @@ CentOS
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -352,7 +353,7 @@ Debian
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -398,7 +399,7 @@ Debian
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -448,7 +449,7 @@ Debian
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -496,7 +497,7 @@ Fedora
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -540,7 +541,7 @@ Fedora
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -584,7 +585,7 @@ Fedora
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -629,7 +630,7 @@ Fedora
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -672,7 +673,7 @@ Fedora
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -719,7 +720,7 @@ RHEL
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -757,7 +758,7 @@ RHEL
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -894,7 +895,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -941,7 +942,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -993,7 +994,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -1040,7 +1041,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -1092,7 +1093,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -1139,7 +1140,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -1190,7 +1191,7 @@ Ubuntu
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <sec-socket>`
            - :file:`/var/run/control.unit.sock`
 
          * - Log :ref:`file <troubleshooting-log>`
@@ -1229,7 +1230,7 @@ Runtime details:
 
 .. list-table::
 
-   * - Control :ref:`socket <security-socket-state>`
+   * - Control :ref:`socket <sec-socket>`
      - :file:`/usr/local/var/run/unit/control.sock`
 
    * - Log :ref:`file <troubleshooting-log>`
@@ -1948,6 +1949,7 @@ Unit's Docker images come in several language-specific flavors:
        `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
+   :hash: inst-lang-docker
 
    To create a Unit image with a different language version, clone the sources
    and rebuild them locally on a machine with Docker installed.  The build
@@ -1983,6 +1985,7 @@ Unit's Docker images come in several language-specific flavors:
    other customization scenarios, see the :doc:`Docker howto <howto/docker>`.
 
 .. nxt_details:: Images With Pre-1.22.0 Unit Versions
+   :hash: inst-legacy-docker
 
    Before Unit 1.22.0 was released, the following tagging scheme was used:
 
@@ -2047,7 +2050,7 @@ Runtime details:
 
 .. list-table::
 
-   * - Control :ref:`socket <security-socket-state>`
+   * - Control :ref:`socket <sec-socket>`
      - :file:`/var/run/control.unit.sock`
 
    * - Log :ref:`file <troubleshooting-log>`

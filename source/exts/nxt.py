@@ -67,6 +67,8 @@ compile into /test/#foo-bar and /test/#foo-baz respectively.
 
 .rst file:
     .. nxt_details:: Plaint Text Foo
+       :hash: anchor-id
+
        Foo Bar
 
 .html file:
@@ -185,9 +187,10 @@ class nxt_details(nodes.container):
     Only __init__ to initialize attributes.
     """
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, st: str, h: str, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.summary_text = None
+        self.summary_text = st
+        self.rstref_id = h
 
 
 class nxt_hint(nodes.container):
@@ -357,10 +360,9 @@ class NxtTranslator(HTMLTranslator):
         """Handles the nxt_details directive."""
 
         self.body.append(
-            f"""<details>
-            <summary onclick="this.addEventListener('click',
-            e => e.preventDefault())"><span>{node.summary_text}</span>
-            </summary>"""
+            f"""<details id={node.rstref_id}_
+            onclick="window.location.hash='#{node.rstref_id}'">
+            <summary><span>{node.summary_text}</span></summary>"""
         )
 
         HTMLTranslator.visit_container(self, node)
@@ -665,12 +667,12 @@ class NxtDetailsDirective(Directive):
     """
 
     has_content = True
+    option_spec = {"hash": directives.unchanged_required}
 
     def run(self) -> List[Node]:
         self.assert_has_content()
 
-        node = nxt_details()
-        node.summary_text = self.content[0]
+        node = nxt_details(self.content[0], self.options.get("hash"))
 
         self.state.nested_parse(self.content[2:], self.content_offset, node)
 
@@ -751,23 +753,24 @@ class NxtTabDirective(Directive):
         return [tab_head, tab_body]
 
 
-def nxt_register_tabs_as_labels(app: Sphinx, document: nodes.document) -> None:
-    """Registers tabs as anchors in TOC."""
+def nxt_register_nodes_as_labels(app: Sphinx, document: nodes.document) -> None:
+    """Registers tabs and details as anchors for ref directives."""
 
     docname = app.env.docname
     labels = app.env.domaindata["std"]["labels"]
     anonlabels = app.env.domaindata["std"]["anonlabels"]
 
-    for node in document.traverse(nxt_tab_head):
-        if node.rstref_id in labels:
-            logging.getLogger(__name__).warning(
-                __("duplicate label %s, other instance in %s"),
-                node.rstref_id,
-                app.env.doc2path(labels[node.rstref_id][0]),
-                location=node,
-            )
-        anonlabels[node.rstref_id] = docname, node.anchor_id
-        labels[node.rstref_id] = docname, node.anchor_id, node.astext()
+    for cls in (nxt_tab_head, nxt_details):
+        for node in document.traverse(cls):
+            if node.rstref_id in labels:
+                logging.getLogger(__name__).warning(
+                    __("duplicate label %s, other instance in %s"),
+                    node.rstref_id,
+                    app.env.doc2path(labels[node.rstref_id][0]),
+                    location=node,
+                )
+            anonlabels[node.rstref_id] = docname, node.rstref_id
+            labels[node.rstref_id] = docname, node.rstref_id, node.astext()
 
 
 def nxt_write_rss(app: Sphinx, error: Exception) -> None:
@@ -840,7 +843,7 @@ def setup(app: Sphinx) -> None:
     app.add_builder(NxtBuilder)
     app.set_translator("nxt_html", NxtTranslator)
 
-    app.connect("doctree-read", nxt_register_tabs_as_labels)
+    app.connect("doctree-read", nxt_register_nodes_as_labels)
     app.connect("build-finished", nxt_write_rss)
 
     roles.register_canonical_role("nxt_hint", nxt_hint_role_fn)
