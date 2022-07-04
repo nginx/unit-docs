@@ -33,11 +33,12 @@ and revision numbers, respectively); omit the packages you won't use.
          # apt install golang
          # curl -sL https://deb.nodesource.com/setup_:nxt_ph:`X.Y <Node.js 8.11 or later is supported>` | bash -
          # apt install nodejs
-         # npm install -g node-gyp
+         # apt install npm
          # apt install php-dev libphp-embed
          # apt install libperl-dev
          # apt install python-dev
          # apt install ruby-dev
+         # apt install curl
          # apt install openjdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`-jdk
          # apt install libssl-dev
          # apt install libpcre2-dev
