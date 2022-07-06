@@ -1,5 +1,6 @@
 .. meta::
-   :og:description: Download official packages, use third-party repositories,
+   :og:description: Download official packages,
+                    use third-party repositories,
                     or configure a custom build from source.
 
 .. include:: include/replace.rst
@@ -11,20 +12,23 @@ Installation
 You can install NGINX Unit in four alternative ways:
 
 - Choose from our official :ref:`binary packages <installation-precomp-pkgs>`
-  for a few popular systems.  They're as easy to use as any other packaged
-  software and suit most purposes straight out of the box.
+  for a few popular systems.
+  They're as easy to use as any other packaged software
+  and suit most purposes straight out of the box.
 
-- If your preferred OS or language version is missing from the official package
-  list, try :ref:`third-party repositories <installation-community-repos>`.  Be
-  warned, though: we don't maintain them.
+- If your preferred OS or language version
+  is missing from the official package list,
+  try :ref:`third-party repositories <installation-community-repos>`.
+  Be warned, though: we don't maintain them.
 
-- Run our official :ref:`Docker images <installation-docker>`, prepackaged with
-  varied language combinations.
+- Run our official :ref:`Docker images <installation-docker>`,
+  prepackaged with varied language combinations.
 
-- To fine-tune Unit to your goals, download the :ref:`sources
-  <source>`, install the :ref:`toolchain
-  <source-prereq-build>`, and :ref:`build <source-config-src>` a
-  custom binary from scratch; just make sure you know what you're doing.
+- To fine-tune Unit to your goals,
+  download the :ref:`sources <source>`,
+  install the :ref:`toolchain <source-prereq-build>`,
+  and :ref:`build <source-config-src>` a custom binary from scratch;
+  just make sure you know what you're doing.
 
 
 .. _source-prereqs:
@@ -49,8 +53,8 @@ It also supports most modern instruction set architectures, such as:
 - S390X
 - x86-64
 
-App languages and platforms that Unit can run (including several versions of
-the same language):
+App languages and platforms that Unit can run
+(including several versions of the same language):
 
 - Go |_| 1.6 or later
 - Java |_| 8 or later
@@ -64,8 +68,9 @@ Optional dependencies:
 
 - OpenSSL 1.0.1 or later for :ref:`TLS <configuration-ssl>` support
 
-- PCRE (8.0 or later) or PCRE2 (10.23 or later) for :ref:`regular expression
-  matching <configuration-routes-matching-patterns-regex>`
+- PCRE (8.0 or later) or PCRE2 (10.23 or later)
+  for :ref:`regular expression matching
+  <configuration-routes-matching-patterns-regex>`
 
 
 .. _installation-precomp-pkgs:
