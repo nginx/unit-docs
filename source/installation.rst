@@ -79,57 +79,71 @@ Optional dependencies:
 Official Packages
 *****************
 
-Installing an official precompiled Unit binary package is best on most
-occasions; they're available for:
+Installing an official precompiled Unit binary package
+is best on most occasions;
+they're available for:
 
-- Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`, Amazon |_| Linux |_|
-  :ref:`2 <installation-amazon-20lts>`
+- Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`,
+  Amazon |_| Linux |_| :ref:`2 <installation-amazon-20lts>`
 
-- CentOS |_| :ref:`6 <installation-centos-6x>`, :ref:`7
-  <installation-centos-8x7x>`, :ref:`8 <installation-centos-8x7x>`
+- CentOS |_| :ref:`6 <installation-centos-6x>`,
+  :ref:`7 <installation-centos-8x7x>`,
+  :ref:`8 <installation-centos-8x7x>`
 
-- Debian |_| :ref:`9 <installation-debian-9>`, :ref:`10
-  <installation-debian-10>`
+- Debian |_| :ref:`9 <installation-debian-9>`,
+  :ref:`10 <installation-debian-10>`
 
-- Fedora |_| :ref:`29 <installation-fedora-29>`, :ref:`30
-  <installation-fedora-3130>`, :ref:`31 <installation-fedora-3130>`, :ref:`32
-  <installation-fedora-32>`, :ref:`33 <installation-fedora-3433>`, :ref:`34
-  <installation-fedora-3433>`, :ref:`35 <installation-fedora-3635>`, :ref:`36
-  <installation-fedora-3635>`
+- Fedora |_| :ref:`29 <installation-fedora-29>`,
+  :ref:`30 <installation-fedora-3130>`,
+  :ref:`31 <installation-fedora-3130>`,
+  :ref:`32 <installation-fedora-32>`,
+  :ref:`33 <installation-fedora-3433>`,
+  :ref:`34 <installation-fedora-3433>`,
+  :ref:`35 <installation-fedora-3635>`,
+  :ref:`36 <installation-fedora-3635>`
 
 
-- RHEL |_| :ref:`6 <installation-rhel-6x>`, :ref:`7 <installation-rhel-8x7x>`,
-  :ref:`8 <installation-rhel-8x7x>`, :ref:`9 <installation-rhel-9x>`
+- RHEL |_| :ref:`6 <installation-rhel-6x>`,
+  :ref:`7 <installation-rhel-8x7x>`,
+  :ref:`8 <installation-rhel-8x7x>`,
+  :ref:`9 <installation-rhel-9x>`
 
-- Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`, :ref:`18.04
-  <installation-ubuntu-1804>`, :ref:`19.10 <installation-ubuntu-1910>`,
-  :ref:`20.04 <installation-ubuntu-2004>`, :ref:`20.10
-  <installation-ubuntu-2010>`, :ref:`21.04 <installation-ubuntu-2104>`,
-  :ref:`21.10 <installation-ubuntu-2110>`, :ref:`22.04
-  <installation-ubuntu-2204>`
+- Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`,
+  :ref:`18.04
+  <installation-ubuntu-1804>`,
+  :ref:`19.10 <installation-ubuntu-1910>`,
+  :ref:`20.04 <installation-ubuntu-2004>`,
+  :ref:`20.10 <installation-ubuntu-2010>`,
+  :ref:`21.04 <installation-ubuntu-2104>`,
+  :ref:`21.10 <installation-ubuntu-2110>`,
+  :ref:`22.04 <installation-ubuntu-2204>`
 
-The packages include core executables, developer files, and support for
-individual languages.  We also maintain a Homebrew `tap <#homebrew>`__ for
-macOS users and a :ref:`module <installation-nodejs-package>` for Node.js at
-the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
+The packages include core executables,
+developer files,
+and support for individual languages.
+We also maintain a Homebrew `tap <#homebrew>`__ for macOS users
+and a :ref:`module <installation-nodejs-package>` for Node.js
+at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
 .. note::
 
-   For details of packaging custom modules that install alongside the official
-   Unit, see :ref:`here <modules-pkg>`.
+   For details of packaging custom modules
+   that install alongside the official Unit,
+   see :ref:`here <modules-pkg>`.
 
 .. nxt_details:: Repo Installation Script
    :hash: repo-install
 
-   We provide a :download:`script <downloads/setup-unit.sh>` that adds our
-   official repos on the systems we support:
+   We provide a :download:`script <downloads/setup-unit.sh>`
+   that adds our official repos on the systems we support:
 
    .. code-block:: console
 
       $ curl -sL 'https://unit.nginx.org/_downloads/setup-unit.sh' | sudo -E bash
 
-   Use it at your discretion; explicit steps are provided below for each
-   distribution.
+   Use it at your discretion;
+   explicit steps are provided below
+   for each distribution.
 
 
 .. _installation-precomp-amazon:
