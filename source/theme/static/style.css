@@ -124,7 +124,7 @@ iframe {
     margin-bottom: -.6em;
     max-height: 0;
     overflow-y: hidden;
-    transition: all 2s;
+    transition: all .6s;
 }
 #side .toctree-l2 ul:after {
     content: '';
@@ -136,12 +136,8 @@ iframe {
     background: linear-gradient(to top, white, rgba(255,255,255,0));
 }
 #side .toctree-l2 a.nxt_active + ul,
-#side .toctree-l1 li.current > ul,
-#side .toctree-l1 li:hover > ul {
+#side .toctree-l1 li.current > ul {
     max-height: 100em;
-}
-#side .toctree-l1 li:hover > ul {
-    transition-delay: .3s;
 }
 #content {
     margin-left: 18em;
