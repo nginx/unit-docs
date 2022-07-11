@@ -152,7 +152,7 @@ Unit interoperates with:
 
 - :ref:`Go <configuration-go>`:
   by
-  :ref:`overriding <installation-go-package>`
+  :ref:`overriding <updating-go-apps>`
   the :program:`http` module
 
 - :ref:`JavaScript (Node.js) <configuration-nodejs>`:

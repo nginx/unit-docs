@@ -365,8 +365,8 @@ and place module-specific instructions in the :file:`Makefile`.
 
       When you run :command:`./configure go`, Unit sets up the Go package that
       lets your applications :ref:`run on Unit <configuration-go>`.  To use the
-      package, :ref:`install <source-bld-src-ext>` it in your Go
-      environment.  Available configuration options:
+      package, :ref:`install <source-bld-src-ext>` it in your Go environment.
+      Available configuration options:
 
       .. list-table::
 
@@ -383,11 +383,15 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. note::
 
-         The :program:`./configure` script doesn't alter the :envvar:`GOPATH`
-         `environment variable <https://github.com/golang/go/wiki/GOPATH>`_.
-         The two paths (configuration-time :option:`!--go-path` and
-         compile-time :envvar:`GOPATH`) must be coherent at build time for Go
-         to locate the Unit package.
+         The :program:`./configure go` command doesn't alter the
+         :envvar:`GOPATH` `environment variable
+         <https://github.com/golang/go/wiki/GOPATH>`_; configuration-time
+         :option:`!--go-path` must be coherent with build-time
+         :envvar:`$GOPATH` for Go to locate the Unit package:
+
+         .. code-block:: console
+
+            $ GOPATH=<Go package installation path> GO111MODULE=auto go build -o :nxt_ph:`app <Executable name>` :nxt_ph:`app.go <Application source code>`
 
 
    .. tab:: Java

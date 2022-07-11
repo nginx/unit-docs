@@ -3292,9 +3292,69 @@ idles after 20 seconds:
 Go
 ==
 
-To run your Go apps on Unit, you need to configure them `and` modify their
-source code as suggested below.  Let's start with the app configuration;
-besides :ref:`common options <configuration-apps-common>`, you have:
+To run a Go app on Unit, modify its source to make it Unit-aware and rebuild
+the app.
+
+.. nxt_details:: Updating Go Apps to Run on Unit
+   :hash: updating-go-apps
+
+   In the :samp:`import` section, list the :samp:`unit.nginx.org/go` package:
+
+   .. code-block:: go
+
+      import (
+          ...
+          "unit.nginx.org/go"
+          ...
+      )
+
+   Replace the :samp:`http.ListenAndServe` call with
+   :samp:`unit.ListenAndServe`:
+
+   .. code-block:: go
+
+      func main() {
+          ...
+          http.HandleFunc("/", handler)
+          ...
+          // http.ListenAndServe(":8080", nil)
+          unit.ListenAndServe(":8080", nil)
+          ...
+      }
+
+   If you haven't done so yet, initialize the Go module for your app:
+
+   .. code-block:: console
+
+      $ go mod init :nxt_ph:`example.com/app <Arbitrary module designation>`
+
+            go: creating new go.mod: module example.com/app
+
+   Install the newly added dependency and build your application:
+
+   .. subs-code-block:: console
+
+      $ go get unit.nginx.org/go@|version|
+
+            go: downloading unit.nginx.org
+
+      $ go build -o :nxt_ph:`app <Executable name>` :nxt_ph:`app.go <Application source code>`
+
+   If you update Unit to a newer version, repeat the two commands above to
+   rebuild your app.
+
+   The resulting executable works as follows:
+
+   - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
+     back to :samp:`http` functionality.
+
+   - When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
+     router process directly, ignoring the address supplied as its first
+     argument and relying on the :ref:`listener's settings
+     <configuration-listeners>` instead.
+
+Next, configure the app in Unit; besides :ref:`common options
+<configuration-apps-common>`, you have:
 
 .. list-table::
     :header-rows: 1
@@ -3326,66 +3386,6 @@ Example:
            "/tmp/go-cache"
        ]
    }
-
-Before applying the configuration, update the application source code.  In the
-:samp:`import` section, reference the :samp:`unit.nginx.org/go` package that
-you :ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<howto/source-modules-go>` earlier:
-
-.. code-block:: go
-
-   import (
-       ...
-       "unit.nginx.org/go"
-       ...
-   )
-
-.. note::
-
-   The package is required only to build the app; there's no need to
-   install it in the target environment.
-
-In the :samp:`main()` function, replace the :samp:`http.ListenAndServe` call
-with :samp:`unit.ListenAndServe`:
-
-.. code-block:: go
-
-   func main() {
-       ...
-       http.HandleFunc("/", handler)
-       ...
-       //http.ListenAndServe(":8080", nil)
-       unit.ListenAndServe(":8080", nil)
-       ...
-   }
-
-Next, create a `Go module <https://go.dev/blog/using-go-modules>`__ and
-build your application:
-
-.. code-block:: console
-
-   $ go mod init :nxt_ph:`example.com/app <Module designation>`
-
-         go: creating new go.mod: module example.com/app
-
-   $ go build -o :nxt_ph:`app <Executable name>` :nxt_ph:`app.go <Application source code>`
-
-         go: finding unit.nginx.org latest
-
-This links the :program:`unit-http` module to your app and adds it as a
-dependency to your :file:`go.mod`.  The resulting executable works as follows:
-
-- When you run it standalone, the :samp:`unit.ListenAndServe` call falls
-  back to :samp:`http` functionality.
-
-- When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
-  router process directly, ignoring the address supplied as its first
-  argument and relying on the :ref:`listener's settings
-  <configuration-listeners>` instead.
-
-If you update Unit later, update the Go package as well according to your
-:ref:`installation method <installation-go-package>`.  You'll also need to
-rebuild your app with the updated package.
 
 .. note::
 

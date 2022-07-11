@@ -25,10 +25,7 @@ like any other.  They provide common web functionality, communicating with Unit
 from the app's runspace.
 
 In Go, Unit support is implemented with a package that you :ref:`import
-<configuration-go>` to your apps.  You can :ref:`install
-<installation-go-package>` the package from the official Unit repository;
-otherwise, :ref:`build <howto/source-modules-go>` it for your version of Go
-using Unit's sources.
+<configuration-go>` in your apps to make them Unit-aware.
 
 In Node.js, Unit is supported by an :program:`npm`-hosted `package
 <https://www.npmjs.com/package/unit-http>`__ that you :ref:`require

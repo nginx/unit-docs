@@ -177,7 +177,7 @@ Amazon Linux
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -223,7 +223,7 @@ Amazon Linux
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python27 unit-python34 unit-python35 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -272,7 +272,7 @@ CentOS
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -318,7 +318,7 @@ CentOS
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-php unit-python
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -376,7 +376,7 @@ Debian
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -427,7 +427,7 @@ Debian
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -481,7 +481,7 @@ Debian
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -530,7 +530,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python39 unit-python310 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -576,7 +576,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python39 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -622,7 +622,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python38 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -669,7 +669,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -715,7 +715,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -804,7 +804,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -850,7 +850,7 @@ RHEL
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -965,7 +965,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-python3.10 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1015,7 +1015,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17  \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1071,7 +1071,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15  \
                           unit-perl unit-php unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1121,7 +1121,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1177,7 +1177,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1227,7 +1227,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11 unit-perl  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1283,7 +1283,7 @@ Ubuntu
 
             # apt update
             # apt install unit
-            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-perl unit-php  \
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python2.7 unit-python3.5 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1314,9 +1314,8 @@ To install Unit on macOS, use the official Homebrew `tap
 
    $ brew install nginx/unit/unit
 
-This deploys the core Unit binary and the prerequisites for the :ref:`Go
-<installation-go-package>` and :ref:`Node.js <installation-nodejs-package>`
-language modules.
+This deploys the core Unit binary and the prerequisites for the :ref:`Node.js
+<installation-nodejs-package>` language module.
 
 To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 
@@ -1338,24 +1337,6 @@ Runtime details:
 
    * - Non-privileged :ref:`user and group <security-apps>`
      - :samp:`nobody`
-
-
-.. _installation-go-package:
-
-==
-Go
-==
-
-To build Go apps capable of running on Unit, use the official :samp:`unit-go`
-:ref:`package <installation-precomp-pkgs>` or type:
-
-.. subs-code-block:: console
-
-   $ go get unit.nginx.org/go@|version|
-
-Both methods install a Go package that you :ref:`import <configuration-go>` in
-your app code.  If you update Unit later, make sure to upgrade the package
-using the same method and rebuild your apps.
 
 
 .. _installation-nodejs-package:
@@ -1618,7 +1599,7 @@ Community Repositories
         .. code-block:: console
 
            # pkg install -y unit
-           # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
+           # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module>`
            # pkg install -y unit-java8  \
                             unit-perl5.32  \
                             unit-php73 unit-php74 unit-php80  \
@@ -1734,7 +1715,7 @@ Community Repositories
       .. code-block:: console
 
          # pkg_add unit
-         # pkg_add :nxt_hint:`libunit <Required to install the Node.js module and build Go apps>`
+         # pkg_add :nxt_hint:`libunit <Required to install the Node.js module>`
          # pkg_add unit-perl  \
                    unit-python2.7  \
                    unit-python3.6 unit-python3.7 unit-python3.8 unit-python3.9
