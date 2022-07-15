@@ -1604,7 +1604,7 @@ Community Repositories
                             unit-perl5.32  \
                             unit-php73 unit-php74 unit-php80  \
                             unit-python37  \
-                            unit-ruby2.7
+                            unit-ruby3.0
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
         To install Unit from `FreeBSD ports
