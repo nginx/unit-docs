@@ -411,8 +411,7 @@ and installs official language module packages:
 
    # Next, we install the necessary language module packages and perform cleanup.
    RUN apt update && apt install -y                                              \
-           :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php <Leave only packages for the languages you need, removeing the rest>`                                 \
-           :nxt_hint:`unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>`                               \
+           :nxt_hint:`unit-jsc11 unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>` \
        && apt remove -y curl apt-transport-https gnupg2 lsb-release              \
               debian-archive-keyring                                             \
        && apt autoremove --purge -y                                              \

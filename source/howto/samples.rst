@@ -32,13 +32,13 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
        unit.ListenAndServe(":8080", nil)
    }
 
-Compile it using the source code from the Go language package you have
-:ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<howto/source-modules-go>` earlier:
+First, create a `Go module <https://go.dev/blog/using-go-modules>`__, :samp:`go
+get` Unit's package, and build your application:
 
-.. code-block:: console
+.. subs-code-block:: console
 
-   $ cp -r <package installation path>/src/* $GOPATH/src/
+   $ go mod init :nxt_ph:`example.com/app <Your Go module designation>`
+   $ go get unit.nginx.org/go@|version|
    $ go build -o /www/app /www/app.go
 
 Upload the :ref:`app config <configuration-go>` to Unit and test it:
