@@ -630,6 +630,9 @@ To build and install Unit's executables and language modules that you have
    $ make
    # make install
 
+Mind that :samp:`make install` requires setting up Unit's :ref:`directory
+structure <source-dir>` with :program:`./configure` first.
+
 You can also build and install language modules individually; the specific
 method depends on whether the language module is embedded in Unit or packaged
 externally.
