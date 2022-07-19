@@ -191,6 +191,7 @@ class nxt_details(nodes.container):
         super().__init__(*args, **kwargs)
         self.summary_text = st
         self.rstref_id = h
+        self.anchor_id = h
 
 
 class nxt_hint(nodes.container):
@@ -361,7 +362,7 @@ class NxtTranslator(HTMLTranslator):
 
         self.body.append(
             f"""<details id={node.rstref_id}_
-            onclick="window.location.hash='#{node.rstref_id}'">
+            onclick="window.location.hash='#{node.anchor_id}'">
             <summary><span>{node.summary_text}</span></summary>"""
         )
 
@@ -769,8 +770,8 @@ def nxt_register_nodes_as_labels(app: Sphinx, document: nodes.document) -> None:
                     app.env.doc2path(labels[node.rstref_id][0]),
                     location=node,
                 )
-            anonlabels[node.rstref_id] = docname, node.rstref_id
-            labels[node.rstref_id] = docname, node.rstref_id, node.astext()
+            anonlabels[node.rstref_id] = docname, node.anchor_id
+            labels[node.rstref_id] = docname, node.anchor_id, node.astext()
 
 
 def nxt_write_rss(app: Sphinx, error: Exception) -> None:
