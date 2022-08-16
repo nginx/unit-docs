@@ -110,7 +110,7 @@ and :samp:`proxy_pass` with real values):
        deny all;
 
        # HTTP Basic authentication
-       auth_basic on;
+  auth_basic on;
        auth_basic_user_file :nxt_ph:`/path/to/htpasswd <Path to your htpasswd file>`;
 
        location / {
