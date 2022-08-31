@@ -1751,7 +1751,7 @@ Community Repositories
 
       .. code-block:: console
 
-         # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
+         # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
 
