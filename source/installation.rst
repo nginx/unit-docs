@@ -91,7 +91,8 @@ they're available for:
   :ref:`8 <installation-centos-8x7x>`
 
 - Debian |_| :ref:`9 <installation-debian-9>`,
-  :ref:`10 <installation-debian-10>`
+  :ref:`10 <installation-debian-10>`,
+  :ref:`11 <installation-debian-11>`
 
 - Fedora |_| :ref:`29 <installation-fedora-29>`,
   :ref:`30 <installation-fedora-3130>`,
