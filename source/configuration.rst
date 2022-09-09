@@ -440,17 +440,25 @@ only the :samp:`pass` value and leaves other options intact.
 Listeners
 *********
 
-To start accepting requests, add a listener object in the
-:samp:`config/listeners` API section.  The object's name uniquely combines a
-host IP address and a port that Unit binds to; a wildcard matches any host IPs.
+To accept requests, add a listener object in the :samp:`config/listeners` API
+section; the object's name can be:
 
-.. note::
+- A unique IP socket: :samp:`127.0.0.1:80`, :samp:`[::1]:8080`
 
-   On Linux-based systems, wildcard listeners can't overlap with other
-   listeners on the same port due to kernel-imposed rules.  For example,
-   :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; this means a listener
-   can't be directly reconfigured from :samp:`*:8080` to :samp:`127.0.0.1:8080`
-   or vice versa without deleting it first.
+- A wildcard that matches any host IPs on the port: :samp:`*:80`
+
+.. nxt_details:: Linux: Abstract UNIX Sockets and Port Limitations
+   :hash: listeners-linux
+
+   On Linux-based systems, `abstract UNIX sockets
+   <https://man7.org/linux/man-pages/man7/unix.7.html>`__ can be used as well:
+   :samp:`unix:@abstract_socket`.
+
+   Also, wildcard listeners can't overlap with other listeners on the same port
+   due to rules imposed by Linux kernel.  For example, :samp:`*:8080` conflicts
+   with :samp:`127.0.0.1:8080`; in particular, this means :samp:`*:8080` can't
+   be *immediately replaced* by :samp:`127.0.0.1:8080` (or vice versa) without
+   deleting it first.
 
 Unit dispatches the requests it receives to destinations referenced by
 listeners.  You can plug several listeners into one destination or use a
