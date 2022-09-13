@@ -1205,7 +1205,7 @@ object define patterns to be compared to the requests' properties:
 
    Argument order is irrelevant: :samp:`key1=foo&key2=bar` and
    :samp:`key2=bar&key1=foo` are considered the same.  Also, multiple
-   occurences of an argument must all match, which means
+   occurrences of an argument must all match, which means
    :samp:`key=foo&key=bar` matches this:
 
    .. code-block:: json
@@ -2031,7 +2031,7 @@ referred to as :samp:`$header_Accept_Encoding`,
 .. note::
 
    With multiple argument instances (think :samp:`Color=Red&Color=Blue`), the
-   rightmost occurence is used (:samp:`Blue`).
+   rightmost occurrence is used (:samp:`Blue`).
 
 At runtime, variables are replaced by dynamically computed values (at your
 risk!).  For example, the listener above targets an entire set of routes,
@@ -4810,7 +4810,7 @@ The :samp:`requests` object currently exposes a single instance-wide metric:
       - Description
 
     * - :samp:`total`
-      - Integer, total non-control requests during the instance's liftime.
+      - Integer, total non-control requests during the instance's lifetime.
 
 Example:
 
