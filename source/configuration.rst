@@ -488,11 +488,9 @@ Available listener options:
 
         - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
 
-        .. note::
-
-           The value is :ref:`variable <configuration-variables>`-interpolated;
-           if it matches no configuration entities after interpolation, a 404
-           "Not Found" response is returned.
+        The value is :ref:`variable <configuration-variables>`-interpolated; if
+        it matches no configuration entities after interpolation, a 404 "Not
+        Found" status code is returned.
 
     * - :samp:`tls`
       - Object, defines SSL/TLS :ref:`settings
@@ -1901,6 +1899,26 @@ set in runtime:
    * - Variable
      - Description
 
+   * - :samp:`arg_*`, :samp:`cookie_*`, :samp:`header_*`
+     - Variables that store :ref:`request arguments, cookies, and header fields
+       <configuration-routes-matching>`, such as :samp:`arg_queryTimeout`,
+       :samp:`cookie_sessionId`, or :samp:`header_Accept_Encoding`.  The names
+       of the :samp:`header_*` variables are case insensitive.
+
+   * - :samp:`body_bytes_sent`
+     - Number of bytes sent in the response body.
+
+   * - :samp:`dollar`
+     - Literal dollar sign (:samp:`$`), used for escaping.
+
+   * - :samp:`header_referer`
+     - Contents of the :samp:`Referer` request `header field
+       <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer>`__.
+
+   * - :samp:`header_user_agent`
+     - Contents of the :samp:`User-Agent` request `header field
+       <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent>`__.
+
    * - :samp:`host`
      - :samp:`Host`
        `header field
@@ -1911,6 +1929,13 @@ set in runtime:
      - Method from the `request
        line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
 
+   * - :samp:`remote_addr`
+     - Remote IP address of the request.
+
+   * - :samp:`request_line`
+     - Entire `request
+       line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
+
    * - :samp:`request_uri`
      - Request target `path
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`_
@@ -1918,6 +1943,13 @@ set in runtime:
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__,
        normalized by resolving relative path references ("." and "..") and
        collapsing adjacent slashes.
+
+   * - :samp:`status`
+     - HTTP `status code <https://tools.ietf.org/html/rfc7231#section-6>`__ of
+       the response.
+
+   * - :samp:`time_local`
+     - Local time, formatted as follows: :samp:`31/Dec/1986:19:40:00 +0300`.
 
    * - :samp:`uri`
      - Request target `path
@@ -1942,6 +1974,9 @@ These variables can be used with:
 
 - :samp:`location` in :samp:`return` :ref:`actions <configuration-return>` to
   enable HTTP redirects.
+
+- :samp:`format` in the :ref:`access log <configuration-access-log>` to
+  customize Unit's log output.
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1985,6 +2020,19 @@ variable is immediately followed by these characters:
        }
    }
 
+To reference an :samp:`arg_*`, :samp:`cookie_*`, or :samp:`header_*` variable,
+add the name you need to the prefix.  A query string of
+:samp:`Type=car&Color=red` yields two variables, :samp:`$arg_Type` and
+:samp:`$arg_Color`; Unit additionally normalizes capitalization and hyphenation
+in header field names, so the :samp:`Accept-Encoding` header field can also be
+referred to as :samp:`$header_Accept_Encoding`,
+:samp:`$header_accept-encoding`, or :samp:`$header_accept_encoding`.
+
+.. note::
+
+   With multiple argument instances (think :samp:`Color=Red&Color=Blue`), the
+   rightmost occurence is used (:samp:`Blue`).
+
 At runtime, variables are replaced by dynamically computed values (at your
 risk!).  For example, the listener above targets an entire set of routes,
 picking individual ones by HTTP verbs that the incoming requests use:
@@ -2006,6 +2054,8 @@ picking individual ones by HTTP verbs that the incoming requests use:
    $ curl -i --head http://localhost  # Bumpy ride ahead, no route defined
 
        HTTP/1.1 404 Not Found
+
+If you reference a non-existing variable, it is considered empty.
 
 .. nxt_details:: Examples
    :hash: variables-examples
@@ -4412,8 +4462,8 @@ Example:
 Access Log
 **********
 
-To enable access logging, specify the log file path in the :samp:`access_log`
-option of the :samp:`config` object.
+To enable basic access logging, specify the log file path in the
+:samp:`access_log` option of the :samp:`config` object.
 
 In the example below, all requests will be logged to
 :file:`/var/log/access.log`:
@@ -4428,13 +4478,47 @@ In the example below, all requests will be logged to
            "success": "Reconfiguration done."
        }
 
-The log is written in the `Combined Log Format
+By default, the log is written in the `Combined Log Format
 <https://httpd.apache.org/docs/2.2/logs.html#combined>`__.  Example of a log
 line:
 
 .. code-block:: none
 
    127.0.0.1 - - [21/Oct/2015:16:29:00 -0700] "GET / HTTP/1.1" 200 6022 "http://example.com/links.html" "Godzilla/5.0 (X11; Minix i286) Firefox/42"
+
+=====================
+Custom Log Formatting
+=====================
+
+The :samp:`access_log` option can be also set to an object to customize
+both the log path and its format:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`path`
+      - Pathname of the access log file.
+
+    * - :samp:`format`
+      - String setting the log format; besides arbitrary text, can contain
+        any :ref:`variables <configuration-variables>` Unit supports.
+
+Example:
+
+.. code-block:: json
+
+   {
+       "access_log": {
+           "path": "/var/log/unit/access.log",
+           "format": "$remote_addr - - [$time_local] \"$request_line\" $status $body_bytes_sent \"$header_referer\" \"$header_user_agent\""
+       }
+   }
+
+By a neat coincidence, the above :samp:`format` is the default setting.  Also,
+mind that the log entry is formed *after* the request has been handled.
 
 
 .. _configuration-ssl:
