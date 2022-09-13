@@ -95,6 +95,9 @@ Performance
   built with lock-free queues
   over shared memory
 
+- Built-in :ref:`statistics <configuration-stats>` provide insights
+  into Unit's performance
+
 - The number of per-app processes is defined statically or
   :ref:`scales <configuration-proc-mgmt-prcs>`
   preemptively
