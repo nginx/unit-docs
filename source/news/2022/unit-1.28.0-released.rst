@@ -7,22 +7,22 @@ Unit 1.28.0 Released
 We are happy to announce Unit 1.28! This release sets the first milestone for
 observability:
 
-- it is now possible to get basic information about connections, requests, and
+- It is now possible to get basic information about connections, requests, and
   other per-application metrics
 
-- all this is now available via our powerful RESTful API
+- All this is now available via our powerful RESTful API
 
 In addition, we introduce new variables and the ability to use them to
 customize the access log format. Besides the long-awaited statistics and
 logging use cases, we also present:
 
--  enhanced forward header handling with new configuration syntax and
+-  Enhanced forward header handling with new configuration syntax and
    X-Forwarded-Proto support
 
--  support for abstract UNIX domain sockets in listeners on Linux-like
+-  Support for abstract UNIX domain sockets in listeners on Linux-like
    systems
 
--  fixes for several community-reported bugs
+-  Fixes for several community-reported bugs
 
 
 **********************
@@ -66,12 +66,13 @@ endpoint is exposed at the root level, as with the :samp:`/config` and
 
 The :samp:`status` object contains three nested objects:
 
-The :samp:`connections` object provide detailed information about the client
-connections to the Unit instance or, specifically, to its listeners.  Here,
-:samp:`accepted` and :samp:`closed` are total values accumulated over the
-instance's lifetime; restarting Unit resets the total values. On the contrary,
-:samp:`active` and :samp:`idle` are spot values representing the number of
-active or idle requests at one of the listeners that Unit exposes.
+- The :samp:`connections` object provides detailed information about the client
+  connections to the Unit instance or, specifically, to its listeners.  Here,
+  :samp:`accepted` and :samp:`closed` are total values accumulated over the
+  instance's lifetime; restarting Unit resets the total values.
+
+- In contrast, :samp:`active` and :samp:`idle` are spot values representing the
+  number of active or idle requests at one of the listeners that Unit exposes.
 
 The :samp:`requests` object holds the total number of requests to all exposed
 listeners since the last restart.
@@ -81,12 +82,12 @@ listeners since the last restart.
    Both :samp:`connections` and :samp:`requests` count requests to Unit's
    listeners, NOT the config API itself.
 
-The :samp:`applications` section follows the :samp:`/config/applications` tree
-in the API; again, there's no special setup because Unit automatically
-maintains per-app metrics for all applications in :samp:`/config/applications`,
-and the apps' names identify them respectively.
+- The :samp:`applications` section follows the :samp:`/config/applications`
+  tree in the API; again, there's no special setup required because Unit
+  automatically maintains per-app metrics for all applications in
+  :samp:`/config/applications`, and the apps' names identify them respectively.
 
-Consider the following applications configuration for an example:
+Consider the following applications configuration as an example:
 
 .. code-block:: json
 
@@ -153,7 +154,7 @@ Correct! The number of currently running processes matches the :samp:`spare`
 configuration defined in :samp:`applications/my-app/processes/spare`.
 
 So, with Unit 1.28, you now can see your basic workload and process statistics
-of the Unit instance itself as well as individual applications. This is but a
+for the Unit instance itself as well as individual applications. This is but a
 first, very important step to increased visibility for us.
 
 
@@ -169,7 +170,7 @@ few, namely:
    $remote_addr, $time_local, $request_line, $status,
    $body_bytes_sent, $header_referer, $header_user_agent
 
-Most are self-explanatory but mind that some are populated from the
+Most are self-explanatory but note that some are populated from the
 response, such as :samp:`$status` or :samp:`$body_bytes_sent`. That comes in
 handy with another new feature, the custom access log format:
 
@@ -197,20 +198,20 @@ X-Forwarded-\* Headers Replacement
 
 When passing an incoming request to a Unit language module, we build an
 internal context to store all information related to the request, including the
-client's IP and the protocol used (plain-text HTTP or encrypted HTTPS). As soon
-as there is no caching layer or reverse proxy in front of Unit, this
-information will stay correct, as it's included in the request, but this
+client's IP and the protocol used (plain-text HTTP or encrypted HTTPS).  When
+there is no caching layer or reverse proxy in front of Unit, this
+information stays correct (as it's included in the request), but that
 changes when a proxy or a cache stands between the client and Unit.
 
-In this case, the client's IP will always be the IP address of the proxy/cache
+In that case, the client's IP will always be the IP address of the proxy/cache
 server, and the same applies to the protocol. If the connection from the client
 to this server uses HTTPS, but it's HTTP all the way to Unit, we have to tell
 the app: "Hey, the protocol we use to talk to the client is actually HTTPS.
-Mind this while building links and routes internally." That's where the
+Keep this in mind when building links and routes internally." That's where the
 :samp:`X-Forwarded-*` `header fields
 <https://www.rfc-editor.org/rfc/rfc7239.html>`__ come into play.
 
-To extend Unit's capabilities, we add support for protocol replacement in
+To extend Unit's capabilities, we've added support for protocol replacement in
 version 1.28; now you can configure client IPs and protocol replacement in your
 listeners' configuration:
 
@@ -248,7 +249,7 @@ listeners' configuration:
 
 The configuration above shows the **new syntax** to configure the replacement;
 the old :samp:`client_ip` syntax will still work but is now deprecated and will
-be removed not before 1.30.
+be removed in a future release (no sooner than version 1.300.
 
 We have wrapped :samp:`client_ip` and :samp:`protocol` in a new object, while
 the :samp:`recursive` and :samp:`source` options stay the same; the IPs in
@@ -296,8 +297,7 @@ request was made via a socket, like this:
 
    curl -H "X-Forwarded-For: 192.168.10.100" --abtract-unix-socket socket http://localhost
 
-Are you intrigued by the whole socket listener thing here? If you are
-curious, read on!
+Are you intrigued by the whole socket listener thing here?  Read on!
 
 
 ****************************
@@ -340,7 +340,7 @@ are:
 Unlike file-based UNIX sockets, abstract sockets are automatically
 cleaned up by the Linux kernel when nobody is using them. If you find
 yourself with untidy UNIX sockets on the filesystem then give abstract
-sockets a try, but note that this is a Linux-only feature (will not work
+sockets a try, but note that this is a Linux-only feature (does not work
 on BSD systems).
 
 
