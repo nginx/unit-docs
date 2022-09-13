@@ -17,8 +17,8 @@ Configure a :ref:`listener <configuration-listeners>` in Unit:
       {
           ":nxt_ph:`127.0.0.1:8080 <Socket address where NGINX proxies requests>`": {
               "pass": ":nxt_ph:`... <Unit's internal request destination>`",
-              "client_ip": {
-                  "header": ":nxt_hint:`X-Forwarded-For <The header field set by NGINX>`",
+              "forwarded": {
+                  "client_ip": ":nxt_hint:`X-Forwarded-For <The header field set by NGINX>`",
                   "source": [
                       ":nxt_ph:`127.0.0.1 <The IP address where NGINX runs>`"
                   ]
@@ -26,7 +26,7 @@ Configure a :ref:`listener <configuration-listeners>` in Unit:
           }
       }
 
-Here, :samp:`client_ip` is optional; it enables identifying the
+Here, :samp:`forwarded` is optional; it enables identifying the
 :ref:`originating IPs <configuration-listeners-xff>` of requests proxied from
 :samp:`source`.
 

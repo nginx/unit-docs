@@ -490,9 +490,9 @@ Available listener options:
       - Object, defines SSL/TLS :ref:`settings
         <configuration-listeners-ssl>`.
 
-    * - :samp:`client_ip`
-      - Object, configures client IP address :ref:`replacement
-        <configuration-listeners-xff>`.
+    * - :samp:`forwarded`
+      - Object, configures client IP address and protocol :ref:`replacement
+        <configuration-listeners-forwarded>`.
 
 
 Here, a local listener accepts requests at port 8300 and passes them to the
@@ -742,14 +742,14 @@ The :samp:`tickets` option works as follows:
      An empty array effectively disables session tickets, same as setting
      :samp:`tickets` to :samp:`false`.
 
-.. _configuration-listeners-xff:
+.. _configuration-listeners-forwarded:
 
-=============================
-Originating IP Identification
-=============================
+=======================
+IP, Protocol Forwarding
+=======================
 
-Unit supports identification of the clients' originating IPs with the
-:samp:`client_ip` object and its options:
+Unit enables the :samp:`X-Forwarded-*` header fields with the :samp:`forwarded`
+object and its options:
 
 .. list-table::
     :header-rows: 1
@@ -757,12 +757,19 @@ Unit supports identification of the clients' originating IPs with the
     * - Option
       - Description
 
-    * - :samp:`header` (required)
-      - String, defines the relevant HTTP header fields to expect in the
+    * - :samp:`client_ip`
+      - String, defines the relevant HTTP header fields to look for in the
         request.  Unit expects them to follow the `X-Forwarded-For
         <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
-        notation with the field value being a comma- or space-separated list of
-        IPv4 or IPv6 addresses.
+        notation, with the fields' values themselves being comma- or space-separated
+        lists of IPv4 or IPv6 addresses.
+
+    * - :samp:`protocol`
+      - String, defines the relevant HTTP header field to look for in the
+        request.  Unit expects it to follow the `X-Forwarded-Proto
+        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto>`__
+        notation, with the field value itself being :samp:`http`,
+        :samp:`https`, or :samp:`on`.
 
     * - :samp:`source` (required)
       - String or array of strings, defines :ref:`address-based patterns
@@ -770,22 +777,108 @@ Unit supports identification of the clients' originating IPs with the
         replacement occurs only if the source IP of the request is a
         :ref:`match <configuration-routes-matching-resolution>`.
 
+        A special case here is the :samp:`"unix"` string; it matches *any* UNIX
+        domain sockets.
+
     * - :samp:`recursive`
-      - Boolean, controls how the header fields are traversed.
+      - Boolean, controls how the :samp:`client_ip` fields are traversed.
 
         The default value is :samp:`false` (no recursion).
 
-Unit proceeds to inspect the :samp:`header` fields only if the source IP of the
-request :ref:`matches <configuration-routes-matching-resolution>` the
-:samp:`source` option.
+.. note::
 
-Consider the following :samp:`client_ip` configuration:
+   Besides :samp:`source`, the :samp:`forwarded` object must specify
+   :samp:`client_ip`, :samp:`protocol`, or both.
+
+.. warning::
+
+   Before version 1.28.0, Unit provided the :samp:`client_ip` object that
+   evolved into :samp:`forwarded`:
+
+   .. list-table::
+       :header-rows: 1
+
+       * - :samp:`client_ip` (pre-1.28.0)
+         - :samp:`forwarded` (post-1.28.0)
+
+       * - :samp:`header`
+         - :samp:`client_ip`
+
+       * - :samp:`source`
+         - :samp:`source`
+
+       * - :samp:`recursive`
+         - :samp:`recursive`
+
+       * - N/A
+         - :samp:`protocol`
+
+   This old syntax still works but will be eventually deprecated, though
+   not earlier than version 1.30.0.
+
+
+When :samp:`forwarded` is set, Unit respects the appropriate header fields only
+if the immediate source IP of the request :ref:`matches
+<configuration-routes-matching-resolution>` the :samp:`source` option.  Mind
+that it can use not only subnets but any :ref:`address-based patterns
+<configuration-routes-matching-patterns>`:
 
 .. code-block:: json
 
    {
-       "client_ip": {
-           "header": "X-Forwarded-For",
+       "forwarded": {
+           "client_ip": "X-Forwarded-For",
+           "source": [
+               ":nxt_hint:`198.51.100.1-198.51.100.254 <Ranges can be specified explicitly>`",
+               ":nxt_hint:`!198.51.100.128/26 <Negation rejects any addresses originating here>`",
+               ":nxt_hint:`203.0.113.195 <Individual addresses are supported as well>`"
+           ]
+       }
+   }
+
+.. _configuration-listeners-xfp:
+
+Overwriting Protocol Scheme
+***************************
+
+The :samp:`protocol` option enables overwriting the incoming request's protocol
+scheme based on the header field it specifies.  Consider the following
+:samp:`forwarded` configuration:
+
+.. code-block:: json
+
+   {
+       "forwarded": {
+           "protocol": "X-Forwarded-Proto",
+           "source": [
+               "192.0.2.0/24",
+               "198.51.100.0/24"
+           ]
+       }
+   }
+
+Suppose a request arrives with the following header field:
+
+.. code-block:: none
+
+   X-Forwarded-Proto: https
+
+If the source IP of the request matches :samp:`source`, Unit handles
+this request as an :samp:`https` one.
+
+.. _configuration-listeners-xff:
+
+Originating IP Identification
+*****************************
+
+Unit also supports identifying the client's originating IP with the
+:samp:`client_ip` option:
+
+.. code-block:: json
+
+   {
+       "forwarded": {
+           "client_ip": "X-Forwarded-For",
            "recursive": false,
            "source": [
                "192.0.2.0/24",
@@ -802,33 +895,16 @@ Suppose a request arrives with the following header fields:
    X-Forwarded-For: 203.0.113.195, 198.51.100.178
 
 If :samp:`recursive` is set to :samp:`false` (default), Unit chooses the
-*rightmost* address of the *last* :samp:`header` field as the originating IP.
-In the example, it is set to 198.51.100.178 for requests from 192.0.2.0/24 or
-198.51.100.0/24.
+*rightmost* address of the *last* field named in :samp:`client_ip` as the
+originating IP of the request.  In the example, it is set to 198.51.100.178 for
+requests from 192.0.2.0/24 or 198.51.100.0/24.
 
-If :samp:`recursive` is set to :samp:`true`, Unit inspects all :samp:`header`
-fields in reverse order.  Each is traversed from right to left until the first
-non-trusted address; if found, it's chosen as the originating IP.  In the
-example above with :samp:`"recursive": true`, the client IP would be set to
-203.0.113.195 because 198.51.100.178 is also trusted; this simplifies working
-behind multiple reverse proxies.
-
-Finally, mind that :samp:`source` can use not only subnets but any
-:ref:`address-based patterns <configuration-routes-matching-patterns>`:
-
-.. code-block:: json
-
-   {
-       "client_ip": {
-           "header": "X-Forwarded-For",
-           "source": [
-               ":nxt_hint:`198.51.100.1-198.51.100.254 <Ranges can be specified explicitly>`",
-               ":nxt_hint:`!198.51.100.128/26 <Negation rejects any addresses originating here>`",
-               ":nxt_hint:`203.0.113.195 <Individual addresses are supported as well>`"
-           ]
-       }
-   }
-
+If :samp:`recursive` is set to :samp:`true`, Unit inspects all
+:samp:`client_ip` fields in reverse order.  Each is traversed from right to
+left until the first non-trusted address; if found, it's chosen as the
+originating IP.  In the example above with :samp:`"recursive": true`, the
+client IP would be set to 203.0.113.195 because 198.51.100.178 is also trusted;
+this simplifies working behind multiple reverse proxies.
 
 
 .. _configuration-routes:
@@ -4692,10 +4768,12 @@ Full Example
 
                "*:8080": {
                    "pass": "upstreams/rr-lb",
-                   "client_ip": {
-                       "header": "X-Forwarded-For",
+                   "forwarded": {
+                       "client_ip": "X-Forwarded-For",
+                       "protocol": "X-Forwarded-Proto",
                        "source": [
-                           "192.168.0.0.0/16"
+                           "192.0.2.0/24",
+                           "198.51.100.0/24"
                        ]
                    }
                }
