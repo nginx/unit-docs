@@ -936,6 +936,12 @@ Ubuntu
 
    .. tab:: 21.10
 
+      .. warning::
+
+         Unit's 1.28+ packages aren't built for Ubuntu 21.10.
+         This distribution is obsolete;
+         please update.
+
       Supported architectures: arm64, x86-64.
 
       #. Download and save NGINX's signing key:
@@ -985,6 +991,12 @@ Ubuntu
 
 
    .. tab:: 21.04
+
+      .. warning::
+
+         Unit's 1.27+ packages aren't built for Ubuntu 21.04.
+         This distribution is obsolete;
+         please update.
 
       Supported architectures: arm64, x86-64.
 
