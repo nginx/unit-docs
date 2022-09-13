@@ -100,6 +100,9 @@ Performance
   preemptively
   within given limits
 
+- App and instance usage statistics are collected and :ref:`exposed
+  <configuration-stats>` via the API
+
 - Multithreaded request processing is supported for
   :ref:`Java <configuration-java>`,
   :ref:`Perl <configuration-perl>`,
