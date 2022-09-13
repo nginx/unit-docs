@@ -2002,20 +2002,20 @@ Unit's Docker images come in several language-specific flavors:
      - No language modules; based on the :samp:`debian:buster-slim` `image
        <https://hub.docker.com/_/debian>`__.
 
-   * - :samp:`|version|-go1.18`
-     - Single-language image based on the :samp:`golang:1.18`
+   * - :samp:`|version|-go1.19`
+     - Single-language image based on the :samp:`golang:1.19`
        `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
-     - Single-language image based on the :samp:`openjdk:11-jdk`
-       `image <https://hub.docker.com/_/openjdk>`__.
+     - Single-language image based on the :samp:`eclipse-temurin:11-jdk`
+       `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
    * - :samp:`|version|-node16`
      - Single-language image based on the :samp:`node:16`
        `image <https://hub.docker.com/_/node>`__.
 
-   * - :samp:`|version|-perl5.34`
-     - Single-language image based on the :samp:`perl:5.34`
+   * - :samp:`|version|-perl5.36`
+     - Single-language image based on the :samp:`perl:5.36`
        `image <https://hub.docker.com/_/perl>`__.
 
    * - :samp:`|version|-php8.1`
