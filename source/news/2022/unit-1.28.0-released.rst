@@ -348,48 +348,45 @@ on BSD systems).
 Full Changelog
 **************
 
-Changes with Unit 1.28.0 13 Sep 2022
+.. code-block:: none
 
-- Change: increased the applications' startup timeout.
+   Changes with Unit 1.28.0                                         13 Sep 2022
 
-- Change: disallowed abstract Unix domain socket syntax in non-Linux
-  systems.
+       *) Change: increased the applications' startup timeout.
 
-- Change: increased the applications' startup timeout.
+       *) Change: disallowed abstract Unix domain socket syntax in non-Linux
+          systems.
 
-- Change: disallowed abstract Unix domain socket syntax in non-Linux
-  systems.
+       *) Feature: basic statistics API.
 
-- Feature: basic statistics API.
+       *) Feature: customizable access log format.
 
-- Feature: customizable access log format.
+       *) Feature: more HTTP variables support.
 
-- Feature: more HTTP variables support.
+       *) Feature: forwarded header to replace client address and protocol.
 
-- Feature: forwarded header to replace client address and protocol.
+       *) Feature: ability to get dynamic variables.
 
-- Feature: ability to get dynamic variables.
+       *) Feature: support for abstract Unix sockets.
 
-- Feature: support for abstract Unix sockets.
+       *) Feature: support for Unix sockets in address matching.
 
-- Feature: support for Unix sockets in address matching.
+       *) Feature: the $dollar variable translates to a literal "$" during
+          variable substitution.
 
-- Feature: the $dollar variable translates to a literal "$"
-  during variable substitution.
+       *) Bugfix: router process could crash if index file didn't contain an
+          extension.
 
-- Bugfix: router process could crash if index file didn't contain an
-  extension.
+       *) Bugfix: force SCRIPT_NAME in Ruby to always be an empty string.
 
-- Bugfix: force SCRIPT_NAME in Ruby to always be an empty string.
+       *) Bugfix: when isolated PID numbers reach the prototype process host
+          PID, the prototype crashed.
 
-- Bugfix: when isolated PID numbers reach the prototype process host
-  PID, the prototype crashed.
+       *) Bugfix: the Ruby application process could crash on SIGTERM.
 
-- Bugfix: the Ruby application process could crash on SIGTERM.
+       *) Bugfix: the Ruby application process could crash on SIGINT.
 
-- Bugfix: the Ruby application process could crash on SIGINT.
-
-- Bugfix: mutex leak in the C API.
+       *) Bugfix: mutex leak in the C API.
 
 
 ****************
