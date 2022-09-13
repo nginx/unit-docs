@@ -77,7 +77,7 @@ support and advanced features are `also available <https://www.nginx.com>`_.
 Securely Proxying Unit's Control API
 ************************************
 
-By default, Unit exposes its :ref:`control API <configuration-mgmt>` via a Unix
+By default, Unit exposes its :ref:`control API <configuration-mgmt>` via a UNIX
 domain socket.  These sockets aren't network accessible, so the API is local
 only.  To enable secure remote access, you can use NGINX as a reverse proxy.
 

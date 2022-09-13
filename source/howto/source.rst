@@ -159,7 +159,7 @@ or support for certain features:
      - Turns off IPv6 support.
 
    * - :samp:`--no-unix-sockets`
-     - Turns off Unix domain sockets support.
+     - Turns off UNIX domain sockets support for control and routing.
 
    * - :samp:`--openssl`
      - Turns on OpenSSL support.  Make sure that OpenSSL (1.0.1 and later)
@@ -209,7 +209,7 @@ structure <source-dir>`:
 
    * - :samp:`--control=socket`
      - :ref:`Control API <configuration-mgmt>` socket address in IPv4, IPv6,
-       or Unix domain format:
+       or UNIX domain format:
 
        .. code-block:: console
 
@@ -755,7 +755,7 @@ General runtime options and :ref:`compile-time setting
      - Runs Unit in non-daemon mode.
 
    * - :samp:`--control socket`
-     - Control API socket address in IPv4, IPv6, or Unix domain format:
+     - Control API socket address in IPv4, IPv6, or UNIX domain format:
 
        .. code-block:: console
 

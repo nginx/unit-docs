@@ -60,8 +60,8 @@ safe.
 .. nxt_details:: Control Socket
    :hash: sec-socket
 
-   If you use a Unix
-   control socket, ensure it is available to :samp:`root` only:
+   If you use a UNIX control socket, ensure it is available to :samp:`root`
+   only:
 
    .. subs-code-block:: console
 
@@ -79,7 +79,7 @@ safe.
 
             srw------- 1 root root 0 ... /path/to/control.unit.sock
 
-   Unix domain sockets aren't network accessible; for remote access, use
+   UNIX domain sockets aren't network accessible; for remote access, use
    :ref:`NGINX <nginx-secure-api>` or a solution such as SSH:
 
    .. code-block:: console

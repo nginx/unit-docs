@@ -1611,9 +1611,10 @@ which is the default for the official packages>` modify this behavior:
       }
 
 Address-based patterns define individual IPv4 (dot-decimal or `CIDR
-<https://datatracker.ietf.org/doc/html/rfc4632>`__) or IPv6 (hexadecimal or
-`CIDR <https://datatracker.ietf.org/doc/html/rfc4291#section-2.3>`__) addresses
-that must exactly match the property value; wildcards and ranges modify this
+<https://datatracker.ietf.org/doc/html/rfc4632>`__), IPv6 (hexadecimal or `CIDR
+<https://datatracker.ietf.org/doc/html/rfc4291#section-2.3>`__), or any `UNIX
+domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__ addresses
+that must exactly match the property; wildcards and ranges modify this
 behavior:
 
 - Wildcards (:samp:`*`) can only be used to match arbitrary IPs
@@ -1771,6 +1772,21 @@ behavior:
               "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
           }
       }
+
+   This matches any UNIX domain sockets:
+
+   .. code-block:: json
+
+      {
+          "match": {
+              "source": "unix"
+          },
+
+          "action": {
+              "pass": ":nxt_ph:`... <Any acceptable 'pass' value may go here; see the 'Listeners' section for details>`"
+          }
+      }
+
 
 
 .. _configuration-routes-action:
@@ -2813,7 +2829,7 @@ option of a route step :ref:`action <configuration-routes-action>`:
        ]
    }
 
-As the example above suggests, you can use Unix, IPv4, and IPv6 socket
+As the example above suggests, you can use UNIX, IPv4, and IPv6 socket
 addresses for proxy destinations.
 
 .. note::
@@ -4784,6 +4800,7 @@ Full Example
                    "match": {
                        "uri": "/admin/*",
                        "scheme": "https",
+                       "source": "unix",
                        "arguments": {
                            "mode": "strict",
                            "access": "!raw"

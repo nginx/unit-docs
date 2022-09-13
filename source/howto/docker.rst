@@ -447,5 +447,5 @@ executable with its debug version.  Use Unit's :ref:`command-line options
 
    CMD ["unitd","--no-daemon","--control","0.0.0.0:8080"]
 
-This replaces Unit's default Unix domain control socket with an IP socket
+This replaces Unit's default UNIX domain control socket with an IP socket
 address.
