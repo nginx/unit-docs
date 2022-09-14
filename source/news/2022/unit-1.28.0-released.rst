@@ -249,7 +249,7 @@ listeners' configuration:
 
 The configuration above shows the **new syntax** to configure the replacement;
 the old :samp:`client_ip` syntax will still work but is now deprecated and will
-be removed in a future release (no sooner than version 1.300.
+be removed in a future release (no sooner than version 1.30).
 
 We have wrapped :samp:`client_ip` and :samp:`protocol` in a new object, while
 the :samp:`recursive` and :samp:`source` options stay the same; the IPs in
