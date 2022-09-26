@@ -1,4 +1,4 @@
-.. meta::
+ .. meta::
    :og:description: Create and maintain a working configuration using
                     certificates, listeners, routes, apps, and upstreams.
 
@@ -15,7 +15,7 @@ Quick Start
 ***********
 
 To run an application on Unit, first set up an :ref:`application
-<configuration-applications>` object.  Let's store it in a file to :samp:`PUT`
+<configuration-applications>` object.  Here, store it in a file to :samp:`PUT`
 it into the :samp:`config/applications` section of Unit's control API,
 available via the :ref:`control socket <source-startup>` at
 :samp:`http://localhost/`:
@@ -84,7 +84,7 @@ Finally, check the resulting configuration:
 
 You can upload the entire configuration at once or update it in portions.  For
 details of configuration techniques, see the :ref:`next section
-<configuration-mgmt>`.  For a full configuration sample, see :ref:`here
+<configuration-mgmt>`.  For a complete configuration sample, see :ref:`here
 <configuration-full-example>`.
 
 
@@ -157,9 +157,9 @@ right JSON:
    # curl -X PUT -d '"applications/blogs"' --unix-socket /path/to/control.unit.sock \
           http://localhost/config/listeners/127.0.0.1:8300/pass
 
-However, mind that the first command replaces the *entire* listener, dropping
-any other options you could have configured, whereas the second one replaces
-only the :samp:`pass` value and leaves other options intact.
+However, the first command replaces the *entire* listener, dropping any other
+options you could have configured, whereas the second one replaces only the
+:samp:`pass` value and leaves other options intact.
 
 .. nxt_details:: Examples
    :hash: conf-examples
@@ -248,16 +248,16 @@ only the :samp:`pass` value and leaves other options intact.
       # curl -X PUT -d '"routes"' --unix-socket \
              /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
 
-   Next, let's change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes`
-   array using its index (0):
+   Next, change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes` array
+   using its index (0):
 
    .. code-block:: console
 
       # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
              http://localhost/config/routes/0/match/uri
 
-   Let's add a route to the prod app: :samp:`POST` always adds to the array
-   end, so there's no need for an index:
+   Append a route to the prod app: :samp:`POST` always adds to the array end,
+   so there's no need for an index:
 
    .. code-block:: console
 
@@ -424,11 +424,8 @@ only the :samp:`pass` value and leaves other options intact.
 
       # systemctl restart unit
 
-   .. note::
-
-      If you run your Unit instances manually, :option:`!--state` can be
-      used to set the state directory at :ref:`startup
-      <source-startup>`.
+   If you run your Unit instances manually, :option:`!--state` can be used to
+   set the state directory at :ref:`startup <source-startup>`.
 
    After the restart, the target instance picks up the configuration you've
    copied to the state directory.
