@@ -549,17 +549,16 @@ The :samp:`tls` object provides the following options:
      - Description
 
    * - :samp:`certificate` (required)
-     - String or string array, refers to one or more :ref:`certificate bundles
-       <configuration-ssl>` uploaded earlier, enabling secure communication via
-       the listener.
+     - String or an array of strings, refers to one or more :ref:`certificate
+       bundles <configuration-ssl>` uploaded earlier, enabling secure
+       communication via the listener.
 
    * - :samp:`conf_commands`
      - Object, defines the SSL `configuration commands
        <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ to
        be set for the listener.
 
-       To provide this option, Unit must be built and run on a system with
-       OpenSSL 1.0.2+:
+       To have this option, Unit must be built and run with OpenSSL 1.0.2+:
 
        .. code-block:: console
 
@@ -573,8 +572,8 @@ The :samp:`tls` object provides the following options:
    * - :samp:`session`
      - Object, configures the TLS session cache and tickets for the listener.
 
-To use an earlier uploaded :ref:`certificate bundle <configuration-ssl>`, name
-it in the :samp:`certificate` option of the :samp:`tls` object:
+To use a certificate bundle you :ref:`uploaded <configuration-ssl>` earlier,
+name it in the :samp:`certificate` option of the :samp:`tls` object:
 
 .. code-block:: json
 
@@ -614,9 +613,9 @@ it in the :samp:`certificate` option of the :samp:`tls` object:
 
    If the connecting client sends a server name, Unit responds with the
    matching certificate bundle.  If the name matches several bundles, exact
-   matches trump wildcards; if ambiguity remains, the one listed first is used.
-   If there's no match or no server name was sent, Unit uses the first bundle
-   on the list.
+   matches have priority over wildcards; if this doesn't help, the one listed
+   first is used.  If there's no match or no server name was sent, Unit uses
+   the first bundle on the list.
 
 To set custom OpenSSL `configuration commands
 <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ for a
@@ -653,9 +652,9 @@ the listener:
    * - :samp:`timeout`
      - Integer, sets the session timeout for the TLS session cache.
 
-       When a new session is created, it is assigned a lifetime based on its
-       creation time and current timeout value.  If a cached session is
-       requested past its lifetime, it is not reused.
+       When a new session is created, its lifetime derives from current time
+       and :samp:`timeout`.  If a cached session is requested past its
+       lifetime, it is not reused.
 
        The default is :samp:`300` (5 minutes).
 
@@ -685,7 +684,7 @@ Example:
 
 The :samp:`tickets` option works as follows:
 
-- Boolean values enable or disable session tickets; when enabled, a random
+- Boolean values enable or disable session tickets; with :samp:`true`, a random
   session ticket key is used:
 
   .. code-block:: json
@@ -706,8 +705,8 @@ The :samp:`tickets` option works as follows:
          }
      }
 
-  This can be employed to implement ticket reuse in scenarios where the key
-  is shared between servers.
+  This enables ticket reuse in scenarios where the key is shared between
+  individual servers.
 
   Unit supports AES256 (80-byte keys) or AES128 (48-byte keys); the bytes
   should be encoded in Base64:
@@ -761,11 +760,11 @@ object and its options:
       - Description
 
     * - :samp:`client_ip`
-      - String, defines the relevant HTTP header fields to look for in the
-        request.  Unit expects them to follow the `X-Forwarded-For
+      - String, names the HTTP header fields to expect in the request; they
+        should use the `X-Forwarded-For
         <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
-        notation, with the fields' values themselves being comma- or space-separated
-        lists of IPv4 or IPv6 addresses.
+        format where the value is a comma- or space-separated list of IPv4s or
+        IPv6s.
 
     * - :samp:`protocol`
       - String, defines the relevant HTTP header field to look for in the
@@ -775,7 +774,7 @@ object and its options:
         :samp:`https`, or :samp:`on`.
 
     * - :samp:`source` (required)
-      - String or array of strings, defines :ref:`address-based patterns
+      - String or an array of strings; defines :ref:`address-based patterns
         <configuration-routes-matching-patterns>` for trusted addresses; the
         replacement occurs only if the source IP of the request is a
         :ref:`match <configuration-routes-matching-resolution>`.
@@ -874,7 +873,7 @@ this request as an :samp:`https` one.
 Originating IP Identification
 *****************************
 
-Unit also supports identifying the client's originating IP with the
+Unit also supports identifying the clients' originating IPs with the
 :samp:`client_ip` option:
 
 .. code-block:: json
@@ -899,13 +898,13 @@ Suppose a request arrives with the following header fields:
 
 If :samp:`recursive` is set to :samp:`false` (default), Unit chooses the
 *rightmost* address of the *last* field named in :samp:`client_ip` as the
-originating IP of the request.  In the example, it is set to 198.51.100.178 for
+originating IP of the request.  In the example, it's set to 198.51.100.178 for
 requests from 192.0.2.0/24 or 198.51.100.0/24.
 
 If :samp:`recursive` is set to :samp:`true`, Unit inspects all
 :samp:`client_ip` fields in reverse order.  Each is traversed from right to
 left until the first non-trusted address; if found, it's chosen as the
-originating IP.  In the example above with :samp:`"recursive": true`, the
+originating IP.  In the previous example with :samp:`"recursive": true`, the
 client IP would be set to 203.0.113.195 because 198.51.100.178 is also trusted;
 this simplifies working behind multiple reverse proxies.
 
