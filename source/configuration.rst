@@ -785,7 +785,7 @@ object and its options:
     * - :samp:`recursive`
       - Boolean, controls how the :samp:`client_ip` fields are traversed.
 
-        The default value is :samp:`false` (no recursion).
+        The default is :samp:`false` (no recursion).
 
 .. note::
 
@@ -980,11 +980,11 @@ they accept the following options:
      - Description
 
    * - :samp:`action` (required)
-     - Object that defines how matching requests are :ref:`handled
+     - Object, defines how matching requests are :ref:`handled
        <configuration-routes-action>`.
 
    * - :samp:`match`
-     - Object that defines the step's :ref:`conditions
+     - Object, defines the step's :ref:`conditions
        <configuration-routes-matching>` to be matched.
 
 A request passed to a route traverses its steps sequentially:
@@ -3016,7 +3016,7 @@ App objects have a number of options shared between all application languages:
         7.0.23 will be used.
 
     * - :samp:`limits`
-      - Object that accepts two integer options, :samp:`timeout` and
+      - Object, accepts two integer options, :samp:`timeout` and
         :samp:`requests`.  Their values govern the life cycle of an
         application process.  For details, see
         :ref:`here <configuration-proc-mgmt-lmts>`.
@@ -3027,7 +3027,7 @@ App objects have a number of options shared between all application languages:
         enable dynamic management.  For details, see :ref:`here
         <configuration-proc-mgmt-prcs>`.
 
-        The default value is 1.
+        The default is 1.
 
     * - :samp:`working_directory`
       - The app's working directory.  If not set, the Unit daemon's working
@@ -3114,7 +3114,7 @@ The :samp:`isolation` application option has the following members:
      - Description
 
    * - :samp:`namespaces`
-     - Object that configures namespace isolation scheme for the application.
+     - Object, configures namespace isolation scheme for the application.
 
        Available options (system-dependent; check your OS manual for guidance):
 
@@ -3162,11 +3162,11 @@ The :samp:`isolation` application option has the following members:
        .. list-table::
 
           * - :samp:`container`
-            - Integer that starts the user ID mapping range in the app's
+            - Integer, starts the user ID mapping range in the app's
               namespace.
 
           * - :samp:`host`
-            - Integer that starts the user ID mapping range in the OS
+            - Integer, starts the user ID mapping range in the OS
               namespace.
 
           * - :samp:`size`
@@ -3180,7 +3180,7 @@ The :samp:`isolation` application option has the following members:
        <https://man7.org/linux/man-pages/man2/chroot.2.html>`_ for the app.
 
    * - :samp:`automount`
-     - Object that controls mount behavior if :samp:`rootfs` is enabled.  By
+     - Object, controls mount behavior if :samp:`rootfs` is enabled.  By
        default, Unit automatically mounts the :ref:`language runtime
        dependencies <configuration-lang-runtime>`, a `procfs
        <https://man7.org/linux/man-pages/man5/procfs.5.html>`_ at
@@ -3396,19 +3396,19 @@ object with the following options:
       - Maximum number of application processes that Unit will maintain
         (busy and idle).
 
-        The default value is 1.
+        The default is 1.
 
     * - :samp:`spare`
-      - Minimum number of idle processes that Unit tries to reserve for an app.
-        When the app is started, :samp:`spare` idle processes are launched;
-        Unit assigns incoming requests to existing idle processes, forking new
-        idles to maintain the :samp:`spare` level if :samp:`max` allows.  As
-        processes complete requests and turn idle, Unit terminates extra ones
+      - Minimum number of idle processes that Unit tries to maintain for an
+        app.  When the app is started, :samp:`spare` idles are launched; Unit
+        passes new requests to existing idles, forking new idles to uphold the
+        :samp:`spare` level if :samp:`max` allows.  When busy processes
+        complete their work and turn idle again, Unit terminates extra idles
         after :samp:`idle_timeout`.
 
     * - :samp:`idle_timeout`
       - Time in seconds that Unit waits before terminating an idle process
-        which exceeds :samp:`spare`.
+        that exceeds :samp:`spare`.
 
 If :samp:`processes` is omitted entirely, Unit creates 1 static process.  If
 an empty object is provided: :samp:`"processes": {}`, dynamic behavior with
@@ -3499,7 +3499,7 @@ the app.
      argument and relying on the :ref:`listener's settings
      <configuration-listeners>` instead.
 
-Next, configure the app in Unit; besides :ref:`common options
+Next, configure the app in Unit; besides the :ref:`common options
 <configuration-apps-common>`, you have:
 
 .. list-table::
@@ -3548,7 +3548,7 @@ Java
 First, make sure to install Unit along with the :ref:`Java language module
 <installation-precomp-pkgs>`.
 
-Besides :ref:`common options <configuration-apps-common>`, you have the
+Besides the :ref:`common options <configuration-apps-common>`, you have the
 following:
 
 .. list-table::
@@ -3572,18 +3572,18 @@ following:
         <https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletContext.html#getContextPath-->`__.
 
     * - :samp:`threads`
-      - Integer that sets the number of worker threads per app process.  When
+      - Integer, sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
-        The default value is :samp:`1`.
+        The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer that defines the stack size of a worker thread (in bytes,
+      - Integer, defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
-        The default value is system dependent and can be set with
+        The default is system dependent and can be set with
         :program:`ulimit -s <SIZE_KB>`.
 
 Example:
@@ -3629,7 +3629,7 @@ update the Node.js module as well according to your :ref:`installation method
 <installation-nodejs-package>`.
 
 Next, to run your Node.js apps on Unit, you need to configure them.  Besides
-:ref:`common options <configuration-apps-common>`, you have:
+the :ref:`common options <configuration-apps-common>`, you have:
 
 .. list-table::
     :header-rows: 1
@@ -3654,7 +3654,7 @@ Next, to run your Node.js apps on Unit, you need to configure them.  Besides
            start it.
 
     * - :samp:`arguments`
-      - Command line arguments to be passed to the application.
+      - Command-line arguments to be passed to the application.
         The example below is equivalent to
         :samp:`/www/apps/node-app/app.js --tmp-files /tmp/node-cache`.
 
@@ -3750,7 +3750,7 @@ Perl
 First, make sure to install Unit along with the :ref:`Perl language module
 <installation-precomp-pkgs>`.
 
-Besides :ref:`common options <configuration-apps-common>`, you have the
+Besides the :ref:`common options <configuration-apps-common>`, you have the
 following:
 
 .. list-table::
@@ -3763,18 +3763,18 @@ following:
       - PSGI script path.
 
     * - :samp:`threads`
-      - Integer that sets the number of worker threads per app process.  When
+      - Integer, sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
-        The default value is :samp:`1`.
+        The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer that defines the stack size of a worker thread (in bytes,
+      - Integer, defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
-        The default value is system dependent and can be set with
+        The default is system dependent and can be set with
         :program:`ulimit -s <SIZE_KB>`.
 
 Example:
@@ -3804,7 +3804,7 @@ PHP
 First, make sure to install Unit along with the :ref:`PHP language module
 <installation-precomp-pkgs>`.
 
-Besides :ref:`common options <configuration-apps-common>`, you have the
+Besides the :ref:`common options <configuration-apps-common>`, you have the
 following:
 
 .. list-table::
@@ -3821,19 +3821,19 @@ following:
       - Filename appended to any URI paths ending with a slash; applies if
         :samp:`script` is omitted.
 
-        The default value is :samp:`index.php`.
+        The default is :samp:`index.php`.
 
     * - :samp:`options`
-      - Object that :ref:`defines <configuration-php-options>` the
+      - Object, :ref:`defines <configuration-php-options>` the
         :file:`php.ini` location and options.
 
     * - :samp:`targets`
-      - Object that defines application sections with :ref:`custom
+      - Object, defines application sections with :ref:`custom
         <configuration-php-targets>` :samp:`root`, :samp:`script`, and
         :samp:`index` values.
 
     * - :samp:`script`
-      - Filename of a :samp:`root`-based PHP script that Unit uses to serve all
+      - Filename of a :samp:`root`-based PHP script that serves all
         requests to the app.
 
 The :samp:`index` and :samp:`script` options enable two modes of operation:
@@ -3841,7 +3841,7 @@ The :samp:`index` and :samp:`script` options enable two modes of operation:
 - If :samp:`script` is set, all requests to the application are handled by
   the script you provide.
 
-- Otherwise, the requests are served according to their URI paths; if script
+- Otherwise, the requests are served by their URI paths; if the script
   name is omitted, :samp:`index` is used.
 
 .. _configuration-php-options:
@@ -3940,8 +3940,8 @@ application:
        }
    }
 
-Each target is an object that specifies :samp:`root` and optionally
-:samp:`index` or :samp:`script` just like a common application does.  Targets
+Each target is an object that specifies :samp:`root` and can define
+:samp:`index` or :samp:`script` just like a regular application does.  Targets
 can be used by the :samp:`pass` options in listeners and routes to serve
 requests:
 
@@ -3999,7 +3999,7 @@ Python
 First, make sure to install Unit along with the :ref:`Python language module
 <installation-precomp-pkgs>`.
 
-Besides :ref:`common options <configuration-apps-common>`, you have the
+Besides the :ref:`common options <configuration-apps-common>`, you have the
 following:
 
 .. list-table::
@@ -4014,9 +4014,9 @@ following:
         Python.
 
     * - :samp:`callable`
-      - Name of the callable in :samp:`module` that Unit uses to run the app.
+      - Name of the :samp:`module`-based callable that Unit runs as the app.
 
-        The default value is :samp:`application`.
+        The default is :samp:`application`.
 
     * - :samp:`home`
       - Path to the app's `virtual environment <https://packaging.python.org/
@@ -4053,7 +4053,7 @@ following:
                 # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`
 
     * - :samp:`path`
-      - String or array of strings that represent additional Python module
+      - String or an array of strings, represents additional Python module
         lookup paths; these values are prepended to :samp:`sys.path`.
 
     * - :samp:`protocol`
@@ -4061,23 +4061,23 @@ following:
         :samp:`asgi` or :samp:`wsgi`.
 
     * - :samp:`targets`
-      - Object that defines application sections with :ref:`custom
+      - Object, defines application sections with :ref:`custom
         <configuration-python-targets>` :samp:`module` and :samp:`callable`
         values.
 
     * - :samp:`threads`
-      - Integer that sets the number of worker threads per app process.  When
+      - Integer, sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
-        The default value is :samp:`1`.
+        The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer that defines the stack size of a worker thread (in bytes,
+      - Integer, defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
-        The default value is system dependent and can be set with
+        The default is system dependent and can be set with
         :program:`ulimit -s <SIZE_KB>`.
 
 Example:
@@ -4138,9 +4138,9 @@ The second one, supported for Python 3.5+, uses `ASGI
    <https://asgi.readthedocs.io/en/latest/specs/main.html#legacy-applications>`_
    ASGI 2.0 applications were not supported prior to Unit 1.21.0.
 
-Choose either one according to your needs; Unit will attempt to infer your
-choice automatically.  If automatic inference fails, use the :samp:`protocol`
-option to name the interface explicitly.
+Choose either one according to your needs; Unit tries to infer your choice
+automatically.  If this inference fails, use the :samp:`protocol` option to
+set the interface explicitly.
 
 .. _configuration-python-targets:
 
@@ -4172,8 +4172,8 @@ application:
        }
    }
 
-Each target is an object that specifies :samp:`module` and optionally
-:samp:`callable` just like a common application does.  Targets can be used by
+Each target is an object that specifies :samp:`module` and can define
+:samp:`callable` just like a regular application does.  Targets can be used by
 the :samp:`pass` options in listeners and routes to serve requests:
 
 .. code-block:: json
@@ -4241,7 +4241,7 @@ First, make sure to install Unit along with the :ref:`Ruby language module
 
       $ gem install rack
 
-Besides :ref:`common options <configuration-apps-common>`, you have the
+Besides the :ref:`common options <configuration-apps-common>`, you have the
 following:
 
 .. list-table::
@@ -4255,11 +4255,11 @@ following:
         :file:`/www/rubyapp/script.ru`.
 
     * - :samp:`threads`
-      - Integer that sets the number of worker threads per app process.  When
+      - Integer, sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
-        The default value is :samp:`1`.
+        The default is :samp:`1`.
 
     * - :samp:`hooks`
       - Pathname of the :file:`.rb` file defining the event hooks to be
@@ -4348,7 +4348,7 @@ HTTP requests from the clients:
         If Unit doesn't receive the entire header from the client within this
         interval, it responds with a 408 Request Timeout error.
 
-        The default value is 30.
+        The default is 30.
 
     * - :samp:`body_read_timeout`
       - Maximum number of seconds to read data from the body of a client's
@@ -4357,7 +4357,7 @@ HTTP requests from the clients:
         data from the client within this interval, it responds with a 408
         Request Timeout error.
 
-        The default value is 30.
+        The default is 30.
 
     * - :samp:`send_timeout`
       - Maximum number of seconds to transmit data in the response to a client.
@@ -4365,40 +4365,38 @@ HTTP requests from the clients:
         entire response transmission.  If the client doesn't receive any data
         within this interval, Unit closes the connection.
 
-        The default value is 30.
+        The default is 30.
 
     * - :samp:`idle_timeout`
       - Maximum number of seconds between requests in a keep-alive connection.
         If no new requests arrive within this interval, Unit responds with a
         408 Request Timeout error and closes the connection.
 
-        The default value is 180.
+        The default is 180.
 
     * - :samp:`max_body_size`
       - Maximum number of bytes in the body of a client's request.  If the body
         size exceeds this value, Unit responds with a 413 Payload Too Large
         error and closes the connection.
 
-        The default value is 8388608 (8 MB).
+        The default is 8388608 (8 MB).
 
     * - :samp:`static`
-      - Object that configures static asset handling, containing a single
-        object named :samp:`mime_types`.  In turn, :samp:`mime_types` defines
-        specific `MIME types
+      - Object, configures static asset handling.  Has a single object option
+        named :samp:`mime_types` that defines specific `MIME types
         <https://www.iana.org/assignments/media-types/media-types.xhtml>`__ as
         options.  An option's value can be a string or an array of strings;
         each string must specify a filename extension or a specific filename
-        that is included in the MIME type.
+        that's included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
-      - Controls the parsing mode of header field names.  If set to
-        :samp:`true`, Unit only processes headers with names consisting of
-        alphanumeric characters and hyphens (:samp:`-`); otherwise, all valid
-        RFC 7230 `header fields
-        <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ are
-        processed.
+      - Boolean, controls header field name parsing.  If set to :samp:`true`,
+        Unit only processes headers with names made of alphanumeric characters
+        and hyphens (:samp:`-`); otherwise, all valid `RFC 7230
+        <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ header
+        fields are processed.
 
-        The default value is :samp:`true`.
+        The default is :samp:`true`.
 
 Example:
 
