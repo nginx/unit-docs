@@ -1464,8 +1464,8 @@ Community Repositories
 
 .. warning::
 
-   These distributions are maintained by respective communities, not NGINX.
-   Proceed with caution.
+   These distributions are maintained by their respective communities, not
+   NGINX.  Use them with caution.
 
 ..
    Legacy anchors are left here so that external links remain valid
@@ -1484,7 +1484,7 @@ Community Repositories
 
    .. tab:: Alpine
 
-      To install Unit's core executables from the `Alpine Linux packages
+      To install Unit's core executables from the Alpine Linux `packages
       <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
 
       .. code-block:: console
@@ -1525,7 +1525,7 @@ Community Repositories
    .. tab:: ALT
 
       To install Unit's core executables and specific language modules from the
-      `Sisyphus packages
+      Sisyphus `packages
       <https://packages.altlinux.org/en/sisyphus/srpms/unit>`__:
 
       .. code-block:: console
@@ -1652,7 +1652,7 @@ Community Repositories
         <https://www.freshports.org/www/unit-perl/>`__, `unit-php
         <https://www.freshports.org/www/unit-php/>`__, `unit-python
         <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
-        <https://www.freshports.org/www/unit-ruby/>`__.  Having done
+        <https://www.freshports.org/www/unit-ruby/>`__.  After
         that, restart Unit:
 
         .. code-block:: console
@@ -1722,7 +1722,7 @@ Community Repositories
    .. tab:: NetBSD
 
       To install Unit's core package and the other packages you need from
-      the `NetBSD Package Collection
+      the `NetBSD Packages Collection
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit/index.html>`_:
 
       .. code-block:: console
@@ -1760,7 +1760,7 @@ Community Repositories
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-python/index.html>`__,
       or `unit-ruby
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
-      Having done that, restart Unit:
+      After that, restart Unit:
 
       .. code-block:: console
 
@@ -1809,7 +1809,7 @@ Community Repositories
    .. tab:: Nix
 
       To install Unit's core executables and all language modules using the
-      `Nix package manager <https://nixos.org>`_, update the channel, check if
+      `Nix <https://nixos.org>`_ package manager, update the channel, check if
       Unit's available, and install the `package
       <https://github.com/NixOS/nixpkgs/tree/master/pkgs/servers/http/unit>`__:
 
@@ -1891,7 +1891,7 @@ Community Repositories
 
         This also installs the language modules for Perl, Python, and Ruby;
         other modules can be built and installed from :ref:`source
-        <source>`.  Having done that, restart Unit:
+        <source>`.  After that, restart Unit:
 
         .. code-block:: console
 
@@ -1926,7 +1926,7 @@ Community Repositories
       which hosts the latest versions of the PHP stack for CentOS, Fedora, and
       RHEL, also has the core Unit package and the PHP modules.
 
-      To use Remi's versions of Unit's packages, configure `Remi's RPM repo
+      To use Remi's versions of Unit's packages, configure the `repository
       <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
       modules are also compatible with the core Unit package from :ref:`our own
       repository <installation-precomp-pkgs>`.
@@ -1965,7 +1965,7 @@ Community Repositories
 
    .. tab:: SCLo
 
-      If you use `SCLo Software Collections
+      If you use the `SCLo Software Collections
       <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
       Unit's PHP modules as packages from the corresponding repo.  Besides
       other dependencies, the packages require the :ref:`core Unit installation
@@ -1976,7 +1976,7 @@ Community Repositories
       .. code-block:: console
 
          # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo \
+         # yum install --enablerepo=centos-sclo-sclo  \
                        sclo-php72-unit-php sclo-php73-unit-php
          # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -1987,7 +1987,7 @@ Community Repositories
          # cd /etc/yum.repos.d/
          # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
          # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo \
+         # yum install --enablerepo=centos-sclo-sclo  \
                        sclo-php72-unit-php sclo-php73-unit-php
          # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -2015,39 +2015,38 @@ Unit's Docker images come in several language-specific flavors:
        <https://hub.docker.com/_/debian>`__.
 
    * - :samp:`|version|-go1.19`
-     - Single-language image based on the :samp:`golang:1.19`
+     - Single-language, based on the :samp:`golang:1.19`
        `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
-     - Single-language image based on the :samp:`eclipse-temurin:11-jdk`
+     - Single-language, based on the :samp:`eclipse-temurin:11-jdk`
        `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
    * - :samp:`|version|-node16`
-     - Single-language image based on the :samp:`node:16`
+     - Single-language, based on the :samp:`node:16`
        `image <https://hub.docker.com/_/node>`__.
 
    * - :samp:`|version|-perl5.36`
-     - Single-language image based on the :samp:`perl:5.36`
+     - Single-language, based on the :samp:`perl:5.36`
        `image <https://hub.docker.com/_/perl>`__.
 
    * - :samp:`|version|-php8.1`
-     - Single-language image based on the :samp:`php:8.1-cli`
+     - Single-language, based on the :samp:`php:8.1-cli`
        `image <https://hub.docker.com/_/php>`__.
 
    * - :samp:`|version|-python3.10`
-     - Single-language image based on the :samp:`python:3.10`
+     - Single-language, based on the :samp:`python:3.10`
        `image <https://hub.docker.com/_/python>`__.
 
    * - :samp:`|version|-ruby3.1`
-     - Single-language image based on the :samp:`ruby:3.1`
+     - Single-language, based on the :samp:`ruby:3.1`
        `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
    :hash: inst-lang-docker
 
-   To create a Unit image with a different language version, clone the sources
-   and rebuild them locally on a machine with Docker installed.  The build
-   command has the following format:
+   To build a custom language version image, clone and rebuild the sources
+   locally with Docker installed:
 
    .. code-block:: console
 
@@ -2062,8 +2061,8 @@ Unit's Docker images come in several language-specific flavors:
    The language name can be :samp:`go`, :samp:`jsc`, :samp:`node`,
    :samp:`perl`, :samp:`php`, :samp:`python`, or :samp:`ruby`; the version is
    defined as :samp:`<major>.<minor>`, except for :samp:`jsc` and :samp:`node`
-   that take only major version numbers (as exemplified by the tag table).
-   Thus, to create a local image based on Python 3.6 and tagged as
+   that take only major version numbers (as seen in the tag table).  Thus, to
+   create an image with Python 3.6 and tag it as
    :samp:`unit:|version|-python3.6`:
 
    .. subs-code-block:: console
@@ -2128,7 +2127,7 @@ You can obtain the images from these sources:
 
    .. tab:: packages.nginx.org
 
-      To install and run Unit from tarballs stored on our `website
+      To install and run Unit from the tarballs stored on our `website
       <https://packages.nginx.org/unit/docker/>`_:
 
       .. subs-code-block:: console
@@ -2166,14 +2165,12 @@ For more details, see the repository pages (`Docker Hub
 Initial Configuration
 =====================
 
-Official images support initial container configuration, implemented with an
-:samp:`ENTRYPOINT` `script
-<https://docs.docker.com/engine/reference/builder/#entrypoint>`_.
-
-First, the script checks the Unit :ref:`state directory
-<source-config-src-state>` (:file:`/var/lib/unit/` in official images) of
-the container.  If it's empty, the script processes certain file types in the
-container's :file:`/docker-entrypoint.d/` directory:
+The official images support initial container configuration, implemented with
+an :samp:`ENTRYPOINT` `script
+<https://docs.docker.com/engine/reference/builder/#entrypoint>`_.  First, the
+script checks the Unit :ref:`state directory <source-config-src-state>` in the
+container (:file:`/var/lib/unit/`).  If it's empty, the script processes
+certain file types in the container's :file:`/docker-entrypoint.d/` directory:
 
 .. list-table::
    :header-rows: 1
@@ -2182,27 +2179,23 @@ container's :file:`/docker-entrypoint.d/` directory:
      - Purpose/Action
 
    * - :file:`.pem`
-     - :ref:`Certificate bundles <configuration-ssl>` are uploaded under
-       respective names: :samp:`cert.pem` to :samp:`certificates/cert`.
+     - :ref:`Certificate bundles <configuration-ssl>`, uploaded under
+       respective names: :samp:`cert.pem` to :samp:`/certificates/cert`.
 
    * - :file:`.json`
-     - :ref:`Configuration snippets <configuration-mgmt>` are uploaded as
-       to the :samp:`config` section of Unit's configuration.
+     - :ref:`Configuration snippets <configuration-mgmt>`, uploaded as
+       to the :samp:`/config` section of Unit's configuration.
 
    * - :file:`.sh`
      - :nxt_hint:`Shell scripts <Use shebang in your scripts to specify a
-       custom shell>` that run in the container after the :file:`.pem` and
-       :file:`.json` files are uploaded.
+       custom shell>`, run after the :file:`.pem` and :file:`.json` files
+       are uploaded; must be executable.
 
-.. note::
+The script warns about any other file types in :file:`/docker-entrypoint.d/`.
 
-   The script issues warnings about any other file types in the
-   :file:`/docker-entrypoint.d/` directory.  Also, your shell
-   scripts must have execute permissions set.
-
-This mechanism allows you to customize your containers at startup, reuse
-configurations, and automate your workflows, reducing manual effort.  To use
-the feature, add :samp:`COPY` directives for certificate bundles, configuration
+This mechanism enables customizing your containers at startup, reusing
+configurations, and automating workflows to reduce manual effort.  To use the
+feature, add :samp:`COPY` directives for certificate bundles, configuration
 fragments, and shell scripts to your :file:`Dockerfile` derived from an
 official image:
 
@@ -2215,9 +2208,9 @@ official image:
 
 .. note::
 
-   Mind that running Unit even once populates its :samp:`state` directory; this
+   Mind that running Unit even once populates its state directory; this
    prevents the script from executing, so this script-based initialization must
-   occur before you run Unit within your derived image.
+   occur before you run Unit in your derived container.
 
 This feature comes in handy if you want to tie Unit to a certain app
 configuration for later use.  For ad-hoc initialization, you can mount a
@@ -2225,8 +2218,8 @@ directory with configuration files to a container at startup:
 
 .. subs-code-block:: console
 
-   $ docker run -d --mount \
-            type=bind,src=:nxt_ph:`/path/to/config/files/ <Use a real path instead>`,dst=/docker-entrypoint.d/ \
+   $ docker run -d --mount  \
+            type=bind,src=:nxt_ph:`/path/to/config/files/ <Use a real path instead>`,dst=/docker-entrypoint.d/  \
             nginx/unit:|version|-minimal)
 
 
