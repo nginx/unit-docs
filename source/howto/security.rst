@@ -603,7 +603,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
             root   ... unit: main v|version|
             unit   ... unit: controller
             unit   ... unit: router
-            unit   ... unit: "foobar" application
+            unit   ... unit: "front" application
 
    The important outtake here is to understand that Unit's non-privileged
    processes don't require running as :samp:`root`.  Instead, they should have

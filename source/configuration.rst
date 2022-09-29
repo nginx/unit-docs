@@ -1187,7 +1187,7 @@ object define patterns to be compared to the requests' properties:
 
    Both :samp:`arguments` and :samp:`query` operate on the query string, but
    :samp:`query` is matched against the entire string whereas :samp:`arguments`
-   considers only the key-value pairs such as :samp:`key1=foo&key2=bar`.
+   considers only the key-value pairs such as :samp:`key1=4861&key2=a4f3`.
 
    Use :samp:`arguments` to define conditions based on key-value pairs in the
    query string:
@@ -1195,14 +1195,14 @@ object define patterns to be compared to the requests' properties:
    .. code-block:: json
 
       "arguments": {
-         "key1": "foo",
-         "key2": "bar"
+         "key1": "4861",
+         "key2": "a4f3"
       }
 
-   Argument order is irrelevant: :samp:`key1=foo&key2=bar` and
-   :samp:`key2=bar&key1=foo` are considered the same.  Also, multiple
-   occurrences of an argument must all match, which means
-   :samp:`key=foo&key=bar` matches this:
+   Argument order is irrelevant: :samp:`key1=4861&key2=a4f3` and
+   :samp:`key2=a4f3&key1=4861` are considered the same.  Also, multiple
+   occurrences of an argument must all match, so :samp:`key=4861&key=a4f3`
+   matches this:
 
    .. code-block:: json
 
@@ -1215,7 +1215,7 @@ object define patterns to be compared to the requests' properties:
    .. code-block:: json
 
       "arguments":{
-          "key": "b*"
+          "key": "a*"
       }
 
    To the contrary, use :samp:`query` if your conditions concern query strings
@@ -3926,14 +3926,14 @@ application:
            "php-app": {
                "type": "php",
                "targets": {
-                   "foo": {
-                       "script": "foo.php",
-                       "root": "/www/apps/php-app/foo/"
+                   "front": {
+                       "script": "front.php",
+                       "root": "/www/apps/php-app/front/"
                    },
 
-                   "bar": {
-                       "script": "bar.php",
-                       "root": "/www/apps/php-app/bar/"
+                   "back": {
+                       "script": "back.php",
+                       "root": "/www/apps/php-app/back/"
                    }
                }
            }
@@ -3950,7 +3950,7 @@ requests:
    {
        "listeners": {
            "127.0.0.1:8080": {
-               "pass": "applications/php-app/foo"
+               "pass": "applications/php-app/front"
            },
 
            "127.0.0.1:80": {
@@ -3961,11 +3961,11 @@ requests:
        "routes": [
            {
                "match": {
-                   "uri": "/bar"
+                   "uri": "/back"
                },
 
                "action": {
-                   "pass": "applications/php-app/bar"
+                   "pass": "applications/php-app/back"
                }
            }
        ]
@@ -4158,14 +4158,14 @@ application:
                "type": "python",
                "path": "/www/apps/python-app/",
                "targets": {
-                   "foo": {
-                       "module": "foo.wsgi",
-                       "callable": "foo"
+                   "front": {
+                       "module": "front.wsgi",
+                       "callable": "app"
                    },
 
-                   "bar": {
-                       "module": "bar.wsgi",
-                       "callable": "bar"
+                   "back": {
+                       "module": "back.wsgi",
+                       "callable": "app"
                    }
                }
            }
@@ -4181,7 +4181,7 @@ the :samp:`pass` options in listeners and routes to serve requests:
    {
        "listeners": {
            "127.0.0.1:8080": {
-               "pass": "applications/python-app/foo"
+               "pass": "applications/python-app/front"
            },
 
            "127.0.0.1:80": {
@@ -4192,11 +4192,11 @@ the :samp:`pass` options in listeners and routes to serve requests:
        "routes": [
            {
                "match": {
-                   "uri": "/bar"
+                   "uri": "/back"
                },
 
                "action": {
-                   "pass": "applications/python-app/bar"
+                   "pass": "applications/python-app/back"
                }
            }
        ]
