@@ -51,36 +51,14 @@ Unit:
                   }
               },
               {
-                  "match": {
-                      ":nxt_hint:`uri <Denies access to certain types of files and directories best kept hidden, allows access to well-known locations>`": [
-                          "!/data/assets/*.css",
-                          "!/data/assets/*.js",
-                          "!/data/webdot/*.png",
-                          "!/graphs/*.gif",
-                          "!/graphs/*.png",
-                          "*.pl",
-                          "*.pm",
-                          "*.psgi",
-                          "*.tmpl",
-                          "*/cpanfile",
-                          "*/localconfig*",
-                          "/Bugzilla/*",
-                          "/contrib/*",
-                          "/data/*",
-                          "/lib/*",
-                          "/t/*",
-                          "/template/*",
-                          "/xt/*"
-                      ]
-                  },
-
-                  "action": {
-                      "return": 404
-                  }
-              },
-              {
                   "action": {
                       ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
+                      ":nxt_hint:`types <Enables sharing only for certain file types>`": [
+                          "text/css",
+                          "image/*",
+                          "application/javascript"
+                      ],
+
                       "fallback": {
                           ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/bugzilla"
                       }
