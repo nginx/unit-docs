@@ -490,11 +490,11 @@ Available listener options:
         Found" status code is returned.
 
     * - :samp:`tls`
-      - Object, defines SSL/TLS :ref:`settings
+      - Object; defines SSL/TLS :ref:`settings
         <configuration-listeners-ssl>`.
 
     * - :samp:`forwarded`
-      - Object, configures client IP address and protocol :ref:`replacement
+      - Object; configures client IP address and protocol :ref:`replacement
         <configuration-listeners-forwarded>`.
 
 
@@ -549,12 +549,12 @@ The :samp:`tls` object provides the following options:
      - Description
 
    * - :samp:`certificate` (required)
-     - String or an array of strings, refers to one or more :ref:`certificate
+     - String or an array of strings; refers to one or more :ref:`certificate
        bundles <configuration-ssl>` uploaded earlier, enabling secure
        communication via the listener.
 
    * - :samp:`conf_commands`
-     - Object, defines the SSL `configuration commands
+     - Object; defines the SSL `configuration commands
        <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ to
        be set for the listener.
 
@@ -570,7 +570,7 @@ The :samp:`tls` object provides the following options:
        option.
 
    * - :samp:`session`
-     - Object, configures the TLS session cache and tickets for the listener.
+     - Object; configures the TLS session cache and tickets for the listener.
 
 To use a certificate bundle you :ref:`uploaded <configuration-ssl>` earlier,
 name it in the :samp:`certificate` option of the :samp:`tls` object:
@@ -645,12 +645,12 @@ the listener:
      - Description
 
    * - :samp:`cache_size`
-     - Integer, sets the number of sessions in the TLS session cache.
+     - Integer; sets the number of sessions in the TLS session cache.
 
        The default is :samp:`0` (caching is disabled).
 
    * - :samp:`timeout`
-     - Integer, sets the session timeout for the TLS session cache.
+     - Integer; sets the session timeout for the TLS session cache.
 
        When a new session is created, its lifetime derives from current time
        and :samp:`timeout`.  If a cached session is requested past its
@@ -760,14 +760,14 @@ object and its options:
       - Description
 
     * - :samp:`client_ip`
-      - String, names the HTTP header fields to expect in the request; they
+      - String; names the HTTP header fields to expect in the requestr.  They
         should use the `X-Forwarded-For
         <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
         format where the value is a comma- or space-separated list of IPv4s or
         IPv6s.
 
     * - :samp:`protocol`
-      - String, defines the relevant HTTP header field to look for in the
+      - String; defines the relevant HTTP header field to look for in the
         request.  Unit expects it to follow the `X-Forwarded-Proto
         <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto>`__
         notation, with the field value itself being :samp:`http`,
@@ -775,7 +775,7 @@ object and its options:
 
     * - :samp:`source` (required)
       - String or an array of strings; defines :ref:`address-based patterns
-        <configuration-routes-matching-patterns>` for trusted addresses; the
+        <configuration-routes-matching-patterns>` for trusted addresses.  The
         replacement occurs only if the source IP of the request is a
         :ref:`match <configuration-routes-matching-resolution>`.
 
@@ -783,7 +783,7 @@ object and its options:
         domain sockets.
 
     * - :samp:`recursive`
-      - Boolean, controls how the :samp:`client_ip` fields are traversed.
+      - Boolean; controls how the :samp:`client_ip` fields are traversed.
 
         The default is :samp:`false` (no recursion).
 
@@ -980,11 +980,11 @@ they accept the following options:
      - Description
 
    * - :samp:`action` (required)
-     - Object, defines how matching requests are :ref:`handled
+     - Object; defines how matching requests are :ref:`handled
        <configuration-routes-action>`.
 
    * - :samp:`match`
-     - Object, defines the step's :ref:`conditions
+     - Object; defines the step's :ref:`conditions
        <configuration-routes-matching>` to be matched.
 
 A request passed to a route traverses its steps sequentially:
@@ -3016,16 +3016,16 @@ App objects have a number of options shared between all application languages:
         7.0.23 will be used.
 
     * - :samp:`limits`
-      - Object, accepts two integer options, :samp:`timeout` and
+      - Object; accepts two integer options, :samp:`timeout` and
         :samp:`requests`.  Their values govern the life cycle of an
         application process.  For details, see
         :ref:`here <configuration-proc-mgmt-lmts>`.
 
     * - :samp:`processes`
-      - Integer or object.  Integer sets a static number of app processes;
-        object options :samp:`max`, :samp:`spare`, and :samp:`idle_timeout`
-        enable dynamic management.  For details, see :ref:`here
-        <configuration-proc-mgmt-prcs>`.
+      - Integer or object; integer sets a static number of app processes,
+        whereas object options :samp:`max`, :samp:`spare`, and
+        :samp:`idle_timeout` enable dynamic management.  For details, see
+        :ref:`here <configuration-proc-mgmt-prcs>`.
 
         The default is 1.
 
@@ -3114,7 +3114,7 @@ The :samp:`isolation` application option has the following members:
      - Description
 
    * - :samp:`namespaces`
-     - Object, configures namespace isolation scheme for the application.
+     - Object; configures namespace isolation scheme for the application.
 
        Available options (system-dependent; check your OS manual for guidance):
 
@@ -3162,11 +3162,11 @@ The :samp:`isolation` application option has the following members:
        .. list-table::
 
           * - :samp:`container`
-            - Integer, starts the user ID mapping range in the app's
+            - Integer; starts the user ID mapping range in the app's
               namespace.
 
           * - :samp:`host`
-            - Integer, starts the user ID mapping range in the OS
+            - Integer; starts the user ID mapping range in the OS
               namespace.
 
           * - :samp:`size`
@@ -3180,7 +3180,7 @@ The :samp:`isolation` application option has the following members:
        <https://man7.org/linux/man-pages/man2/chroot.2.html>`_ for the app.
 
    * - :samp:`automount`
-     - Object, controls mount behavior if :samp:`rootfs` is enabled.  By
+     - Object; controls mount behavior if :samp:`rootfs` is enabled.  By
        default, Unit automatically mounts the :ref:`language runtime
        dependencies <configuration-lang-runtime>`, a `procfs
        <https://man7.org/linux/man-pages/man5/procfs.5.html>`_ at
@@ -3513,7 +3513,7 @@ Next, configure the app in Unit; besides the :ref:`common options
         :samp:`working_directory`.
 
     * - :samp:`arguments`
-      - Command line arguments to be passed to the application.
+      - Command-line arguments to be passed to the application.
         The example below is equivalent to
         :samp:`/www/chat/bin/chat_app --tmp-files /tmp/go-cache`.
 
@@ -3572,14 +3572,14 @@ following:
         <https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletContext.html#getContextPath-->`__.
 
     * - :samp:`threads`
-      - Integer, sets the number of worker threads per app process.  When
+      - Integer; sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer, defines the stack size of a worker thread (in bytes,
+      - Integer; defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
@@ -3763,14 +3763,14 @@ following:
       - PSGI script path.
 
     * - :samp:`threads`
-      - Integer, sets the number of worker threads per app process.  When
+      - Integer; sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer, defines the stack size of a worker thread (in bytes,
+      - Integer; defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
@@ -3824,11 +3824,11 @@ following:
         The default is :samp:`index.php`.
 
     * - :samp:`options`
-      - Object, :ref:`defines <configuration-php-options>` the
+      - Object; :ref:`defines <configuration-php-options>` the
         :file:`php.ini` location and options.
 
     * - :samp:`targets`
-      - Object, defines application sections with :ref:`custom
+      - Object; defines application sections with :ref:`custom
         <configuration-php-targets>` :samp:`root`, :samp:`script`, and
         :samp:`index` values.
 
@@ -4061,19 +4061,19 @@ following:
         :samp:`asgi` or :samp:`wsgi`.
 
     * - :samp:`targets`
-      - Object, defines application sections with :ref:`custom
+      - Object; defines application sections with :ref:`custom
         <configuration-python-targets>` :samp:`module` and :samp:`callable`
         values.
 
     * - :samp:`threads`
-      - Integer, sets the number of worker threads per app process.  When
+      - Integer; sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer, defines the stack size of a worker thread (in bytes,
+      - Integer; defines the stack size of a worker thread (in bytes,
         multiple of memory page size; the minimum value is usually architecture
         specific).
 
@@ -4255,7 +4255,7 @@ following:
         :file:`/www/rubyapp/script.ru`.
 
     * - :samp:`threads`
-      - Integer, sets the number of worker threads per app process.  When
+      - Integer; sets the number of worker threads per app process.  When
         started, each app process creates a corresponding number of threads to
         handle requests.
 
@@ -4382,7 +4382,7 @@ HTTP requests from the clients:
         The default is 8388608 (8 MB).
 
     * - :samp:`static`
-      - Object, configures static asset handling.  Has a single object option
+      - Object; configures static asset handling.  Has a single object option
         named :samp:`mime_types` that defines specific `MIME types
         <https://www.iana.org/assignments/media-types/media-types.xhtml>`__ as
         options.  An option's value can be a string or an array of strings;
@@ -4390,7 +4390,7 @@ HTTP requests from the clients:
         that's included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
-      - Boolean, controls header field name parsing.  If set to :samp:`true`,
+      - Boolean; controls header field name parsing.  If set to :samp:`true`,
         Unit only processes headers with names made of alphanumeric characters
         and hyphens (:samp:`-`); otherwise, all valid `RFC 7230
         <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ header
@@ -4720,13 +4720,13 @@ Unit collects instance- and app-wide metrics, made available via the
       - Description
 
     * - :samp:`connections`
-      - Object, lists per-instance connection statistics.
+      - Object; lists per-instance connection statistics.
 
     * - :samp:`requests`
-      - Object, lists per-instance request statistics.
+      - Object; lists per-instance request statistics.
 
     * - :samp:`applications`
-      - Object, each option item lists per-app process and request statistics.
+      - Object; each option item lists per-app process and request statistics.
 
 Example:
 
@@ -4768,16 +4768,16 @@ The :samp:`connections` object offers the following Unit instance metrics:
       - Description
 
     * - :samp:`accepted`
-      - Integer, total accepted connections during the instance's lifetime.
+      - Integer; total accepted connections during the instance's lifetime.
 
     * - :samp:`active`
-      - Integer, current active connections for the instance.
+      - Integer; current active connections for the instance.
 
     * - :samp:`idle`
-      - Integer, current idle connections for the instance.
+      - Integer; current idle connections for the instance.
 
     * - :samp:`closed`
-      - Integer, total closed connections during the instance's lifetime.
+      - Integer; total closed connections during the instance's lifetime.
 
 Example:
 
@@ -4804,7 +4804,7 @@ The :samp:`requests` object currently exposes a single instance-wide metric:
       - Description
 
     * - :samp:`total`
-      - Integer, total non-control requests during the instance's lifetime.
+      - Integer; total non-control requests during the instance's lifetime.
 
 Example:
 
@@ -4824,10 +4824,10 @@ Each item in :samp:`applications` describes an app currently listed in the
       - Description
 
     * - :samp:`processes`
-      - Object, lists per-app process statistics.
+      - Object; lists per-app process statistics.
 
     * - :samp:`requests`
-      - Object, similar to :samp:`/status/requests`, but includes only the data
+      - Object; similar to :samp:`/status/requests`, but includes only the data
         for the specific app.
 
 Example:
@@ -4857,13 +4857,13 @@ The :samp:`processes` object exposes the following per-app metrics:
       - Description
 
     * - :samp:`running`
-      - Integer, current running app processes.
+      - Integer; current running app processes.
 
     * - :samp:`starting`
-      - Integer, current starting app processes.
+      - Integer; current starting app processes.
 
     * - :samp:`idle`
-      - Integer, current idle app processes.
+      - Integer; current idle app processes.
 
 Example:
 
