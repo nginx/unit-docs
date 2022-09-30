@@ -2058,6 +2058,12 @@ Unit's Docker images come in several language-specific flavors:
    image exists for a specific language version, follow the links in the tag
    table above.
 
+   .. note::
+
+      Unit relies on the official Docker images, so any customization method
+      offered by their maintainers is equally applicable; to tailor a Unit
+      image to your needs, see the quick reference for its base image.
+
    The language name can be :samp:`go`, :samp:`jsc`, :samp:`node`,
    :samp:`perl`, :samp:`php`, :samp:`python`, or :samp:`ruby`; the version is
    defined as :samp:`<major>.<minor>`, except for :samp:`jsc` and :samp:`node`
@@ -2089,10 +2095,10 @@ Unit's Docker images come in several language-specific flavors:
          - Description
 
        * - :samp:`<version>-full`
-         - Contains modules for all languages that Unit currently supports.
+         - Contains modules for all languages that Unit then supported.
 
        * - :samp:`<version>-minimal`
-         - No language modules are included.
+         - No language modules were included.
 
        * - :samp:`<version>-<language>`
          - A specific language module such as :samp:`1.21.0-ruby2.3` or
