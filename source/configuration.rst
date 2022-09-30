@@ -380,7 +380,7 @@ options you could have configured, whereas the second one replaces only the
 
    .. warning::
 
-      Unit's state can change its structure between versions and shouldn't be
+      Unit's state can change its structure between versions and must not be
       edited by external means.
 
    On the machine where the *reference* Unit instance runs, find out
@@ -916,8 +916,8 @@ Routes
 ******
 
 The :samp:`config/routes` configuration entity defines internal request
-routing, receiving requests via :ref:`listeners <configuration-listeners>` and
-filtering them through :ref:`sets of conditions
+routing.  It receives requests from :ref:`listeners <configuration-listeners>`
+and filters them through :ref:`sets of conditions
 <configuration-routes-matching>` to be processed by :ref:`apps
 <configuration-applications>`, :ref:`proxied <configuration-proxy>` to external
 servers or :ref:`load-balanced <configuration-upstreams>` between them, served
@@ -925,7 +925,7 @@ with :ref:`static content <configuration-static>`, :ref:`answered
 <configuration-return>` with arbitrary status codes, or :ref:`redirected
 <configuration-return>`.
 
-In its simplest form, :samp:`routes` can be a single route array:
+In its simplest form, :samp:`routes` is an array that defines a single route:
 
 .. code-block:: json
 
@@ -998,9 +998,9 @@ A request passed to a route traverses its steps sequentially:
 
 .. warning::
 
-  If a step omits the :samp:`match` option, its :samp:`action` is
-  performed automatically.  Thus, use no more than one such step per
-  route, always placing it last to avoid potential routing issues.
+  If a step omits the :samp:`match` option, its :samp:`action` occurs
+  automatically.  Thus, use no more than one such step per route, always
+  placing it last to avoid potential routing issues.
 
 .. nxt_details:: Ad-Hoc Examples
    :hash: conf-route-examples
@@ -1250,12 +1250,12 @@ To be a match, the property must meet two requirements:
    This logic can be described with set operations.  Suppose set *U* comprises
    all possible values of a property; set *P* comprises strings that match any
    patterns without negation; set *N* comprises strings that match any
-   negation-based patterns.  In this scheme, the matching set will be:
+   negation-based patterns.  In this scheme, the matching set is:
 
    | *U* ∩ *P* \\ *N* if *P* ≠ ∅
    | *U* \\ *N* if *P* = ∅
 
-Here, the URI of the request must fit :samp:`pattern3`, but should not match
+Here, the URI of the request must fit :samp:`pattern3`, but must not match
 :samp:`pattern1` or :samp:`pattern2`.
 
 .. code-block:: json
@@ -1274,14 +1274,15 @@ Here, the URI of the request must fit :samp:`pattern3`, but should not match
        }
    }
 
-Additionally, special matching logic is used for :samp:`arguments`,
-:samp:`cookies`, and :samp:`headers`. Each of these can be a single object that
-lists custom-named properties and their patterns or an array of such objects.
+Additionally, special matching logic applies to :samp:`arguments`,
+:samp:`cookies`, and :samp:`headers`. Each of these can be either a single
+object that lists custom-named properties and their patterns or an array of
+such objects.
 
 To match a single object, the request must match *all* properties named in the
 object.  To match an object array, it's enough to match *any* single one of its
-item objects.  The following condition will match only if the request arguments
-include both :samp:`arg1` and :samp:`arg2` and they match their patterns:
+item objects.  The following condition matches only if the request arguments
+include :samp:`arg1` and :samp:`arg2`, and both match their patterns:
 
 .. code-block:: json
 
@@ -1298,9 +1299,8 @@ include both :samp:`arg1` and :samp:`arg2` and they match their patterns:
        }
    }
 
-With an object array, the condition will match if the request's arguments
-include either :samp:`arg1` or :samp:`arg2` (or maybe both) that matches the
-respective pattern:
+With an object array, the condition matches if the request's arguments include
+:samp:`arg1` or :samp:`arg2` (or both) that matches the respective pattern:
 
 .. code-block:: json
 
@@ -1433,8 +1433,8 @@ which is the default for the official packages>` modify this behavior:
 
 - A regex pattern starts with a tilde (:samp:`~`):
   :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
-  `JSON requirement <https://www.json.org/json-en.html>`_).  Regexes are `PCRE
-  <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
+  `JSON requirement <https://www.json.org/json-en.html>`_).  The regexes are
+  `PCRE <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
 
 .. nxt_details:: Percent Encoding In Arguments, Query, and URI Patterns
    :hash: percent-encoding
@@ -1515,7 +1515,7 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Only subdomains of :samp:`example.com` will match:
+   Only subdomains of :samp:`example.com` match:
 
    .. code-block:: json
 
@@ -1530,7 +1530,7 @@ which is the default for the official packages>` modify this behavior:
       }
 
    Only requests for :samp:`.php` files located in :file:`/admin/`'s
-   subdirectories will match:
+   subdirectories match:
 
    .. code-block:: json
 
@@ -1544,7 +1544,7 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Here, any :samp:`eu-` subdomains of :samp:`example.com` will match except
+   Here, any :samp:`eu-` subdomains of :samp:`example.com` match except
    :samp:`eu-5.example.com`:
 
    .. code-block:: json
@@ -1562,7 +1562,7 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Any methods will match except :samp:`HEAD` and :samp:`GET`:
+   Any methods match except :samp:`HEAD` and :samp:`GET`:
 
    .. code-block:: json
 
@@ -1580,7 +1580,7 @@ which is the default for the official packages>` modify this behavior:
       }
 
    You can also combine certain special characters in a pattern.  Here, any
-   URIs will match except the ones containing :samp:`/api/`:
+   URIs match except the ones containing :samp:`/api/`:
 
    .. code-block:: json
 
@@ -1595,7 +1595,7 @@ which is the default for the official packages>` modify this behavior:
       }
 
    Here, URIs of any articles that don't look like :samp:`YYYY-MM-DD` dates
-   will match.  Again, note the backslashes; this is a JSON requirement:
+   match.  Again, note the backslashes; this is a JSON requirement:
 
    .. code-block:: json
 
@@ -1619,10 +1619,9 @@ domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__ addresses
 that must exactly match the property; wildcards and ranges modify this
 behavior:
 
-- Wildcards (:samp:`*`) can only be used to match arbitrary IPs
-  (:samp:`*:<port>`).
+- Wildcards (:samp:`*`) can only match arbitrary IPs (:samp:`*:<port>`).
 
-- Ranges (:samp:`-`) can used with both IPs (in respective notation) and ports
+- Ranges (:samp:`-`) work with both IPs (in respective notation) and ports
   (:samp:`<start_port>-<end_port>`).
 
 .. nxt_details:: Address-Based Allow-Deny Lists
@@ -1740,7 +1739,7 @@ behavior:
           }
       }
 
-   Here, any IPs from the range will match, except for :samp:`192.0.2.9`:
+   Here, any IPs from the range match, except for :samp:`192.0.2.9`:
 
    .. code-block:: json
 
@@ -2029,9 +2028,9 @@ referred to as :samp:`$header_Accept_Encoding`,
    With multiple argument instances (think :samp:`Color=Red&Color=Blue`), the
    rightmost occurrence is used (:samp:`Blue`).
 
-At runtime, variables are replaced by dynamically computed values (at your
-risk!).  For example, the listener above targets an entire set of routes,
-picking individual ones by HTTP verbs that the incoming requests use:
+At runtime, variables expand into dynamically computed values (at your risk!).
+The previous example targets an entire set of routes, picking individual ones
+by HTTP verbs from the incoming requests:
 
 .. code-block:: console
 
@@ -2106,16 +2105,15 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   This way, we can route requests to applications by the requests' target
-   URIs:
+   This way, requests are routed by their target URIs between applications:
 
    .. code-block:: console
 
          $ curl http://localhost/blog     # Targets the 'blog' app
          $ curl http://localhost/sandbox  # Targets the 'sandbox' app
 
-   A different approach can dispatch requests by the :samp:`Host` header field
-   received from the client:
+   A different approach can put the :samp:`Host` header field received from the
+   client to the same use:
 
    .. code-block:: json
 
@@ -2201,7 +2199,7 @@ Instant Responses, Redirects
 ****************************
 
 You can use route step :ref:`actions <configuration-routes-action>` to
-instantly respond to certain conditions with arbitrary `HTTP status codes
+instantly handle certain conditions with arbitrary `HTTP status codes
 <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__:
 
 .. code-block:: json
@@ -2221,12 +2219,12 @@ The :samp:`return` action provides the following options:
 .. list-table::
 
    * - :samp:`return` (required)
-     - Integer (000-999), defines the HTTP response status code to be returned.
+     - Integer (000–999), defines the HTTP response status code to be returned.
 
    * - :samp:`location`
      - URI, required if the :samp:`return` value implies redirection.
 
-It is recommended to use the codes according to their `semantics
+Use the codes according to their intended `semantics
 <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`_; if you use custom
 codes, make sure that user agents can understand them.
 
@@ -2319,7 +2317,7 @@ A :samp:`share`-based action provides the following options:
        The value is :ref:`variable <configuration-variables>`-interpolated.
 
    * - :samp:`follow_symlinks`, :samp:`traverse_mounts`
-     - Booleans, enable or disable symbolic link and mount point
+     - Booleans, turn on and off symbolic link and mount point
        :ref:`resolution <configuration-share-resolution>` respectively; if
        :samp:`chroot` is set, they only :ref:`affect <configuration-share-path>`
        the insides of :samp:`chroot`.
@@ -2440,7 +2438,7 @@ MIME Filtering
 To filter the files a :samp:`share` serves by their `MIME types
 <https://www.iana.org/assignments/media-types/media-types.xhtml>`__, define a
 :samp:`types` array of string patterns.  They work like :ref:`route patterns
-<configuration-routes-matching-patterns>` but are matched to the MIME type of
+<configuration-routes-matching-patterns>` but are compared to the MIME type of
 each file; the request is served only if it's a :ref:`match
 <configuration-routes-matching-resolution>`:
 
@@ -2463,7 +2461,7 @@ MIME types with a :ref:`wildcard pattern
 :file:`.3gpp2` file types are allowed by a :ref:`regex pattern
 <configuration-routes-matching-patterns>`.
 
-If the MIME type of a requested file isn't recognized, it is considered empty
+If the MIME type of a requested file isn't recognized, it's considered empty
 (:samp:`""`).  Thus, the :samp:`"!"` pattern ("deny empty strings") can be used
 to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
 
@@ -2488,7 +2486,7 @@ Path Restrictions
 
 .. note::
 
-   To provide these options, Unit must be built and run on a system with Linux
+   To have these options, Unit must be built and run on a system with Linux
    kernel version 5.6+.
 
 The :samp:`chroot` option confines the path resolution within a share to a
@@ -2541,7 +2539,7 @@ resolution of symlinks and traversal of mount points when set to :samp:`false`
        }
    }
 
-Here, any symlink or mount point in the entire :samp:`share` path will result
+Here, any symlink or mount point in the entire :samp:`share` path results
 in a 403 "Forbidden" response.
 
 With :samp:`chroot` set, :samp:`follow_symlinks` and :samp:`traverse_mounts`
@@ -2682,7 +2680,7 @@ Serving a file can be impossible for different reasons, such as:
 - The router process has :ref:`insufficient permissions <security-apps>` to
   access the file or an underlying directory.
 
-In the example above, an attempt to serve the requested file from the
+In the previous example, an attempt to serve the requested file from the
 :samp:`/www/data/static/` directory is made first.  Only if the file can't be
 served, the request is passed to the :samp:`php` application.
 
@@ -2883,8 +2881,8 @@ option of a route step :ref:`action <configuration-routes-action>`:
        ]
    }
 
-As the example above suggests, you can use UNIX, IPv4, and IPv6 socket
-addresses for proxy destinations.
+As the example suggests, you can use UNIX, IPv4, and IPv6 socket addresses for
+proxy destinations.
 
 .. note::
 
@@ -3393,7 +3391,7 @@ object with the following options:
       - Description
 
     * - :samp:`max`
-      - Maximum number of application processes that Unit will maintain
+      - Maximum number of application processes that Unit maintains
         (busy and idle).
 
         The default is 1.
