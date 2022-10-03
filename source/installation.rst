@@ -2236,30 +2236,34 @@ Source Code
 ***********
 
 You can get Unit's source code from our official Mercurial repository, its
-GitHub mirror, or in a tarball.
+GitHub mirror, or as a tarball.
 
-If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
+.. tabs::
+   :prefix: get-source
 
-   .. code-block:: console
+   .. tab:: Mercurial
 
-      $ hg clone https://hg.nginx.org/unit
-      $ cd unit
+      .. code-block:: console
 
-If you prefer `Git <https://git-scm.com/downloads>`_:
+         $ hg clone https://hg.nginx.org/unit
+         $ cd unit
 
-   .. code-block:: console
 
-      $ git clone https://github.com/nginx/unit
-      $ cd unit
+   .. tab:: Git
 
-To download the sources directly from `our site
-<https://unit.nginx.org/download/>`_:
+      .. code-block:: console
 
-   .. subs-code-block:: console
+         $ git clone https://github.com/nginx/unit
+         $ cd unit
 
-      $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
-      $ tar xzf unit-|version|.tar.gz
-      $ cd unit-|version|
+
+   .. tab:: Tarball
+
+      .. subs-code-block:: console
+
+         $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
+         $ tar xzf unit-|version|.tar.gz
+         $ cd unit-|version|
 
 To build Unit and specific language modules from these sources, refer to the
 :doc:`source code howto <howto/source>`; to package custom modules, see the

@@ -13,13 +13,14 @@ and compile it to fine-tune and run a custom Unit build.
 Installing Required Software
 ============================
 
-Before configuring and compiling Unit, install the required build tools and
-the library files for the supported languages (Go, Java, Node.js, PHP, Perl,
-Python, and Ruby), plus other features you want to use with Unit.
+Before configuring and compiling Unit, install the required build tools and the
+library files for the :nxt_hint:`required languages <Go, Java, Node.js, PHP,
+Perl, Python, and Ruby are supported>` and all other features you want in your
+Unit, such as TLS or regular expressions.
 
 The commands below assume you are configuring Unit with all supported languages
-and features (:samp:`X`, :samp:`Y`, and :samp:`Z` stand in for major, minor,
-and revision numbers, respectively); omit the packages you won't use.
+and features (:samp:`X`, :samp:`Y`, and :samp:`Z` denote major, minor, and
+revision numbers, respectively); omit the packages you won't use.
 
 .. tabs::
    :prefix: prereq
@@ -123,8 +124,8 @@ build instructions for Unit:
 
    $ ./configure :nxt_ph:`COMPILE-TIME OPTIONS <See the table below>`
 
-To finalize the resulting :file:`Makefile`, configure the :ref:`language
-modules <source-modules>` you need.
+Finalize the resulting :file:`Makefile` by configuring the :ref:`language
+modules <source-modules>` you need before proceeding further.
 
 General options and settings that control compilation, runtime privileges,
 or support for certain features:
@@ -162,33 +163,32 @@ or support for certain features:
      - Turns off UNIX domain sockets support for control and routing.
 
    * - :samp:`--openssl`
-     - Turns on OpenSSL support.  Make sure that OpenSSL (1.0.1 and later)
-       header files and libraries are available in your compiler's search path.
+     - Turns on OpenSSL support.  Make sure OpenSSL (1.0.1+) header files and
+       libraries are in your compiler's path; it can be set with the
+       :option:`!--cc-opt` and :option:`!--ld-opt` options or the
+       :envvar:`CFLAGS` and :envvar:`LDFLAGS` environment variables when
+       running :program:`./configure`.
 
-       To customize the path, provide the :option:`!--cc-opt` and
-       :option:`!--ld-opt` options; you can also set the :envvar:`CFLAGS` and
-       :envvar:`LDFLAGS` environment variables before running
-       :program:`./configure`.
+       For details of TLS configuration in Unit, see :ref:`configuration-ssl`.
 
-       For details, see :ref:`configuration-ssl`.
 
 .. _source-config-src-pcre:
 
-By default, Unit relies on the installed version of the `PCRE
+By default, Unit relies on the locally installed version of the `PCRE
 <https://www.pcre.org>`_ library to support regular expressions in :ref:`routes
 <configuration-routes>`; if both major versions are present, Unit selects
-PCRE2.  Two additional flags alter this behavior:
+PCRE2.  Two additional options alter this behavior:
 
 .. list-table::
 
    * - :samp:`--no-regex`
      - Turns off regex support; any attempts to use a regex in Unit
-       configuration will fail.
+       configuration cause an error.
 
    * - :samp:`--no-pcre2`
-     - Skips the PCRE2 library; the older PCRE 8.x library is used instead.
+     - Ignores PCRE2; the older PCRE 8.x library is used instead.
 
-The next option group customizes Unit's :ref:`runtime directory
+The next option group customizes Unit's runtime :ref:`directory
 structure <source-dir>`:
 
 .. list-table::
@@ -203,7 +203,7 @@ structure <source-dir>`:
        :option:`!--log`, and :option:`!--control`.
 
    * - :samp:`--bindir=directory`, :samp:`--sbindir=directory`
-     - Directory paths for end-user and sysadmin executables.
+     - Directory paths for client and server executables.
 
        The defaults are :samp:`bin` and :samp:`sbin`, respectively.
 
@@ -219,7 +219,7 @@ structure <source-dir>`:
 
        .. warning::
 
-          Avoid exposing an unprotected control socket to public networks.  Use
+          Avoid exposing an unprotected control socket in public networks.  Use
           :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH
           for security and authentication.
 
@@ -258,15 +258,14 @@ structure <source-dir>`:
      - .. _source-config-src-state:
 
        Directory path where Unit's state (configuration, certificates, other
-       records) is stored between runs.  If you migrate your installation, copy
-       the entire directory.
+       resources) is stored between runs.  If you migrate your installation,
+       copy the entire directory.
 
        .. warning::
 
-          Unit's state includes sensitive data and must be owned by
-          :samp:`root` with :samp:`700` permissions.  Avoid updating the
-          directory by outside means; instead, use Unit's config API to ensure
-          data consistency.
+          The directory is sensitive and must be owned by :samp:`root` with
+          :samp:`700` permissions.  Don't change its contents externally; use
+          the config API to ensure integrity.
 
        The default is :samp:`state`.
 
@@ -285,18 +284,18 @@ Directory Structure
 To customize Unit's installation and runtime directories, you can both:
 
 - Set the :option:`!--prefix` and path options (their relative settings are
-  prefix-based) during :ref:`configuration <source-config-src-prefix>` to
-  set up the runtime file structure: Unit uses these settings to locate its
-  modules, state, and other files.
+  :option:`!--prefix`-based) during :ref:`configuration
+  <source-config-src-prefix>` to define the runtime file structure.  Unit
+  uses these settings to locate its modules, state, and other files.
 
 - Set the :envvar:`DESTDIR` `variable
   <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :ref:`installation <source-bld-src>`.  Unit's file structure is
-  placed at the specified directory, which can be either the final installation
-  target or an intermediate staging location.
+  :ref:`installation <source-bld-src>`.  Unit's file structure is placed
+  at the specified directory, which can be used either as the final
+  installation target or as an intermediate staging location.
 
-Coordinate these two options as necessary to customize the directory structure.
-One common scenario is installation based on absolute paths:
+Coordinate these two options as necessary; one common scenario is installation
+based on absolute paths:
 
 #. Set absolute runtime paths with :option:`!--prefix` and path options:
 
@@ -305,15 +304,14 @@ One common scenario is installation based on absolute paths:
       $ ./configure --state=:nxt_hint:`/var/lib/unit <Sample absolute path>` --log=:nxt_hint:`/var/log/unit.log <Sample absolute pathname>` \
                     --control=:nxt_hint:`unix:/run/control.unit.sock <Sample absolute pathname; note the unix: prefix>` --prefix=:nxt_hint:`/usr/local/ <Sample absolute path>`
 
-   Configured thus, Unit will store its state, log, and control socket at
-   custom locations; other files will have default prefix-based paths.  Here,
-   :file:`unitd` is put to :file:`/usr/local/sbin/`, modules to
+   Configured thus, Unit stores its state, log, and control socket at custom
+   locations; other files have default prefix-based paths.  Here, :file:`unitd`
+   goes to :file:`/usr/local/sbin/`, and modules to
    :file:`/usr/local/modules/`.
 
-#. For further packaging or containerization, specify :option:`!DESTDIR` at
-   installation to place the files in a staging location while preserving their
-   relative structure.  Otherwise, omit :option:`!DESTDIR` for direct
-   installation.
+#. For further packaging options, set :option:`!DESTDIR` during installation to
+   stage the files at the specified location while preserving their relative
+   structure.  Otherwise, omit :option:`!DESTDIR` for direct installation.
 
 An alternative scenario is a build that you can move around the file system:
 
@@ -324,9 +322,9 @@ An alternative scenario is a build that you can move around the file system:
       $ ./configure --state=:nxt_hint:`config <Sample relative path>` --log=:nxt_hint:`log/unit.log <Sample relative pathname>` \
                     --control=:nxt_hint:`unix:control/control.unit.sock <Sample relative pathname>` --prefix=:nxt_hint:`movable <Sample relative path>`
 
-   Configured this way, Unit will store its files by prefix-based paths (both
-   default and custom), for example, :file:`<working directory>/movable/sbin/`
-   or :file:`<working directory>/movable/config/`.
+   Configured this way, Unit stores its files at :option:`!--prefix`-based
+   paths (both default and custom), for example, :file:`<working
+   directory>/movable/sbin/` or :file:`<working directory>/movable/config/`.
 
 #. Specify :option:`!DESTDIR` when installing the build.  You can migrate such
    builds if needed; move the entire file structure and launch binaries from
@@ -337,8 +335,8 @@ An alternative scenario is a build that you can move around the file system:
       $ cd :nxt_ph:`DESTDIR <Use a real path instead>`
       # movable/sbin/unitd
 
-You can combine these approaches, but take care to understand how your settings
-work together.
+You can combine these approaches, but make sure your settings work together as
+expected.
 
 
 .. _source-modules:
@@ -383,11 +381,10 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. note::
 
-         The :program:`./configure go` command doesn't alter the
-         :envvar:`GOPATH` `environment variable
-         <https://github.com/golang/go/wiki/GOPATH>`_; configuration-time
-         :option:`!--go-path` must be coherent with build-time
-         :envvar:`$GOPATH` for Go to locate the Unit package:
+         Running :program:`./configure go` doesn't alter the :envvar:`GOPATH`
+         `environment variable <https://github.com/golang/go/wiki/GOPATH>`_, so
+         configure-time :option:`!--go-path` and compile-time :envvar:`$GOPATH`
+         must be coherent for Go to find the resulting package.
 
          .. code-block:: console
 
@@ -404,8 +401,8 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--home=directory`
-           - Directory path for Java utilities and header files (required to
-             build the module).
+           - Directory path for Java utilities and header files to build the
+             module.
 
              The default is the :samp:`java.home` setting.
 
@@ -420,18 +417,18 @@ and place module-specific instructions in the :file:`Makefile`.
              The default is based on JDK settings.
 
          * - :samp:`--local-repo=directory`
-           - Directory path for local :file:`.jar` repository.
+           - Directory path for the local :file:`.jar` repository.
 
              The default is :samp:`$HOME/.m2/repository/`.
 
          * - :samp:`--repo=directory`
-           - URL path for remote Maven repository.
+           - URL path for the remote Maven repository.
 
              The default is :samp:`http://central.maven.org/maven2/`.
 
          * - :samp:`--module=basename`
-           - Name of the module to be built (:file:`<basename>.unit.so`), also
-             used in :ref:`make <source-bld-src-emb>` targets.
+           - Resulting module's name (:file:`<basename>.unit.so`), also used
+             in :ref:`make <source-bld-src-emb>` targets.
 
              The default is :samp:`java`.
 
@@ -440,7 +437,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. code-block:: console
 
-         $ ./configure java --module=java11 \
+         $ ./configure java --module=java11  \
                             --home=/Library/Java/JavaVirtualMachines/jdk-11.0.1.jdk/Contents/Home
 
 
@@ -453,7 +450,7 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--local=directory`
-           - Local directory path for Node.js module installation.
+           - Local directory path where the resulting module is installed.
 
              By default, the module is installed globally :ref:`(recommended)
              <installation-nodejs-package>`.
@@ -465,7 +462,7 @@ and place module-specific instructions in the :file:`Makefile`.
              The default is :samp:`node`.
 
          * - :samp:`--npm=pathname`
-           - Specific NPM executable pathname.
+           - Specific :program:`npm` executable pathname.
 
              The default is :samp:`npm`.
 
@@ -489,7 +486,7 @@ and place module-specific instructions in the :file:`Makefile`.
              The default is :samp:`perl`.
 
          * - :samp:`--module=basename`
-           - Name of the module to be built (:file:`<basename>.unit.so`), also
+           - Resulting module's name (:file:`<basename>.unit.so`), also
              used in :ref:`make <source-bld-src-emb>` targets.
 
              The default is the filename of the :option:`!--perl` executable.
@@ -499,7 +496,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. code-block:: console
 
-         $ ./configure perl --module=perl-5.20 \
+         $ ./configure perl --module=perl-5.20  \
                             --perl=perl5.20.2
 
 
@@ -512,8 +509,8 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--config=pathname`
-           - Pathname of the :program:`php-config` script invoked to configure
-             the PHP module.
+           - Pathname of the :program:`php-config` script used to set up
+             the resulting module.
 
              The default is :samp:`php-config`.
 
@@ -534,18 +531,19 @@ and place module-specific instructions in the :file:`Makefile`.
              :option:`!--lib-path`.
 
          * - :samp:`--module=basename`
-           - Name of the module to be built (:file:`<basename>.unit.so`), also
+           - Resulting module's name (:file:`<basename>.unit.so`), also
              used in :ref:`make <source-bld-src-emb>` targets.
 
              The default is :option:`!--config`'s filename minus the `-config`
-             suffix; thus, :samp:`/path/php7-config` turns into :samp:`php7`.
+             suffix; thus, :samp:`--config=/path/php7-config` yields
+             :samp:`php7.unit.so`.
 
       To configure a module called :file:`php70.unit.so` for PHP |_| 7.0:
 
       .. code-block:: console
 
-         $ ./configure php --module=php70 \
-                           --config=/usr/lib64/php7.0/bin/php-config \
+         $ ./configure php --module=php70  \
+                           --config=/usr/lib64/php7.0/bin/php-config  \
                            --lib-path=/usr/lib64/php7.0/lib64
 
 
@@ -558,8 +556,8 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--config=pathname`
-           - Pathname of the :program:`python-config` script invoked to
-             configure the Python module.
+           - Pathname of the :program:`python-config` script used to
+             set up the resulting module.
 
              The default is :samp:`python-config`.
 
@@ -568,7 +566,7 @@ and place module-specific instructions in the :file:`Makefile`.
              Unit.
 
          * - :samp:`--module=basename`
-           - Name of the module to be built (:samp:`<basename>.unit.so`), also
+           - Resulting module's name (:samp:`<basename>.unit.so`), also
              used in :ref:`make <source-bld-src-emb>` targets.
 
              The default is :option:`!--config`'s filename minus the `-config`
@@ -585,7 +583,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. code-block:: console
 
-         $ ./configure python --module=py33 \
+         $ ./configure python --module=py33  \
                               --config=python-config-3.3
 
 
@@ -598,7 +596,7 @@ and place module-specific instructions in the :file:`Makefile`.
       .. list-table::
 
          * - :samp:`--module=basename`
-           - Name of the module to be built (:file:`<basename>.unit.so`), also
+           - Resulting module's name (:file:`<basename>.unit.so`), also
              used in :ref:`make <source-bld-src-emb>` targets.
 
              The default is the filename of the :option:`!--ruby` executable.
@@ -612,7 +610,7 @@ and place module-specific instructions in the :file:`Makefile`.
 
       .. code-block:: console
 
-         $ ./configure ruby --module=ru23 \
+         $ ./configure ruby --module=ru23  \
                             --ruby=ruby23
 
 
@@ -634,8 +632,8 @@ Mind that :samp:`make install` requires setting up Unit's :ref:`directory
 structure <source-dir>` with :program:`./configure` first.
 
 You can also build and install language modules individually; the specific
-method depends on whether the language module is embedded in Unit or packaged
-externally.
+method depends on whether the language module is embedded in Unit (Java, Perl,
+PHP, Python, Ruby) or packaged externally (Go, Node.js).
 
 .. note::
 
@@ -682,14 +680,18 @@ configuration, run :command:`make <go>-install` and :command:`make
 
    If you haven't specified the :option:`!--local` :ref:`directory
    <howto/source-modules-nodejs>` with :program:`./configure nodejs`
-   earlier, provide it here: :command:`DESTDIR=/your/project/directory`.  If
-   both options are specified, :option:`!DESTDIR` prefixes the
-   :option:`!--local` value.
+   earlier, provide it here:
 
-   However, mind that global installation is the recommended method for the
-   Node.js module.
+   .. code-block:: console
 
-If you customize the executable pathname with :option:`!--go` or
+      # DESTDIR=/your/project/directory/ make node-local-install
+
+   If both options are specified, :option:`!DESTDIR` prefixes the
+   :option:`!--local` value set by :program:`./configure nodejs`.
+
+   Finally, mind that global installation is preferable for the Node.js module.
+
+If you customized the executable pathname with :option:`!--go` or
 :option:`!--node`, use the following pattern:
 
 .. code-block:: console
@@ -714,19 +716,19 @@ Startup and Shutdown
    <installation-precomp-startup>` automatically.
 
    Even if you install Unit otherwise, avoid manual startup.  Instead,
-   configure a service manager such as :program:`OpenRC` or :program:`systemd`
-   or create an :program:`rc.d` script to launch the Unit daemon using the
+   configure a service manager (:program:`OpenRC`, :program:`systemd`, and so
+   on) or create an :program:`rc.d` script to launch the Unit daemon using the
    options below.
 
-The startup command depends on your :samp:`./configure` options.  If you have
-configured :ref:`absolute paths <source-dir>`:
+The startup command depends on your :program:`./configure` options.  If you
+have configured :ref:`absolute paths <source-dir>`:
 
 .. code-block:: console
 
    # :nxt_hint:`unitd <Your PATH environment variable should list a path to unitd>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
 
 Otherwise, start :program:`unitd` from the :samp:`sbin` subdirectory relative
-to installation directory :ref:`prefix <source-config-src-prefix>`:
+to the installation directory :ref:`prefix <source-config-src-prefix>`:
 
 .. code-block:: console
 
@@ -734,18 +736,14 @@ to installation directory :ref:`prefix <source-config-src-prefix>`:
    # :nxt_hint:`sbin/unitd <This preserves relative paths>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
 
 Run :command:`unitd -h` or :command:`unitd --version` to list Unit's
-compile-time settings.  Usually, the defaults don't require overrides; however,
-the following runtime options are available.  For details and security notes,
-see :ref:`here <source-config-src>`.
-
-General runtime options and :ref:`compile-time setting
-<source-config-src>` overrides:
+compile-time settings.  Usually, the defaults don't require overrides; still,
+the following runtime options are available.  For their compile-time
+counterparts, see :ref:`here <source-config-src>`.
 
 .. list-table::
 
    * - :samp:`--help`, :samp:`-h`
-     - Displays a summary of Unit's command-line options and their compile-time
-       defaults.
+     - Displays a summary of the command-line options and their defaults.
 
    * - :samp:`--version`
      - Displays Unit's version and the :program:`./configure` settings it was
