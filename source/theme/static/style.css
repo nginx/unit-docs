@@ -493,6 +493,7 @@ iframe {
 .highlight-python,
 .highlight-ruby,
 .highlight-none,
+.highlight-shell,
 .highlight-spec {
     position: relative;
 }
@@ -559,7 +560,9 @@ iframe {
 .highlight-none .highlight::before {
     content: "text";
 }
-
+.highlight-shell .highlight::before {
+    content: "shell";
+}
 
 /* custom terms, placeholders, and hints */
 

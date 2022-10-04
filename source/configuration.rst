@@ -708,6 +708,59 @@ The :samp:`tickets` option works as follows:
   This enables ticket reuse in scenarios where the key is shared between
   individual servers.
 
+  .. nxt_details:: Shared Key Rotation
+     :hash: key-rotation
+
+     If multiple Unit instances need to recognize tickets issued by each other
+     (for example, when running behind a load balancer), they should share
+     session ticket keys.
+
+     For example, consider three SSH-enabled servers named
+     :samp:`unit*.example.com`, with Unit installed and identical :samp:`*:443`
+     listeners configured.  To configure a single set of three initial keys on
+     each server:
+
+     .. code-block:: shell
+
+        SERVERS="unit1.example.com
+        unit2.example.com
+        unit3.example.com"
+
+        KEY1=$(openssl rand -base64 48)
+        KEY2=$(openssl rand -base64 48)
+        KEY3=$(openssl rand -base64 48)
+
+        for SRV in $SERVERS; do
+            ssh :nxt_hint:`root <Assuming Unit runs as root on each server>`@$SRV  \
+                curl -X PUT -d '["$KEY1", "$KEY2", "$KEY3"]' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to the remote control socket>`  \
+                    'http://localhost/config/listeners/*:443/tls/session/tickets/'
+        done
+
+     To add a new key on each server:
+
+     .. code-block:: shell
+
+        NEWKEY=$(openssl rand -base64 48)
+
+        for SRV in $SERVERS; do
+            ssh :nxt_hint:`root <Assuming Unit runs as root on each server>`@$SRV  \
+                curl -X POST -d '\"$NEWKEY\"' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to the remote control socket>`  \
+                    'http://localhost/config/listeners/*:443/tls/session/tickets/'"
+        done
+
+     To delete the oldest key after adding the new one:
+
+     .. code-block:: shell
+
+        for SRV in $SERVERS; do
+            ssh :nxt_hint:`root <Assuming Unit runs as root on each server>`@$SRV  \
+                curl -X DELETE --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to the remote control socket>`  \
+                    'http://localhost/config/listeners/*:443/tls/session/tickets/0'
+        done
+
+     This scheme enables safely sharing session ticket keys between individual
+     Unit instances.
+
   Unit supports AES256 (80-byte keys) or AES128 (48-byte keys); the bytes
   should be encoded in Base64:
 
