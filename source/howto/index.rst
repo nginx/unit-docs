@@ -111,6 +111,7 @@ as:
    nextcloud
    opengrok
    phpbb
+   phpmyadmin
    plone
    redmine
    reviewboard
