@@ -2571,7 +2571,7 @@ Another effect is that any requests for paths that resolve outside the
            "share": "/www$uri",
            "chroot": ":nxt_hint:`/www/data/ <Now, any paths accessible via the share are confined to this directory>`"
        }
-  }
+   }
 
 Here, a request for :samp:`/index.xml` elicits a 403 "Forbidden" response
 because it resolves to :samp:`/www/index.xml`, which is outside :samp:`chroot`.
