@@ -673,7 +673,13 @@ class NxtDetailsDirective(Directive):
     def run(self) -> List[Node]:
         self.assert_has_content()
 
-        node = nxt_details(self.content[0], self.options.get("hash"))
+        if ((hsh := self.options.get("hash")) is None):
+            raise ExtensionError(
+                __(f"Empty hash property in the nxt_details directive at line "
+                   f"{self.lineno} in {self.state.document.current_source}.")
+            )
+
+        node = nxt_details(self.content[0], hsh)
 
         self.state.nested_parse(self.content[2:], self.content_offset, node)
 
