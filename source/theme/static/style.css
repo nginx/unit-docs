@@ -330,7 +330,14 @@ iframe {
     margin: 0 0 1em;
     font-size: .9em;
     text-align: center;
+}
+
+#teconsent {
     text-decoration: underline;
+}
+
+#teconsent:hover {
+    text-decoration: none;
 }
 
 /* Pygments */
