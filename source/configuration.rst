@@ -2954,7 +2954,7 @@ single logical entity and may be used as a :samp:`pass` destination for
 incoming requests in a :ref:`listener <configuration-listeners>` or a
 :ref:`route <configuration-routes>`.
 
-Upstreams are defined in the eponymous :samp:`config/upstreams` section of the
+Upstreams are defined in the eponymous :samp:`/config/upstreams` section of the
 API:
 
 .. code-block:: json
@@ -3017,7 +3017,7 @@ Applications
 ************
 
 Each app that Unit runs is defined as an object in the
-:samp:`config/applications` section of the control API; it lists the app's
+:samp:`/config/applications` section of the control API; it lists the app's
 language and settings, its runtime limits, process model, and various
 language-specific options.
 
@@ -3118,6 +3118,7 @@ Also, you need to set :samp:`type`-specific options to run the app.  This
            "DB_PORT": "5432"
        }
    }
+
 
 .. _configuration-proc-mgmt:
 
@@ -4494,7 +4495,7 @@ Example:
 
    .. code-block:: console
 
-      # curl -X PUT -d '{"text/x-code": [".c", ".h"]}' /path/to/control.unit.sock \
+      # curl -X PUT -d '{"text/x-code": [".c", ".h"]}' :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
              http://localhost/config/settings/http/static/mime_types
       {
              "success": "Reconfiguration done."
@@ -4516,7 +4517,7 @@ In the example below, all requests will be logged to
 .. code-block:: console
 
    # curl -X PUT -d '"/var/log/access.log"' \
-          --unix-socket /path/to/control.unit.sock \
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/access_log
 
        {
@@ -4572,10 +4573,13 @@ mind that the log entry is formed *after* the request has been handled.
 Certificate Management
 **********************
 
-To set up SSL/TLS access for your application, upload a :file:`.pem` file
-containing your certificate chain and private key to Unit.  Next, reference the
-uploaded bundle in the listener's configuration.  After that, the listener's
-application becomes accessible via SSL/TLS.
+The :samp:`/certificates` section of the :ref:`control API <configuration-api>`
+handles TLS certificates that are used with Unit's :ref:`listeners
+<configuration-listeners>`.
+
+To set up SSL/TLS for a listener, upload a :file:`.pem` file with your
+certificate chain and private key to Unit and name the uploaded bundle in the
+listener's configuration; next, the listener can be accessed via SSL/TLS.
 
 .. note::
 
@@ -4598,7 +4602,7 @@ name (in this case, :samp:`bundle`):
 .. code-block:: console
 
    # curl -X PUT --data-binary @:nxt_ph:`bundle.pem <Certificate bundle's filename>` --unix-socket \
-          /path/to/control.unit.sock http://localhost/certificates/:nxt_ph:`bundle <Certificate bundle name in Unit's configuration>`
+          :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/certificates/:nxt_ph:`bundle <Certificate bundle name in Unit's configuration>`
 
        {
            "success": "Certificate chain uploaded."
@@ -4611,8 +4615,8 @@ name (in this case, :samp:`bundle`):
    uploading file-based data to avoid data corruption.
 
 Internally, Unit stores the uploaded certificate bundles along with other
-configuration data in its :file:`state` subdirectory; Unit's control API maps
-them to a separate configuration section, aptly named :samp:`certificates`:
+configuration data in its :file:`state` subdirectory; the control API exposes
+some of their properties as :samp:`GET`-table JSON via :samp:`/certificates`:
 
 .. code-block:: json
 
@@ -4673,14 +4677,14 @@ them to a separate configuration section, aptly named :samp:`certificates`:
 
 .. note::
 
-   You can access individual certificates in your chain, as well as specific
-   alternative names, by their indexes:
+   Access array items, such as individual certificates in a chain, and their
+   properties by indexing:
 
    .. code-block:: console
 
-      # curl -X GET --unix-socket /path/to/control.unit.sock \
+      # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/
-      # curl -X GET --unix-socket /path/to/control.unit.sock \
+      # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
 
 Next, add the uploaded bundle to a :ref:`listener <configuration-listeners>`;
@@ -4741,7 +4745,7 @@ anymore from the storage:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
+   # curl -X DELETE --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`
 
        {
