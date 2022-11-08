@@ -55,6 +55,7 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
               {
                   "match": {
                       "uri": [
+                          "/",
                           "*.php",
                           "*.php/*"
                       ]
