@@ -1343,10 +1343,12 @@ Runtime details:
 .. list-table::
 
    * - Control :ref:`socket <sec-socket>`
-     - :file:`/usr/local/var/run/unit/control.sock`
+     - :file:`/usr/local/var/run/unit/control.sock` (Intel),
+       :file:`/opt/homebrew/var/run/unit/control.sock` (Apple Silicon)
 
    * - Log :ref:`file <troubleshooting-log>`
-     - :file:`/usr/local/var/log/unit/unit.log`
+     - :file:`/usr/local/var/log/unit/unit.log` (Intel),
+       :file:`/opt/homebrew/var/log/unit/unit.log` (Apple Silicon)
 
    * - Non-privileged :ref:`user and group <security-apps>`
      - :samp:`nobody`
