@@ -2,8 +2,8 @@
 NGINX Unit Documentation
 ========================
 
-This is the source for NGINX Unit official website:
-http://unit.nginx.org
+This is the source for NGINX Unit's official website, licensed under
+:doc:`CC 4.0 <LICENSE>`: http://unit.nginx.org
 
 The Unit source code is located at Mercurial repository
 https://hg.nginx.com/unit and GitHub mirror https://github.com/nginx/unit
