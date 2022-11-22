@@ -1398,6 +1398,72 @@ If you update Unit later, make sure to update the module as well:
    :ref:`install <source-bld-src-ext>` the :program:`unit-http` module
    from sources.
 
+.. nxt_details:: Working With Multiple Node.js Versions
+   :hash: multiple-nodejs-versions
+
+   To use Unit with multiple Node.js versions side by side, we recommend
+   `Node Version Manager <https://github.com/nvm-sh/nvm>`__:
+
+   .. code-block:: console
+
+      $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/:nxt_ph:`x.y.z <nvm version>`/install.sh | bash
+
+   Install the versions you need and select the one you want to use with Unit:
+
+   .. code-block:: console
+
+      $ nvm install 18
+      $ nvm install 16
+      $ nvm use 18
+            Now using node :nxt_hint:`v18.12.1 <Note the version numbers>` (npm v8.19.2)
+
+   Having selected the specific version, install the :program:`node-gyp`
+   module:
+
+   .. code-block:: console
+
+      $ npm install -g node-gyp
+
+   Next, clone the Unit source code to build a :program:`unit-http` module for
+   the selected Node.js version:
+
+   .. code-block:: console
+
+      $ hg clone https://hg.nginx.org/unit
+      $ cd unit
+      $ pwd
+            :nxt_hint:`/home/user/unit <Note the path to the source code>`
+
+      $ ./configure
+      $ ./configure nodejs
+
+            configuring nodejs module
+            checking for node ... found
+             + node version :nxt_hint:`v18.12.1 <Should be the version selected with nvm>`
+            checking for npm ... found
+             + npm version :nxt_hint:`8.19.2 <Should be the version selected with npm>`
+            checking for node-gyp ... found
+             + node-gyp version v9.3.0
+
+   Point to Unit's header files and libraries in the source code directory to
+   build the module:
+
+   .. code-block:: console
+
+      $ CPPFLAGS="-I/home/user/unit/include/" LDFLAGS="-L/home/user/unit/lib/"  \
+            make node-install
+
+      $ npm list -g
+
+            /home/vagrant/.nvm/versions/node/v18.12.1/lib
+            ├── corepack@0.14.2
+            ├── node-gyp@9.3.0
+            ├── npm@8.19.2
+            └── unit-http@1.29.0
+
+   That's all; use the newly built module to run your :ref:`Node.js apps
+   <configuration-nodejs>` in Unit as usual.
+
 
 .. _installation-precomp-startup:
 
