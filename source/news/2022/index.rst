@@ -5,6 +5,16 @@ News of 2022
 News archive for the year 2022.
 
 .. nxt_news_entry::
+   :author: Unit Team
+   :description: NGINX Unit was not impacted by the recently discovered
+                 vulnerabilities in Node.js (CVE-2022-35256) and libexpat
+                 (CVE-2022-40674).
+   :email: unit-owner@nginx.org
+   :title: Unit Not Impacted By CVE-2022-35256, CVE-2022-40674
+   :date: 2022-10-13
+   :url: news/2022/unit-cve-no-impact
+
+.. nxt_news_entry::
    :author: Timo Stark
    :description: Version 1.28.0 comes with usage statistics, more variables,
                  and UNIX sockets in rounting and listeners.
