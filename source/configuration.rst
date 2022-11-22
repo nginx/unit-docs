@@ -1171,7 +1171,9 @@ object define patterns to be compared to the requests' properties:
 
    * - Property
      - Patterns Are Matched Against
-     - Case |-| :nxt_hint:`Sensitive <For arguments, cookies, and headers, this relates to property names and values; for other properties, case sensitivity affects only values>`
+     - Case |-| :nxt_hint:`Sensitive <For arguments, cookies, and headers, this
+       relates to property names and values; for other properties, case
+       sensitivity affects only values>`
 
    * - :samp:`arguments`
      - Arguments supplied with the request's `query string
