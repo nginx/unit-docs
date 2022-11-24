@@ -21,7 +21,7 @@ Flexibility
 ***********
 
 - The
-  :ref:`entire configuration <configuration-full-example>`
+  :ref:`entire configuration <configuration-api>`
   is managed dynamically over HTTP
   via a friendly
   :ref:`RESTful JSON API <configuration-mgmt>`.
