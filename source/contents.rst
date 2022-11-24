@@ -2,6 +2,7 @@
    :includehidden:
 
    index
+   about
    news
    installation
    configuration

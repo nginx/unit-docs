@@ -14,6 +14,15 @@ we maintain Mercurial
 with mirrors on
 `GitHub <https://github.com/nginx>`_.
 
+Please report any security-related issues
+concerning Unit to
+`security-alert@nginx.org <security-alert@nginx.org>`__.
+For our mutual convenience,
+specifically mention NGINX Unit in the subject
+and follow the
+`CVSS v3.1 <https://www.first.org/cvss/v3.1/specification-document>`__
+specification.
+
 To suggest changes in code or documentation and ask questions,
 `subscribe <https://mailman.nginx.org/mailman/listinfo/unit>`_
 to the unit@nginx.org mailing list
