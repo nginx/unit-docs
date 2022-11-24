@@ -5,6 +5,15 @@ News of 2022
 News archive for the year 2022.
 
 .. nxt_news_entry::
+   :author: Timo Stark
+   :description: Our team starts an online video series about NGINX Unit
+                 to guide you through all its aspects step by step.
+   :email: unit-owner@nginx.org
+   :title: Announcing the NGINX Unit Video Series
+   :date: 2022-11-21
+   :url: https://youtube.com/shorts/H8qIT-jUQtA
+
+.. nxt_news_entry::
    :author: Unit Team
    :description: NGINX Unit was not impacted by the recently discovered
                  vulnerabilities in Node.js (CVE-2022-35256) and libexpat
