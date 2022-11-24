@@ -679,11 +679,11 @@ iframe {
 }
 /* GitHub link */
 .nxt_github_link {
-    position: fixed;
+    position: relative;
     font-size: .9em;
     right: 0;
     bottom: 0;
-    padding: 1.1em;
+    padding: 0;
     display: block;
     text-align: right;
 }
@@ -711,23 +711,11 @@ iframe {
     font-size: .9em;
     font-weight: bold;
 }
-@media (max-width: 94em) {
-    #content {
-        position: relative;
-    }
+@media (min-width: 45em) {
     .nxt_github_link {
-        position: absolute;
-        bottom: auto;
-        padding-right: 0;
     }
 }
-@media (max-width: 40em), (min-width: 53em) and (max-width: 60em) {
-    .nxt_github_link {
-        position: relative;
-        padding: 0;
-    }
-}
-@media (max-width: 53em) {
+@media (max-width: 45em) {
     #side {
         position: relative;
         float: inherit;
@@ -740,6 +728,9 @@ iframe {
     #side h1 div {
         visibility: hidden;
         opacity: 0;
+        transition: none;
+    }
+    #side .toctree-l2 ul {
         transition: none;
     }
     #content {
@@ -755,5 +746,8 @@ iframe {
     .nxt_tabs > input.nojs + label:target,
     .nxt_tabs > input.js:checked + label {
         order: 1;
+    }
+    .nxt_github_link {
+        display: none;
     }
 }
