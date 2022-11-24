@@ -87,7 +87,8 @@ Unit:
                           "/core/modules/statistics/statistics.php",
                           "~^/core/modules/system/tests/https?\\.php",
                           "/core/rebuild.php",
-                          "/update.php"
+                          "/update.php",
+                          "/update.php/*"
                       ]
                   },
 
