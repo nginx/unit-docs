@@ -8,6 +8,125 @@
 Configuration
 #############
 
+.. _configuration-api:
+
+Unit's configuration is JSON-based, accessible via a RESTful control API, and
+entirely manageable over HTTP.  The control API provides a root object
+(:samp:`/`) that comprises four primary options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Object
+     - Description
+
+   * - :samp:`/certificates`
+     - Responsible for TLS/SSL :ref:`certificate management
+       <configuration-ssl>`.
+
+   * - :samp:`/config`
+     - Used for general :ref:`configuration management
+       <configuration-mgmt>`.
+
+   * - :samp:`/control`
+     - Queried for :ref:`application restart
+       <configuration-proc-mgmt>`.
+
+   * - :samp:`/status`
+     - Queried for :ref:`usage statistics <configuration-stats>`.
+
+
+.. _configuration-socket:
+
+The API is exposed through a socket whose type and address depend on the
+:doc:`installation method <installation>`.  Its compile-time setting can be
+overridden at :ref:`startup <source-startup>`.  For consistency and
+:ref:`security <security-socket-state>`, our examples rely on a Unix domain
+socket unless stated otherwise.  Our queries use :program:`curl`, prefixing
+URIs with :samp:`http://localhost` as the utility expects (the hostname is
+irrelevant for Unit itself), but you can use any HTTP tool you like.
+
+.. nxt_details:: (Lack of) Configuration Files
+   :hash: no-config-files
+
+   The control API is the single source of truth about Unit's configuration.
+   There are no configuration files that can or should be manipulated; this is
+   a deliberate design choice made to avoid issues such as:
+
+   - Undetected invalid states:  Configuration files can be saved in an invalid
+     state, and the issue won't be seen until reload or startup.  The control
+     API avoids this by validating configuration changes on the fly.
+
+   - Too broad or too narrow configuration file permissions:  If a
+     configuration file is inaccessible, it can't be loaded; if it's public,
+     sensitive data may leak.  The control API has a single manageable point of
+     entry.
+
+   - Unpredictable behavior:  In a configuration file hierarchy, it's easy
+     to lose track and misconfigure something.  With the control API, the
+     entire configuration is a single, organized, and navigatable entity.
+
+.. nxt_details:: Replicating Unit Configurations
+   :hash: conf-replication
+
+   Although Unit is fully dynamic, sometimes you just want to copy an existing
+   setup without further modification.  Unit's :ref:`state directories
+   <source-config-src-state>` are interchangeable as long as Unit version stays
+   the same, so you can use a shortcut to replicate a Unit instance.  Also,
+   this works with the Docker :doc:`images <howto/docker>`.
+
+   .. warning::
+
+      Unit's state can change its structure between versions and must not be
+      edited by external means.
+
+   On the machine where the *reference* Unit instance runs, find out
+   where the state is stored:
+
+   .. code-block:: console
+
+      $ unitd -h
+
+            --state DIRECTORY    set state directory name
+                                 default: ":nxt_ph:`/path/to/reference/unit/state <The value we're looking for>`"
+
+   Double-check that the state location isn't overridden at startup:
+
+   .. subs-code-block:: console
+
+      $ ps ax | grep unitd
+            ...
+            unit: main v|version| [unitd --state :nxt_ph:`/runtime/path/to/reference/unit/state <The runtime value overrides the default>` ... ]
+
+   Repeat these commands on the second machine to see where the target instance
+   stores its state.
+
+   Stop both Unit instances, for example:
+
+   .. code-block:: console
+
+      # systemctl stop unit
+
+   .. note::
+
+      Stop and start commands may differ if Unit was installed from a
+      :ref:`non-official <installation-community-repos>` repo or built from
+      :ref:`source <source>`.
+
+   Copy the reference state directory to the target state directory by
+   arbitrary means; make sure to include subdirectories and hidden files.
+   Finally, restart both Unit instances:
+
+   .. code-block:: console
+
+      # systemctl restart unit
+
+   If you run your Unit instances manually, :option:`!--state` can be used to
+   set the state directory at :ref:`startup <source-startup>`.
+
+   After the restart, the target instance picks up the configuration you've
+   copied to the state directory.
+
 .. _configuration-quickstart:
 
 ***********
@@ -369,66 +488,6 @@ options you could have configured, whereas the second one replaces only the
                "detail": "Request \"pass\" points to invalid location \"routes\"."
            }
 
-.. nxt_details:: Replicating Unit Configurations
-   :hash: conf-replication
-
-   Although Unit is fully dynamic, sometimes you just want to copy an existing
-   setup without the need for subsequent meddling.  Unit's :ref:`state
-   directories <source-config-src-state>` are interchangeable, provided
-   they are used by the same version of Unit that created them, so you can use
-   a shortcut to replicate a Unit instance.
-
-   .. warning::
-
-      Unit's state can change its structure between versions and must not be
-      edited by external means.
-
-   On the machine where the *reference* Unit instance runs, find out
-   where the state is stored:
-
-   .. code-block:: console
-
-      $ unitd -h
-
-            --state DIRECTORY    set state directory name
-                                 default: ":nxt_ph:`/path/to/reference/unit/state <The value we're looking for>`"
-
-   Double-check that the state location isn't overridden at startup:
-
-   .. subs-code-block:: console
-
-      $ ps ax | grep unitd
-            ...
-            unit: main v|version| [unitd --state :nxt_ph:`/runtime/path/to/reference/unit/state <The runtime value overrides the default>` ... ]
-
-   Repeat these commands on the second machine to see where the target instance
-   stores its state.
-
-   Stop both Unit instances, for example:
-
-   .. code-block:: console
-
-      # systemctl stop unit
-
-   .. note::
-
-      Stop and start commands may differ if Unit was installed from a
-      :ref:`non-official <installation-community-repos>` repo or built from
-      :ref:`source <source>`.
-
-   Copy the reference state directory to the target state directory by
-   arbitrary means; make sure to include subdirectories and hidden files.
-   Finally, restart both Unit instances:
-
-   .. code-block:: console
-
-      # systemctl restart unit
-
-   If you run your Unit instances manually, :option:`!--state` can be used to
-   set the state directory at :ref:`startup <source-startup>`.
-
-   After the restart, the target instance picks up the configuration you've
-   copied to the state directory.
 
 
 .. _configuration-listeners:
