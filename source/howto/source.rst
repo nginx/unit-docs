@@ -38,7 +38,7 @@ revision numbers, respectively); omit the packages you won't use.
          # npm install -g node-gyp
          # apt install php-dev libphp-embed
          # apt install libperl-dev
-         # apt install python-dev
+         # apt install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-dev
          # apt install ruby-dev ruby-rack
          # apt install openjdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`-jdk
          # apt install libssl-dev
@@ -57,7 +57,7 @@ revision numbers, respectively); omit the packages you won't use.
          # npm install -g node-gyp
          # yum install php-devel php-embedded
          # yum install perl-devel perl-libs
-         # yum install python-devel
+         # yum install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-devel
          # yum install ruby-devel rubygem-rack
          # yum install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
          # yum install openssl-devel
