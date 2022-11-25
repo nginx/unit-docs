@@ -133,77 +133,86 @@ irrelevant for Unit itself), but you can use any HTTP tool you like.
 Quick Start
 ***********
 
-To run an application on Unit, first set up an :ref:`application
-<configuration-applications>` object.  Here, store it in a file to :samp:`PUT`
-it into the :samp:`config/applications` section of Unit's control API,
-available via the :ref:`control socket <source-startup>` at
-:samp:`http://localhost/`:
+For starters, we configure Unit to serve a static file.  Suppose you saved this
+as :file:`/www/data/index.html`:
 
-.. code-block:: console
+.. code-block:: html
 
-   $ cat << EOF > config.json
+   <!DOCTYPE html>
+   <html>
+      <head>
+         <title>Welcome to NGINX Unit!</title>
+         <style>
+            body {
+            width: 35em;
+            margin: 0 auto;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+            }
+         </style>
+      </head>
+      <body>
+         <h1>Welcome to NGINX Unit!</h1>
+         <p>If you see this page, the NGINX Unit web server is successfully
+            installed and working.  Further configuration is required.
+         </p>
+         <p>For online documentation and support, please refer to
+            <a href="https://unit.nginx.org/">unit.nginx.org</a>.<br/>
+         </p>
+         <p><em>Thank you for using NGINX Unit.</em></p>
+      </body>
+   </html>
 
-       {
-           "type": "php",
-           "root": "/www/blogs/scripts"
-       }
-       EOF
+Now, Unit needs to :ref:`listen <configuration-listeners>` on a port that
+:ref:`routes <configuration-routes>` the incoming requests to a :samp:`share`
+action, which serves the file:
 
-   # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/applications/blogs
+.. code-block:: json
 
-       {
-           "success": "Reconfiguration done."
-       }
+   {
+       "listeners": {
+           "127.0.0.1:8080": {
+               "pass": "routes"
+           }
+       },
 
-Unit starts the application process.  Next, reference the application object
-from a :ref:`listener <configuration-listeners>` object, comprising an IP (or a
-wildcard to match any IPs) and a port number, in the :samp:`config/listeners`
-section of the API:
-
-.. code-block:: console
-
-   $ cat << EOF > config.json
-
-       {
-           "pass": "applications/blogs"
-       }
-       EOF
-
-   # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
-
-       {
-           "success": "Reconfiguration done."
-       }
-
-Unit accepts requests at the specified IP and port, passing them to the
-application process.  Your app works!
-
-Finally, check the resulting configuration:
-
-.. code-block:: console
-
-   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
-
-       {
-           "listeners": {
-               "127.0.0.1:8300": {
-                   "pass": "applications/blogs"
-               }
-           },
-
-           "applications": {
-               "blogs": {
-                   "type": "php",
-                   "root": "/www/blogs/scripts/"
+       "routes": [
+           {
+               "action": {
+                   "share": "/www/data$uri"
                }
            }
-       }
+       ]
+   }
 
-You can upload the entire configuration at once or update it in portions.  For
-details of configuration techniques, see the :ref:`next section
-<configuration-mgmt>`.
+To configure Unit, :samp:`PUT` this snippet to the :samp:`/config` section via
+the :ref:`control socket <source-startup>`.  Working with JSON in the command
+line can be cumbersome; instead, save and upload it as :file:`snippet.json`:
+
+.. code-block:: console
+
+   # curl -X PUT --data-binary @snippet.json --unix-socket  \
+         /path/to/control.unit.sock http://localhost/routes
+
+         {
+             "success": "Reconfiguration done."
+         }
+
+To confirm this works, query the listener.  Unit responds with the
+:file:`index.html` file from the :samp:`share` directory:
+
+.. code-block:: console
+
+   $ curl -i 127.0.0.1:8080
+
+         HTTP/1.1 200 OK
+         Content-Type: text/html
+         Server: Unit/1.28.0
+
+         <!DOCTYPE html>
+         <html>
+            <head>
+               <title>Welcome to NGINX Unit!</title>
+               ...
 
 
 .. _configuration-mgmt:
