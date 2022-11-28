@@ -96,8 +96,8 @@ safe.
             }
 
    If you prefer an IP-based control socket, avoid public IPs; they expose the
-   :ref:`control API <configuration-mgmt>` and all its capabilities.  This
-   means your Unit instance can be manipulated by whoever is physically able to
+   :ref:`control API <configuration-api>` and all its capabilities.  This means
+   your Unit instance can be manipulated by whoever is physically able to
    connect:
 
    .. code-block:: console

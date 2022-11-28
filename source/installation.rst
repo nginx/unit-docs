@@ -859,7 +859,7 @@ RHEL
 
       .. list-table::
 
-         * - Control :ref:`socket <security-socket-state>`
+         * - Control :ref:`socket <configuration-socket>`
            - :file:`/var/run/unit/control.sock`
 
          * - Log :ref:`file <troubleshooting-log>`

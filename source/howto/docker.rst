@@ -34,7 +34,8 @@ Next, upload a configuration to Unit via the control socket:
 This command assumes your configuration is stored as :file:`config.json` in the
 container-mounted directory on the host; if the file defines a listener on port
 :samp:`8000`, your app is now accessible on port :samp:`8080` of the host.  For
-details of the Unit configuration, see :ref:`configuration-mgmt`.
+details of the Unit configuration, see :ref:`Configuration
+<configuration-api>`.
 
 .. note::
 
@@ -357,7 +358,7 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
    updated image because Unit's state was initialized and saved earlier.
 
 To configure the app after startup, supply a file or an explicit snippet via
-the :ref:`config API <configuration-mgmt>`:
+the :ref:`control API <configuration-api>`:
 
 .. code-block:: console
 

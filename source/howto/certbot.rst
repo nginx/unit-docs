@@ -94,7 +94,7 @@ Generating Certificates
 
 #. Create a certificate bundle fit for Unit and upload it to the
    :samp:`certificates` section of Unit's :ref:`control API
-   <configuration-mgmt>`:
+   <configuration-api>`:
 
    .. code-block:: console
 
