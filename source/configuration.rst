@@ -880,7 +880,7 @@ object and its options:
       - Description
 
     * - :samp:`client_ip`
-      - String; names the HTTP header fields to expect in the requestr.  They
+      - String; names the HTTP header fields to expect in the request.  They
         should use the `X-Forwarded-For
         <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
         format where the value is a comma- or space-separated list of IPv4s or
