@@ -29,7 +29,7 @@ released on |release_date|.
 
 - Browse the
   `changelog </CHANGES.txt>`_,
-  the release notes in the
+  see the release notes in the
   :doc:`news <news>`
   archive,
   or subscribe to
