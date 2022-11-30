@@ -32,8 +32,8 @@ released on |release_date|.
   the release notes in the
   :doc:`news <news>`
   archive,
-  or subscribe to the updates
-  on our RSS
+  or subscribe to
+  our RSS
   `feed </rss.xml>`_.
 
 - Check out the discussion of our
