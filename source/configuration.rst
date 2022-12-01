@@ -191,7 +191,7 @@ line can be cumbersome; instead, save and upload it as :file:`snippet.json`:
 .. code-block:: console
 
    # curl -X PUT --data-binary @snippet.json --unix-socket  \
-         /path/to/control.unit.sock http://localhost/routes
+         /path/to/control.unit.sock http://localhost/config
 
          {
              "success": "Reconfiguration done."
