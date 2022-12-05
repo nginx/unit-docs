@@ -496,6 +496,7 @@ iframe {
 .highlight-control,
 .highlight-docker,
 .highlight-go,
+.highlight-html,
 .highlight-ini,
 .highlight-java,
 .highlight-javascript,
@@ -576,6 +577,9 @@ iframe {
 }
 .highlight-shell .highlight::before {
     content: "shell";
+}
+.highlight-html .highlight::before {
+    content: "html";
 }
 
 /* custom terms, placeholders, and hints */
