@@ -2039,8 +2039,9 @@ set in runtime:
    * - :samp:`host`
      - :samp:`Host`
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_ in
-       lowercase, without the port number and the trailing period (if any).
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
+       to lower case and normalized by removing the port number and the
+       trailing period (if any).
 
    * - :samp:`method`
      - Method from the `request
