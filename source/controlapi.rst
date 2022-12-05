@@ -20,8 +20,8 @@ entirely manageable over HTTP.  The control API provides a root object
      - Description
 
    * - :samp:`/certificates`
-     - Responsible for TLS/SSL :ref:`certificate management
-       <configuration-ssl>`.
+     - Responsible for SSL/TLS :doc:`certificate management
+       <certificates>`.
 
    * - :samp:`/config`
      - Used for general :doc:`configuration management
@@ -32,7 +32,7 @@ entirely manageable over HTTP.  The control API provides a root object
        <configuration-proc-mgmt>`.
 
    * - :samp:`/status`
-     - Queried for :ref:`usage statistics <configuration-stats>`.
+     - Queried for :doc:`usage statistics <usagestats>`.
 
 
 .. _configuration-socket:
