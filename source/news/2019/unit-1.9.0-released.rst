@@ -14,8 +14,8 @@ POST operations to simplify array manipulation in configuration.
 
 Please check the documentation about new features:
 
-- Matching rules: https://unit.nginx.org/configuration/#condition-matching
-- API operations: https://unit.nginx.org/configuration/#configuration-management
+- Matching rules: https://unit.nginx.org/configuration/#matching-conditions
+- API operations: https://unit.nginx.org/controlapi/
 
 If you prefer to perceive information visually, here's a recording of NGINX
 Meetup that gives a good overview of dynamic application routing, although

@@ -20,7 +20,7 @@ Update Unit Regularly
 features </CHANGES.txt>`_ that improve your installation's security.
 
 **Actions**: Follow our latest `news
-<https://mailman.nginx.org/mailman/listinfo/unit>`_ and upgrade to new
+<https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_ and upgrade to new
 versions shortly after they are released.
 
 .. nxt_details:: Details

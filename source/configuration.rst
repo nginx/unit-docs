@@ -100,7 +100,7 @@ on port 8400 relays requests at any host IPs to the :samp:`main` :ref:`route
     }
 
 Also, :samp:`pass` values can be `percent encoded
-<https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_.  For example,
+<https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`_.  For example,
 you can escape slashes in entity names:
 
 .. code-block:: json
@@ -760,9 +760,9 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`arguments`
      - Arguments supplied with the request's `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__; these
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__; these
        names and value pairs are `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__ with plus
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__ with plus
        signs (:samp:`+`) replaced by spaces.
      - Yes
 
@@ -776,13 +776,13 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`headers`
      - `Header fields
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ supplied
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_ supplied
        with the request.
      - No
 
    * - :samp:`host`
      - :samp:`Host` `header field
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_, converted
        to lower case and normalized by removing the port number and the
        trailing period (if any).
      - No
@@ -794,8 +794,8 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`query`
      - `Query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`_, `percent
-       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`_, `percent
+       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
        with plus signs (:samp:`+`) replaced by spaces.
      - Yes
 
@@ -811,12 +811,13 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`uri`
      - `Request target
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_, `percent
-       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
-       and normalized by removing the `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ and
+       <https://datatracker.ietf.org/doc/html/rfc9110#target.resource>`_,
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__ and
+       normalized by removing the `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__ and
        resolving `relative references
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__ ("." and
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4-2>`__ ("." and
        "..", "//").
      - Yes
 
@@ -1079,7 +1080,7 @@ which is the default for the official packages>` modify this behavior:
 
    Argument names, non-regex string patterns in :samp:`arguments`,
    :samp:`query`, and :samp:`uri` can be `percent encoded
-   <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`_ to mask
+   <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`_ to mask
    special characters (:samp:`!` is :samp:`%21`, :samp:`~` is :samp:`%7E`,
    :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`) or even target single
    bytes.  For example, you can select diacritics such as Ö or Å by their
@@ -1252,7 +1253,7 @@ which is the default for the official packages>` modify this behavior:
 
 Address-based patterns define individual IPv4 (dot-decimal or `CIDR
 <https://datatracker.ietf.org/doc/html/rfc4632>`__), IPv6 (hexadecimal or `CIDR
-<https://datatracker.ietf.org/doc/html/rfc4291#section-2.3>`__), or any `UNIX
+<https://datatracker.ietf.org/doc/html/rfc4291#section-2-3>`__), or any `UNIX
 domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__ addresses
 that must exactly match the property; wildcards and ranges modify this
 behavior:
@@ -1555,46 +1556,47 @@ set in runtime:
    * - :samp:`host`
      - :samp:`Host`
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_, converted
        to lower case and normalized by removing the port number and the
        trailing period (if any).
 
    * - :samp:`method`
-     - Method from the `request
-       line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
+     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_ from
+       the request line.
 
    * - :samp:`remote_addr`
      - Remote IP address of the request.
 
    * - :samp:`request_line`
      - Entire `request
-       line <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_.
+       line <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
 
    * - :samp:`request_uri`
      - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`_
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`_
        *including* the `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__,
        normalized by resolving relative path references ("." and "..") and
        collapsing adjacent slashes.
 
    * - :samp:`status`
-     - HTTP `status code <https://tools.ietf.org/html/rfc7231#section-6>`__ of
-       the response.
+     - HTTP `status code
+       <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__ of the
+       response.
 
    * - :samp:`time_local`
      - Local time, formatted as follows: :samp:`31/Dec/1986:19:40:00 +0300`.
 
    * - :samp:`uri`
      - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`_ *without*
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`_ *without*
        the `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ part,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__ part,
        normalized by resolving relative path references ("." and "..") and
        collapsing adjacent slashes.  The value is `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__: Unit
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__: Unit
        interpolates all percent-encoded entities in the request target `path
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__.
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__.
 
 These variables can be used with:
 
@@ -3657,8 +3659,8 @@ following:
         The default is :samp:`application`.
 
     * - :samp:`home`
-      - Path to the app's `virtual environment <https://packaging.python.org/
-        tutorials/installing-packages/#creating-virtual-environments>`_.
+      - Path to the app's `virtual environment
+        <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`_.
         Absolute or relative to :samp:`working_directory`.
 
         .. note::
@@ -3744,8 +3746,8 @@ subdirectory.
 .. _configuration-python-asgi:
 
 You can provide the callable in two forms.  The first one uses WSGI (`PEP 333
-<https://www.python.org/dev/peps/pep-0333/>`_ or `PEP 3333
-<https://www.python.org/dev/peps/pep-3333/>`_):
+<https://peps.python.org/pep-0333/>`_ or `PEP 3333
+<https://peps.python.org/pep-3333/>`_):
 
 .. code-block:: python
 
@@ -4030,9 +4032,9 @@ HTTP requests from the clients:
     * - :samp:`discard_unsafe_fields`
       - Boolean; controls header field name parsing.  If set to :samp:`true`,
         Unit only processes headers with names made of alphanumeric characters
-        and hyphens (:samp:`-`); otherwise, all valid `RFC 7230
-        <https://datatracker.ietf.org/doc/html/rfc7230#section-3.2>`_ header
-        fields are processed.
+        and hyphens (:samp:`-`); otherwise, all valid `RFC 9110
+        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`_
+        header fields are processed.
 
         The default is :samp:`true`.
 

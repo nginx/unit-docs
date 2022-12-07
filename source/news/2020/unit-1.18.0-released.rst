@@ -131,7 +131,7 @@ Check our website to know more about the new option:
 https://unit.nginx.org/configuration/#targets
 
 To learn more about request matching rules:
- https://unit.nginx.org/configuration/#condition-matching
+https://unit.nginx.org/configuration/#matching-conditions
 
 Finally, see here for more howtos: https://unit.nginx.org/howto/
 

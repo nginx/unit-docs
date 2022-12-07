@@ -42,7 +42,7 @@ for helping us make Unit better.
 If you have encountered a problem with Unit or have any ideas for improvements,
 please feel free to share here:
 
-- Mailing list: http://mailman.nginx.org/mailman/listinfo/unit
+- Mailing list: https://mailman.nginx.org/mailman3/lists/unit.nginx.org/
 - GitHub: https://github.com/nginx/unit/issues
 
 wbr, Valentin V. Bartenev

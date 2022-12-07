@@ -17,7 +17,7 @@ in this direction.
 Perhaps, you already know about Unit's certificate storage API that uploads
 certificate bundles to a running instance.  Otherwise, if you're not yet fully
 informed but still curious, here's a decent overview:
-https://unit.nginx.org/configuration/#certificate-management
+https://unit.nginx.org/certificates/
 
 Basically, you just upload a certificate chain and a key under some name; after
 that, you can specify the name (:samp:`mycert` in the example below) with any

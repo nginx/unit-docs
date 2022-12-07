@@ -67,7 +67,7 @@ been introduced, including:
   configure TLS certificates.  Thanks to Igor Sysoev who collaborated with
   me on this feature.
 
-  Documentation: https://unit.nginx.org/configuration/#ssl-tls-and-certificates
+  Documentation: https://unit.nginx.org/certificates/
 
 - C API language modules were moved into a separate library; this helped a lot
   with Node.js integration and aids the upcoming Java support.  Thanks again

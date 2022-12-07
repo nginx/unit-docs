@@ -16,8 +16,8 @@ operations concerning the Go module.  Now it can also be installed with the
 
    $ go get unit.nginx.org/go
 
-Mind, however, that it requires the :program:`unit-dev` `package
-<installation-precomp-pkgs>`__.
+Mind, however, that it requires the :program:`unit-dev/unit-devel` `package
+<https://unit.nginx.org/installation/#official-packages>`__.
 
 Great effort went into improving the efficiency and avoiding memory bloat in
 cases where an application generates gigabytes of response body.  Now Unit can

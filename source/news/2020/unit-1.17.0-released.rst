@@ -83,7 +83,7 @@ the weight of the server in question:
    }
 
 For details of server groups, see here:
-https://unit.nginx.org/configuration/#upstreams
+https://unit.nginx.org/configuration/#proxying
 
 .. code-block:: none
 

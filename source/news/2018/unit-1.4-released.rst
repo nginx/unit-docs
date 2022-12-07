@@ -14,7 +14,7 @@ certificate chains, including common and alternative names as well as
 expiration dates.
 
 See the documentation for details:
-https://unit.nginx.org/configuration/#ssl-tls-and-certificates
+https://unit.nginx.org/certificates/
 
 This is just our first step in TLS support.  More configuration options
 and various TLS-related features will be added in the future.

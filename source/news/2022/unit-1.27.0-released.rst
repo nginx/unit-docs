@@ -172,7 +172,7 @@ added `contribution guidelines
 <https://github.com/nginx/unit/blob/master/CONTRIBUTING.md>`__ to help you get
 involved. For other discussions, please join us at the :samp:`#unit-users`
 channel on the `NGINX Community Slack
-<https://join.slack.com/t/nginxcommunity/shared_invite/zt-1aaa22w80-~_~wSMNyPxLPLp5xunOC7w>`__
+<https://nginxcommunity.slack.com/join/shared_invite/zt-1aaa22w80-~_~wSMNyPxLPLp5xunOC7w>`__
 or the `mailing list
 <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`__.
 

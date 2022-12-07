@@ -20,7 +20,7 @@ If you have installed the :program:`unit-http` module from `npm
 <https://www.npmjs.com>`__, then don't forget to update it besides Unit itself.
 
 Detailed instructions for Node.js installation can be found here:
-http://unit.nginx.org/installation/#node-js-package
+http://unit.nginx.org/installation/#node-js
 
 .. code-block:: none
 

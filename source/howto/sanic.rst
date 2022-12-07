@@ -2,13 +2,13 @@
 .. |mod| replace:: Python 3.7+
 .. |app-pip-package| replace:: sanic
 .. |app-pip-link| replace:: PIP package
-.. _app-pip-link: https://sanicframework.org/en/guide/getting-started.html
+.. _app-pip-link: https://sanic.dev/en/guide/getting-started.html
 
 #####
 Sanic
 #####
 
-To run apps built with the `Sanic <https://sanicframework.org>`_ web framework
+To run apps built with the `Sanic <https://sanic.dev/>`_ web framework
 using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
@@ -16,7 +16,7 @@ using Unit:
 #. .. include:: ../include/howto_install_venv.rst
 
 #. Let's try a version of a `tutorial app
-   <https://sanicframework.org/en/guide/basics/response.html#methods>`_,
+   <ttps://sanic.dev/en/guide/basics/response.html#methods>`_,
    saving it as :file:`/path/to/app/asgi.py`:
 
    .. code-block:: python

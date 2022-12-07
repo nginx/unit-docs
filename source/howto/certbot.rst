@@ -25,9 +25,9 @@ Generating Certificates
    website and `validate domain ownership
    <https://letsencrypt.org/docs/challenge-types/>`_; the latter can be done
    differently.  Perhaps, the easiest approach is to use the `webroot
-   <https://certbot.eff.org/docs/using.html#webroot>`__ method by having
-   Certbot store a certain file locally and then access it by your domain name.
-   First, configure Unit with a temporary route at port 80:
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#webroot>`__ method
+   by having Certbot store a certain file locally and then access it by your
+   domain name.  First, configure Unit with a temporary route at port 80:
 
    .. code-block:: json
 

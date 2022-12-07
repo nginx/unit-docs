@@ -95,7 +95,8 @@ confusion, it was decided to always show ".0" in version numbers.
 
 For those who are interested in running Unit on CentOS, Fedora, and RHEL
 with latest versions of PHP, the corresponding packages are now available
-in Remi's RPM repository: https://unit.nginx.org/installation/#remi-s-rpm-repo
+in Remi's RPM repository:
+https://unit.nginx.org/installation/#community-remisrpm
 
 Many kudos to Remi Collet for collaboration.
 

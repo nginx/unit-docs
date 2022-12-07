@@ -1,9 +1,9 @@
 .. |app| replace:: Matomo
 .. |mod| replace:: PHP
 .. |app-preq| replace:: prerequisites
-.. _app-preq: https://matomo.org/docs/requirements/
+.. _app-preq: https://matomo.org/faq/on-premise/matomo-requirements/
 .. |app-link| replace:: core files
-.. _app-link: https://matomo.org/docs/installation/
+.. _app-link: https://matomo.org/faq/on-premise/installing-matomo/
 
 ######
 Matomo

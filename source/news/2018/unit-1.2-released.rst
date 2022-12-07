@@ -71,7 +71,7 @@ application.
 
 Binary Linux packages and Docker images are available here:
 
-- Packages:  https://unit.nginx.org/installation/#precompiled-packages
+- Packages:  https://unit.nginx.org/installation/#official-packages
 - Docker:    https://hub.docker.com/r/nginx/unit/tags/
 
 wbr, Valentin V. Bartenev

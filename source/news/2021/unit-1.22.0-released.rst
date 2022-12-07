@@ -39,7 +39,7 @@ The rationale for this change in our packages was that using :samp:`nobody` by
 default was very inconvenient while serving static files.  You can always
 override these settings with the :option:`!--user` and :option:`!--group`
 daemon options in your startup scripts.  See here for more details:
-https://unit.nginx.org/installation/#installation-src-startup
+https://unit.nginx.org/howto/source/#startup-and-shutdown
 
 
 **********************************************

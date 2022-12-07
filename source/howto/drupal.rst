@@ -3,7 +3,7 @@
 .. |app-preq| replace:: prerequisites
 .. _app-preq: https://www.drupal.org/docs/system-requirements
 .. |app-link| replace:: core files
-.. _app-link: https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies#download-core
+.. _app-link: https://www.drupal.org/docs/develop/using-composer/manage-dependencies#download-core
 
 ######
 Drupal
@@ -149,7 +149,7 @@ Unit:
 #. .. include:: ../include/howto_upload_config.rst
 
    After a successful update, browse to http://localhost and `set up
-   <https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies#s-install-drupal-using-the-standard-web-interface>`_
+   <https://www.drupal.org/docs/develop/using-composer/manage-dependencies#s-install-drupal-using-the-standard-web-interface>`_
    your |app| installation:
 
   .. image:: ../images/drupal.png
