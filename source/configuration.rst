@@ -4030,11 +4030,12 @@ HTTP requests from the clients:
         that's included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
-      - Boolean; controls header field name parsing.  If set to :samp:`true`,
-        Unit only processes headers with names made of alphanumeric characters
-        and hyphens (:samp:`-`); otherwise, all valid `RFC 9110
-        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`_
-        header fields are processed.
+      - Boolean; controls header field name parsing.  If it's set to
+        :samp:`true`, Unit only processes header names made of alphanumeric
+        characters and hyphens (see `RFC 9110
+        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`__);
+        otherwise, these characters are also permitted:
+        :samp:`.!#$%&'*+^_\`|~`.
 
         The default is :samp:`true`.
 
