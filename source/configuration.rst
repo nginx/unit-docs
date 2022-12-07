@@ -782,7 +782,7 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`host`
      - :samp:`Host` `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_, converted
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`_, converted
        to lower case and normalized by removing the port number and the
        trailing period (if any).
      - No
@@ -1556,7 +1556,7 @@ set in runtime:
    * - :samp:`host`
      - :samp:`Host`
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_, converted
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`_, converted
        to lower case and normalized by removing the port number and the
        trailing period (if any).
 
