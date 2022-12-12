@@ -1931,7 +1931,7 @@ A :samp:`share`-based action provides the following options:
 .. list-table::
 
    * - :samp:`share` (required)
-     - String or array of strings, listing file paths that are tried until a
+     - String or an array of strings; listing file paths that are tried until a
        file is found.  When no file is found, :samp:`fallback` is used if set.
 
        The value is :ref:`variable <configuration-variables>`-interpolated.
@@ -3693,7 +3693,7 @@ following:
                 # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`
 
     * - :samp:`path`
-      - String or an array of strings, represents additional Python module
+      - String or an array of strings; represents additional Python module
         lookup paths; these values are prepended to :samp:`sys.path`.
 
     * - :samp:`protocol`
