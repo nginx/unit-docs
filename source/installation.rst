@@ -135,12 +135,13 @@ at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 .. nxt_details:: Repo Installation Script
    :hash: repo-install
 
-   We provide a :download:`script <downloads/setup-unit.sh>`
+   We provide a :download:`script <downloads/setup-unit>`
    that adds our official repos on the systems we support:
 
    .. code-block:: console
 
-      $ curl -sL 'https://unit.nginx.org/_downloads/setup-unit.sh' | sudo -E bash
+      $ wget https://unit.nginx.org/_downloads/setup-unit && chmod +x setup-unit
+      # ./setup-unit repo-config
 
    Use it at your discretion;
    explicit steps are provided below
