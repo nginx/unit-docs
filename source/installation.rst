@@ -2091,8 +2091,8 @@ Unit's Docker images come in several language-specific flavors:
      - Single-language, based on the :samp:`eclipse-temurin:11-jdk`
        `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
-   * - :samp:`|version|-node16`
-     - Single-language, based on the :samp:`node:16`
+   * - :samp:`|version|-node18`
+     - Single-language, based on the :samp:`node:18`
        `image <https://hub.docker.com/_/node>`__.
 
    * - :samp:`|version|-perl5.36`
@@ -2103,8 +2103,8 @@ Unit's Docker images come in several language-specific flavors:
      - Single-language, based on the :samp:`php:8.1-cli`
        `image <https://hub.docker.com/_/php>`__.
 
-   * - :samp:`|version|-python3.10`
-     - Single-language, based on the :samp:`python:3.10`
+   * - :samp:`|version|-python3.11`
+     - Single-language, based on the :samp:`python:3.11`
        `image <https://hub.docker.com/_/python>`__.
 
    * - :samp:`|version|-ruby3.1`
