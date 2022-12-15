@@ -1,6 +1,6 @@
-FROM docker.io/nginx/unit:1.28.0-go1.19
+FROM docker.io/nginx/unit:1.29.0-go1.19
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.28.0-go1.19
+# FROM public.ecr.aws/nginx/unit:1.29.0-go1.19
 
 # port used by the listener in config.json
 EXPOSE 8080
