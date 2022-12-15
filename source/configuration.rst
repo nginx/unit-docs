@@ -3462,7 +3462,7 @@ following:
         relative to this value.
 
     * - :samp:`index`
-      - Filename appended to any URI paths ending with a slash; applies if
+      - Filename added to any URI paths that point to directories; applies if
         :samp:`script` is omitted.
 
         The default is :samp:`index.php`.
@@ -3483,10 +3483,10 @@ following:
 The :samp:`index` and :samp:`script` options enable two modes of operation:
 
 - If :samp:`script` is set, all requests to the application are handled by
-  the script you provide.
+  the script you specify with this option.
 
-- Otherwise, the requests are served by their URI paths; if the script
-  name is omitted, :samp:`index` is used.
+- Otherwise, the requests are served according to their URI paths; if they
+  lead to directories, :samp:`index` is used.
 
 .. _configuration-php-options:
 
