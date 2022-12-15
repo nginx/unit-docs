@@ -72,6 +72,10 @@ Optional dependencies:
   for :ref:`regular expression matching
   <configuration-routes-matching-patterns-regex>`
 
+- The
+  `njs <https://nginx.org/en/docs/njs/>`__
+  scripting language
+
 
 .. _installation-precomp-pkgs:
 

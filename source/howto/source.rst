@@ -111,6 +111,34 @@ revision numbers, respectively); omit the packages you won't use.
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
       and installing <source-bld-src>` Unit on Solaris.
 
+.. nxt_details:: njs
+   :hash: source-njs
+
+   To build Unit with `njs <https://nginx.org/en/docs/njs/>`__ support,
+   download the :program:`njs` source code.
+
+   If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
+
+   .. code-block:: console
+
+      $ hg clone https://hg.nginx.org/njs
+
+   If you prefer `Git <https://git-scm.com/downloads>`_:
+
+   .. code-block:: console
+
+      $ git clone https://github.com/nginx/njs
+
+   Next, configure and build the :program:`njs` binaries:
+
+   .. code-block:: console
+
+      $ cd njs
+      $ ./configure && make
+
+   Point to the resulting source and build directories when :ref:`configuring
+   <source-config-src-njs>` Unit's source code.
+
 
 .. _source-config-src:
 
@@ -188,6 +216,27 @@ PCRE2.  Two additional options alter this behavior:
 
    * - :samp:`--no-pcre2`
      - Ignores PCRE2; the older PCRE 8.x library is used instead.
+
+.. _source-config-src-njs:
+
+Unit also supports the use of `njs <https://nginx.org/en/docs/njs/>`__ scripts
+in configuration; to enable this feature, use the respective option:
+
+.. list-table::
+
+   * - :samp:`--njs`
+     - Turns on :program:`njs` support.
+
+When :option:`!--njs` is enabled, the :option:`!--cc-opt` and
+:option:`!--ld-opt` option values should point to the :file:`src/`
+and :file:`build/` subdirectories of the :program:`njs` source code:
+
+.. subs-code-block:: console
+
+   $ ./configure --njs  \
+                 --cc-opt="-I/:nxt_ph:`NJS <njs source code directory>`/src/ -I/:nxt_ph:`NJS <njs source code directory>`/build/"  \
+                 --ld-opt="-L/:nxt_ph:`NJS <njs source code directory>`/build/"  \
+                 ...
 
 The next option group customizes Unit's runtime :ref:`directory
 structure <source-dir>`:

@@ -1519,12 +1519,21 @@ An example:
 
 .. _configuration-variables:
 
-*********
-Variables
-*********
+***********************
+Variables And Scripting
+***********************
 
-Some options in Unit configuration allow the use of variables whose values are
-set in runtime:
+Some options in Unit configuration allow the use of:ref:`variables
+<configuration-variables-native>` and :ref:`scripting expressions
+<configuration-variables-scripting>` whose values are calculated at runtime.
+
+.. _configuration-variables-native:
+
+=========
+Variables
+=========
+
+There's a number of built-in variables available:
 
 .. list-table::
    :header-rows: 1
@@ -1616,6 +1625,7 @@ These variables can be used with:
 
 - :samp:`format` in the :ref:`access log <configuration-access-log>` to
   customize Unit's log output.
+
 
 To reference a variable, prefix its name with the dollar sign character
 (:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
@@ -1834,6 +1844,133 @@ If you reference a non-existing variable, it is considered empty.
               "location": "https://$host$request_uri"
           }
       }
+
+.. _configuration-variables-scripting:
+
+=========
+Scripting
+=========
+
+The same options that accept :ref:`variables <configuration-variables-native>`
+also allow `template literals
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
+based on the `njs <https://nginx.org/en/docs/njs/>`__ scripting language.  The
+following example builds a :samp:`share` path with two built-in variables
+in a backtick-delimited :program:`njs` template:
+
+.. code-block:: json
+
+   {
+       "listeners": {
+           "*:8080": {
+               "pass": "routes"
+           }
+       },
+       "routes": [
+           {
+               "action": {
+                   "share": "`/www/html${host + uri}`"
+               }
+           }
+       ]
+   }
+
+.. note::
+
+   Dynamic parts of the template should be enclosed in curly brackets:
+   :samp:`$\\{...\\}`.  To use a literal backtick in string values, escape it:
+   :samp:`\\\\\\\\`` (escaping backslashes is a `JSON requirement
+   <https://www.json.org/json-en.html>`_).
+
+Unit uses the :program:`njs` library to evaluate template expressions and
+substitute their values at runtime.  As the snippet above suggests, templates
+can refer to the following request properties as variables:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Description
+
+   * - :samp:`args.*`
+     - Query string arguments; :samp:`Color=Blue` is :samp:`args.Color`, and
+       so on.
+
+   * - :samp:`cookies.*`
+     - Request cookies; an :samp:`authID` cookie is :samp:`cookies.authID`, and
+       so on.
+
+   * - :samp:`headers.*`
+     - Request header fields; :samp:`Accept` is :samp:`headers.Accept`,
+       :samp:`Content-Encoding` is :samp:`headers['Content-Encoding']` (hyphen
+       requires an array property accessor), and so on.
+
+   * - :samp:`host`
+     - :samp:`Host` `header field
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
+       to lower case and normalized by removing the port number and the
+       trailing period (if any).
+
+   * - :samp:`remoteAddr`
+     - Remote IP address of the request.
+
+   * - :samp:`uri`
+     - `Request target
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_, `percent
+       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       and normalized by removing the `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ and
+       resolving `relative references
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__ ("." and
+       "..", "//").
+
+This example adds one-line logic to filter requests issued by :program:`curl`
+along the appropriate route:
+
+.. code-block:: json
+
+   "routes": {
+       "parse": [
+           {
+               "action": {
+                   "pass": "`routes/${headers['User-Agent'].split('/')[0] == 'curl' ? 'reject' : 'default'}`"
+               }
+           }
+       ],
+
+       "reject": [
+           {
+               "action": {
+                   "return": 400
+               }
+           }
+       ],
+
+       "default": [
+           {
+               "action": {
+                   "return": 204
+               }
+           }
+       ]
+   }
+
+.. note::
+
+   Template literals can contain newline characters to improve readability:
+
+   .. code-block:: json
+
+      {
+          "action": {
+              "pass": "`routes/${headers['User-Agent'].split('/')[0] == 'curl'
+              ? 'reject'
+              : 'default'}`"
+          }
+      }
+
+For further reference, see the :program:`njs` `documentation
+<https://nginx.org/en/docs/njs/>`__.
 
 
 .. _configuration-return:
@@ -4166,33 +4303,6 @@ HTTP requests from the clients:
 
         The default is :samp:`true`.
 
-Example:
-
-.. code-block:: json
-
-   {
-       "settings": {
-           "http": {
-               "header_read_timeout": 10,
-               "body_read_timeout": 10,
-               "send_timeout": 10,
-               "idle_timeout": 120,
-               "max_body_size": 6291456,
-               "static": {
-                   "mime_types": {
-                       "text/plain": [
-                           ".log",
-                           "README",
-                           "CHANGES"
-                       ]
-                   }
-               },
-
-               "discard_unsafe_fields": false
-           }
-       }
-   }
-
 .. _configuration-mime:
 
 .. note::
@@ -4281,5 +4391,17 @@ Example:
 
 By a neat coincidence, the above :samp:`format` is the default setting.  Also,
 mind that the log entry is formed *after* the request has been handled.
+
+Besides built-in variables, you can use :program:`njs` :ref:`templates
+<configuration-variables-scripting>` to define the log format:
+
+.. code-block:: json
+
+   {
+       "access_log": {
+           "path": "/var/log/unit/basic_access.log",
+           "format": "`${host + ': ' + uri}`"
+       }
+   }
 
 

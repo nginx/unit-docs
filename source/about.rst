@@ -42,7 +42,9 @@ Flexibility
 - Request filtering and dispatching uses elaborate
   :ref:`matching rules <configuration-routes-matching>`
   that allow
-  :ref:`regular expressions <configuration-routes-matching-patterns>`.
+  :ref:`regular expressions <configuration-routes-matching-patterns>`
+  and
+  :ref:`njs scripting <configuration-variables-scripting>`.
 
 - Apps in multiple languages and language versions run
   :ref:`side by side <configuration-applications>`.
