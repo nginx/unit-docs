@@ -130,10 +130,10 @@ Installing and running Unit on a typical Linux system is now as simple as this:
 
 .. code-block:: console
 
-$ wget https://unit.nginx.org/_downloads/setup-unit && chmod +x setup-unit
-# ./setup-unit repo-config
-# apt install unit || yum install unit
-# ./setup-unit welcome
+   $ wget https://unit.nginx.org/_downloads/setup-unit && chmod +x setup-unit
+   # ./setup-unit repo-config
+   # apt install unit || yum install unit
+   # ./setup-unit welcome
 
 The :program:`setup-unit` tool has other useful functions you can explore by
 running :samp:`setup-unit --help`.
