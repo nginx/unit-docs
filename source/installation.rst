@@ -87,8 +87,8 @@ they're available for:
   Amazon |_| Linux |_| :ref:`2 <installation-amazon-20lts>`
 
 - CentOS |_| :ref:`6 <installation-centos-6x>`,
-  :ref:`7 <installation-centos-8x7x>`,
-  :ref:`8 <installation-centos-8x7x>`
+  :ref:`7 <installation-centos-7x>`,
+  :ref:`8 <installation-centos-8x>`
 
 - Debian |_| :ref:`9 <installation-debian-9>`,
   :ref:`10 <installation-debian-10>`,
@@ -105,8 +105,8 @@ they're available for:
   :ref:`37 <installation-fedora-37>`
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`,
-  :ref:`7 <installation-rhel-8x7x>`,
-  :ref:`8 <installation-rhel-8x7x>`,
+  :ref:`7 <installation-rhel-7x>`,
+  :ref:`8 <installation-rhel-8x>`,
   :ref:`9 <installation-rhel-9x>`
 
 - Ubuntu |_| :ref:`16.04 <installation-ubuntu-1604>`,
@@ -253,7 +253,47 @@ CentOS
 .. tabs::
    :prefix: centos
 
-   .. tab:: 8.x, 7.x
+   .. tab:: 8.x
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
+                  unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
+   .. tab:: 7.x
 
       Supported architecture: x86-64.
 
@@ -825,7 +865,47 @@ RHEL
            - :samp:`unit`
 
 
-   .. tab:: 8.x, 7.x
+   .. tab:: 8.x
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
+                  unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
+   .. tab:: 7.x
 
       Supported architecture: x86-64.
 
