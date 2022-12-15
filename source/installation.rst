@@ -101,8 +101,8 @@ they're available for:
   :ref:`33 <installation-fedora-3433>`,
   :ref:`34 <installation-fedora-3433>`,
   :ref:`35 <installation-fedora-3635>`,
-  :ref:`36 <installation-fedora-3635>`
-
+  :ref:`36 <installation-fedora-3635>`,
+  :ref:`37 <installation-fedora-37>`
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`,
   :ref:`7 <installation-rhel-8x7x>`,
@@ -117,7 +117,8 @@ they're available for:
   :ref:`20.10 <installation-ubuntu-2010>`,
   :ref:`21.04 <installation-ubuntu-2104>`,
   :ref:`21.10 <installation-ubuntu-2110>`,
-  :ref:`22.04 <installation-ubuntu-2204>`
+  :ref:`22.04 <installation-ubuntu-2204>`,
+  :ref:`22.10 <installation-ubuntu-2210>`
 
 The packages include core executables,
 developer files,
@@ -510,6 +511,46 @@ Fedora
 .. tabs::
    :prefix: fedora
 
+   .. tab:: 37
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+                  unit-php unit-python311 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 36, 35
 
       Supported architecture: x86-64.
@@ -884,6 +925,56 @@ Ubuntu
 
 .. tabs::
    :prefix: ubuntu
+
+   .. tab:: 22.10
+
+      Supported architectures: arm64, x86-64.
+
+      #. Download and save NGINX's signing key:
+
+         .. code-block:: console
+
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
+
+         This eliminates the
+         ``packages cannot be authenticated``
+         warnings
+         during installation.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/apt/sources.list.d/unit.list`:
+
+         .. code-block:: none
+
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+            # apt install unit
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19  \
+                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 22.04
 
