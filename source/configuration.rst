@@ -781,9 +781,9 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`host`
      - :samp:`Host` `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`_, converted
-       to lower case and normalized by removing the port number and the
-       trailing period (if any).
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
+       converted to lower case and normalized by removing the port number and
+       the trailing period (if any).
      - No
 
    * - :samp:`method`
@@ -810,7 +810,7 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`uri`
      - `Request target
-       <https://datatracker.ietf.org/doc/html/rfc9110#target.resource>`_,
+       <https://datatracker.ietf.org/doc/html/rfc9110#target.resource>`__,
        `percent decoded
        <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__ and
        normalized by removing the `query string
@@ -1564,9 +1564,9 @@ There's a number of built-in variables available:
    * - :samp:`host`
      - :samp:`Host`
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`_, converted
-       to lower case and normalized by removing the port number and the
-       trailing period (if any).
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
+       converted to lower case and normalized by removing the port number and
+       the trailing period (if any).
 
    * - :samp:`method`
      - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_ from
@@ -1916,7 +1916,7 @@ can refer to the following request properties as variables:
 
    * - :samp:`uri`
      - `Request target
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`_, `percent
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__, `percent
        decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
        and normalized by removing the `query string
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ and
