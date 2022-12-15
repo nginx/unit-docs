@@ -227,11 +227,11 @@ Meanwhile, a variety of SDKs and tools can already be used to visualize the data
 New Variables
 *************
 
-With version 1.29.0, we also add a new variable: :samp:`$request_time` stores
-the request's processing time on Unit in seconds.  The timer sets off when the
-request reaches a Unit listener and stops when Unit sends the response to the
-client. Everything in between, e. g. in-app processing time, reading static
-assets, or finding the correct route on Unit, adds to the timer.
+With version 1.29.0, we also add a new variable: :samp:`$request_time` records
+the number of seconds it took Unit to process the request.  The timer sets off
+when the request reaches a Unit listener and stops when Unit sends the response
+to the client.  Everything in between, e. g. in-app processing time, reading
+static assets, or finding the correct route on Unit, adds to the timer.
 
 
 ***********************************
