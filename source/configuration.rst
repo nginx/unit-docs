@@ -3157,6 +3157,44 @@ the app.
 .. nxt_details:: Updating Go Apps to Run on Unit
    :hash: updating-go-apps
 
+   Unit uses `cgo <https://pkg.go.dev/cmd/cgo>`__ to invoke C code from Go, so
+   check the following prerequisites:
+
+   - The :envvar:`CGO_ENABLED` variable is set to :samp:`1`:
+
+     .. code-block:: console
+
+        $ go env CGO_ENABLED
+
+              0
+
+        $ go env -w CGO_ENABLED=1
+
+   - If you installed Unit from the :ref:`official packages
+     <installation-precomp-pkgs>`, install the development package:
+
+     .. tabs::
+        :prefix: go-prereq
+
+        .. tab:: Debian, Ubuntu
+
+           .. code-block:: console
+
+              # apt install unit-dev
+
+        .. tab:: Amazon, CentOS, Fedora, RHEL
+
+           .. code-block:: console
+
+              # yum install unit-devel
+
+   - If you installed Unit from :doc:`source <howto/source>`, install the
+     include files and libraries:
+
+     .. code-block:: console
+
+        # make libunit-install
+
    In the :samp:`import` section, list the :samp:`unit.nginx.org/go` package:
 
    .. code-block:: go
