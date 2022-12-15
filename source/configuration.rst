@@ -3700,6 +3700,11 @@ following:
       - String or an array of strings; represents additional Python module
         lookup paths; these values are prepended to :samp:`sys.path`.
 
+    * - :samp:`prefix`
+      - String; sets the :samp:`SCRIPT_NAME` context value for WSGI or the
+        :samp:`root_path` context value for ASGI.  Should start with a slash
+        (:samp:`/`).
+
     * - :samp:`protocol`
       - Hint to tell Unit that the app uses a certain interface; can be
         :samp:`asgi` or :samp:`wsgi`.
@@ -3736,6 +3741,7 @@ Example:
        "home": ":nxt_hint:`.virtualenv/ <Path where the virtual environment is located; here, it's relative to the working directory>`",
        "module": ":nxt_hint:`cart.run <Looks for a 'run.py' module in /www/store/cart/>`",
        "callable": "app",
+       "prefix": ":nxt_hint:`/cart <Sets the SCRIPT_NAME or root_path context value>`",
        "user": "www",
        "group": "www"
    }
@@ -3786,6 +3792,15 @@ Choose either one according to your needs; Unit tries to infer your choice
 automatically.  If this inference fails, use the :samp:`protocol` option to
 set the interface explicitly.
 
+.. note::
+
+   The :samp:`prefix` option controls the :samp:`SCRIPT_NAME` (`WSGI
+   <https://wsgi.readthedocs.io/en/latest/definitions.html>`__) or
+   :samp:`root_path` (`ASGI
+   <https://asgi.readthedocs.io/en/latest/specs/www.html#http-connection-scope>`__)
+   setting in Python's context, allowing to route requests regardless of the
+   application's factual path.
+
 .. _configuration-python-targets:
 
 Targets
@@ -3816,9 +3831,10 @@ application:
        }
    }
 
-Each target is an object that specifies :samp:`module` and can define
-:samp:`callable` just like a regular application does.  Targets can be used by
-the :samp:`pass` options in listeners and routes to serve requests:
+Each target is an object that specifies :samp:`module` and can also define
+:samp:`callable` and :samp:`prefix` just like a regular application does.
+Targets can be used by the :samp:`pass` options in listeners and routes to
+serve requests:
 
 .. code-block:: json
 
