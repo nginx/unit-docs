@@ -2758,7 +2758,9 @@ The :samp:`isolation` application option has the following members:
      - Description
 
    * - :samp:`namespaces`
-     - Object; configures namespace isolation scheme for the application.
+     - Object; configures `namespace
+       <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__ isolation
+       scheme for the application.
 
        Available options (system-dependent; check your OS manual for guidance):
 
@@ -2799,9 +2801,8 @@ The :samp:`isolation` application option has the following members:
        set the option to :samp:`false` (default).
 
    * - :samp:`uidmap`
-     - Array of `ID mapping
-       <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
-       objects; each array item must define the following:
+     - Array of user ID :ref:`mapping objects <conf-uidgid-mapping>`; each
+       array item must define the following:
 
        .. list-table::
 
@@ -2814,19 +2815,19 @@ The :samp:`isolation` application option has the following members:
               namespace.
 
           * - :samp:`size`
-            - Integer size of the ID range in both namespaces.
+            - Integer; size of the ID range in both namespaces.
 
    * - :samp:`gidmap`
      - Same as :samp:`uidmap`, but configures group IDs instead of user IDs.
 
    * - :samp:`rootfs`
-     - Pathname of the directory to be used as the new `file system root
-       <https://man7.org/linux/man-pages/man2/chroot.2.html>`_ for the app.
+     - Pathname of the directory to be used as the new :ref:`file system root
+       <conf-rootfs>` for the app.
 
    * - :samp:`automount`
      - Object; controls mount behavior if :samp:`rootfs` is enabled.  By
        default, Unit automatically mounts the :ref:`language runtime
-       dependencies <configuration-lang-runtime>`, a `procfs
+       dependencies <conf-rootfs>`, a `procfs
        <https://man7.org/linux/man-pages/man5/procfs.5.html>`_ at
        :file:`/proc/`, and a `tmpfs
        <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`_ at :file:`/tmp/`,
@@ -2844,6 +2845,9 @@ The :samp:`isolation` application option has the following members:
               }
           }
 
+   * - :samp:`cgroup`
+     - Object; defines the application's :ref:`cgroup <conf-app-cgroup>`.
+
 A sample :samp:`isolation` object that enables all namespaces and sets mappings
 for user and group IDs:
 
@@ -2857,6 +2861,10 @@ for user and group IDs:
             "network": true,
             "pid": true,
             "uname": true
+        },
+
+        "cgroup": {
+            "path": "/unit/appcgroup"
         },
 
         "uidmap": [
@@ -2876,11 +2884,123 @@ for user and group IDs:
         ]
     }
 
-.. nxt_details:: Using Uidmap And Gidmap
+.. nxt_details:: Using "cgroup"
+   :hash: conf-app-cgroup
+
+   The :samp:`cgroup` isolation object has a single option:
+
+   .. list-table::
+      :header-rows: 1
+
+      * - Option
+        - Description
+
+      * - :samp:`path` (required)
+        - String; configures absolute or relative path of the application in
+          the `cgroups v2 hierarchy
+          <https://man7.org/linux/man-pages/man7/cgroups.7.html#CGROUPS_VERSION_2>`__.
+          The limits trickle down the hierarchy, so lower cgroups can't exceed
+          their parents' limits.
+
+   The :samp:`path` value can be absolute (starting with :samp:`/`) or
+   relative; if the path doesn't exist, Unit creates it.
+
+   Relative paths are implicitly placed inside the cgroup of Unit's main
+   process; this setting effectively puts the app to the :file:`/<main Unit
+   process cgroup>/production/app` cgroup:
+
+   .. code-block:: json
+
+      {
+          "isolation": {
+              "cgroup": {
+                  "path": "production/app"
+              }
+          }
+      }
+
+   An absolute pathname places the application under a separate cgroup subtree;
+   this configuration puts the app under :file:`/staging/app`:
+
+   .. code-block:: json
+
+      {
+          "isolation": {
+              "cgroup": {
+                  "path": "/staging/app"
+              }
+          }
+      }
+
+   .. note::
+
+      To avoid confusion, mind that the :samp:`namespaces/cgroups` option
+      controls the application's cgroup *namespace*; instead, the
+      :samp:`cgroup/path` option specifies the cgroup where Unit puts the
+      application.
+
+
+.. nxt_details:: Using "rootfs"
+   :hash: conf-rootfs
+
+   The :samp:`rootfs` option confines the app to the directory you provide,
+   making it the new `file system root
+   <https://man7.org/linux/man-pages/man2/chroot.2.html>`__.  To use it, your
+   app should have the corresponding privilege (effectively, run as
+   :samp:`root` in most cases).
+
+   The root directory is changed before the language module starts the app, so
+   any path options for the app should be relative to the new root.  Note the
+   :samp:`path` and :samp:`home` settings:
+
+   .. code-block:: json
+
+      {
+          "type": "python 2.7",
+          "path": ":nxt_hint:`/ <Without rootfs, this would be /var/app/sandbox/>`",
+          "home": ":nxt_hint:`/venv/ <Without rootfs, this would be /var/app/sandbox/venv/>`",
+          "module": "wsgi",
+          "isolation": {
+              "rootfs": "/var/app/sandbox/"
+          }
+      }
+
+
+   Unit mounts language-specific files and directories to the new root so the
+   app stays operational:
+
+   .. list-table::
+      :header-rows: 1
+
+      * - Language
+        - Language-Specific Mounts
+
+      * - Java
+        - - JVM's :file:`libc.so` directory
+
+          - Java module's :ref:`home <howto/source-modules-java>` directory
+
+      * - Python
+        - Python's :samp:`sys.path` `directories
+          <https://docs.python.org/3/library/sys.html#sys.path>`__
+
+      * - Ruby
+        - - Ruby's header, interpreter, and library `directories
+            <https://idiosyncratic-ruby.com/42-ruby-config.html>`__:
+            :samp:`rubyarchhdrdir`, :samp:`rubyhdrdir`, :samp:`rubylibdir`,
+            :samp:`rubylibprefix`, :samp:`sitedir`, and :samp:`topdir`
+
+          - Ruby's gem installation directory (:samp:`gem env gemdir`)
+
+          - Ruby's entire gem path list (:samp:`gem env gempath`)
+
+
+.. nxt_details:: Using "uidmap", "gidmap"
    :hash: conf-uidgid-mapping
 
    The :samp:`uidmap` and :samp:`gidmap` options are available only if the
-   underlying OS supports user namespaces.
+   underlying OS supports `user namespaces
+   <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`__.
 
    If :samp:`uidmap` is omitted but :samp:`credential` isolation is enabled,
    the effective UID (EUID) of the application process in the host namespace is
@@ -2892,8 +3012,10 @@ for user and group IDs:
 
       {
           "user": "some_user",
-          "namespaces": {
-              "credential": true
+          "isolation": {
+              "namespaces": {
+                  "credential": true
+              }
           }
       }
 
@@ -2904,80 +3026,28 @@ for user and group IDs:
 
       {
           "user": "some_user",
-          "namespaces": {
-              "credential": true
-          },
+          "isolation": {
+              "namespaces": {
+                  "credential": true
+              },
 
-          "uidmap": [
-              {
-                  "host": "1000",
-                  "container": "1000",
-                  "size": 1
-              }
-          ],
+              "uidmap": [
+                  {
+                      "host": "1000",
+                      "container": "1000",
+                      "size": 1
+                  }
+              ],
 
-          "gidmap": [
-              {
-                  "host": "1000",
-                  "container": "1000",
-                  "size": 1
-              }
-          ]
+              "gidmap": [
+                  {
+                      "host": "1000",
+                      "container": "1000",
+                      "size": 1
+                  }
+              ]
+          }
       }
-
-
-.. _configuration-rootfs:
-
-The :samp:`rootfs` option confines the app to the directory you provide, making
-it the new file system root.  To use it, your app should have the corresponding
-privilege (effectively, run as :samp:`root` in most cases).
-
-The root directory is changed before the language module starts the
-app, so any path options for the app should be relative to the new root.
-Note the :samp:`path` and :samp:`home` settings:
-
-.. code-block:: json
-
-   {
-       "type": "python 2.7",
-       "path": ":nxt_hint:`/ <Without rootfs, this would be /var/app/sandbox/>`",
-       "home": ":nxt_hint:`/venv/ <Without rootfs, this would be /var/app/sandbox/venv/>`",
-       "module": "wsgi",
-       "isolation": {
-           "rootfs": "/var/app/sandbox/"
-       }
-   }
-
-
-.. _configuration-lang-runtime:
-
-Unit mounts language-specific files and directories to the new root so the app
-stays operational:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Language
-     - Language-Specific Mounts
-
-   * - Java
-     - - JVM's :file:`libc.so` directory
-
-       - Java module's :ref:`home <howto/source-modules-java>` directory
-
-   * - Python
-     - Python's :samp:`sys.path` `directories
-       <https://docs.python.org/3/library/sys.html#sys.path>`__
-
-   * - Ruby
-     - - Ruby's header, interpreter, and library `directories
-         <https://idiosyncratic-ruby.com/42-ruby-config.html>`__:
-         :samp:`rubyarchhdrdir`, :samp:`rubyhdrdir`, :samp:`rubylibdir`,
-         :samp:`rubylibprefix`, :samp:`sitedir`, and :samp:`topdir`
-
-       - Ruby's gem installation directory (:samp:`gem env gemdir`)
-
-       - Ruby's entire gem path list (:samp:`gem env gempath`)
 
 
 .. _configuration-proc-mgmt-lmts:
