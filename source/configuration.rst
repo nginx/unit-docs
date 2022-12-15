@@ -1571,6 +1571,10 @@ set in runtime:
      - Entire `request
        line <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
 
+   * - :samp:`request_time`
+     - Request processing time in milliseconds, formatted as follows:
+       :samp:`1.234`.
+
    * - :samp:`request_uri`
      - Request target `path
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`_
