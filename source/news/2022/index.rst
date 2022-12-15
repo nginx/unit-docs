@@ -6,6 +6,15 @@ News archive for the year 2022.
 
 .. nxt_news_entry::
    :author: Timo Stark
+   :description: Version 1.29.0 comes with njs support, more variables,
+                 and per-application cgroups.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.29.0 Released
+   :date: 2022-12-15
+   :url: news/2022/unit-1.29.0-released
+
+.. nxt_news_entry::
+   :author: Timo Stark
    :description: Our team starts an online video series about NGINX Unit
                  to guide you through all its aspects step by step.
    :email: unit-owner@nginx.org
