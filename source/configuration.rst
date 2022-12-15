@@ -27,18 +27,17 @@ section; the object's name can be:
 
 - A wildcard that matches any host IPs on the port: :samp:`*:80`
 
-.. nxt_details:: Linux: Abstract UNIX Sockets and Port Limitations
-   :hash: listeners-linux
+- On Linux-based systems, `abstract UNIX sockets
+  <https://man7.org/linux/man-pages/man7/unix.7.html>`__ can be used as well:
+  :samp:`unix:@abstract_socket`.
 
-   On Linux-based systems, `abstract UNIX sockets
-   <https://man7.org/linux/man-pages/man7/unix.7.html>`__ can be used as well:
-   :samp:`unix:@abstract_socket`.
+.. note::
 
-   Also, wildcard listeners can't overlap with other listeners on the same port
-   due to rules imposed by Linux kernel.  For example, :samp:`*:8080` conflicts
-   with :samp:`127.0.0.1:8080`; in particular, this means :samp:`*:8080` can't
-   be *immediately replaced* by :samp:`127.0.0.1:8080` (or vice versa) without
-   deleting it first.
+   Also on Linux-based systems, wildcard listeners can't overlap with other
+   listeners on the same port due to rules imposed by the kernel.  For
+   example, :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; in
+   particular, this means :samp:`*:8080` can't be *immediately* replaced by
+   :samp:`127.0.0.1:8080` (or vice versa) without deleting it first.
 
 Unit dispatches the requests it receives to destinations referenced by
 listeners.  You can plug several listeners into one destination or use a
