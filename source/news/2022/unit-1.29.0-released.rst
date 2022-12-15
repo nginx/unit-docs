@@ -185,7 +185,7 @@ limits.
 
 With Unit 1.29.0, we support the cgroup V2 API to provide the ability to place
 each application into its own cgroup or have multiple applications in a single
-crgroup.  The following configuration illustrates the newly added configuration
+cgroup.  The following configuration illustrates the newly added configuration
 syntax:
 
 .. code-block:: json
