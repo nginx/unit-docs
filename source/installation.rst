@@ -1510,7 +1510,7 @@ To install the Java, Perl, Python, and Ruby language modules from Homebrew:
 
 .. code-block:: console
 
-   $ brew install unit-java unit-perl unit-python unit-python3 unit-ruby
+   $ brew install unit-java unit-perl unit-php unit-python unit-python3 unit-ruby
    # pkill unitd  # Stop Unit
    # unitd        # Start Unit to pick up any changes in language module setup
 
