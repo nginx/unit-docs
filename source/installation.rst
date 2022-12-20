@@ -1734,8 +1734,9 @@ Community Repositories
 
 .. warning::
 
-   These distributions are maintained by their respective communities, not
-   NGINX.  Use them with caution.
+   These distributions are maintained by their respective communities,
+   not NGINX.
+   Use them with caution.
 
 ..
    Legacy anchors are left here so that external links remain valid
@@ -1754,8 +1755,9 @@ Community Repositories
 
    .. tab:: Alpine
 
-      To install Unit's core executables from the Alpine Linux `packages
-      <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
+      To install Unit's core executables
+      from the Alpine Linux
+      `packages <https://pkgs.alpinelinux.org/packages?name=unit*>`_:
 
       .. code-block:: console
 
@@ -1763,7 +1765,8 @@ Community Repositories
          # apk upgrade
          # apk add unit
 
-      To install service manager files and specific language modules:
+      To install service manager files
+      and specific language modules:
 
       .. code-block:: console
 
@@ -1794,9 +1797,10 @@ Community Repositories
 
    .. tab:: ALT
 
-      To install Unit's core executables and specific language modules from the
-      Sisyphus `packages
-      <https://packages.altlinux.org/en/sisyphus/srpms/unit>`__:
+      To install Unit's core executables
+      and specific language modules
+      from the Sisyphus
+      `packages <https://packages.altlinux.org/en/sisyphus/srpms/unit>`__:
 
       .. code-block:: console
 
@@ -1805,8 +1809,10 @@ Community Repositories
          # apt-get install unit-perl unit-php unit-python3 unit-ruby
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
-      Versions of these packages with the :samp:`*-debuginfo` suffix
-      contain symbols for :ref:`debugging <troubleshooting-core-dumps>`.
+      Versions of these packages
+      with the :samp:`*-debuginfo` suffix
+      contain symbols for
+      :ref:`debugging <troubleshooting-core-dumps>`.
 
       Runtime details:
 
@@ -1832,7 +1838,8 @@ Community Repositories
 
    .. tab:: Arch
 
-      To install Unit's core executables and all language modules, clone the
+      To install Unit's core executables and all language modules,
+      clone the
       `Arch User Repository (AUR)
       <https://aur.archlinux.org/pkgbase/nginx-unit/>`_:
 
@@ -1841,9 +1848,11 @@ Community Repositories
          $ git clone https://aur.archlinux.org/nginx-unit.git
          $ cd nginx-unit
 
-      Before proceeding further, verify that the :file:`PKGBUILD` and the
-      accompanying files aren't malicious or untrustworthy.  AUR packages are
-      user produced without pre-moderation; use them at your own risk.
+      Before proceeding further,
+      verify that the :file:`PKGBUILD` and the accompanying files
+      aren't malicious or untrustworthy.
+      AUR packages are user produced without pre-moderation;
+      use them at your own risk.
 
       Next, build the package:
 
@@ -1875,9 +1884,10 @@ Community Repositories
 
    .. tab:: FreeBSD
 
-        To install Unit from `FreeBSD packages
-        <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_, get
-        the core package and other packages you need:
+        To install Unit from
+        `FreeBSD packages
+        <https://docs.freebsd.org/en/books/handbook/ports/#pkgng-intro>`_,
+        get the core package and other packages you need:
 
         .. code-block:: console
 
@@ -1890,7 +1900,8 @@ Community Repositories
                             unit-ruby3.0
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
-        To install Unit from `FreeBSD ports
+        To install Unit from
+        `FreeBSD ports
         <https://docs.freebsd.org/en/books/handbook/ports/#ports-using>`_,
         start by updating your port collection.
 
@@ -1906,7 +1917,8 @@ Community Repositories
 
            # svn update /usr/ports
 
-        Next, browse to the port path to build and install the core Unit port:
+        Next, browse to the port path
+        to build and install the core Unit port:
 
         .. code-block:: console
 
@@ -1914,16 +1926,25 @@ Community Repositories
            # make
            # make install
 
-        Repeat the steps for the other ports you need: `libunit
-        <https://www.freshports.org/devel/libunit/>`_ (required to
-        install the Node.js :ref:`module <installation-nodejs-package>`
-        and build :ref:`Go apps <configuration-go>`), `unit-java
-        <https://www.freshports.org/www/unit-java/>`__, `unit-perl
-        <https://www.freshports.org/www/unit-perl/>`__, `unit-php
-        <https://www.freshports.org/www/unit-php/>`__, `unit-python
-        <https://www.freshports.org/www/unit-python/>`__, or `unit-ruby
-        <https://www.freshports.org/www/unit-ruby/>`__.  After
-        that, restart Unit:
+        Repeat the steps for the other ports you need:
+        `libunit
+        <https://www.freshports.org/devel/libunit/>`_
+        (required to install the Node.js
+        :ref:`module <installation-nodejs-package>`
+        and build
+        :ref:`Go apps <configuration-go>`),
+        `unit-java
+        <https://www.freshports.org/www/unit-java/>`__,
+        `unit-perl
+        <https://www.freshports.org/www/unit-perl/>`__,
+        `unit-php
+        <https://www.freshports.org/www/unit-php/>`__,
+        `unit-python
+        <https://www.freshports.org/www/unit-python/>`__,
+        or
+        `unit-ruby
+        <https://www.freshports.org/www/unit-ruby/>`__.
+        After that, restart Unit:
 
         .. code-block:: console
 
@@ -1953,8 +1974,10 @@ Community Repositories
 
    .. tab:: Gentoo
 
-      To install Unit using `Portage <https://wiki.gentoo.org/wiki/
-      Handbook:X86/Full/Portage>`_, update the repository and install the
+      To install Unit using
+      `Portage <https://wiki.gentoo.org/wiki/Handbook:X86/Full/Portage>`_,
+      update the repository
+      and install the
       `package
       <https://packages.gentoo.org/packages/www-servers/nginx-unit>`__:
 
@@ -1963,8 +1986,9 @@ Community Repositories
          # emerge --sync
          # emerge www-servers/nginx-unit
 
-      To install specific language modules and features, apply the
-      corresponding `USE flags
+      To install specific language modules and features,
+      apply the corresponding
+      `USE flags
       <https://packages.gentoo.org/packages/www-servers/nginx-unit>`_.
 
       Runtime details:
@@ -1991,8 +2015,10 @@ Community Repositories
 
    .. tab:: NetBSD
 
-      To install Unit's core package and the other packages you need from
-      the `NetBSD Packages Collection
+      To install Unit's core package
+      and the other packages you need
+      from the
+      `NetBSD Packages Collection
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit/index.html>`_:
 
       .. code-block:: console
@@ -2004,31 +2030,37 @@ Community Repositories
                    unit-python3.6 unit-python3.7 unit-python3.8 unit-python3.9
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
-      To build Unit manually, start by updating the package collection:
+      To build Unit manually,
+      start by updating the package collection:
 
       .. code-block:: console
 
          # cd /usr/pkgsrc && cvs update -dP
 
-      Next, browse to the package path to build and install the core Unit
-      binaries:
+      Next, browse to the package path
+      to build and install the core Unit binaries:
 
       .. code-block:: console
 
          # cd /usr/pkgsrc/www/unit/
          # make build install
 
-      Repeat the steps for the other packages you need: `libunit
+      Repeat the steps for the other packages you need:
+      `libunit
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/devel/libunit/index.html>`__
-      (required to install the Node.js :ref:`module
-      <installation-nodejs-package>` and build :ref:`Go apps
-      <configuration-go>`), `unit-perl
+      (required to install the Node.js
+      :ref:`module
+      <installation-nodejs-package>`
+      and build
+      :ref:`Go apps <configuration-go>`),
+      `unit-perl
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-perl/index.html>`__,
       `unit-php
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-php/index.html>`__,
       `unit-python
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-python/index.html>`__,
-      or `unit-ruby
+      or
+      `unit-ruby
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
       After that, restart Unit:
 
@@ -2050,8 +2082,8 @@ Community Repositories
            - :samp:`unit`
 
          * - Startup and shutdown
-           - First, add Unit's startup script to the :file:`/etc/rc.d/`
-             directory:
+           - First, add Unit's startup script
+             to the :file:`/etc/rc.d/` directory:
 
              .. code-block:: console
 
@@ -2064,8 +2096,8 @@ Community Repositories
                 # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
 
-             To enable or disable Unit's automatic startup, edit
-             :file:`/etc/rc.conf`:
+             To enable or disable Unit's automatic startup,
+             edit :file:`/etc/rc.conf`:
 
              .. code-block:: ini
 
@@ -2078,9 +2110,14 @@ Community Repositories
 
    .. tab:: Nix
 
-      To install Unit's core executables and all language modules using the
-      `Nix <https://nixos.org>`_ package manager, update the channel, check if
-      Unit's available, and install the `package
+      To install Unit's core executables and all language modules
+      using the
+      `Nix <https://nixos.org>`_
+      package manager,
+      update the channel,
+      check if Unit's available,
+      and install the
+      `package
       <https://github.com/NixOS/nixpkgs/tree/master/pkgs/servers/http/unit>`__:
 
       .. code-block:: console
@@ -2089,10 +2126,15 @@ Community Repositories
          $ nix-env -qa 'unit'
          $ nix-env -i unit
 
-      This installs most embedded language modules and such features as SSL or
-      IPv6 support.  For a full list of optionals, see the `package definition
+      This installs most embedded language modules
+      and such features as SSL or IPv6 support.
+      For a full list of optionals,
+      see the
+      `package definition
       <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/default.nix>`_;
-      for a :file:`.nix` configuration file defining an app, see `this sample
+      for a :file:`.nix` configuration file defining an app,
+      see
+      `this sample
       <https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/web-servers/unit-php.nix>`_.
 
       Runtime details:
@@ -2110,8 +2152,8 @@ Community Repositories
 
          * - Startup and shutdown
            - Add :samp:`services.unit.enable = true;` to
-             :file:`/etc/nixos/configuration.nix` and rebuild the
-             system configuration:
+             :file:`/etc/nixos/configuration.nix`
+             and rebuild the system configuration:
 
              .. code-block:: console
 
@@ -2129,9 +2171,10 @@ Community Repositories
 
    .. tab:: OpenBSD
 
-        To install Unit from `OpenBSD packages
-        <https://www.openbsd.org/faq/faq15.html>`_, get the core package and
-        other packages you need:
+        To install Unit from
+        `OpenBSD packages
+        <https://www.openbsd.org/faq/faq15.html>`_,
+        get the core package and other packages you need:
 
         .. code-block:: console
 
@@ -2143,8 +2186,10 @@ Community Repositories
            # pkg_add unit-ruby
            # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
-        To install Unit from `OpenBSD ports <https://openports.se/www/unit>`_,
-        start by updating your port collection, for example:
+        To install Unit from
+        `OpenBSD ports <https://openports.se/www/unit>`_,
+        start by updating your port collection,
+        for example:
 
         .. code-block:: console
 
@@ -2160,8 +2205,9 @@ Community Repositories
            # make install
 
         This also installs the language modules for Perl, Python, and Ruby;
-        other modules can be built and installed from :ref:`source
-        <source>`.  After that, restart Unit:
+        other modules can be built and installed from
+        :ref:`source <source>`.
+        After that, restart Unit:
 
         .. code-block:: console
 
@@ -2193,12 +2239,17 @@ Community Repositories
 
       `Remi's RPM repository
       <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
-      which hosts the latest versions of the PHP stack for CentOS, Fedora, and
-      RHEL, also has the core Unit package and the PHP modules.
+      which hosts the latest versions of the PHP stack
+      for CentOS, Fedora, and RHEL,
+      also has the core Unit package and the PHP modules.
 
-      To use Remi's versions of Unit's packages, configure the `repository
-      <https://blog.remirepo.net/pages/Config-en>`_ first.  Remi's PHP language
-      modules are also compatible with the core Unit package from :ref:`our own
+      To use Remi's versions of Unit's packages,
+      configure the
+      `repository <https://blog.remirepo.net/pages/Config-en>`_
+      first.
+      Remi's PHP language modules are also compatible
+      with the core Unit package from
+      :ref:`our own
       repository <installation-precomp-pkgs>`.
 
       Next, install Unit and the PHP modules you want:
@@ -2235,11 +2286,14 @@ Community Repositories
 
    .. tab:: SCLo
 
-      If you use the `SCLo Software Collections
-      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_, you can install
-      Unit's PHP modules as packages from the corresponding repo.  Besides
-      other dependencies, the packages require the :ref:`core Unit installation
-      <installation-precomp-pkgs>`.
+      If you use the
+      `SCLo Software Collections
+      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_,
+      you can install Unit's PHP modules
+      as packages from the corresponding repo.
+      Besides other dependencies,
+      the packages require the
+      :ref:`core Unit installation <installation-precomp-pkgs>`.
 
       CentOS:
 
@@ -2262,7 +2316,8 @@ Community Repositories
          # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details: see :ref:`installation-precomp-centos`,
-      :ref:`installation-precomp-rhel`, and
+      :ref:`installation-precomp-rhel`,
+      and
       :ref:`installation-precomp-startup`.
 
 
