@@ -69,7 +69,7 @@ Available listener options:
 
         The value is :ref:`variable <configuration-variables>`-interpolated; if
         it matches no configuration entities after interpolation, a 404 "Not
-        Found" status code is returned.
+        Found" response is returned.
 
     * - :samp:`tls`
       - Object; defines SSL/TLS :ref:`settings
@@ -3202,8 +3202,8 @@ two integer options:
 
    * - :samp:`timeout`
      - Request timeout in seconds.  If an app process exceeds this limit while
-       handling a request, Unit alerts it to cancel the request and returns an
-       HTTP error to the client.
+       handling a request, Unit alerts it to cancel the request and returns the
+       error's HTTP status code to the client.
 
    * - :samp:`requests`
      - Maximum number of requests Unit allows an app process to serve.  If the
@@ -4250,7 +4250,7 @@ HTTP requests from the clients:
     * - :samp:`header_read_timeout`
       - Maximum number of seconds to read the header of a client's request.
         If Unit doesn't receive the entire header from the client within this
-        interval, it responds with a 408 Request Timeout error.
+        interval, it returns a 408 "Request Timeout" response.
 
         The default is 30.
 
@@ -4258,8 +4258,8 @@ HTTP requests from the clients:
       - Maximum number of seconds to read data from the body of a client's
         request.  It limits the interval between consecutive read operations,
         not the time to read the entire body.  If Unit doesn't receive any
-        data from the client within this interval, it responds with a 408
-        Request Timeout error.
+        data from the client within this interval, it returns a 408
+        "Request Timeout" response.
 
         The default is 30.
 
@@ -4273,15 +4273,15 @@ HTTP requests from the clients:
 
     * - :samp:`idle_timeout`
       - Maximum number of seconds between requests in a keep-alive connection.
-        If no new requests arrive within this interval, Unit responds with a
-        408 Request Timeout error and closes the connection.
+        If no new requests arrive within this interval, Unit returns a
+        408 "Request Timeout" response and closes the connection.
 
         The default is 180.
 
     * - :samp:`max_body_size`
       - Maximum number of bytes in the body of a client's request.  If the body
-        size exceeds this value, Unit responds with a 413 Payload Too Large
-        error and closes the connection.
+        size exceeds this value, Unit returns a 413 "Payload Too Large"
+        response and closes the connection.
 
         The default is 8388608 (8 MB).
 
