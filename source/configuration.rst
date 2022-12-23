@@ -8,11 +8,14 @@
 Configuration
 #############
 
-The :samp:`/config` section of the :ref:`control API <configuration-api>`
-handles Unit's general configuration with entities such as :ref:`listeners
-<configuration-listeners>`, :ref:`routes <configuration-routes>`,
-:ref:`applications <configuration-applications>`, or :ref:`upstreams
-<configuration-upstreams>`.
+The :samp:`/config` section of the
+:ref:`control API <configuration-api>`
+handles Unit's general configuration with entities such as
+:ref:`listeners <configuration-listeners>`,
+:ref:`routes <configuration-routes>`,
+:ref:`applications <configuration-applications>`,
+or
+:ref:`upstreams <configuration-upstreams>`.
 
 .. _configuration-listeners:
 
@@ -20,28 +23,39 @@ handles Unit's general configuration with entities such as :ref:`listeners
 Listeners
 *********
 
-To accept requests, add a listener object in the :samp:`config/listeners` API
-section; the object's name can be:
+To accept requests,
+add a listener object in the :samp:`config/listeners` API section;
+the object's name can be:
 
-- A unique IP socket: :samp:`127.0.0.1:80`, :samp:`[::1]:8080`
+- A unique IP socket:
+  :samp:`127.0.0.1:80`, :samp:`[::1]:8080`
 
-- A wildcard that matches any host IPs on the port: :samp:`*:80`
+- A wildcard that matches any host IPs on the port:
+  :samp:`*:80`
 
-- On Linux-based systems, `abstract UNIX sockets
-  <https://man7.org/linux/man-pages/man7/unix.7.html>`__ can be used as well:
+- On Linux-based systems,
+  `abstract UNIX sockets <https://man7.org/linux/man-pages/man7/unix.7.html>`__
+  can be used as well:
   :samp:`unix:@abstract_socket`.
 
 .. note::
 
-   Also on Linux-based systems, wildcard listeners can't overlap with other
-   listeners on the same port due to rules imposed by the kernel.  For
-   example, :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`; in
-   particular, this means :samp:`*:8080` can't be *immediately* replaced by
-   :samp:`127.0.0.1:8080` (or vice versa) without deleting it first.
+   Also on Linux-based systems,
+   wildcard listeners can't overlap with other listeners
+   on the same port
+   due to rules imposed by the kernel.
+   For example, :samp:`*:8080` conflicts with :samp:`127.0.0.1:8080`;
+   in particular,
+   this means :samp:`*:8080` can't be *immediately* replaced
+   by :samp:`127.0.0.1:8080`
+   (or vice versa)
+   without deleting it first.
 
-Unit dispatches the requests it receives to destinations referenced by
-listeners.  You can plug several listeners into one destination or use a
-single listener and hot-swap it between multiple destinations.
+Unit dispatches the requests it receives
+to destinations referenced by listeners.
+You can plug several listeners into one destination
+or use a single listener
+and hot-swap it between multiple destinations.
 
 Available listener options:
 
@@ -52,38 +66,49 @@ Available listener options:
       - Description
 
     * - :samp:`pass`
-      - Destination to which the listener passes incoming requests.  Possible
-        alternatives:
+      - Destination to which the listener passes incoming requests.
+        Possible alternatives:
 
         - :ref:`Application <configuration-applications>`:
           :samp:`applications/qwk2mart`
 
-        - :ref:`PHP target <configuration-php-targets>` or :ref:`Python target
-          <configuration-python-targets>`:
+        - :ref:`PHP target <configuration-php-targets>`
+          or
+          :ref:`Python target <configuration-python-targets>`:
           :samp:`applications/myapp/section`
 
-        - :ref:`Route <configuration-routes>`: :samp:`routes/route66`,
-          :samp:`routes`
+        - :ref:`Route <configuration-routes>`:
+          :samp:`routes/route66`, :samp:`routes`
 
-        - :ref:`Upstream <configuration-upstreams>`: :samp:`upstreams/rr-lb`
+        - :ref:`Upstream <configuration-upstreams>`:
+          :samp:`upstreams/rr-lb`
 
-        The value is :ref:`variable <configuration-variables>`-interpolated; if
-        it matches no configuration entities after interpolation, a 404 "Not
-        Found" response is returned.
+        The value is
+        :ref:`variable <configuration-variables>`
+        -interpolated;
+        if it matches no configuration entities after interpolation,
+        a 404 "Not Found" response is returned.
 
     * - :samp:`tls`
-      - Object; defines SSL/TLS :ref:`settings
-        <configuration-listeners-ssl>`.
+      - Object;
+        defines SSL/TLS
+        :ref:`settings <configuration-listeners-ssl>`.
 
     * - :samp:`forwarded`
-      - Object; configures client IP address and protocol :ref:`replacement
-        <configuration-listeners-forwarded>`.
+      - Object;
+        configures client IP address and protocol
+        :ref:`replacement <configuration-listeners-forwarded>`.
 
 
-Here, a local listener accepts requests at port 8300 and passes them to the
-:samp:`blogs` app :ref:`target <configuration-php-targets>` identified by the
-:samp:`uri` :ref:`variable <configuration-variables>`.  The wildcard listener
-on port 8400 relays requests at any host IPs to the :samp:`main` :ref:`route
+Here, a local listener accepts requests at port 8300
+and passes them to the :samp:`blogs` app
+:ref:`target <configuration-php-targets>`
+identified by the :samp:`uri`
+:ref:`variable <configuration-variables>`.
+The wildcard listener on port 8400
+relays requests at any host IPs
+to the :samp:`main`
+:ref:`route
 <configuration-routes>`:
 
 .. code-block:: json
@@ -98,9 +123,10 @@ on port 8400 relays requests at any host IPs to the :samp:`main` :ref:`route
         }
     }
 
-Also, :samp:`pass` values can be `percent encoded
-<https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`_.  For example,
-you can escape slashes in entity names:
+Also, :samp:`pass` values can be
+`percent encoded
+<https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__.
+For example, you can escape slashes in entity names:
 
 .. code-block:: json
 
@@ -131,16 +157,21 @@ The :samp:`tls` object provides the following options:
      - Description
 
    * - :samp:`certificate` (required)
-     - String or an array of strings; refers to one or more :ref:`certificate
-       bundles <configuration-ssl>` uploaded earlier, enabling secure
-       communication via the listener.
+     - String or an array of strings;
+       refers to one or more
+       :ref:`certificate bundles <configuration-ssl>`
+       uploaded earlier,
+       enabling secure communication via the listener.
 
    * - :samp:`conf_commands`
-     - Object; defines the SSL `configuration commands
-       <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ to
-       be set for the listener.
+     - Object;
+       defines the OpenSSL
+       `configuration commands
+       <https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__
+       to be set for the listener.
 
-       To have this option, Unit must be built and run with OpenSSL 1.0.2+:
+       To have this option,
+       Unit must be built and run with OpenSSL 1.0.2+:
 
        .. code-block:: console
 
@@ -148,13 +179,16 @@ The :samp:`tls` object provides the following options:
 
                 OpenSSL 1.1.1d  10 Sep 2019
 
-       Also, make sure your OpenSSL version supports the commands set in this
-       option.
+       Also, make sure your OpenSSL version supports the commands
+       set by this option.
 
    * - :samp:`session`
-     - Object; configures the TLS session cache and tickets for the listener.
+     - Object; configures the TLS session cache and tickets
+       for the listener.
 
-To use a certificate bundle you :ref:`uploaded <configuration-ssl>` earlier,
+To use a certificate bundle you
+:ref:`uploaded <configuration-ssl>`
+earlier,
 name it in the :samp:`certificate` option of the :samp:`tls` object:
 
 .. code-block:: json
@@ -173,10 +207,13 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
 .. nxt_details:: Configuring Multiple Bundles
    :hash: conf-bundles
 
-   Since version 1.23.0, Unit supports configuring `Server Name Indication
-   (SNI) <https://datatracker.ietf.org/doc/html/rfc6066#section-3>`__ on a
-   listener by supplying an array of certificate bundle names for the
-   :samp:`certificate` option value:
+   Since version 1.23.0,
+   Unit supports configuring
+   `Server Name Indication (SNI)
+   <https://datatracker.ietf.org/doc/html/rfc6066#section-3>`__
+   on a listener
+   by supplying an array of certificate bundle names
+   for the :samp:`certificate` option value:
 
    .. code-block:: json
 
@@ -193,15 +230,19 @@ name it in the :samp:`certificate` option of the :samp:`tls` object:
           }
       }
 
-   If the connecting client sends a server name, Unit responds with the
-   matching certificate bundle.  If the name matches several bundles, exact
-   matches have priority over wildcards; if this doesn't help, the one listed
-   first is used.  If there's no match or no server name was sent, Unit uses
-   the first bundle on the list.
+   - If the connecting client sends a server name,
+     Unit responds with the matching certificate bundle.
+   - If the name matches several bundles,
+     exact matches have priority over wildcards;
+     if this doesn't help, the one listed first is used.
+   - If there's no match or no server name was sent, Unit uses
+     the first bundle on the list.
 
-To set custom OpenSSL `configuration commands
-<https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__ for a
-listener, use the :samp:`conf_commands` object in :samp:`tls`:
+To set custom OpenSSL
+`configuration commands
+<https://www.openssl.org/docs/manmaster/man3/SSL_CONF_cmd.html>`__
+for a listener,
+use the :samp:`conf_commands` object in :samp:`tls`:
 
 .. code-block:: json
 
@@ -217,8 +258,8 @@ listener, use the :samp:`conf_commands` object in :samp:`tls`:
 
 .. _configuration-listeners-ssl-sessions:
 
-The :samp:`session` object in :samp:`tls` configures the session settings of
-the listener:
+The :samp:`session` object in :samp:`tls`
+configures the session settings of the listener:
 
 .. list-table::
    :header-rows: 1
@@ -227,23 +268,30 @@ the listener:
      - Description
 
    * - :samp:`cache_size`
-     - Integer; sets the number of sessions in the TLS session cache.
+     - Integer;
+       sets the number of sessions in the TLS session cache.
 
-       The default is :samp:`0` (caching is disabled).
+       The default is :samp:`0`
+       (caching is disabled).
 
    * - :samp:`timeout`
-     - Integer; sets the session timeout for the TLS session cache.
+     - Integer;
+       sets the session timeout for the TLS session cache.
 
-       When a new session is created, its lifetime derives from current time
-       and :samp:`timeout`.  If a cached session is requested past its
-       lifetime, it is not reused.
+       When a new session is created,
+       its lifetime derives from current time and :samp:`timeout`.
+       If a cached session is requested past its lifetime,
+       it is not reused.
 
-       The default is :samp:`300` (5 minutes).
+       The default is :samp:`300`
+       (5 minutes).
 
    * - :samp:`tickets`
-     - Boolean, string, or an array of strings; configures TLS session tickets.
+     - Boolean, string, or an array of strings;
+       configures TLS session tickets.
 
-       The default is :samp:`false` (tickets are disabled).
+       The default is :samp:`false`
+       (tickets are disabled).
 
 Example:
 
@@ -266,8 +314,8 @@ Example:
 
 The :samp:`tickets` option works as follows:
 
-- Boolean values enable or disable session tickets; with :samp:`true`, a random
-  session ticket key is used:
+- Boolean values enable or disable session tickets;
+  with :samp:`true`, a random session ticket key is used:
 
   .. code-block:: json
 
@@ -277,7 +325,8 @@ The :samp:`tickets` option works as follows:
          }
      }
 
-- A string enables tickets and explicitly sets the session ticket key:
+- A string enables tickets
+  and explicitly sets the session ticket key:
 
   .. code-block:: json
 
@@ -287,20 +336,21 @@ The :samp:`tickets` option works as follows:
          }
      }
 
-  This enables ticket reuse in scenarios where the key is shared between
-  individual servers.
+  This enables ticket reuse in scenarios
+  where the key is shared between individual servers.
 
   .. nxt_details:: Shared Key Rotation
      :hash: key-rotation
 
-     If multiple Unit instances need to recognize tickets issued by each other
-     (for example, when running behind a load balancer), they should share
-     session ticket keys.
+     If multiple Unit instances need to recognize tickets
+     issued by each other
+     (for example, when running behind a load balancer),
+     they should share session ticket keys.
 
-     For example, consider three SSH-enabled servers named
-     :samp:`unit*.example.com`, with Unit installed and identical :samp:`*:443`
-     listeners configured.  To configure a single set of three initial keys on
-     each server:
+     For example,
+     consider three SSH-enabled servers named :samp:`unit*.example.com`,
+     with Unit installed and identical :samp:`*:443` listeners configured.
+     To configure a single set of three initial keys on each server:
 
      .. code-block:: shell
 
@@ -340,11 +390,11 @@ The :samp:`tickets` option works as follows:
                     'http://localhost/config/listeners/*:443/tls/session/tickets/0'
         done
 
-     This scheme enables safely sharing session ticket keys between individual
-     Unit instances.
+     This scheme enables safely sharing session ticket keys
+     between individual Unit instances.
 
-  Unit supports AES256 (80-byte keys) or AES128 (48-byte keys); the bytes
-  should be encoded in Base64:
+  Unit supports AES256 (80-byte keys) or AES128 (48-byte keys);
+  the bytes should be encoded in Base64:
 
   .. code-block:: console
 
@@ -370,14 +420,15 @@ The :samp:`tickets` option works as follows:
          }
      }
 
-  Unit uses these keys to decrypt the tickets submitted by clients who want to
-  recover their session state; the last key is always used to create new
-  session tickets and update the tickets created earlier.
+  Unit uses these keys to decrypt the tickets submitted by clients
+  who want to recover their session state;
+  the last key is always used to create new session tickets
+  and update the tickets created earlier.
 
   .. note::
 
-     An empty array effectively disables session tickets, same as setting
-     :samp:`tickets` to :samp:`false`.
+     An empty array effectively disables session tickets,
+     same as setting :samp:`tickets` to :samp:`false`.
 
 .. _configuration-listeners-forwarded:
 
@@ -385,8 +436,8 @@ The :samp:`tickets` option works as follows:
 IP, Protocol Forwarding
 =======================
 
-Unit enables the :samp:`X-Forwarded-*` header fields with the :samp:`forwarded`
-object and its options:
+Unit enables the :samp:`X-Forwarded-*` header fields
+with the :samp:`forwarded` object and its options:
 
 .. list-table::
     :header-rows: 1
@@ -394,43 +445,55 @@ object and its options:
     * - Option
       - Description
 
-    * - :samp:`client_ip`
-      - String; names the HTTP header fields to expect in the request.  They
-        should use the `X-Forwarded-For
-        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
-        format where the value is a comma- or space-separated list of IPv4s or
-        IPv6s.
-
-    * - :samp:`protocol`
-      - String; defines the relevant HTTP header field to look for in the
-        request.  Unit expects it to follow the `X-Forwarded-Proto
-        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto>`__
-        notation, with the field value itself being :samp:`http`,
-        :samp:`https`, or :samp:`on`.
-
     * - :samp:`source` (required)
-      - String or an array of strings; defines :ref:`address-based patterns
-        <configuration-routes-matching-patterns>` for trusted addresses.  The
-        replacement occurs only if the source IP of the request is a
+      - String or an array of strings;
+        defines
+        :ref:`address-based patterns
+        <configuration-routes-matching-patterns>`
+        for trusted addresses.
+        Replacement occurs only if the source IP of the request is a
         :ref:`match <configuration-routes-matching-resolution>`.
 
-        A special case here is the :samp:`"unix"` string; it matches *any* UNIX
-        domain sockets.
+        A special case here is the :samp:`"unix"` string;
+        it matches *any* UNIX domain sockets.
+
+    * - :samp:`client_ip`
+      - String;
+        names the HTTP header fields to expect in the request.
+        They should use the
+        `X-Forwarded-For
+        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For>`__
+        format where the value is a comma- or space-separated list
+        of IPv4s or IPv6s.
+
+    * - :samp:`protocol`
+      - String;
+        defines the relevant HTTP header field to look for in the request.
+        Unit expects it to follow the
+        `X-Forwarded-Proto
+        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto>`__
+        notation,
+        with the field value itself
+        being :samp:`http`, :samp:`https`, or :samp:`on`.
 
     * - :samp:`recursive`
-      - Boolean; controls how the :samp:`client_ip` fields are traversed.
+      - Boolean;
+        controls how the :samp:`client_ip` fields are traversed.
 
-        The default is :samp:`false` (no recursion).
+        The default is :samp:`false`
+        (no recursion).
 
 .. note::
 
-   Besides :samp:`source`, the :samp:`forwarded` object must specify
+   Besides :samp:`source`,
+   the :samp:`forwarded` object must specify
    :samp:`client_ip`, :samp:`protocol`, or both.
 
 .. warning::
 
-   Before version 1.28.0, Unit provided the :samp:`client_ip` object that
-   evolved into :samp:`forwarded`:
+   Before version 1.28.0,
+   Unit provided the :samp:`client_ip` object
+   that evolved into :samp:`forwarded`:
 
    .. list-table::
        :header-rows: 1
@@ -450,15 +513,17 @@ object and its options:
        * - N/A
          - :samp:`protocol`
 
-   This old syntax still works but will be eventually deprecated, though
-   not earlier than version 1.30.0.
+   This old syntax still works but will be eventually deprecated,
+   though not earlier than version 1.30.0.
 
 
-When :samp:`forwarded` is set, Unit respects the appropriate header fields only
-if the immediate source IP of the request :ref:`matches
-<configuration-routes-matching-resolution>` the :samp:`source` option.  Mind
-that it can use not only subnets but any :ref:`address-based patterns
-<configuration-routes-matching-patterns>`:
+When :samp:`forwarded` is set,
+Unit respects the appropriate header fields
+only if the immediate source IP of the request
+:ref:`matches <configuration-routes-matching-resolution>`
+the :samp:`source` option.
+Mind that it can use not only subnets but any
+:ref:`address-based patterns <configuration-routes-matching-patterns>`:
 
 .. code-block:: json
 
@@ -478,9 +543,10 @@ that it can use not only subnets but any :ref:`address-based patterns
 Overwriting Protocol Scheme
 ***************************
 
-The :samp:`protocol` option enables overwriting the incoming request's protocol
-scheme based on the header field it specifies.  Consider the following
-:samp:`forwarded` configuration:
+The :samp:`protocol` option enables overwriting
+the incoming request's protocol scheme
+based on the header field it specifies.
+Consider the following :samp:`forwarded` configuration:
 
 .. code-block:: json
 
@@ -500,16 +566,16 @@ Suppose a request arrives with the following header field:
 
    X-Forwarded-Proto: https
 
-If the source IP of the request matches :samp:`source`, Unit handles
-this request as an :samp:`https` one.
+If the source IP of the request matches :samp:`source`,
+Unit handles this request as an :samp:`https` one.
 
 .. _configuration-listeners-xff:
 
 Originating IP Identification
 *****************************
 
-Unit also supports identifying the clients' originating IPs with the
-:samp:`client_ip` option:
+Unit also supports identifying the clients' originating IPs
+with the :samp:`client_ip` option:
 
 .. code-block:: json
 
@@ -531,16 +597,22 @@ Suppose a request arrives with the following header fields:
    X-Forwarded-For: 192.0.2.18
    X-Forwarded-For: 203.0.113.195, 198.51.100.178
 
-If :samp:`recursive` is set to :samp:`false` (default), Unit chooses the
-*rightmost* address of the *last* field named in :samp:`client_ip` as the
-originating IP of the request.  In the example, it's set to 198.51.100.178 for
-requests from 192.0.2.0/24 or 198.51.100.0/24.
+If :samp:`recursive` is set to :samp:`false`
+(default),
+Unit chooses the *rightmost* address of the *last* field
+named in :samp:`client_ip`
+as the originating IP of the request.
+In the example,
+it's set to 198.51.100.178 for requests from 192.0.2.0/24 or 198.51.100.0/24.
 
-If :samp:`recursive` is set to :samp:`true`, Unit inspects all
-:samp:`client_ip` fields in reverse order.  Each is traversed from right to
-left until the first non-trusted address; if found, it's chosen as the
-originating IP.  In the previous example with :samp:`"recursive": true`, the
-client IP would be set to 203.0.113.195 because 198.51.100.178 is also trusted;
+If :samp:`recursive` is set to :samp:`true`,
+Unit inspects all :samp:`client_ip` fields in reverse order.
+Each is traversed from right to left
+until the first non-trusted address;
+if found, it's chosen as the originating IP.
+In the previous example with :samp:`"recursive": true`,
+the client IP would be set to 203.0.113.195
+because 198.51.100.178 is also trusted;
 this simplifies working behind multiple reverse proxies.
 
 
