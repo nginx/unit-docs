@@ -1706,7 +1706,7 @@ An example:
 Variables And Scripting
 ***********************
 
-Some options in Unit configuration allow the use of:ref:`variables
+Some options in Unit configuration allow the use of :ref:`variables
 <configuration-variables-native>` and :ref:`scripting expressions
 <configuration-variables-scripting>` whose values are calculated at runtime.
 
