@@ -9,9 +9,12 @@
 Control API
 ###########
 
-Unit's configuration is JSON-based, accessible via a RESTful control API, and
-entirely manageable over HTTP.  The control API provides a root object
-(:samp:`/`) that comprises four primary options:
+Unit's configuration is JSON-based,
+accessible via a RESTful control API,
+and entirely manageable over HTTP.
+The control API provides a root object
+(:samp:`/`)
+that comprises four primary options:
 
 .. list-table::
    :header-rows: 1
@@ -20,67 +23,90 @@ entirely manageable over HTTP.  The control API provides a root object
      - Description
 
    * - :samp:`/certificates`
-     - Responsible for SSL/TLS :doc:`certificate management
-       <certificates>`.
+     - Responsible for SSL/TLS
+       :doc:`certificate management <certificates>`.
 
    * - :samp:`/config`
-     - Used for general :doc:`configuration management
-       <configuration>`.
+     - Used for general
+       :doc:`configuration management <configuration>`.
 
    * - :samp:`/control`
-     - Queried for :ref:`application restart
-       <configuration-proc-mgmt>`.
+     - Queried for
+       :ref:`application restart <configuration-proc-mgmt>`.
 
    * - :samp:`/status`
-     - Queried for :doc:`usage statistics <usagestats>`.
+     - Queried for
+       :doc:`usage statistics <usagestats>`.
 
 
 .. _configuration-socket:
 
-The API is exposed through a socket whose type and address depend on the
-:doc:`installation method <installation>`.  Its compile-time setting can be
-overridden at :ref:`startup <source-startup>`.  For consistency and
-:ref:`security <security-socket-state>`, our examples rely on a Unix domain
-socket unless stated otherwise.  Our queries use :program:`curl`, prefixing
-URIs with :samp:`http://localhost` as the utility expects (the hostname is
-irrelevant for Unit itself), but you can use any HTTP tool you like.
+The API is exposed through a socket
+whose type and address depend on the
+:doc:`installation method <installation>`.
+Its compile-time setting can be overridden at
+:ref:`startup <source-startup>`.
+For consistency and
+:ref:`security <security-socket-state>`,
+our examples use Unix domain sockets
+unless stated otherwise.
+Example queries use :program:`curl`,
+and URIs are prefixed with :samp:`http://localhost`
+as the utility expects
+(the hostname is irrelevant for Unit itself),
+but you can use any HTTP tool you like.
 
 .. nxt_details:: (Lack of) Configuration Files
    :hash: no-config-files
 
-   The control API is the single source of truth about Unit's configuration.
-   There are no configuration files that can or should be manipulated; this is
-   a deliberate design choice made to avoid issues such as:
+   The control API is the single source of truth
+   about Unit's configuration.
+   There are no configuration files
+   that can or should be manipulated;
+   this is a deliberate design choice
+   made to avoid issues such as:
 
-   - Undetected invalid states:  Configuration files can be saved in an invalid
-     state, and the issue won't be seen until reload or startup.  The control
-     API avoids this by validating configuration changes on the fly.
+   - Undetected invalid states:
+     Configuration files can be saved in an invalid state,
+     and the issue won't be seen
+     until reload or startup.
+     The control API avoids this
+     by validating configuration changes on the fly.
 
-   - Too broad or too narrow configuration file permissions:  If a
-     configuration file is inaccessible, it can't be loaded; if it's public,
-     sensitive data may leak.  The control API has a single manageable point of
-     entry.
+   - Too broad or too narrow configuration file permissions:
+     If a configuration file is inaccessible,
+     it can't be loaded;
+     if it's public,
+     sensitive data may leak.
+     The control API has a single manageable point of entry.
 
-   - Unpredictable behavior:  In a configuration file hierarchy, it's easy
-     to lose track and misconfigure something.  With the control API, the
-     entire configuration is a single, organized, and navigatable entity.
+   - Unpredictable behavior:
+     In a configuration file hierarchy,
+     it's easy to lose track and misconfigure something.
+     With the control API,
+     the entire configuration is a single, organized, and navigatable entity.
 
 .. nxt_details:: Replicating Unit States
    :hash: conf-replication
 
-   Although Unit is fully dynamic, sometimes you just want to copy an existing
-   setup without further modification.  Unit's :ref:`state directories
-   <source-config-src-state>` are interchangeable as long as Unit version stays
-   the same, so you can use a shortcut to replicate a Unit instance.  Also,
-   this works with the Docker :doc:`images <howto/docker>`.
+   Although Unit is fully dynamic,
+   sometimes you just want to copy an existing setup
+   without extra modification.
+   Unit's
+   :ref:`state directories <source-config-src-state>`
+   are interchangeable
+   as long as Unit version stays the same,
+   so you can use a shortcut to replicate a Unit instance.
+   Also, this works with the Docker
+   :doc:`images <howto/docker>`.
 
    .. warning::
 
-      Unit's state can change its structure between versions and must not be
-      edited by external means.
+      Unit's state can change its structure between versions
+      and must not be edited by external means.
 
-   On the machine where the *reference* Unit instance runs, find out
-   where the state is stored:
+   On the machine where the *reference* Unit instance runs,
+   find out where the state is stored:
 
    .. code-block:: console
 
@@ -97,8 +123,8 @@ irrelevant for Unit itself), but you can use any HTTP tool you like.
             ...
             unit: main v|version| [unitd --state :nxt_ph:`/runtime/path/to/reference/unit/state <The runtime value overrides the default>` ... ]
 
-   Repeat these commands on the second machine to see where the target instance
-   stores its state.
+   Repeat these commands on the second machine
+   to see where the target instance stores its state.
 
    Stop both Unit instances, for example:
 
@@ -108,23 +134,28 @@ irrelevant for Unit itself), but you can use any HTTP tool you like.
 
    .. note::
 
-      Stop and start commands may differ if Unit was installed from a
-      :ref:`non-official <installation-community-repos>` repo or built from
+      Stop and start commands may differ
+      if Unit was installed from a
+      :ref:`non-official <installation-community-repos>`
+      repo or built from
       :ref:`source <source>`.
 
-   Copy the reference state directory to the target state directory by
-   arbitrary means; make sure to include subdirectories and hidden files.
+   Copy the reference state directory to the target state directory
+   by arbitrary means;
+   make sure to include subdirectories and hidden files.
    Finally, restart both Unit instances:
 
    .. code-block:: console
 
       # systemctl restart unit
 
-   If you run your Unit instances manually, :option:`!--state` can be used to
-   set the state directory at :ref:`startup <source-startup>`.
+   If you run your Unit instances manually,
+   :option:`!--state` can be used to set the state directory at
+   :ref:`startup <source-startup>`.
 
-   After the restart, the target instance picks up the configuration you've
-   copied to the state directory.
+   After restart,
+   the target instance picks up the configuration
+   you've copied to the state directory.
 
 
 .. _configuration-quickstart:
@@ -133,8 +164,9 @@ irrelevant for Unit itself), but you can use any HTTP tool you like.
 Quick Start
 ***********
 
-For a brief intro, we configure Unit to serve a static file.  Suppose you saved
-this as :file:`/www/data/index.html`:
+For a brief intro,
+we configure Unit to serve a static file.
+Suppose you saved this as :file:`/www/data/index.html`:
 
 .. code-block:: html
 
@@ -162,9 +194,12 @@ this as :file:`/www/data/index.html`:
       </body>
    </html>
 
-Now, Unit should :ref:`listen <configuration-listeners>` on a port that
-:ref:`routes <configuration-routes>` the incoming requests to a :samp:`share`
-action, which serves the file:
+Now, Unit should
+:ref:`listen <configuration-listeners>`
+on a port that
+:ref:`routes <configuration-routes>`
+the incoming requests to a :samp:`share` action,
+which serves the file:
 
 .. code-block:: json
 
@@ -184,9 +219,11 @@ action, which serves the file:
        ]
    }
 
-To configure Unit, :samp:`PUT` this snippet to the :samp:`/config` section via
-the :ref:`control socket <source-startup>`.  Working with JSON in the command
-line can be cumbersome; instead, save and upload it as :file:`snippet.json`:
+To configure Unit,
+:samp:`PUT` this snippet to the :samp:`/config` section via the
+:ref:`control socket <source-startup>`.
+Working with JSON in the command line can be cumbersome;
+instead, save and upload it as :file:`snippet.json`:
 
 .. code-block:: console
 
@@ -197,8 +234,10 @@ line can be cumbersome; instead, save and upload it as :file:`snippet.json`:
              "success": "Reconfiguration done."
          }
 
-To confirm this works, query the listener.  Unit responds with the
-:file:`index.html` file from the :samp:`share` directory:
+To confirm this works,
+query the listener.
+Unit responds with the :file:`index.html` file
+from the :samp:`share` directory:
 
 .. code-block:: console
 
@@ -221,24 +260,24 @@ To confirm this works, query the listener.  Unit responds with the
 API Manipulation
 ****************
 
-To address parts of the control API, query the :ref:`control socket
-<configuration-socket>` over HTTP; URI path segments of your requests to the
-API must be names of its `JSON object
-<https://datatracker.ietf.org/doc/html/rfc8259#section-4>`_ members or indexes
-of its `JSON array <https://datatracker.ietf.org/doc/html/rfc8259#section-5>`_
+To address parts of the control API,
+query the
+:ref:`control socket <configuration-socket>`
+over HTTP;
+URI path segments of your API requests must be the names of its
+`JSON object <https://datatracker.ietf.org/doc/html/rfc8259#section-4>`__
+members or indexes of its
+`JSON array <https://datatracker.ietf.org/doc/html/rfc8259#section-5>`__
 elements.
 
 .. note::
 
-   Here, we use :program:`curl` to query Unit's control API, prefixing URIs
-   with :samp:`http://localhost` as expected by this utility.  You can use any
-   tool capable of making HTTP requests; also, the hostname is irrelevant for
-   Unit.  If you often configure Unit manually, JSON command-line tools such as
+   If you often configure Unit manually, JSON command-line tools such as
    `jq <https://stedolan.github.io/jq/>`__ and `jo
    <https://jpmens.net/2016/03/05/a-shell-command-to-create-json-jo/>`__ may
    come in handy.
 
-You can manipulate the API with the following HTTP methods:
+The API supports the following HTTP methods:
 
 .. list-table::
    :header-rows: 1
@@ -247,32 +286,42 @@ You can manipulate the API with the following HTTP methods:
      - Action
 
    * - :samp:`GET`
-     - Returns the entity at the request URI as a JSON value in the HTTP
-       response body.
+     - Returns the entity at the request URI
+       as a JSON value in the HTTP response body.
 
    * - :samp:`POST`
-     - Updates the *array* at the request URI, appending the JSON value
+     - Updates the *array* at the request URI,
+       appending the JSON value
        from the HTTP request body.
 
    * - :samp:`PUT`
-     - Replaces the entity at the request URI and returns status message in the
-       HTTP response body.
+     - Replaces the entity at the request URI
+       and returns a status message
+       in the HTTP response body.
 
    * - :samp:`DELETE`
-     - Deletes the entity at the request URI and returns status message in the
-       HTTP response body.
+     - Deletes the entity at the request URI
+       and returns a status message
+       in the HTTP response body.
 
-Before a change, Unit checks the difference it makes in the entire
-configuration; if there's none, nothing is done.  Thus, you can't restart an
-app by reuploading its unchanged configuration; still, there is another
-:ref:`way <configuration-proc-mgmt>`.
+Before a change,
+Unit checks the difference it makes in the entire configuration;
+if there's none,
+nothing is done.
+Thus, you can't restart an app
+by reuploading its unchanged configuration
+(but there's a
+:ref:`way <configuration-proc-mgmt>`
+of restarting apps).
 
-Unit performs actual reconfiguration steps as gracefully as possible: running
-tasks expire naturally, connections are properly closed, processes end
-smoothly.
+Unit performs actual reconfiguration steps
+as gracefully as possible:
+running tasks expire naturally,
+connections are properly closed,
+processes end smoothly.
 
-Any type of update can be done with different URIs, provided you supply the
-right JSON:
+Any type of update can be done with different URIs,
+provided you supply the right JSON:
 
 .. code-block:: console
 
@@ -282,9 +331,10 @@ right JSON:
    # curl -X PUT -d '"applications/blogs"' --unix-socket /path/to/control.unit.sock \
           http://localhost/config/listeners/127.0.0.1:8300/pass
 
-However, the first command replaces the *entire* listener, dropping any other
-options you could have configured, whereas the second one replaces only the
-:samp:`pass` value and leaves other options intact.
+However, the first command replaces the *entire* listener,
+dropping any other options you could have configured,
+whereas the second one replaces only the :samp:`pass` value
+and leaves other options intact.
 
 .. _conf-examples:
 
@@ -292,9 +342,10 @@ options you could have configured, whereas the second one replaces only the
 Examples
 ********
 
-To minimize typos and effort, avoid embedding JSON payload in your commands;
-instead, store your configuration snippets for review and reuse.  For
-instance, save your application object as :file:`wiki.json`:
+To minimize typos and effort,
+avoid embedding JSON payload in your commands;
+instead, store your configuration snippets for review and reuse.
+For instance, save your application object as :file:`wiki.json`:
 
 .. code-block:: json
 
@@ -313,8 +364,8 @@ Use it to set up an application called :samp:`wiki-prod`:
    # curl -X PUT --data-binary @/path/to/wiki.json \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod
 
-Use it again to set up a development version of the same app called
-:samp:`wiki-dev`:
+Use it again to set up a development version of the same app
+called :samp:`wiki-dev`:
 
 .. code-block:: console
 
@@ -328,15 +379,16 @@ Toggle the :samp:`wiki-dev` app to another source code directory:
    # curl -X PUT -d '"/www/wiki-dev/"' \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev/path
 
-Next, boost the process count for the production app to warm it up a bit:
+Next, boost the process count for the production app
+to warm it up a bit:
 
 .. code-block:: console
 
    # curl -X PUT -d '5' \
           --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod/processes
 
-Add a listener for the :samp:`wiki-prod` app to accept requests at all host
-IPs:
+Add a listener for the :samp:`wiki-prod` app
+to accept requests at all host IPs:
 
 .. code-block:: console
 
@@ -350,8 +402,8 @@ Plug the :samp:`wiki-dev` app into the listener to test it:
    # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
           'http://localhost/config/listeners/*:8400/pass'
 
-Then rewire the listener, adding a URI-based route to the development
-version of the app:
+Then rewire the listener,
+adding a URI-based route to the development version of the app:
 
 .. code-block:: console
 
@@ -376,7 +428,8 @@ version of the app:
    # curl -X PUT -d '"routes"' --unix-socket \
           /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
 
-Next, change the :samp:`wiki-dev`'s URI prefix in the :samp:`routes` array
+Next, change the :samp:`wiki-dev`'s URI prefix
+in the :samp:`routes` array,
 using its index (0):
 
 .. code-block:: console
@@ -384,7 +437,8 @@ using its index (0):
    # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
           http://localhost/config/routes/0/match/uri
 
-Append a route to the prod app: :samp:`POST` always adds to the array end,
+Append a route to the prod app:
+:samp:`POST` always adds to the array end,
 so there's no need for an index:
 
 .. code-block:: console
@@ -394,8 +448,10 @@ so there's no need for an index:
           --unix-socket=/path/to/control.unit.sock        \
           http://localhost/config/routes/
 
-Otherwise, use :samp:`PUT` with the array's last index (0 in our sample)
-*plus one* to add the new item at the end:
+Otherwise, use :samp:`PUT` with the array's last index
+(0 in our sample)
+*plus one*
+to add the new item at the end:
 
 .. code-block:: console
 
@@ -469,8 +525,8 @@ To obtain the :samp:`wiki-dev` application object:
            "path": "/www/wiki-dev/"
        }
 
-You can save JSON returned by such requests as :file:`.json` files for
-update or review:
+You can save JSON returned by such requests
+as :file:`.json` files for update or review:
 
 .. code-block:: console
 
@@ -484,8 +540,8 @@ To drop the listener on :samp:`\*:8400`:
    # curl -X DELETE --unix-socket /path/to/control.unit.sock \
           'http://localhost/config/listeners/*:8400'
 
-Mind that you can't delete objects that other objects rely on, such as a
-route still referenced by a listener:
+Mind that you can't delete objects that other objects rely on,
+such as a route still referenced by a listener:
 
 .. code-block:: console
 
