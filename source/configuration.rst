@@ -622,17 +622,27 @@ this simplifies working behind multiple reverse proxies.
 Routes
 ******
 
-The :samp:`config/routes` configuration entity defines internal request
-routing.  It receives requests from :ref:`listeners <configuration-listeners>`
-and filters them through :ref:`sets of conditions
-<configuration-routes-matching>` to be processed by :ref:`apps
-<configuration-applications>`, :ref:`proxied <configuration-proxy>` to external
-servers or :ref:`load-balanced <configuration-upstreams>` between them, served
-with :ref:`static content <configuration-static>`, :ref:`answered
-<configuration-return>` with arbitrary status codes, or :ref:`redirected
-<configuration-return>`.
+The :samp:`config/routes` configuration entity
+defines internal request routing.
+It receives requests
+from :ref:`listeners <configuration-listeners>`
+and filters them through
+:ref:`sets of conditions <configuration-routes-matching>`
+to be processed by
+:ref:`apps <configuration-applications>`,
+:ref:`proxied <configuration-proxy>`
+to external servers or
+:ref:`load-balanced <configuration-upstreams>`
+between them,
+served with
+:ref:`static content <configuration-static>`,
+:ref:`answered <configuration-return>`
+with arbitrary status codes, or
+:ref:`redirected <configuration-return>`.
 
-In its simplest form, :samp:`routes` is an array that defines a single route:
+In its simplest form,
+:samp:`routes` is an array
+that defines a single route:
 
 .. code-block:: json
 
@@ -648,7 +658,8 @@ In its simplest form, :samp:`routes` is an array that defines a single route:
         ]
    }
 
-Another form is an object with one or more named route arrays as members:
+Another form is an object
+with one or more named route arrays as members:
 
 .. code-block:: json
 
@@ -677,7 +688,9 @@ Another form is an object with one or more named route arrays as members:
 Route Steps
 ===========
 
-A :ref:`route <configuration-routes>` array contains step objects as elements;
+A
+:ref:`route <configuration-routes>`
+array contains step objects as elements;
 they accept the following options:
 
 .. list-table::
@@ -687,27 +700,34 @@ they accept the following options:
      - Description
 
    * - :samp:`action` (required)
-     - Object; defines how matching requests are :ref:`handled
-       <configuration-routes-action>`.
+     - Object;
+       defines how matching requests are
+       :ref:`handled <configuration-routes-action>`.
 
    * - :samp:`match`
-     - Object; defines the step's :ref:`conditions
-       <configuration-routes-matching>` to be matched.
+     - Object;
+       defines the step's
+       :ref:`conditions <configuration-routes-matching>`
+       to be matched.
 
 A request passed to a route traverses its steps sequentially:
 
-- If all :samp:`match` conditions in a step are met, the traversal ends and the
-  step's :samp:`action` is performed.
+- If all :samp:`match` conditions in a step are met,
+  the traversal ends
+  and the step's :samp:`action` is performed.
 
-- If a step's condition isn't met, Unit proceeds to the next step of the route.
+- If a step's condition isn't met,
+  Unit proceeds to the next step of the route.
 
-- If no steps of the route match, a 404 "Not Found" response is returned.
+- If no steps of the route match,
+  a 404 "Not Found" response is returned.
 
 .. warning::
 
-  If a step omits the :samp:`match` option, its :samp:`action` occurs
-  automatically.  Thus, use no more than one such step per route, always
-  placing it last to avoid potential routing issues.
+  If a step omits the :samp:`match` option,
+  its :samp:`action` occurs automatically.
+  Thus, use no more than one such step per route,
+  always placing it last to avoid potential routing issues.
 
 .. nxt_details:: Ad-Hoc Examples
    :hash: conf-route-examples
@@ -737,11 +757,13 @@ A request passed to a route traverses its steps sequentially:
           ]
       }
 
-   This route passes all requests to the :samp:`/php/` subsection of the
-   :samp:`example.com` website via HTTPS to the :samp:`php_version` app.  All
-   other requests are served with static content from the
-   :samp:`/www/static_version/` directory.  If there's no matching content, a
-   404 "Not Found" response is returned.
+   This route passes all HTTPS requests
+   to the :samp:`/php/` subsection of the :samp:`example.com` website
+   to the :samp:`php_version` app.
+   All other requests are served with static content
+   from the :samp:`/www/static_version/` directory.
+   If there's no matching content,
+   a 404 "Not Found" response is returned.
 
    A more elaborate example with chained routes and proxying:
 
@@ -802,13 +824,17 @@ A request passed to a route traverses its steps sequentially:
           }
       }
 
-   Here, a route called :samp:`main` is explicitly defined, so :samp:`routes`
-   is an object instead of an array.  The first step of the route passes all
-   requests that arrive via HTTP to the :samp:`http_site` app.  The second step
-   passes all requests that target :samp:`blog.example.com` to the :samp:`blog`
-   app.  The final step serves requests for certain file types from the
-   :samp:`/www/static/` directory.  If no steps match, a 404 "Not Found"
-   response is returned.
+   Here, a route called :samp:`main` is explicitly defined,
+   so :samp:`routes` is an object instead of an array.
+   The first step of the route passes all HTTP requests
+   to the :samp:`http_site` app.
+   The second step passes all requests
+   that target :samp:`blog.example.com`
+   to the :samp:`blog` app.
+   The final step serves requests for certain file types
+   from the :samp:`/www/static/` directory.
+   If no steps match,
+   a 404 "Not Found" response is returned.
 
 
 .. _configuration-routes-matching:
@@ -817,8 +843,10 @@ A request passed to a route traverses its steps sequentially:
 Matching Conditions
 ===================
 
-Conditions in a :ref:`route step <configuration-routes-step>`'s :samp:`match`
-object define patterns to be compared to the requests' properties:
+Conditions in a
+:ref:`route step <configuration-routes-step>`'s
+:samp:`match` object
+define patterns to be compared to the request's properties:
 
 .. list-table::
    :header-rows: 1
@@ -830,11 +858,15 @@ object define patterns to be compared to the requests' properties:
        sensitivity affects only values>`
 
    * - :samp:`arguments`
-     - Arguments supplied with the request's `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__; these
-       names and value pairs are `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__ with plus
-       signs (:samp:`+`) replaced by spaces.
+     - Arguments supplied with the request's
+       `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__;
+       these names and value pairs are
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__,
+       with plus signs
+       (:samp:`+`)
+       replaced by spaces.
      - Yes
 
    * - :samp:`cookies`
@@ -847,33 +879,41 @@ object define patterns to be compared to the requests' properties:
 
    * - :samp:`headers`
      - `Header fields
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`_ supplied
-       with the request.
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`__
+       supplied with the request.
      - No
 
    * - :samp:`host`
-     - :samp:`Host` `header field
+     - :samp:`Host`
+       `header field
        <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
-       converted to lower case and normalized by removing the port number and
-       the trailing period (if any).
+       converted to lower case and normalized
+       by removing the port number and the trailing period
+       (if any).
      - No
 
    * - :samp:`method`
-     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_ from
-       the request line, converted to upper case.
+     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`__
+       from the request line,
+       uppercased.
      - No
 
    * - :samp:`query`
      - `Query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`_, `percent
-       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
-       with plus signs (:samp:`+`) replaced by spaces.
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__,
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__,
+       with plus signs
+       (:samp:`+`)
+       replaced by spaces.
      - Yes
 
    * - :samp:`scheme`
-     - URI `scheme
-       <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`_.
-       Accepts only two patterns, either :samp:`http` or :samp:`https`.
+     - URI
+       `scheme
+       <https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml>`__.
+       Accepts only two patterns,
+       either :samp:`http` or :samp:`https`.
      - No
 
    * - :samp:`source`
@@ -884,23 +924,27 @@ object define patterns to be compared to the requests' properties:
      - `Request target
        <https://datatracker.ietf.org/doc/html/rfc9110#target.resource>`__,
        `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__ and
-       normalized by removing the `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__ and
-       resolving `relative references
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-4-2>`__ ("." and
-       "..", "//").
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
+       and normalized
+       by removing the
+       `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__
+       and resolving
+       `relative references
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4-2>`__
+       ("." and "..", "//").
      - Yes
 
 .. nxt_details:: Arguments vs. Query
    :hash: args-vs-query
 
-   Both :samp:`arguments` and :samp:`query` operate on the query string, but
-   :samp:`query` is matched against the entire string whereas :samp:`arguments`
-   considers only the key-value pairs such as :samp:`key1=4861&key2=a4f3`.
+   Both :samp:`arguments` and :samp:`query` operate on the query string,
+   but :samp:`query` is matched against the entire string
+   whereas :samp:`arguments` considers only the key-value pairs
+   such as :samp:`key1=4861&key2=a4f3`.
 
-   Use :samp:`arguments` to define conditions based on key-value pairs in the
-   query string:
+   Use :samp:`arguments` to define conditions
+   based on key-value pairs in the query string:
 
    .. code-block:: json
 
@@ -909,10 +953,11 @@ object define patterns to be compared to the requests' properties:
          "key2": "a4f3"
       }
 
-   Argument order is irrelevant: :samp:`key1=4861&key2=a4f3` and
-   :samp:`key2=a4f3&key1=4861` are considered the same.  Also, multiple
-   occurrences of an argument must all match, so :samp:`key=4861&key=a4f3`
-   matches this:
+   Argument order is irrelevant:
+   :samp:`key1=4861&key2=a4f3` and :samp:`key2=a4f3&key1=4861`
+   are considered the same.
+   Also, multiple occurrences of an argument must all match,
+   so :samp:`key=4861&key=a4f3` matches this:
 
    .. code-block:: json
 
@@ -928,7 +973,9 @@ object define patterns to be compared to the requests' properties:
           "key": "a*"
       }
 
-   To the contrary, use :samp:`query` if your conditions concern query strings
+   To the contrary,
+   use :samp:`query`
+   if your conditions concern query strings
    but don't rely on key-value pairs:
 
    .. code-block:: json
@@ -938,7 +985,8 @@ object define patterns to be compared to the requests' properties:
           "utf16"
       ]
 
-   This only matches query strings of the form
+   This only matches query strings
+   of the form
    :samp:`https://example.com?utf8` or :samp:`https://example.com?utf16`.
 
 
@@ -947,26 +995,30 @@ object define patterns to be compared to the requests' properties:
 Match Resolution
 ****************
 
-To be a match, the property must meet two requirements:
+To be a match,
+the property must meet two requirements:
 
-- If there are patterns without negation (the :samp:`!` prefix), at least one
-  of them matches the property value.
+- If there are patterns without negation
+  (the :samp:`!` prefix),
+  at least one of them matches the property value.
 
 - No negated patterns match the property value.
 
 .. nxt_details:: Formal Explanation
    :hash: pattern-set-theory
 
-   This logic can be described with set operations.  Suppose set *U* comprises
-   all possible values of a property; set *P* comprises strings that match any
-   patterns without negation; set *N* comprises strings that match any
-   negation-based patterns.  In this scheme, the matching set is:
+   This logic can be described with set operations.
+   Suppose set *U* comprises all possible values of a property;
+   set *P* comprises strings that match any patterns without negation;
+   set *N* comprises strings that match any negation-based patterns.
+   In this scheme,
+   the matching set is:
 
    | *U* ∩ *P* \\ *N* if *P* ≠ ∅
    | *U* \\ *N* if *P* = ∅
 
-Here, the URI of the request must fit :samp:`pattern3`, but must not match
-:samp:`pattern1` or :samp:`pattern2`.
+Here, the URI of the request must fit :samp:`pattern3`,
+but must not match :samp:`pattern1` or :samp:`pattern2`:
 
 .. code-block:: json
 
@@ -984,15 +1036,19 @@ Here, the URI of the request must fit :samp:`pattern3`, but must not match
        }
    }
 
-Additionally, special matching logic applies to :samp:`arguments`,
-:samp:`cookies`, and :samp:`headers`. Each of these can be either a single
-object that lists custom-named properties and their patterns or an array of
-such objects.
+Additionally, special matching logic applies to
+:samp:`arguments`, :samp:`cookies`, and :samp:`headers`.
+Each of these can be either
+a single object that lists custom-named properties and their patterns
+or an array of such objects.
 
-To match a single object, the request must match *all* properties named in the
-object.  To match an object array, it's enough to match *any* single one of its
-item objects.  The following condition matches only if the request arguments
-include :samp:`arg1` and :samp:`arg2`, and both match their patterns:
+To match a single object,
+the request must match *all* properties named in the object.
+To match an object array,
+it's enough to match *any* single one of its item objects.
+The following condition matches only
+if the request arguments include :samp:`arg1` and :samp:`arg2`,
+and both match their patterns:
 
 .. code-block:: json
 
@@ -1009,8 +1065,12 @@ include :samp:`arg1` and :samp:`arg2`, and both match their patterns:
        }
    }
 
-With an object array, the condition matches if the request's arguments include
-:samp:`arg1` or :samp:`arg2` (or both) that matches the respective pattern:
+With an object array,
+the condition matches
+if the request's arguments include
+:samp:`arg1` or :samp:`arg2`
+(or both)
+that matches the respective pattern:
 
 .. code-block:: json
 
@@ -1031,12 +1091,15 @@ With an object array, the condition matches if the request's arguments include
        }
    }
 
-The following example combines all matching types.  Here, :samp:`host`,
-:samp:`method`, :samp:`uri`, :samp:`arg1` *and* :samp:`arg2`, either
-:samp:`cookie1` or :samp:`cookie2`, and either :samp:`header1` or
-:samp:`header2` *and* :samp:`header3` must be matched for the :samp:`action` to
-be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
-(header1 | (header2 & header3))`):
+The following example combines all matching types.
+Here, :samp:`host`, :samp:`method`, :samp:`uri`,
+:samp:`arg1` *and* :samp:`arg2`,
+either :samp:`cookie1` or :samp:`cookie2`,
+and either :samp:`header1` or :samp:`header2` *and* :samp:`header3`
+must be matched
+for the :samp:`action` to be taken
+(:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2)
+& (header1 | (header2 & header3))`):
 
 .. code-block:: json
 
@@ -1082,8 +1145,9 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
 .. nxt_details:: Object Pattern Examples
    :hash: conf-obj-pattern-examples
 
-   This requires :samp:`mode=strict` and any :samp:`access` argument other than
-   :samp:`access=full` in the URI query:
+   This requires :samp:`mode=strict`
+   and any :samp:`access` argument other than :samp:`access=full`
+   in the URI query:
 
    .. code-block:: json
 
@@ -1100,8 +1164,9 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
           }
       }
 
-   This matches requests that either use :samp:`gzip` and identify as
-   :samp:`Mozilla/5.0` or list :samp:`curl` as the user agent:
+   This matches requests that
+   either use :samp:`gzip` and identify as :samp:`Mozilla/5.0`
+   or list :samp:`curl` as the user agent:
 
    .. code-block:: json
 
@@ -1129,33 +1194,46 @@ be taken (:samp:`host & method & uri & arg1 & arg2 & (cookie1 | cookie2) &
 Pattern Syntax
 **************
 
-Individual patterns can be address-based (:samp:`source` and
-:samp:`destination`) or string-based (other properties).
+Individual patterns can be
+address-based
+(:samp:`source` and :samp:`destination`)
+or string-based
+(other properties).
 
-String-based patterns must match the property to a character; wildcards or
+String-based patterns must match the property to a character;
+wildcards or
 :nxt_hint:`regexes <Available only if Unit was built with PCRE support enabled,
-which is the default for the official packages>` modify this behavior:
+which is the default for the official packages>`
+modify this behavior:
 
-- A wildcard pattern may contain any combination of wildcards (:samp:`*`), each
-  standing for an arbitrary number of characters: :samp:`How*s*that*to*you`.
+- A wildcard pattern may contain any combination of wildcards
+  (:samp:`*`),
+  each standing for an arbitrary number of characters:
+  :samp:`How*s*that*to*you`.
 
 .. _configuration-routes-matching-patterns-regex:
 
-- A regex pattern starts with a tilde (:samp:`~`):
-  :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+` (escaping backslashes is a
-  `JSON requirement <https://www.json.org/json-en.html>`_).  The regexes are
+- A regex pattern starts with a tilde
+  (:samp:`~`):
+  :samp:`~^\\\\d+\\\\.\\\\d+\\\\.\\\\d+\\\\.\\\\d+`
+  (escaping backslashes is a
+  `JSON requirement <https://www.json.org/json-en.html>`_).
+  The regexes are
   `PCRE <https://www.pcre.org/current/doc/html/pcre2syntax.html>`_-flavored.
 
 .. nxt_details:: Percent Encoding In Arguments, Query, and URI Patterns
    :hash: percent-encoding
 
    Argument names, non-regex string patterns in :samp:`arguments`,
-   :samp:`query`, and :samp:`uri` can be `percent encoded
-   <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`_ to mask
-   special characters (:samp:`!` is :samp:`%21`, :samp:`~` is :samp:`%7E`,
-   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`) or even target single
-   bytes.  For example, you can select diacritics such as Ö or Å by their
-   starting byte :samp:`0xC3` in UTF-8:
+   :samp:`query`, and :samp:`uri` can be
+   `percent encoded
+   <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
+   to mask special characters
+   (:samp:`!` is :samp:`%21`, :samp:`~` is :samp:`%7E`,
+   :samp:`*` is :samp:`%2A`, :samp:`%` is :samp:`%25`)
+   or even target single bytes.
+   For example, you can select diacritics such as Ö or Å
+   by their starting byte :samp:`0xC3` in UTF-8:
 
    .. code-block:: json
 
@@ -1171,8 +1249,9 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Unit decodes such strings and matches them against respective request
-   entities, decoding these as well:
+   Unit decodes such strings
+   and matches them against respective request entities,
+   decoding these as well:
 
    .. code-block:: json
 
@@ -1201,16 +1280,21 @@ which is the default for the official packages>` modify this behavior:
             < HTTP/1.1 200 OK
             ...
 
-   Note that the encoded spaces (:samp:`%20`) in the request match their
-   unencoded counterparts in the pattern; vice versa, the encoded tilde
-   (:samp:`%7E`) in the condition matches :samp:`~` in the request.
+   Note that the encoded spaces
+   (:samp:`%20`)
+   in the request
+   match their unencoded counterparts in the pattern;
+   vice versa, the encoded tilde
+   (:samp:`%7E`)
+   in the condition matches :samp:`~` in the request.
 
 
 .. nxt_details:: String Pattern Examples
    :hash: conf-str-pattern-examples
 
-   A regular expression that matches any :file:`.php` files within the
-   :file:`/data/www/` directory and its subdirectories.  Note the backslashes;
+   A regular expression that matches any :file:`.php` files
+   in the :file:`/data/www/` directory and its subdirectories.
+   Note the backslashes;
    escaping is a JSON-specific requirement:
 
    .. code-block:: json
@@ -1239,8 +1323,9 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Only requests for :samp:`.php` files located in :file:`/admin/`'s
-   subdirectories match:
+   Only requests for :samp:`.php` files
+   located in :file:`/admin/`'s subdirectories
+   match:
 
    .. code-block:: json
 
@@ -1254,8 +1339,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Here, any :samp:`eu-` subdomains of :samp:`example.com` match except
-   :samp:`eu-5.example.com`:
+   Here, any :samp:`eu-` subdomains of :samp:`example.com` match
+   except :samp:`eu-5.example.com`:
 
    .. code-block:: json
 
@@ -1272,7 +1357,8 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Any methods match except :samp:`HEAD` and :samp:`GET`:
+   Any methods match
+   except :samp:`HEAD` and :samp:`GET`:
 
    .. code-block:: json
 
@@ -1289,8 +1375,9 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   You can also combine certain special characters in a pattern.  Here, any
-   URIs match except the ones containing :samp:`/api/`:
+   You can also combine certain special characters in a pattern.
+   Here, any URIs match
+   except the ones containing :samp:`/api/`:
 
    .. code-block:: json
 
@@ -1304,8 +1391,11 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-   Here, URIs of any articles that don't look like :samp:`YYYY-MM-DD` dates
-   match.  Again, note the backslashes; this is a JSON requirement:
+   Here, URIs of any articles
+   that don't look like :samp:`YYYY-MM-DD` dates
+   match.
+   Again, note the backslashes;
+   they are a JSON requirement:
 
    .. code-block:: json
 
@@ -1322,23 +1412,38 @@ which is the default for the official packages>` modify this behavior:
           }
       }
 
-Address-based patterns define individual IPv4 (dot-decimal or `CIDR
-<https://datatracker.ietf.org/doc/html/rfc4632>`__), IPv6 (hexadecimal or `CIDR
-<https://datatracker.ietf.org/doc/html/rfc4291#section-2-3>`__), or any `UNIX
-domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__ addresses
-that must exactly match the property; wildcards and ranges modify this
-behavior:
+Address-based patterns define individual IPv4
+(dot-decimal or
+`CIDR
+<https://datatracker.ietf.org/doc/html/rfc4632>`__),
+IPv6 (hexadecimal or
+`CIDR
+<https://datatracker.ietf.org/doc/html/rfc4291#section-2-3>`__),
+or any
+`UNIX domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__
+addresses
+that must exactly match the property;
+wildcards and ranges modify this behavior:
 
-- Wildcards (:samp:`*`) can only match arbitrary IPs (:samp:`*:<port>`).
+- Wildcards
+  (:samp:`*`)
+  can only match arbitrary IPs
+  (:samp:`*:<port>`).
 
-- Ranges (:samp:`-`) work with both IPs (in respective notation) and ports
+- Ranges
+  (:samp:`-`)
+  work with both IPs
+  (in respective notation)
+  and ports
   (:samp:`<start_port>-<end_port>`).
 
 .. nxt_details:: Address-Based Allow-Deny Lists
    :hash: allow-deny
 
-   Addresses come in handy when implementing an allow-deny mechanism with
-   routes, for instance:
+   Addresses come in handy
+   when implementing an allow-deny mechanism
+   with routes,
+   for instance:
 
    .. code-block:: json
 
@@ -1359,9 +1464,10 @@ behavior:
           }
       ]
 
-   See :ref:`here <configuration-routes-matching-resolution>` for details of
-   pattern resolution order; this corresponds to the following :program:`nginx`
-   directive:
+   See
+   :ref:`here <configuration-routes-matching-resolution>`
+   for details of pattern resolution order;
+   this corresponds to the following :program:`nginx` directive:
 
    .. code-block:: nginx
 
@@ -1449,7 +1555,8 @@ behavior:
           }
       }
 
-   Here, any IPs from the range match, except for :samp:`192.0.2.9`:
+   Here, any IPs from the range match
+   except :samp:`192.0.2.9`:
 
    .. code-block:: json
 
@@ -1506,10 +1613,12 @@ behavior:
 Handling Actions
 ================
 
-If a request matches all :ref:`conditions <configuration-routes-matching>` of a
-route step or the step itself omits the :samp:`match` object, Unit handles the
-request using the respective :samp:`action`.  The mutually exclusive
-:samp:`action` types are:
+If a request matches all
+:ref:`conditions <configuration-routes-matching>`
+of a route step
+or the step itself omits the :samp:`match` object,
+Unit handles the request with the respective :samp:`action`.
+The mutually exclusive :samp:`action` types are:
 
 .. list-table::
    :header-rows: 1
@@ -1519,16 +1628,18 @@ request using the respective :samp:`action`.  The mutually exclusive
      - Details
 
    * - :samp:`pass`
-     - Destination for the request, identical to a listener's
-       :samp:`pass` option.
+     - Destination for the request,
+       identical to a listener's :samp:`pass` option.
      - :ref:`configuration-listeners`
 
    * - :samp:`proxy`
-     - Socket address of an HTTP server where the request is proxied.
+     - Socket address of an HTTP server
+       to where the request is proxied.
      - :ref:`configuration-proxy`
 
    * - :samp:`return`
-     - HTTP status code with a context-dependent redirect location.
+     - HTTP status code
+       with a context-dependent redirect location.
      - :ref:`configuration-return`
 
    * - :samp:`share`
