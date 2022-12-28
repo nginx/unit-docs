@@ -111,7 +111,7 @@ revision numbers, respectively); omit the packages you won't use.
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
       and installing <source-bld-src>` Unit on Solaris.
 
-.. nxt_details:: njs
+.. nxt_details:: Adding NJS Support
    :hash: source-njs
 
    To build Unit with `njs <https://nginx.org/en/docs/njs/>`__ support,

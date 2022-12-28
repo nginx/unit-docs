@@ -2066,8 +2066,10 @@ in a backtick-delimited :program:`njs` template:
    <https://www.json.org/json-en.html>`_).
 
 Unit uses the :program:`njs` library to evaluate template expressions and
-substitute their values at runtime.  As the snippet above suggests, templates
-can refer to the following request properties as variables:
+substitute their values at runtime; the library ships with the :ref:`official
+packages <installation-precomp-pkgs>` or can be :ref:`built from source
+<source-njs>`.  As the snippet above suggests, templates can refer to the
+following request properties as variables:
 
 .. list-table::
    :header-rows: 1
