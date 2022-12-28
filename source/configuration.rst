@@ -2252,8 +2252,11 @@ see the :program:`njs`
 Instant Responses, Redirects
 ****************************
 
-You can use route step :ref:`actions <configuration-routes-action>` to
-instantly handle certain conditions with arbitrary `HTTP status codes
+You can use route step
+:ref:`actions <configuration-routes-action>`
+to instantly handle certain conditions
+with arbitrary
+`HTTP status codes
 <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__:
 
 .. code-block:: json
@@ -2273,17 +2276,24 @@ The :samp:`return` action provides the following options:
 .. list-table::
 
    * - :samp:`return` (required)
-     - Integer (000–999), defines the HTTP response status code to be returned.
+     - Integer (000–999);
+       defines the HTTP response status code
+       to be returned.
 
    * - :samp:`location`
-     - URI, required if the :samp:`return` value implies redirection.
+     - String URI;
+       used if the :samp:`return` value implies redirection.
 
-Use the codes according to their intended `semantics
-<https://datatracker.ietf.org/doc/html/rfc7231#section-6>`_; if you use custom
-codes, make sure that user agents can understand them.
+Use the codes according to their intended
+`semantics
+<https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__;
+if you use custom codes,
+make sure that user agents can understand them.
 
-If you specify a redirect code (3xx), supply the destination using the
-:samp:`location` option alongside :samp:`return`:
+If you specify a redirect code (3xx),
+supply the destination
+using the :samp:`location` option
+alongside :samp:`return`:
 
 .. code-block:: json
 
@@ -2294,9 +2304,12 @@ If you specify a redirect code (3xx), supply the destination using the
        }
    }
 
-Besides enriching the response semantics, :samp:`return` simplifies allow-deny
-lists: instead of guarding each action with a filter, add :ref:`conditions
-<configuration-routes-matching>` to deny unwanted requests as early as possible,
+Besides enriching the response semantics,
+:samp:`return` simplifies allow-deny lists:
+instead of guarding each action with a filter,
+add
+:ref:`conditions <configuration-routes-matching>`
+to deny unwanted requests as early as possible,
 for example:
 
 .. code-block:: json
