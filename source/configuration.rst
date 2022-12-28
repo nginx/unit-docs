@@ -2347,9 +2347,14 @@ for example:
 Static Files
 ************
 
-Unit is capable of acting as a standalone web server, efficiently serving
-static files from the local file system; to use the feature, list the file
-paths in the :samp:`share` option of a route step :ref:`action
+Unit is capable of acting as a standalone web server,
+efficiently serving static files
+from the local file system;
+to use the feature,
+list the file paths
+in the :samp:`share` option
+of a route step
+:ref:`action
 <configuration-routes-action>`.
 
 A :samp:`share`-based action provides the following options:
@@ -2357,47 +2362,70 @@ A :samp:`share`-based action provides the following options:
 .. list-table::
 
    * - :samp:`share` (required)
-     - String or an array of strings; listing file paths that are tried until a
-       file is found.  When no file is found, :samp:`fallback` is used if set.
+     - String or an array of strings;
+       lists file paths that are tried
+       until a file is found.
+       When no file is found,
+       :samp:`fallback` is used if set.
 
-       The value is :ref:`variable <configuration-variables>`-interpolated.
+       The value is
+       :ref:`variable <configuration-variables>`-interpolated.
 
    * - :samp:`index`
-     - Filename to be tried if :samp:`share` is a directory.  When no file is
-       found, :samp:`fallback` is used if set.
+     - Filename;
+       tried if :samp:`share` is a directory.
+       When no file is found,
+       :samp:`fallback` is used if set.
 
        The default is :file:`index.html`.
 
    * - :samp:`fallback`
-     - Action-like :ref:`object <configuration-fallback>`, used if the
-       request can't be served by :samp:`share` or :samp:`index`.
+     - Action-like :ref:`object <configuration-fallback>`;
+       used if the request
+       can't be served by :samp:`share` or :samp:`index`.
 
    * - :samp:`types`
-     - :ref:`Array <configuration-share-mime>` of `MIME type
+     - :ref:`Array <configuration-share-mime>`
+       of
+       `MIME type
        <https://www.iana.org/assignments/media-types/media-types.xhtml>`__
-       patterns, used to filter the shared files.
+       patterns;
+       used to filter the shared files.
 
    * - :samp:`chroot`
-     - Directory pathname that :ref:`restricts <configuration-share-path>`
+     - Directory pathname that
+       :ref:`restricts <configuration-share-path>`
        the shareable paths.
 
-       The value is :ref:`variable <configuration-variables>`-interpolated.
+       The value is
+       :ref:`variable <configuration-variables>`-interpolated.
 
    * - :samp:`follow_symlinks`, :samp:`traverse_mounts`
-     - Booleans, turn on and off symbolic link and mount point
-       :ref:`resolution <configuration-share-resolution>` respectively; if
-       :samp:`chroot` is set, they only :ref:`affect <configuration-share-path>`
+     - Booleans;
+       turn on and off symbolic link and mount point
+       :ref:`resolution <configuration-share-resolution>`
+       respectively;
+       if :samp:`chroot` is set,
+       they only
+       :ref:`affect <configuration-share-path>`
        the insides of :samp:`chroot`.
 
-       The default for both options is :samp:`true` (resolve links and mounts).
+       The default for both options is :samp:`true`
+       (resolve links and mounts).
 
 .. note::
 
-   To serve the files, Unit's router process must be able to access them; thus,
-   the account this process runs as must have proper permissions :ref:`assigned
-   <security-apps>`.  When Unit is installed from the :ref:`official packages
-   <installation-precomp-pkgs>`, the process runs as :samp:`unit:unit`; for
-   details of other installation methods, see :doc:`installation`.
+   To serve the files,
+   Unit's router process must be able to access them;
+   thus, the account this process runs as
+   must have proper permissions
+   :ref:`assigned <security-apps>`.
+   When Unit is installed from the
+   :ref:`official packages
+   <installation-precomp-pkgs>`,
+   the process runs as :samp:`unit:unit`;
+   for details of other installation methods,
+   see :doc:`installation`.
 
 Consider the following configuration:
 
@@ -2419,17 +2447,25 @@ Consider the following configuration:
        ]
    }
 
-It uses :ref:`variable interpolation <configuration-variables>`: Unit replaces
-the :samp:`$uri` reference with its current value and tries the resulting path.
-If it doesn't yield a servable file, a 404 "Not Found" response is returned.
+It uses
+:ref:`variable interpolation <configuration-variables>`:
+Unit replaces the :samp:`$uri` reference
+with its current value
+and tries the resulting path.
+If this doesn't yield a servable file,
+a 404 "Not Found" response is returned.
 
 .. warning::
 
-   Before version 1.26.0, Unit used :samp:`share` as the document root.  This
-   was changed for flexibility, so now :samp:`share` must resolve to specific
-   files.  A common solution is to append :samp:`$uri` to your document root.
+   Before version 1.26.0,
+   Unit used :samp:`share` as the document root.
+   This was changed for flexibility,
+   so now :samp:`share` must resolve to specific files.
+   A common solution is
+   to append :samp:`$uri` to your document root.
 
-   Pre-1.26, the snippet above would've looked like this:
+   Pre-1.26,
+   the snippet above would've looked like this:
 
    .. code-block:: json
 
@@ -2437,11 +2473,15 @@ If it doesn't yield a servable file, a 404 "Not Found" response is returned.
           "share": "/www/static/"
       }
 
-   Mind that URI paths always start with a slash, so there's no need to
-   separate the directory from :samp:`$uri`; even if you do, Unit compacts
-   adjacent slashes during path resolution, so there won't be an issue.
+   Mind that URI paths always start with a slash,
+   so there's no need to separate the directory
+   from :samp:`$uri`;
+   even if you do, Unit compacts adjacent slashes
+   during path resolution,
+   so there won't be an issue.
 
-If :samp:`share` is an array, its items are searched in order of appearance
+If :samp:`share` is an array,
+its items are searched in order of appearance
 until a servable file is found:
 
 .. code-block:: json
@@ -2451,13 +2491,16 @@ until a servable file is found:
        "/www/error_pages/not_found.html"
    ]
 
-This snippet tries a :samp:`$host`-based directory first; if a suitable file
-isn't found there, the :file:`not_found.html` file is tried.  If neither is
-accessible, a 404 "Not Found" response is returned.
+This snippet tries a :samp:`$host`-based directory first;
+if a suitable file isn't found there,
+the :file:`not_found.html` file is tried.
+If neither is accessible,
+a 404 "Not Found" response is returned.
 
-Finally, if a file path points to a directory, Unit attempts to serve an
-:samp:`index`-indicated file from it.  Suppose we have the following directory
-structure and share configuration:
+Finally, if a file path points to a directory,
+Unit attempts to serve an :samp:`index`-indicated file from it.
+Suppose we have the following directory structure
+and share configuration:
 
 .. code-block:: none
 
@@ -2472,8 +2515,8 @@ structure and share configuration:
        "index": "default.html"
    }
 
-The following request returns :file:`default.html` even though the file isn't
-named explicitly:
+The following request returns :file:`default.html`
+even though the file isn't named explicitly:
 
 .. subs-code-block:: console
 
@@ -2489,9 +2532,11 @@ named explicitly:
 
 .. note::
 
-   Unit's ETag response header fields use the :samp:`MTIME-FILESIZE` format,
-   where :samp:`MTIME` stands for file modification timestamp and
-   :samp:`FILESIZE` stands for file size in bytes, both in hexadecimal.
+   Unit's ETag response header fields
+   use the :samp:`MTIME-FILESIZE` format,
+   where :samp:`MTIME` stands for file modification timestamp
+   and :samp:`FILESIZE` stands for file size in bytes,
+   both in hexadecimal.
 
 
 .. _configuration-share-mime:
@@ -2500,11 +2545,16 @@ named explicitly:
 MIME Filtering
 ==============
 
-To filter the files a :samp:`share` serves by their `MIME types
-<https://www.iana.org/assignments/media-types/media-types.xhtml>`__, define a
-:samp:`types` array of string patterns.  They work like :ref:`route patterns
-<configuration-routes-matching-patterns>` but are compared to the MIME type of
-each file; the request is served only if it's a :ref:`match
+To filter the files a :samp:`share` serves
+by their
+`MIME types <https://www.iana.org/assignments/media-types/media-types.xhtml>`__,
+define a :samp:`types` array of string patterns.
+They work like
+:ref:`route patterns
+<configuration-routes-matching-patterns>`
+but are compared to the MIME type of each file;
+the request is served only if it's a
+:ref:`match
 <configuration-routes-matching-resolution>`:
 
 .. code-block:: json
@@ -2519,16 +2569,22 @@ each file; the request is served only if it's a :ref:`match
        ]
    }
 
-This sample configuration blocks JS and CSS files with :ref:`negation
-<configuration-routes-matching-resolution>` but allows all other text-based
-MIME types with a :ref:`wildcard pattern
-<configuration-routes-matching-patterns>`. Additionally, the :file:`.3gpp` and
-:file:`.3gpp2` file types are allowed by a :ref:`regex pattern
-<configuration-routes-matching-patterns>`.
+This sample configuration blocks JS and CSS files with
+:ref:`negation <configuration-routes-matching-resolution>`
+but allows all other text-based MIME types with a
+:ref:`wildcard pattern <configuration-routes-matching-patterns>`.
+Additionally, the :file:`.3gpp` and :file:`.3gpp2` file types
+are allowed by a
+:ref:`regex pattern <configuration-routes-matching-patterns>`.
 
-If the MIME type of a requested file isn't recognized, it's considered empty
-(:samp:`""`).  Thus, the :samp:`"!"` pattern ("deny empty strings") can be used
-to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
+If the MIME type of a requested file isn't recognized,
+it's considered empty
+(:samp:`""`).
+Thus, the :samp:`"!"` pattern
+("deny empty strings")
+can be used to restrict all file types
+:ref:`unknown <configuration-mime>`
+to Unit:
 
 .. code-block:: json
 
@@ -2539,8 +2595,8 @@ to restrict all file types :ref:`unknown <configuration-mime>` to Unit:
        ]
    }
 
-If a share path specifies only the directory name, Unit *doesn't* apply
-MIME filtering.
+If a share path specifies only the directory name,
+Unit *doesn't* apply MIME filtering.
 
 
 .. _configuration-share-path:
@@ -2551,14 +2607,18 @@ Path Restrictions
 
 .. note::
 
-   To have these options, Unit must be built and run on a system with Linux
-   kernel version 5.6+.
+   To have these options,
+   Unit must be built and run
+   on a system with Linux kernel version 5.6+.
 
-The :samp:`chroot` option confines the path resolution within a share to a
-certain directory.  First, it affects symbolic links: any attempts to go up the
-directory tree with relative symlinks like :samp:`../../var/log` stop at the
-:samp:`chroot` directory, and absolute symlinks are treated as relative to this
-directory to avoid breaking out:
+The :samp:`chroot` option confines the path resolution
+within a share to a certain directory.
+First, it affects symbolic links:
+any attempts to go up the directory tree
+with relative symlinks like :samp:`../../var/log`
+stop at the :samp:`chroot` directory,
+and absolute symlinks are treated as relative
+to this directory to avoid breaking out:
 
 .. code-block:: json
 
@@ -2569,12 +2629,14 @@ directory to avoid breaking out:
        }
    }
 
-Here, a request for :file:`/log` initially resolves to :file:`/www/data/log`;
-however, if that's an absolute symlink to :file:`/var/log/app.log`, the
-resulting path is :file:`/www/data/var/log/app.log`.
+Here, a request for :file:`/log`
+initially resolves to :file:`/www/data/log`;
+however, if that's an absolute symlink to :file:`/var/log/app.log`,
+the resulting path is :file:`/www/data/var/log/app.log`.
 
-Another effect is that any requests for paths that resolve outside the
-:samp:`chroot` directory are forbidden:
+Another effect is that any requests
+for paths that resolve outside the :samp:`chroot` directory
+are forbidden:
 
 .. code-block:: json
 
@@ -2585,13 +2647,16 @@ Another effect is that any requests for paths that resolve outside the
        }
    }
 
-Here, a request for :samp:`/index.xml` elicits a 403 "Forbidden" response
-because it resolves to :samp:`/www/index.xml`, which is outside :samp:`chroot`.
+Here, a request for :samp:`/index.xml`
+elicits a 403 "Forbidden" response
+because it resolves to :samp:`/www/index.xml`,
+which is outside :samp:`chroot`.
 
 .. _configuration-share-resolution:
 
-The :samp:`follow_symlinks` and :samp:`traverse_mounts` options disable
-resolution of symlinks and traversal of mount points when set to :samp:`false`
+The :samp:`follow_symlinks` and :samp:`traverse_mounts` options
+disable resolution of symlinks and traversal of mount points
+when set to :samp:`false`
 (both default to :samp:`true`):
 
 .. code-block:: json
@@ -2604,11 +2669,12 @@ resolution of symlinks and traversal of mount points when set to :samp:`false`
        }
    }
 
-Here, any symlink or mount point in the entire :samp:`share` path results
-in a 403 "Forbidden" response.
+Here, any symlink or mount point in the entire :samp:`share` path
+results in a 403 "Forbidden" response.
 
-With :samp:`chroot` set, :samp:`follow_symlinks` and :samp:`traverse_mounts`
-only affect portions of the path after :samp:`chroot`:
+With :samp:`chroot` set,
+:samp:`follow_symlinks` and :samp:`traverse_mounts`
+only affect portions of the path *after* :samp:`chroot`:
 
 .. code-block:: json
 
@@ -2621,16 +2687,20 @@ only affect portions of the path after :samp:`chroot`:
        }
    }
 
-Here, :file:`www/` and interpolated :samp:`$host` can be symlinks or mount
-points, but any symlinks and mount points beyond them, including the
-:file:`static/` portion, won't be resolved.
+Here, :file:`www/` and interpolated :samp:`$host`
+can be symlinks or mount points,
+but any symlinks and mount points beyond them,
+including the :file:`static/` portion,
+won't be resolved.
 
 .. nxt_details:: Details
    :hash: chroot-details
 
-   Suppose you want to serve files from a share that itself includes a symlink
-   (let's assume :samp:`$host` always resolves to :samp:`localhost` and make it
-   a symlink in our example) but disable any symlinks inside the share.
+   Suppose you want to serve files from a share
+   that itself includes a symlink
+   (let's assume :samp:`$host` always resolves to :samp:`localhost`
+   and make it a symlink in our example)
+   but disable any symlinks inside the share.
 
    Initial configuration:
 
@@ -2655,8 +2725,9 @@ points, but any symlinks and mount points beyond them, including the
 
       $ ln -s index.html /www/localhost/static/symlink
 
-   If symlink resolution is enabled (with or without :samp:`chroot`), a request
-   that targets the symlink works:
+   If symlink resolution is enabled
+   (with or without :samp:`chroot`),
+   a request that targets the symlink works:
 
    .. code-block:: console
 
@@ -2680,7 +2751,8 @@ points, but any symlinks and mount points beyond them, including the
           }
       }
 
-   The symlink request is forbidden, which is presumably the desired effect:
+   The symlink request is forbidden,
+   which is presumably the desired effect:
 
    .. code-block:: console
 
@@ -2692,7 +2764,8 @@ points, but any symlinks and mount points beyond them, including the
 
             <!DOCTYPE html><title>Error 403</title><p>Error 403.
 
-   Lastly, what difference does :samp:`chroot` make?  To see, remove it:
+   Lastly, what difference does :samp:`chroot` make?
+   To see, remove it:
 
    .. code-block:: json
 
@@ -2703,8 +2776,9 @@ points, but any symlinks and mount points beyond them, including the
           }
       }
 
-   Now, :samp:`"follow_symlinks": false` affects the entire share, and
-   :samp:`localhost` is a symlink, so it's forbidden:
+   Now, :samp:`"follow_symlinks": false` affects the entire share,
+   and :samp:`localhost` is a symlink,
+   so it's forbidden:
 
    .. code-block:: console
 
@@ -2719,10 +2793,14 @@ points, but any symlinks and mount points beyond them, including the
 Fallback Action
 ===============
 
-Finally, within an :samp:`action`, you can supply a :samp:`fallback` option
-beside a :samp:`share`.  It specifies the :ref:`action
-<configuration-routes-action>` to be taken if the requested file can't be
-served from the :samp:`share` path:
+Finally, within an :samp:`action`,
+you can supply a :samp:`fallback` option
+beside a :samp:`share`.
+It specifies the
+:ref:`action <configuration-routes-action>`
+to be taken
+if the requested file can't be served
+from the :samp:`share` path:
 
 .. code-block:: json
 
@@ -2737,20 +2815,24 @@ Serving a file can be impossible for different reasons, such as:
 
 - The request's HTTP method isn't :samp:`GET` or :samp:`HEAD`.
 
-- The file's MIME type doesn't match the :samp:`types` :ref:`array
-  <configuration-share-mime>`.
+- The file's MIME type doesn't match the :samp:`types`
+  :ref:`array <configuration-share-mime>`.
 
 - The file isn't found at the :samp:`share` path.
 
-- The router process has :ref:`insufficient permissions <security-apps>` to
-  access the file or an underlying directory.
+- The router process has
+  :ref:`insufficient permissions <security-apps>`
+  to access the file or an underlying directory.
 
-In the previous example, an attempt to serve the requested file from the
-:samp:`/www/data/static/` directory is made first.  Only if the file can't be
-served, the request is passed to the :samp:`php` application.
+In the previous example,
+an attempt to serve the requested file
+from the :samp:`/www/data/static/` directory
+is made first.
+Only if the file can't be served,
+the request is passed to the :samp:`php` application.
 
-If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
-:samp:`fallback`:
+If the :samp:`fallback` itself is a :samp:`share`,
+it can also contain a nested :samp:`fallback`:
 
 .. code-block:: json
 
@@ -2765,18 +2847,25 @@ If the :samp:`fallback` itself is a :samp:`share`, it can also contain a nested
        }
    }
 
-The first :samp:`share` tries to serve the request from
-:file:`/www/data/static/`; on failure, the second :samp:`share` tries the
-:file:`/www/cache/` path with :samp:`chroot` enabled.  If both attempts fail,
+The first :samp:`share` tries to serve the request
+from :file:`/www/data/static/`;
+on failure, the second :samp:`share` tries the :file:`/www/cache/` path
+with :samp:`chroot` enabled.
+If both attempts fail,
 the request is proxied elsewhere.
 
 .. nxt_details:: Examples
    :hash: conf-variable-examples
 
-   One common use case that this feature enables is the separation of requests
-   for static and dynamic content into independent routes.  The following
-   example relays all requests that target :file:`.php` files to an application
-   and uses a catch-all static :samp:`share` with a :samp:`fallback`:
+   One common use case that this feature enables
+   is the separation of requests
+   for static and dynamic content
+   into independent routes.
+   The following example relays all requests
+   that target :file:`.php` files
+   to an application
+   and uses a catch-all static :samp:`share`
+   with a :samp:`fallback`:
 
    .. code-block:: json
 
@@ -2810,9 +2899,12 @@ the request is proxied elsewhere.
           }
       }
 
-   You can reverse this scheme for apps that avoid filenames in dynamic URIs,
-   listing all types of static content to be served from a :samp:`share` in a
-   :samp:`match` condition and adding an unconditional application path:
+   You can reverse this scheme for apps
+   that avoid filenames in dynamic URIs,
+   listing all types of static content
+   to be served from a :samp:`share`
+   in a :samp:`match` condition
+   and adding an unconditional application path:
 
    .. code-block:: json
 
@@ -2853,8 +2945,10 @@ the request is proxied elsewhere.
           }
       }
 
-   If image files should be served locally and other proxied, use the
-   :samp:`types` array in the first route step:
+   If image files should be served locally
+   and other proxied,
+   use the :samp:`types` array
+   in the first route step:
 
    .. code-block:: json
 
@@ -2882,8 +2976,9 @@ the request is proxied elsewhere.
           }
       }
 
-   Another way to combine :samp:`share`, :samp:`types`, and :samp:`fallback` is
-   exemplified by the following compact pattern:
+   Another way to combine
+   :samp:`share`, :samp:`types`, and :samp:`fallback`
+   is exemplified by the following compact pattern:
 
    .. code-block:: json
 
@@ -2898,9 +2993,12 @@ the request is proxied elsewhere.
           }
       }
 
-   It forwards explicit requests for PHP files to the app while serving all
-   other types of files from the share; note that a :samp:`match` object isn't
-   needed here to achieve this effect.
+   It forwards explicit requests for PHP files
+   to the app
+   while serving all other types of files
+   from the share;
+   note that a :samp:`match` object
+   isn't needed here to achieve this effect.
 
 
 .. _configuration-proxy:
