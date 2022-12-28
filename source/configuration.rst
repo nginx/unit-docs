@@ -1706,9 +1706,12 @@ An example:
 Variables And Scripting
 ***********************
 
-Some options in Unit configuration allow the use of :ref:`variables
-<configuration-variables-native>` and :ref:`scripting expressions
-<configuration-variables-scripting>` whose values are calculated at runtime.
+Some options in Unit configuration
+allow the use of
+:ref:`variables <configuration-variables-native>`
+and
+:ref:`scripting expressions <configuration-variables-scripting>`
+whose values are calculated at runtime.
 
 .. _configuration-variables-native:
 
@@ -1725,96 +1728,129 @@ There's a number of built-in variables available:
      - Description
 
    * - :samp:`arg_*`, :samp:`cookie_*`, :samp:`header_*`
-     - Variables that store :ref:`request arguments, cookies, and header fields
-       <configuration-routes-matching>`, such as :samp:`arg_queryTimeout`,
-       :samp:`cookie_sessionId`, or :samp:`header_Accept_Encoding`.  The names
-       of the :samp:`header_*` variables are case insensitive.
+     - Variables that store
+       :ref:`request arguments, cookies, and header fields
+       <configuration-routes-matching>`,
+       such as :samp:`arg_queryTimeout`,
+       :samp:`cookie_sessionId`,
+       or :samp:`header_Accept_Encoding`.
+       The names of the :samp:`header_*` variables are case insensitive.
 
    * - :samp:`body_bytes_sent`
      - Number of bytes sent in the response body.
 
    * - :samp:`dollar`
-     - Literal dollar sign (:samp:`$`), used for escaping.
+     - Literal dollar sign (:samp:`$`),
+       used for escaping.
 
    * - :samp:`header_referer`
-     - Contents of the :samp:`Referer` request `header field
+     - Contents of the :samp:`Referer` request
+       `header field
        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer>`__.
 
    * - :samp:`header_user_agent`
-     - Contents of the :samp:`User-Agent` request `header field
+     - Contents of the :samp:`User-Agent` request
+       `header field
        <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent>`__.
 
    * - :samp:`host`
      - :samp:`Host`
        `header field
        <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
-       converted to lower case and normalized by removing the port number and
-       the trailing period (if any).
+       converted to lower case and normalized
+       by removing the port number
+       and the trailing period (if any).
 
    * - :samp:`method`
-     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`_ from
-       the request line.
+     - `Method <https://datatracker.ietf.org/doc/html/rfc7231#section-4>`__
+       from the request line.
 
    * - :samp:`remote_addr`
      - Remote IP address of the request.
 
    * - :samp:`request_line`
-     - Entire `request
-       line <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
+     - Entire
+       `request line
+       <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
 
    * - :samp:`request_time`
-     - Request processing time in milliseconds, formatted as follows:
+     - Request processing time in milliseconds,
+       formatted as follows:
        :samp:`1.234`.
 
    * - :samp:`request_uri`
-     - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`_
-       *including* the `query
+     - Request target
+       `path
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__
+       *including* the
+       `query
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__,
-       normalized by resolving relative path references ("." and "..") and
-       collapsing adjacent slashes.
+       normalized by resolving relative path references
+       ("." and "..")
+       and collapsing adjacent slashes.
 
    * - :samp:`status`
-     - HTTP `status code
-       <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__ of the
-       response.
+     - HTTP
+       `status code
+       <https://datatracker.ietf.org/doc/html/rfc7231#section-6>`__
+       of the response.
 
    * - :samp:`time_local`
-     - Local time, formatted as follows: :samp:`31/Dec/1986:19:40:00 +0300`.
+     - Local time,
+       formatted as follows:
+       :samp:`31/Dec/1986:19:40:00 +0300`.
 
    * - :samp:`uri`
-     - Request target `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`_ *without*
-       the `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__ part,
-       normalized by resolving relative path references ("." and "..") and
-       collapsing adjacent slashes.  The value is `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__: Unit
-       interpolates all percent-encoded entities in the request target `path
+     - Request target
+       `path
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__
+       *without* the `query
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__
+       part,
+       normalized by resolving relative path references
+       ("." and "..")
+       and collapsing adjacent slashes.
+       The value is
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__:
+       Unit interpolates all percent-encoded entities
+       in the request target
+       `path
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__.
 
 These variables can be used with:
 
-- :samp:`pass` in :ref:`listeners <configuration-listeners>` and
-  :ref:`actions <configuration-routes-action>` to choose between routes,
-  applications, app targets, or upstreams.
+- :samp:`pass` in
+  :ref:`listeners <configuration-listeners>`
+  and
+  :ref:`actions <configuration-routes-action>`
+  to choose between routes, applications, app targets, or upstreams.
 
-- :samp:`share` and :samp:`chroot` in :ref:`actions
-  <configuration-routes-action>` to control :ref:`static content serving
-  <configuration-static>`.
+- :samp:`share` and :samp:`chroot` in
+  :ref:`actions <configuration-routes-action>`
+  to control
+  :ref:`static content serving <configuration-static>`.
 
-- :samp:`location` in :samp:`return` :ref:`actions <configuration-return>` to
-  enable HTTP redirects.
+- :samp:`location` in :samp:`return`
+  :ref:`actions <configuration-return>`
+  to enable HTTP redirects.
 
-- :samp:`format` in the :ref:`access log <configuration-access-log>` to
-  customize Unit's log output.
+- :samp:`format` in the
+  :ref:`access log <configuration-access-log>`
+  to customize Unit's log output.
 
 
-To reference a variable, prefix its name with the dollar sign character
-(:samp:`$`), optionally enclosing the name in curly brackets (:samp:`{}`) to
-separate it from adjacent text or enhance visibility.  Variable names can
-contain letters and underscores (:samp:`_`), so use the brackets if the
-variable is immediately followed by these characters:
+To reference a variable,
+prefix its name with the dollar sign character
+(:samp:`$`),
+optionally enclosing the name in curly brackets
+(:samp:`{}`)
+to separate it from adjacent text
+or enhance visibility.
+Variable names can contain letters and underscores
+(:samp:`_`),
+so use the brackets
+if the variable is immediately followed by such characters:
 
 .. code-block:: json
 
@@ -1852,22 +1888,32 @@ variable is immediately followed by these characters:
        }
    }
 
-To reference an :samp:`arg_*`, :samp:`cookie_*`, or :samp:`header_*` variable,
-add the name you need to the prefix.  A query string of
-:samp:`Type=car&Color=red` yields two variables, :samp:`$arg_Type` and
-:samp:`$arg_Color`; Unit additionally normalizes capitalization and hyphenation
-in header field names, so the :samp:`Accept-Encoding` header field can also be
-referred to as :samp:`$header_Accept_Encoding`,
-:samp:`$header_accept-encoding`, or :samp:`$header_accept_encoding`.
+To reference an :samp:`arg_*`,
+:samp:`cookie_*`,
+or :samp:`header_*` variable,
+add the name you need to the prefix.
+A query string of :samp:`Type=car&Color=red`
+yields two variables,
+:samp:`$arg_Type` and :samp:`$arg_Color`;
+Unit additionally normalizes capitalization and hyphenation
+in header field names,
+so the :samp:`Accept-Encoding` header field
+can also be referred to as :samp:`$header_Accept_Encoding`,
+:samp:`$header_accept-encoding`,
+or :samp:`$header_accept_encoding`.
 
 .. note::
 
-   With multiple argument instances (think :samp:`Color=Red&Color=Blue`), the
-   rightmost occurrence is used (:samp:`Blue`).
+   With multiple argument instances
+   (think :samp:`Color=Red&Color=Blue`),
+   the rightmost occurrence is used (:samp:`Blue`).
 
-At runtime, variables expand into dynamically computed values (at your risk!).
-The previous example targets an entire set of routes, picking individual ones
-by HTTP verbs from the incoming requests:
+At runtime,
+variables expand into dynamically computed values
+(at your risk!).
+The previous example targets an entire set of routes,
+picking individual ones by HTTP verbs
+from the incoming requests:
 
 .. code-block:: console
 
@@ -1887,13 +1933,16 @@ by HTTP verbs from the incoming requests:
 
        HTTP/1.1 404 Not Found
 
-If you reference a non-existing variable, it is considered empty.
+If you reference a non-existing variable,
+it is considered empty.
 
 .. nxt_details:: Examples
    :hash: variables-examples
 
-   This configuration selects the static file location based on the requested
-   hostname; if nothing's found, it attempts to retrieve the requested file
+   This configuration selects the static file location
+   based on the requested hostname;
+   if nothing's found,
+   it attempts to retrieve the requested file
    from a common storage:
 
    .. code-block:: json
@@ -1917,7 +1966,8 @@ If you reference a non-existing variable, it is considered empty.
           ]
       }
 
-   Another use case is employing the URI to choose between applications:
+   Another use case is employing the URI
+   to choose between applications:
 
    .. code-block:: json
 
@@ -1942,15 +1992,16 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   This way, requests are routed by their target URIs between applications:
+   This way, requests are routed between applications by their target URIs:
 
    .. code-block:: console
 
          $ curl http://localhost/blog     # Targets the 'blog' app
          $ curl http://localhost/sandbox  # Targets the 'sandbox' app
 
-   A different approach can put the :samp:`Host` header field received from the
-   client to the same use:
+   A different approach puts the :samp:`Host` header field
+   received from the client
+   to the same use:
 
    .. code-block:: json
 
@@ -1975,11 +2026,16 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   You can use multiple variables in a string, repeating and placing them
-   arbitrarily.  This configuration picks an app target (supported for
-   :ref:`PHP <configuration-php-targets>` and :ref:`Python
-   <configuration-python-targets>` apps) based on the requested hostname and
-   URI:
+   You can use multiple variables in a string,
+   repeating and placing them arbitrarily.
+   This configuration picks an app target
+   (supported for
+   :ref:`PHP <configuration-php-targets>`
+   and
+   :ref:`Python
+   <configuration-python-targets>`
+   apps)
+   based on the requested hostname and URI:
 
    .. code-block:: json
 
@@ -1991,10 +2047,12 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   At runtime, a request for :samp:`example.com/myapp` is passed to
-   :samp:`applications/app_example.com/myapp`.
+   At runtime,
+   a request for :samp:`example.com/myapp`
+   is passed to :samp:`applications/app_example.com/myapp`.
 
-   To select a share directory based on an :samp:`app_session` cookie:
+   To select a share directory
+   based on an :samp:`app_session` cookie:
 
    .. code-block:: json
 
@@ -2004,8 +2062,9 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   Here, if :samp:`$uri` in :samp:`share` resolves to a directory, the choice
-   of an index file to be served is dictated by :samp:`index`:
+   Here, if :samp:`$uri` in :samp:`share` resolves to a directory,
+   the choice of an index file to be served
+   is dictated by :samp:`index`:
 
    .. code-block:: json
 
@@ -2016,8 +2075,10 @@ If you reference a non-existing variable, it is considered empty.
           }
       }
 
-   Here, a redirect uses the :samp:`$request_uri` variable value to relay the
-   request, *including* the query part, to the same website over HTTPS:
+   Here, a redirect uses the :samp:`$request_uri` variable value
+   to relay the request,
+   *including* the query part,
+   to the same website over HTTPS:
 
    .. code-block:: json
 
@@ -2034,11 +2095,16 @@ If you reference a non-existing variable, it is considered empty.
 Scripting
 =========
 
-The same options that accept :ref:`variables <configuration-variables-native>`
-also allow `template literals
+The same options that accept
+:ref:`variables <configuration-variables-native>`
+also allow
+`template literals
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
-based on the `njs <https://nginx.org/en/docs/njs/>`__ scripting language.  The
-following example builds a :samp:`share` path with two built-in variables
+based on the
+`njs <https://nginx.org/en/docs/njs/>`__
+scripting language.
+The following example builds a :samp:`share` path
+with two built-in variables
 in a backtick-delimited :program:`njs` template:
 
 .. code-block:: json
@@ -2060,16 +2126,27 @@ in a backtick-delimited :program:`njs` template:
 
 .. note::
 
-   Dynamic parts of the template should be enclosed in curly brackets:
-   :samp:`$\\{...\\}`.  To use a literal backtick in string values, escape it:
-   :samp:`\\\\\\\\`` (escaping backslashes is a `JSON requirement
+   Dynamic parts of the template
+   should be enclosed in curly brackets:
+   :samp:`$\\{...\\}`.
+   To use a literal backtick in string values,
+   escape it:
+   :samp:`\\\\\\\\``
+   (escaping backslashes is a
+   `JSON requirement
    <https://www.json.org/json-en.html>`_).
 
-Unit uses the :program:`njs` library to evaluate template expressions and
-substitute their values at runtime; the library ships with the :ref:`official
-packages <installation-precomp-pkgs>` or can be :ref:`built from source
-<source-njs>`.  As the snippet above suggests, templates can refer to the
-following request properties as variables:
+Unit uses the :program:`njs` library
+to evaluate template expressions
+and substitute their values at runtime;
+the library ships with the
+:ref:`official packages <installation-precomp-pkgs>`
+or can be
+:ref:`built from source <source-njs>`.
+As the snippet above suggests,
+templates can refer
+to the following request properties
+as variables:
 
 .. list-table::
    :header-rows: 1
@@ -2078,38 +2155,47 @@ following request properties as variables:
      - Description
 
    * - :samp:`args.*`
-     - Query string arguments; :samp:`Color=Blue` is :samp:`args.Color`, and
-       so on.
+     - Query string arguments;
+       :samp:`Color=Blue` is :samp:`args.Color`,
+       and so on.
 
    * - :samp:`cookies.*`
-     - Request cookies; an :samp:`authID` cookie is :samp:`cookies.authID`, and
-       so on.
+     - Request cookies;
+       an :samp:`authID` cookie is :samp:`cookies.authID`,
+       and so on.
 
    * - :samp:`headers.*`
-     - Request header fields; :samp:`Accept` is :samp:`headers.Accept`,
-       :samp:`Content-Encoding` is :samp:`headers['Content-Encoding']` (hyphen
-       requires an array property accessor), and so on.
+     - Request header fields;
+       :samp:`Accept` is :samp:`headers.Accept`,
+       :samp:`Content-Encoding` is :samp:`headers['Content-Encoding']`
+       (hyphen requires an array property accessor),
+       and so on.
 
    * - :samp:`host`
-     - :samp:`Host` `header field
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`_, converted
-       to lower case and normalized by removing the port number and the
-       trailing period (if any).
+     - :samp:`Host`
+       `header field
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`__,
+       converted to lower case and normalized
+       by removing the port number and the trailing period (if any).
 
    * - :samp:`remoteAddr`
      - Remote IP address of the request.
 
    * - :samp:`uri`
      - `Request target
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__, `percent
-       decoded <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
-       and normalized by removing the `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__ and
-       resolving `relative references
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__ ("." and
-       "..", "//").
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__,
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       and normalized by removing the
+       `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
+       and resolving
+       `relative references
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
+       ("." and "..", "//").
 
-This example adds one-line logic to filter requests issued by :program:`curl`
+This example adds one-line logic
+to filter requests issued by :program:`curl`
 along the appropriate route:
 
 .. code-block:: json
@@ -2142,7 +2228,8 @@ along the appropriate route:
 
 .. note::
 
-   Template literals can contain newline characters to improve readability:
+   Template literals can contain newline characters
+   to improve readability:
 
    .. code-block:: json
 
@@ -2154,8 +2241,9 @@ along the appropriate route:
           }
       }
 
-For further reference, see the :program:`njs` `documentation
-<https://nginx.org/en/docs/njs/>`__.
+For further reference,
+see the :program:`njs`
+`documentation <https://nginx.org/en/docs/njs/>`__.
 
 
 .. _configuration-return:
