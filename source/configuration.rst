@@ -2429,9 +2429,7 @@ If it doesn't yield a servable file, a 404 "Not Found" response is returned.
    was changed for flexibility, so now :samp:`share` must resolve to specific
    files.  A common solution is to append :samp:`$uri` to your document root.
 
-   In fact, if you update an existing Unit instance to 1.26+, its shares are
-   automatically amended in this manner.  Pre-1.26, the snippet above would've
-   looked like this:
+   Pre-1.26, the snippet above would've looked like this:
 
    .. code-block:: json
 
