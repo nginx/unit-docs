@@ -3142,20 +3142,25 @@ the default is :samp:`1`.
 Applications
 ************
 
-Each app that Unit runs is defined as an object in the
-:samp:`/config/applications` section of the control API; it lists the app's
-language and settings, its runtime limits, process model, and various
-language-specific options.
+Each app that Unit runs
+is defined as an object
+in the :samp:`/config/applications` section of the control API;
+it lists the app's language and settings,
+its runtime limits,
+process model,
+and various language-specific options.
 
 .. note::
 
-   Our official :ref:`language support packages <installation-precomp-pkgs>`
-   include end-to-end examples of application configuration, available for your
-   reference at :file:`/usr/share/doc/<module name>/examples/` after package
-   installation.
+   Our official
+   :ref:`language-specific packages <installation-precomp-pkgs>`
+   include end-to-end examples of application configuration,
+   available for your reference at
+   :file:`/usr/share/doc/<module name>/examples/`
+   after package installation.
 
-Here, Unit runs 20 processes of a PHP app called :samp:`blogs`, stored in
-the :file:`/www/blogs/scripts/` directory:
+Here, Unit runs 20 processes of a PHP app called :samp:`blogs`,
+stored in the :file:`/www/blogs/scripts/` directory:
 
 .. code-block:: json
 
@@ -3169,7 +3174,8 @@ the :file:`/www/blogs/scripts/` directory:
 
 .. _configuration-apps-common:
 
-App objects have a number of options shared between all application languages:
+App objects have a number of options
+shared between all application languages:
 
 .. list-table::
     :header-rows: 1
@@ -3178,53 +3184,89 @@ App objects have a number of options shared between all application languages:
       - Description
 
     * - :samp:`type` (required)
-      - Application type: :samp:`external` (Go and Node.js), :samp:`java`,
-        :samp:`perl`, :samp:`php`, :samp:`python`, or :samp:`ruby`.
+      - Application type:
+        :samp:`external`
+        (Go and Node.js),
+        :samp:`java`,
+        :samp:`perl`,
+        :samp:`php`,
+        :samp:`python`,
+        or :samp:`ruby`.
 
-        Except with :samp:`external`, you can detail the runtime version:
-        :samp:`"type": "python 3"`, :samp:`"type": "python 3.4"`, or even
-        :samp:`"type": "python 3.4.9rc1"`.  Unit searches its modules and uses
-        the latest matching one, reporting an error if none match.
+        Except with :samp:`external`,
+        you can detail the runtime version:
+        :samp:`"type": "python 3"`,
+        :samp:`"type": "python 3.4"`,
+        or even
+        :samp:`"type": "python 3.4.9rc1"`.
+        Unit searches its modules
+        and uses the latest matching one,
+        reporting an error if none match.
 
-        For example, if you have only one PHP module, 7.1.9, it matches
-        :samp:`"php"`, :samp:`"php 7"`, :samp:`"php 7.1"`, and :samp:`"php
-        7.1.9"`.  If you have modules for versions 7.0.2 and 7.0.23, set
-        :samp:`"type": "php 7.0.2"` to specify the former; otherwise, PHP |_|
-        7.0.23 will be used.
+        For example, if you have only one PHP module,
+        7.1.9,
+        it matches :samp:`"php"`,
+        :samp:`"php 7"`,
+        :samp:`"php 7.1"`,
+        and :samp:`"php 7.1.9"`.
+        If you have modules for versions 7.0.2 and 7.0.23,
+        set :samp:`"type": "php 7.0.2"` to specify the former;
+        otherwise, PHP |_| 7.0.23 will be used.
 
     * - :samp:`limits`
-      - Object; accepts two integer options, :samp:`timeout` and
-        :samp:`requests`.  Their values govern the life cycle of an
-        application process.  For details, see
+      - Object; accepts two integer options,
+        :samp:`timeout` and :samp:`requests`.
+        Their values govern the life cycle of an application process.
+        For details, see
         :ref:`here <configuration-proc-mgmt-lmts>`.
 
     * - :samp:`processes`
-      - Integer or object; integer sets a static number of app processes,
-        whereas object options :samp:`max`, :samp:`spare`, and
-        :samp:`idle_timeout` enable dynamic management.  For details, see
+      - Integer or object;
+        integer sets a static number of app processes,
+        and object options :samp:`max`,
+        :samp:`spare`,
+        and :samp:`idle_timeout`
+        enable dynamic management.
+        For details, see
         :ref:`here <configuration-proc-mgmt-prcs>`.
 
         The default is 1.
 
     * - :samp:`working_directory`
-      - The app's working directory.  If not set, the Unit daemon's working
-        directory is used.
+      - String;
+        the app's working directory.
+
+        The default is
+        the working directory
+        of Unit's
+        :ref:`main process <sec-processes>`.
 
     * - :samp:`user`
-      - Username that runs the app process.  If not set, the username
-        configured at :ref:`build time <source-config-src>` or :ref:`at
-        startup <source-startup>` to run Unit's non-privileged
-        :ref:`processes <security-apps>` is used.
+      - String;
+        username that runs the
+        :ref:`app process <sec-processes>`.
+
+        The default is the username configured at
+        :ref:`build time <source-config-src>`
+        or at
+        :ref:`startup <source-startup>`.
 
     * - :samp:`group`
-      - Group name that runs the app process.  If not set, the :samp:`user`'s
-        primary group is used.
+      - String;
+        group name that runs the
+        :ref:`app process <sec-processes>`.
+
+        The default is the :samp:`user`'s primary group.
 
     * - :samp:`environment`
-      - Environment variables to be passed to the application.
+      - String-valued object;
+        environment variables to be passed to the app.
 
-Also, you need to set :samp:`type`-specific options to run the app.  This
-:ref:`Python app <configuration-python>` uses :samp:`path` and :samp:`module`:
+Also, you need to set :samp:`type`-specific options
+to run the app.
+This
+:ref:`Python app <configuration-python>`
+sets :samp:`path` and :samp:`module`:
 
 .. code-block:: json
 
@@ -3252,29 +3294,36 @@ Also, you need to set :samp:`type`-specific options to run the app.  This
 Process Management
 ==================
 
-Unit has three per-app options that control how the app's processes behave:
-:samp:`isolation`, :samp:`limits`, and :samp:`processes`.  Also, you can send a
-:samp:`GET` request to the :samp:`/control/applications/` API section to
-restart an app:
+Unit has three per-app options
+that control how the app's processes behave:
+:samp:`isolation`, :samp:`limits`, and :samp:`processes`.
+Also, you can :samp:`GET`
+the :samp:`/control/applications/` section of the API
+to restart an app:
 
 .. code-block:: console
 
    # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
          http://localhost/control/applications/:nxt_ph:`app_name <Your application's name as defined in the /config/applications/ section>`/restart
 
-Unit handles the rollover gracefully, allowing the old processes to deal with
-the existing requests and starting a new set of processes (as defined by the
-:samp:`processes` :ref:`option <configuration-proc-mgmt-prcs>`) to accept new
-requests.
+Unit handles the rollover gracefully,
+allowing the old processes
+to deal with existing requests
+and starting a new set of processes
+(as defined by the :samp:`processes`
+:ref:`option <configuration-proc-mgmt-prcs>`)
+to accept new requests.
 
 .. _configuration-proc-mgmt-isolation:
 
 Process Isolation
 *****************
 
-You can use `namespace
-<https://man7.org/linux/man-pages/man7/namespaces.7.html>`_ and `file system
-<https://man7.org/linux/man-pages/man2/chroot.2.html>`_ isolation for your apps
+You can use
+`namespace <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__
+and
+`file system <https://man7.org/linux/man-pages/man2/chroot.2.html>`__
+isolation for your apps
 if Unit's underlying OS supports them:
 
 .. code-block:: console
@@ -3283,7 +3332,8 @@ if Unit's underlying OS supports them:
 
        cgroup :nxt_hint:`mnt <The mount namespace>` :nxt_hint:`net <The network namespace>` pid ... :nxt_hint:`user <The credential namespace>` :nxt_hint:`uts <The uname namespace>`
 
-The :samp:`isolation` application option has the following members:
+The :samp:`isolation` application option
+has the following members:
 
 .. list-table::
    :header-rows: 1
@@ -3292,79 +3342,105 @@ The :samp:`isolation` application option has the following members:
      - Description
 
    * - :samp:`namespaces`
-     - Object; configures `namespace
-       <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__ isolation
-       scheme for the application.
+     - Object; configures
+       `namespace <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__
+       isolation scheme for the application.
 
-       Available options (system-dependent; check your OS manual for guidance):
+       Available options
+       (system-dependent;
+       check your OS manual for guidance):
 
        .. list-table::
 
           * - :samp:`cgroup`
-            - Creates a new `cgroup
-              <https://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html>`_
+            - Creates a new
+              `cgroup
+              <https://man7.org/linux/man-pages/man7/cgroup_namespaces.7.html>`__
               namespace for the app.
 
           * - :samp:`credential`
-            - Creates a new `user
-              <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`_
+            - Creates a new
+              `user
+              <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`__
               namespace for the app.
 
           * - :samp:`mount`
-            - Creates a new `mount
-              <https://man7.org/linux/man-pages/man7/mount_namespaces.7.html>`_
+            - Creates a new
+              `mount
+              <https://man7.org/linux/man-pages/man7/mount_namespaces.7.html>`__
               namespace for the app.
 
           * - :samp:`network`
-            - Creates a new `network
-              <https://man7.org/linux/man-pages/man7/network_namespaces.7.html>`_
+            - Creates a new
+              `network
+              <https://man7.org/linux/man-pages/man7/network_namespaces.7.html>`__
               namespace for the app.
 
           * - :samp:`pid`
-            - Creates a new `PID
-              <https://man7.org/linux/man-pages/man7/pid_namespaces.7.html>`_
+            - Creates a new
+              `PID
+              <https://man7.org/linux/man-pages/man7/pid_namespaces.7.html>`__
               namespace for the app.
 
           * - :samp:`uname`
-            - Creates a new `UTS
-              <https://man7.org/linux/man-pages/man7/namespaces.7.html>`_
+            - Creates a new
+              `UTS
+              <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__
               namespace for the app.
 
-       All options listed above are Boolean; to isolate the app, set the
-       corresponding namespace option to :samp:`true`; to disable isolation,
-       set the option to :samp:`false` (default).
+       All options listed above are Boolean;
+       to isolate the app,
+       set the corresponding namespace option to :samp:`true`;
+       to disable isolation,
+       set the option to :samp:`false`
+       (default).
 
    * - :samp:`uidmap`
-     - Array of user ID :ref:`mapping objects <conf-uidgid-mapping>`; each
-       array item must define the following:
+     - Array of user ID
+       :ref:`mapping objects <conf-uidgid-mapping>`;
+       each array item must define the following:
 
        .. list-table::
 
           * - :samp:`container`
-            - Integer; starts the user ID mapping range in the app's
-              namespace.
+            - Integer;
+              starts the user ID mapping range
+              in the app's namespace.
 
           * - :samp:`host`
-            - Integer; starts the user ID mapping range in the OS
-              namespace.
+            - Integer;
+              starts the user ID mapping range
+              in the OS namespace.
 
           * - :samp:`size`
-            - Integer; size of the ID range in both namespaces.
+            - Integer;
+              size of the ID range
+              in both namespaces.
 
    * - :samp:`gidmap`
-     - Same as :samp:`uidmap`, but configures group IDs instead of user IDs.
+     - Same as :samp:`uidmap`,
+       but configures group IDs instead of user IDs.
 
    * - :samp:`rootfs`
-     - Pathname of the directory to be used as the new :ref:`file system root
-       <conf-rootfs>` for the app.
+     - Pathname of the directory
+       to be used as the new
+       :ref:`file system root
+       <conf-rootfs>`
+       for the app.
 
    * - :samp:`automount`
-     - Object; controls mount behavior if :samp:`rootfs` is enabled.  By
-       default, Unit automatically mounts the :ref:`language runtime
-       dependencies <conf-rootfs>`, a `procfs
-       <https://man7.org/linux/man-pages/man5/procfs.5.html>`_ at
-       :file:`/proc/`, and a `tmpfs
-       <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`_ at :file:`/tmp/`,
+     - Object;
+       controls mount behavior
+       if :samp:`rootfs` is enabled.
+       By default, Unit automatically mounts the
+       :ref:`language runtime dependencies <conf-rootfs>`,
+       a
+       `procfs
+       <https://man7.org/linux/man-pages/man5/procfs.5.html>`__
+       at :file:`/proc/`,
+       and a
+       `tmpfs
+       <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`__ at :file:`/tmp/`,
        but you can disable any of these default mounts:
 
        .. code-block:: json
@@ -3380,10 +3456,13 @@ The :samp:`isolation` application option has the following members:
           }
 
    * - :samp:`cgroup`
-     - Object; defines the application's :ref:`cgroup <conf-app-cgroup>`.
+     - Object;
+       defines the app's
+       :ref:`cgroup <conf-app-cgroup>`.
 
-A sample :samp:`isolation` object that enables all namespaces and sets mappings
-for user and group IDs:
+A sample :samp:`isolation` object
+that enables all namespaces
+and sets mappings for user and group IDs:
 
 .. code-block:: json
 
@@ -3421,7 +3500,8 @@ for user and group IDs:
 .. nxt_details:: Using "cgroup"
    :hash: conf-app-cgroup
 
-   The :samp:`cgroup` isolation object has a single option:
+   The :samp:`cgroup` isolation object
+   has a single option:
 
    .. list-table::
       :header-rows: 1
@@ -3430,18 +3510,23 @@ for user and group IDs:
         - Description
 
       * - :samp:`path` (required)
-        - String; configures absolute or relative path of the application in
-          the `cgroups v2 hierarchy
+        - String;
+          configures absolute or relative path of the app
+          in the
+          `cgroups v2 hierarchy
           <https://man7.org/linux/man-pages/man7/cgroups.7.html#CGROUPS_VERSION_2>`__.
-          The limits trickle down the hierarchy, so lower cgroups can't exceed
-          their parents' limits.
+          The limits trickle down the hierarchy,
+          so lower cgroups can't exceed their parents' limits.
 
-   The :samp:`path` value can be absolute (starting with :samp:`/`) or
-   relative; if the path doesn't exist, Unit creates it.
+   The :samp:`path` value can be absolute
+   (starting with :samp:`/`) or relative;
+   if the path doesn't exist,
+   Unit creates it.
 
-   Relative paths are implicitly placed inside the cgroup of Unit's main
-   process; this setting effectively puts the app to the :file:`/<main Unit
-   process cgroup>/production/app` cgroup:
+   Relative paths are implicitly placed
+   inside the cgroup of Unit's :ref:`main process <sec-processes>`;
+   this setting effectively puts the app
+   to the :file:`/<main Unit process cgroup>/production/app` cgroup:
 
    .. code-block:: json
 
@@ -3453,7 +3538,8 @@ for user and group IDs:
           }
       }
 
-   An absolute pathname places the application under a separate cgroup subtree;
+   An absolute pathname places the application
+   under a separate cgroup subtree;
    this configuration puts the app under :file:`/staging/app`:
 
    .. code-block:: json
@@ -3468,24 +3554,31 @@ for user and group IDs:
 
    .. note::
 
-      To avoid confusion, mind that the :samp:`namespaces/cgroups` option
-      controls the application's cgroup *namespace*; instead, the
-      :samp:`cgroup/path` option specifies the cgroup where Unit puts the
-      application.
+      To avoid confusion,
+      mind that the :samp:`namespaces/cgroups` option
+      controls the application's cgroup *namespace*;
+      instead, the :samp:`cgroup/path` option
+      specifies the cgroup where Unit puts the application.
 
 
 .. nxt_details:: Using "rootfs"
    :hash: conf-rootfs
 
-   The :samp:`rootfs` option confines the app to the directory you provide,
-   making it the new `file system root
-   <https://man7.org/linux/man-pages/man2/chroot.2.html>`__.  To use it, your
-   app should have the corresponding privilege (effectively, run as
-   :samp:`root` in most cases).
+   The :samp:`rootfs` option confines the app
+   to the directory you provide,
+   making it the new
+   `file system root
+   <https://man7.org/linux/man-pages/man2/chroot.2.html>`__.
+   To use it,
+   your app should have the corresponding privilege
+   (effectively,
+   run as :samp:`root` in most cases).
 
-   The root directory is changed before the language module starts the app, so
-   any path options for the app should be relative to the new root.  Note the
-   :samp:`path` and :samp:`home` settings:
+   The root directory is changed
+   before the language module starts the app,
+   so any path options for the app
+   should be relative to the new root.
+   Note the :samp:`path` and :samp:`home` settings:
 
    .. code-block:: json
 
@@ -3500,8 +3593,9 @@ for user and group IDs:
       }
 
 
-   Unit mounts language-specific files and directories to the new root so the
-   app stays operational:
+   Unit mounts language-specific files and directories
+   to the new root
+   so the app stays operational:
 
    .. list-table::
       :header-rows: 1
@@ -3512,35 +3606,49 @@ for user and group IDs:
       * - Java
         - - JVM's :file:`libc.so` directory
 
-          - Java module's :ref:`home <howto/source-modules-java>` directory
+          - Java module's
+            :ref:`home <howto/source-modules-java>`
+            directory
 
       * - Python
-        - Python's :samp:`sys.path` `directories
+        - Python's :samp:`sys.path`
+          `directories
           <https://docs.python.org/3/library/sys.html#sys.path>`__
 
       * - Ruby
-        - - Ruby's header, interpreter, and library `directories
+        - - Ruby's header, interpreter, and library
+            `directories
             <https://idiosyncratic-ruby.com/42-ruby-config.html>`__:
-            :samp:`rubyarchhdrdir`, :samp:`rubyhdrdir`, :samp:`rubylibdir`,
-            :samp:`rubylibprefix`, :samp:`sitedir`, and :samp:`topdir`
+            :samp:`rubyarchhdrdir`,
+            :samp:`rubyhdrdir`,
+            :samp:`rubylibdir`,
+            :samp:`rubylibprefix`,
+            :samp:`sitedir`,
+            and :samp:`topdir`
 
-          - Ruby's gem installation directory (:samp:`gem env gemdir`)
+          - Ruby's gem installation directory
+            (:samp:`gem env gemdir`)
 
-          - Ruby's entire gem path list (:samp:`gem env gempath`)
+          - Ruby's entire gem path list
+            (:samp:`gem env gempath`)
 
 
 .. nxt_details:: Using "uidmap", "gidmap"
    :hash: conf-uidgid-mapping
 
-   The :samp:`uidmap` and :samp:`gidmap` options are available only if the
-   underlying OS supports `user namespaces
+   The :samp:`uidmap` and :samp:`gidmap` options
+   are available only
+   if the underlying OS supports
+   `user namespaces
    <https://man7.org/linux/man-pages/man7/user_namespaces.7.html>`__.
 
    If :samp:`uidmap` is omitted but :samp:`credential` isolation is enabled,
-   the effective UID (EUID) of the application process in the host namespace is
-   mapped to the same UID in the container namespace; the same applies to
-   :samp:`gidmap` and GID, respectively.  This means that the configuration
-   below:
+   the effective UID (EUID) of the application process
+   in the host namespace
+   is mapped to the same UID
+   in the container namespace;
+   the same applies to :samp:`gidmap` and GID, respectively.
+   This means that the configuration below:
 
    .. code-block:: json
 
@@ -3553,8 +3661,8 @@ for user and group IDs:
           }
       }
 
-   Is equivalent to the following (assuming :samp:`some_user`'s EUID and EGID
-   are both equal to 1000):
+   Is equivalent to the following
+   (assuming :samp:`some_user`'s EUID and EGID are both equal to 1000):
 
    .. code-block:: json
 
@@ -3589,8 +3697,9 @@ for user and group IDs:
 Request Limits
 **************
 
-The :samp:`limits` object controls request handling by the app process and has
-two integer options:
+The :samp:`limits` object
+controls request handling by the app process
+and has two integer options:
 
 .. list-table::
    :header-rows: 1
@@ -3599,14 +3708,22 @@ two integer options:
      - Description
 
    * - :samp:`timeout`
-     - Request timeout in seconds.  If an app process exceeds this limit while
-       handling a request, Unit alerts it to cancel the request and returns the
-       error's HTTP status code to the client.
+     - Integer;
+       request timeout in seconds.
+       If an app process exceeds it
+       while handling a request,
+       Unit alerts it to cancel
+       and returns the error's HTTP status code
+       to the client.
 
    * - :samp:`requests`
-     - Maximum number of requests Unit allows an app process to serve.  If the
-       limit is reached, the process is restarted; this helps to mitigate
-       possible memory leaks or other cumulative issues.
+     - Integer;
+       maximum number of requests
+       an app process can serve.
+       When the limit is reached,
+       the process restarts;
+       this mitigates possible memory leaks
+       or other cumulative issues.
 
 Example:
 
@@ -3627,12 +3744,15 @@ Example:
 Application Processes
 *********************
 
-The :samp:`processes` option offers a choice between static and dynamic process
-management.  If you set it to an integer, Unit immediately launches the given
-number of app processes and keeps them without scaling.
+The :samp:`processes` option
+offers a choice
+between static and dynamic process management.
+If you set it to an integer,
+Unit immediately launches the given number of app processes
+and keeps them without scaling.
 
-To enable a dynamic prefork model for your app, supply a :samp:`processes`
-object with the following options:
+To enable a dynamic prefork model for your app,
+supply a :samp:`processes` object with the following options:
 
 .. list-table::
     :header-rows: 1
@@ -3641,29 +3761,42 @@ object with the following options:
       - Description
 
     * - :samp:`max`
-      - Maximum number of application processes that Unit maintains
+      - Maximum number of application processes
+        that Unit maintains
         (busy and idle).
 
         The default is 1.
 
     * - :samp:`spare`
-      - Minimum number of idle processes that Unit tries to maintain for an
-        app.  When the app is started, :samp:`spare` idles are launched; Unit
-        passes new requests to existing idles, forking new idles to uphold the
-        :samp:`spare` level if :samp:`max` allows.  When busy processes
-        complete their work and turn idle again, Unit terminates extra idles
+      - Minimum number of idle processes
+        that Unit tries to maintain for an app.
+        When the app is started,
+        :samp:`spare` idles are launched;
+        Unit passes new requests to existing idles,
+        forking new idles
+        to keep the :samp:`spare` level
+        if :samp:`max` allows.
+        When busy processes complete their work
+        and turn idle again,
+        Unit terminates extra idles
         after :samp:`idle_timeout`.
 
     * - :samp:`idle_timeout`
-      - Time in seconds that Unit waits before terminating an idle process
+      - Number of seconds
+        Unit waits for
+        before terminating an idle process
         that exceeds :samp:`spare`.
 
-If :samp:`processes` is omitted entirely, Unit creates 1 static process.  If
-an empty object is provided: :samp:`"processes": {}`, dynamic behavior with
-default option values is assumed.
+If :samp:`processes` is omitted entirely,
+Unit creates 1 static process.
+If an empty object is provided: :samp:`"processes": {}`,
+dynamic behavior
+with default option values
+is assumed.
 
-Here, Unit allows 10 processes maximum, keeps 5 idles, and terminates extra
-idles after 20 seconds:
+Here, Unit allows 10 processes maximum,
+keeps 5 idles,
+and terminates extra idles after 20 seconds:
 
 .. code-block:: json
 
