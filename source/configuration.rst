@@ -3819,14 +3819,18 @@ and terminates extra idles after 20 seconds:
 Go
 ==
 
-To run a Go app on Unit, modify its source to make it Unit-aware and rebuild
-the app.
+To run a Go app on Unit,
+modify its source
+to make it Unit-aware
+and rebuild the app.
 
 .. nxt_details:: Updating Go Apps to Run on Unit
    :hash: updating-go-apps
 
-   Unit uses `cgo <https://pkg.go.dev/cmd/cgo>`__ to invoke C code from Go, so
-   check the following prerequisites:
+   Unit uses
+   `cgo <https://pkg.go.dev/cmd/cgo>`__
+   to invoke C code from Go,
+   so check the following prerequisites:
 
    - The :envvar:`CGO_ENABLED` variable is set to :samp:`1`:
 
@@ -3838,8 +3842,9 @@ the app.
 
         $ go env -w CGO_ENABLED=1
 
-   - If you installed Unit from the :ref:`official packages
-     <installation-precomp-pkgs>`, install the development package:
+   - If you installed Unit from the
+     :ref:`official packages <installation-precomp-pkgs>`,
+     install the development package:
 
      .. tabs::
         :prefix: go-prereq
@@ -3856,14 +3861,16 @@ the app.
 
               # yum install unit-devel
 
-   - If you installed Unit from :doc:`source <howto/source>`, install the
-     include files and libraries:
+   - If you installed Unit from
+     :doc:`source <howto/source>`,
+     install the include files and libraries:
 
      .. code-block:: console
 
         # make libunit-install
 
-   In the :samp:`import` section, list the :samp:`unit.nginx.org/go` package:
+   In the :samp:`import` section,
+   list the :samp:`unit.nginx.org/go` package:
 
    .. code-block:: go
 
@@ -3873,8 +3880,8 @@ the app.
           ...
       )
 
-   Replace the :samp:`http.ListenAndServe` call with
-   :samp:`unit.ListenAndServe`:
+   Replace the :samp:`http.ListenAndServe` call
+   with :samp:`unit.ListenAndServe`:
 
    .. code-block:: go
 
@@ -3887,7 +3894,8 @@ the app.
           ...
       }
 
-   If you haven't done so yet, initialize the Go module for your app:
+   If you haven't done so yet,
+   initialize the Go module for your app:
 
    .. code-block:: console
 
@@ -3895,7 +3903,8 @@ the app.
 
             go: creating new go.mod: module example.com/app
 
-   Install the newly added dependency and build your application:
+   Install the newly added dependency
+   and build your application:
 
    .. subs-code-block:: console
 
@@ -3905,21 +3914,28 @@ the app.
 
       $ go build -o :nxt_ph:`app <Executable name>` :nxt_ph:`app.go <Application source code>`
 
-   If you update Unit to a newer version, repeat the two commands above to
-   rebuild your app.
+   If you update Unit to a newer version,
+   repeat the two commands above
+   to rebuild your app.
 
    The resulting executable works as follows:
 
-   - When you run it standalone, the :samp:`unit.ListenAndServe` call falls
-     back to :samp:`http` functionality.
+   - When you run it standalone,
+     the :samp:`unit.ListenAndServe` call
+     falls back to :samp:`http` functionality.
 
-   - When Unit runs it, :samp:`unit.ListenAndServe` communicates with Unit's
-     router process directly, ignoring the address supplied as its first
-     argument and relying on the :ref:`listener's settings
-     <configuration-listeners>` instead.
+   - When Unit runs it,
+     :samp:`unit.ListenAndServe` directly communicates
+     with Unit's router process,
+     ignoring the address supplied as its first argument
+     and relying on the
+     :ref:`listener's settings <configuration-listeners>`
+     instead.
 
-Next, configure the app in Unit; besides the :ref:`common options
-<configuration-apps-common>`, you have:
+Next, configure the app on Unit;
+besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -3928,11 +3944,14 @@ Next, configure the app in Unit; besides the :ref:`common options
       - Description
 
     * - :samp:`executable` (required)
-      - Pathname of the application, absolute or relative to
-        :samp:`working_directory`.
+      - String;
+        pathname of the application,
+        absolute or relative to :samp:`working_directory`.
 
     * - :samp:`arguments`
-      - Command-line arguments to be passed to the application.
+      - Array of strings;
+        command-line arguments
+        to be passed to the application.
         The example below is equivalent to
         :samp:`/www/chat/bin/chat_app --tmp-files /tmp/go-cache`.
 
@@ -3954,7 +3973,10 @@ Example:
 
 .. note::
 
-   For Go-based examples, see our :doc:`howto/grafana` howto or a basic
+   For Go-based examples,
+   see our
+   :doc:`howto/grafana`
+   howto or a basic
    :ref:`sample <sample-go>`.
 
 
@@ -3964,11 +3986,14 @@ Example:
 Java
 ====
 
-First, make sure to install Unit along with the :ref:`Java language module
+First, make sure to install Unit
+along with the
+:ref:`Java language module
 <installation-precomp-pkgs>`.
 
-Besides the :ref:`common options <configuration-apps-common>`, you have the
-following:
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -3977,33 +4002,47 @@ following:
       - Description
 
     * - :samp:`webapp` (required)
-      - Pathname of the application's packaged or unpackaged :file:`.war` file.
+      - String;
+        pathname
+        of the application's :file:`.war` file
+        (packaged or unpackaged).
 
     * - :samp:`classpath`
-      - Array of paths to your app's required libraries (may list directories
-        or :file:`.jar` files).
+      - Array of strings;
+        paths to your app's required libraries
+        (may point to directories
+        or individual :file:`.jar` files).
 
     * - :samp:`options`
-      - Array of strings defining JVM runtime options.
+      - Array of strings;
+        defines JVM runtime options.
 
-        Unit itself exposes the :samp:`-Dnginx.unit.context.path` option that
-        defaults to :file:`/`; use it to customize the `context path
+        Unit itself
+        exposes the :samp:`-Dnginx.unit.context.path` option
+        that defaults to :file:`/`;
+        use it to customize the
+        `context path
         <https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletContext.html#getContextPath-->`__.
 
     * - :samp:`threads`
-      - Integer; sets the number of worker threads per app process.  When
-        started, each app process creates a corresponding number of threads to
-        handle requests.
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer; defines the stack size of a worker thread (in bytes,
-        multiple of memory page size; the minimum value is usually architecture
-        specific).
+      - Integer;
+        stack size of a worker thread
+        (in bytes,
+        multiple of memory page size;
+        the minimum value is usually architecture specific).
 
-        The default is system dependent and can be set with
-        :program:`ulimit -s <SIZE_KB>`.
+        The default is usually system dependent
+        and can be set with :program:`ulimit -s <SIZE_KB>`.
 
 Example:
 
@@ -4024,8 +4063,14 @@ Example:
 
 .. note::
 
-   For Java-based examples, see our :doc:`howto/jira`, :doc:`howto/opengrok`,
-   and :doc:`howto/springboot` howtos or a basic :ref:`sample <sample-java>`.
+   For Java-based examples,
+   see our
+   :doc:`howto/jira`,
+   :doc:`howto/opengrok`,
+   and
+   :doc:`howto/springboot`
+   howtos or a basic
+   :ref:`sample <sample-java>`.
 
 
 .. _configuration-nodejs:
@@ -4034,21 +4079,28 @@ Example:
 Node.js
 =======
 
-First, you need to have the :program:`unit-http` module :ref:`installed
-<installation-nodejs-package>`.  If it's global, symlink it in your
-project directory:
+First, you need to have the :program:`unit-http` module
+:ref:`installed <installation-nodejs-package>`.
+If it's global,
+symlink it in your project directory:
 
 .. code-block:: console
 
    # npm link unit-http
 
-Do the same if you move a Unit-hosted app to a new system where
-:program:`unit-http` is installed globally.  Also, if you update Unit later,
-update the Node.js module as well according to your :ref:`installation method
-<installation-nodejs-package>`.
+Do the same if you move a Unit-hosted app
+to a new system
+where :program:`unit-http` is installed globally.
+Also, if you update Unit later,
+update the Node.js module as well
+according to your
+:ref:`installation method <installation-nodejs-package>`.
 
-Next, to run your Node.js apps on Unit, you need to configure them.  Besides
-the :ref:`common options <configuration-apps-common>`, you have:
+Next, to run your Node.js apps on Unit,
+you need to configure them.
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -4057,10 +4109,12 @@ the :ref:`common options <configuration-apps-common>`, you have:
       - Description
 
     * - :samp:`executable` (required)
-      - Pathname of the application, absolute or relative to
-        :samp:`working_directory`.
+      - String;
+        pathname of the app,
+        absolute or relative to :samp:`working_directory`.
 
-        Supply your :file:`.js` pathname here and start the file itself
+        Supply your :file:`.js` pathname here
+        and start the file itself
         with a proper shebang:
 
         .. code-block:: javascript
@@ -4069,11 +4123,14 @@ the :ref:`common options <configuration-apps-common>`, you have:
 
         .. note::
 
-           Make sure to :command:`chmod +x` the file you list here so Unit can
-           start it.
+           Make sure to :command:`chmod +x`
+           the file you list here
+           so Unit can start it.
 
     * - :samp:`arguments`
-      - Command-line arguments to be passed to the application.
+      - Array of strings;
+        command-line arguments
+        to be passed to the app.
         The example below is equivalent to
         :samp:`/www/apps/node-app/app.js --tmp-files /tmp/node-cache`.
 
@@ -4095,8 +4152,10 @@ Example:
 
 .. _configuration-nodejs-loader:
 
-You can run Node.js apps without altering their code, using a loader module we
-provide with :program:`unit-http`.  Apply the following app configuration,
+You can run Node.js apps without altering their code,
+using a loader module
+we provide with :program:`unit-http`.
+Apply the following app configuration,
 depending on your version of Node.js:
 
 .. tabs::
@@ -4135,19 +4194,20 @@ depending on your version of Node.js:
              ]
          }
 
-The loader overrides the :samp:`http` and :samp:`websocket` modules with their
-Unit-aware versions and starts the app.
+The loader overrides the :samp:`http` and :samp:`websocket` modules
+with their Unit-aware versions
+and starts the app.
 
-You can also run your Node.js apps without the loader by updating the
-application source code.  For that, use :samp:`unit-http` instead of
-:samp:`http` in your code:
+You can also run your Node.js apps without the loader
+by updating the application source code.
+For that, use :samp:`unit-http` instead of :samp:`http` in your code:
 
 .. code-block:: javascript
 
    var http = require('unit-http');
 
-To use the WebSocket protocol, your app only needs to replace the default
-:samp:`websocket`:
+To use the WebSocket protocol,
+your app only needs to replace the default :samp:`websocket`:
 
 .. code-block:: javascript
 
@@ -4155,9 +4215,14 @@ To use the WebSocket protocol, your app only needs to replace the default
 
 .. note::
 
-   For Node.js-based examples, see our :doc:`howto/express`, :doc:`howto/koa`,
-   and :ref:`Docker <docker-apps>` howtos or a basic :ref:`sample
-   <sample-nodejs>`.
+   For Node.js-based examples,
+   see our
+   :doc:`howto/express`,
+   :doc:`howto/koa`,
+   and
+   :ref:`Docker <docker-apps>`
+   howtos or a basic
+   :ref:`sample <sample-nodejs>`.
 
 
 .. _configuration-perl:
@@ -4166,11 +4231,12 @@ To use the WebSocket protocol, your app only needs to replace the default
 Perl
 ====
 
-First, make sure to install Unit along with the :ref:`Perl language module
-<installation-precomp-pkgs>`.
+First, make sure to install Unit along with the
+:ref:`Perl language module <installation-precomp-pkgs>`.
 
-Besides the :ref:`common options <configuration-apps-common>`, you have the
-following:
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -4179,22 +4245,28 @@ following:
       - Description
 
     * - :samp:`script` (required)
-      - PSGI script path.
+      - String;
+        PSGI script path.
 
     * - :samp:`threads`
-      - Integer; sets the number of worker threads per app process.  When
-        started, each app process creates a corresponding number of threads to
-        handle requests.
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer; defines the stack size of a worker thread (in bytes,
-        multiple of memory page size; the minimum value is usually architecture
-        specific).
+      - Integer;
+        stack size of a worker thread
+        (in bytes,
+        multiple of memory page size;
+        the minimum value is usually architecture specific).
 
-        The default is system dependent and can be set with
-        :program:`ulimit -s <SIZE_KB>`.
+        The default is usually system dependent
+        and can be set with :program:`ulimit -s <SIZE_KB>`.
 
 Example:
 
@@ -4211,8 +4283,13 @@ Example:
 
 .. note::
 
-   For Perl-based examples of Perl, see our :doc:`howto/bugzilla` and
-   :doc:`howto/catalyst` howtos or a basic :ref:`sample <sample-perl>`.
+   For Perl-based examples of Perl,
+   see our
+   :doc:`howto/bugzilla`
+   and
+   :doc:`howto/catalyst`
+   howtos or a basic
+   :ref:`sample <sample-perl>`.
 
 .. _configuration-php:
 
@@ -4220,11 +4297,11 @@ Example:
 PHP
 ===
 
-First, make sure to install Unit along with the :ref:`PHP language module
-<installation-precomp-pkgs>`.
+First, make sure to install Unit along with the
+:ref:`PHP language module <installation-precomp-pkgs>`.
 
-Besides the :ref:`common options <configuration-apps-common>`, you have the
-following:
+Besides the
+:ref:`common options <configuration-apps-common>`, you have:
 
 .. list-table::
     :header-rows: 1
@@ -4233,39 +4310,51 @@ following:
       - Description
 
     * - :samp:`root` (required)
-      - Base directory of your PHP app's file structure.  All URI paths are
-        relative to this value.
+      - String;
+        base directory
+        of the app's file structure.
+        All URI paths are relative to it.
 
     * - :samp:`index`
-      - Filename added to any URI paths that point to directories; applies if
-        :samp:`script` is omitted.
+      - String;
+        filename added to URI paths
+        that point to directories
+        if no :samp:`script` is set.
 
         The default is :samp:`index.php`.
 
     * - :samp:`options`
-      - Object; :ref:`defines <configuration-php-options>` the
-        :file:`php.ini` location and options.
+      - Object;
+        :ref:`defines <configuration-php-options>`
+        the :file:`php.ini` location and options.
 
     * - :samp:`targets`
-      - Object; defines application sections with :ref:`custom
-        <configuration-php-targets>` :samp:`root`, :samp:`script`, and
-        :samp:`index` values.
+      - Object;
+        defines application sections with
+        :ref:`custom <configuration-php-targets>`
+        :samp:`root`, :samp:`script`, and :samp:`index` values.
 
     * - :samp:`script`
-      - Filename of a :samp:`root`-based PHP script that serves all
-        requests to the app.
+      - String;
+        filename of a :samp:`root`-based PHP script
+        that serves all requests to the app.
 
-The :samp:`index` and :samp:`script` options enable two modes of operation:
+The :samp:`index` and :samp:`script` options
+enable two modes of operation:
 
-- If :samp:`script` is set, all requests to the application are handled by
-  the script you specify with this option.
+- If :samp:`script` is set,
+  all requests to the application are handled
+  by the script you specify in this option.
 
-- Otherwise, the requests are served according to their URI paths; if they
-  lead to directories, :samp:`index` is used.
+- Otherwise, the requests are served
+  according to their URI paths;
+  if they point to directories,
+  :samp:`index` is used.
 
 .. _configuration-php-options:
 
-You can customize :file:`php.ini` via the :samp:`options` object:
+You can customize :file:`php.ini`
+via the :samp:`options` object:
 
 .. list-table::
     :header-rows: 1
@@ -4274,32 +4363,46 @@ You can customize :file:`php.ini` via the :samp:`options` object:
       - Description
 
     * - :samp:`file`
-      - Pathname of the :file:`php.ini` file with `PHP configuration directives
-        <https://www.php.net/manual/en/ini.list.php>`_.
+      - String;
+        pathname of the :file:`php.ini` file with
+        `PHP configuration directives
+        <https://www.php.net/manual/en/ini.list.php>`__.
 
     * - :samp:`admin`, :samp:`user`
-      - Objects for extra directives.  Values in :samp:`admin` are set in
-        :samp:`PHP_INI_SYSTEM` mode, so the app can't alter them; :samp:`user`
-        values are set in :samp:`PHP_INI_USER` mode and may `be updated
-        <https://www.php.net/manual/en/function.ini-set.php>`_ in runtime.
+      - Objects for extra directives.
+        Values in :samp:`admin` are set in :samp:`PHP_INI_SYSTEM` mode,
+        so the app can't alter them;
+        :samp:`user` values are set in :samp:`PHP_INI_USER` mode
+        and can be
+        `updated
+        <https://www.php.net/manual/en/function.ini-set.php>`__
+        at runtime.
 
-        - The objects override the settings from any :file:`*.ini` files
+        - The objects override the settings
+          from any :file:`*.ini` files
 
-        - The :samp:`admin` object can only set what's `listed
-          <https://www.php.net/manual/en/ini.list.php>`__ as
-          :samp:`PHP_INI_SYSTEM`; for other modes, set :samp:`user`
+        - The :samp:`admin` object can only set what's
+          `listed <https://www.php.net/manual/en/ini.list.php>`__
+          as :samp:`PHP_INI_SYSTEM`;
+          for other modes,
+          set :samp:`user`
 
-        - Neither :samp:`admin` nor :samp:`user` can set directives listed as
-          `php.ini only <https://www.php.net/manual/en/ini.list.php>`__ except
-          for :samp:`disable_classes` and :samp:`disable_functions`
+        - Neither :samp:`admin` nor :samp:`user`
+          can set directives listed as
+          `php.ini only <https://www.php.net/manual/en/ini.list.php>`__
+          except for :samp:`disable_classes` and :samp:`disable_functions`
 
 .. note::
 
-   Values in :samp:`options` must be strings (for example,
-   :samp:`"max_file_uploads": "4"`, not :samp:`"max_file_uploads": 4`); for
-   boolean flags, use :samp:`"0"` and :samp:`"1"` only.  For details about
-   :samp:`PHP_INI_*` modes, see the `PHP docs
-   <https://www.php.net/manual/en/configuration.changes.modes.php>`_.
+   Values in :samp:`options` must be strings
+   (for example, :samp:`"max_file_uploads": "4"`,
+   not :samp:`"max_file_uploads": 4`);
+   for boolean flags,
+   use :samp:`"0"` and :samp:`"1"` only.
+   For details aof :samp:`PHP_INI_*` modes,
+   see the
+   `PHP docs
+   <https://www.php.net/manual/en/configuration.changes.modes.php>`__.
 
 .. note::
 
@@ -4335,8 +4438,8 @@ Example:
 Targets
 *******
 
-You can configure up to 254 individual entry points for a single PHP
-application:
+You can configure up to 254 individual entry points
+for a single PHP app:
 
 .. code-block:: json
 
@@ -4359,10 +4462,13 @@ application:
        }
    }
 
-Each target is an object that specifies :samp:`root` and can define
-:samp:`index` or :samp:`script` just like a regular application does.  Targets
-can be used by the :samp:`pass` options in listeners and routes to serve
-requests:
+Each target is an object
+that specifies :samp:`root`
+and can define :samp:`index` or :samp:`script`
+just like a regular app does.
+Targets can be used by the :samp:`pass` options
+in listeners and routes
+to serve requests:
 
 .. code-block:: json
 
@@ -4390,23 +4496,39 @@ requests:
        ]
    }
 
-App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
-:samp:`processes`) are shared by all targets within the app.
+App-wide settings
+(:samp:`isolation`, :samp:`limits`, :samp:`options`, :samp:`processes`)
+are shared by all targets within the app.
 
 .. warning::
 
-   If you specify :samp:`targets`, there should be no :samp:`root`,
-   :samp:`index`, or :samp:`script` defined at the application level.
+   If you specify :samp:`targets`,
+   there should be no :samp:`root`, :samp:`index`, or :samp:`script`
+   defined at the app level.
 
 .. note::
 
-   For PHP-based examples, see our :doc:`howto/cakephp`,
-   :doc:`howto/codeigniter`, :doc:`howto/dokuwiki`, :doc:`howto/drupal`,
-   :doc:`howto/laravel`, :doc:`howto/lumen`, :doc:`howto/matomo`,
-   :doc:`howto/mediawiki`, :doc:`howto/modx`, :doc:`howto/nextcloud`,
-   :doc:`howto/phpbb`, :doc:`howto/phpmyadmin`, :doc:`howto/roundcube`,
-   :doc:`howto/symfony`, :doc:`howto/wordpress`, and :doc:`howto/yii` howtos or
-   a basic :ref:`sample <sample-php>`.
+   For PHP-based examples,
+   see our
+   :doc:`howto/cakephp`,
+   :doc:`howto/codeigniter`,
+   :doc:`howto/dokuwiki`,
+   :doc:`howto/drupal`,
+   :doc:`howto/laravel`,
+   :doc:`howto/lumen`,
+   :doc:`howto/matomo`,
+   :doc:`howto/mediawiki`,
+   :doc:`howto/modx`,
+   :doc:`howto/nextcloud`,
+   :doc:`howto/phpbb`,
+   :doc:`howto/phpmyadmin`,
+   :doc:`howto/roundcube`,
+   :doc:`howto/symfony`,
+   :doc:`howto/wordpress`,
+   and
+   :doc:`howto/yii`
+   howtos or a basic
+   :ref:`sample <sample-php>`.
 
 
 .. _configuration-python:
@@ -4415,11 +4537,12 @@ App-wide settings (:samp:`isolation`, :samp:`limits`, :samp:`options`,
 Python
 ======
 
-First, make sure to install Unit along with the :ref:`Python language module
-<installation-precomp-pkgs>`.
+First, make sure to install Unit along with the
+:ref:`Python language module <installation-precomp-pkgs>`.
 
-Besides the :ref:`common options <configuration-apps-common>`, you have the
-following:
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -4428,81 +4551,106 @@ following:
       - Description
 
     * - :samp:`module` (required)
-      - Application module name.  The :samp:`module` itself is `imported
-        <https://docs.python.org/3/reference/import.html>`_ just like in
-        Python.
+      - String;
+        app's module name.
+        This module is
+        `imported <https://docs.python.org/3/reference/import.html>`__
+        by Unit
+        the usual Python way.
 
     * - :samp:`callable`
-      - Name of the :samp:`module`-based callable that Unit runs as the app.
+      - String;
+        name of the :samp:`module`-based callable
+        that Unit runs as the app.
 
         The default is :samp:`application`.
 
     * - :samp:`home`
-      - Path to the app's `virtual environment
-        <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`_.
+      - String;
+        path to the app's
+        `virtual environment
+        <https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments>`__.
         Absolute or relative to :samp:`working_directory`.
 
         .. note::
 
-           The Python version used to run the app depends on :samp:`type`; for
-           performance, Unit doesn't use the command-line interpreter from the
-           virtual environment.
+           The Python version used to run the app
+           is determined by :samp:`type`;
+           for performance,
+           Unit doesn't use the command-line interpreter
+           from the virtual environment.
 
         .. nxt_details:: ImportError: No module named 'encodings'
            :hash: encodings-error
 
-           Seeing this in Unit's :ref:`log <troubleshooting-log>` after you set
-           up :samp:`home` for your app?  This usually occurs if the
-           interpreter can't use the virtual environment, possible reasons
-           including:
+           Seeing this in Unit's
+           :ref:`log <troubleshooting-log>`
+           after you set up :samp:`home` for your app?
+           This usually occurs
+           if the interpreter can't use the virtual environment,
+           possible reasons including:
 
-           - Version mismatch between the :samp:`type` setting and the virtual
-             environment; check the environment's version:
+           - Version mismatch
+             between the :samp:`type` setting
+             and the virtual environment;
+             check the environment's version:
 
              .. code-block:: console
 
                 $ source :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`bin/activate
                 (venv) $ python --version
 
-           - Unit's unprivileged user (usually :samp:`unit`) having no access
-             to the environment's files; assign the necessary rights:
+           - Unit's unprivileged user
+             (usually :samp:`unit`)
+             having no access to the environment's files;
+             assign the necessary rights:
 
              .. code-block:: console
 
                 # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your commands>`
 
     * - :samp:`path`
-      - String or an array of strings; represents additional Python module
-        lookup paths; these values are prepended to :samp:`sys.path`.
+      - String or an array of strings;
+        additional Python module lookup paths.
+        These values are prepended to :samp:`sys.path`.
 
     * - :samp:`prefix`
-      - String; sets the :samp:`SCRIPT_NAME` context value for WSGI or the
-        :samp:`root_path` context value for ASGI.  Should start with a slash
+      - String;
+        :samp:`SCRIPT_NAME` context value for WSGI
+        or the :samp:`root_path` context value for ASGI.
+        Should start with a slash
         (:samp:`/`).
 
     * - :samp:`protocol`
-      - Hint to tell Unit that the app uses a certain interface; can be
-        :samp:`asgi` or :samp:`wsgi`.
+      - String;
+        hints Unit that the app uses a certain interface.
+        Can be :samp:`asgi` or :samp:`wsgi`.
 
     * - :samp:`targets`
-      - Object; defines application sections with :ref:`custom
-        <configuration-python-targets>` :samp:`module` and :samp:`callable`
-        values.
+      - Object;
+        app sections with
+        :ref:`custom <configuration-python-targets>`
+        :samp:`module` and :samp:`callable` values.
 
     * - :samp:`threads`
-      - Integer; sets the number of worker threads per app process.  When
-        started, each app process creates a corresponding number of threads to
-        handle requests.
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`thread_stack_size`
-      - Integer; defines the stack size of a worker thread (in bytes,
-        multiple of memory page size; the minimum value is usually architecture
-        specific).
+      - Integer;
+        stack size of a worker thread
+        (in bytes,
+        multiple of memory page size;
+        the minimum value is usually architecture specific).
 
-        The default is system dependent and can be set with
-        :program:`ulimit -s <SIZE_KB>`.
+        The default is usually system dependent
+        and can be set with :program:`ulimit -s <SIZE_KB>`.
 
 Example:
 
@@ -4521,18 +4669,22 @@ Example:
        "group": "www"
    }
 
-This snippet runs the :samp:`app` callable from the
-:file:`/www/store/cart/run.py` module with :file:`/www/store/cart/` as the
-working directory and :file:`/www/store/.virtualenv/` as the virtual
-environment; the :samp:`path` value accommodates for situations when some
-modules of the application are imported from outside the :file:`cart/`
-subdirectory.
+This snippet runs the :samp:`app` callable
+from the :file:`/www/store/cart/run.py` module
+with :file:`/www/store/cart/` as the working directory
+and :file:`/www/store/.virtualenv/` as the virtual environment;
+the :samp:`path` value
+accommodates for situations
+when some modules of the app
+are imported
+from outside the :file:`cart/` subdirectory.
 
 .. _configuration-python-asgi:
 
-You can provide the callable in two forms.  The first one uses WSGI (`PEP 333
-<https://peps.python.org/pep-0333/>`_ or `PEP 3333
-<https://peps.python.org/pep-3333/>`_):
+You can provide the callable in two forms.
+The first one uses WSGI
+(`PEP 333 <https://peps.python.org/pep-0333/>`__
+or `PEP 3333 <https://peps.python.org/pep-3333/>`__):
 
 .. code-block:: python
 
@@ -4540,8 +4692,10 @@ You can provide the callable in two forms.  The first one uses WSGI (`PEP 333
        start_response('200 OK', [('Content-Type', 'text/plain')])
        yield b'Hello, WSGI\n'
 
-The second one, supported for Python 3.5+, uses `ASGI
-<https://asgi.readthedocs.io/en/latest/>`__:
+The second one,
+supported with Python 3.5+,
+uses
+`ASGI <https://asgi.readthedocs.io/en/latest/>`__:
 
 .. code-block:: python
 
@@ -4559,30 +4713,37 @@ The second one, supported for Python 3.5+, uses `ASGI
 
 .. note::
 
-   Legacy `two-callable
+   Legacy
+   `two-callable
    <https://asgi.readthedocs.io/en/latest/specs/main.html#legacy-applications>`_
-   ASGI 2.0 applications were not supported prior to Unit 1.21.0.
+   ASGI 2.0 applications
+   were not supported prior to Unit 1.21.0.
 
-Choose either one according to your needs; Unit tries to infer your choice
-automatically.  If this inference fails, use the :samp:`protocol` option to
-set the interface explicitly.
+Choose either one according to your needs;
+Unit tries to infer your choice automatically.
+If this inference fails,
+use the :samp:`protocol` option
+to set the interface explicitly.
 
 .. note::
 
-   The :samp:`prefix` option controls the :samp:`SCRIPT_NAME` (`WSGI
-   <https://wsgi.readthedocs.io/en/latest/definitions.html>`__) or
-   :samp:`root_path` (`ASGI
+   The :samp:`prefix` option
+   controls the :samp:`SCRIPT_NAME`
+   (`WSGI <https://wsgi.readthedocs.io/en/latest/definitions.html>`__)
+   or :samp:`root_path`
+   (`ASGI
    <https://asgi.readthedocs.io/en/latest/specs/www.html#http-connection-scope>`__)
-   setting in Python's context, allowing to route requests regardless of the
-   application's factual path.
+   setting in Python's context,
+   allowing to route requests
+   regardless of the app's factual path.
 
 .. _configuration-python-targets:
 
 Targets
 *******
 
-You can configure up to 254 individual entry points for a single Python
-application:
+You can configure up to 254 individual entry points
+for a single Python app:
 
 .. code-block:: json
 
@@ -4606,10 +4767,13 @@ application:
        }
    }
 
-Each target is an object that specifies :samp:`module` and can also define
-:samp:`callable` and :samp:`prefix` just like a regular application does.
-Targets can be used by the :samp:`pass` options in listeners and routes to
-serve requests:
+Each target is an object
+that specifies :samp:`module`
+and can also define :samp:`callable` and :samp:`prefix`
+just like a regular app does.
+Targets can be used by the :samp:`pass` options
+in listeners and routes
+to serve requests:
 
 .. code-block:: json
 
@@ -4638,24 +4802,44 @@ serve requests:
    }
 
 The :samp:`home`, :samp:`path`, :samp:`protocol`, :samp:`threads`, and
-:samp:`thread_stack_size` settings are shared by all targets in the app.
+:samp:`thread_stack_size` settings
+are shared by all targets in the app.
 
 .. warning::
 
-   If you specify :samp:`targets`, there should be no :samp:`module` or
-   :samp:`callable` defined at the application level.  Moreover, you can't
-   combine WSGI and ASGI targets within a single app.
+   If you specify :samp:`targets`,
+   there should be no :samp:`module` or :samp:`callable`
+   defined at the app level.
+   Moreover, you can't combine WSGI and ASGI targets
+   within a single app.
 
 .. note::
 
-   For Python-based examples, see our :doc:`howto/bottle`,
-   :doc:`howto/datasette`, :doc:`howto/django`, :doc:`howto/djangochannels`,
-   :doc:`howto/falcon`, :doc:`howto/fastapi`, :doc:`howto/flask`,
-   :doc:`howto/guillotina`, :doc:`howto/mailman`, :doc:`howto/mercurial`,
-   :doc:`howto/moin`, :doc:`howto/plone`, :doc:`howto/pyramid`,
-   :doc:`howto/quart`, :doc:`howto/responder`, :doc:`howto/reviewboard`,
-   :doc:`howto/sanic`, :doc:`howto/starlette`, :doc:`howto/trac`, and
-   :doc:`howto/zope` howtos or a basic :ref:`sample <sample-python>`.
+   For Python-based examples,
+   see our
+   :doc:`howto/bottle`,
+   :doc:`howto/datasette`,
+   :doc:`howto/django`,
+   :doc:`howto/djangochannels`,
+   :doc:`howto/falcon`,
+   :doc:`howto/fastapi`,
+   :doc:`howto/flask`,
+   :doc:`howto/guillotina`,
+   :doc:`howto/mailman`,
+   :doc:`howto/mercurial`,
+   :doc:`howto/moin`,
+   :doc:`howto/plone`,
+   :doc:`howto/pyramid`,
+   :doc:`howto/quart`,
+   :doc:`howto/responder`,
+   :doc:`howto/reviewboard`,
+   :doc:`howto/sanic`,
+   :doc:`howto/starlette`,
+   :doc:`howto/trac`,
+   and
+   :doc:`howto/zope`
+   howtos or a basic
+   :ref:`sample <sample-python>`.
 
 
 .. _configuration-ruby:
@@ -4664,20 +4848,24 @@ The :samp:`home`, :samp:`path`, :samp:`protocol`, :samp:`threads`, and
 Ruby
 ====
 
-First, make sure to install Unit along with the :ref:`Ruby language module
-<installation-precomp-pkgs>`.
+First, make sure to install Unit along with the
+:ref:`Ruby language module <installation-precomp-pkgs>`.
 
 .. note::
 
-   Unit uses the `Rack <https://rack.github.io>`_ interface to run Ruby
-   scripts; you need to have it installed as well:
+   Unit uses the
+   `Rack <https://rack.github.io>`__
+   interface
+   to run Ruby scripts;
+   you need to have it installed as well:
 
    .. code-block:: console
 
       $ gem install rack
 
-Besides the :ref:`common options <configuration-apps-common>`, you have the
-following:
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
 
 .. list-table::
     :header-rows: 1
@@ -4686,19 +4874,26 @@ following:
       - Description
 
     * - :samp:`script` (required)
-      - Rack script pathname, including the :file:`.ru` extension:
+      - String;
+        rack script pathname,
+        including the :file:`.ru` extension:
         :file:`/www/rubyapp/script.ru`.
 
     * - :samp:`threads`
-      - Integer; sets the number of worker threads per app process.  When
-        started, each app process creates a corresponding number of threads to
-        handle requests.
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
 
         The default is :samp:`1`.
 
     * - :samp:`hooks`
-      - Pathname of the :file:`.rb` file defining the event hooks to be
-        called during the app's lifecycle.
+      - String;
+        pathname of the :file:`.rb` file
+        setting the event hooks
+        invoked during the app's lifecycle.
 
 Example:
 
@@ -4713,11 +4908,18 @@ Example:
        "hooks": "hooks.rb"
    }
 
-The :samp:`hooks` script is evaluated when the application starts.  If set, it
-can define blocks of Ruby code named :samp:`on_worker_boot`,
-:samp:`on_worker_shutdown`, :samp:`on_thread_boot`, or
-:samp:`on_thread_shutdown`.  If provided, these blocks are called at the
-respective points of the application's lifecycle, for example:
+The :samp:`hooks` script
+is evaluated when the app starts.
+If set, it can define blocks of Ruby code named
+:samp:`on_worker_boot`,
+:samp:`on_worker_shutdown`,
+:samp:`on_thread_boot`,
+or :samp:`on_thread_shutdown`.
+If provided,
+these blocks are called
+at the respective points
+of the app's lifecycle,
+for example:
 
 .. code-block:: ruby
 
@@ -4754,12 +4956,19 @@ respective points of the application's lifecycle, for example:
    end
    # Runs at worker process shutdown.
 
-Use these hooks to add custom runtime logic to your application.
+Use these hooks
+to add custom runtime logic
+to your app.
 
 .. note::
 
-   For Ruby-based examples, see our :doc:`howto/rails` and :doc:`howto/redmine`
-   howtos or a basic :ref:`sample <sample-ruby>`.
+   For Ruby-based examples,
+   see our
+   :doc:`howto/rails`
+   and
+   :doc:`howto/redmine`
+   howtos or a basic
+   :ref:`sample <sample-ruby>`.
 
 
 .. _configuration-stngs:
