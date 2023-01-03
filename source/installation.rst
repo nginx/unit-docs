@@ -2259,7 +2259,7 @@ Community Repositories
          # yum install --enablerepo=remi unit  \
                php54-unit-php php55-unit-php php56-unit-php  \
                php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
-               php80-unit-php
+               php80-unit-php php81-unit-php php82-unit-php
          # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
