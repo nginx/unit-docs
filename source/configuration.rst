@@ -3855,7 +3855,7 @@ and rebuild the app.
 
               # apt install unit-dev
 
-        .. tab:: Amazon, CentOS, Fedora, RHEL
+        .. tab:: Amazon, Fedora, RHEL
 
            .. code-block:: console
 

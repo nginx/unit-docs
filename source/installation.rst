@@ -90,10 +90,6 @@ they're available for:
 - Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`,
   Amazon |_| Linux |_| :ref:`2 <installation-amazon-20lts>`
 
-- CentOS |_| :ref:`6 <installation-centos-6x>`,
-  :ref:`7 <installation-centos-7x>`,
-  :ref:`8 <installation-centos-8x>`
-
 - Debian |_| :ref:`9 <installation-debian-9>`,
   :ref:`10 <installation-debian-10>`,
   :ref:`11 <installation-debian-11>`
@@ -232,140 +228,6 @@ Amazon Linux
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python27 unit-python34 unit-python35 unit-python36
-            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      Runtime details:
-
-      .. list-table::
-
-         * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
-
-         * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
-
-         * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
-
-
-.. _installation-precomp-centos:
-
-======
-CentOS
-======
-
-.. tabs::
-   :prefix: centos
-
-   .. tab:: 8.x
-
-      Supported architecture: x86-64.
-
-      #. To configure Unit's repository,
-         create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install the core package
-         and other packages you need:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
-                  unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39
-            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      Runtime details:
-
-      .. list-table::
-
-         * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
-
-         * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
-
-         * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
-
-
-   .. tab:: 7.x
-
-      Supported architecture: x86-64.
-
-      #. To configure Unit's repository,
-         create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install the core package
-         and other packages you need:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
-                  unit-perl unit-php unit-python27 unit-python36
-            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      Runtime details:
-
-      .. list-table::
-
-         * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
-
-         * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
-
-         * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
-
-
-   .. tab:: 6.x
-
-      .. warning::
-
-         Unit's 1.20+ packages aren't built for CentOS 6.
-         This distribution is obsolete;
-         please update.
-
-      Supported architectures: i386, x86-64.
-
-      #. To configure Unit's repository,
-         create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
-
-         .. code-block:: ini
-
-            [unit]
-            name=unit repo
-            baseurl=https://packages.nginx.org/unit/centos/$releasever/$basearch/
-            gpgcheck=0
-            enabled=1
-
-      #. Install the core package
-         and other packages you need:
-
-         .. code-block:: console
-
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -828,11 +690,12 @@ Fedora
            - :samp:`unit`
 
 
+.. _installation-precomp-centos:
 .. _installation-precomp-rhel:
 
-====
-RHEL
-====
+====================
+RHEL and Derivatives
+====================
 
 .. tabs::
    :prefix: rhel
@@ -919,6 +782,10 @@ RHEL
 
    .. tab:: 7.x
 
+      .. note::
+
+         Official packages for CentOS 7.x are also available.
+
       Supported architecture: x86-64.
 
       #. To configure Unit's repository,
@@ -1004,9 +871,12 @@ RHEL
 
 .. note::
 
-   Use the same steps
-   for binary-compatible distributions
-   such as AlmaLinux, Oracle Linux, or Rocky Linux.
+   Use these steps
+   for binary-compatible distributions:
+   AlmaLinux,
+   CentOS,
+   Oracle Linux,
+   or Rocky Linux.
 
 
 .. _installation-precomp-ubuntu:
@@ -1683,7 +1553,7 @@ Startup and Shutdown
    :prefix: startup-shutdown
    :toc:
 
-   .. tab:: Amazon, CentOS, Debian, Fedora, RHEL, Ubuntu
+   .. tab:: Amazon, Debian, Fedora, RHEL, Ubuntu
 
       Enable Unit to launch automatically at system startup:
 
@@ -2248,7 +2118,7 @@ Community Repositories
       `Remi's RPM repository
       <https://blog.remirepo.net/post/2019/01/14/PHP-with-the-NGINX-unit-application-server>`_,
       which hosts the latest versions of the PHP stack
-      for CentOS, Fedora, and RHEL,
+      for Fedora and RHEL,
       also has the core Unit package and the PHP modules.
 
       To use Remi's versions of Unit's packages,

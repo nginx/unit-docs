@@ -45,7 +45,7 @@ revision numbers, respectively); omit the packages you won't use.
          # apt install libpcre2-dev
 
 
-   .. tab:: Amazon, CentOS, Fedora, RHEL
+   .. tab:: Amazon, Fedora, RHEL
 
       .. code-block:: console
 

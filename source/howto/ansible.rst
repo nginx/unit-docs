@@ -10,7 +10,7 @@ while others provide common configuration steps.
 .. note::
 
    Ansible 2.9+ required; the collection relies on official packages and
-   supports CentOS and Debian only.
+   supports Debian only.
 
    A brief intro by the collection's authors can be found `here
    <https://docs.steampunk.si/unit/quickstart.html>`__; a behind-the-scenes
