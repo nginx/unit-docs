@@ -393,7 +393,7 @@ Debian
 
    .. tab:: 11
 
-      Supported architectures: i386, x86-64.
+      Supported architectures: arm64, x86-64.
 
       #. Download and save NGINX's signing key:
 
@@ -443,6 +443,12 @@ Debian
 
 
    .. tab:: 10
+
+      .. warning::
+
+         Unit's 1.28+ packages aren't built for Debian 10.
+         This distribution is obsolete;
+         please update.
 
       Supported architectures: i386, x86-64.
 
@@ -497,6 +503,8 @@ Debian
       .. warning::
 
          Unit's 1.22+ packages aren't built for Debian 9.
+         This distribution is obsolete;
+         please update.
 
       Supported architectures: i386, x86-64.
 
