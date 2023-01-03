@@ -4977,9 +4977,11 @@ to your app.
 Settings
 ********
 
-Unit has a global :samp:`settings` configuration object that stores
-instance-wide preferences.  Its :samp:`http` option fine-tunes the handling of
-HTTP requests from the clients:
+Unit has a global :samp:`settings` configuration object
+that stores instance-wide preferences.
+Its :samp:`http` option
+fine-tunes handling of HTTP requests
+from the clients:
 
 .. list-table::
     :header-rows: 1
@@ -4988,57 +4990,89 @@ HTTP requests from the clients:
       - Description
 
     * - :samp:`header_read_timeout`
-      - Maximum number of seconds to read the header of a client's request.
-        If Unit doesn't receive the entire header from the client within this
-        interval, it returns a 408 "Request Timeout" response.
+      - Maximum number of seconds
+        to read the header
+        of a client's request.
+        If Unit doesn't receive the entire header
+        from the client
+        within this interval,
+        it returns a 408 "Request Timeout" response.
 
         The default is 30.
 
     * - :samp:`body_read_timeout`
-      - Maximum number of seconds to read data from the body of a client's
-        request.  It limits the interval between consecutive read operations,
-        not the time to read the entire body.  If Unit doesn't receive any
-        data from the client within this interval, it returns a 408
-        "Request Timeout" response.
+      - Maximum number of seconds
+        to read data from the body
+        of a client's request.
+        This is the interval
+        between consecutive read operations,
+        not the time to read the entire body.
+        If Unit doesn't receive any data
+        from the client
+        within this interval,
+        it returns a 408 "Request Timeout" response.
 
         The default is 30.
 
     * - :samp:`send_timeout`
-      - Maximum number of seconds to transmit data in the response to a client.
-        It limits the interval between consecutive transmissions, not the
-        entire response transmission.  If the client doesn't receive any data
-        within this interval, Unit closes the connection.
+      - Maximum number of seconds
+        to transmit data
+        as a response to the client.
+        This is the interval
+        between consecutive transmissions,
+        not the time for the entire response.
+        If no data
+        is sent to the client
+        within this interval,
+        Unit closes the connection.
 
         The default is 30.
 
     * - :samp:`idle_timeout`
-      - Maximum number of seconds between requests in a keep-alive connection.
-        If no new requests arrive within this interval, Unit returns a
-        408 "Request Timeout" response and closes the connection.
+      - Maximum number of seconds
+        between requests
+        in a keep-alive connection.
+        If no new requests
+        arrive within this interval,
+        Unit returns a 408 "Request Timeout" response
+        and closes the connection.
 
         The default is 180.
 
     * - :samp:`max_body_size`
-      - Maximum number of bytes in the body of a client's request.  If the body
-        size exceeds this value, Unit returns a 413 "Payload Too Large"
-        response and closes the connection.
+      - Maximum number of bytes
+        in the body of a client's request.
+        If the body size exceeds this value,
+        Unit returns a 413 "Payload Too Large" response
+        and closes the connection.
 
         The default is 8388608 (8 MB).
 
     * - :samp:`static`
-      - Object; configures static asset handling.  Has a single object option
-        named :samp:`mime_types` that defines specific `MIME types
-        <https://www.iana.org/assignments/media-types/media-types.xhtml>`__ as
-        options.  An option's value can be a string or an array of strings;
-        each string must specify a filename extension or a specific filename
+      - Object;
+        configures static asset handling.
+        Has a single object option named :samp:`mime_types`
+        that defines specific
+        `MIME types
+        <https://www.iana.org/assignments/media-types/media-types.xhtml>`__
+        as options.
+        Such options' values
+        can be strings or arrays of strings;
+        each string must specify a filename extension
+        or a specific filename
         that's included in the MIME type.
 
     * - :samp:`discard_unsafe_fields`
-      - Boolean; controls header field name parsing.  If it's set to
-        :samp:`true`, Unit only processes header names made of alphanumeric
-        characters and hyphens (see `RFC 9110
+      - Boolean;
+        controls header field name parsing.
+        If it's set to :samp:`true`,
+        Unit only processes header names
+        made of alphanumeric characters and hyphens
+        (see
+        `RFC 9110
         <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`__);
-        otherwise, these characters are also permitted:
+        otherwise,
+        these characters are also permitted:
         :samp:`.!#$%&'*+^_\`|~`.
 
         The default is :samp:`true`.
@@ -5047,7 +5081,8 @@ HTTP requests from the clients:
 
 .. note::
 
-   Built-in MIME types are :file:`.aac`, :file:`.apng`, :file:`.atom`,
+   Built-in MIME types are
+   :file:`.aac`, :file:`.apng`, :file:`.atom`,
    :file:`.avi`, :file:`.avif`, :file:`avifs`, :file:`.bin`, :file:`.css`,
    :file:`.deb`, :file:`.dll`, :file:`.exe`, :file:`.flac`, :file:`.gif`,
    :file:`.htm`, :file:`.html`, :file:`.ico`, :file:`.img`, :file:`.iso`,
@@ -5057,7 +5092,9 @@ HTTP requests from the clients:
    :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`, :file:`.rst`,
    :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`, :file:`.webm`,
    :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`, and
-   :file:`.zip`.  You can override built-ins or add new types:
+   :file:`.zip`.
+   You can override built-ins
+   or add new types:
 
    .. code-block:: console
 
@@ -5074,11 +5111,14 @@ HTTP requests from the clients:
 Access Log
 **********
 
-To enable basic access logging, specify the log file path in the
-:samp:`access_log` option of the :samp:`config` object.
+To enable basic access logging,
+specify the log file path
+in the :samp:`access_log` option
+of the :samp:`config` object.
 
-In the example below, all requests will be logged to
-:file:`/var/log/access.log`:
+In the example below,
+all requests will be logged
+to :file:`/var/log/access.log`:
 
 .. code-block:: console
 
@@ -5090,9 +5130,10 @@ In the example below, all requests will be logged to
            "success": "Reconfiguration done."
        }
 
-By default, the log is written in the `Combined Log Format
-<https://httpd.apache.org/docs/2.2/logs.html#combined>`__.  Example of a log
-line:
+By default, the log is written in the
+`Combined Log Format
+<https://httpd.apache.org/docs/2.2/logs.html#combined>`__.
+Example of a CLF line:
 
 .. code-block:: none
 
@@ -5102,8 +5143,10 @@ line:
 Custom Log Formatting
 =====================
 
-The :samp:`access_log` option can be also set to an object to customize
-both the log path and its format:
+The :samp:`access_log` option
+can be also set to an object
+to customize both the log path
+and its format:
 
 .. list-table::
     :header-rows: 1
@@ -5112,11 +5155,16 @@ both the log path and its format:
       - Description
 
     * - :samp:`path`
-      - Pathname of the access log file.
+      - String;
+        pathname of the access log file.
 
     * - :samp:`format`
-      - String setting the log format; besides arbitrary text, can contain
-        any :ref:`variables <configuration-variables>` Unit supports.
+      - String;
+        sets the log format.
+        Besides arbitrary text,
+        can contain any
+        :ref:`variables <configuration-variables>`
+        Unit supports.
 
 Example:
 
@@ -5129,11 +5177,16 @@ Example:
        }
    }
 
-By a neat coincidence, the above :samp:`format` is the default setting.  Also,
-mind that the log entry is formed *after* the request has been handled.
+By a neat coincidence,
+the above :samp:`format`
+is the default setting.
+Also, mind that the log entry
+is formed *after* the request has been handled.
 
-Besides built-in variables, you can use :program:`njs` :ref:`templates
-<configuration-variables-scripting>` to define the log format:
+Besides built-in variables,
+you can use :program:`njs`
+:ref:`templates <configuration-variables-scripting>`
+to define the log format:
 
 .. code-block:: json
 
@@ -5143,5 +5196,3 @@ Besides built-in variables, you can use :program:`njs` :ref:`templates
            "format": "`${host + ': ' + uri}`"
        }
    }
-
-
