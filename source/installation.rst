@@ -2292,43 +2292,6 @@ Community Repositories
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
-   .. tab:: SCLo
-
-      If you use the
-      `SCLo Software Collections
-      <https://wiki.centos.org/SpecialInterestGroup/SCLo>`_,
-      you can install Unit's PHP modules
-      as packages from the corresponding repo.
-      Besides other dependencies,
-      the packages require the
-      :ref:`core Unit installation <installation-precomp-pkgs>`.
-
-      CentOS:
-
-      .. code-block:: console
-
-         # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo  \
-                       sclo-php72-unit-php sclo-php73-unit-php
-         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      RHEL:
-
-      .. code-block:: console
-
-         # cd /etc/yum.repos.d/
-         # curl -O https://copr.fedorainfracloud.org/coprs/rhscl/centos-release-scl/repo/epel-7/rhscl-centos-release-scl-epel-7.repo
-         # yum install centos-release-scl
-         # yum install --enablerepo=centos-sclo-sclo  \
-                       sclo-php72-unit-php sclo-php73-unit-php
-         # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
-
-      Runtime details: see :ref:`installation-precomp-centos`,
-      :ref:`installation-precomp-rhel`,
-      and
-      :ref:`installation-precomp-startup`.
-
-
 .. _installation-docker:
 
 *************
