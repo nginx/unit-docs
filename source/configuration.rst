@@ -1451,10 +1451,10 @@ wildcards and ranges modify this behavior:
           {
               "match": {
                   "source": [
-                      "192.168.1.0/24",
-                      "2001:0db8::/32",
                       "!192.168.1.1",
-                      "!10.1.1.0/16"
+                      "!10.1.1.0/16",
+                      "192.168.1.0/24",
+                      "2001:0db8::/32"
                   ]
               },
 
@@ -2305,7 +2305,7 @@ alongside :samp:`return`:
    }
 
 Besides enriching the response semantics,
-:samp:`return` simplifies allow-deny lists:
+:samp:`return` simplifies :ref:`allow-deny lists <allow-deny>`:
 instead of guarding each action with a filter,
 add
 :ref:`conditions <configuration-routes-matching>`
@@ -2327,10 +2327,10 @@ for example:
         {
             "match": {
                 "source": [
-                    "192.168.1.0/24",
-                    "2001:0db8::/32",
                     "!192.168.1.1",
-                    "!10.1.1.0/16"
+                    "!10.1.1.0/16",
+                    "192.168.1.0/24",
+                    "2001:0db8::/32"
                 ],
             },
 
