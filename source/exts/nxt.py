@@ -145,6 +145,7 @@ from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.builders import Builder
 from sphinx.builders.dirhtml import DirectoryHTMLBuilder
+from sphinx.environment import BuildEnvironment
 from sphinx.environment.adapters.toctree import TocTree
 from sphinx.environment.collectors.toctree import TocTreeCollector
 from sphinx.errors import ExtensionError
@@ -318,8 +319,8 @@ class NxtBuilder(DirectoryHTMLBuilder):
 
     name = "nxt_html"
 
-    def __init__(self, app: Sphinx) -> None:
-        super().__init__(app)
+    def __init__(self, app: Sphinx, env: BuildEnvironment = None) -> None:
+        super().__init__(app, env)
 
     def update_page_context(
         self, pagename: str, templatename: str, ctx: Dict, event_arg: Any
