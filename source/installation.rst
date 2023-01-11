@@ -136,7 +136,7 @@ at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 .. nxt_details:: Repo Installation Script
    :hash: repo-install
 
-   We provide a :download:`script <downloads/setup-unit>`
+   We provide a `script <https://github.com/nginx/unit/tree/master/tools>`__
    that adds our official repos on the systems we support:
 
    .. code-block:: console
