@@ -141,7 +141,7 @@ at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
    .. code-block:: console
 
-      $ wget https://unit.nginx.org/_downloads/setup-unit && chmod +x setup-unit
+      $ wget https://raw.githubusercontent.com/nginx/unit/master/tools/setup-unit && chmod +x setup-unit
       # ./setup-unit repo-config
 
    Use it at your discretion;
