@@ -8,7 +8,7 @@ copyright = '2017-2023'
 version = '1.29.0'
 release_date = 'December 15, 2022'
 release = version
-needs_sphinx = '6.0'
+needs_sphinx = '6.1'
 
 highlight_language = 'json'
 
