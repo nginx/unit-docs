@@ -27,17 +27,19 @@ To suggest changes in code or documentation and ask questions,
 `subscribe <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
 to the unit@nginx.org mailing list
 and post your ideas there.
-Also, you can open a pull request at the appropriate GitHub mirror.
+Also, you can open a pull request on GitHub
+or join our
+`Slack community <https://community.nginx.org/joinslack>`__.
 
 Source code:
 
 - Mercurial repository: https://hg.nginx.org/unit
 - GitHub mirror: https://github.com/nginx/unit
 
-CLI:
+Command-line tools:
 
-- Mercurial repository: https://hg.nginx.org/unit-cli
-- GitHub mirror: https://github.com/nginx/unit-cli
+- Mercurial repository: https://hg.nginx.org/unit/file/tip/tools
+- GitHub mirror: https://github.com/nginx/unit/tree/master/tools
 
 Documentation:
 
