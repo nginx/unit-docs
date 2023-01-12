@@ -2226,21 +2226,6 @@ along the appropriate route:
        ]
    }
 
-.. note::
-
-   Template literals can contain newline characters
-   to improve readability:
-
-   .. code-block:: json
-
-      {
-          "action": {
-              "pass": "`routes/${headers['User-Agent'].split('/')[0] == 'curl'
-              ? 'reject'
-              : 'default'}`"
-          }
-      }
-
 For further reference,
 see the :program:`njs`
 `documentation <https://nginx.org/en/docs/njs/>`__.
