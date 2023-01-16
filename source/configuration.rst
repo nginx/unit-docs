@@ -1702,9 +1702,9 @@ An example:
 
 .. _configuration-variables:
 
-***********************
-Variables And Scripting
-***********************
+********************
+Variables, Scripting
+********************
 
 Some options in Unit configuration
 allow the use of
@@ -2103,50 +2103,17 @@ also allow
 based on the
 `njs <https://nginx.org/en/docs/njs/>`__
 scripting language.
-The following example builds a :samp:`share` path
-with two built-in variables
-in a backtick-delimited :program:`njs` template:
-
-.. code-block:: json
-
-   {
-       "listeners": {
-           "*:8080": {
-               "pass": "routes"
-           }
-       },
-       "routes": [
-           {
-               "action": {
-                   "share": "`/www/html${host + uri}`"
-               }
-           }
-       ]
-   }
-
-.. note::
-
-   Dynamic parts of the template
-   should be enclosed in curly brackets:
-   :samp:`$\\{...\\}`.
-   To use a literal backtick in string values,
-   escape it:
-   :samp:`\\\\\\\\``
-   (escaping backslashes is a
-   `JSON requirement
-   <https://www.json.org/json-en.html>`_).
-
+To evaluate templates
+(including
+`IIFEs <https://developer.mozilla.org/en-US/docs/Glossary/IIFE>`__)
+and substitute them at runtime,
 Unit uses the :program:`njs` library
-to evaluate template expressions
-and substitute their values at runtime;
-the library ships with the
+that ships with the
 :ref:`official packages <installation-precomp-pkgs>`
 or can be
 :ref:`built from source <source-njs>`.
-As the snippet above suggests,
-templates can refer
-to the following request properties
-as variables:
+Some request properties
+are available as :program:`njs` variables:
 
 .. list-table::
    :header-rows: 1
@@ -2194,37 +2161,106 @@ as variables:
        <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
        ("." and "..", "//").
 
-This example adds one-line logic
-to filter requests issued by :program:`curl`
-along the appropriate route:
+Template lterals are wrapped in backticks.
+To use a literal backtick in a string,
+escape it: :samp:`\\\\\\\\``
+(escaping backslashes
+is a
+`JSON requirement
+<https://www.json.org/json-en.html>`_).
+The :program:`njs`-interpreted parts
+should be enclosed in curly brackets:
+:samp:`$\\{...\\}`.
+This example builds a :samp:`share` path
+with two built-in variables
+in a backtick-delimited :program:`njs` template:
 
 .. code-block:: json
 
-   "routes": {
-       "parse": [
-           {
-               "action": {
-                   "pass": "`routes/${headers['User-Agent'].split('/')[0] == 'curl' ? 'reject' : 'default'}`"
-               }
+   {
+       "listeners": {
+           "*:8080": {
+               "pass": "routes"
            }
-       ],
-
-       "reject": [
+       },
+       "routes": [
            {
                "action": {
-                   "return": 400
-               }
-           }
-       ],
-
-       "default": [
-           {
-               "action": {
-                   "return": 204
+                   "share": "`/www/html${host + uri}`"
                }
            }
        ]
    }
+
+Here, a request for :samp:`example.com/path`
+will be served from :file:`/www/html/example.com/path/`.
+
+.. nxt_details:: Examples
+   :hash: njs-examples
+
+   This example adds simple routing logic
+   that extracts the agent name
+   from the :samp:`User-Agent` header field
+   to reject requests
+   issued by :program:`curl`:
+
+   .. code-block:: json
+
+      "routes": {
+          "parse": [
+              {
+                  "action": {
+                      "pass": "`routes/${ headers['User-Agent'].split('/')[0] == 'curl' ? 'reject' : 'default' }`"
+                  }
+              }
+          ],
+
+          "reject": [
+              {
+                  "action": {
+                      "return": 400
+                  }
+              }
+          ],
+
+          "default": [
+              {
+                  "action": {
+                      "return": 204
+                  }
+              }
+          ]
+      }
+
+
+   This uses a series of transformations
+   to parse a
+   `JSON Web Token <https://jwt.io>`__
+   from the :samp:`Authorization` header field
+   to extract the subject claim:
+
+   .. code-block:: json
+
+      {
+          "path": "/var/log/unit/access_kv.log",
+          "format": "`timestamp=${new Date().toISOString()} ip=${remoteAddr} uri=${uri} sub=${ (() => { var authz = headers['Authorization']; if (authz === undefined) { return '-'; } else { var parts = authz.slice(7).split('.').slice(0, 2).map(v => Buffer.from(v, 'base64url').toString()).map(JSON.parse); return parts[1].sub; } })() }\n`"
+      }
+
+   For clarity,
+   here's the unwrapped :program:`njs` code
+   that complements the :samp:`sub=` log entry section:
+
+   .. code-block:: javascript
+
+      (() => {
+          var authz = headers['Authorization'];
+          if (authz === undefined) {
+              return '-';
+          } else {
+              var parts = authz.slice(7).split('.').slice(0, 2).map(v => Buffer.from(v, 'base64url').toString()).map(JSON.parse);
+              return parts[1].sub;
+           }
+      })()
 
 For further reference,
 see the :program:`njs`
