@@ -225,6 +225,10 @@ class nxt_tab_head(nodes.Element):
 NXT_PLAIN_TEXT = r'[\\\w\s\.\*\+\(\)\[\]\{\}\~\?\!\-\^\$\|\/\:\';,#_%&"]'
 NXT_HINT_REGEX = rf"`({NXT_PLAIN_TEXT}*[^\s])\s*<({NXT_PLAIN_TEXT}+)>`"
 NXT_VAR_REGEX = r"(\$[a-zA-Z_]+|\${[a-zA-Z_]+})"
+NXT_NJSTEMPL_REGEX = r"\"(`.*?`)\""
+NXT_JSTRIM_REGEX = (
+    r'<div class="highlight"><pre><span></span>(.*?)\n</pre></div>\n'
+)
 
 
 def nxt_hint_role_fn(
@@ -270,9 +274,16 @@ class NxtHighlighter:
 
         groups = {}
 
-        groups["var"] = re.findall(NXT_VAR_REGEX, source)
-        for i in range(len(groups["var"])):
-            source = re.sub(NXT_VAR_REGEX, f"nxt_var_{i}", source, count=1)
+        if lang == "json":
+            groups["njs"] = re.findall(NXT_NJSTEMPL_REGEX, source)
+            for i in range(len(groups["njs"])):
+                source = re.sub(
+                    NXT_NJSTEMPL_REGEX, f'"nxt_njs_{i}"', source, count=1
+                )
+
+            groups["var"] = re.findall(NXT_VAR_REGEX, source)
+            for i in range(len(groups["var"])):
+                source = re.sub(NXT_VAR_REGEX, f"nxt_var_{i}", source, count=1)
 
         categories = ["ph", "hint"]
         for cat in categories:
@@ -292,8 +303,9 @@ class NxtHighlighter:
         for cat in categories:
             for i, group in enumerate(groups[cat]):
                 txt, hnt = group
-                for j, var in enumerate(groups["var"]):
-                    hnt = hnt.replace(f"nxt_var_{j}", var, 1)
+                if lang == "json":
+                    for j, var in enumerate(groups["var"]):
+                        hnt = hnt.replace(f"nxt_var_{j}", var, 1)
 
                 highlighted = highlighted.replace(
                     f"nxt_{cat}_" + str(i),
@@ -306,10 +318,18 @@ class NxtHighlighter:
                     __(f"Could not lex nxt_* entity at {location}. ")
                 )
 
-        for i, var in enumerate(groups["var"]):
-            highlighted = highlighted.replace(
-                f"nxt_var_{i}", f"<span class=nxt_var>{var}</span>", 1
-            )
+        if lang == "json":
+            for i, njs in enumerate(groups["njs"]):
+                njs = self.highlighter.highlight_block(
+                    njs, "javascript", opts, force, location, **kwargs
+                )
+                njs = re.sub(NXT_JSTRIM_REGEX, r"\1", njs, count=1)
+                highlighted = highlighted.replace(f"nxt_njs_{i}", njs, 1)
+
+            for i, var in enumerate(groups["var"]):
+                highlighted = highlighted.replace(
+                    f"nxt_var_{i}", f"<span class=nxt_var>{var}</span>", 1
+                )
 
         return highlighted
 
@@ -566,7 +586,9 @@ class NxtCollector(TocTreeCollector):
                                 anchorname=anchorname,
                                 *nodetext,
                             )
-                            para = addnodes.compact_paragraph("", "", reference)
+                            para = addnodes.compact_paragraph(
+                                "", "", reference
+                            )
                             item = nodes.list_item("", para)
                             entries.append(item)
 
@@ -674,10 +696,12 @@ class NxtDetailsDirective(Directive):
     def run(self) -> List[Node]:
         self.assert_has_content()
 
-        if ((hsh := self.options.get("hash")) is None):
+        if (hsh := self.options.get("hash")) is None:
             raise ExtensionError(
-                __(f"Empty hash property in the nxt_details directive at line "
-                   f"{self.lineno} in {self.state.document.current_source}.")
+                __(
+                    f"Empty hash property in the nxt_details directive at line "
+                    f"{self.lineno} in {self.state.document.current_source}."
+                )
             )
 
         node = nxt_details(self.content[0], hsh)
@@ -740,7 +764,9 @@ class NxtTabDirective(Directive):
         tab_head += nodes.Text(self.content[0])
 
         tab_head.tabs_id = env.temp_data["tabs_id"][-1]
-        tab_head.checked = "checked" if env.temp_data["tab_id"][-1] == 0 else ""
+        tab_head.checked = (
+            "checked" if env.temp_data["tab_id"][-1] == 0 else ""
+        )
         tab_head.tab_id = "{}_{}".format(
             env.temp_data["tabs_id"][-1], env.temp_data["tab_id"][-1]
         )
@@ -756,12 +782,16 @@ class NxtTabDirective(Directive):
 
         text = "\n".join(self.content)
         tab_body = nxt_tab_body(text)
-        self.state.nested_parse(self.content[2:], self.content_offset, tab_body)
+        self.state.nested_parse(
+            self.content[2:], self.content_offset, tab_body
+        )
 
         return [tab_head, tab_body]
 
 
-def nxt_register_nodes_as_labels(app: Sphinx, document: nodes.document) -> None:
+def nxt_register_nodes_as_labels(
+    app: Sphinx, document: nodes.document
+) -> None:
     """Registers tabs and details as anchors for ref directives."""
 
     docname = app.env.docname
