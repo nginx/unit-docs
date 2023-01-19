@@ -5204,7 +5204,8 @@ is the default setting.
 Also, mind that the log entry
 is formed *after* the request has been handled.
 
-Besides built-in variables,
+Besides
+:ref:`built-in variables <configuration-variables-native>`,
 you can use :program:`njs`
 :ref:`templates <configuration-variables-scripting>`
 to define the log format:
