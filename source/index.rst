@@ -1,11 +1,12 @@
 .. meta::
-   :og:description: A versatile open-source server for a diverse Web.
+   :og:description: A lightweight web app server that combines several layers
+                    of the typical application stack into a single component.
 
 .. include:: include/replace.rst
 
-#####
-About
-#####
+########################
+Universal Web App Server
+########################
 
 Unit is a lightweight and versatile open-source server
 that has three core capabilities:
@@ -37,7 +38,7 @@ released on |release_date|.
   `feed </rss.xml>`_.
 
 - Check out the discussion of our
-  :doc:`key features <about>`
+  :doc:`key features <keyfeatures>`
   for further details.
 
 - Peek at our future plans

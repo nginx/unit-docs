@@ -1,8 +1,8 @@
 .. toctree::
    :includehidden:
 
-   index
-   about
+   About <index>
+   keyfeatures
    news
    installation
    controlapi
