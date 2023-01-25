@@ -65,7 +65,7 @@ Available listener options:
     * - Option
       - Description
 
-    * - :samp:`pass`
+    * - :samp:`pass` (required)
       - Destination to which the listener passes incoming requests.
         Possible alternatives:
 
@@ -89,15 +89,15 @@ Available listener options:
         if it matches no configuration entities after interpolation,
         a 404 "Not Found" response is returned.
 
-    * - :samp:`tls`
-      - Object;
-        defines SSL/TLS
-        :ref:`settings <configuration-listeners-ssl>`.
-
     * - :samp:`forwarded`
       - Object;
         configures client IP address and protocol
         :ref:`replacement <configuration-listeners-forwarded>`.
+
+    * - :samp:`tls`
+      - Object;
+        defines SSL/TLS
+        :ref:`settings <configuration-listeners-ssl>`.
 
 
 Here, a local listener accepts requests at port 8300
@@ -274,6 +274,13 @@ configures the session settings of the listener:
        The default is :samp:`0`
        (caching is disabled).
 
+   * - :samp:`tickets`
+     - Boolean, string, or an array of strings;
+       configures TLS session tickets.
+
+       The default is :samp:`false`
+       (tickets are disabled).
+
    * - :samp:`timeout`
      - Integer;
        sets the session timeout for the TLS session cache.
@@ -285,13 +292,6 @@ configures the session settings of the listener:
 
        The default is :samp:`300`
        (5 minutes).
-
-   * - :samp:`tickets`
-     - Boolean, string, or an array of strings;
-       configures TLS session tickets.
-
-       The default is :samp:`false`
-       (tickets are disabled).
 
 Example:
 
@@ -504,11 +504,11 @@ with the :samp:`forwarded` object and its options:
        * - :samp:`header`
          - :samp:`client_ip`
 
-       * - :samp:`source`
-         - :samp:`source`
-
        * - :samp:`recursive`
          - :samp:`recursive`
+
+       * - :samp:`source`
+         - :samp:`source`
 
        * - N/A
          - :samp:`protocol`
@@ -3234,6 +3234,17 @@ shared between all application languages:
         set :samp:`"type": "php 7.0.2"` to specify the former;
         otherwise, PHP |_| 7.0.23 will be used.
 
+    * - :samp:`environment`
+      - String-valued object;
+        environment variables to be passed to the app.
+
+    * - :samp:`group`
+      - String;
+        group name that runs the
+        :ref:`app process <sec-processes>`.
+
+        The default is the :samp:`user`'s primary group.
+
     * - :samp:`limits`
       - Object; accepts two integer options,
         :samp:`timeout` and :samp:`requests`.
@@ -3253,15 +3264,6 @@ shared between all application languages:
 
         The default is 1.
 
-    * - :samp:`working_directory`
-      - String;
-        the app's working directory.
-
-        The default is
-        the working directory
-        of Unit's
-        :ref:`main process <sec-processes>`.
-
     * - :samp:`user`
       - String;
         username that runs the
@@ -3272,16 +3274,14 @@ shared between all application languages:
         or at
         :ref:`startup <source-startup>`.
 
-    * - :samp:`group`
+    * - :samp:`working_directory`
       - String;
-        group name that runs the
-        :ref:`app process <sec-processes>`.
+        the app's working directory.
 
-        The default is the :samp:`user`'s primary group.
-
-    * - :samp:`environment`
-      - String-valued object;
-        environment variables to be passed to the app.
+        The default is
+        the working directory
+        of Unit's
+        :ref:`main process <sec-processes>`.
 
 Also, you need to set :samp:`type`-specific options
 to run the app.
@@ -3362,6 +3362,57 @@ has the following members:
    * - Option
      - Description
 
+   * - :samp:`automount`
+     - Object;
+       controls mount behavior
+       if :samp:`rootfs` is enabled.
+       By default, Unit automatically mounts the
+       :ref:`language runtime dependencies <conf-rootfs>`,
+       a
+       `procfs
+       <https://man7.org/linux/man-pages/man5/procfs.5.html>`__
+       at :file:`/proc/`,
+       and a
+       `tmpfs
+       <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`__ at :file:`/tmp/`,
+       but you can disable any of these default mounts:
+
+       .. code-block:: json
+
+          {
+              "isolation": {
+                  "automount": {
+                      "language_deps": false,
+                      "procfs": false,
+                      "tmpfs": false
+                  }
+              }
+          }
+
+   * - :samp:`cgroup`
+     - Object;
+       defines the app's
+       :ref:`cgroup <conf-app-cgroup>`.
+
+       .. list-table::
+          :header-rows: 1
+
+          * - Option
+            - Description
+
+          * - :samp:`path` (required)
+            - String;
+              configures absolute or relative path of the app
+              in the
+              `cgroups v2 hierarchy
+              <https://man7.org/linux/man-pages/man7/cgroups.7.html#CGROUPS_VERSION_2>`__.
+              The limits trickle down the hierarchy,
+              so lower cgroups can't exceed their parents' limits.
+
+   * - :samp:`gidmap`
+     - Same as :samp:`uidmap`,
+       but configures group IDs instead of user IDs.
+
    * - :samp:`namespaces`
      - Object; configures
        `namespace <https://man7.org/linux/man-pages/man7/namespaces.7.html>`__
@@ -3416,6 +3467,13 @@ has the following members:
        set the option to :samp:`false`
        (default).
 
+   * - :samp:`rootfs`
+     - Pathname of the directory
+       to be used as the new
+       :ref:`file system root
+       <conf-rootfs>`
+       for the app.
+
    * - :samp:`uidmap`
      - Array of user ID
        :ref:`mapping objects <conf-uidgid-mapping>`;
@@ -3437,49 +3495,6 @@ has the following members:
             - Integer;
               size of the ID range
               in both namespaces.
-
-   * - :samp:`gidmap`
-     - Same as :samp:`uidmap`,
-       but configures group IDs instead of user IDs.
-
-   * - :samp:`rootfs`
-     - Pathname of the directory
-       to be used as the new
-       :ref:`file system root
-       <conf-rootfs>`
-       for the app.
-
-   * - :samp:`automount`
-     - Object;
-       controls mount behavior
-       if :samp:`rootfs` is enabled.
-       By default, Unit automatically mounts the
-       :ref:`language runtime dependencies <conf-rootfs>`,
-       a
-       `procfs
-       <https://man7.org/linux/man-pages/man5/procfs.5.html>`__
-       at :file:`/proc/`,
-       and a
-       `tmpfs
-       <https://man7.org/linux/man-pages/man5/tmpfs.5.html>`__ at :file:`/tmp/`,
-       but you can disable any of these default mounts:
-
-       .. code-block:: json
-
-          {
-              "isolation": {
-                  "automount": {
-                      "language_deps": false,
-                      "procfs": false,
-                      "tmpfs": false
-                  }
-              }
-          }
-
-   * - :samp:`cgroup`
-     - Object;
-       defines the app's
-       :ref:`cgroup <conf-app-cgroup>`.
 
 A sample :samp:`isolation` object
 that enables all namespaces
@@ -3521,25 +3536,8 @@ and sets mappings for user and group IDs:
 .. nxt_details:: Using "cgroup"
    :hash: conf-app-cgroup
 
-   The :samp:`cgroup` isolation object
-   has a single option:
-
-   .. list-table::
-      :header-rows: 1
-
-      * - Option
-        - Description
-
-      * - :samp:`path` (required)
-        - String;
-          configures absolute or relative path of the app
-          in the
-          `cgroups v2 hierarchy
-          <https://man7.org/linux/man-pages/man7/cgroups.7.html#CGROUPS_VERSION_2>`__.
-          The limits trickle down the hierarchy,
-          so lower cgroups can't exceed their parents' limits.
-
-   The :samp:`path` value can be absolute
+   The :samp:`path` value in :samp:`cgroup`
+   can be absolute
    (starting with :samp:`/`) or relative;
    if the path doesn't exist,
    Unit creates it.
@@ -3728,15 +3726,6 @@ and has two integer options:
    * - Option
      - Description
 
-   * - :samp:`timeout`
-     - Integer;
-       request timeout in seconds.
-       If an app process exceeds it
-       while handling a request,
-       Unit alerts it to cancel
-       and returns the error's HTTP status code
-       to the client.
-
    * - :samp:`requests`
      - Integer;
        maximum number of requests
@@ -3745,6 +3734,15 @@ and has two integer options:
        the process restarts;
        this mitigates possible memory leaks
        or other cumulative issues.
+
+   * - :samp:`timeout`
+     - Integer;
+       request timeout in seconds.
+       If an app process exceeds it
+       while handling a request,
+       Unit alerts it to cancel
+       and returns the error's HTTP status code
+       to the client.
 
 Example:
 
@@ -3781,6 +3779,12 @@ supply a :samp:`processes` object with the following options:
     * - Option
       - Description
 
+    * - :samp:`idle_timeout`
+      - Number of seconds
+        Unit waits for
+        before terminating an idle process
+        that exceeds :samp:`spare`.
+
     * - :samp:`max`
       - Maximum number of application processes
         that Unit maintains
@@ -3801,12 +3805,6 @@ supply a :samp:`processes` object with the following options:
         and turn idle again,
         Unit terminates extra idles
         after :samp:`idle_timeout`.
-
-    * - :samp:`idle_timeout`
-      - Number of seconds
-        Unit waits for
-        before terminating an idle process
-        that exceeds :samp:`spare`.
 
 If :samp:`processes` is omitted entirely,
 Unit creates 1 static process.
@@ -4045,16 +4043,6 @@ you have:
         `context path
         <https://javaee.github.io/javaee-spec/javadocs/javax/servlet/ServletContext.html#getContextPath-->`__.
 
-    * - :samp:`threads`
-      - Integer;
-        number of worker threads
-        per :ref:`app process <sec-processes>`.
-        When started,
-        each app process creates this number of threads
-        to handle requests.
-
-        The default is :samp:`1`.
-
     * - :samp:`thread_stack_size`
       - Integer;
         stack size of a worker thread
@@ -4064,6 +4052,16 @@ you have:
 
         The default is usually system dependent
         and can be set with :program:`ulimit -s <SIZE_KB>`.
+
+    * - :samp:`threads`
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
+
+        The default is :samp:`1`.
 
 Example:
 
@@ -4269,16 +4267,6 @@ you have:
       - String;
         PSGI script path.
 
-    * - :samp:`threads`
-      - Integer;
-        number of worker threads
-        per :ref:`app process <sec-processes>`.
-        When started,
-        each app process creates this number of threads
-        to handle requests.
-
-        The default is :samp:`1`.
-
     * - :samp:`thread_stack_size`
       - Integer;
         stack size of a worker thread
@@ -4288,6 +4276,16 @@ you have:
 
         The default is usually system dependent
         and can be set with :program:`ulimit -s <SIZE_KB>`.
+
+    * - :samp:`threads`
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
+
+        The default is :samp:`1`.
 
 Example:
 
@@ -4349,16 +4347,16 @@ Besides the
         :ref:`defines <configuration-php-options>`
         the :file:`php.ini` location and options.
 
+    * - :samp:`script`
+      - String;
+        filename of a :samp:`root`-based PHP script
+        that serves all requests to the app.
+
     * - :samp:`targets`
       - Object;
         defines application sections with
         :ref:`custom <configuration-php-targets>`
         :samp:`root`, :samp:`script`, and :samp:`index` values.
-
-    * - :samp:`script`
-      - String;
-        filename of a :samp:`root`-based PHP script
-        that serves all requests to the app.
 
 The :samp:`index` and :samp:`script` options
 enable two modes of operation:
@@ -4383,12 +4381,6 @@ via the :samp:`options` object:
     * - Option
       - Description
 
-    * - :samp:`file`
-      - String;
-        pathname of the :file:`php.ini` file with
-        `PHP configuration directives
-        <https://www.php.net/manual/en/ini.list.php>`__.
-
     * - :samp:`admin`, :samp:`user`
       - Objects for extra directives.
         Values in :samp:`admin` are set in :samp:`PHP_INI_SYSTEM` mode,
@@ -4412,6 +4404,12 @@ via the :samp:`options` object:
           can set directives listed as
           `php.ini only <https://www.php.net/manual/en/ini.list.php>`__
           except for :samp:`disable_classes` and :samp:`disable_functions`
+
+    * - :samp:`file`
+      - String;
+        pathname of the :file:`php.ini` file with
+        `PHP configuration directives
+        <https://www.php.net/manual/en/ini.list.php>`__.
 
 .. note::
 
@@ -4653,16 +4651,6 @@ you have:
         :ref:`custom <configuration-python-targets>`
         :samp:`module` and :samp:`callable` values.
 
-    * - :samp:`threads`
-      - Integer;
-        number of worker threads
-        per :ref:`app process <sec-processes>`.
-        When started,
-        each app process creates this number of threads
-        to handle requests.
-
-        The default is :samp:`1`.
-
     * - :samp:`thread_stack_size`
       - Integer;
         stack size of a worker thread
@@ -4672,6 +4660,16 @@ you have:
 
         The default is usually system dependent
         and can be set with :program:`ulimit -s <SIZE_KB>`.
+
+    * - :samp:`threads`
+      - Integer;
+        number of worker threads
+        per :ref:`app process <sec-processes>`.
+        When started,
+        each app process creates this number of threads
+        to handle requests.
+
+        The default is :samp:`1`.
 
 Example:
 
@@ -4900,6 +4898,12 @@ you have:
         including the :file:`.ru` extension:
         :file:`/www/rubyapp/script.ru`.
 
+    * - :samp:`hooks`
+      - String;
+        pathname of the :file:`.rb` file
+        setting the event hooks
+        invoked during the app's lifecycle.
+
     * - :samp:`threads`
       - Integer;
         number of worker threads
@@ -4909,12 +4913,6 @@ you have:
         to handle requests.
 
         The default is :samp:`1`.
-
-    * - :samp:`hooks`
-      - String;
-        pathname of the :file:`.rb` file
-        setting the event hooks
-        invoked during the app's lifecycle.
 
 Example:
 
@@ -5010,17 +5008,6 @@ from the clients:
     * - Option
       - Description
 
-    * - :samp:`header_read_timeout`
-      - Maximum number of seconds
-        to read the header
-        of a client's request.
-        If Unit doesn't receive the entire header
-        from the client
-        within this interval,
-        it returns a 408 "Request Timeout" response.
-
-        The default is 30.
-
     * - :samp:`body_read_timeout`
       - Maximum number of seconds
         to read data from the body
@@ -5035,17 +5022,29 @@ from the clients:
 
         The default is 30.
 
-    * - :samp:`send_timeout`
+    * - :samp:`discard_unsafe_fields`
+      - Boolean;
+        controls header field name parsing.
+        If it's set to :samp:`true`,
+        Unit only processes header names
+        made of alphanumeric characters and hyphens
+        (see
+        `RFC 9110
+        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`__);
+        otherwise,
+        these characters are also permitted:
+        :samp:`.!#$%&'*+^_\`|~`.
+
+        The default is :samp:`true`.
+
+    * - :samp:`header_read_timeout`
       - Maximum number of seconds
-        to transmit data
-        as a response to the client.
-        This is the interval
-        between consecutive transmissions,
-        not the time for the entire response.
-        If no data
-        is sent to the client
+        to read the header
+        of a client's request.
+        If Unit doesn't receive the entire header
+        from the client
         within this interval,
-        Unit closes the connection.
+        it returns a 408 "Request Timeout" response.
 
         The default is 30.
 
@@ -5069,6 +5068,20 @@ from the clients:
 
         The default is 8388608 (8 MB).
 
+    * - :samp:`send_timeout`
+      - Maximum number of seconds
+        to transmit data
+        as a response to the client.
+        This is the interval
+        between consecutive transmissions,
+        not the time for the entire response.
+        If no data
+        is sent to the client
+        within this interval,
+        Unit closes the connection.
+
+        The default is 30.
+
     * - :samp:`static`
       - Object;
         configures static asset handling.
@@ -5082,21 +5095,6 @@ from the clients:
         each string must specify a filename extension
         or a specific filename
         that's included in the MIME type.
-
-    * - :samp:`discard_unsafe_fields`
-      - Boolean;
-        controls header field name parsing.
-        If it's set to :samp:`true`,
-        Unit only processes header names
-        made of alphanumeric characters and hyphens
-        (see
-        `RFC 9110
-        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`__);
-        otherwise,
-        these characters are also permitted:
-        :samp:`.!#$%&'*+^_\`|~`.
-
-        The default is :samp:`true`.
 
 .. _configuration-mime:
 
@@ -5175,10 +5173,6 @@ and its format:
     * - Option
       - Description
 
-    * - :samp:`path`
-      - String;
-        pathname of the access log file.
-
     * - :samp:`format`
       - String;
         sets the log format.
@@ -5186,6 +5180,10 @@ and its format:
         can contain any
         :ref:`variables <configuration-variables>`
         Unit supports.
+
+    * - :samp:`path`
+      - String;
+        pathname of the access log file.
 
 Example:
 
