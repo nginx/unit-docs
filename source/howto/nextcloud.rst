@@ -144,22 +144,22 @@ platform using Unit:
 
                       "index": {
                           "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
-                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
                       "ocm": {
                           "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`ocm-provider/",
-                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
                       "ocs": {
                           "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`ocs-provider/",
-                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       },
 
                       "updater": {
                           "root": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`nextcloud/updater/",
-                          "script": "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
+                          "script": ":nxt_hint:`index.php <All requests are handled by a single script>`"
                       }
                   }
               }
