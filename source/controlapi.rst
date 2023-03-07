@@ -545,7 +545,7 @@ such as a route still referenced by a listener:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /var/run/unit/control.sock \
+   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
            http://localhost/config/routes
 
         {
