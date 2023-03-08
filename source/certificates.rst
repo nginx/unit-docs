@@ -94,8 +94,8 @@ as :samp:`GET`-table JSON via :samp:`/certificates`:
                        },
 
                        "validity": {
-                           "since": "Sep 18 19:46:19 2018 GMT",
-                           "until": "Jun 15 19:46:19 2021 GMT"
+                           "since": "Sep 18 19:46:19 2022 GMT",
+                           "until": "Jun 15 19:46:19 2025 GMT"
                        }
                    },
                    {
@@ -114,8 +114,8 @@ as :samp:`GET`-table JSON via :samp:`/certificates`:
                        },
 
                        "validity": {
-                           "since": "Feb 22 22:45:55 2016 GMT",
-                           "until": "Feb 21 22:45:55 2019 GMT"
+                           "since": "Feb 22 22:45:55 2023 GMT",
+                           "until": "Feb 21 22:45:55 2026 GMT"
                        }
                    }
                ]
