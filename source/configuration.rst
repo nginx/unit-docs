@@ -3246,7 +3246,7 @@ shared between all application languages:
         The default is the :samp:`user`'s primary group.
 
     * - :samp:`isolation`
-      - Object; govern the isolation
+      - Object; manages the isolation
         of an application process.
         For details, see
         :ref:`here <configuration-proc-mgmt-isolation>`.
