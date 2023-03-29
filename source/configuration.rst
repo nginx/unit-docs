@@ -3474,7 +3474,7 @@ has the following members:
        (default).
 
    * - :samp:`rootfs`
-     - Pathname of the directory
+     - String; pathname of the directory
        to be used as the new
        :ref:`file system root
        <conf-rootfs>`
