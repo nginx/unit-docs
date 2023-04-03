@@ -228,7 +228,7 @@ instead, save and upload it as :file:`snippet.json`:
 .. code-block:: console
 
    # curl -X PUT --data-binary @snippet.json --unix-socket  \
-         /path/to/control.unit.sock http://localhost/config
+         :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config
 
          {
              "success": "Reconfiguration done."
@@ -326,9 +326,9 @@ provided you supply the right JSON:
 .. code-block:: console
 
    # curl -X PUT -d '{ "pass": "applications/blogs" }' --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/listeners/127.0.0.1:8300
+          :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/listeners/127.0.0.1:8300
 
-   # curl -X PUT -d '"applications/blogs"' --unix-socket /path/to/control.unit.sock \
+   # curl -X PUT -d '"applications/blogs"' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/listeners/127.0.0.1:8300/pass
 
 However, the first command replaces the *entire* listener,
@@ -361,23 +361,23 @@ Use it to set up an application called :samp:`wiki-prod`:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary @/path/to/wiki.json \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod
+   # curl -X PUT --data-binary @wiki.json \
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-prod
 
 Use it again to set up a development version of the same app
 called :samp:`wiki-dev`:
 
 .. code-block:: console
 
-   # curl -X PUT --data-binary @/path/to/wiki.json \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev
+   # curl -X PUT --data-binary @wiki.json \
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-dev
 
 Toggle the :samp:`wiki-dev` app to another source code directory:
 
 .. code-block:: console
 
    # curl -X PUT -d '"/www/wiki-dev/"' \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-dev/path
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-dev/path
 
 Next, boost the process count for the production app
 to warm it up a bit:
@@ -385,7 +385,7 @@ to warm it up a bit:
 .. code-block:: console
 
    # curl -X PUT -d '5' \
-          --unix-socket /path/to/control.unit.sock http://localhost/config/applications/wiki-prod/processes
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-prod/processes
 
 Add a listener for the :samp:`wiki-prod` app
 to accept requests at all host IPs:
@@ -393,13 +393,13 @@ to accept requests at all host IPs:
 .. code-block:: console
 
    # curl -X PUT -d '{ "pass": "applications/wiki-prod" }' \
-          --unix-socket /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400'
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` 'http://localhost/config/listeners/*:8400'
 
 Plug the :samp:`wiki-dev` app into the listener to test it:
 
 .. code-block:: console
 
-   # curl -X PUT -d '"applications/wiki-dev"' --unix-socket /path/to/control.unit.sock \
+   # curl -X PUT -d '"applications/wiki-dev"' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           'http://localhost/config/listeners/*:8400/pass'
 
 Then rewire the listener,
@@ -423,10 +423,10 @@ adding a URI-based route to the development version of the app:
        EOF
 
    # curl -X PUT --data-binary @config.json --unix-socket \
-          /path/to/control.unit.sock http://localhost/config/routes
+          :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/routes
 
    # curl -X PUT -d '"routes"' --unix-socket \
-          /path/to/control.unit.sock 'http://localhost/config/listeners/*:8400/pass'
+          :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` 'http://localhost/config/listeners/*:8400/pass'
 
 Next, change the :samp:`wiki-dev`'s URI prefix
 in the :samp:`routes` array,
@@ -434,7 +434,7 @@ using its index (0):
 
 .. code-block:: console
 
-   # curl -X PUT -d '"/development/*"' --unix-socket=/path/to/control.unit.sock \
+   # curl -X PUT -d '"/development/*"' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/routes/0/match/uri
 
 Append a route to the prod app:
@@ -445,7 +445,7 @@ so there's no need for an index:
 
    # curl -X POST -d '{"match": {"uri": "/production/*"}, \
           "action": {"pass": "applications/wiki-prod"}}'  \
-          --unix-socket=/path/to/control.unit.sock        \
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`        \
           http://localhost/config/routes/
 
 Otherwise, use :samp:`PUT` with the array's last index
@@ -457,14 +457,14 @@ to add the new item at the end:
 
    # curl -X PUT -d '{"match": {"uri": "/production/*"}, \
           "action": {"pass": "applications/wiki-prod"}}' \
-          --unix-socket=/path/to/control.unit.sock       \
+          --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`       \
           http://localhost/config/routes/1/
 
 To get the complete :samp:`/config` section:
 
 .. code-block:: console
 
-   # curl --unix-socket /path/to/control.unit.sock http://localhost/config/
+   # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
        {
            "listeners": {
@@ -514,7 +514,7 @@ To obtain the :samp:`wiki-dev` application object:
 
 .. code-block:: console
 
-   # curl --unix-socket /path/to/control.unit.sock \
+   # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/applications/wiki-dev
 
        {
@@ -530,14 +530,14 @@ as :file:`.json` files for update or review:
 
 .. code-block:: console
 
-   # curl --unix-socket /path/to/control.unit.sock \
+   # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/ > config.json
 
 To drop the listener on :samp:`\*:8400`:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
+   # curl -X DELETE --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           'http://localhost/config/listeners/*:8400'
 
 Mind that you can't delete objects that other objects rely on,
@@ -545,7 +545,7 @@ such as a route still referenced by a listener:
 
 .. code-block:: console
 
-   # curl -X DELETE --unix-socket /path/to/control.unit.sock \
+   # curl -X DELETE --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
            http://localhost/config/routes
 
         {
