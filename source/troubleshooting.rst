@@ -226,7 +226,7 @@ such as :samp:`unit-dbg`.
       .. code-block:: console
 
          # ulimit -c unlimited
-         # cd /path/to/unit/
+         # cd :nxt_ph:`/path/to/unit/ <Unit's installation directory>`
          # sbin/unitd           # or sbin/unitd-debug
 
       After a crash,
@@ -234,7 +234,7 @@ such as :samp:`unit-dbg`.
 
       .. code-block:: console
 
-         # ls -al /path/to/unit/working/directory/  # default location, see /proc/sys/kernel/core_pattern
+         # ls -al :nxt_ph:`/path/to/unit/working/directory/ <Unit's working directory>`  # default location, see /proc/sys/kernel/core_pattern
 
                ...
                -rw-r----- 1 root root 177662 Jul 27 11:05 core.1157
@@ -275,7 +275,7 @@ such as :samp:`unit-dbg`.
 
       .. code-block:: console
 
-         # cd /path/to/unit/
+         # cd :nxt_ph:`/path/to/unit/ <Unit's installation directory>`
          # sbin/unitd
 
       After a crash,
@@ -283,7 +283,7 @@ such as :samp:`unit-dbg`.
 
       .. code-block:: console
 
-         # ls -al /path/to/core/files/
+         # ls -al :nxt_ph:`/path/to/core/files/ <Core dump directory>`
 
                ...
                -rw-------  1 root     root  9912320 Jul 27 11:05 unitd.core
