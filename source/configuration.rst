@@ -5096,39 +5096,36 @@ from the clients:
         `MIME types
         <https://www.iana.org/assignments/media-types/media-types.xhtml>`__
         as options.
-        Such options' values
+        Their values
         can be strings or arrays of strings;
         each string must specify a filename extension
         or a specific filename
         that's included in the MIME type.
+        You can override default MIME types
+        or add new types:
 
-.. _configuration-mime:
+        .. code-block:: console
 
-.. note::
+           # curl -X PUT -d '{"text/x-code": [".c", ".h"]}' :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
+                  http://localhost/config/settings/http/static/mime_types
+           {
+                  "success": "Reconfiguration done."
+           }
 
-   Built-in MIME types are
-   :file:`.aac`, :file:`.apng`, :file:`.atom`,
-   :file:`.avi`, :file:`.avif`, :file:`avifs`, :file:`.bin`, :file:`.css`,
-   :file:`.deb`, :file:`.dll`, :file:`.exe`, :file:`.flac`, :file:`.gif`,
-   :file:`.htm`, :file:`.html`, :file:`.ico`, :file:`.img`, :file:`.iso`,
-   :file:`.jpeg`, :file:`.jpg`, :file:`.js`, :file:`.json`, :file:`.md`,
-   :file:`.mid`, :file:`.midi`, :file:`.mp3`, :file:`.mp4`, :file:`.mpeg`,
-   :file:`.mpg`, :file:`.msi`, :file:`.ogg`, :file:`.otf`, :file:`.pdf`,
-   :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`, :file:`.rst`,
-   :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`, :file:`.webm`,
-   :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`, and
-   :file:`.zip`.
-   You can override built-ins
-   or add new types:
+        .. _configuration-mime:
 
-   .. code-block:: console
-
-      # curl -X PUT -d '{"text/x-code": [".c", ".h"]}' :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
-             http://localhost/config/settings/http/static/mime_types
-      {
-             "success": "Reconfiguration done."
-      }
-
+        Defaults:
+        :file:`.aac`, :file:`.apng`, :file:`.atom`,
+        :file:`.avi`, :file:`.avif`, :file:`avifs`, :file:`.bin`, :file:`.css`,
+        :file:`.deb`, :file:`.dll`, :file:`.exe`, :file:`.flac`, :file:`.gif`,
+        :file:`.htm`, :file:`.html`, :file:`.ico`, :file:`.img`, :file:`.iso`,
+        :file:`.jpeg`, :file:`.jpg`, :file:`.js`, :file:`.json`, :file:`.md`,
+        :file:`.mid`, :file:`.midi`, :file:`.mp3`, :file:`.mp4`, :file:`.mpeg`,
+        :file:`.mpg`, :file:`.msi`, :file:`.ogg`, :file:`.otf`, :file:`.pdf`,
+        :file:`.php`, :file:`.png`, :file:`.rpm`, :file:`.rss`, :file:`.rst`,
+        :file:`.svg`, :file:`.ttf`, :file:`.txt`, :file:`.wav`, :file:`.webm`,
+        :file:`.webp`, :file:`.woff2`, :file:`.woff`, :file:`.xml`, and
+        :file:`.zip`.
 
 .. _configuration-access-log:
 
