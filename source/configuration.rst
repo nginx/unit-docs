@@ -1906,7 +1906,7 @@ or :samp:`$header_accept_encoding`.
 
    With multiple argument instances
    (think :samp:`Color=Red&Color=Blue`),
-   the rightmost occurrence is used (:samp:`Blue`).
+   the rightmost one is used (:samp:`Blue`).
 
 At runtime,
 variables expand into dynamically computed values
