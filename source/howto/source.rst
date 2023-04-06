@@ -243,73 +243,67 @@ structure <source-dir>`:
 
 .. list-table::
 
-   * - :samp:`--prefix=prefix`
+   * - :samp:`--prefix=PREFIX`
      - .. _source-config-src-prefix:
 
        Destination directory prefix for :ref:`path options
-       <source-dir>`: :option:`!--bindir`, :option:`!--sbindir`,
-       :option:`!--libdir`, :option:`!--incdir`, :option:`!--mandir`,
-       :option:`!--modules`, :option:`!--state`, :option:`!--pid`,
-       :option:`!--log`, and :option:`!--control`.
+       <source-dir>`:
+       :option:`!--bindir`,
+       :option:`!--sbindir`,
+       :option:`!--includedir`,
+       :option:`!--libdir`,
+       :option:`!--modulesdir`,
+       :option:`!--datarootdir`,
+       :option:`!--mandir`,
+       :option:`!--localstatedir`,
+       :option:`!--libstatedir`,
+       :option:`!--runstatedir`,
+       :option:`!--logdir`,
+       :option:`!--tmpdir`,
+       :option:`!--control`,
+       :option:`!--pid`,
+       :option:`!--log`.
 
-   * - :samp:`--bindir=directory`, :samp:`--sbindir=directory`
+       The default is :samp:`/usr/local`.
+
+   * - :samp:`--exec-prefix=EXEC_PREFIX`
+     - Destination directory prefix for the executable directories only.
+
+       The default is the :samp:`PREFIX` value.
+
+   * - :samp:`--bindir=BINDIR`, :samp:`--sbindir=SBINDIR`
      - Directory paths for client and server executables.
 
-       The defaults are :samp:`bin` and :samp:`sbin`, respectively.
+       The defaults are :samp:`EXEC_PREFIX/bin` and :samp:`EXEC_PREFIX/sbin`.
 
-   * - :samp:`--control=socket`
-     - :ref:`Control API <configuration-mgmt>` socket address in IPv4, IPv6,
-       or UNIX domain format:
-
-       .. code-block:: console
-
-          $ ./configure --control=127.0.0.1:8080
-          $ ./configure --control=[::1]:8080
-          $ ./configure --control=:nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
-
-       .. warning::
-
-          Avoid exposing an unprotected control socket in public networks.  Use
-          :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH
-          for security and authentication.
-
-       The default is :samp:`unix:control.unit.sock`, created as
-       :samp:`root` with :samp:`600` permissions.
-
-   * - :samp:`--incdir=directory`, :samp:`--libdir=directory`
+   * - :samp:`--includedir=INCLUDEDIR`, :samp:`--libdir=LIBDIR`
      - Directory paths for :program:`libunit` header files and libraries.
 
-       The defaults are :samp:`include` and :samp:`lib`, respectively.
+       The defaults are :samp:`PREFIX/include` and :samp:`EXEC_PREFIX/lib`.
 
-   * - :samp:`--mandir=directory`
-     - Directory path where the :samp:`unitd(8)` :program:`man` page is
-       installed.
-
-       The default is :samp:`share/man`.
-
-   * - :samp:`--log=pathname`
-     - Pathname for Unit's :ref:`log <troubleshooting-log>`.
-
-       The default is :samp:`unit.log`.
-
-   * - :samp:`--modules=directory`
+   * - :samp:`--modulesdir=MODULESDIR`
      - Directory path for Unit's language :doc:`modules <modules>`.
 
-       The default is :samp:`modules`.
+       The default is :samp:`LIBDIR/unit/modules`.
 
-   * - :samp:`--pid=pathname`
-     - Pathname for the PID file of Unit's :program:`main` :ref:`process
-       <security-apps>`.
+   * - :samp:`--datarootdir=DATAROOTDIR`, :samp:`--mandir=MANDIR`
+     - Directory path for :samp:`unitd(8)` data storage and its subdirectory
+       where the :program:`man` page is installed.
 
-       The default is :samp:`unit.pid`.
+       The defaults are :samp:`PREFIX/share` and :samp:`DATAROOTDIR/man`.
 
+   * - :samp:`--localstatedir=LOCALSTATEDIR`
+     - Directory path where Unit stores its runtime state, PID file,
+       control socket, and logs.
 
-   * - :samp:`--state=directory`
+       The default is :samp:`PREFIX/var`.
+
+   * - :samp:`--libstatedir=LIBSTATEDIR`
      - .. _source-config-src-state:
 
-       Directory path where Unit's state (configuration, certificates, other
-       resources) is stored between runs.  If you migrate your installation,
-       copy the entire directory.
+       Directory path where Unit's runtime state (configuration, certificates,
+       other resources) is stored between runs.  If you migrate your
+       installation, copy the entire directory.
 
        .. warning::
 
@@ -317,13 +311,49 @@ structure <source-dir>`:
           :samp:`700` permissions.  Don't change its contents externally; use
           the config API to ensure integrity.
 
-       The default is :samp:`state`.
+       The default is :samp:`LOCALSTATEDIR/run/unit`.
 
-   * - :samp:`--tmp=directory`
+   * - :samp:`--logdir=LOGDIR`, :samp:`--log=LOGFILE`
+     - Directory path and filename for Unit's :ref:`log <troubleshooting-log>`.
+
+       The defaults are :samp:`LOCALSTATEDIR/log/unit` and
+       :samp:`LOGDIR/unit.log`.
+
+   * - :samp:`--runstatedir=RUNSTATEDIR`
+     - Directory path where Unit stores its PID file and control socket.
+
+       The default is :samp:`LOCALSTATEDIR/run/unit`.
+
+   * - :samp:`--pid=pathname`
+     - Pathname for the PID file of Unit's :program:`main` :ref:`process
+       <security-apps>`.
+
+       The default is :samp:`RUNSTATEDIR/unit.pid`.
+
+   * - :samp:`--control=SOCKET`
+     - :ref:`Control API <configuration-mgmt>` socket address in IPv4, IPv6,
+       or UNIX domain format:
+
+       .. code-block:: console
+
+          $ ./configure --control=127.0.0.1:8080
+          $ ./configure --control=[::1]:8080
+          $ ./configure --control=unix:/path/to/control.unit.sock  # Note the unix: prefix
+
+       .. warning::
+
+          Avoid exposing an unprotected control socket in public networks.  Use
+          :ref:`NGINX <nginx-secure-api>` or a different solution such as SSH
+          for security and authentication.
+
+       The default is :samp:`unix:RUNSTATEDIR/control.unit.sock`, created as
+       :samp:`root` with :samp:`600` permissions.
+
+   * - :samp:`--tmpdir=TMPDIR`
      - Defines the temporary file storage location (used to dump large request
        bodies).
 
-       The default value is :samp:`tmp`.
+       The default value is :samp:`/tmp`.
 
 
 .. _source-dir:
@@ -331,62 +361,50 @@ structure <source-dir>`:
 Directory Structure
 *******************
 
-To customize Unit's installation and runtime directories, you can both:
+By default, :command:`make install` installs Unit at the following pathnames:
 
-- Set the :option:`!--prefix` and path options (their relative settings are
-  :option:`!--prefix`-based) during :ref:`configuration
-  <source-config-src-prefix>` to define the runtime file structure.  Unit
-  uses these settings to locate its modules, state, and other files.
+.. list-table::
+   :header-rows: 1
 
-- Set the :envvar:`DESTDIR` `variable
-  <https://www.gnu.org/prep/standards/html_node/DESTDIR.html>`_ during
-  :ref:`installation <source-bld-src>`.  Unit's file structure is placed
-  at the specified directory, which can be used either as the final
-  installation target or as an intermediate staging location.
+   * - Directory
+     - Default Path
 
-Coordinate these two options as necessary; one common scenario is installation
-based on absolute paths:
+   * - :samp:`bin` directory
+     - :file:`/usr/local/bin/`
 
-#. Set absolute runtime paths with :option:`!--prefix` and path options:
+   * - :samp:`sbin` directory
+     - :file:`/usr/local/sbin/`
 
-   .. code-block:: console
+   * - :samp:`lib` directory
+     - :file:`/usr/local/lib/`
 
-      $ ./configure --state=:nxt_hint:`/var/lib/unit <Sample absolute path>` --log=:nxt_hint:`/var/log/unit.log <Sample absolute pathname>` \
-                    --control=:nxt_hint:`unix:/run/control.unit.sock <Sample absolute pathname; note the unix: prefix>` --prefix=:nxt_hint:`/usr/local/ <Sample absolute path>`
+   * - :samp:`include` directory
+     - :file:`/usr/local/include/`
 
-   Configured thus, Unit stores its state, log, and control socket at custom
-   locations; other files have default prefix-based paths.  Here, :file:`unitd`
-   goes to :file:`/usr/local/sbin/`, and modules to
-   :file:`/usr/local/modules/`.
+   * - :samp:`tmp` directory
+     - :file:`/tmp/`
 
-#. For further packaging options, set :option:`!DESTDIR` during installation to
-   stage the files at the specified location while preserving their relative
-   structure.  Otherwise, omit :option:`!DESTDIR` for direct installation.
+   * - Man pages
+     - :file:`/usr/local/share/man/`
 
-An alternative scenario is a build that you can move around the file system:
+   * - Language modules
+     - :file:`/usr/local/lib/unit/modules/`
 
-#. Set relative runtime paths with :option:`!--prefix` and path options:
+   * - Runtime state
+     - :file:`/usr/local/var/lib/unit/`
 
-   .. code-block:: console
+   * - PID file
+     - :file:`/usr/local/var/run/unit/unit.pid`
 
-      $ ./configure --state=:nxt_hint:`config <Sample relative path>` --log=:nxt_hint:`log/unit.log <Sample relative pathname>` \
-                    --control=:nxt_hint:`unix:control/control.unit.sock <Sample relative pathname>` --prefix=:nxt_hint:`movable <Sample relative path>`
+   * - Log file
+     - :file:`/usr/local/var/log/unit/unit.log`
 
-   Configured this way, Unit stores its files at :option:`!--prefix`-based
-   paths (both default and custom), for example, :file:`<working
-   directory>/movable/sbin/` or :file:`<working directory>/movable/config/`.
+   * - Control API socket
+     - :file:`unix:/usr/local/var/run/unit/control.unit.sock`
 
-#. Specify :option:`!DESTDIR` when installing the build.  You can migrate such
-   builds if needed; move the entire file structure and launch binaries from
-   the *base* directory so that the relative paths stay valid:
-
-   .. code-block:: console
-
-      $ cd :nxt_ph:`DESTDIR <Use a real path instead>`
-      # movable/sbin/unitd
-
-You can combine these approaches, but make sure your settings work together as
-expected.
+The defaults are designed to work for most cases; to customize this layout,
+set the :option:`!--prefix` and its related options during :ref:`configuration
+<source-config-src-prefix>`, defining the resulting file structure.
 
 
 .. _source-modules:
@@ -681,6 +699,14 @@ To build and install Unit's executables and language modules that you have
 Mind that :samp:`make install` requires setting up Unit's :ref:`directory
 structure <source-dir>` with :program:`./configure` first.
 
+To run Unit from the build directory tree without installing:
+
+.. code-block:: console
+
+   $ ./configure --prefix=./build
+   $ make
+   $ ./build/sbin/unitd
+
 You can also build and install language modules individually; the specific
 method depends on whether the language module is embedded in Unit (Java, Perl,
 PHP, Python, Ruby) or packaged externally (Go, Node.js).
@@ -770,20 +796,13 @@ Startup and Shutdown
    on) or create an :program:`rc.d` script to launch the Unit daemon using the
    options below.
 
-The startup command depends on your :program:`./configure` options.  If you
-have configured :ref:`absolute paths <source-dir>`:
+The startup command depends on the directories you set with
+:program:`./configure`, but their default values place the :program:`unitd`
+binary in a well-known place, so:
 
 .. code-block:: console
 
    # :nxt_hint:`unitd <Your PATH environment variable should list a path to unitd>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
-
-Otherwise, start :program:`unitd` from the :samp:`sbin` subdirectory relative
-to the installation directory :ref:`prefix <source-config-src-prefix>`:
-
-.. code-block:: console
-
-   # cd :nxt_ph:`/path/to/unit/ <Destination prefix>`
-   # :nxt_hint:`sbin/unitd <This preserves relative paths>` :nxt_ph:`RUNTIME OPTIONS <See the table below>`
 
 Run :command:`unitd -h` or :command:`unitd --version` to list Unit's
 compile-time settings.  Usually, the defaults don't require overrides; still,
