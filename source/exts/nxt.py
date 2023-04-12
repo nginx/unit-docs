@@ -1,5 +1,5 @@
 """
-Copyright (C) 2019-2021, NGINX, Inc.
+Copyright (C) 2019-2023, NGINX, Inc.
 
 Sphinx extension to support advanced markup capabilities in .rst files.  All
 capabilities introduced here require overriding the default translator, so the
@@ -109,7 +109,7 @@ Lists N latest news entries from the entire site, reverse sorted by date.
             type="application/rss+xml" />
         <title>NGINX Unit</title>
         <link>https://unit.nginx.org/</link>
-        <copyright>NGINX, Inc., 2017-2021</copyright>
+        <copyright>NGINX, Inc., 2017-2023</copyright>
         <description>NGINX Unit news and articles</description>
         <generator>nxt-newsfeed</generator>
             <item>

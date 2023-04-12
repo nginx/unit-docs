@@ -1,5 +1,5 @@
 """
-Copyright (C) 2020-2021, NGINX, Inc.
+Copyright (C) 2020-2023, NGINX, Inc.
 
 Sphinx extension to add ReadTheDocs-style "Edit on GitHub" links to the
 sidebar.  Loosely based on https://github.com/astropy/astropy/pull/347

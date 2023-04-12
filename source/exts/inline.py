@@ -1,5 +1,5 @@
 """
-Copyright (C) 2019-2021, NGINX, Inc.
+Copyright (C) 2019-2023, NGINX, Inc.
 
 Sphinx extension to support replacements in inline literals.
 
