@@ -48,6 +48,20 @@ see its system startup scripts or configuration files
 to check if :option:`!--log` is set,
 and how.
 
+Available log levels:
+
+- :samp:`[alert]`: Non-fatal errors such as app exceptions or misconfigurations.
+
+- :samp:`[error]`: Serious errors such as invalid ports or addresses.
+
+- :samp:`[warn]`: Recoverable issues such as :samp:`umount2(2)` failures.
+
+- :samp:`[notice]`: Self-diagnostic and router events.
+
+- :samp:`[info]`: General-purpose reporting.
+
+- :samp:`[debug]`: Debug events.
+
 .. note::
 
    Mind that our Docker images forward their log output to the
@@ -55,15 +69,76 @@ and how.
    instead of a file.
 
 
+.. _troubleshooting-router-log:
+
+=============
+Router Events
+=============
+
+The :samp:`log_route` option
+in Unit's
+:ref:`settings <configuration-stngs>`
+allows recording
+:ref:`routing choices <configuration-routes-matching>`
+in the general-purpose log:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Event
+      - Log Level
+      - Description
+
+    * - HTTP request line
+      - :samp:`[notice]`
+      - Incoming
+        `request line
+        <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
+
+    * - Route step discarded
+      - :samp:`[info]`
+      - The route step is skipped
+        while handling the request.
+
+    * - Route step selected
+      - :samp:`[notice]`
+      - The route step is selected
+        to serve the request.
+
+    * - Fallback taken
+      - :samp:`[notice]`
+      - A :samp:`fallback` action is taken
+        after the step is selected.
+
+Sample router logging output may look like this:
+
+.. code-block:: none
+
+   [notice] 8308#8339 *16 http request line "GET / HTTP/1.1"
+   [info] 8308#8339 *16 "routes/0" discarded
+   [info] 8308#8339 *16 "routes/1" discarded
+   [notice] 8308#8339 *16 "routes/2" selected
+   [notice] 8308#8339 *16 "fallback" taken
+
+It lists specific steps and actions
+(such as :samp:`routes/2`)
+that can be queried via the
+:doc:`control API <controlapi>`
+for details:
+
+.. code-block:: console
+
+   # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/:nxt_ph:`routes/2 <The step listed in the log>`
+
 .. _troubleshooting-dbg-log:
 
-*********
-Debug Log
-*********
+============
+Debug Events
+============
 
-Unit's log has two verbosity modes,
-common and debug;
-the steps to enable debug vary by install method.
+Unit's log can be set to record :samp:`[debug]`-level events;
+the steps to enable this mode
+vary by install method.
 
 .. warning::
 

@@ -5071,6 +5071,13 @@ from the clients:
 
         The default is 180.
 
+    * - :samp:`log_route`
+      - Boolean;
+        enables or disables
+        :ref:`router logging <troubleshooting-router-log>`.
+
+        The default is :samp:`false` (disabled).
+
     * - :samp:`max_body_size`
       - Maximum number of bytes
         in the body of a client's request.
