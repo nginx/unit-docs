@@ -210,7 +210,7 @@ To switch your app to a different Unit image, prepare a corresponding
               https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
 
-   # Next, we install the module, download app requirements, and perform creanup.
+   # Next, we install the module, download app requirements, and perform cleanup.
    RUN apt update && apt install -y unit-python3.7 python3-pip                   \
        && pip3 install -r /config/requirements.txt                               \
        && apt remove -y curl apt-transport-https gnupg2 lsb-release python3-pip  \
