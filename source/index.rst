@@ -8,19 +8,18 @@
 Universal Web App Server
 ########################
 
-Unit is a lightweight and versatile open-source server
-that has three core capabilities:
-it is a web server
-for static media assets,
-an application server
-that runs code in multiple languages,
-and a reverse proxy.
-It was built by
+NGINX Unit is a lightweight and versatile application runtime
+that provides the essential components for your web application
+as a single open-source server:
+running application code,
+serving static assets,
+handling TLS and request routing.
+
+Unit was created by
 `nginx <https://nginx.org/en/>`_
 team members from scratch
 to be highly efficient
 and fully configurable at runtime.
-
 The latest version is |version|,
 released on |release_date|.
 
