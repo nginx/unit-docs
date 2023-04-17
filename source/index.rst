@@ -47,7 +47,19 @@ released on |release_date|.
 .. raw:: html
 
    <div class="video">
-   <iframe src="https://www.youtube.com/embed/I4IWEz2lBWU?modestbranding=1&amp;rel=0&amp;showinfo=0&amp;color=white"
-           allowfullscreen>
-   </iframe>
+     <div>
+       <iframe src="https://www.youtube.com/embed/NaaS1qOBnuw"
+               allowfullscreen>
+       </iframe>
+     </div>
+
+     <div>
+       <iframe src="https://www.youtube.com/embed/thEX-oQHfDA?start=545"
+               allowfullscreen>
+       </iframe>
+     </div>
    </div>
+
+Watch the entire NGINX Unit tutorial course
+`here
+<https://www.youtube.com/playlist?list=PLGz_X9w9raXdV3vuPUu0kKBSBjG9rPaUf>`__.

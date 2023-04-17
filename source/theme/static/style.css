@@ -304,19 +304,21 @@ iframe {
     overflow-x: auto;
 }
 #content .video {
-    position: relative;
-    margin: 2em 0;
-    padding-bottom: 56.25%;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
 }
-#content .video iframe,
-#content .video object,
-#content .video embed {
+#content .video div {
+    position: relative;
+    flex-basis: 46%;
+    margin: 1em;
+    padding-top: 25.87%;
+}
+#content .video div iframe {
     position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
 }
 #content p#footer {
     margin: 1em 0 0 0 !important;
@@ -753,5 +755,11 @@ iframe {
     }
     .nxt_github_link {
         display: none;
+    }
+}
+@media (max-width: 73em) {
+    #content .video div {
+        flex-basis: 90%;
+        padding-top: 50.61%;
     }
 }
