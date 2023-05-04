@@ -141,13 +141,7 @@ Everything is ready for a containerized Unit.  First, let's create a
 
    FROM nginx/unit:|version|-python3.11
    COPY requirements.txt /config/requirements.txt
-   # PIP isn't installed by default, so we install it first.
-   # Next, we install the requirements, remove PIP, and perform image cleanup.
-   RUN apt update                                                                \
-       && /usr/local/bin/pip3 install -r /config/requirements.txt                \
-       && apt autoremove --purge -y                                              \
-       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
-
+   RUN python3 -m pip install -r /config/requirements.txt
 
 .. code-block:: console
 
@@ -210,7 +204,7 @@ To switch your app to a different Unit image, prepare a corresponding
 
    # Next, we install the module, download app requirements, and perform cleanup.
    RUN apt update && apt install -y unit-python3.9 python3-pip                   \
-       && pip3 install -r /config/requirements.txt                               \
+       && python3 -m pip install -r /config/requirements.txt                     \
        && apt remove -y curl apt-transport-https gnupg2 lsb-release python3-pip  \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
