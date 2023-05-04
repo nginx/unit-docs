@@ -15,7 +15,7 @@ For example:
 
    $ export UNIT=$(                                             \
          docker run -d --mount type=bind,src="$(pwd)",dst=/www  \
-         -p 8080:8000 nginx/unit:|version|-python3.10              \
+         -p 8080:8000 nginx/unit:|version|-python3.11              \
      )
 
 The command mounts the host's current directory where your app files are stored
@@ -139,13 +139,12 @@ Everything is ready for a containerized Unit.  First, let's create a
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.10
+   FROM nginx/unit:|version|-python3.11
    COPY requirements.txt /config/requirements.txt
    # PIP isn't installed by default, so we install it first.
    # Next, we install the requirements, remove PIP, and perform image cleanup.
-   RUN apt update && apt install -y python3-pip                                  \
-       && pip3 install -r /config/requirements.txt                               \
-       && apt remove -y python3-pip                                              \
+   RUN apt update                                                                \
+       && /usr/local/bin/pip3 install -r /config/requirements.txt                \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
@@ -198,12 +197,11 @@ To switch your app to a different Unit image, prepare a corresponding
 
    FROM nginx/unit:|version|-minimal
    COPY requirements.txt /config/requirements.txt
-   # This time, we took a minimal Unit image to install a vanilla Python 3.7
+   # This time, we took a minimal Unit image to install a vanilla Python 3.9
    # module, run PIP, and perform cleanup just like we did earlier.
 
    # First, we install the required tooling and add Unit's repo.
    RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
-           debian-archive-keyring                                                \
        &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
               https://unit.nginx.org/keys/nginx-keyring.gpg                      \
        && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
@@ -211,13 +209,11 @@ To switch your app to a different Unit image, prepare a corresponding
               > /etc/apt/sources.list.d/unit.list
 
    # Next, we install the module, download app requirements, and perform cleanup.
-   RUN apt update && apt install -y unit-python3.7 python3-pip                   \
+   RUN apt update && apt install -y unit-python3.9 python3-pip                   \
        && pip3 install -r /config/requirements.txt                               \
        && apt remove -y curl apt-transport-https gnupg2 lsb-release python3-pip  \
-              debian-archive-keyring                                             \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
-
 
 .. code-block:: console
 
@@ -403,7 +399,6 @@ and installs official language module packages:
 
    # First, we install the required tooling and add Unit's repo.
    RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
-           debian-archive-keyring                                                \
        &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
               https://unit.nginx.org/keys/nginx-keyring.gpg                      \
        && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
@@ -414,7 +409,6 @@ and installs official language module packages:
    RUN apt update && apt install -y                                              \
            :nxt_hint:`unit-jsc11 unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>` \
        && apt remove -y curl apt-transport-https gnupg2 lsb-release              \
-              debian-archive-keyring                                             \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
