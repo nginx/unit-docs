@@ -3746,9 +3746,15 @@ and has two integer options:
        request timeout in seconds.
        If an app process exceeds it
        while handling a request,
-       Unit alerts it to cancel
-       and returns the error's HTTP status code
+       Unit cancels the request
+       and returns a 503 "Service Unavailable" response
        to the client.
+
+       .. note::
+
+          Now, Unit doesn't detect freezes,
+          so the hanging process stays on
+          the app's process pool.
 
 Example:
 
