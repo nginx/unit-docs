@@ -262,6 +262,8 @@ Its Unit configuration, stored as :file:`config.json` in the same directory:
           "applications": {
               "express": {
                   "type": "external",
+                  "stderr": ":nxt_hint:`error.log <Application's redirected stderr stream>`",
+                  "stdout": ":nxt_hint:`output.log <Application's redirected stdout stream>`",
                   "working_directory": ":nxt_hint:`/www/ <Directory inside the container where the app files will be stored>`",
                   "executable": ":nxt_hint:`/usr/bin/env <The external app type allows to run arbitrary executables, provided they establish communication with Unit>`",
                   ":nxt_hint:`arguments <The env executable runs Node.js, supplying Unit's loader module and your app code as arguments>`": [
@@ -306,8 +308,12 @@ image:
    # Port used by the listener in config.json.
    EXPOSE 8080
 
-When you start a container based on this image, mount the :file:`config.json`
-file to :ref:`initialize <installation-docker-init>` Unit's state:
+When you start a container based on this image,
+mount the :file:`config.json` file to
+:ref:`initialize <installation-docker-init>`
+Unit's state.
+Also, bind the app's :samp:`stderr` and :samp:`stdout` logs
+back to the host directory:
 
 .. code-block:: console
 
@@ -316,12 +322,26 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
    $ export UNIT=$(                                                                             \
          docker run -d                                                                          \
          --mount type=bind,src="$(pwd)/myapp/config.json",dst=/docker-entrypoint.d/config.json  \
+         --mount type=bind,source="$(pwd)/myapp/error.log",target=/www/error.log                \
+         --mount type=bind,source="$(pwd)/myapp/output.log",target=/www/output.log              \
          -p 8080:8080 unit-expressapp                                                           \
      )
 
    $ curl -X GET localhost:8080
 
         Hello, Unit!
+
+When the app starts streaming data
+into :samp:`stderr` and :samp:`stdout`,
+the file structure change:
+
+.. code-block:: none
+
+   myapp/
+   ├── app.js
+   ├── config.json
+   ├── error.log
+   └── output.log
 
 .. note::
 

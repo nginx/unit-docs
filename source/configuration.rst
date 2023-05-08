@@ -3352,6 +3352,17 @@ shared between all application languages:
 
         The default is 1.
 
+    * - :samp:`stderr`, :samp:`stdout`
+      - Strings;
+        filenames where Unit redirects
+        the application's output
+        to respective streams
+        in :samp:`--no-daemon` mode.
+        One usage for this is
+        :ref:`running apps in Docker <docker-apps>`.
+
+        The default is :file:`/dev/null`.
+
     * - :samp:`user`
       - String;
         username that runs the
