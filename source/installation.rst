@@ -21,7 +21,7 @@ You can install NGINX Unit in four alternative ways:
   try :ref:`third-party repositories <installation-community-repos>`.
   Be warned, though: we don't maintain them.
 
-- Run our official :ref:`Docker images <installation-docker>`,
+- Run our :ref:`Docker official images <installation-docker>`,
   prepackaged with varied language combinations.
 
 - To fine-tune Unit to your goals,
@@ -2274,9 +2274,9 @@ come in several language-specific flavors:
        based on the :samp:`debian:buster-slim`
        `image <https://hub.docker.com/_/debian>`__.
 
-   * - :samp:`|version|-go1.19`
+   * - :samp:`|version|-go1.20`
      - Single-language;
-       based on the :samp:`golang:1.19`
+       based on the :samp:`golang:1.20`
        `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
@@ -2294,9 +2294,9 @@ come in several language-specific flavors:
        based on the :samp:`perl:5.36`
        `image <https://hub.docker.com/_/perl>`__.
 
-   * - :samp:`|version|-php8.1`
+   * - :samp:`|version|-php8.2`
      - Single-language;
-       based on the :samp:`php:8.1-cli`
+       based on the :samp:`php:8.2-cli`
        `image <https://hub.docker.com/_/php>`__.
 
    * - :samp:`|version|-python3.11`
@@ -2304,9 +2304,9 @@ come in several language-specific flavors:
        based on the :samp:`python:3.11`
        `image <https://hub.docker.com/_/python>`__.
 
-   * - :samp:`|version|-ruby3.1`
+   * - :samp:`|version|-ruby3.2`
      - Single-language;
-       based on the :samp:`ruby:3.1`
+       based on the :samp:`ruby:3.2`
        `image <https://hub.docker.com/_/ruby>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
@@ -2360,6 +2360,15 @@ come in several language-specific flavors:
    For other customization scenarios, see the
    :doc:`Docker howto <howto/docker>`.
 
+.. nxt_details:: Images With Pre-1.29.1 Unit Versions
+   :hash: inst-pre-official-docker
+
+   Before Unit 1.29.1 was released,
+   our Docker images were available
+   from the official
+   `NGINX repository <https://hub.docker.com/r/nginx/unit/>`_
+   on Docker Hub.
+
 .. nxt_details:: Images With Pre-1.22.0 Unit Versions
    :hash: inst-legacy-docker
 
@@ -2389,14 +2398,14 @@ You can obtain the images from these sources:
 
    .. tab:: Docker Hub
 
-      To install and run Unit from NGINX's
-      `repository <https://hub.docker.com/r/nginx/unit/>`__
+      To install and run Unit from
+      `official builds <https://hub.docker.com/_/unit>`__
       at Docker Hub:
 
       .. code-block:: console
 
-         $ docker pull docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
-         $ docker run -d docker.io/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+         $ docker pull unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+         $ docker run -d unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
 
    .. tab:: Amazon ECR Public Gallery
@@ -2443,7 +2452,7 @@ Runtime details:
 
 For more details,
 see the repository pages
-(`Docker Hub <https://hub.docker.com/r/nginx/unit/>`_,
+(`Docker Hub <https://hub.docker.com/_/unit>`_,
 `Amazon ECR Public Gallery <https://gallery.ecr.aws/nginx/unit>`_)
 and our
 :doc:`Docker howto <howto/docker>`.
@@ -2502,7 +2511,7 @@ to your :file:`Dockerfile` derived from an official image:
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
    COPY ./*.pem  /docker-entrypoint.d/
    COPY ./*.json /docker-entrypoint.d/
    COPY ./*.sh   /docker-entrypoint.d/
@@ -2525,7 +2534,7 @@ to a container at startup:
 
    $ docker run -d --mount  \
             type=bind,src=:nxt_ph:`/path/to/config/files/ <Use a real path instead>`,dst=/docker-entrypoint.d/  \
-            nginx/unit:|version|-minimal)
+            unit:|version|-minimal)
 
 
 .. _source:

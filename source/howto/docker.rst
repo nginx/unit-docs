@@ -15,7 +15,7 @@ For example:
 
    $ export UNIT=$(                                             \
          docker run -d --mount type=bind,src="$(pwd)",dst=/www  \
-         -p 8080:8000 nginx/unit:|version|-python3.11              \
+         -p 8080:8000 unit:|version|-python3.11                 \
      )
 
 The command mounts the host's current directory where your app files are stored
@@ -139,7 +139,7 @@ Everything is ready for a containerized Unit.  First, let's create a
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.11
+   FROM unit:|version|-python3.11
    COPY requirements.txt /config/requirements.txt
    RUN python3 -m pip install -r /config/requirements.txt
 
@@ -189,7 +189,7 @@ To switch your app to a different Unit image, prepare a corresponding
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
    COPY requirements.txt /config/requirements.txt
    # This time, we took a minimal Unit image to install a vanilla Python 3.9
    # module, run PIP, and perform cleanup just like we did earlier.
@@ -297,7 +297,7 @@ image:
 .. subs-code-block:: docker
 
    # Keep our base image as specific as possible.
-   FROM nginx/unit:|version|-node15
+   FROM unit:|version|-node15
 
    # Same as "working_directory" in config.json.
    COPY myapp/app.js /www/
@@ -408,7 +408,7 @@ and installs official language module packages:
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
    # We take a minimal Unit image and install language-specific modules.
 
    # First, we install the required tooling and add Unit's repo.
