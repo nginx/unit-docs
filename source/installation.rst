@@ -88,7 +88,8 @@ is best on most occasions;
 they're available for:
 
 - Amazon |_| Linux :ref:`AMI <installation-amazon-ami>`,
-  Amazon |_| Linux |_| :ref:`2 <installation-amazon-20lts>`
+  Amazon |_| Linux |_| :ref:`2 <installation-amazon-20lts>`,
+  Amazon |_| Linux |_| :ref:`2023 <installation-amazon-2023>`
 
 - Debian |_| :ref:`9 <installation-debian-9>`,
   :ref:`10 <installation-debian-10>`,
@@ -158,6 +159,46 @@ Amazon Linux
 
 .. tabs::
    :prefix: amazon
+
+   .. tab:: 2023
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/amzn/2023/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc17 unit-perl  \
+                  unit-php unit-python39 unit-python311
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 2.0 LTS
 
