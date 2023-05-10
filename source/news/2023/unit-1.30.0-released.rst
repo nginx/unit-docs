@@ -353,3 +353,30 @@ Full Changelog
 **************
 
 .. code-block:: none
+
+   Changes with Unit 1.30.0                                         10 May 2023
+
+       *) Change: remove Unix domain listen sockets upon reconfiguration.
+
+       *) Feature: basic URI rewrite support.
+
+       *) Feature: NJS loadable modules support.
+
+       *) Feature: per-application logging.
+
+       *) Feature: conditional logging of route selection.
+
+       *) Feature: support the keys API on the request objects in NJS.
+
+       *) Feature: default values for 'make install' pathnames such as prefix;
+          this allows to './configure && make && sudo make install'.
+
+       *) Feature: "server_version" setting to omit the version token from
+          "Server" header field.
+
+       *) Bugfix: request header field values could be corrupted in some cases;
+          the bug had appeared in 1.29.0.
+
+       *) Bugfix: PHP error handling (added missing 403 and 404 errors).
+
+       *) Bugfix: Perl applications crash on second responder call.
