@@ -2217,6 +2217,95 @@ in a backtick-delimited :program:`njs` template:
 Here, a request for :samp:`example.com/path`
 will be served from :file:`/www/html/example.com/path/`.
 
+Next, you can upload and use custom JavaScript modules
+with your configuration.
+Consider this :file:`http.js` script
+that distinguishes requests
+by their :samp:`Authorization` header field values:
+
+.. code-block:: javascript
+
+   var http = {}
+
+   http.route = function(headers) {
+       var authorization = headers['Authorization'];
+       if (authorization) {
+           var user = atob(authorization.split(' ')[1]);
+           if (String(user) == 'user:password') {
+               return 'accept';
+           }
+
+           return 'forbidden';
+       }
+
+       return 'unauthorized';
+   }
+
+   export default http
+
+To upload it to Unit's JavaScript module storage
+as :samp:`http`:
+
+.. code-block:: console
+
+   # curl -X PUT --data-binary @http.js --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to the remote control socket>` \
+         http://localhost/js_modules/:nxt_ph:`http <Module name in Unit's configuration>`
+
+Unit doesn't enable the uploaded modules by default,
+so add the module's name to :samp:`settings/js_module`:
+
+.. code-block:: console
+
+   # curl -X PUT -d '":nxt_ph:`http <Module name to be enabled>`"' :nxt_ph:`/path/to/control.unit.sock <Path to the remote control socket>` \
+         http://localhost/config/settings/js_module
+
+.. note::
+
+   Mind that the :samp:`js_module` option
+   can be a string or an array,
+   so choose the appropriate HTTP method.
+
+Now, the :samp:`http.route()` function can be used
+with Unit-supplied header field values:
+
+.. code-block:: json
+
+   {
+       "routes": {
+           "entry": [
+               {
+                   "action": {
+                       "pass": "routes/`${http.route(headers)}`"
+                   }
+               }
+           ],
+
+           "unauthorized": [
+               {
+                   "action": {
+                       "return": 401
+                   }
+               }
+           ],
+
+           "forbidden": [
+               {
+                   "action": {
+                       "return": 403
+                   }
+               }
+           ],
+
+           "accept": [
+               {
+                   "action": {
+                       "return": 204
+                   }
+               }
+           ]
+       }
+   }
+
 .. nxt_details:: Examples
    :hash: njs-examples
 
@@ -5103,9 +5192,26 @@ Settings
 
 Unit has a global :samp:`settings` configuration object
 that stores instance-wide preferences.
-Its :samp:`http` option
-fine-tunes handling of HTTP requests
-from the clients:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`http`
+      - Object;
+        fine-tunes handling of HTTP requests
+        from the clients.
+
+    * - :samp:`js_module`
+      - String or an array of strings;
+        lists enabled
+        :ref:`NJS modules <configuration-variables-scripting>`,
+        uploaded
+        via the :doc:`control API <controlapi>`.
+
+In turn, the :samp:`http` option exposes the following settings:
 
 .. list-table::
     :header-rows: 1
