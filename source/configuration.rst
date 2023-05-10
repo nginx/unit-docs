@@ -5183,6 +5183,16 @@ from the clients:
 
         The default is 30.
 
+    * - :samp:`server_version`
+      - Boolean;
+        if set to :samp:`false`,
+        Unit omits version information
+        in its :samp:`Server` response
+        `header fields
+        <https://datatracker.ietf.org/doc/html/rfc9110.html#section-10.2.4>`__.
+
+        The default is :samp:`true`.
+
     * - :samp:`static`
       - Object;
         configures static asset handling.
