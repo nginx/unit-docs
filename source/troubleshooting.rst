@@ -95,10 +95,9 @@ in the general-purpose log:
         `request line
         <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
 
-    * - Route step discarded
-      - :samp:`[info]`
-      - The route step is skipped
-        while handling the request.
+    * - URI rewritten
+      - :samp:`[notice]`
+      - The request URI is updated.
 
     * - Route step selected
       - :samp:`[notice]`
@@ -118,6 +117,7 @@ Sample router logging output may look like this:
    [info] 8308#8339 *16 "routes/0" discarded
    [info] 8308#8339 *16 "routes/1" discarded
    [notice] 8308#8339 *16 "routes/2" selected
+   [notice] 8308#8339 *16 URI rewritten to "/backend/"
    [notice] 8308#8339 *16 "fallback" taken
 
 It lists specific steps and actions

@@ -1646,6 +1646,20 @@ The mutually exclusive :samp:`action` types are:
      - File paths that serve the request with static content.
      - :ref:`configuration-static`
 
+An additional option is applicable to any of these actions:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+     - Details
+
+   * - :samp:`rewrite`
+     - Updated the request URI,
+       preserving the query string.
+     - :ref:`configuration-rewrite`
+
 An example:
 
 .. code-block:: json
@@ -1654,10 +1668,14 @@ An example:
        "routes": [
            {
                "match": {
-                   "uri": "/pass/*"
+                   "uri": [
+                       "/v1/*",
+                       "/v2/*"
+                   ]
                },
 
                "action": {
+                   "rewrite": "/app/$uri",
                    "pass": "applications/app"
                }
            },
@@ -1825,6 +1843,10 @@ These variables can be used with:
   and
   :ref:`actions <configuration-routes-action>`
   to choose between routes, applications, app targets, or upstreams.
+
+- :samp:`rewrite` in
+  :ref:`actions <configuration-routes-action>`
+  to enable :ref:`URI rewriting <configuration-rewrite>`.
 
 - :samp:`share` and :samp:`chroot` in
   :ref:`actions <configuration-routes-action>`
@@ -2265,6 +2287,66 @@ will be served from :file:`/www/html/example.com/path/`.
 For further reference,
 see the :program:`njs`
 `documentation <https://nginx.org/en/docs/njs/>`__.
+
+
+.. _configuration-rewrite:
+
+***********
+URI Rewrite
+***********
+
+All route step
+:ref:`actions <configuration-routes-action>`
+support the :samp:`rewrite` option
+that updates the URI of the incoming request
+before the action is applied.
+It does not affect the
+`query
+<https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
+but changes the
+:samp:`uri` and
+:samp:`$request_uri`
+:ref:`variables <configuration-variables>`.
+
+This :samp:`match`-less action
+prefixes the request URI with :samp:`/v1`
+and returns it to routing:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "rewrite": "/v1$uri",
+           "pass": "routes"
+       }
+   }
+
+
+.. warning::
+
+   Avoid infinite loops
+   when you  :samp:`pass` requests
+   back to :samp:`routes`.
+
+This action
+normalizes the request URI
+and passes it to an application:
+
+.. code-block:: json
+
+   {
+       "match": {
+           "uri": [
+               "/fancyAppA",
+               "/fancyAppB"
+           ]
+       },
+
+       "action": {
+           "rewrite": "/commonBackend",
+           "pass": "applications/backend"
+       }
+   }
 
 
 .. _configuration-return:
