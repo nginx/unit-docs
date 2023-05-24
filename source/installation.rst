@@ -2422,14 +2422,19 @@ You can obtain the images from these sources:
 
    .. tab:: packages.nginx.org
 
+      .. warning::
+
+         Unit's 1.30+ image tarballs aren't published on the website;
+         this channel is deprecated.
+
       To install and run Unit
       from the tarballs stored on our
       `website <https://packages.nginx.org/unit/docker/>`_:
 
       .. subs-code-block:: console
 
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
-         $ curl -O https://packages.nginx.org/unit/docker/|version|/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+         $ curl -O https://packages.nginx.org/unit/docker/1.29.1/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+         $ curl -O https://packages.nginx.org/unit/docker/1.29.1/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
          $ sha512sum -c nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
                nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
 
