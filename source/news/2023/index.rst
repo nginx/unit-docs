@@ -6,6 +6,15 @@ News archive for the year 2023.
 
 .. nxt_news_entry::
    :author: Unit Team
+   :description: Join us online to hear about the latest features, discuss the
+                 future direction, and talk openly about all things Unit.
+   :email: unit-owner@nginx.org
+   :title: NGINX Unit Community Call No.1
+   :url: news/2023/nginx-unit-community-call-no-1
+   :date: 2023-05-24
+
+.. nxt_news_entry::
+   :author: Unit Team
    :description: Version 1.30.0 adds URI rewrites, expands NJS integration and
                  logging capabilities, and introduces an OpenAPI specification.
    :email: unit-owner@nginx.org
