@@ -18,7 +18,7 @@ direction, and talk openly about all things Unit.
 
 - How: No registration required; just update your calendar so you don’t forget!
 
-`Add to calendar <https://calndr.link/event/gN14L2LGrl>`__
+`Add to calendar <https://calndr.link/event/ihKJk0K7jH>`__
 
 Also, please take the `Unit developer survey
 <https://forms.office.com/r/Ma4WBiaxz8>`__ if you have a few minutes; we will
