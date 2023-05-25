@@ -10,7 +10,7 @@ The Unit team is thrilled to announce our very first community call!
 Join us online to hear about the latest features, discuss the future
 direction, and talk openly about all things Unit.
 
-- When: 07-Jun-2023 16:00 UTC (8 a.m. PDT, 5 p.m. CEST, 11 p.m. CST)
+- When: 07-Jun-2023 15:00 UTC (8 a.m. PDT, 5 p.m. CEST, 11 p.m. BJT)
 
 - Where: `Zoom
   <https://f5networks.zoom.us/j/98916775511?pwd=aUN2YjcyQ3Vsd2d5WE1oeCtNTXBEUT09>`__
@@ -42,5 +42,3 @@ Can’t make it?
 Don't worry - the meeting will be recorded and published to the NGINX channel
 on YouTube.  Mind that future meetings will optimize for various time zones to
 span the entire community.
-
-
