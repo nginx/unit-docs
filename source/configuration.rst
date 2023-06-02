@@ -3595,7 +3595,7 @@ has the following members:
               `cgroups v2 hierarchy
               <https://man7.org/linux/man-pages/man7/cgroups.7.html#CGROUPS_VERSION_2>`__.
               The limits trickle down the hierarchy,
-              so lower cgroups can't exceed their parents' limits.
+              so child cgroups can't exceed parental thresholds.
 
    * - :samp:`gidmap`
      - Same as :samp:`uidmap`,
@@ -3721,51 +3721,96 @@ and sets mappings for user and group IDs:
         ]
     }
 
-.. nxt_details:: Using "cgroup"
-   :hash: conf-app-cgroup
 
-   The :samp:`path` value in :samp:`cgroup`
-   can be absolute
-   (starting with :samp:`/`) or relative;
-   if the path doesn't exist,
-   Unit creates it.
+.. _conf-app-cgroup:
 
-   Relative paths are implicitly placed
-   inside the cgroup of Unit's :ref:`main process <sec-processes>`;
-   this setting effectively puts the app
-   to the :file:`/<main Unit process cgroup>/production/app` cgroup:
+Using Control Groups
+====================
 
-   .. code-block:: json
+A control group (cgroup) commands
+the use of computational resources
+by a group of processes
+in a unified hierarchy.
+Cgroups are defined
+by their *paths*
+in the cgroups file system.
 
-      {
-          "isolation": {
-              "cgroup": {
-                  "path": "production/app"
-              }
-          }
-      }
+The :samp:`cgroup` object
+defines the cgroup
+for a Unit app;
+its :samp:`path` option
+can set an absolute
+(starting with :samp:`/`)
+or a relative value.
+If the path doesn't exist
+in the cgroups file system,
+Unit creates it.
 
-   An absolute pathname places the application
-   under a separate cgroup subtree;
-   this configuration puts the app under :file:`/staging/app`:
+Relative paths are implicitly placed
+inside the cgroup of Unit's
+:ref:`main process <sec-processes>`;
+this setting effectively puts the app
+to the :file:`/<main Unit process cgroup>/production/app` cgroup:
 
-   .. code-block:: json
+.. code-block:: json
 
-      {
-          "isolation": {
-              "cgroup": {
-                  "path": "/staging/app"
-              }
-          }
-      }
+   {
+       "isolation": {
+           "cgroup": {
+               "path": "production/app"
+           }
+       }
+   }
 
-   .. note::
+An absolute pathname places the application
+under a separate cgroup subtree;
+this configuration puts the app under :file:`/staging/app`:
 
-      To avoid confusion,
-      mind that the :samp:`namespaces/cgroups` option
-      controls the application's cgroup *namespace*;
-      instead, the :samp:`cgroup/path` option
-      specifies the cgroup where Unit puts the application.
+.. code-block:: json
+
+   {
+       "isolation": {
+           "cgroup": {
+               "path": "/staging/app"
+           }
+       }
+   }
+
+A basic use case
+would be to set a memory limit on a cgroup.
+First,
+find the cgroup mount point:
+
+.. code-block:: console
+
+   $ mount -l | grep cgroup
+
+       cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)
+
+Next, check the available controllers
+and set the :samp:`memory.high` limit:
+
+.. code-block:: console
+
+   # cat /sys/fs/cgroup/:nxt_hint:`/staging/app <cgroup's path set in Unit configuration>`/cgroup.controllers
+
+       cpuset cpu io memory pids
+
+   # echo 1G > /sys/fs/cgroup:nxt_hint:`/staging/app <cgroup's path set in Unit configuration>`/memory.high
+
+For more details
+and possible options,
+refer to the
+`admin guide
+<https://docs.kernel.org/admin-guide/cgroup-v2.html>`__.
+
+.. note::
+
+   To avoid confusion,
+   mind that the :samp:`namespaces/cgroups` option
+   controls the application's cgroup *namespace*;
+   instead, the :samp:`cgroup/path` option
+   specifies the cgroup where Unit puts the application.
 
 
 .. _conf-rootfs:
