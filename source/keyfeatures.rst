@@ -44,7 +44,8 @@ Flexibility
   that allow
   :ref:`regular expressions <configuration-routes-matching-patterns>`
   and
-  :ref:`njs scripting <configuration-variables-scripting>`.
+  :program:`njs`
+  :doc:`scripting <scripting>`.
 
 - Apps in multiple languages and language versions run
   :ref:`side by side <configuration-applications>`.

@@ -7,6 +7,7 @@
    installation
    controlapi
    configuration
+   scripting
    certificates
    usagestats
    howto/index
