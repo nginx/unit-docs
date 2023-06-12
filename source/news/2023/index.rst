@@ -6,6 +6,16 @@ News archive for the year 2023.
 
 .. nxt_news_entry::
    :author: Unit Team
+   :description: Watch the recording of the inaugural Unit Community Call, to
+                 catch up on project news, the latest features, and a
+                 discussion of the roadmap.
+   :email: unit-owner@nginx.org
+   :title: NGINX Unit Community Call No.1 (recording)
+   :url: https://www.youtube.com/watch?v=EZbcc6D03Io
+   :date: 2023-06-09
+
+.. nxt_news_entry::
+   :author: Unit Team
    :description: Join us online to hear about the latest features, discuss the
                  future direction, and talk openly about all things Unit.
    :email: unit-owner@nginx.org

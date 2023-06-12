@@ -12,9 +12,7 @@ direction, and talk openly about all things Unit.
 
 - When: 07-Jun-2023 15:00 UTC (8 a.m. PDT, 5 p.m. CEST, 11 p.m. BJT)
 
-- Where: `Zoom
-  <https://f5networks.zoom.us/j/98916775511?pwd=aUN2YjcyQ3Vsd2d5WE1oeCtNTXBEUT09>`__
-  (meeting ID: 989 |_| 1677 |_| 5511 , passcode: |_| 100)
+- Where: Zoom (link expired)
 
 - How: No registration required; just update your calendar so you don’t forget!
 
