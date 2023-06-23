@@ -93,7 +93,8 @@ they're available for:
 
 - Debian |_| :ref:`9 <installation-debian-9>`,
   :ref:`10 <installation-debian-10>`,
-  :ref:`11 <installation-debian-11>`
+  :ref:`11 <installation-debian-11>`,
+  :ref:`12 <installation-debian-12>`
 
 - Fedora |_| :ref:`29 <installation-fedora-29>`,
   :ref:`30 <installation-fedora-3130>`,
@@ -294,6 +295,57 @@ Debian
 
 .. tabs::
    :prefix: debian
+
+   .. tab:: 12
+
+      Supported architectures: arm64, x86-64.
+
+      #. Download and save NGINX's signing key:
+
+         .. code-block:: console
+
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
+
+         This eliminates the
+         ``packages cannot be authenticated``
+         warnings
+         during installation.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/apt/sources.list.d/unit.list`:
+
+         .. code-block:: none
+
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+            # apt install unit
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc17 unit-perl  \
+                  unit-php unit-python3.11 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/control.unit.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
 
    .. tab:: 11
 
