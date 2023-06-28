@@ -111,22 +111,26 @@ revision numbers, respectively); omit the packages you won't use.
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
       and installing <source-bld-src>` Unit on Solaris.
 
-.. nxt_details:: Adding NJS Support
+.. nxt_details:: Enabling njs
    :hash: source-njs
 
    To build Unit with `njs <https://nginx.org/en/docs/njs/>`__ support,
-   download the :program:`njs` source code.
+   download the :program:`njs` code
+   to the same parent directory
+   as the Unit code.
 
    If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
 
    .. code-block:: console
 
+      $ cd ..
       $ hg clone https://hg.nginx.org/njs
 
    If you prefer `Git <https://git-scm.com/downloads>`_:
 
    .. code-block:: console
 
+      $ cd ..
       $ git clone https://github.com/nginx/njs
 
    Next, configure and build the :program:`njs` binaries:
@@ -137,7 +141,7 @@ revision numbers, respectively); omit the packages you won't use.
       $ ./configure && make
 
    Point to the resulting source and build directories when :ref:`configuring
-   <source-config-src-njs>` Unit's source code.
+   <source-config-src-njs>` the Unit code.
 
 
 .. _source-config-src:
@@ -229,13 +233,14 @@ in configuration; to enable this feature, use the respective option:
 
 When :option:`!--njs` is enabled, the :option:`!--cc-opt` and
 :option:`!--ld-opt` option values should point to the :file:`src/`
-and :file:`build/` subdirectories of the :program:`njs` source code:
+and :file:`build/` subdirectories of the :program:`njs` source code.
+For example, if you cloned the :program:`njs` repo beside the Unit repo:
 
 .. subs-code-block:: console
 
    $ ./configure --njs  \
-                 --cc-opt="-I/:nxt_ph:`NJS <njs source code directory>`/src/ -I/:nxt_ph:`NJS <njs source code directory>`/build/"  \
-                 --ld-opt="-L/:nxt_ph:`NJS <njs source code directory>`/build/"  \
+                 --cc-opt="-I../njs/src/ -I/../njs/build/"  \
+                 --ld-opt="-L..njs/build/"  \
                  ...
 
 The next option group customizes Unit's runtime :ref:`directory
