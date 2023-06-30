@@ -1,6 +1,6 @@
-FROM unit:1.29.1-perl5.36
+FROM unit:1.30.0-perl5.36
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.29.1-perl5.36
+# FROM public.ecr.aws/nginx/unit:1.30.0-perl5.36
 
 # port used by the listener in config.json
 EXPOSE 8080
