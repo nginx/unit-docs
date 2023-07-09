@@ -55,6 +55,11 @@ and URIs are prefixed with :samp:`http://localhost`
 as the utility expects
 (the hostname is irrelevant for Unit itself),
 but you can use any HTTP tool you like.
+For instance, Visual Studio Code users
+may benefit from this
+`third-party extension
+<https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-nginx-unit>`__.
+
 
 .. nxt_details:: (Lack of) Configuration Files
    :hash: no-config-files
