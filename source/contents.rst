@@ -12,4 +12,4 @@
    usagestats
    howto/index
    troubleshooting
-   contribution
+   community

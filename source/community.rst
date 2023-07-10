@@ -1,11 +1,28 @@
 .. meta::
-   :og:description: Take part in the development and documentation efforts.
+   :og:description: Take part in the discussion or join our development
+                    and documentation efforts.
 
-.. _contribution:
+.. _community:
 
-############
+#########
+Community
+#########
+
+We hold semi-regular meetings on Zoom
+to discuss all things pertaining to Unit
+with our tightly knit and vibrant community.
+Our next call is scheduled for Sep 27, 2023;
+the details will follow soon.
+
+Recorded sessions:
+
+- `NGINX Unit Community Call No.1
+  <https://www.youtube.com/watch?v=EZbcc6D03Io>`__
+
+
+************
 Contribution
-############
+************
 
 NGINX Unit is released under the
 `Apache 2.0 license <https://hg.nginx.org/unit/file/tip/LICENSE>`_;

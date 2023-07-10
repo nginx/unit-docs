@@ -6,6 +6,12 @@
 NGINX Unit Community Call No.1
 ##############################
 
+.. note::
+
+   This is a past event.
+   See the recording
+   `here <https://www.youtube.com/watch?v=EZbcc6D03Io>`__.
+
 The Unit team is thrilled to announce our very first community call!
 Join us online to hear about the latest features, discuss the future
 direction, and talk openly about all things Unit.
