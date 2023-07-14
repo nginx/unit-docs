@@ -60,7 +60,6 @@ may benefit from this
 `third-party extension
 <https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-nginx-unit>`__.
 
-
 .. nxt_details:: (Lack of) Configuration Files
    :hash: no-config-files
 
@@ -161,6 +160,40 @@ may benefit from this
    After restart,
    the target instance picks up the configuration
    you've copied to the state directory.
+
+
+.. _controlapi-openapi:
+
+*********************
+OpenAPI Specification
+*********************
+
+   For a more formal approach
+   to Unit's control API,
+   download the
+   `OpenAPI specification
+   <https://raw.githubusercontent.com/nginx/unit/master/docs/unit-openapi.yaml>`__
+   or try the interactive Docker
+   :download:`version <downloads/unit-openapi.Dockerfile>`.
+   First, build the image
+   and run a container:
+
+   .. code-block:: console
+
+      $ docker build --tag=unit-openapi -f unit-openapi.Dockerfile .
+      $ docker run -d -p 8765:8765 -p 8080:8080 unit-openapi
+
+   Next, open :samp:`http://localhost:8765` in a browser.
+
+   To use this image against a pre-existing Unit instance,
+   type in the address and port of the instance's
+   :ref:`control socket <configuration-socket>`
+   (only IP sockets are supported now)
+   on the page:
+
+   .. image:: images/openapi.png
+      :width: 100%
+      :alt: Unit's OpenAPI Image Page - Customizing Control Socket Address
 
 
 .. _configuration-quickstart:
@@ -557,3 +590,5 @@ such as a route still referenced by a listener:
             "error": "Invalid configuration.",
             "detail": "Request \"pass\" points to invalid location \"routes\"."
         }
+
+
