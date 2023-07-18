@@ -138,7 +138,7 @@ revision numbers, respectively); omit the packages you won't use.
    .. code-block:: console
 
       $ cd njs
-      $ ./configure && make
+      $ ./configure :nxt_hint:`--no-zlib --no-libxml2 <Ensures Unit can link against the resulting library>` && make
 
    Point to the resulting source and build directories when :ref:`configuring
    <source-config-src-njs>` the Unit code.
