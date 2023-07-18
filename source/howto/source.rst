@@ -239,8 +239,8 @@ For example, if you cloned the :program:`njs` repo beside the Unit repo:
 .. subs-code-block:: console
 
    $ ./configure --njs  \
-                 --cc-opt="-I../njs/src/ -I/../njs/build/"  \
-                 --ld-opt="-L..njs/build/"  \
+                 --cc-opt="-I../njs/src/ -I../njs/build/"  \
+                 --ld-opt="-L../njs/build/"  \
                  ...
 
 The next option group customizes Unit's runtime :ref:`directory
