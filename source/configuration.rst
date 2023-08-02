@@ -3170,13 +3170,13 @@ shared between all application languages:
     * - :samp:`stderr`, :samp:`stdout`
       - Strings;
         filenames where Unit redirects
-        the application's output
-        to respective streams
-        in :samp:`--no-daemon` mode.
-        One usage for this is
-        :ref:`running apps in Docker <docker-apps>`.
+        the application's output.
 
         The default is :file:`/dev/null`.
+
+        When running in :samp:`--no-daemon` mode, application output
+        is always redirected to
+        :ref:`Unit's log file <troubleshooting-log>`.
 
     * - :samp:`user`
       - String;
