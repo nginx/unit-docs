@@ -6,8 +6,8 @@ Working With Language Modules
 
 Languages supported by Unit fall into these two categories:
 
-- :ref:`External <modules-ext>` (Go, Node.js): Run outside Unit and communicate
-  with it via wrapper packages.
+- :ref:`External <modules-ext>` (Go, Node.js, WebAssembly): Run outside Unit
+  with an interface layer to the native runtime.
 
 - :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby): Execute in
   runtimes that Unit loads at startup.
@@ -34,6 +34,12 @@ In Node.js, Unit is supported by an :program:`npm`-hosted `package
 otherwise, :ref:`build <howto/source-modules-nodejs>` it for your version of
 Node.js using Unit's sources.
 
+For WebAssembly, Unit delegates bytecode execution to the
+`Wasmtime <https://wasmtime.dev/>`_
+runtime that is installed with the
+:ref:`unit-wasm <installation-precomp-pkgs>`
+module or during
+a :ref:`source build <source-wasm>`.
 
 .. _modules-emb:
 
