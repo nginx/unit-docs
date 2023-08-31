@@ -229,7 +229,7 @@ in configuration; to enable this feature, use the respective option:
 .. list-table::
 
    * - :samp:`--njs`
-     - Turns on :program:`njs` support.
+     - Turns on :program:`njs` support; requires :samp:`--openssl`.
 
 When :option:`!--njs` is enabled, the :option:`!--cc-opt` and
 :option:`!--ld-opt` option values should point to the :file:`src/`
@@ -238,7 +238,7 @@ For example, if you cloned the :program:`njs` repo beside the Unit repo:
 
 .. subs-code-block:: console
 
-   $ ./configure --njs  \
+   $ ./configure --njs --openssl \
                  --cc-opt="-I../njs/src/ -I../njs/build/"  \
                  --ld-opt="-L../njs/build/"  \
                  ...
