@@ -1655,6 +1655,11 @@ An additional option is applicable to any of these actions:
      - Description
      - Details
 
+   * - :samp:`response_headers`
+     - Updates the header fields
+       of the upcoming response.
+     - :ref:`configuration-response-headers`
+
    * - :samp:`rewrite`
      - Updated the request URI,
        preserving the query string.
@@ -1798,6 +1803,13 @@ There's a number of built-in variables available:
        normalized by resolving relative path references
        ("." and "..")
        and collapsing adjacent slashes.
+
+   * - :samp:`response_header_*`
+     - Variables that store
+       :ref:`response header fields
+       <configuration-response-headers>`,
+       such as :samp:`response_header_content_type`.
+       The names of these variables are case insensitive.
 
    * - :samp:`status`
      - HTTP
@@ -2162,6 +2174,87 @@ and passes it to an application:
            "pass": "applications/backend"
        }
    }
+
+.. _configuration-response-headers:
+
+****************
+Response Headers
+****************
+
+All route step
+:ref:`actions <configuration-routes-action>`
+support the :samp:`response_headers` option
+that updates the header fields of Unit's response
+before the action is taken:
+
+.. code-block:: json
+
+   {
+       "action": {
+           "share": "/www/static/$uri",
+           "response_headers": {
+               "Cache-Control": "max-age=60, s-maxage=120"
+               "CDN-Cache-Control": "max-age=600"
+           }
+       }
+   }
+
+This works only for the :samp:`2XX` and :samp:`3XX` responses;
+also, :samp:`Date`, :samp:`Server`, and :samp:`Content-Length` can't be set.
+
+The option sets given string values
+for the header fields of the response
+that Unit will send for the specific request:
+
+- If there's no header field associated with the name
+  (regardless of the case),
+  the value is set.
+
+- If a header field with this name is already set, its value is updated.
+
+- If :samp:`null` is supplied for the value, the header field is *deleted*.
+
+If the action is taken and Unit issues a response,
+it sends the header fields *this specific* action specifies.
+Only the last action
+along the entire routing path of a request
+affects the resulting response headers.
+
+The values support
+:ref:`variables <configuration-variables>`
+and
+:doc:`template literals <scripting>`,
+which enables arbitrary runtime logic:
+
+.. code-block:: json
+
+   "response_headers": {
+       "Content-Language": "`${ uri.startsWith('/uk') : 'en-UK' ? 'en-US' }`"
+   }
+
+Finally, there are the :samp:`response_header_*` variables
+that evaluate to the header field values set with the response
+(by the app, upstream, or Unit itself;
+the latter is the case with
+:samp:`$response_header_connection`,
+:samp:`$response_header_content_length`,
+and :samp:`$response_header_transfer_encoding`).
+
+One use is to update the headers in the final response;
+this extends the :samp:`Content-Type` issued by the app:
+
+.. code-block:: json
+
+   "action": {
+       "pass": "applications/converter",
+           "response_headers": {
+               "Content-Type": "${response_header_content_type};charset=iso-8859-1"
+           }
+       }
+   }
+
+Alternatively, they will come in handy with
+:ref:`custom log formatting <configuration-access-log>`.
 
 
 .. _configuration-return:

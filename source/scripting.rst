@@ -23,6 +23,10 @@ options:
   :ref:`actions <configuration-routes-action>`
   to choose between routes, applications, app targets, or upstreams.
 
+- :samp:`response_headers` values in
+  :ref:`actions <configuration-routes-action>`
+  to manipulate response header fields.
+
 - :samp:`rewrite` in
   :ref:`actions <configuration-routes-action>`
   to enable :ref:`URI rewriting <configuration-rewrite>`.

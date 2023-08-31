@@ -41,8 +41,9 @@ Flexibility
 
 - Request filtering and dispatching uses elaborate
   :ref:`matching rules <configuration-routes-matching>`
-  that allow
-  :ref:`regular expressions <configuration-routes-matching-patterns>`
+  that enable
+  :ref:`regular expressions <configuration-routes-matching-patterns>`,
+  :ref:`response header <configuration-response-headers>` awareness,
   and
   :program:`njs`
   :doc:`scripting <scripting>`.
