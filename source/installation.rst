@@ -104,7 +104,8 @@ they're available for:
   :ref:`34 <installation-fedora-3433>`,
   :ref:`35 <installation-fedora-3635>`,
   :ref:`36 <installation-fedora-3635>`,
-  :ref:`37 <installation-fedora-37>`
+  :ref:`37 <installation-fedora-37>`,
+  :ref:`38 <installation-fedora-38>`
 
 - RHEL |_| :ref:`6 <installation-rhel-6x>`,
   :ref:`7 <installation-rhel-7x>`,
@@ -519,6 +520,46 @@ Fedora
 .. tabs::
    :prefix: fedora
 
+   .. tab:: 38
+
+      Supported architecture: x86-64.
+
+      #. To configure Unit's repository,
+         create the following file named
+         :file:`/etc/yum.repos.d/unit.repo`:
+
+         .. code-block:: ini
+
+            [unit]
+            name=unit repo
+            baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
+            gpgcheck=0
+            enabled=1
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # yum install unit
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+                  unit-php unit-python311 unit-ruby
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/var/run/unit/control.sock`
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/var/log/unit/unit.log`
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`unit`
+
+
    .. tab:: 37
 
       Supported architecture: x86-64.
@@ -560,6 +601,12 @@ Fedora
 
 
    .. tab:: 36, 35
+
+      .. warning::
+
+         Unit's 1.31+ packages aren't built for Fedora 36 and Fedora 35.
+         These distributions are obsolete;
+         please update.
 
       Supported architecture: x86-64.
 
@@ -1034,6 +1081,12 @@ Ubuntu
 
    .. tab:: 22.10
 
+      .. warning::
+
+         Unit's 1.31+ packages aren't built for Ubuntu 22.10.
+         This distribution is obsolete;
+         please update.
+
       Supported architectures: arm64, x86-64.
 
       #. Download and save NGINX's signing key:
@@ -1407,6 +1460,12 @@ Ubuntu
 
 
    .. tab:: 18.04
+
+      .. warning::
+
+         Unit's 1.31+ packages aren't built for Ubuntu 18.04.
+         This distribution is obsolete;
+         please update.
 
       Supported architectures: arm64, x86-64.
 
