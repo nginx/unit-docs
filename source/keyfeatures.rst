@@ -182,3 +182,6 @@ Unit interoperates with:
 
 - :ref:`Ruby <configuration-ruby>`:
   by using the Rack API.
+
+- :ref:`WebAssembly <configuration-wasm>`:
+  by using Wasmtime.
