@@ -1,6 +1,6 @@
-FROM unit:1.30.0-go1.20
+FROM unit:1.31.0-go1.21
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.30.0-go1.20
+# FROM public.ecr.aws/nginx/unit:1.31.0-go1.21
 
 # port used by the listener in config.json
 EXPOSE 8080

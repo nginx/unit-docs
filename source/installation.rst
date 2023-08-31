@@ -2327,9 +2327,9 @@ come in several language-specific flavors:
        based on the :samp:`debian:buster-slim`
        `image <https://hub.docker.com/_/debian>`__.
 
-   * - :samp:`|version|-go1.20`
+   * - :samp:`|version|-go1.21`
      - Single-language;
-       based on the :samp:`golang:1.20`
+       based on the :samp:`golang:1.21`
        `image <https://hub.docker.com/_/golang>`__.
 
    * - :samp:`|version|-jsc11`
@@ -2337,14 +2337,14 @@ come in several language-specific flavors:
        based on the :samp:`eclipse-temurin:11-jdk`
        `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
-   * - :samp:`|version|-node18`
+   * - :samp:`|version|-node20`
      - Single-language;
-       based on the :samp:`node:18`
+       based on the :samp:`node:20`
        `image <https://hub.docker.com/_/node>`__.
 
-   * - :samp:`|version|-perl5.36`
+   * - :samp:`|version|-perl5.38`
      - Single-language;
-       based on the :samp:`perl:5.36`
+       based on the :samp:`perl:5.38`
        `image <https://hub.docker.com/_/perl>`__.
 
    * - :samp:`|version|-php8.2`
@@ -2365,6 +2365,11 @@ come in several language-specific flavors:
    * - :samp:`|version|-wasm`
      - Single-language;
        based on the :samp:`debian:buster-slim`
+       `image <https://hub.docker.com/_/debian>`__.
+
+   * - :samp:`|version|-wasm`
+     - Single-language;
+       based on the :samp:`debian:bullseye-slim`
        `image <https://hub.docker.com/_/debian>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images

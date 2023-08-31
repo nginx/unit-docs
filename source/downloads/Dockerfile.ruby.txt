@@ -1,6 +1,6 @@
-FROM unit:1.30.0-ruby3.2
+FROM unit:1.31.0-ruby3.2
 # Alternatively, you can download the base image from AWS ECR:
-# FROM public.ecr.aws/nginx/unit:1.30.0-ruby3.2
+# FROM public.ecr.aws/nginx/unit:1.31.0-ruby3.2
 
 # port used by the listener in config.json
 EXPOSE 8080
