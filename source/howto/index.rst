@@ -95,6 +95,7 @@ as:
 .. toctree::
    :maxdepth: 1
 
+   apollo
    bugzilla
    datasette
    dokuwiki

@@ -4219,6 +4219,7 @@ your app only needs to replace the default :samp:`websocket`:
 
    For Node.js-based examples,
    see our
+   :doc:`howto/apollo`,
    :doc:`howto/express`,
    :doc:`howto/koa`,
    and
