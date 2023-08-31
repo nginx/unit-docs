@@ -11,7 +11,8 @@ Universal Web App Server
 NGINX Unit is a lightweight and versatile application runtime
 that provides the essential components for your web application
 as a single open-source server:
-running application code,
+running application code
+(including WebAssembly),
 serving static assets,
 handling TLS and request routing.
 
