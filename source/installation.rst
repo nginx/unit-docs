@@ -184,7 +184,7 @@ Amazon Linux
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc17 unit-perl  \
-                  unit-php unit-python39 unit-python311
+                  unit-php unit-python39 unit-python311 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -224,7 +224,7 @@ Amazon Linux
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
-                  unit-php unit-python27 unit-python37
+                  unit-php unit-python27 unit-python37 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -329,7 +329,7 @@ Debian
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc17 unit-perl  \
-                  unit-php unit-python3.11 unit-ruby
+                  unit-php unit-python3.11 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
@@ -380,7 +380,7 @@ Debian
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
-                  unit-php unit-python2.7 unit-python3.9 unit-ruby
+                  unit-php unit-python2.7 unit-python3.9 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
@@ -542,7 +542,7 @@ Fedora
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
-                  unit-php unit-python311 unit-ruby
+                  unit-php unit-python311 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -582,7 +582,7 @@ Fedora
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
-                  unit-php unit-python39 unit-python310 unit-ruby
+                  unit-php unit-python39 unit-python310 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -817,7 +817,7 @@ RHEL and Derivatives
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
-                  unit-perl unit-php unit-python39
+                  unit-perl unit-php unit-python39 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -857,7 +857,7 @@ RHEL and Derivatives
 
             # yum install unit
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
-                  unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39
+                  unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1015,7 +1015,7 @@ Ubuntu
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19 unit-jsc20  \
-                          unit-perl unit-php unit-python3.11 unit-ruby
+                          unit-perl unit-php unit-python3.11 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1065,7 +1065,7 @@ Ubuntu
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19  \
-                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby
+                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1115,7 +1115,7 @@ Ubuntu
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
-                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby
+                          unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1333,7 +1333,7 @@ Ubuntu
             # apt update
             # apt install unit
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
-                  unit-php unit-python2.7 unit-python3.8 unit-ruby
+                  unit-php unit-python2.7 unit-python3.8 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -2361,6 +2361,11 @@ come in several language-specific flavors:
      - Single-language;
        based on the :samp:`ruby:3.2`
        `image <https://hub.docker.com/_/ruby>`__.
+
+   * - :samp:`|version|-wasm`
+     - Single-language;
+       based on the :samp:`debian:buster-slim`
+       `image <https://hub.docker.com/_/debian>`__.
 
 .. nxt_details:: Customizing Language Versions in Docker Images
    :hash: inst-lang-docker
