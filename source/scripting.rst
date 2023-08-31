@@ -47,6 +47,14 @@ shipped with the
 :ref:`official packages <installation-precomp-pkgs>`
 or
 :ref:`built from source <source-njs>`.
+
+.. warning::
+
+   Unit 1.31+ doesn't support
+   pre-0.8 :program:`njs`
+   `versions <https://nginx.org/en/docs/njs/changes.html>`__;
+   please update.
+
 Some request properties
 are exposed as :program:`njs` objects or scalars:
 
