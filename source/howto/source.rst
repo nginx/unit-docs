@@ -144,6 +144,44 @@ revision numbers, respectively); omit the packages you won't use.
    <source-config-src-njs>` the Unit code.
 
 
+.. nxt_details:: Enabling WebAssembly
+   :hash: source-wasm
+
+   To build Unit with the `WebAssembly <https://webassembly.org>`__
+   language module,
+   you need the
+   `Wasmtime <https://wasmtime.dev>`__
+   runtime.
+   Download it C API
+   `files <https://github.com/bytecodealliance/wasmtime/releases/>`__
+   suitable for your OS and architecture
+   to the same parent directory
+   as the Unit code,
+   for example:
+
+   .. code-block:: console
+
+      $ cd ..
+      $ wget -O- https://github.com/bytecodealliance/wasmtime/releases/download/v12.0.0/wasmtime-v12.0.0-x86_64-linux-c-api.tar.xz \
+            | tar Jxf -  # Unpacks to the current directory
+
+   Point to the resulting :file:`include` and :file:`lib` directories when
+   :ref:`configuring <howto/source-modules-webassembly>` the Unit code.
+
+   To build WebAssembly apps that run on Unit, you will also need
+   the `wasi-sysroot <https://github.com/WebAssembly/wasi-sdk>`__ SDK:
+
+   .. code-block:: console
+
+      $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sysroot-20.0.tar.gz | tar zxf -
+
+   When building the apps, add the following environment variable:
+
+   .. code-block:: console
+
+      WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot-dir/ <wasi-sysroot directory>`
+
+
 .. _source-config-src:
 
 ===================
@@ -685,6 +723,44 @@ and place module-specific instructions in the :file:`Makefile`.
 
          $ ./configure ruby --module=ru23  \
                             --ruby=ruby23
+
+   .. tab:: WebAssembly
+
+      When you run :program:`./configure wasm`, the script configures a module
+      to support running WebAssembly applications on Unit.
+      Available command options:
+
+      .. list-table::
+
+         * - :samp:`--module=basename`
+           - Resulting module's name (:file:`<basename>.unit.so`), also
+             used in :ref:`make <source-bld-src-emb>` targets.
+
+         * - :samp:`--runtime=basename`
+           - The WebAssembly runtime to use.
+
+             The default is :samp:`wasmtime`.
+
+         * - :samp:`--include-path=path`
+           - The directory path to the runtime's header files.
+
+         * - :samp:`--lib-path=path`
+           - The directory path to the runtime's library files.
+
+         * - :samp:`--rpath=<path>`
+           - The directory path that designates the run-time library search
+             path.
+
+             If specified without a value,
+             assumes the :samp:`--lib-path` value.
+
+      To configure a module called :file:`wasm.unit.so`:
+
+      .. code-block:: console
+
+         $ ./configure wasm --include-path=:nxt_ph:`/path/to/wasmtime <Runtime's header directory>`/include  \
+                            --lib-path=:nxt_ph:`/path/to/wasmtime <Runtime's library directory>`/lib \
+                            --rpath
 
 
 .. _source-bld-src:
