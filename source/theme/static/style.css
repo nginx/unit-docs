@@ -511,6 +511,7 @@ iframe {
 .highlight-php,
 .highlight-python,
 .highlight-ruby,
+.highlight-rust,
 .highlight-none,
 .highlight-shell,
 .highlight-spec {
@@ -572,6 +573,9 @@ iframe {
 }
 .highlight-ruby .highlight::before {
     content: "ruby";
+}
+.highlight-rust .highlight::before {
+    content: "rust";
 }
 .highlight-spec .highlight::before {
     content: "spec";
