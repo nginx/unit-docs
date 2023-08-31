@@ -3109,9 +3109,11 @@ shared between all application languages:
         :samp:`perl`,
         :samp:`php`,
         :samp:`python`,
-        or :samp:`ruby`.
+        :samp:`ruby`,
+        or :samp:`wasm`
+        (WebAssembly).
 
-        Except with :samp:`external`,
+        Except for :samp:`external` and :samp:`wasm`,
         you can detail the runtime version:
         :samp:`"type": "python 3"`,
         :samp:`"type": "python 3.4"`,
@@ -4879,7 +4881,8 @@ you have:
     * - :samp:`script` (required)
       - String;
         rack script pathname,
-        including the :file:`.ru` extension:
+        including the :file:`.ru` extension,
+        for instance:
         :file:`/www/rubyapp/script.ru`.
 
     * - :samp:`hooks`
@@ -4972,6 +4975,201 @@ to your app.
    :doc:`howto/redmine`
    howtos or a basic
    :ref:`sample <sample-ruby>`.
+
+
+.. _configuration-wasm:
+
+===========
+WebAssembly
+===========
+
+First, make sure to install Unit along with the
+:ref:`WebAssembly language module <installation-precomp-pkgs>`.
+
+Besides the
+:ref:`common options <configuration-apps-common>`,
+you have:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - :samp:`module` (required)
+      - String;
+        WebAssembly module pathname,
+        including the :file:`.wasm` extension,
+        for instance:
+        :file:`/www/wasmapp/module.wasm`.
+
+    * - :samp:`request_handler` (required)
+      - String;
+        name of the request handler function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        The runtime calls this handler,
+        providing the address
+        of the shared memory block
+        used to pass data in and out the app.
+
+    * - :samp:`malloc_handler` (required)
+      - String;
+        name of the memory allocator function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        The runtime calls this handler at language module startup
+        to allocate the shared memory block
+        used to pass data in and out the app.
+
+    * - :samp:`free_handler` (required)
+      - String;
+        name of the memory deallocator function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        The runtime calls this handler at language module shutdown
+        to free the shared memory block
+        used to pass data in and out the app.
+
+    * - :samp:`access`
+      - Object;
+        its only array member, :samp:`filesystem`, lists directories
+        to which the application has access:
+
+        .. code-block:: json
+
+           "access": {
+               "filesystem": [
+                   "/tmp/",
+                   "/var/tmp/"
+               ]
+           }
+
+    * - :samp:`module_init_handler`,
+
+      - String;
+        name of the module initilization function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        It is invoked by the WebAssembly language module
+        at language module startup,
+        after the WebAssembly module was initialised.
+
+    * - :samp:`module_end_handler`
+
+      - String;
+        name of the module finalization function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        It is invoked by the WebAssembly language module
+        at language module shutdown.
+
+    * - :samp:`request_init_handler`
+
+      - String;
+        name of the request initialization function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        It is invoked by the WebAssembly language module
+        at the start of each request.
+
+    * - :samp:`request_end_handler`
+
+      - String;
+        name of the request finalization function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        It is invoked by the WebAssembly language module
+        at the end of each request,
+        when the headers and the request body were received.
+
+    * - :samp:`response_end_handler`
+
+      - String;
+        name of the response finalization function.
+        If you use Unit with the official :program:`unit-wasm`
+        :ref:`package <installation-precomp-pkgs>`,
+        the value is language specific;
+        see the `SDK <https://github.com/nginx/unit-wasm/>`__
+        documentation for details.
+        Otherwise, use the name of your custom implementation.
+
+        It is invoked by the WebAssembly language module
+        at the end of each response,
+        when the headers and the response body were sent.
+
+Example:
+
+.. code-block:: json
+
+   {
+       "type": "wasm",
+       "module": "/www/webassembly/unitapp.wasm",
+       "request_handler": "my_custom_request_handler",
+       "malloc_handler": "my_custom_malloc_handler",
+       "free_handler": "my_custom_free_handler",
+       "access": {
+           "filesystem": [
+               "/tmp/",
+               "/var/tmp/"
+           ]
+       },
+
+       "module_init_handler": "my_custom_module_init_handler",
+       "module_end_handler": "my_custom_module_end_handler",
+       "request_init_handler": "my_custom_request_init_handler",
+       "request_end_handler": "my_custom_request_end_handler",
+       "response_end_handler": "my_custom_response_end_handler"
+   }
+
+Use these handlers
+to add custom runtime logic
+to your app;
+for a detailed discussion of their usage and requirements,
+see the
+`SDK <https://github.com/nginx/unit-wasm/>`__
+source code and documentation.
+
+.. note::
+
+   For WASM-based examples,
+   see our
+   :ref:`Rust and C samples <sample-wasm>`.
 
 
 .. _configuration-stngs:
