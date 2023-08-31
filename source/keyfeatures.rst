@@ -50,6 +50,9 @@ Flexibility
 - Apps in multiple languages and language versions run
   :ref:`side by side <configuration-applications>`.
 
+- Server-side :ref:`WebAssembly <configuration-wasm>`
+  is natively supported.
+
 - Common
   :ref:`language-specific APIs <howto-frameworks>`
   for all supported languages run seamlessly.
