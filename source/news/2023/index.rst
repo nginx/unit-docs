@@ -5,6 +5,16 @@ News of 2023
 News archive for the year 2023.
 
 .. nxt_news_entry::
+   :author: Liam Crilly
+   :description: Version 1.31.0 introduces a Technology Preview for Server-Side
+                 WebAssembly on NGINX Unit. This blog post explains more about
+                 why we built it, how it works, and guidance for getting started.
+   :email: unit-owner@nginx.org
+   :title: Server-Side WebAssembly with NGINX Unit
+   :url: https://www.nginx.com/blog/server-side-webassembly-nginx-unit/
+   :date: 2023-09-05
+
+.. nxt_news_entry::
    :author: Unit Team
    :description: Version 1.31.0 adds server-side WebAssembly support
                  and response header manipulation capabilities.

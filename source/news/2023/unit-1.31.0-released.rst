@@ -24,8 +24,9 @@ Complementing these key advancements, we have carefully addressed a spectrum of
 minor bug fixes and introduced additional refinements to ensure a seamlessly
 enhanced user experience.
 
-- Python support for ASGI :samp:`lifespan_state` (external contributor:
-  `synodriver <https://github.com/nginx/unit/commits?author=synodriver>`__)
+- Thanks to our newest contributor, 
+  `synodriver <https://github.com/nginx/unit/commits?author=synodriver>`__
+  for adding Python support to ASGI :samp:`lifespan_state`
 
 - the :program:`unitc` CLI tool now provides interactive editing of
   configuration URIs
@@ -43,8 +44,9 @@ runtimes, it was a natural progression to take on the challenge of adding
 server-side WebAssembly support to NGINX Unit.
 
 Unit can now run WebAssembly modules as a native application type. Read more in
-our upcoming blog post:
-*Introducing a Technology Preview for Server-Side WebAssembly on NGINX Unit*.
+our blog post:
+`Introducing a Technology Preview for Server-Side WebAssembly on NGINX Unit
+<https://www.nginx.com/blog/server-side-webassembly-nginx-unit/>`__.
 
 
 *****************************
