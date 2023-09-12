@@ -2229,7 +2229,7 @@ which enables arbitrary runtime logic:
 .. code-block:: json
 
    "response_headers": {
-       "Content-Language": "`${ uri.startsWith('/uk') : 'en-UK' ? 'en-US' }`"
+       "Content-Language": "`${ uri.startsWith('/uk') ? 'en-UK' : 'en-US' }`"
    }
 
 Finally, there are the :samp:`response_header_*` variables
