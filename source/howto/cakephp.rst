@@ -53,7 +53,7 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/webroot/ <Path to the webroot/ directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Unconditionally serves remaining requests that target static files>`": ":nxt_ph:`/path/to/app/webroot <Path to the webroot/ directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           ":nxt_hint:`pass <Serves any requests not served with the 'share' immediately above>`": "applications/cakephp/index"
                       }

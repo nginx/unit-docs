@@ -1,4 +1,235 @@
 
+Changes with Unit 1.31.0                                         31 Aug 2023
+
+    *) Change: if building with njs, version 0.8.0 or later is now required.
+
+    *) Feature: technology preview of WebAssembly application module.
+
+    *) Feature: "response_headers" option to manage headers in the action
+       and fallback.
+
+    *) Feature: HTTP response header variables.
+
+    *) Feature: ASGI lifespan state support. Thanks to synodriver.
+
+    *) Bugfix: ensure that $uri variable is not cached.
+
+    *) Bugfix: deprecated options were unavailable.
+
+    *) Bugfix: ASGI applications inaccessible over IPv6.
+
+
+Changes with Unit 1.30.0                                         10 May 2023
+
+    *) Change: remove Unix domain listen sockets upon reconfiguration.
+
+    *) Feature: basic URI rewrite support.
+
+    *) Feature: NJS loadable modules support.
+
+    *) Feature: per-application logging.
+
+    *) Feature: conditional logging of route selection.
+
+    *) Feature: support the keys API on the request objects in NJS.
+
+    *) Feature: default values for 'make install' pathnames such as prefix;
+       this allows to './configure && make && sudo make install'.
+
+    *) Feature: "server_version" setting to omit the version token from
+       "Server" header field.
+
+    *) Bugfix: request header field values could be corrupted in some cases;
+       the bug had appeared in 1.29.0.
+
+    *) Bugfix: PHP error handling (added missing 403 and 404 errors).
+
+    *) Bugfix: Perl applications crash on second responder call.
+
+
+Changes with Unit 1.29.1                                         28 Feb 2023
+
+    *) Bugfix: stop creating world-writeable directories.
+
+    *) Bugfix: memory leak related to NJS.
+
+    *) Bugfix: path parsing in PHP applications.
+
+    *) Bugfix: enabled UTF-8 for Python config by default to avoid
+       applications failing in some cases.
+
+    *) Bugfix: using asyncio.get_running_loop() instead of
+       asyncio.get_event_loop() when it's available to prevent errors in
+       some Python ASGI applications.
+
+    *) Bugfix: applications that make use of various low level APIs such as
+       pthreads could fail to work correctly.
+
+    *) Bugfix: websocket endianness detection for obscure operating systems.
+
+
+Changes with Unit 1.29.0                                         15 Dec 2022
+
+    *) Change: removed $uri auto-append for "share" when loading
+       configuration.
+
+    *) Change: prefer system crypto policy instead of hardcoding a default.
+
+    *) Feature: njs support with the basic syntax of JS template literals.
+
+    *) Feature: support per-application cgroups on Linux.
+
+    *) Feature: the $request_time variable contains the request processing
+       time.
+
+    *) Feature: "prefix" option in Python applications to set WSGI
+       "SCRIPT_NAME" and ASGI root-path variables.
+
+    *) Feature: compatibility with Python 3.11.
+
+    *) Feature: compatibility with OpenSSL 3.
+
+    *) Feature: compatibility with PHP 8.2.
+
+    *) Feature: compatibility with Node.js 19.0.
+
+    *) Feature: Ruby Rack v3 support.
+
+    *) Bugfix: fix error in connection statistics when using proxy.
+
+    *) Bugfix: fix HTTP cookie parsing when the value contains an equals
+       sign.
+
+    *) Bugfix: PHP directory URLs without a trailing '/' would give a 503
+       error (fixed with a 301 re-direct).
+
+    *) Bugfix: missing error checks in the C API.
+
+    *) Bugfix: report the regex status in configure summary.
+
+
+Changes with Unit 1.28.0                                         13 Sep 2022
+
+    *) Change: increased the applications' startup timeout.
+
+    *) Change: disallowed abstract Unix domain socket syntax in non-Linux
+       systems.
+
+    *) Feature: basic statistics API.
+
+    *) Feature: customizable access log format.
+
+    *) Feature: more HTTP variables support.
+
+    *) Feature: forwarded header to replace client address and protocol.
+
+    *) Feature: ability to get dynamic variables.
+
+    *) Feature: support for abstract Unix sockets.
+
+    *) Feature: support for Unix sockets in address matching.
+
+    *) Feature: the $dollar variable translates to a literal "$" during
+       variable substitution.
+
+    *) Bugfix: router process could crash if index file didn't contain an
+       extension.
+
+    *) Bugfix: force SCRIPT_NAME in Ruby to always be an empty string.
+
+    *) Bugfix: when isolated PID numbers reach the prototype process host
+       PID, the prototype crashed.
+
+    *) Bugfix: the Ruby application process could crash on SIGTERM.
+
+    *) Bugfix: the Ruby application process could crash on SIGINT.
+
+    *) Bugfix: mutex leak in the C API.
+
+
+Changes with Unit 1.27.0                                         02 Jun 2022
+
+    *) Feature: ability to specify a custom index file name when serving
+       static files.
+
+    *) Feature: variables support in the "location" option of the "return"
+       action.
+
+    *) Feature: support empty strings in the "location" option of the
+       "return" action.
+
+    *) Feature: added a new variable, $request_uri, that includes both the
+       path and the query parts as per RFC 3986, sections 3-4.
+
+    *) Feature: Ruby Rack environment parameter "SCRIPT_NAME" support.
+
+    *) Feature: compatibility with GCC 12.
+
+    *) Bugfix: Ruby Sinatra applications don't work without custom logging.
+
+    *) Bugfix: the controller process could crash when a chain of more than
+       four certificates was uploaded.
+
+    *) Bugfix: some Perl applications failed to process the request body,
+       notably with Plack.
+
+    *) Bugfix: some Spring Boot applications failed to start, notably with
+       Grails.
+
+    *) Bugfix: incorrect Python protocol auto detection (ASGI or WSGI) for
+       native callable object, notably with Falcon.
+
+    *) Bugfix: ECMAScript modules did not work with the recent Node.js
+       versions.
+
+
+Changes with Unit 1.26.1                                         02 Dec 2021
+
+    *) Bugfix: occasionally, the Unit daemon was unable to fully terminate;
+       the bug had appeared in 1.26.0.
+
+    *) Bugfix: a prototype process could crash on an application process
+       exit; the bug had appeared in 1.26.0.
+
+    *) Bugfix: the router process crashed on reconfiguration if "access_log"
+       was configured without listeners.
+
+    *) Bugfix: a segmentation fault occurred in the PHP module if chdir() or
+       fastcgi_finish_request() was called in the OPcache preloading script.
+
+    *) Bugfix: fatal errors on DragonFly BSD; the bug had appeared in
+       1.26.0.
+
+
+Changes with Unit 1.26.0                                         18 Nov 2021
+
+    *) Change: the "share" option now specifies the entire path to the files
+       it serves, rather than a document root directory to be prepended to
+       the request URI.
+
+    *) Feature: automatic adjustment of existing configurations to the new
+       "share" behavior when updating from previous versions.
+
+    *) Feature: variables support in the "share" option.
+
+    *) Feature: multiple paths in the "share" option.
+
+    *) Feature: variables support in the "chroot" option.
+
+    *) Feature: PHP opcache is shared between application processes.
+
+    *) Feature: request routing by the query string.
+
+    *) Bugfix: the router and app processes could crash when the requests
+       limit was reached by asynchronous or multithreaded apps.
+
+    *) Bugfix: established WebSocket connections could stop reading frames
+       from the client after the corresponding listener had been
+       reconfigured.
+
+    *) Bugfix: fixed building with glibc 2.34, notably Fedora 35.
+
+
 Changes with Unit 1.25.0                                         19 Aug 2021
 
     *) Feature: client IP address replacement from a specified HTTP header
@@ -20,7 +251,7 @@ Changes with Unit 1.25.0                                         19 Aug 2021
        multiple certificate bundles in a listener if the client did not use
        SNI.
 
-    *) Bugfix: the router process could crash with frequent mutithreaded
+    *) Bugfix: the router process could crash with frequent multithreaded
        application reconfiguration.
 
     *) Bugfix: compatibility issues with some Python ASGI apps, notably

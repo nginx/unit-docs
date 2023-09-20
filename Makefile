@@ -36,6 +36,7 @@ site: $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir "$(BUILDDIR)"
+	mkdir "$(BUILDDIR)/keys/"
 
 serve: site
 	@cd "$(BUILDDIR)" && $(SERVER)
@@ -52,16 +53,21 @@ ping:
 
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
+	curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+		| tee "$(BUILDDIR)/keys/nginx-keyring.gpg" > /dev/null
+	gpg --dry-run --quiet --import --import-options import-show \
+		"$(BUILDDIR)/keys/nginx-keyring.gpg"
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
 	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
 	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
-	rsync -rcv --delete --exclude='*.gz' --exclude='/sitemap.xml' \
-		"$(TMP)/" "$(DEPLOYDIR)"
+	rsync -rcv --delete --exclude='*.gz' --exclude='tmp.*' \
+		  --exclude='/sitemap.xml' "$(TMP)/" "$(DEPLOYDIR)"
 	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" -e sitemapexclude.txt \
 		> "$(TMP)/sitemap.xml"
 	$(MINIFY) -v "$(TMP)/sitemap.xml" -o "$(TMP)/sitemap.xml"
 	rsync -rcv "$(TMP)/sitemap.xml" "$(DEPLOYDIR)"
 	-rm -rf "$(TMP)"
+	rsync -rcv security.txt "$(DEPLOYDIR)/.well-known/"
 	$(MAKE) do_gzip
 	chmod -R g=u "$(DEPLOYDIR)"
 

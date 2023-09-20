@@ -6,8 +6,8 @@ Working With Language Modules
 
 Languages supported by Unit fall into these two categories:
 
-- :ref:`External <modules-ext>` (Go, Node.js): Run outside Unit and communicate
-  with it via wrapper packages.
+- :ref:`External <modules-ext>` (Go, Node.js, WebAssembly): Run outside Unit
+  with an interface layer to the native runtime.
 
 - :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby): Execute in
   runtimes that Unit loads at startup.
@@ -25,17 +25,21 @@ like any other.  They provide common web functionality, communicating with Unit
 from the app's runspace.
 
 In Go, Unit support is implemented with a package that you :ref:`import
-<configuration-go>` to your apps.  You can :ref:`install <installation-go>` the
-package from the official Unit repository; otherwise, :ref:`build
-<installation-go>` it for your version of Go using Unit's sources.
+<configuration-go>` in your apps to make them Unit-aware.
 
 In Node.js, Unit is supported by an :program:`npm`-hosted `package
 <https://www.npmjs.com/package/unit-http>`__ that you :ref:`require
 <configuration-nodejs>` in your app code.  You can :ref:`install
 <installation-nodejs-package>` the package from the :program:`npm` repository;
-otherwise, :ref:`build <installation-nodejs>` it for your version of Node.js
-using Unit's sources.
+otherwise, :ref:`build <howto/source-modules-nodejs>` it for your version of
+Node.js using Unit's sources.
 
+For WebAssembly, Unit delegates bytecode execution to the
+`Wasmtime <https://wasmtime.dev/>`_
+runtime that is installed with the
+:ref:`unit-wasm <installation-precomp-pkgs>`
+module or during
+a :ref:`source build <source-wasm>`.
 
 .. _modules-emb:
 
@@ -102,14 +106,15 @@ this case, you can build your own package to be installed alongside the
 official distribution, adding the latter as a prerequisite.
 
 Here, we are packaging a custom PHP |_| 7.3 :ref:`module
-<installation-modules-php>` to be installed next to the official Unit package;
+<howto/source-modules-php>` to be installed next to the official Unit package;
 adjust the command samples as needed to fit your scenario.
 
 .. note::
 
-   For elaborate Unit packaging examples, refer to our packaging system
+   For details of building Unit language modules, see the source code
+   :ref:`howto <source-modules>`; it also describes building
+   :doc:`Unit <source>` itself.  For more packaging examples, see our package
    `sources <https://hg.nginx.org/unit/file/tip/pkg/>`_.
-
 
 ..
    Legacy anchors to preserve existing external links.
@@ -126,16 +131,17 @@ adjust the command samples as needed to fit your scenario.
       Unit package installed:
 
       #. Make sure to install the :ref:`prerequisites
-         <installation-prereq-build>` for the package.  In our example,
+         <source-prereq-build>` for the package.  In our example,
          it's PHP |_| 7.3 on Debian |_| 10:
 
          .. code-block:: console
 
             # apt update
-            # apt install :nxt_hint:`ca-certificates apt-transport-https <Needed to install the php7.3 package from the PHP repo>`
-            # curl -sL :nxt_hint:`https://packages.sury.org/php/apt.gpg | apt-key add - <Adding the repo key to make it usable>`
-            # echo "deb https://packages.sury.org/php/ buster main" \
-                   > /etc/apt/sources.list.d/php.list
+            # apt install :nxt_hint:`ca-certificates apt-transport-https debian-archive-keyring <Needed to install the php7.3 package from the PHP repo>`
+            # curl --output /usr/share/keyrings/php-keyring.gpg  \
+                  :nxt_hint:`https://packages.sury.org/php/apt.gpg <Adding the repo key to make it usable>`
+            # echo "deb [signed-by=/usr/share/keyrings/php-keyring.gpg]  \
+                  https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list
             # apt update
             # apt install php7.3
             # apt install :nxt_hint:`php-dev libphp-embed <Needed to build the module and the package>`
@@ -152,17 +158,17 @@ adjust the command samples as needed to fit your scenario.
          :file:`DEBIAN` folder will store the package definition.
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
-         :ref:`flags <installation-config-src>` for later use, omitting
-         :option:`!--ld-opt`:
+         :ref:`flags <source-config-src>` for later use, omitting
+         :option:`!--ld-opt` and :option:`!--njs`:
 
          .. subs-code-block:: console
 
             $ unitd --version
 
                 unit version: |version|
-                configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt>`
+                configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt and --njs>`
 
-      #. Download Unit's sources, :ref:`configure <installation-src-modules>`
+      #. Download Unit's sources, :ref:`configure <source-modules>`
          and build your custom module, then put it where Unit will find it:
 
          .. subs-code-block:: console
@@ -170,7 +176,7 @@ adjust the command samples as needed to fit your scenario.
             $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
             $ tar xzf unit-|version|.tar.gz                                 # Puts Unit's sources in the unit-|version| subdirectory
             $ cd unit-|version|
-            $ ./configure :nxt_ph:`FLAGS W/O --LD-OPT <The ./configure flags, except for --ld-opt>`                             # Use the ./configure flags noted in the previous step
+            $ ./configure :nxt_ph:`FLAGS W/O --LD-OPT & --NJS <The ./configure flags, except for --ld-opt and --njs>`                     # Use the ./configure flags noted in the previous step
             $ ./configure php --module=php7.3 --config=php-config        # Configures the module itself
             $ make php7.3                                                # Builds the module in the build/ subdirectory
             $ mkdir -p $UNITTMP/unit-php7.3/:nxt_ph:`MODULESPATH <Path to Unit's language modules>`                  # Use the module path set by ./configure or by default
@@ -210,7 +216,7 @@ adjust the command samples as needed to fit your scenario.
       Unit package installed:
 
       #. Make sure to install the :ref:`prerequisites
-         <installation-prereq-build>` for the package.  In our example,
+         <source-prereq-build>` for the package.  In our example,
          it's PHP |_| 7.3 on Fedora |_| 30:
 
          .. code-block:: console
@@ -235,19 +241,19 @@ adjust the command samples as needed to fit your scenario.
             $ rpmdev-newspec unit-php7.3
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
-         :ref:`flags <installation-config-src>` for later use, omitting
-         :option:`!--ld-opt`:
+         :ref:`flags <source-config-src>` for later use, omitting
+         :option:`!--ld-opt` and :option:`!--njs`:
 
          .. subs-code-block:: console
 
             $ unitd --version
 
                 unit version: |version|
-                configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt>`
+                configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt and --njs>`
 
       #. Edit the :file:`unit-php7.3.spec` file, adding the commands that
          download Unit's sources, :ref:`configure
-         <installation-src-modules>` and build your custom module, then
+         <source-modules>` and build your custom module, then
          put it where Unit will find it:
 
          .. subs-code-block:: spec
@@ -283,7 +289,7 @@ adjust the command samples as needed to fit your scenario.
             # Extracts them locally for compilation steps in the %build section
 
             %build
-            ./configure :nxt_ph:`FLAGS W/O --LD-OPT <The ./configure flags, except for --ld-opt>`
+            ./configure :nxt_ph:`FLAGS W/O --LD-OPT & --NJS <The ./configure flags, except for --ld-opt and --njs>`
             # Configures the build; use the ./configure flags noted in the previous step
             ./configure php --module=php7.3 --config=php-config
             # Configures the module itself

@@ -34,17 +34,59 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
    .. code-block:: console
 
-      $ mkdir -p /path/to/app/ /tmp/app/ && cd :nxt_hint:`/tmp/app/ <Temporary location to download files to>`
-      $ curl -O http://static.moinmo.in/files/moin-1.9.11.tar.gz
-      $ tar xzf moin-1.9.11.tar.gz --strip-components 1 -C :nxt_ph:`/path/to/app/ <Target installation location>`
-      $ cd :nxt_ph:`/path/to/app/wiki/ <WSGI module location in a single-instance installation>`
-      $ cp :nxt_hint:`config/wikiconfig.py <Instance config, see https://moinmo.in/HelpOnConfiguration>` ./
-      $ cp :nxt_hint:`server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` ./moin.py
+      $ tar xzf moin-:nxt_ph:`X.Y.Z <MoinMoin version>`.tar.gz --strip-components 1 -C :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+#. Configure your wiki instances:
+
+   .. tabs::
+      :prefix: instance
+
+      .. tab:: Single Wiki
+
+         See the 'Single Wiki' section `here <https://master.moinmo.in/InstallDocs/ServerInstall>`__ for an explanation of these commands:
+
+         .. code-block:: console
+
+            $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+            $ mkdir single/
+            $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` single/
+            $ cp -r wiki/data/ single/data/
+            $ cp -r wiki/underlay/ single/underlay/
+            $ cp :nxt_hint:`wiki/server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` single/moin.py
+
+         Next, `edit
+         <https://moinmo.in/HelpOnConfiguration#Configuring_a_single_wiki>`__
+         the wiki instance configuration in :file:`wikiconfig.py` as
+         appropriate.
+
+
+      .. tab:: Multiple Wikis
+
+         See the 'Multiple Wikis' section `here <https://master.moinmo.in/InstallDocs/ServerInstall>`__ for an explanation of these commands:
+
+         .. code-block:: console
+
+            $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+            $ mkdir multi/ multi/wiki1/ multi/wiki2/
+            $ cp wiki/config/wikifarm/* multi/
+            $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` multi/wiki1.py
+            $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` multi/wiki2.py
+            $ cp -r wiki/data/ multi/wiki1/data/
+            $ cp -r wiki/data/ multi/wiki2/data/
+            $ cp -r wiki/underlay/ multi/wiki1/underlay/
+            $ cp -r wiki/underlay/ multi/wiki2/underlay/
+            $ cp :nxt_hint:`wiki/server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` multi/moin.py
+
+         Next, `edit
+         <https://moinmo.in/HelpOnConfiguration#Configuration_of_multiple_wikis>`__
+         the farm configuration in :file:`farmconfig.py` and the wiki instance
+         configurations, shown here as :file:`wiki1.py` and :file:`wiki2.py`,
+         as appropriate.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use a real value for :samp:`path`):
+   Unit (use real values for :samp:`path`):
 
    .. code-block:: json
 
@@ -58,7 +100,11 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
           "applications": {
               "moin": {
                   "type": "python 2",
-                  "path": ":nxt_hint:`/path/to/app/wiki/ <Path to the WSGI file>`",
+                  "path": [
+                      ":nxt_ph:`/path/to/app/wsgi/module/ <Path where the WSGI module was stored at Step 4>`",
+                      ":nxt_ph:`/path/to/app/ <Path where the MoinMoin directory was extracted at Step 3>`",
+                  ],
+
                   "module": ":nxt_hint:`moin <WSGI file basename>`"
               }
           }

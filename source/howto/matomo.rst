@@ -1,9 +1,9 @@
 .. |app| replace:: Matomo
 .. |mod| replace:: PHP
 .. |app-preq| replace:: prerequisites
-.. _app-preq: https://matomo.org/docs/requirements/
+.. _app-preq: https://matomo.org/faq/on-premise/matomo-requirements/
 .. |app-link| replace:: core files
-.. _app-link: https://matomo.org/docs/installation/
+.. _app-link: https://matomo.org/faq/on-premise/installing-matomo/
 
 ######
 Matomo
@@ -72,7 +72,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri"
                   }
               },
               {
@@ -88,7 +88,7 @@ To run the `Matomo <https://matomo.org>`_ web analytics platform using Unit:
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`",
+                      ":nxt_hint:`share <Serves remaining static files>`": ":nxt_ph:`/path/to/app <Path to the application directory; use a real path in your configuration>`$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/matomo/index <A catch-all destination for the remaining requests>`"
                       }

@@ -4,8 +4,8 @@ TLS with Certbot
 
 To set up :ref:`SSL/TLS access in Unit <configuration-ssl>`, you need
 certificate bundles.  Although you can use self-signed certificates, it's
-generally advisable to obtain certificates for your website from a certificate
-authority (CA).  For this purpose, you may employ EFF's `Certbot
+advisable to obtain certificates for your website from a certificate authority
+(CA).  For this purpose, you may employ EFF's `Certbot
 <https://certbot.eff.org>`__ that issues free certificates signed by `Let's
 Encrypt <https://letsencrypt.org>`_, a non-profit CA.
 
@@ -20,38 +20,61 @@ Generating Certificates
    dropdown list and the server's OS in the :guilabel:`System` dropdown list
    at EFF's website.
 
-#. Run :program:`certbot` and follow its instructions to generate the
-   certificate bundle.  You will be prompted to enter the domain name of the
+#. Run the :program:`certbot` utility and follow its instructions to create the
+   certificate bundle.  You'll be prompted to enter the domain name of the
    website and `validate domain ownership
    <https://letsencrypt.org/docs/challenge-types/>`_; the latter can be done
-   differently.
+   differently.  Perhaps, the easiest approach is to use the `webroot
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#webroot>`__ method
+   by having Certbot store a certain file locally and then access it by your
+   domain name.  First, configure Unit with a temporary route at port 80:
 
-   To use a temporary server for authentication, stop any process listening on
-   port 80 and run:
+   .. code-block:: json
+
+      {
+          "listeners": {
+              ":nxt_hint:`*:80 <Certbot attempts to reach the domain name at port 80>`": {
+                  "pass": "routes/acme"
+              }
+          },
+
+          "routes": {
+              "acme": [
+                  {
+                      "match": {
+                          "uri": ":nxt_hint:`/.well-known/acme-challenge/* <The URI that Certbot probes to download the file>`"
+                      },
+
+                      "action": {
+                          "share": ":nxt_ph:`/var/www/www.example.com/ <Arbitrary directory, preferably the one used for storing static files>`"
+                      }
+                  }
+              ]
+          }
+      }
+
+   Make sure the :samp:`share` directory is accessible for Unit's :ref:`router
+   process <security-apps>` user account, usually :samp:`unit:unit`.
+
+   Next, run :program:`certbot`, supplying the :samp:`share` directory as the
+   webroot path:
 
    .. code-block:: console
 
-      # certbot certonly --standalone
+      # certbot certonly --webroot -w :nxt_ph:`/var/www/www.example.com/ <Path where the file should be stored>` -d :nxt_ph:`www.example.com <Your domain name>`
 
-   After the certificate bundle is successfully saved, restart the process that
-   was listening on port 80.
-
-   If you can't run the temporary server for some reason, use DNS records to
-   validate your domain:
+   If you can't employ the previous method for some reason, try using DNS
+   records to validate your domain:
 
    .. code-block:: console
 
-      # certbot certonly --manual --preferred-challenges dns
+      # certbot certonly --manual --preferred-challenges dns -d :nxt_ph:`www.example.com <Your domain name>`
 
-   .. note::
+   Certbot will provide instructions on updating the DNS entries to prove
+   domain ownership.
 
-      You must be able to edit the server's DNS entries to use the second
-      method.  Certbot offers other domain validation methods
-      (`authenticators
-      <https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins>`_)
-      as well, but they're not discussed here for brevity.
-
-   Both commands above store the resulting :file:`.pem` files as follows:
+   Any such :program:`certbot` command stores the resulting :file:`.pem` files
+   as follows:
 
    .. code-block:: none
 
@@ -63,9 +86,15 @@ Generating Certificates
               ├── :nxt_hint:`fullchain.pem <Concatenation of the two PEMs above>`
               └── :nxt_hint:`privkey.pem <Your private key, must be kept secret>`
 
+   .. note::
+
+      Certbot offers other validation methods (`authenticators
+      <https://eff-certbot.readthedocs.io/en/stable/using.html#getting-certificates-and-choosing-plugins>`_)
+      as well, but they're omitted here for brevity.
+
 #. Create a certificate bundle fit for Unit and upload it to the
    :samp:`certificates` section of Unit's :ref:`control API
-   <configuration-mgmt>`:
+   <configuration-api>`:
 
    .. code-block:: console
 
@@ -124,12 +153,13 @@ Renewing Certificates
 *********************
 
 Certbot enables renewing the certificates `manually
-<https://certbot.eff.org/docs/using.html#renewing-certificates>`_ or
-`automatically <https://certbot.eff.org/docs/using.html#automated-renewals>`_.
+<https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates>`_
+or `automatically
+<https://eff-certbot.readthedocs.io/en/stable/using.html#automated-renewals>`_.
 For manual renewal and rollover:
 
-#. Repeat the steps above to renew the certificates and upload the new bundle
-   under a different name:
+#. Repeat the preceding steps to renew the certificates and upload the new
+   bundle under a different name:
 
    .. code-block:: console
 
@@ -152,7 +182,7 @@ For manual renewal and rollover:
              }
 
    Now you have two certificate bundles uploaded; Unit knows them as
-   :samp:`certbot1` and :samp:`certbot2`.  Optionally query the
+   :samp:`certbot1` and :samp:`certbot2`.  Optionally, query the
    :samp:`certificates` section to review common details such as expiry dates,
    subjects, or issuers:
 
@@ -186,11 +216,56 @@ For manual renewal and rollover:
                 "success": "Certificate deleted."
             }
 
+#. You can also make use of Unit's :ref:`SNI <configuration-listeners>` support
+   by configuring several certificate bundles for a listener.
+
+   Suppose you've successfully used Certbot to obtain Let's Encrypt
+   certificates for two domains, :samp:`www.example.com` and
+   :samp:`cdn.example.com`.  First, upload them to Unit using the same steps as
+   earlier:
+
+   .. code-block:: console
+
+      # cat /etc/letsencrypt/live/cdn.example.com/fullchain.pem  \
+            /etc/letsencrypt/live/cdn.example.com/privkey.pem > :nxt_hint:`cdn.example.com.pem <Arbitrary certificate bundle's filename>`
+
+      # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
+            /etc/letsencrypt/live/www.example.com/privkey.pem > :nxt_hint:`www.example.com.pem <Arbitrary certificate bundle's filename>`
+
+
+      # curl -X PUT --data-binary @:nxt_hint:`cdn.example.com.pem <Certificate bundle's filename>`  \
+             --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
+             http://localhost/certificates/:nxt_hint:`cdn.example.com <Certificate bundle name in Unit's configuration>`
+
+             {
+                 "success": "Certificate chain uploaded."
+             }
+
+      # curl -X PUT --data-binary @:nxt_hint:`www.example.com.pem <Certificate bundle's filename>`  \
+             --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
+             http://localhost/certificates/:nxt_hint:`www.example.com <Certificate bundle name in Unit's configuration>`
+
+             {
+                 "success": "Certificate chain uploaded."
+             }
+
+   Next, configure the listener, supplying both bundles as an array value for
+   the :samp:`tls/certificate` option:
+
+   .. code-block:: console
+
+      # curl -X PUT --data-binary '{"certificate": :nxt_hint:`["cdn.example.com", "www.example.com"] <Certificate bundle names in Unit's configuration>`}'  \
+            --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
+            'http://localhost/config/listeners/:nxt_hint:`*:443 <Listener's name in Unit's configuration>`/tls'
+
+   Unit does the rest of the job, automatically figuring out which bundle to
+   produce for each incoming connection to both domain names.
+
 .. note::
 
    Currently, Certbot doesn't have `installer plugins
-   <https://certbot.eff.org/docs/using.html#getting-certificates-and-choosing-plugins>`_
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#getting-certificates-and-choosing-plugins>`_
    that enable automatic certificate rollover in Unit.  However, you can set up
    Certbot's `hooks
-   <https://certbot.eff.org/docs/using.html?highlight=hooks#renewing-certificates>`_
-   using the commands above to the same effect.
+   <https://eff-certbot.readthedocs.io/en/stable/using.html#renewing-certificates>`_
+   using the commands listed here to the same effect.

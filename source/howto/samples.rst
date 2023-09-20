@@ -32,13 +32,13 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
        unit.ListenAndServe(":8080", nil)
    }
 
-Compile it using the source code from the Go language package you have
-:ref:`installed <installation-precomp-pkgs>` or :ref:`built
-<installation-modules-go>` earlier:
+First, create a `Go module <https://go.dev/blog/using-go-modules>`__, :samp:`go
+get` Unit's package, and build your application:
 
-.. code-block:: console
+.. subs-code-block:: console
 
-   $ cp -r <package installation path>/src/* $GOPATH/src/
+   $ go mod init :nxt_ph:`example.com/app <Your Go module designation>`
+   $ go get unit.nginx.org/go@|version|
    $ go build -o /www/app /www/app.go
 
 Upload the :ref:`app config <configuration-go>` to Unit and test it:
@@ -88,7 +88,7 @@ Try this sample out with the Dockerfile :download:`here
        m := make(map[string]string)
        t := make(map[string]interface{})
 
-       m["message"] = "Kirov reporting"
+       m["message"] = "Unit reporting"
        m["agent"] = "NGINX Unit |version|"
 
        body, _ := ioutil.ReadAll(r.Body)
@@ -171,7 +171,7 @@ need to `download <https://cliftonlabs.github.io/json-simple/>`__ and :ref:`add
    <%
    JsonObject r = new JsonObject();
 
-   r.put("message", "Kirov reporting");
+   r.put("message", "Unit reporting");
    r.put("agent", "NGINX Unit |version|");
 
    JsonObject headers = new JsonObject();
@@ -265,7 +265,7 @@ Try this sample out with the Dockerfile :download:`here
 
            var r = {
                "agent":    "NGINX Unit |version|",
-               "message":  "Kirov reporting"
+               "message":  "Unit reporting"
            }
 
            r["headers"] = req.headers
@@ -343,7 +343,7 @@ Try this sample out with the Dockerfile :download:`here
        $res->header("Content-Type" => "application/json; charset=utf-8");
 
        my $r = {
-           "message"   => "Kirov reporting",
+           "message"   => "Unit reporting",
            "agent"     => "NGINX Unit |version|",
            "headers"   => $req->headers->psgi_flatten(),
            "body"      => $req->content,
@@ -401,7 +401,7 @@ Try this sample out with the Dockerfile :download:`here
    header("Content-Type: application/json; charset=utf-8");
 
    $r = array (
-      "message" => "Kirov reporting",
+      "message" => "Unit reporting",
       "agent"   => "NGINX Unit |version|"
    );
 
@@ -467,7 +467,7 @@ Try this sample out with the Dockerfile :download:`here
 
        r = {}
 
-       r["message"] = "Kirov reporting"
+       r["message"] = "Unit reporting"
        r["agent"] = "NGINX Unit |version|"
 
        r["headers"] = {}
@@ -532,7 +532,7 @@ Try this sample out with the Dockerfile :download:`here
    app = Proc.new do |env|
        body = env["rack.input"].read
        r = {
-           "message" => "Kirov reporting",
+           "message" => "Unit reporting",
            "agent"   => "NGINX Unit |version|",
            "body"    => body,
            "headers" => env.select { |key, value| key.include?("HTTP_") },
@@ -546,3 +546,136 @@ Try this sample out with the Dockerfile :download:`here
 
    run app
 
+.. _sample-wasm:
+
+***********
+WebAssembly
+***********
+
+Instead of dealing with bytecode,
+let's build a Unit-capable Rust app
+and compile it into WebAssembly.
+
+.. note::
+
+   Currently, WebAssembly support is provided as a Technology Preview.
+   This includes support
+   for compiling Rust and C code into Unit-compatible WebAssembly,
+   using our SDK in the form of the the :program:`libunit-wasm` library.
+   For details, see our :program:`unit-wasm`
+   `repository <https://github.com/nginx/unit-wasm>`__
+   on GitHub.
+
+First, install the WebAssembly-specific Rust tooling:
+
+.. code-block:: console
+
+   $ rustup target add wasm32-wasi
+
+Next, initialize a new Rust project with a library target
+(apps are loaded by Unit's WebAssembly module as dynamic libraries).
+Then, add our :samp:`unit-wasm` crate
+to enable the :program:`libunit-wasm` library:
+
+.. code-block:: console
+
+   $ cargo init --lib wasm_on_unit
+   $ cd wasm_on_unit/
+   $ cargo add unit-wasm
+
+Append the following to :file:`Cargo.toml`:
+
+.. code-block:: toml
+
+   [lib]
+   crate-type = ["cdylib"]
+
+Save some sample code from our :program:`unit-wasm` repo as :file:`src/lib.rs`:
+
+.. code-block:: console
+
+   wget -O src/lib.rs https://raw.githubusercontent.com/nginx/unit-wasm/main/examples/rust/echo-request/src/lib.rs
+
+Build the Rust module with WebAssembly as the target:
+
+.. code-block:: console
+
+   $ cargo build --target wasm32-wasi
+
+This yields the
+:file:`target/wasm32-wasi/debug/wasm_on_unit.wasm` file
+(path may depend on other options).
+
+Upload the :ref:`app config <configuration-wasm>` to Unit and test it:
+
+.. code-block:: console
+
+   # curl -X PUT --data-binary '{
+         "listeners": {
+             "127.0.0.1:8080": {
+                 "pass": "applications/wasm"
+             }
+         },
+
+         "applications": {
+             "wasm": {
+                 "type": "wasm",
+                 "module": ":nxt_ph:`/path/to/wasm_on_unit <app directory>`/target/wasm32-wasi/debug/wasm_on_unit.wasm",
+                 "request_handler": "uwr_request_handler",
+                 "malloc_handler": "luw_malloc_handler",
+                 "free_handler": "luw_free_handler",
+                 "module_init_handler": "uwr_module_init_handler",
+                 "module_end_handler": "uwr_module_end_handler"
+             }
+         }
+     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
+
+   $ curl http://localhost:8080
+
+         * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.1.0/0x00010000)] *
+
+         [Request Info]
+         REQUEST_PATH = /
+         METHOD       = GET
+         VERSION      = HTTP/1.1
+         QUERY        =
+         REMOTE       = 127.0.0.1
+         LOCAL_ADDR   = 127.0.0.1
+         LOCAL_PORT   = 8080
+         SERVER_NAME  = localhost
+
+Further,
+you can research the Unit-based WebAssembly app internals in more depth.
+Clone the :program:`unit-wasm` repository
+and build the examples in C and Rust
+(may require :program:`clang` and :program:`lld`):
+
+.. code-block:: console
+
+   $ git clone https://github.com/nginx/unit-wasm/
+   $ cd unit-wasm
+   $ make help                                               # Explore your options first
+   $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples       # C examples
+   $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples-rust  # Rust examples
+
+.. note::
+
+   If the above commands fail like this:
+
+   .. code-block:: console
+
+      wasm-ld: error: cannot open .../lib/wasi/libclang_rt.builtins-wasm32.a: No such file or directory
+      clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+   Download and install the library to :program:`clang`'s run-time dependency directory:
+
+   .. code-block:: console
+
+      $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/libclang_rt.builtins-wasm32-wasi-20.0.tar.gz \
+            | tar zxf -                  # Unpacks to lib/wasi/ in the current directory
+      $ clang -print-runtime-dir         # Double-check the run-time directory, which is OS-dependent
+
+             :nxt_ph:`/path/to/runtime/dir <run-time directory>`/linux
+
+      # mkdir :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi  # Note the last part of the pathname
+      # cp :nxt_hint:`lib/wasi/ <wget output above>`libclang_rt.builtins-wasm32.a :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi/

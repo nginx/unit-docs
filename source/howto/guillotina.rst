@@ -29,7 +29,7 @@ To run apps built with the `Guillotina
 
 
       class IMyType(interface.Interface):
-          foobar = schema.TextLine()
+          textline = schema.TextLine()
 
 
       @configure.contenttype(
@@ -45,10 +45,10 @@ To run apps built with the `Guillotina
           context=IMyType,
           method="GET",
           permission="guillotina.ViewContent",
-          name="@foobar",
+          name="@textline",
       )
-      async def foobar_service(context, request):
-          return {"foobar": context.foobar}
+      async def textline_service(context, request):
+          return {"textline": context.textline}
 
 
       :nxt_hint:`application <Callable name that Unit looks for>` = make_app(

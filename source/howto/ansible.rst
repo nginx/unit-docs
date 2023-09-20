@@ -10,7 +10,7 @@ while others provide common configuration steps.
 .. note::
 
    Ansible 2.9+ required; the collection relies on official packages and
-   supports CentOS and Debian only.
+   supports Debian only.
 
    A brief intro by the collection's authors can be found `here
    <https://docs.steampunk.si/unit/quickstart.html>`__; a behind-the-scenes
@@ -33,7 +33,7 @@ After installation, you can use it in a playbook.  Consider this :ref:`WSGI app
        return (b"Hello, Python on Unit!")
 
 This `playbook
-<https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html>`__
+<https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html>`__
 installs Unit with the Python language module, copies the app's file, and runs
 the app:
 
@@ -72,7 +72,7 @@ the app:
            pass: :nxt_hint:`applications/sample <Goes straight to 'pass' in the listener's configuration>`
 
 The final preparation step is the `host inventory
-<https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html>`__
+<https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html>`__
 that lists your managed hosts' addresses:
 
 .. code-block:: yaml

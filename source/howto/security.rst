@@ -20,10 +20,11 @@ Update Unit Regularly
 features </CHANGES.txt>`_ that improve your installation's security.
 
 **Actions**: Follow our latest `news
-<https://mailman.nginx.org/mailman/listinfo/unit>`_ and upgrade to new
+<https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_ and upgrade to new
 versions shortly after they are released.
 
 .. nxt_details:: Details
+   :hash: sec-updates
 
    Specific upgrade steps depend on your installation method:
 
@@ -37,7 +38,7 @@ versions shortly after they are released.
      <installation-community-repos>`, consult the maintainer's documentation
      for details.
 
-   - If you install Unit from :ref:`source files <installation-src>`,
+   - If you install Unit from :ref:`source files <source>`,
      rebuild and reinstall Unit and its modules from scratch.
 
 
@@ -48,7 +49,7 @@ Secure Socket and State
 ***********************
 
 **Rationale**: Your :ref:`control socket and state directory
-<installation-src-dir>` provide unlimited access to Unit's configuration, which
+<source-dir>` provide unlimited access to Unit's configuration, which
 calls for stringent protection.
 
 **Actions**: Default configuration in our :ref:`official packages
@@ -57,9 +58,10 @@ installation method, ensure the control socket and the state directory are
 safe.
 
 .. nxt_details:: Control Socket
+   :hash: sec-socket
 
-   If you use a Unix
-   control socket, ensure it is available to :samp:`root` only:
+   If you use a UNIX control socket, ensure it is available to :samp:`root`
+   only:
 
    .. subs-code-block:: console
 
@@ -77,7 +79,7 @@ safe.
 
             srw------- 1 root root 0 ... /path/to/control.unit.sock
 
-   Unix domain sockets aren't network accessible; for remote access, use
+   UNIX domain sockets aren't network accessible; for remote access, use
    :ref:`NGINX <nginx-secure-api>` or a solution such as SSH:
 
    .. code-block:: console
@@ -94,8 +96,8 @@ safe.
             }
 
    If you prefer an IP-based control socket, avoid public IPs; they expose the
-   :ref:`control API <configuration-mgmt>` and all its capabilities.  This
-   means your Unit instance can be manipulated by whoever is physically able to
+   :ref:`control API <configuration-api>` and all its capabilities.  This means
+   your Unit instance can be manipulated by whoever is physically able to
    connect:
 
    .. code-block:: console
@@ -127,6 +129,7 @@ safe.
 
 
 .. nxt_details:: State Directory
+   :hash: sec-state
 
    The state directory stores Unit's internal configuration between launches.
    Avoid manipulating it or relying on its contents even if tempted to do so.
@@ -179,6 +182,7 @@ clear and robust as possible to avoid loose ends and gaping holes.
 <configuration-routes-matching-patterns>` that you use.
 
 .. nxt_details:: Details
+   :hash: sec-routes
 
    Some considerations:
 
@@ -210,6 +214,7 @@ router process need access to them.  Still, avoid loose rights such as the
 notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
 .. nxt_details:: File Permissions
+   :hash: sec-files
 
    To configure file permissions for your apps, check Unit's build-time and
    run-time options first:
@@ -375,7 +380,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
              "routes": [
                  {
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app"
                          }
@@ -413,7 +418,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app1/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app1"
                          }
@@ -426,7 +431,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                      },
 
                      "action": {
-                         "share": ":nxt_ph:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`",
+                         "share": ":nxt_ph:`/path/to/static/app2/files/ <Router process needs read and execute permissions to serve static content from this directory>`$uri",
                          "fallback": {
                              "pass": "applications/app2"
                          }
@@ -455,6 +460,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       ACLs.
 
 .. nxt_details:: App Internals
+   :hash: sec-app-internals
 
    Unfortunately, quite a few web apps are built in a manner that mixes their
    source code, data, and configuration files with static content, which calls
@@ -508,7 +514,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
                          },
 
                          "action": {
-                             ":nxt_hint:`share <Serves valid requests with static content>`": ":nxt_ph:`/path/to/app/static/ <Path to the application's static file directory; use a real path in your configuration>`",
+                             ":nxt_hint:`share <Serves valid requests with static content>`": ":nxt_ph:`/path/to/app/static <Path to the application's static file directory; use a real path in your configuration>`$uri",
                              ":nxt_hint:`types <Limits file types served from the share>`": [
                                  "image/*",
                                  "text/*",
@@ -530,6 +536,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
    to our app :doc:`howtos <index>` and the 'File Permissions' callout above.
 
 .. nxt_details:: Unit's Process Summary
+   :hash: sec-processes
 
    .. _security-processes:
 
@@ -555,8 +562,8 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       * - Controller
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Serves the control API, accepting reconfiguration requests,
           sanitizing them, and passing them to other processes for
           implementation.
@@ -564,16 +571,16 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
       * - Discovery
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Discovers the language modules in the module directory at startup,
           then quits.
 
       * - Router
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
-          :ref:`build <installation-config-src>` or :ref:`execution
-          <installation-src-startup>`; by default, :samp:`unit`.
+          :ref:`build <source-config-src>` or :ref:`execution
+          <source-startup>`; by default, :samp:`unit`.
         - Serves client requests, accepting them, processing them on the spot,
           passing them to app processes, or proxying them further; requires
           access to static content paths you configure.
@@ -596,7 +603,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
             root   ... unit: main v|version|
             unit   ... unit: controller
             unit   ... unit: router
-            unit   ... unit: "foobar" application
+            unit   ... unit: "front" application
 
    The important outtake here is to understand that Unit's non-privileged
    processes don't require running as :samp:`root`.  Instead, they should have
@@ -618,6 +625,7 @@ logs; their size can also become a concern if debug mode is enabled.
 disk space.
 
 .. nxt_details:: Details
+   :hash: sec-logs
 
    Unit can maintain two different logs:
 

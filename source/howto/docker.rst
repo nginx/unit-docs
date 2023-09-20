@@ -15,7 +15,7 @@ For example:
 
    $ export UNIT=$(                                             \
          docker run -d --mount type=bind,src="$(pwd)",dst=/www  \
-         -p 8080:8000 nginx/unit:|version|-python3.9               \
+         -p 8080:8000 unit:|version|-python3.11                 \
      )
 
 The command mounts the host's current directory where your app files are stored
@@ -34,7 +34,8 @@ Next, upload a configuration to Unit via the control socket:
 This command assumes your configuration is stored as :file:`config.json` in the
 container-mounted directory on the host; if the file defines a listener on port
 :samp:`8000`, your app is now accessible on port :samp:`8080` of the host.  For
-details of the Unit configuration, see :ref:`configuration-mgmt`.
+details of the Unit configuration, see :ref:`Configuration
+<configuration-api>`.
 
 .. note::
 
@@ -111,7 +112,7 @@ app:
    EOF
 
 Finally, let's create :file:`log/` and :file:`state/` directories to store Unit
-:ref:`log and state <installation-src-startup>` respectively:
+:ref:`log and state <source-startup>` respectively:
 
 .. code-block:: console
 
@@ -138,16 +139,9 @@ Everything is ready for a containerized Unit.  First, let's create a
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-python3.9
+   FROM unit:|version|-python3.11
    COPY requirements.txt /config/requirements.txt
-   # PIP isn't installed by default, so we install it first.
-   # Next, we install the requirements, remove PIP, and perform image cleanup.
-   RUN apt update && apt install -y python3-pip                                  \
-       && pip3 install -r /config/requirements.txt                               \
-       && apt remove -y python3-pip                                              \
-       && apt autoremove --purge -y                                              \
-       && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
-
+   RUN python3 -m pip install -r /config/requirements.txt
 
 .. code-block:: console
 
@@ -195,24 +189,25 @@ To switch your app to a different Unit image, prepare a corresponding
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
    COPY requirements.txt /config/requirements.txt
-   # This time, we took a minimal Unit image to install a vanilla Python 3.7
+   # This time, we took a minimal Unit image to install a vanilla Python 3.9
    # module, run PIP, and perform cleanup just like we did earlier.
 
    # First, we install the required tooling and add Unit's repo.
-   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
-       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
-       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+   RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
+       &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
+              https://unit.nginx.org/keys/nginx-keyring.gpg                      \
+       && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
+              https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
 
-   # Next, we install the module, download app requirements, and perform creanup.
-   RUN apt update && apt install -y unit-python3.7 python3-pip                   \
-       && pip3 install -r /config/requirements.txt                               \
-       && apt remove -y curl apt-transport-https gnupg1 lsb-release python3-pip  \
+   # Next, we install the module, download app requirements, and perform cleanup.
+   RUN apt update && apt install -y unit-python3.9 python3-pip                   \
+       && python3 -m pip install -r /config/requirements.txt                     \
+       && apt remove -y curl apt-transport-https gnupg2 lsb-release python3-pip  \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
-
 
 .. code-block:: console
 
@@ -300,7 +295,7 @@ image:
 .. subs-code-block:: docker
 
    # Keep our base image as specific as possible.
-   FROM nginx/unit:|version|-node15
+   FROM unit:|version|-node15
 
    # Same as "working_directory" in config.json.
    COPY myapp/app.js /www/
@@ -311,8 +306,10 @@ image:
    # Port used by the listener in config.json.
    EXPOSE 8080
 
-When you start a container based on this image, mount the :file:`config.json`
-file to :ref:`initialize <installation-docker-init>` Unit's state:
+When you start a container based on this image,
+mount the :file:`config.json` file to
+:ref:`initialize <installation-docker-init>`
+Unit's state:
 
 .. code-block:: console
 
@@ -353,7 +350,7 @@ file to :ref:`initialize <installation-docker-init>` Unit's state:
    updated image because Unit's state was initialized and saved earlier.
 
 To configure the app after startup, supply a file or an explicit snippet via
-the :ref:`config API <configuration-mgmt>`:
+the :ref:`control API <configuration-api>`:
 
 .. code-block:: console
 
@@ -387,25 +384,59 @@ Multilanguage Images
 
 Earlier, Unit had a :samp:`-full` Docker image with modules for all supported
 languages, but it was discontinued with version 1.22.0.  If you still need a
-multilanguage image, use the following :file:`Dockerfile` template:
+multilanguage image, use the following :file:`Dockerfile` template that starts
+with the minimal Unit image based on :ref:`Debian 11 <installation-debian-11>`
+and installs official language module packages:
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
    # We take a minimal Unit image and install language-specific modules.
 
    # First, we install the required tooling and add Unit's repo.
-   RUN apt update && apt install -y curl apt-transport-https gnupg1 lsb-release  \
-       && curl -sL https://nginx.org/keys/nginx_signing.key | apt-key add -      \
-       && echo "deb https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"  \
+   RUN apt update && apt install -y curl apt-transport-https gnupg2 lsb-release  \
+       &&  curl -o /usr/share/keyrings/nginx-keyring.gpg                         \
+              https://unit.nginx.org/keys/nginx-keyring.gpg                      \
+       && echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg]            \
+              https://packages.nginx.org/unit/debian/ `lsb_release -cs` unit"    \
               > /etc/apt/sources.list.d/unit.list
 
    # Next, we install the necessary language module packages and perform cleanup.
    RUN apt update && apt install -y                                              \
-           :nxt_hint:`unit-go unit-jsc11 unit-perl unit-php unit-python3.7 unit-ruby <List packages for the language versions you need>`        \
-       && apt remove -y curl apt-transport-https gnupg1 lsb-release              \
+           :nxt_hint:`unit-jsc11 unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby <Leave only packages for the language you need, removing the rest>` \
+       && apt remove -y curl apt-transport-https gnupg2 lsb-release              \
        && apt autoremove --purge -y                                              \
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
-Our minimal image is based on :ref:`Debian 10 <installation-debian-10>`; the
-choice of individual language packages is dictated by this.
+Instead of packages, you can build custom :ref:`modules
+<source-modules>`; use these :file:`Dockerfile.*` `templates
+<https://github.com/nginx/unit/tree/master/pkg/docker>`__ as reference.
+
+
+.. _docker-startup:
+
+*********************
+Startup Customization
+*********************
+
+Finally, you can customize the way Unit starts in a container by adding a new
+Dockerfile layer:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+
+   CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
+
+The :samp:`CMD` instruction above replaces the default :program:`unitd`
+executable with its debug version.  Use Unit's :ref:`command-line options
+<source-startup>` to alter its startup behavior, for example:
+
+.. subs-code-block:: docker
+
+   FROM nginx/unit:|version|-minimal
+
+   CMD ["unitd","--no-daemon","--control","0.0.0.0:8080"]
+
+This replaces Unit's default UNIX domain control socket with an IP socket
+address.

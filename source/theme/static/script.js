@@ -45,8 +45,12 @@ function nxt_nav_init() {
 
             const selector = '#side .toctree-l1 a[href="#' + toc_id + '"]'
 
-            document.querySelector(selector).classList.toggle('nxt_active',
-                entry.intersectionRatio > 0)
+            const anchor = document.querySelector(selector)
+
+            if (anchor) {
+                anchor.classList.toggle('nxt_active',
+                                        entry.intersectionRatio > 0)
+            }
         }
     })
 
@@ -184,7 +188,7 @@ function nxt_copy_reset() {
 function nxt_dom_ready() {
     nxt_scroll_init()
     nxt_tab_init()
-    nxt_tab_hash_change()
+    nxt_hash_change()
 
     if (IntersectionObserver) {
         nxt_nav_init()
@@ -202,19 +206,27 @@ function nxt_dom_ready() {
 }
 
 
-function nxt_tab_hash_change() {
+function nxt_hash_change() {
     if (window.location.hash) {
         const selector = '.nxt_tabs > label' + window.location.hash
 
         const el = document.querySelector(selector)
         if (el) {
-            el.previousElementSibling.checked = true;
+            el.previousElementSibling.checked = true
+        }
+
+        const d = document.getElementById(window.location.hash.substring(1)
+            + '_')
+        if (d && d.tagName.toLowerCase() === 'details') {
+            if (!d.open) {
+                d.scrollIntoView()
+            }
         }
     }
 }
 
 
-window.addEventListener('hashchange', nxt_tab_hash_change)
+window.addEventListener('hashchange', nxt_hash_change)
 
 if (document.readyState === 'loading') {
     window.addEventListener('DOMContentLoaded', nxt_dom_ready)

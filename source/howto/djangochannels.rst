@@ -82,7 +82,7 @@ To run Django apps using the |app| `framework
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Thus, URIs starting with /static/ are served from /path/to/app/static/; use a real path in your configuration>`"
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app <Thus, URIs starting with /static/ are served from /path/to/app/static/; use a real path in your configuration>`$uri"
                   }
               },
               {

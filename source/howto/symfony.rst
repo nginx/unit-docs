@@ -52,7 +52,7 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
               },
               {
                   "action": {
-                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public/",
+                      ":nxt_hint:`share <Serves static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public$uri",
                       "fallback": {
                           "pass": ":nxt_hint:`applications/symfony/index <Uses the index.php at the root as the last resort>`"
                       }

@@ -19,15 +19,32 @@ a:hover {
 iframe {
     border: none;
 }
-body > div {
+
+/* Saving for future use
+#rennab {
+    padding: .3em 0;
+    background: #00974d;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 .2em .5em #333;
+}
+#rennab a {
+    color: white;
+}
+*/
+
+#main {
     margin: 0 auto;
     padding: 0 1.5em;
     max-width: 70em;
 }
 #side {
-    position: fixed;
+    position: sticky;
+    float: left;
+    top: 0;
     width: 18em;
-    height: 100%;
+    height: 100vh;
     overflow-y: auto;
 }
 #side h1 {
@@ -60,6 +77,9 @@ body > div {
     visibility: hidden;
     opacity: 0;
     transition: none;
+}
+#side > ul {
+    margin-bottom: 2em;
 }
 #side ul {
     margin-left: .2em;
@@ -108,7 +128,7 @@ body > div {
     margin-bottom: -.6em;
     max-height: 0;
     overflow-y: hidden;
-    transition: all 2s;
+    transition: all .6s;
 }
 #side .toctree-l2 ul:after {
     content: '';
@@ -120,12 +140,8 @@ body > div {
     background: linear-gradient(to top, white, rgba(255,255,255,0));
 }
 #side .toctree-l2 a.nxt_active + ul,
-#side .toctree-l1 li.current > ul,
-#side .toctree-l1 li:hover > ul {
-    max-height: 50em;
-}
-#side .toctree-l1 li:hover > ul {
-    transition-delay: .3s;
+#side .toctree-l1 li.current > ul {
+    max-height: 100em;
 }
 #content {
     margin-left: 18em;
@@ -267,33 +283,21 @@ body > div {
 }
 #content details {
     border-color: #ddd;
-    max-height: 2.2em;
     overflow-y: hidden;
-    transition: max-height 2s ease-in-out;
 }
 #content details[open] {
-    max-height: 400em;
     padding-bottom: 0;
     position: relative;
 }
-#content details[open] summary span {
-    cursor: default;
-    text-decoration: none;
-}
 #content summary {
-    display: inline;
     font-weight: bold;
     outline: none;
 }
-#content summary::-webkit-details-marker {
-    display: none;
-}
 #content summary span {
     cursor: pointer;
-    text-decoration: underline;
 }
 #content summary span:hover {
-    text-decoration: none;
+    text-decoration: underline;
 }
 #content .highlight {
     margin: 1em 0;
@@ -302,26 +306,42 @@ body > div {
     overflow-x: auto;
 }
 #content .video {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+}
+#content .video div {
     position: relative;
-    margin: 2em 0;
-    padding-bottom: 56.25%;
-    overflow: hidden;
+    flex-basis: 46%;
+    margin: 1em;
+    padding-top: 25.87%;
 }
-#content .video iframe,
-#content .video object,
-#content .video embed {
+#content .video div iframe {
     position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
 }
-#footer {
+#content p#footer {
     margin: 1em 0 0 0 !important;
     border-top: .1em solid #ddd;
     padding: 1em 0;
     font-size: .9em;
     text-align: center;
+}
+
+#content p#tecookie {
+    margin: 0 0 1em;
+    font-size: .9em;
+    text-align: center;
+}
+
+#teconsent {
+    text-decoration: underline;
+}
+
+#teconsent:hover {
+    text-decoration: none;
 }
 
 /* Pygments */
@@ -480,6 +500,7 @@ body > div {
 .highlight-control,
 .highlight-docker,
 .highlight-go,
+.highlight-html,
 .highlight-ini,
 .highlight-java,
 .highlight-javascript,
@@ -490,7 +511,9 @@ body > div {
 .highlight-php,
 .highlight-python,
 .highlight-ruby,
+.highlight-rust,
 .highlight-none,
+.highlight-shell,
 .highlight-spec {
     position: relative;
 }
@@ -551,13 +574,21 @@ body > div {
 .highlight-ruby .highlight::before {
     content: "ruby";
 }
+.highlight-rust .highlight::before {
+    content: "rust";
+}
 .highlight-spec .highlight::before {
     content: "spec";
 }
 .highlight-none .highlight::before {
     content: "text";
 }
-
+.highlight-shell .highlight::before {
+    content: "shell";
+}
+.highlight-html .highlight::before {
+    content: "html";
+}
 
 /* custom terms, placeholders, and hints */
 
@@ -569,6 +600,9 @@ body > div {
     -webkit-text-decoration: underline dotted;
     text-decoration: underline dotted;
     cursor: help;
+}
+.highlight-json .nxt_var {
+    color: #fada5e;
 }
 
 /* Tabs */
@@ -597,7 +631,7 @@ body > div {
     cursor: pointer;
     display: block;
     overflow: hidden;
-    padding: .3em 1em;
+    padding: .3em .6em;
     text-decoration: none;
     white-space: nowrap;
 }
@@ -657,11 +691,11 @@ body > div {
 }
 /* GitHub link */
 .nxt_github_link {
-    position: fixed;
+    position: relative;
     font-size: .9em;
     right: 0;
     bottom: 0;
-    padding: 1.1em;
+    padding: 0;
     display: block;
     text-align: right;
 }
@@ -669,27 +703,35 @@ body > div {
     display: inline-block;
     height: 1em;
     margin: 0 .3em -.2em 0;
-    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>');
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>');
 }
-@media (max-width: 94em) {
-    #content {
-        position: relative;
-    }
+/* News and RSS entries */
+#content .nxt_news_item {
+    border-bottom: .1em solid #ddd;
+    padding: .5em 0;
+}
+#content .nxt_news_item:last-child {
+    border: none;
+}
+#content .nxt_news_item h2 {
+    margin: .5em 0 .1em 0;
+    font-size: 1.5em;
+}
+#content p.nxt_news_authordate {
+    margin: 0;
+    color: #999;
+    font-size: .9em;
+    font-weight: bold;
+}
+@media (min-width: 45em) {
     .nxt_github_link {
-        position: absolute;
-        bottom: auto;
-        padding-right: 0;
     }
 }
-@media (max-width: 40em), (min-width: 53em) and (max-width: 60em) {
-    .nxt_github_link {
-        position: relative;
-        padding: 0;
-    }
-}
-@media (max-width: 53em) {
+@media (max-width: 45em) {
     #side {
         position: relative;
+        float: inherit;
+        height: 100%;
     }
     #side h1 {
         margin-left: 7.5em;
@@ -698,6 +740,9 @@ body > div {
     #side h1 div {
         visibility: hidden;
         opacity: 0;
+        transition: none;
+    }
+    #side .toctree-l2 ul {
         transition: none;
     }
     #content {
@@ -713,5 +758,29 @@ body > div {
     .nxt_tabs > input.nojs + label:target,
     .nxt_tabs > input.js:checked + label {
         order: 1;
+    }
+    .nxt_github_link {
+        display: none;
+    }
+}
+@media (max-width: 73em) {
+    #content .video div {
+        flex-basis: 90%;
+        padding-top: 50.61%;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1e293b;
+        color: #cbd5e1;
+    }
+    a {
+        color: #cbd5e1;
+    }
+    .nxt_github_link div {
+        filter: invert(1);
+    }
+    #side .toctree-l2 ul:after {
+        background: linear-gradient(to top, #1e293b, rgba(255,255,255,0));
     }
 }

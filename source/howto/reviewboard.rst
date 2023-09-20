@@ -79,7 +79,7 @@ To run the `Review Board
                   },
 
                   "action": {
-                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`htdocs/"
+                      ":nxt_hint:`share <Serves matching static files>`": ":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`htdocs$uri"
                   }
               },
               {

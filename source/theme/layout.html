@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- TrustArc handles cookie consent and is a prerequisite for loading Tealium -->
+<script async="async" src="https://consent.trustarc.com/notice?domain=f5.com&c=teconsent&js=nj&noticeType=bb&text=true&gtm=1" crossorigin=""></script>
+<!-- Tealium profile utag.sync.js script -->
+<script src="https://mktg.tags.f5.com/nginx-unit/prod/utag.sync.js"></script>
+<!-- End TrustArc/Tealium -->
+
 <meta charset="utf-8" />
 {%- if pagename == "index" %}
 <meta name="go-import" content="unit.nginx.org hg https://hg.nginx.org/unit" />
@@ -33,15 +39,8 @@
 </style>
 <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) + '?' + md5('theme/static/' + style) }}" />
 <link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
+<link rel="alternate" type="application/rss+xml" title="Subscribe to NGINX Unit News" href="{{ nxt_baseurl + nxt_rss_file }}" />
 <script async src="{{ pathto('_static/script.js', 1) + '?' + md5('theme/static/script.js') }}"></script>
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KFQJNTS');</script>
-<!-- End Google Tag Manager -->
 
 {%- if next %}
 <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
@@ -53,13 +52,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{{ title|striptags|e }} — {{project}}</title>
 </head>
 <body>
+<!-- Tealium Universal Tag -->
+<script type="text/javascript">
+  (function(a,b,c,d) {
+      a='//mktg.tags.f5.com/nginx-unit/prod/utag.js';
+      b=document;c='script';d=b.createElement(c);d.src=a;
+      d.type='text/java'+c;d.async=true;
+      a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)})();
+</script>
+<!-- End Tealium Universal Tag -->
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFQJNTS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<div>
+<!-- Global banner goes here
+    <div id="rennab"><a href="BANNER LINK">BANNER TEXT</a></div>
+-->
+<div id="main">
 <div id="side">
     <h1>
         {%- if pagename != "index" %}
@@ -81,7 +87,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p id="footer">
         © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
     </p>
+    <p id="tecookie">
+        <!-- TrustArc cookie preferences link -->
+        <span id="teconsent"></span>
+        <!-- End TrustArc cookie preferences link -->
+    </p>
 </div>
 </div>
+<!-- TrustArc cookie consent -->
+<div id="consent_blackbar" style="position:fixed;top:0px;width:100%">
+<!-- End TrustArc cookie consent -->
 </body>
 </html>

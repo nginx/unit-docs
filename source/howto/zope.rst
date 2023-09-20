@@ -9,7 +9,8 @@
 Zope
 ####
 
-To run apps built with the `Zope <https://zope.org>`_ web framework using Unit:
+To run apps built with the `Zope <https://www.zope.dev/>`_ web framework using
+Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
@@ -96,6 +97,7 @@ To run apps built with the `Zope <https://zope.org>`_ web framework using Unit:
                     }
                 }
             }
+
 
       .. tab:: PIP
 

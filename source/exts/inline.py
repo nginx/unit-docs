@@ -1,5 +1,5 @@
 """
-Copyright (C) 2019-2021, NGINX, Inc.
+Copyright (C) 2019-2023, NGINX, Inc.
 
 Sphinx extension to support replacements in inline literals.
 
@@ -22,18 +22,21 @@ from sphinx.application import Sphinx
 from sphinx.roles import EmphasizedLiteral, specific_docroles
 from typing import List
 
+
 class NxtEmphasizedLiteral(EmphasizedLiteral):
     def parse(self, text: str) -> List[Node]:
 
         doc = self.inliner.document
-        replacements = [(i.attributes['names'][0], i.children[0])
-                        for i in doc.substitution_defs.values()]
+        replacements = [
+            (i.attributes["names"][0], i.children[0])
+            for i in doc.substitution_defs.values()
+        ]
 
         # some items due for replacement are stored as config values
-        replacements.append(('version', Text(doc.settings.env.config.version)))
+        replacements.append(("version", Text(doc.settings.env.config.version)))
 
         for rep in replacements:
-            text = text.replace('|' + rep[0] + '|', rep[1])
+            text = text.replace("|" + rep[0] + "|", rep[1])
 
         return super().parse(text)
 
