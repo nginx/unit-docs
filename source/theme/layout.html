@@ -37,7 +37,7 @@
          url('{{ pathto('_static/OpenSans.woff', 1) + '?' + md5('theme/static/OpenSans.woff') }}') format('woff');
 }
 </style>
-<link rel="stylesheet" href="{{ pathto('_static/' + style, 1) + '?' + md5('theme/static/' + style) }}" />
+<link rel="stylesheet" href="{{ pathto('_static/' + styles[-1], 1) + '?' + md5('theme/static/' + styles[-1]) }}" />
 <link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
 <link rel="alternate" type="application/rss+xml" title="Subscribe to NGINX Unit News" href="{{ nxt_baseurl + nxt_rss_file }}" />
 <script async src="{{ pathto('_static/script.js', 1) + '?' + md5('theme/static/script.js') }}"></script>
