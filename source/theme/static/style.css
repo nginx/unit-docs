@@ -249,7 +249,8 @@ iframe {
 }
 #content .literal,
 #content span.option {
-    padding: .2em .4em;
+    padding: .125rem .25rem;
+    border-radius: 0.25em;
     background: #eee;
     color: #666;
     white-space: nowrap;
@@ -787,8 +788,6 @@ iframe {
     #content span.option {
         background: #343434;
         color: rgb(255, 255, 255);
-        padding: .125rem .25rem;
-        border-radius: 0.25em;
     }
     .nxt_github_link div {
         filter: invert(1);
