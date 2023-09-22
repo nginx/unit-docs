@@ -13,6 +13,9 @@ pre {
 a {
     color: #333;
 }
+#content a {
+    color: revert;
+}
 a:hover {
     text-decoration: none;
 }
@@ -246,7 +249,8 @@ iframe {
 }
 #content .literal,
 #content span.option {
-    padding: .2em .4em;
+    padding: .125rem .25rem;
+    border-radius: 0.25em;
     background: #eee;
     color: #666;
     white-space: nowrap;
@@ -776,6 +780,14 @@ iframe {
     }
     a {
         color: #cbd5e1;
+    }
+    #content a {
+        color: #8cb4ff;
+    }
+    #content .literal,
+    #content span.option {
+        background: #343434;
+        color: #FFFFFF;
     }
     .nxt_github_link div {
         filter: invert(1);
