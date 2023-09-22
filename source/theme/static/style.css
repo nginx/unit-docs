@@ -787,7 +787,7 @@ iframe {
     #content .literal,
     #content span.option {
         background: #343434;
-        color: rgb(255, 255, 255);
+        color: #FFFFFF;
     }
     .nxt_github_link div {
         filter: invert(1);
