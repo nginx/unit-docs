@@ -11,8 +11,6 @@ Community
 We hold semi-regular meetings on Zoom
 to discuss all things pertaining to Unit
 with our tightly knit and vibrant community.
-Our next call is scheduled for Sep 27, 2023;
-the details will follow soon.
 
 Recorded sessions:
 
