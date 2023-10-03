@@ -1993,11 +1993,11 @@ Community Repositories
 
            # portsnap fetch update
 
-        With :program:`svn`:
+        With :program:`git`:
 
         .. code-block:: console
 
-           # svn update /usr/ports
+           # cd /usr/ports && git pull
 
         Next, browse to the port path
         to build and install the core Unit port:
@@ -2023,9 +2023,11 @@ Community Repositories
         <https://www.freshports.org/www/unit-php/>`__,
         `unit-python
         <https://www.freshports.org/www/unit-python/>`__,
-        or
         `unit-ruby
-        <https://www.freshports.org/www/unit-ruby/>`__.
+        <https://www.freshports.org/www/unit-ruby/>`__,
+        or
+        `unit-wasm
+        <https://www.freshports.org/www/unit-wasm/>`__.
         After that, restart Unit:
 
         .. code-block:: console
