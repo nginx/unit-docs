@@ -1975,10 +1975,11 @@ Community Repositories
            # pkg install -y unit
            # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module>`
            # pkg install -y unit-java8  \
-                            unit-perl5.32  \
+                            unit-perl5.34  \
                             unit-php80 unit-php81 unit-php82 unit-php83  \
                             unit-python39  \
-                            unit-ruby3.1
+                            unit-ruby3.1 \
+                            unit-wasm
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
         To install Unit from
