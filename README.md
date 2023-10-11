@@ -12,7 +12,7 @@ with the [Sphinx](https://www.sphinx-doc.org/en/master/) generator.
 To run a local version of the website:
 
 ```shell
-git clone https://github.com/nginx/unit-docs
+git clone https://github.com/nginx/unit-docs && cd unit-docs
 pip install -r requirements.txt
 make serve
 ```
