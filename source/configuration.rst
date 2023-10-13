@@ -4490,6 +4490,33 @@ via the :samp:`options` object:
         `PHP configuration directives
         <https://www.php.net/manual/en/ini.list.php>`__.
 
+To load multiple :file:`.ini` files,
+use :samp:`environment` with :envvar:`PHP_INI_SCAN_DIR` to
+`scan a custom directory
+<https://www.php.net/manual/en/configuration.file.php>`__:
+
+.. code-block:: json
+
+  {
+      "applications": {
+          "hello-world": {
+              "type": "php",
+              "root": "/www/public/",
+              "script": "index.php",
+              "environment": {
+                  "PHP_INI_SCAN_DIR": ":nxt_ph:`: <Path separator>`/tmp/php.inis/"
+              }
+          }
+      }
+  }
+
+Mind that the colon that prefixes the value here is a path separator;
+it causes PHP to scan the directory preconfigured with the
+:option:`!--with-config-file-scan-dir` option,
+which is usually :file:`/etc/php.d/`,
+and then the directory you set here, which is :file:`/tmp/php.inis/`.
+To skip the preconfigured directory, drop the :samp:`:` prefix.
+
 .. note::
 
    Values in :samp:`options` must be strings
@@ -4501,6 +4528,7 @@ via the :samp:`options` object:
    see the
    `PHP docs
    <https://www.php.net/manual/en/configuration.changes.modes.php>`__.
+
 
 .. note::
 
