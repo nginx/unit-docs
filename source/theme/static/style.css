@@ -13,9 +13,6 @@ pre {
 a {
     color: #333;
 }
-#content a {
-    color: revert;
-}
 a:hover {
     text-decoration: none;
 }
@@ -779,9 +776,6 @@ iframe {
         color: #cbd5e1;
     }
     a {
-        color: #cbd5e1;
-    }
-    #content a {
         color: #8cb4ff;
     }
     #content .literal,
@@ -794,5 +788,13 @@ iframe {
     }
     #side .toctree-l2 ul:after {
         background: linear-gradient(to top, #1e293b, rgba(255,255,255,0));
+    }
+    .nxt_tabs > input.nojs + label:target a,
+    .nxt_tabs > input.js:checked + label a {
+        background: #00974d;
+        border-color: #00974d;
+        color: #1e293b;
+        cursor: default;
+        text-shadow: 1px 0 #1e293b;
     }
 }
