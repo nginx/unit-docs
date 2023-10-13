@@ -1614,6 +1614,15 @@ Runtime details:
    * - Non-privileged :ref:`user and group <security-apps>`
      - :samp:`nobody`
 
+.. note::
+
+   To run Unit as :samp:`root` on macOS:
+
+   .. code-block:: console
+
+      $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+      $ sudo --preserve-env=OBJC_DISABLE_INITIALIZE_FORK_SAFETY :nxt_ph:`/path/to/unitd <Unit's executable pathname>` ...
+
 
 .. _installation-nodejs-package:
 
