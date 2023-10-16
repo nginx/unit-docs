@@ -2276,6 +2276,8 @@ Community Repositories
            # pkg_add unit-perl
            # pkg_add unit-php74
            # pkg_add unit-php80
+           # pkg_add unit-php81
+           # pkg_add unit-php82
            # pkg_add unit-python
            # pkg_add unit-ruby
            # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
