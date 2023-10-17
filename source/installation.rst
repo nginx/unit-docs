@@ -542,7 +542,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -582,7 +582,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -628,7 +628,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-python310 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -674,7 +674,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -720,7 +720,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python38 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -767,7 +767,7 @@ Fedora
          .. code-block:: console
 
             # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc11 unit-jsc8 unit-perl  \
+            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
