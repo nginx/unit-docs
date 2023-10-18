@@ -5,6 +5,15 @@ News of 2023
 News archive for the year 2023.
 
 .. nxt_news_entry::
+   :author: Unit Team
+   :description: Version 1.31.1 extends WebAssembly capabilities
+                 and brings about some maintenance updates.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.31.1 Released
+   :url: news/2023/unit-1.31.1-released
+   :date: 2023-10-19
+
+.. nxt_news_entry::
    :author: Liam Crilly
    :description: Version 1.31.0 introduces a Technology Preview for Server-Side
                  WebAssembly on NGINX Unit. This blog post explains more about
