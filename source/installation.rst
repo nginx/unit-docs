@@ -2397,7 +2397,7 @@ come in several language-specific flavors:
 
    * - :samp:`|version|-minimal`
      - No language modules;
-       based on the :samp:`debian:buster-slim`
+       based on the :samp:`debian:bullseye-slim`
        `image <https://hub.docker.com/_/debian>`__.
 
    * - :samp:`|version|-go1.21`
@@ -2434,11 +2434,6 @@ come in several language-specific flavors:
      - Single-language;
        based on the :samp:`ruby:3.2`
        `image <https://hub.docker.com/_/ruby>`__.
-
-   * - :samp:`|version|-wasm`
-     - Single-language;
-       based on the :samp:`debian:buster-slim`
-       `image <https://hub.docker.com/_/debian>`__.
 
    * - :samp:`|version|-wasm`
      - Single-language;
