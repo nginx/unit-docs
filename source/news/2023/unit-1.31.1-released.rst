@@ -42,31 +42,31 @@ Full Changelog
 
 .. code-block:: none
 
-Changes with Unit 1.31.1                                         19 Oct 2023
+   Changes with Unit 1.31.1                                         19 Oct 2023
 
-    *) Feature: allow to set the HTTP response status in Wasm module.
+       *) Feature: allow to set the HTTP response status in Wasm module.
 
-    *) Feature: allow uploads larger than 4GiB in Wasm module.
+       *) Feature: allow uploads larger than 4GiB in Wasm module.
 
-    *) Bugfix: application process could crash while rewriting URLs with
-       query strings.
+       *) Bugfix: application process could crash while rewriting URLs with
+          query strings.
 
-    *) Bugfix: requests larger than about 64MiB could cause error in Wasm
-       module.
+       *) Bugfix: requests larger than about 64MiB could cause error in Wasm
+          module.
 
-    *) Bugfix: when using many headers in Java module some of them could be
-       corrupted due to memory realocation issue.
+       *) Bugfix: when using many headers in Java module some of them could be
+          corrupted due to memory realocation issue.
 
-    *) Bugfix: ServerRequest.destroy() implemented in Node.js module to make
-       it compatible with some frameworks that might use it.
+       *) Bugfix: ServerRequest.destroy() implemented in Node.js module to make
+          it compatible with some frameworks that might use it.
 
-    *) Bugfix: chunk argument of ServerResponse.write() can now be a
-       Uint8Array to improve compatibility with Node.js 15.0.0 and above.
+       *) Bugfix: chunk argument of ServerResponse.write() can now be a
+          Uint8Array to improve compatibility with Node.js 15.0.0 and above.
 
-    *) Bugfix: Node.JS unit-http NPM module now has appropriate default
-       paths for macOS/arm64 systems.
+       *) Bugfix: Node.JS unit-http NPM module now has appropriate default
+          paths for macOS/arm64 systems.
 
-    *) Bugfix: build on musl libc with clang.
+       *) Bugfix: build on musl libc with clang.
 
 For a full list of changes and bugfixes,
 please see the `changelog <../../../CHANGES.txt>`__.
