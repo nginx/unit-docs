@@ -2156,6 +2156,13 @@ Community Repositories
       or
       `unit-ruby
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
+
+      Note that `unit-php` packages require the PHP package to be built with the
+      `php-embed` option.  To enable the option for `lang/php82`:
+
+      .. code-block:: console
+      # echo "PKG_OPTIONS.php82=php-embed" >> /etc/mk.conf
+
       After that, restart Unit:
 
       .. code-block:: console
