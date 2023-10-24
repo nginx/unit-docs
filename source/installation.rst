@@ -1984,10 +1984,10 @@ Community Repositories
            # pkg install -y unit
            # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module>`
            # pkg install -y unit-java8  \
-                            unit-perl5.34  \
+                            unit-perl5.36  \
                             unit-php80 unit-php81 unit-php82 unit-php83  \
                             unit-python39  \
-                            unit-ruby3.1 \
+                            unit-ruby3.1  \
                             unit-wasm
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
@@ -2300,7 +2300,7 @@ Community Repositories
            $ make
            # make install
 
-        This also installs the language modules for Perl, Python, and Ruby;
+        This also installs the language modules for Perl, PHP, Python, and Ruby;
         other modules can be built and installed from
         :ref:`source <source>`.
         After that, restart Unit:
