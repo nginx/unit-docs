@@ -20,8 +20,8 @@ Let's configure the following basic app, saved as :file:`/www/app.go`:
    package main
 
    import (
-       "io";
-       "net/http";
+       "io"
+       "net/http"
        "unit.nginx.org/go"
    )
 
