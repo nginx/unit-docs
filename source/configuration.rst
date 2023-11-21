@@ -2591,7 +2591,7 @@ are allowed by a
 If no MIME types match the request, a 403 "Forbidden" response is
 returned. You can pair that behaviour with a 
 :ref:`fallback <configuration-fallback>` option that will be called
-when the a 40x response would be returned.
+when a 40x response would be returned.
 
 .. code-block:: json
 
@@ -2606,8 +2606,8 @@ when the a 40x response would be returned.
         }
     }
 
-Here, all requests to images, fonts, and plain text files will have 
-a cache control header added to them. Any other requests will still
+Here, all requests to images, fonts, and any text based files will have
+a cache control header added to the response. Any other requests will still
 serve the files, but this time without the header. This is useful
 for serving common web page resources that do not change with cache
 while letting other files to bypass cache.
