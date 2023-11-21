@@ -2588,6 +2588,25 @@ Additionally, the :file:`.3gpp` and :file:`.3gpp2` file types
 are allowed by a
 :ref:`regex pattern <configuration-routes-matching-patterns>`.
 
+If none of the share rules for a given MIME type of a request match,
+the response is going to have a status of 403 Forbidden. You can pair
+that behaviour with a :ref:`fallback <configuration-fallback>` option
+that will be called if the :samp:`share` rules would return a 40x.
+
+.. code-block:: json
+
+    {
+        "share": "/www/data",
+        "types": [ "!application/x-httpd-php" ],
+
+        "fallback": {
+            "pass": "applications/php"
+        }
+    }
+
+Here, all requests to existing files other than :samp:`".php"` will be
+served as static content while the rest will be passed to a PHP application.
+
 If the MIME type of a requested file isn't recognized,
 it's considered empty
 (:samp:`""`).
