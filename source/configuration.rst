@@ -2588,27 +2588,29 @@ Additionally, the :file:`.3gpp` and :file:`.3gpp2` file types
 are allowed by a
 :ref:`regex pattern <configuration-routes-matching-patterns>`.
 
-If none MIME types match the request, a 403 "Forbidden" response is
+If no MIME types match the request, a 403 "Forbidden" response is
 returned. You can pair that behaviour with a 
 :ref:`fallback <configuration-fallback>` option that will be called
-if the :samp:`share` rules would return a 40x.
+when the a 40x response would be returned.
 
 .. code-block:: json
 
     {
-        "share": "/www/data$uri",
-        "types": ["application/pdf", "image/*", "font/*", "text/plain"],
+        "share": "/www/data/static$uri",
+        "types": ["image/*", "font/*", "text/*"],
         "response_headers": {
             "Cache-Control": "max-age=1209600"
         },
         "fallback": {
-            "share": "/www/data$uri"
+            "share": "/www/data/static$uri",
         }
     }
 
-Here, all requests to :samp:`.pdf` files, all images, all fonts, and all
-plain text files will have a cache control header added to them. Any other
-requests will still serve the file, but this time without the header.
+Here, all requests to images, fonts, and plain text files will have 
+a cache control header added to them. Any other requests will still
+serve the files, but this time without the header. This is useful
+for serving common web page resources that do not change with cache
+while letting other files to bypass cache.
 
 If the MIME type of a requested file isn't recognized,
 it's considered empty
