@@ -2606,11 +2606,11 @@ when a 40x response would be returned.
         }
     }
 
-Here, all requests to images, fonts, and any text based files will have
+Here, all requests to images, fonts, and any text-based files will have
 a cache control header added to the response. Any other requests will still
 serve the files, but this time without the header. This is useful
 for serving common web page resources that do not change; web browsers
-and proxies are informed this content should be cached.
+and proxies are informed that this content should be cached.
 
 If the MIME type of a requested file isn't recognized,
 it's considered empty
