@@ -1,0 +1,3 @@
+build/
+deploy/
+source/exts/__pycache__/
