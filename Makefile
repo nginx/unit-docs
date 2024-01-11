@@ -5,9 +5,7 @@ SITEMAP		?= python3 sitemaps.py
 URL		?= https://unit.nginx.org
 GOOGLE		?= https://www.google.com/webmasters/tools/ping?sitemap=
 BING		?= http://www.bing.com/ping?sitemap=
-
-# https://github.com/tdewolff/minify/tree/master/cmd/minify
-MINIFY		?= minify
+UNIT_SECURITY	?= https://github.com/nginx/unit/raw/master/SECURITY.txt
 
 BUILDDIR	?= build
 DEPLOYDIR	?= deploy
@@ -20,16 +18,7 @@ EXCLUDE = \
 	--exclude='searchindex.js' \
 	--exclude='/search'
 
-COMPRESS = -size +1000c \
-	\( -name '*.html' \
-	-o -name '*.css' \
-	-o -name '*.js' \
-	-o -name '*.svg' \
-	-o -name '*.txt' \
-	-o -name '*.xml' \)
-
-
-.PHONY: site serve check clean deploy do_gzip
+.PHONY: site serve check clean deploy
 
 site: $(BUILDDIR)
 	@$(SPHINX) -E -b nxt_html source "$(BUILDDIR)"
@@ -47,10 +36,6 @@ check:
 clean:
 	rm -rf $(BUILDDIR)
 
-ping:
-	curl "$(GOOGLE)$(URL)/sitemap.xml"
-	curl "$(BING)$(URL)/sitemap.xml"
-
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
 	curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
@@ -58,28 +43,12 @@ deploy: site
 	gpg --dry-run --quiet --import --import-options import-show \
 		"$(BUILDDIR)/keys/nginx-keyring.gpg"
 	rsync -rv $(EXCLUDE) "$(BUILDDIR)/" "$(TMP)"
-	$(MINIFY) -vr "$(TMP)" -o "$(TMP)"
-	$(MINIFY) -v --type html "$(TMP)/go" -o "$(TMP)/go"
 	rsync -rcv --delete --exclude='*.gz' --exclude='tmp.*' \
 		  --exclude='/sitemap.xml' "$(TMP)/" "$(DEPLOYDIR)"
 	$(SITEMAP) "$(URL)" index.html "$(DEPLOYDIR)" -e sitemapexclude.txt \
 		> "$(TMP)/sitemap.xml"
-	$(MINIFY) -v "$(TMP)/sitemap.xml" -o "$(TMP)/sitemap.xml"
 	rsync -rcv "$(TMP)/sitemap.xml" "$(DEPLOYDIR)"
 	-rm -rf "$(TMP)"
-	rsync -rcv security.txt "$(DEPLOYDIR)/.well-known/"
-	$(MAKE) do_gzip
+	mkdir $(DEPLOYDIR)/.well-known
+	curl -L $(UNIT_SECURITY) -o "$(DEPLOYDIR)/.well-known/security.txt" 2>/dev/null
 	chmod -R g=u "$(DEPLOYDIR)"
-
-do_gzip: $(addsuffix .gz, $(shell find "$(DEPLOYDIR)" $(COMPRESS) 2>/dev/null))
-
-	find "$(DEPLOYDIR)" -type f ! -name '*.gz' \
-		-exec test \! -e {}.gz \; -print
-
-	find "$(DEPLOYDIR)" -type f -name '*.gz' | \
-		while read f ; do test -e "$${f%.gz}" || rm -fv "$$f" ; done
-
-$(DEPLOYDIR)/%.gz: $(DEPLOYDIR)/%
-	rm -f $<.gz
-	zopfli -c $< > $<.gz
-	touch -r $< $<.gz
