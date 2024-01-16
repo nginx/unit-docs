@@ -2193,7 +2193,7 @@ before the action is taken:
        "action": {
            "share": "/www/static/$uri",
            "response_headers": {
-               "Cache-Control": "max-age=60, s-maxage=120"
+               "Cache-Control": "max-age=60, s-maxage=120",
                "CDN-Cache-Control": "max-age=600"
            }
        }
