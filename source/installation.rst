@@ -2462,7 +2462,7 @@ come in several language-specific flavors:
 
    .. code-block:: console
 
-      $ make build-<language name><language version> VERSION_<language name>=<language version>
+      $ make build-<language name><language version> VERSIONS_<language name>=<language version>
 
    The :program:`make` utility parses the command line
    to extract the language name and version;
@@ -2496,7 +2496,7 @@ come in several language-specific flavors:
       $ cd unit
       $ git checkout |version|  # Optional; use to choose a specific Unit version
       $ cd pkg/docker/
-      $ make build-:nxt_ph:`python3.10 <Language name and version>` VERSION_:nxt_ph:`python <Language name>`=:nxt_ph:`3.10 <Language version>`
+      $ make build-:nxt_ph:`python3.10 <Language name and version>` VERSIONS_:nxt_ph:`python <Language name>`=:nxt_ph:`3.10 <Language version>`
 
    For details, see the
    `Makefile
