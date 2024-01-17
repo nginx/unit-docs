@@ -184,7 +184,7 @@ with Unit-supplied header field values:
            "entry": [
                {
                    "action": {
-                       "pass": "routes/`${http.route(headers)}`"
+                       "pass": "`routes/${http.route(headers)}`"
                    }
                }
            ],
