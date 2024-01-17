@@ -127,7 +127,7 @@ they're available for:
 The packages include core executables,
 developer files,
 and support for individual languages.
-We also maintain a Homebrew `tap <#homebrew>`__ for macOS users
+We also maintain a Homebrew :ref:`tap <installation-macos-homebrew>` for macOS users
 and a :ref:`module <installation-nodejs-package>` for Node.js
 at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
@@ -1571,48 +1571,52 @@ Ubuntu
            - :samp:`unit`
 
 
-.. _installation-homebrew:
+.. _installation-macos:
+.. _homebrew:
 
-========
-Homebrew
-========
+=====
+macOS
+=====
+.. tabs::
+   :prefix: macos
+   :toc:
 
-To install Unit on macOS,
-use the official Homebrew
-`tap <https://github.com/nginx/homebrew-unit>`_:
+   .. tab:: Homebrew
 
-.. code-block:: console
+      To install Unit on macOS,
+      use the official Homebrew
+      `tap <https://github.com/nginx/homebrew-unit>`_:
 
-   $ brew install nginx/unit/unit
+      .. code-block:: console
 
-This deploys the core Unit binary
-and the prerequisites for the
-:ref:`Node.js <installation-nodejs-package>`
-language module.
+         $ brew install nginx/unit/unit
 
-To install the Java, Perl, Python, and Ruby language modules
-from Homebrew:
+      This deploys the core Unit binary
+      and the prerequisites for the
+      :ref:`Node.js <installation-nodejs-package>`
+      language module.
 
-.. code-block:: console
+      To install the Java, Perl, Python, and Ruby language modules
+      from Homebrew:
 
-   $ brew install unit-java unit-perl unit-php unit-python unit-python3 unit-ruby
-   # pkill unitd  # Stop Unit
-   # unitd        # Start Unit to pick up any changes in language module setup
+      .. code-block:: console
 
-Runtime details:
+         $ brew install unit-java unit-perl unit-php unit-python unit-python3 unit-ruby
+         # pkill unitd  # Stop Unit
+         # unitd        # Start Unit to pick up any changes in language module setup
 
-.. list-table::
+      Runtime details:
 
-   * - Control :ref:`socket <sec-socket>`
-     - :file:`/usr/local/var/run/unit/control.sock` (Intel),
-       :file:`/opt/homebrew/var/run/unit/control.sock` (Apple Silicon)
+      .. list-table::
 
-   * - Log :ref:`file <troubleshooting-log>`
-     - :file:`/usr/local/var/log/unit/unit.log` (Intel),
-       :file:`/opt/homebrew/var/log/unit/unit.log` (Apple Silicon)
+         * - Control :ref:`socket <sec-socket>`
+           - :file:`/usr/local/var/run/unit/control.sock` (Intel), :file:`/opt/homebrew/var/run/unit/control.sock` (Apple Silicon)
 
-   * - Non-privileged :ref:`user and group <security-apps>`
-     - :samp:`nobody`
+         * - Log :ref:`file <troubleshooting-log>`
+           - :file:`/usr/local/var/log/unit/unit.log` (Intel), :file:`/opt/homebrew/var/log/unit/unit.log` (Apple Silicon)
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - :samp:`nobody`
 
 .. note::
 
@@ -1792,7 +1796,7 @@ Startup and Shutdown
          # systemctl disable unit
 
 
-   .. tab:: Homebrew
+   .. tab:: macOS (Homebrew)
 
       Start Unit as a daemon:
 
