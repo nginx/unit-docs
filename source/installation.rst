@@ -2124,8 +2124,8 @@ Community Repositories
          # pkg_add :nxt_hint:`libunit <Required to install the Node.js module>`
          # pkg_add unit-perl  \
                    unit-python2.7  \
-                   unit-python3.8 unit-python3.9 unit-python3.10 unit-python3.11  \
-                   unit-ruby30 unit-ruby31 unit-ruby32
+                   unit-python3.8 unit-python3.9 unit-python3.10 unit-python3.11 unit-python3.12  \
+                   unit-ruby31 unit-ruby32
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       To build Unit manually,
