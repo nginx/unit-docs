@@ -2693,8 +2693,7 @@ Source Code
 ***********
 
 You can get Unit's source code
-from our official GitHub repository,
-its Mercurial mirror,
+from our official GitHub repository
 or as a tarball.
 
 .. tabs::
@@ -2707,16 +2706,6 @@ or as a tarball.
          $ git clone https://github.com/nginx/unit            # Latest updates to the repository
          $ # -- or --
          $ git clone -b |version| https://github.com/nginx/unit  # Specific version tag; see https://github.com/nginx/unit/tags
-         $ cd unit
-
-
-   .. tab:: Mercurial
-
-      .. subs-code-block:: console
-
-         $ hg clone https://hg.nginx.org/unit             # Latest updates to the repository
-         $ # -- or --
-         $ hg clone https://hg.nginx.org/unit/ -u |version|  # Specific version tag; see https://hg.nginx.org/unit/tags
          $ cd unit
 
 

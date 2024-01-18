@@ -25,9 +25,7 @@ Contribution
 NGINX Unit is released under the
 `Apache 2.0 license <https://hg.nginx.org/unit/file/tip/LICENSE>`_;
 we maintain GitHub
-`repos <https://github.com/nginx>`_,
-with Mercurial
-`mirrors <https://hg.nginx.org>`_.
+`repos <https://github.com/nginx>`_.
 
 Please report any security-related issues
 concerning Unit to
@@ -49,14 +47,11 @@ or join our
 Source code:
 
 - GitHub repository: https://github.com/nginx/unit
-- Mercurial mirror: https://hg.nginx.org/unit
 
 Command-line tools:
 
 - GitHub repository: https://github.com/nginx/unit/tree/master/tools
-- Mercurial mirror: https://hg.nginx.org/unit/file/tip/tools
 
 Documentation:
 
 - GitHub repository: https://github.com/nginx/unit-docs
-- Mercurial mirror: https://hg.nginx.org/unit-docs
