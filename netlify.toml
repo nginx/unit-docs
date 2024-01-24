@@ -1,0 +1,15 @@
+# Used by Netlify for redirects. Lines with status code 200 are proxied and
+# rewritten by Netlify.
+
+# From the previous nginx.conf
+[[redirects]]
+  from = "/integration"
+  to = "/howto/integration"
+  status = 301
+
+# To keep old download links alive
+[[redirects]]
+  from = "/download/*"
+  to = "https://sources.nginx.org/unit/:splat"
+  status = 200
+  headers = {X-From = "Netlify"}
