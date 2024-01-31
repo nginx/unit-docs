@@ -127,13 +127,13 @@ Lists N latest news entries from the entire site, reverse sorted by date.
 import re
 import xml.dom.minidom
 
-from email.utils import formatdate
-from datetime import datetime
-from time import mktime
+from email.utils import format_datetime
+from datetime import datetime, timezone
 from hashlib import md5 as hashlib_md5
 from urllib.parse import urlparse
 from secrets import token_urlsafe
 from typing import Any, Dict, List, Tuple, Type, TypeVar
+from zoneinfo import ZoneInfo
 
 import pygments.lexers.data
 
@@ -435,7 +435,7 @@ class NxtTranslator(HTMLTranslator):
         HTMLTranslator.depart_container(self, node)
 
     def __write_news_entry(self, e: List[dict], prefix: str = "") -> None:
-        date = datetime.strptime(e["date"], "%Y-%m-%d").strftime("%B %-d, %Y")
+        date = datetime.fromisoformat(e["date"]).strftime("%B %-d, %Y")
         self.body.append(
             f"""
             <div class=nxt_news_item>
@@ -833,9 +833,33 @@ def nxt_write_rss(app: Sphinx, error: Exception) -> None:
     )
 
     for e in sorted_entries:
-        date = formatdate(
-            mktime(datetime.strptime(e["date"], "%Y-%m-%d").timetuple())
-        )
+        date = datetime.fromisoformat(e["date"])
+        # FIXME: Remove this after posting an article in 2024.
+        #
+        # Our previous code allowed the local system timezone to influence how
+        # timestamps were serialized into <pubDate> fields.
+        #
+        # We need to fix that, but we also need to continue generating the old
+        # values for old posts. Otherwise we'd confuse RSS feed readers.
+        #
+        # We can reliably reproduce the old values by:
+        #
+        #    1. Starting with a timezone-naive datetime
+        #    2. Marking it as being in the Europe/London timezone
+        #    3. Shifting it into UTC
+        #    4. Stripping the timezone info, so it is again timezone-naive
+        #
+        # The last step produces RFC 2822 timestamps with the "-0000" offset,
+        # instead of timezone-aware UTC "+0000" offset.
+        #
+        # We can remove this hack once we've published a few posts in 2024.
+        if date.year < 2024:
+            date = (
+                date.replace(tzinfo=ZoneInfo("Europe/London"))
+                .astimezone(timezone.utc)
+                .replace(tzinfo=None)
+            )
+        date = format_datetime(date)
         lines.append(
             f"""<item><title>{e['title']}</title>
             <author>{e['email']} ({e['author']})</author>
