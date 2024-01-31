@@ -133,7 +133,11 @@ from hashlib import md5 as hashlib_md5
 from urllib.parse import urlparse
 from secrets import token_urlsafe
 from typing import Any, Dict, List, Tuple, Type, TypeVar
-from zoneinfo import ZoneInfo
+
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    from backports.zoneinfo import ZoneInfo
 
 import pygments.lexers.data
 
