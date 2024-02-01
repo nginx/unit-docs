@@ -7,7 +7,14 @@
   to = "/howto/integration"
   status = 301
 
-# To keep old download links alive
+# The directory index is redirected to the new canonical location
+[[redirects]]
+  from = "/download"
+  to = "https://sources.nginx.org/unit/"
+  status = 301
+  headers = {X-From = "Netlify"}
+
+# To keep old download links alive, we proxy direct requests for specific files
 [[redirects]]
   from = "/download/*"
   to = "https://sources.nginx.org/unit/:splat"
