@@ -2714,7 +2714,7 @@ or as a tarball.
 
       .. subs-code-block:: console
 
-         $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
+         $ curl -O https://sources.nginx.org/unit/unit-|version|.tar.gz
          $ tar xzf unit-|version|.tar.gz
          $ cd unit-|version|
 

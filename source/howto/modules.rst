@@ -173,7 +173,7 @@ adjust the command samples as needed to fit your scenario.
 
          .. subs-code-block:: console
 
-            $ curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
+            $ curl -O https://sources.nginx.org/unit/unit-|version|.tar.gz
             $ tar xzf unit-|version|.tar.gz                                 # Puts Unit's sources in the unit-|version| subdirectory
             $ cd unit-|version|
             $ ./configure :nxt_ph:`FLAGS W/O --LD-OPT & --NJS <The ./configure flags, except for --ld-opt and --njs>`                     # Use the ./configure flags noted in the previous step
@@ -283,7 +283,7 @@ adjust the command samples as needed to fit your scenario.
             Maintainer: Jane Doe <j.doe@example.com>
 
             %prep
-            curl -O https://unit.nginx.org/download/unit-|version|.tar.gz
+            curl -O https://sources.nginx.org/unit/unit-|version|.tar.gz
             # Downloads Unit's sources
             tar --strip-components=1 -xzf unit-|version|.tar.gz
             # Extracts them locally for compilation steps in the %build section
