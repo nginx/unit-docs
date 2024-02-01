@@ -20,7 +20,7 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, prepare the app :ref:`configuration <configuration-php>` for Unit (use
-   real values for :samp:`share` and :samp:`root`):
+   real values for **share** and **root**):
 
    .. code-block:: json
 
@@ -94,13 +94,13 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
 
    .. note::
 
-      The difference between the :samp:`pass` targets is their usage of the
-      :samp:`script` :ref:`setting <configuration-php>`:
+      The difference between the **pass** targets is their usage of the
+      **script** :ref:`setting <configuration-php>`:
 
-      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
-        defaults to :samp:`index.php` if the URI omits it.
+      - The **direct** target runs the **.php** script from the URI or
+        defaults to **index.php** if the URI omits it.
 
-      - The :samp:`index` target specifies the :samp:`script` that Unit runs
+      - The **index** target specifies the **script** that Unit runs
         for *any* URIs the target receives.
 
 #. .. include:: ../include/howto_upload_config.rst
@@ -112,8 +112,8 @@ To run the `phpBB <https://www.phpbb.com>`_ bulletin board using Unit:
       :width: 100%
       :alt: phpBB on Unit
 
-#. Browse to :samp:`/install/app.php` to complete your installation.  Having
-   done that, delete the :file:`install/` subdirectory to mitigate security
+#. Browse to **/install/app.php** to complete your installation.  Having
+   done that, delete the **install/** subdirectory to mitigate security
    risks:
 
    .. code-block:: console

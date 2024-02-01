@@ -18,7 +18,7 @@ To run the `Datasette
 #. Running |app| on Unit requires a wrapper to expose the `application object
    <https://github.com/simonw/datasette/blob/4f7c0ebd85ccd8c1853d7aa0147628f7c1b749cc/datasette/app.py#L169>`_
    as the ASGI callable. Let's use the following basic version, saving it as
-   :file:`/path/to/app/asgi.py`:
+   **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -30,7 +30,7 @@ To run the `Datasette
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

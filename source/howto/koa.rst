@@ -8,15 +8,15 @@ Koa
 To run apps built with the `Koa <https://koajs.com>`_ web framework using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the
-   :samp:`unit-dev/unit-devel` package.  Next, :ref:`install
-   <installation-nodejs-package>` Unit's :samp:`unit-http` package:
+   **unit-dev/unit-devel** package.  Next, :ref:`install
+   <installation-nodejs-package>` Unit's **unit-http** package:
 
    .. code-block:: console
 
       # npm install -g --unsafe-perm unit-http
 
 #. Create your app directory, `install <https://koajs.com/#introduction>`_
-   |app|, and link :samp:`unit-http`:
+   |app|, and link **unit-http**:
 
    .. code-block:: console
 
@@ -27,7 +27,7 @@ To run apps built with the `Koa <https://koajs.com>`_ web framework using Unit:
 
 #. Let’s try a version of the `tutorial app
    <https://koajs.com/#application>`__, saving it as
-   :file:`/path/to/app/app.js`:
+   **/path/to/app/app.js**:
 
    .. code-block:: javascript
 

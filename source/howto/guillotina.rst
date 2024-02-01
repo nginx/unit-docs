@@ -17,7 +17,7 @@ To run apps built with the `Guillotina
 
 #. Let's try a version of the `tutorial app
    <https://guillotina.readthedocs.io/en/latest/#build-a-guillotina-app>`_,
-   saving it as :file:`/path/to/app/asgi.py`:
+   saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -66,7 +66,7 @@ To run apps built with the `Guillotina
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

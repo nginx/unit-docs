@@ -17,8 +17,8 @@ using Unit:
 
    .. note::
 
-      Here, :samp:`$VENV` isn't set because Unit picks up the virtual
-      environment from :samp:`home` in Step |_| 5.
+      Here, **$VENV** isn't set because Unit picks up the virtual
+      environment from **home** in Step |_| 5.
 
 #. Let's see how the apps from the Pyramid `tutorial
    <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial>`__
@@ -31,7 +31,7 @@ using Unit:
 
          We modify the `tutorial app
          <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/hello_world.html#steps>`_,
-         saving it as :file:`/path/to/app/wsgi.py`:
+         saving it as **/path/to/app/wsgi.py**:
 
          .. code-block:: python
 
@@ -48,7 +48,7 @@ using Unit:
             # serve(app, host='0.0.0.0', port=6543)
 
          Note that we've dropped the server code; also, mind that Unit imports
-         the module, so the :samp:`if __name__ == '__main__'` idiom would be
+         the module, so the **if __name__ == '__main__'** idiom would be
          irrelevant.
 
 
@@ -56,8 +56,8 @@ using Unit:
 
          To load the `configuration
          <https://docs.pylonsproject.org/projects/pyramid/en/latest/quick_tutorial/ini.html>`__,
-         we place a :file:`wsgi.py` file next to :file:`development.ini` in
-         :file:`/path/to/app/`:
+         we place a **wsgi.py** file next to **development.ini** in
+         **/path/to/app/**:
 
          .. code-block:: python
 
@@ -68,15 +68,15 @@ using Unit:
 
          This `sets up
          <https://docs.pylonsproject.org/projects/pyramid/en/latest/api/paster.html>`__
-         the WSGI application for Unit; if the :file:`.ini`'s pathname is
-         relative, provide the appropriate :samp:`working_directory` in Unit
+         the WSGI application for Unit; if the **.ini**'s pathname is
+         relative, provide the appropriate **working_directory** in Unit
          configuration.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration
-   for Unit (use real values for :samp:`type`, :samp:`home`, and
-   :samp:`path`):
+   for Unit (use real values for **type**, **home**, and
+   **path**):
 
    .. code-block:: json
 

@@ -28,15 +28,15 @@ versions 1.1 or 2.0 using Unit:
             $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
             $ composer create-project --prefer-dist yiisoft/yii2-app-basic :nxt_ph:`app <Arbitrary app name>`
 
-         This creates the app's directory tree at :file:`/path/to/app/`.
-         Its :file:`web/` subdirectory contains both the root
-         :file:`index.php` and the static files; if your app requires
-         additional :file:`.php` scripts, also store them here.
+         This creates the app's directory tree at **/path/to/app/**.
+         Its **web/** subdirectory contains both the root
+         **index.php** and the static files; if your app requires
+         additional **.php** scripts, also store them here.
 
       #. .. include:: ../include/howto_change_ownership.rst
 
       #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-         Unit (use real values for :samp:`share` and :samp:`root`):
+         Unit (use real values for **share** and **root**):
 
          .. code-block:: json
 
@@ -96,13 +96,13 @@ versions 1.1 or 2.0 using Unit:
 
          .. note::
 
-            The difference between the :samp:`pass` targets is their usage of
-            the :samp:`script` :ref:`setting <configuration-php>`:
+            The difference between the **pass** targets is their usage of
+            the **script** :ref:`setting <configuration-php>`:
 
-            - The :samp:`direct` target runs the :samp:`.php` script from the
-              URI or :samp:`index.php` if the URI omits it.
+            - The **direct** target runs the **.php** script from the
+              URI or **index.php** if the URI omits it.
 
-            - The :samp:`index` target specifies the :samp:`script` that Unit
+            - The **index** target specifies the **script** that Unit
               runs for *any* URIs the target receives.
 
       #. .. include:: ../include/howto_upload_config.rst
@@ -132,10 +132,10 @@ versions 1.1 or 2.0 using Unit:
             $ git clone git@github.com:yiisoft/yii.git :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`
             $ :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`framework/yiic webapp :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
-         This creates the app's directory tree at :file:`/path/to/app/`.
+         This creates the app's directory tree at **/path/to/app/**.
 
       #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-         Unit (use real values for :samp:`share` and :samp:`root`):
+         Unit (use real values for **share** and **root**):
 
          .. code-block:: json
 
@@ -193,13 +193,13 @@ versions 1.1 or 2.0 using Unit:
 
          .. note::
 
-            The difference between the :samp:`pass` targets is their usage of
-            the :samp:`script` :ref:`setting <configuration-php>`:
+            The difference between the **pass** targets is their usage of
+            the **script** :ref:`setting <configuration-php>`:
 
-            - The :samp:`direct` target runs the :samp:`.php` script from the
-              URI or :samp:`index.php` if the URI omits it.
+            - The **direct** target runs the **.php** script from the
+              URI or **index.php** if the URI omits it.
 
-            - The :samp:`index` target specifies the :samp:`script` that Unit
+            - The **index** target specifies the **script** that Unit
               runs for *any* URIs the target receives.
 
       #. .. include:: ../include/howto_upload_config.rst

@@ -19,7 +19,7 @@ To run the `phpMyAdmin <https://www.phpmyadmin.net>`_ web tool using Unit:
 
    .. note::
 
-      Make sure to create the :file:`config.inc.php` file `manually
+      Make sure to create the **config.inc.php** file `manually
       <https://docs.phpmyadmin.net/en/latest/setup.html#manually-creating-the-file>`__
       or using the `setup script
       <https://docs.phpmyadmin.net/en/latest/setup.html#using-the-setup-script>`__.
@@ -27,7 +27,7 @@ To run the `phpMyAdmin <https://www.phpmyadmin.net>`_ web tool using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
-   (use real values for :samp:`share` and :samp:`root`):
+   (use real values for **share** and **root**):
 
    .. code-block:: json
 

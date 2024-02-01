@@ -31,8 +31,8 @@ web framework using Unit:
    .. warning::
 
       Create your virtual environment with a Python version that matches the
-      language module from Step |_| 1 up to the minor number (:samp:`X.Y` in
-      this example).  Also, the app :samp:`type` in Step |_| 5 must
+      language module from Step |_| 1 up to the minor number (**X.Y** in
+      this example).  Also, the app **type** in Step |_| 5 must
       :ref:`resolve <configuration-apps-common>` to a similarly matching
       version; Unit doesn't infer it from the environment.
 
@@ -69,7 +69,7 @@ web framework using Unit:
             app.add_route('/unit', hellounit)
 
          Note that we’ve dropped the server code; save the file as
-         :file:`/path/to/app/wsgi.py`.
+         **/path/to/app/wsgi.py**.
 
       .. tab:: ASGI
 
@@ -99,13 +99,13 @@ web framework using Unit:
             # hellounit will handle all requests to the '/unit' URL path
             app.add_route('/unit', hellounit)
 
-         Save the file as :file:`/path/to/app/asgi.py`.
+         Save the file as **/path/to/app/asgi.py**.
 
 4. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the configuration for Unit (use
-   real values for :samp:`type`, :samp:`home`, :samp:`module`,
-   :samp:`protocol`, and :samp:`path`):
+   real values for **type**, **home**, **module**,
+   **protocol**, and **path**):
 
    .. code-block:: json
 

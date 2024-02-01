@@ -22,7 +22,7 @@ platform using Unit:
 
    .. note::
 
-      Verify the resulting settings in :file:`/path/to/app/config/config.php`;
+      Verify the resulting settings in **/path/to/app/config/config.php**;
       in particular, check the `trusted domains
       <https://docs.nextcloud.com/server/latest/admin_manual/installation/installation_wizard.html#trusted-domains-label>`_
       to ensure the installation is accessible within your network:
@@ -38,7 +38,7 @@ platform using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-php>` the |app| configuration for
-   Unit (use real values for :samp:`share` and :samp:`root`).  The following is
+   Unit (use real values for **share** and **root**).  The following is
    based on NextCloud's own `guide
    <https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html>`_:
 
@@ -168,18 +168,18 @@ platform using Unit:
 
    .. note::
 
-      The difference between the :samp:`pass` targets is their usage of the
-      :samp:`script` :ref:`setting <configuration-php>`:
+      The difference between the **pass** targets is their usage of the
+      **script** :ref:`setting <configuration-php>`:
 
-      - The :samp:`direct` target runs the :samp:`.php` script from the URI or
-        defaults to :samp:`index.php` if the URI omits it.
+      - The **direct** target runs the **.php** script from the URI or
+        defaults to **index.php** if the URI omits it.
 
-      - Other targets specify the :samp:`script` that Unit runs for *any* URIs
+      - Other targets specify the **script** that Unit runs for *any* URIs
         the target receives.
 
 #. .. include:: ../include/howto_upload_config.rst
 
-#. Adjust Unit's :samp:`max_body_size` :ref:`option <configuration-stngs>` to
+#. Adjust Unit's **max_body_size** :ref:`option <configuration-stngs>` to
    avoid potential issues with large file uploads, for example:
 
    .. code-block:: console

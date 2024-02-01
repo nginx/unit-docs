@@ -21,7 +21,7 @@ Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-   Unit (use real values for :samp:`share` and :samp:`root`):
+   Unit (use real values for **share** and **root**):
 
    .. code-block:: json
 
@@ -74,13 +74,13 @@ Unit:
       }
 
    The first route step handles the admin section and all URLs that specify a
-   PHP script; the :samp:`direct` target doesn't set the :samp:`script` option
-   to be used by default, so Unit looks for the respective :file:`.php` file.
+   PHP script; the **direct** target doesn't set the **script** option
+   to be used by default, so Unit looks for the respective **.php** file.
 
-   The next step serves static files via a :samp:`share`.  Its :samp:`fallback`
+   The next step serves static files via a **share**.  Its **fallback**
    enables rewrite mechanics for `search-friendly URLs
    <https://docs.joomla.org/Enabling_Search_Engine_Friendly_(SEF)_URLs>`_.  All
-   requests go to the :samp:`index` target that runs the :file:`index.php`
+   requests go to the **index** target that runs the **index.php**
    script at Joomla's directory root.
 
 #. .. include:: ../include/howto_upload_config.rst

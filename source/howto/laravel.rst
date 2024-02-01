@@ -15,7 +15,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
 
 #. Create a |app| `project
    <https://laravel.com/docs/installation#installation-via-composer>`__.
-   For our purposes, the path is :file:`/path/to/app/`:
+   For our purposes, the path is **/path/to/app/**:
 
    .. code-block:: console
 
@@ -30,7 +30,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
       <https://laravel.com/docs/structure>`_.
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for
-   Unit (use real values for :samp:`share` and :samp:`root`):
+   Unit (use real values for **share** and **root**):
 
    .. code-block:: json
 

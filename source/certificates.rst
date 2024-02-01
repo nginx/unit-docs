@@ -7,16 +7,16 @@
 .. _configuration-ssl:
 
 ####################
-SSL/TLS Certificates
+SSL/TLS certificates
 ####################
 
-The :samp:`/certificates` section of the
+The **/certificates** section of the
 :ref:`control API <configuration-api>`
 handles TLS certificates that are used with Unit's
 :ref:`listeners <configuration-listeners>`.
 
 To set up SSL/TLS for a listener,
-upload a :file:`.pem` file with your certificate chain and private key to Unit
+upload a **.pem** file with your certificate chain and private key to Unit,
 and name the uploaded bundle in the listener's configuration;
 next, the listener can be accessed via SSL/TLS.
 
@@ -25,7 +25,7 @@ next, the listener can be accessed via SSL/TLS.
    For the details of certificate issuance and renewal in Unit,
    see an example in :doc:`howto/certbot`.
 
-First, create a :file:`.pem` file with your certificate chain and private key:
+First, create a **.pem** file with your certificate chain and private key:
 
 .. code-block:: console
 
@@ -39,7 +39,7 @@ order them leaf to root.
 
 Upload the resulting bundle file to Unit's certificate storage
 under a suitable name
-(in this case, :samp:`bundle`):
+(in this case, **bundle**):
 
 .. code-block:: console
 
@@ -52,19 +52,19 @@ under a suitable name
 
 .. warning::
 
-   Don't use :option:`!-d` for file upload with :program:`curl`;
-   this option damages :file:`.pem` files.
-   Use the :option:`!--data-binary` option
+   Don't use **-d** for file upload with :program:`curl`;
+   this option damages **.pem** files.
+   Use the **--data-binary** option
    when uploading file-based data
    to avoid data corruption.
 
 Internally, Unit stores the uploaded certificate bundles
 along with other configuration data
-in its :file:`state` subdirectory;
+in its **state** subdirectory;
 the
 :ref:`control API <configuration-api>`
 exposes some of their properties
-as :samp:`GET`-table JSON via :samp:`/certificates`:
+as **GET**-table JSON using **/certificates**:
 
 .. code-block:: json
 
@@ -191,7 +191,7 @@ the application is now accessible via SSL/TLS:
        * SSL connection using TLSv1.2 / AES256-GCM-SHA384
        ...
 
-Finally, you can :samp:`DELETE` a certificate bundle
+Finally, you can delete a certificate bundle
 that you don't need anymore
 from the storage:
 
@@ -207,5 +207,4 @@ from the storage:
 .. note::
 
    You can't delete certificate bundles still referenced in your
-   configuration, overwrite existing bundles using :samp:`PUT`, or (obviously)
-   delete non-existent ones.
+   configuration, overwrite existing bundles using **put**, or delete non-existent ones.

@@ -14,7 +14,7 @@ Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
-#. Install |app|.  Here, we do this at :samp:`/path/to/app/`; use a real path
+#. Install |app|.  Here, we do this at **/path/to/app/**; use a real path
    in your configuration.
 
    .. tabs::
@@ -35,7 +35,7 @@ Unit:
             $ buildout
 
          Next, add a new configuration file named
-         :file:`/path/to/app/wsgi.cfg`:
+         **/path/to/app/wsgi.cfg**:
 
          .. code-block:: cfg
 
@@ -58,8 +58,8 @@ Unit:
                 def application(*args, **kwargs):return wsgiapp(*args, **kwargs)
 
          It creates a new |app| instance.  The part's name must end with
-         :samp:`.py` for the resulting instance script to be recognized as a
-         Python module; the :samp:`initialization` `option
+         **.py** for the resulting instance script to be recognized as a
+         Python module; the **initialization** `option
          <https://pypi.org/project/plone.recipe.zope2instance/#common-options>`__
          defines a WSGI entry point.
 
@@ -78,7 +78,7 @@ Unit:
          .. include:: ../include/howto_change_ownership.rst
 
          Last, :ref:`prepare <configuration-python>` the |app| configuration
-         for Unit (use a real value for :samp:`path`):
+         for Unit (use a real value for **path**):
 
          .. code-block:: json
 
@@ -118,7 +118,7 @@ Unit:
 
             Create your virtual environment with a Python version that matches
             the language module from Step |_| 1 up to the minor number
-            (:samp:`3.Y` in this example).  Also, the app :samp:`type` in Unit
+            (**3.Y** in this example).  Also, the app **type** in Unit
             configuration must :ref:`resolve <configuration-apps-common>` to a
             similarly matching version; Unit doesn't infer it from the
             environment.
@@ -140,13 +140,13 @@ Unit:
             wsgiapp = make_wsgi_app({}, :nxt_hint:`str(Path(__file__).parent / 'etc/zope.conf' <Path to the instance's configuration file>`))
             def application(*args, **kwargs):return wsgiapp(*args, **kwargs)
 
-         Save the script as :file:`wsgi.py` in the instance home directory
-         (here, it's :file:`/path/to/app/instance/`).
+         Save the script as **wsgi.py** in the instance home directory
+         (here, it's **/path/to/app/instance/**).
 
          .. include:: ../include/howto_change_ownership.rst
 
          Last, :ref:`prepare <configuration-python>` the |app| configuration
-         for Unit (use real values for :samp:`path` and :samp:`home`):
+         for Unit (use real values for **path** and **home**):
 
          .. code-block:: json
 

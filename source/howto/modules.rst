@@ -155,7 +155,7 @@ adjust the command samples as needed to fit your scenario.
             $ cd $UNITTMP
 
          This creates a folder structure fit for :program:`dpkg-deb`; the
-         :file:`DEBIAN` folder will store the package definition.
+         **DEBIAN** folder will store the package definition.
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
          :ref:`flags <source-config-src>` for later use, omitting
@@ -182,9 +182,9 @@ adjust the command samples as needed to fit your scenario.
             $ mkdir -p $UNITTMP/unit-php7.3/:nxt_ph:`MODULESPATH <Path to Unit's language modules>`                  # Use the module path set by ./configure or by default
             $ mv build/php7.3.unit.so $UNITTMP/unit-php7.3/:nxt_ph:`MODULESPATH <Path to Unit's language modules>`   # Adds the module to the package
 
-      #. Create a :file:`$UNITTMP/unit-php7.3/DEBIAN/control` `file
+      #. Create a **$UNITTMP/unit-php7.3/DEBIAN/control** `file
          <https://www.debian.org/doc/debian-policy/ch-controlfields.html>`__,
-         listing :samp:`unit` with other dependencies:
+         listing **unit** with other dependencies:
 
          .. subs-code-block:: control
 
@@ -231,7 +231,7 @@ adjust the command samples as needed to fit your scenario.
             # yum install -y rpmdevtools
             $ rpmdev-setuptree
 
-      #. Create a :file:`.spec` `file
+      #. Create a **.spec** `file
          <https://rpm-packaging-guide.github.io/#what-is-a-spec-file>`__
          to store build commands for your custom package:
 
@@ -251,7 +251,7 @@ adjust the command samples as needed to fit your scenario.
                 unit version: |version|
                 configured as ./configure :nxt_ph:`FLAGS <Note the flags, omitting --ld-opt and --njs>`
 
-      #. Edit the :file:`unit-php7.3.spec` file, adding the commands that
+      #. Edit the **unit-php7.3.spec** file, adding the commands that
          download Unit's sources, :ref:`configure
          <source-modules>` and build your custom module, then
          put it where Unit will find it:

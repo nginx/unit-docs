@@ -26,9 +26,9 @@ Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-perl>` the |app| configuration for
-   Unit.  The default :file:`.htaccess` scheme roughly translates into the
-   following (use real values for :samp:`share`, :samp:`script`,
-   and :samp:`working_directory`):
+   Unit.  The default **.htaccess** scheme roughly translates into the
+   following (use real values for **share**, **script**,
+   and **working_directory**):
 
    .. code-block:: json
 

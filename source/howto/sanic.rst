@@ -17,7 +17,7 @@ using Unit:
 
 #. Let's try a version of a `tutorial app
    <ttps://sanic.dev/en/guide/basics/response.html#methods>`_,
-   saving it as :file:`/path/to/app/asgi.py`:
+   saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -33,7 +33,7 @@ using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

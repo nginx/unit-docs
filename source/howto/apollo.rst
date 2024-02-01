@@ -9,8 +9,8 @@ To run the `Apollo <https://www.apollographql.com>`_ GraphQL server
 using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the
-   :samp:`unit-dev/unit-devel` package.  Next, :ref:`install
-   <installation-nodejs-package>` Unit's :samp:`unit-http` package:
+   **unit-dev/unit-devel** package.  Next, :ref:`install
+   <installation-nodejs-package>` Unit's **unit-http** package:
 
    .. code-block:: console
 
@@ -18,7 +18,7 @@ using Unit:
 
 #. Create your app directory, `install
    <https://expressjs.com/en/starter/installing.html>`_ |app|, and link
-   :samp:`unit-http`:
+   **unit-http**:
 
    .. code-block:: console
 
@@ -29,7 +29,7 @@ using Unit:
 
 #. Create the `middleware
    <https://www.apollographql.com/docs/apollo-server/api/express-middleware/>`_
-   module; let's store it as :file:`/path/to/app/apollo.js`.
+   module; let's store it as **/path/to/app/apollo.js**.
    First, initialize the directory:
 
    .. code-block:: console
@@ -97,8 +97,8 @@ using Unit:
       // Modified server startup; port number is overridden by Unit config
       await new Promise((resolve) => httpServer.listen({ port: 80 }, resolve));
 
-   Make sure your :file:`package.json` resembles this
-   (mind :samp:`"type": "module"`):
+   Make sure your **package.json** resembles this
+   (mind **"type": "module"**):
 
    .. code-block:: json
 

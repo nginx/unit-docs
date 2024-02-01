@@ -21,8 +21,8 @@ control system using Unit:
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so it
    requires a `wrapper
    <https://www.mercurial-scm.org/repo/hg/file/default/contrib/hgweb.wsgi>`_
-   script to publish a |app| repo.  Here, it's :file:`/path/to/app/hgweb.py`
-   (note the extension); the :samp:`application` callable is the entry
+   script to publish a |app| repo.  Here, it's **/path/to/app/hgweb.py**
+   (note the extension); the **application** callable is the entry
    point:
 
     .. code-block:: python
@@ -39,7 +39,7 @@ control system using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, prepare the |app| :ref:`configuration
-   <configuration-python>` for Unit (use a real value for :samp:`path`):
+   <configuration-python>` for Unit (use a real value for **path**):
 
    .. code-block:: json
 

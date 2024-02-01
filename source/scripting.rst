@@ -17,30 +17,30 @@ with these
 :doc:`configuration <configuration>`
 options:
 
-- :samp:`pass` in
+- **pass** in
   :ref:`listeners <configuration-listeners>`
   and
   :ref:`actions <configuration-routes-action>`
   to choose between routes, applications, app targets, or upstreams.
 
-- :samp:`response_headers` values in
+- **response_headers** values in
   :ref:`actions <configuration-routes-action>`
   to manipulate response header fields.
 
-- :samp:`rewrite` in
+- **rewrite** in
   :ref:`actions <configuration-routes-action>`
   to enable :ref:`URI rewriting <configuration-rewrite>`.
 
-- :samp:`share` and :samp:`chroot` in
+- **share** and **chroot** in
   :ref:`actions <configuration-routes-action>`
   to control
   :ref:`static content serving <configuration-static>`.
 
-- :samp:`location` in :samp:`return`
+- **location** in **return**
   :ref:`actions <configuration-return>`
   to enable HTTP redirects.
 
-- :samp:`format` in the
+- **format** in the
   :ref:`access log <configuration-access-log>`
   to customize Unit's log output.
 
@@ -69,39 +69,39 @@ are exposed as :program:`njs` objects or scalars:
      - Type
      - Description
 
-   * - :samp:`args`
+   * - **args**
      - Object
      - Query string arguments;
-       :samp:`Color=Blue` is :samp:`args.Color`;
-       can be used with :samp:`Object.keys()`.
+       **Color=Blue** is **args.Color**;
+       can be used with **Object.keys()**.
 
-   * - :samp:`cookies`
+   * - **cookies**
      - Object
      - Request cookies;
-       an :samp:`authID` cookie is :samp:`cookies.authID`;
-       can be used with :samp:`Object.keys()`.
+       an **authID** cookie is **cookies.authID**;
+       can be used with **Object.keys()**.
 
-   * - :samp:`headers`
+   * - **headers**
      - Object
      - Request header fields;
-       :samp:`Accept` is :samp:`headers.Accept`,
-       :samp:`Content-Encoding` is :samp:`headers['Content-Encoding']`
+       **Accept** is **headers.Accept**,
+       **Content-Encoding** is **headers['Content-Encoding']**
        (hyphen requires an array property accessor);
-       can be used with :samp:`Object.keys()`.
+       can be used with **Object.keys()**.
 
-   * - :samp:`host`
+   * - **host**
      - Scalar
-     - :samp:`Host`
+     - **Host**
        `header field
        <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`__,
        converted to lower case and normalized
        by removing the port number and the trailing period (if any).
 
-   * - :samp:`remoteAddr`
+   * - **remoteAddr**
      - Scalar
      - Remote IP address of the request.
 
-   * - :samp:`uri`
+   * - **uri**
      - Scalar
      - `Request target
        <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__,
@@ -117,20 +117,20 @@ are exposed as :program:`njs` objects or scalars:
 
 Template lterals are wrapped in backticks.
 To use a literal backtick in a string,
-escape it: :samp:`\\\\\\\\``
+escape it: **\\\\`**
 (escaping backslashes
 is a
 `JSON requirement
 <https://www.json.org/json-en.html>`_).
 The :program:`njs` snippets
 should be enclosed in curly brackets:
-:samp:`$\\{...\\}`.
+**${...}**.
 
 Next, you can upload and use custom JavaScript modules
 with your configuration.
-Consider this :file:`http.js` script
+Consider this **http.js** script
 that distinguishes requests
-by their :samp:`Authorization` header field values:
+by their **Authorization** header field values:
 
 .. code-block:: javascript
 
@@ -153,7 +153,7 @@ by their :samp:`Authorization` header field values:
    export default http
 
 To upload it to Unit's JavaScript module storage
-as :samp:`http`:
+as **http**:
 
 .. code-block:: console
 
@@ -161,7 +161,7 @@ as :samp:`http`:
          http://localhost/js_modules/:nxt_ph:`http <Module name in Unit's configuration>`
 
 Unit doesn't enable the uploaded modules by default,
-so add the module's name to :samp:`settings/js_module`:
+so add the module's name to **settings/js_module**:
 
 .. code-block:: console
 
@@ -170,11 +170,11 @@ so add the module's name to :samp:`settings/js_module`:
 
 .. note::
 
-   Mind that the :samp:`js_module` option
+   Mind that the **js_module** option
    can be a string or an array,
    so choose the appropriate HTTP method.
 
-Now, the :samp:`http.route()` function can be used
+Now, the **http.route()** function can be used
 with Unit-supplied header field values:
 
 .. code-block:: json
@@ -223,7 +223,7 @@ Examples
 
 This example adds simple routing logic
 that extracts the agent name
-from the :samp:`User-Agent` header field
+from the **User-Agent** header field
 to reject requests
 issued by :program:`curl`:
 

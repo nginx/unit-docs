@@ -15,7 +15,7 @@ framework using Unit:
    <https://codeigniter.com/user_guide/tutorial/index.html>`_ your application.
    Here, let's use a `basic app template
    <https://forum.codeigniter.com/thread-73103.html>`_, installing it at
-   :file:`/path/to/app/`.
+   **/path/to/app/**.
 
 #. .. include:: ../include/howto_change_ownership.rst
 

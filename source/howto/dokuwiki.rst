@@ -28,7 +28,7 @@ using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, prepare the app :ref:`configuration <configuration-php>` for Unit (use
-   real values for :samp:`share` and :samp:`root`):
+   real values for **share** and **root**):
 
    .. code-block:: json
 
@@ -89,7 +89,7 @@ using Unit:
    After a successful update, your app should be available on the listener’s IP
    address and port.
 
-#. Browse to :samp:`/install.php` to complete your `installation
+#. Browse to **/install.php** to complete your `installation
    <https://www.dokuwiki.org/installer>`__:
 
    .. image:: ../images/dokuwiki.png

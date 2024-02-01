@@ -8,7 +8,7 @@ each one>`:
 
 .. note::
 
-   The :samp:`unit:unit` user-group pair is available only with :ref:`official
+   The **unit:unit** user-group pair is available only with :ref:`official
    packages <installation-precomp-pkgs>`, Docker :ref:`images
    <installation-docker>`, and some :ref:`third-party repos
    <installation-community-repos>`.  Otherwise, account names may differ; run

@@ -13,7 +13,7 @@ Unit's configuration is JSON-based,
 accessible via a RESTful control API,
 and entirely manageable over HTTP.
 The control API provides a root object
-(:samp:`/`)
+(**/**)
 that comprises four primary options:
 
 .. list-table::
@@ -22,19 +22,19 @@ that comprises four primary options:
    * - Object
      - Description
 
-   * - :samp:`/certificates`
+   * - **/certificates**
      - Responsible for SSL/TLS
        :doc:`certificate management <certificates>`.
 
-   * - :samp:`/config`
+   * - **/config**
      - Used for general
        :doc:`configuration management <configuration>`.
 
-   * - :samp:`/control`
+   * - **/control**
      - Queried for
        :ref:`application restart <configuration-proc-mgmt>`.
 
-   * - :samp:`/status`
+   * - **/status**
      - Queried for
        :doc:`usage statistics <usagestats>`.
 
@@ -51,7 +51,7 @@ For consistency and
 our examples use Unix domain sockets
 unless stated otherwise.
 Example queries use :program:`curl`,
-and URIs are prefixed with :samp:`http://localhost`
+and URIs are prefixed with **http://localhost**
 as the utility expects
 (the hostname is irrelevant for Unit itself),
 but you can use any HTTP tool you like.
@@ -60,7 +60,7 @@ may benefit from this
 `third-party extension
 <https://marketplace.visualstudio.com/items?itemName=Stanislav.vscode-nginx-unit>`__.
 
-.. nxt_details:: (Lack of) Configuration Files
+.. nxt_details:: No configuration files used
    :hash: no-config-files
 
    The control API is the single source of truth
@@ -90,7 +90,7 @@ may benefit from this
      With the control API,
      the entire configuration is a single, organized, and navigatable entity.
 
-.. nxt_details:: Replicating Unit States
+.. nxt_details:: Replicating Unit states
    :hash: conf-replication
 
    Although Unit is fully dynamic,
@@ -154,7 +154,7 @@ may benefit from this
       # systemctl restart unit
 
    If you run your Unit instances manually,
-   :option:`!--state` can be used to set the state directory at
+   **--state** can be used to set the state directory at
    :ref:`startup <source-startup>`.
 
    After restart,
@@ -165,7 +165,7 @@ may benefit from this
 .. _controlapi-openapi:
 
 *********************
-OpenAPI Specification
+OpenAPI specification
 *********************
 
    For a more formal approach
@@ -183,7 +183,7 @@ OpenAPI Specification
       $ docker build --tag=unit-openapi -f unit-openapi.Dockerfile .
       $ docker run -d -p 8765:8765 -p 8080:8080 unit-openapi
 
-   Next, open :samp:`http://localhost:8765` in a browser.
+   Next, open **http://localhost:8765** in a browser.
 
    To use this image against a pre-existing Unit instance,
    type in the address and port of the instance's
@@ -199,12 +199,12 @@ OpenAPI Specification
 .. _configuration-quickstart:
 
 ***********
-Quick Start
+Quick start
 ***********
 
 For a brief intro,
 we configure Unit to serve a static file.
-Suppose you saved this as :file:`/www/data/index.html`:
+Suppose you saved this as **/www/data/index.html**:
 
 .. code-block:: html
 
@@ -236,7 +236,7 @@ Now, Unit should
 :ref:`listen <configuration-listeners>`
 on a port that
 :ref:`routes <configuration-routes>`
-the incoming requests to a :samp:`share` action,
+the incoming requests to a **share** action,
 which serves the file:
 
 .. code-block:: json
@@ -258,10 +258,10 @@ which serves the file:
    }
 
 To configure Unit,
-:samp:`PUT` this snippet to the :samp:`/config` section via the
+**PUT** this snippet to the **/config** section via the
 :ref:`control socket <source-startup>`.
 Working with JSON in the command line can be cumbersome;
-instead, save and upload it as :file:`snippet.json`:
+instead, save and upload it as **snippet.json**:
 
 .. code-block:: console
 
@@ -274,8 +274,8 @@ instead, save and upload it as :file:`snippet.json`:
 
 To confirm this works,
 query the listener.
-Unit responds with the :file:`index.html` file
-from the :samp:`share` directory:
+Unit responds with the **index.html** file
+from the **share** directory:
 
 .. code-block:: console
 
@@ -295,7 +295,7 @@ from the :samp:`share` directory:
 .. _configuration-mgmt:
 
 ****************
-API Manipulation
+API manipulation
 ****************
 
 To address parts of the control API,
@@ -323,21 +323,21 @@ The API supports the following HTTP methods:
    * - Method
      - Action
 
-   * - :samp:`GET`
+   * - **GET**
      - Returns the entity at the request URI
        as a JSON value in the HTTP response body.
 
-   * - :samp:`POST`
+   * - **POST**
      - Updates the *array* at the request URI,
        appending the JSON value
        from the HTTP request body.
 
-   * - :samp:`PUT`
+   * - **PUT**
      - Replaces the entity at the request URI
        and returns a status message
        in the HTTP response body.
 
-   * - :samp:`DELETE`
+   * - **DELETE**
      - Deletes the entity at the request URI
        and returns a status message
        in the HTTP response body.
@@ -371,7 +371,7 @@ provided you supply the right JSON:
 
 However, the first command replaces the *entire* listener,
 dropping any other options you could have configured,
-whereas the second one replaces only the :samp:`pass` value
+whereas the second one replaces only the **pass** value
 and leaves other options intact.
 
 .. _conf-examples:
@@ -383,7 +383,7 @@ Examples
 To minimize typos and effort,
 avoid embedding JSON payload in your commands;
 instead, store your configuration snippets for review and reuse.
-For instance, save your application object as :file:`wiki.json`:
+For instance, save your application object as **wiki.json**:
 
 .. code-block:: json
 
@@ -395,7 +395,7 @@ For instance, save your application object as :file:`wiki.json`:
        "path": "/www/wiki/"
    }
 
-Use it to set up an application called :samp:`wiki-prod`:
+Use it to set up an application called **wiki-prod**:
 
 .. code-block:: console
 
@@ -403,14 +403,14 @@ Use it to set up an application called :samp:`wiki-prod`:
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-prod
 
 Use it again to set up a development version of the same app
-called :samp:`wiki-dev`:
+called **wiki-dev**:
 
 .. code-block:: console
 
    # curl -X PUT --data-binary @wiki.json \
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-dev
 
-Toggle the :samp:`wiki-dev` app to another source code directory:
+Toggle the **wiki-dev** app to another source code directory:
 
 .. code-block:: console
 
@@ -425,7 +425,7 @@ to warm it up a bit:
    # curl -X PUT -d '5' \
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/applications/wiki-prod/processes
 
-Add a listener for the :samp:`wiki-prod` app
+Add a listener for the **wiki-prod** app
 to accept requests at all host IPs:
 
 .. code-block:: console
@@ -433,7 +433,7 @@ to accept requests at all host IPs:
    # curl -X PUT -d '{ "pass": "applications/wiki-prod" }' \
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` 'http://localhost/config/listeners/*:8400'
 
-Plug the :samp:`wiki-dev` app into the listener to test it:
+Plug the **wiki-dev** app into the listener to test it:
 
 .. code-block:: console
 
@@ -466,8 +466,8 @@ adding a URI-based route to the development version of the app:
    # curl -X PUT -d '"routes"' --unix-socket \
           :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` 'http://localhost/config/listeners/*:8400/pass'
 
-Next, change the :samp:`wiki-dev`'s URI prefix
-in the :samp:`routes` array,
+Next, change the **wiki-dev**'s URI prefix
+in the **routes** array,
 using its index (0):
 
 .. code-block:: console
@@ -476,7 +476,7 @@ using its index (0):
           http://localhost/config/routes/0/match/uri
 
 Append a route to the prod app:
-:samp:`POST` always adds to the array end,
+**POST** always adds to the array end,
 so there's no need for an index:
 
 .. code-block:: console
@@ -486,7 +486,7 @@ so there's no need for an index:
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`        \
           http://localhost/config/routes/
 
-Otherwise, use :samp:`PUT` with the array's last index
+Otherwise, use **PUT** with the array's last index
 (0 in our sample)
 *plus one*
 to add the new item at the end:
@@ -498,7 +498,7 @@ to add the new item at the end:
           --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`       \
           http://localhost/config/routes/1/
 
-To get the complete :samp:`/config` section:
+To get the complete **/config** section:
 
 .. code-block:: console
 
@@ -548,7 +548,7 @@ To get the complete :samp:`/config` section:
            ]
        }
 
-To obtain the :samp:`wiki-dev` application object:
+To obtain the **wiki-dev** application object:
 
 .. code-block:: console
 
@@ -564,14 +564,14 @@ To obtain the :samp:`wiki-dev` application object:
        }
 
 You can save JSON returned by such requests
-as :file:`.json` files for update or review:
+as **.json** files for update or review:
 
 .. code-block:: console
 
    # curl --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/ > config.json
 
-To drop the listener on :samp:`\*:8400`:
+To drop the listener on **\*:8400**:
 
 .. code-block:: console
 

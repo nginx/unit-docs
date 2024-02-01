@@ -20,7 +20,7 @@ To run the `Roundcube <https://roundcube.net>`_ webmail platform using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
-   (use real values for :samp:`share` and :samp:`root`):
+   (use real values for **share** and **root**):
 
    .. code-block:: json
 
@@ -68,8 +68,8 @@ To run the `Roundcube <https://roundcube.net>`_ webmail platform using Unit:
       :width: 100%
       :alt: Roundcube on Unit - Setup Screen
 
-#. After installation, switch :samp:`share` and :samp:`root` to the
-   :file:`public_html/` subdirectory to `protect
+#. After installation, switch **share** and **root** to the
+   **public_html/** subdirectory to `protect
    <https://github.com/roundcube/roundcubemail/wiki/Installation#protect-your-installation>`__
    sensitive data:
 

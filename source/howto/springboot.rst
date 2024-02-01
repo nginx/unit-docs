@@ -29,10 +29,10 @@ To run apps based on the `Spring Boot
 
       $ unzip :nxt_hint:`demo.zip <Downloaded project archive>` -d :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
-   This creates a directory named :samp:`/path/to/app/demo/` for you to add
+   This creates a directory named **/path/to/app/demo/** for you to add
    your app code to; in our `example <https://spring.io/quickstart>`__, it's a
    single file called
-   :file:`/path/to/app/demo/src/main/java/com/example/demo/DemoApplication.java`:
+   **/path/to/app/demo/src/main/java/com/example/demo/DemoApplication.java**:
 
    .. code-block:: java
 
@@ -58,7 +58,7 @@ To run apps based on the `Spring Boot
         }
       }
 
-   Finally, assemble a :file:`.war` file.
+   Finally, assemble a **.war** file.
 
    If you chose `Gradle <https://gradle.org>`__ as the build tool:
 
@@ -76,14 +76,14 @@ To run apps based on the `Spring Boot
 
    .. note::
 
-     By default, Gradle puts the :file:`.war` file in the :file:`build/libs/`
-     subdirectory, while Maven uses :file:`target/`; note your path for later
+     By default, Gradle puts the **.war** file in the **build/libs/**
+     subdirectory, while Maven uses **target/**; note your path for later
      use in Unit configuration.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-java>` the |app| configuration (use
-   a real value for :samp:`working_directory`):
+   a real value for **working_directory**):
 
    .. code-block:: json
 

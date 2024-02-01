@@ -9,8 +9,8 @@ To run apps built with the `Express <https://expressjs.com>`_ web framework
 using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the
-   :samp:`unit-dev/unit-devel` package.  Next, :ref:`install
-   <installation-nodejs-package>` Unit's :samp:`unit-http` package:
+   **unit-dev/unit-devel** package.  Next, :ref:`install
+   <installation-nodejs-package>` Unit's **unit-http** package:
 
    .. code-block:: console
 
@@ -18,7 +18,7 @@ using Unit:
 
 #. Create your app directory, `install
    <https://expressjs.com/en/starter/installing.html>`_ |app|, and link
-   :samp:`unit-http`:
+   **unit-http**:
 
    .. code-block:: console
 
@@ -29,7 +29,7 @@ using Unit:
 
 #. Create your Express `app
    <https://expressjs.com/en/starter/hello-world.html>`_; let's store it as
-   :file:`/path/to/app/app.js`.  First, initialize the directory:
+   **/path/to/app/app.js**.  First, initialize the directory:
 
    .. code-block:: console
 

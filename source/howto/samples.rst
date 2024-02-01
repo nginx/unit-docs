@@ -13,7 +13,7 @@ App Samples
 Go
 **
 
-Let's configure the following basic app, saved as :file:`/www/app.go`:
+Let's configure the following basic app, saved as **/www/app.go**:
 
 .. code-block:: go
 
@@ -123,7 +123,7 @@ Try this sample out with the Dockerfile :download:`here
 Java
 ****
 
-Let's configure the following basic app, saved as :file:`/www/index.jsp`:
+Let's configure the following basic app, saved as **/www/index.jsp**:
 
 .. code-block:: jsp
 
@@ -156,7 +156,7 @@ Try this sample out with the Dockerfile :download:`here
 <../downloads/Dockerfile.java.txt>` or use a more elaborate app example (you'll
 need to `download <https://cliftonlabs.github.io/json-simple/>`__ and :ref:`add
 <configuration-java>` the :program:`json-simple` library to your app's
-:samp:`classpath` option):
+**classpath** option):
 
 .. subs-code-block:: jsp
 
@@ -207,7 +207,7 @@ need to `download <https://cliftonlabs.github.io/json-simple/>`__ and :ref:`add
 Node.js
 *******
 
-Let's configure the following basic app, saved as :file:`/www/app.js`:
+Let's configure the following basic app, saved as **/www/app.js**:
 
 .. code-block:: javascript
 
@@ -279,7 +279,7 @@ Try this sample out with the Dockerfile :download:`here
 .. note::
 
    You can run a version of the same app :ref:`without
-   <configuration-nodejs-loader>` requiring the :samp:`unit-http` module
+   <configuration-nodejs-loader>` requiring the **unit-http** module
    explicitly.
 
 
@@ -289,7 +289,7 @@ Try this sample out with the Dockerfile :download:`here
 Perl
 ****
 
-Let's configure the following basic app, saved as :file:`/www/app.psgi`:
+Let's configure the following basic app, saved as **/www/app.psgi**:
 
 .. code-block:: perl
 
@@ -363,7 +363,7 @@ Try this sample out with the Dockerfile :download:`here
 PHP
 ***
 
-Let's configure the following basic app, saved as :file:`/www/index.php`:
+Let's configure the following basic app, saved as **/www/index.php**:
 
 .. code-block:: php
 
@@ -423,7 +423,7 @@ Try this sample out with the Dockerfile :download:`here
 Python
 ******
 
-Let's configure the following basic app, saved as :file:`/www/wsgi.py`:
+Let's configure the following basic app, saved as **/www/wsgi.py**:
 
 .. code-block:: python
 
@@ -486,7 +486,7 @@ Try this sample out with the Dockerfile :download:`here
 Ruby
 ****
 
-Let's configure the following basic app, saved as :file:`/www/config.ru`:
+Let's configure the following basic app, saved as **/www/config.ru**:
 
 .. code-block:: ruby
 
@@ -574,7 +574,7 @@ First, install the WebAssembly-specific Rust tooling:
 
 Next, initialize a new Rust project with a library target
 (apps are loaded by Unit's WebAssembly module as dynamic libraries).
-Then, add our :samp:`unit-wasm` crate
+Then, add our **unit-wasm** crate
 to enable the :program:`libunit-wasm` library:
 
 .. code-block:: console
@@ -583,14 +583,14 @@ to enable the :program:`libunit-wasm` library:
    $ cd wasm_on_unit/
    $ cargo add unit-wasm
 
-Append the following to :file:`Cargo.toml`:
+Append the following to **Cargo.toml**:
 
 .. code-block:: toml
 
    [lib]
    crate-type = ["cdylib"]
 
-Save some sample code from our :program:`unit-wasm` repo as :file:`src/lib.rs`:
+Save some sample code from our :program:`unit-wasm` repo as **src/lib.rs**:
 
 .. code-block:: console
 
@@ -603,7 +603,7 @@ Build the Rust module with WebAssembly as the target:
    $ cargo build --target wasm32-wasi
 
 This yields the
-:file:`target/wasm32-wasi/debug/wasm_on_unit.wasm` file
+**target/wasm32-wasi/debug/wasm_on_unit.wasm** file
 (path may depend on other options).
 
 Upload the :ref:`app config <configuration-wasm>` to Unit and test it:

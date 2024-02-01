@@ -22,7 +22,7 @@ To run the `Review Board
 
 #. Install the |app-link|_ and create a `site
    <https://www.reviewboard.org/docs/manual/dev/admin/installation/creating-sites/>`_.
-   Here, it's :samp:`/path/to/app/`; use a real path in your configuration:
+   Here, it's **/path/to/app/**; use a real path in your configuration:
 
    .. code-block:: console
 
@@ -38,7 +38,7 @@ To run the `Review Board
                 installation. This will only take a few minutes.
                 ...
 
-#. Add the :file:`.py` extension to the WSGI module's name to make it
+#. Add the **.py** extension to the WSGI module's name to make it
    discoverable by Unit, for example:
 
    .. code-block:: console
@@ -57,7 +57,7 @@ To run the `Review Board
       $ chmod u+w :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`data/
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
-   (use real values for :samp:`share` and :samp:`path`):
+   (use real values for **share** and **path**):
 
    .. code-block:: json
 
