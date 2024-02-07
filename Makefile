@@ -22,6 +22,9 @@ EXCLUDE = \
 
 site: $(BUILDDIR)
 	@$(SPHINX) -E -b nxt_html source "$(BUILDDIR)"
+# Note: copy files in _downloads/<HASH>/* to _downloads/* to maintain
+# the previous webroot structure for use in internal tests.
+	cp $(BUILDDIR)/_downloads/*/* $(BUILDDIR)/_downloads
 
 $(BUILDDIR):
 	mkdir "$(BUILDDIR)"
