@@ -9,7 +9,7 @@ Community
 #########
 
 We hold semi-regular meetings on Zoom
-to discuss all things pertaining to Unit
+to discuss all things related to Unit
 with our tightly knit and vibrant community.
 
 Recorded sessions:

@@ -17,7 +17,7 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
 
 #. .. include:: ../include/howto_install_prereq.rst
 
-#. Install |app|'s |app-link|_.  Here, we install it at :samp:`/path/to/app/`;
+#. Install |app|'s |app-link|_.  Here, we install it at **/path/to/app/**;
    use a real path in your configuration:
 
    .. code-block:: console
@@ -33,13 +33,13 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
    .. note::
 
       |app|'s `Zope <https://plone.org/what-is-plone/zope>`__ instance and
-      virtual environment are created in the :file:`zinstance/` subdirectory;
+      virtual environment are created in the **zinstance/** subdirectory;
       later, the resulting path is used to configure Unit, so take care to note
       it in your setup.  Also, make sure the Python version specified with
       :option:`!--with-python` matches the module version from Step 1.
 
 #. To run |app| on Unit, add a new configuration file named
-   :file:`/path/to/app/zinstance/wsgi.cfg`:
+   **/path/to/app/zinstance/wsgi.cfg**:
 
    .. code-block:: cfg
 
@@ -61,12 +61,12 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
           wsgiapp = make_wsgi_app({}, '${buildout:parts-directory}:nxt_hint:`/instance/etc/zope.conf <Path to the Zope instance's configuration>`')
           def application(*args, **kwargs):return wsgiapp(*args, **kwargs)
 
-   It creates a new Zope instance.  The part's name must end with :samp:`.py`
+   It creates a new Zope instance.  The part's name must end with **.py**
    for the resulting instance script to be recognized as a Python module; the
-   :samp:`initialization` `option
+   **initialization** `option
    <https://pypi.org/project/plone.recipe.zope2instance/#common-options>`__
-   defines a WSGI entry point using :file:`zope.conf` from the :samp:`instance`
-   part in :samp:`buildout.cfg`.
+   defines a WSGI entry point using **zope.conf** from the **instance**
+   part in **buildout.cfg**.
 
    Rerun Buildout, feeding it the new configuration file:
 
@@ -84,7 +84,7 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
-   (use real values for :samp:`path` and :samp:`home`):
+   (use real values for **path** and **home**):
 
    .. code-block:: json
 

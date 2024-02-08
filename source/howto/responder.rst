@@ -17,7 +17,7 @@ To run apps built with the `Responder
 
 #. Let's try a Unit-friendly version of a `tutorial app
    <https://responder.kennethreitz.org/en/latest/quickstart.html#declare-a-web-service>`_,
-   saving it as :file:`/path/to/app/asgi.py`:
+   saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -33,14 +33,14 @@ To run apps built with the `Responder
       def hello_to(req, resp, *, who):
           resp.text = f"Hello, {who}!"
 
-   The :samp:`app.run()` call is omitted because :samp:`app` will be directly
+   The **app.run()** call is omitted because **app** will be directly
    run by Unit as an ASGI `callable
    <https://github.com/taoufik07/responder/blob/103816e27ae928d42ed850190472480124ba90e3/responder/api.py#L360>`_.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

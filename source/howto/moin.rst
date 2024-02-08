@@ -12,7 +12,7 @@ MoinMoin
 
 .. warning::
 
-  So far, Unit doesn't support handling the :samp:`REMOTE_USER` headers
+  So far, Unit doesn't support handling the **REMOTE_USER** headers
   directly, so authentication should be implemented via other means.  For a
   full list of available authenticators, see `here
   <https://moinmo.in/HelpOnAuthentication>`_.
@@ -56,7 +56,7 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
          Next, `edit
          <https://moinmo.in/HelpOnConfiguration#Configuring_a_single_wiki>`__
-         the wiki instance configuration in :file:`wikiconfig.py` as
+         the wiki instance configuration in **wikiconfig.py** as
          appropriate.
 
 
@@ -79,14 +79,14 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
 
          Next, `edit
          <https://moinmo.in/HelpOnConfiguration#Configuration_of_multiple_wikis>`__
-         the farm configuration in :file:`farmconfig.py` and the wiki instance
-         configurations, shown here as :file:`wiki1.py` and :file:`wiki2.py`,
+         the farm configuration in **farmconfig.py** and the wiki instance
+         configurations, shown here as **wiki1.py** and **wiki2.py**,
          as appropriate.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`path`):
+   Unit (use real values for **path**):
 
    .. code-block:: json
 

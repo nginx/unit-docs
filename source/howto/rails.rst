@@ -20,14 +20,14 @@ using Unit:
       $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
       $ rails new :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
 
-   This creates the app's directory tree at :file:`/path/to/app/`; its
-   :file:`public/` subdirectory contains the static files, while the entry
-   point is :file:`/path/to/app/config.ru`.
+   This creates the app's directory tree at **/path/to/app/**; its
+   **public/** subdirectory contains the static files, while the entry
+   point is **/path/to/app/config.ru**.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-ruby>` the |app| configuration (use real
-   values for :samp:`share` and :samp:`working_directory`):
+   values for **share** and **working_directory**):
 
    .. code-block:: json
 

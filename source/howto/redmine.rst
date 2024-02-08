@@ -21,7 +21,7 @@ Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-ruby>` the |app| configuration for Unit
-   (use a real value for :samp:`working_directory`):
+   (use a real value for **working_directory**):
 
    .. code-block:: json
 

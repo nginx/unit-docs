@@ -53,10 +53,10 @@ Generating Certificates
           }
       }
 
-   Make sure the :samp:`share` directory is accessible for Unit's :ref:`router
-   process <security-apps>` user account, usually :samp:`unit:unit`.
+   Make sure the **share** directory is accessible for Unit's :ref:`router
+   process <security-apps>` user account, usually **unit:unit**.
 
-   Next, run :program:`certbot`, supplying the :samp:`share` directory as the
+   Next, run :program:`certbot`, supplying the **share** directory as the
    webroot path:
 
    .. code-block:: console
@@ -73,7 +73,7 @@ Generating Certificates
    Certbot will provide instructions on updating the DNS entries to prove
    domain ownership.
 
-   Any such :program:`certbot` command stores the resulting :file:`.pem` files
+   Any such :program:`certbot` command stores the resulting **.pem** files
    as follows:
 
    .. code-block:: none
@@ -93,7 +93,7 @@ Generating Certificates
       as well, but they're omitted here for brevity.
 
 #. Create a certificate bundle fit for Unit and upload it to the
-   :samp:`certificates` section of Unit's :ref:`control API
+   **certificates** section of Unit's :ref:`control API
    <configuration-api>`:
 
    .. code-block:: console
@@ -182,8 +182,8 @@ For manual renewal and rollover:
              }
 
    Now you have two certificate bundles uploaded; Unit knows them as
-   :samp:`certbot1` and :samp:`certbot2`.  Optionally, query the
-   :samp:`certificates` section to review common details such as expiry dates,
+   **certbot1** and **certbot2**.  Optionally, query the
+   **certificates** section to review common details such as expiry dates,
    subjects, or issuers:
 
    .. code-block:: console
@@ -220,8 +220,8 @@ For manual renewal and rollover:
    by configuring several certificate bundles for a listener.
 
    Suppose you've successfully used Certbot to obtain Let's Encrypt
-   certificates for two domains, :samp:`www.example.com` and
-   :samp:`cdn.example.com`.  First, upload them to Unit using the same steps as
+   certificates for two domains, **www.example.com** and
+   **cdn.example.com**.  First, upload them to Unit using the same steps as
    earlier:
 
    .. code-block:: console
@@ -250,7 +250,7 @@ For manual renewal and rollover:
              }
 
    Next, configure the listener, supplying both bundles as an array value for
-   the :samp:`tls/certificate` option:
+   the **tls/certificate** option:
 
    .. code-block:: console
 

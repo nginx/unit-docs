@@ -31,14 +31,14 @@ framework using Unit:
    .. warning::
 
       Create your virtual environment with a Python version that matches the
-      language module from Step |_| 1 up to the minor number (:samp:`X.Y` in
-      this example).  Also, the app :samp:`type` in Step |_| 5 must
+      language module from Step |_| 1 up to the minor number (**X.Y** in
+      this example).  Also, the app **type** in Step |_| 5 must
       :ref:`resolve <configuration-apps-common>` to a similarly matching
       version; Unit doesn't infer it from the environment.
 
 #. Let's try an updated version of the `quickstart app
    <https://bottlepy.org/docs/dev/tutorial.html#the-default-application>`_,
-   saving it as :file:`/path/to/app/wsgi.py`:
+   saving it as **/path/to/app/wsgi.py**:
 
    .. code-block:: python
 
@@ -57,7 +57,7 @@ framework using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

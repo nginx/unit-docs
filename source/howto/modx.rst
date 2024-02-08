@@ -20,8 +20,8 @@ To run the `MODX <https://modx.com>`_ content application platform using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-php>` the |app| configuration for Unit
-   (use real values for :samp:`share` and :samp:`root`).  The default
-   :file:`.htaccess` scheme in a |app| installation roughly translates into the
+   (use real values for **share** and **root**).  The default
+   **.htaccess** scheme in a |app| installation roughly translates into the
    following:
 
    .. code-block:: json

@@ -31,7 +31,7 @@ versions shortly after they are released.
    - The recommended option is to use our official :ref:`packages
      <installation-precomp-pkgs>` or Docker :ref:`images
      <installation-docker>`; with them, it's just a matter of updating
-     :samp:`unit-*` packages with your package manager of choice or
+     **unit-*** packages with your package manager of choice or
      switching to a newer image.
 
    - If you use a third-party installation :ref:`method
@@ -60,7 +60,7 @@ safe.
 .. nxt_details:: Control Socket
    :hash: sec-socket
 
-   If you use a UNIX control socket, ensure it is available to :samp:`root`
+   If you use a UNIX control socket, ensure it is available to **root**
    only:
 
    .. subs-code-block:: console
@@ -135,8 +135,8 @@ safe.
    Avoid manipulating it or relying on its contents even if tempted to do so.
    Instead, use only the control API to manage Unit's configuration.
 
-   Also, the state directory should be available only to :samp:`root` (or the
-   user that the :samp:`main` :ref:`process <security-apps>` runs as):
+   Also, the state directory should be available only to **root** (or the
+   user that the **main** :ref:`process <security-apps>` runs as):
 
    .. subs-code-block:: console
 
@@ -187,7 +187,7 @@ clear and robust as possible to avoid loose ends and gaping holes.
    Some considerations:
 
    - Mind that :ref:`variables <configuration-variables>` contain arbitrary
-     user-supplied request values; variable-based :samp:`pass` values in
+     user-supplied request values; variable-based **pass** values in
      :ref:`listeners <configuration-listeners>` and :ref:`routes
      <configuration-routes-action>` must account for malicious requests, or the
      requests must be properly filtered.
@@ -211,7 +211,7 @@ files available across apps or even publicly.
 
 **Actions**: Properly configure your app directories and shares: apps and the
 router process need access to them.  Still, avoid loose rights such as the
-notorious :samp:`777`, instead assigning them on a need-to-know basis.
+notorious **777**, instead assigning them on a need-to-know basis.
 
 .. nxt_details:: File Permissions
    :hash: sec-files
@@ -291,7 +291,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
    #. A frequent source of issues is the lack of permissions for directories
       inside a directory path needed to run the app, so check for that if in
-      doubt.  Assuming your app code is stored at :samp:`/path/to/app/`:
+      doubt.  Assuming your app code is stored at **/path/to/app/**:
 
       .. code-block:: console
 
@@ -303,15 +303,15 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
                :nxt_hint:`drwxr-x--- <Permissions are too restrictive>`  some_user some_group  to
 
-      This may be a problem because the :samp:`to/` directory isn't owned by
-      :samp:`app_user:app_group` and denies all permissions to non-owners (as
-      the :samp:`---` sequence tells us), so a fix can be warranted:
+      This may be a problem because the **to/** directory isn't owned by
+      **app_user:app_group** and denies all permissions to non-owners (as
+      the **---** sequence tells us), so a fix can be warranted:
 
       .. code-block:: console
 
          # :nxt_hint:`chmod <Add read/execute permissions for non-owners>` o+rx /path/to/
 
-      Another solution is to add :samp:`app_user` to :samp:`some_group`
+      Another solution is to add **app_user** to **some_group**
       (assuming this was not done before):
 
       .. code-block:: console
@@ -474,8 +474,8 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
      to be freely downloadable nor your user-uploaded data to be executable as
      code, so configure your routes and apps to prevent both.
 
-   - Exposure of configuration data.  Your app-specific settings, :file:`.ini`
-     or :file:`.htaccess` files, and credentials are best kept hidden from
+   - Exposure of configuration data.  Your app-specific settings, **.ini**
+     or **.htaccess** files, and credentials are best kept hidden from
      prying eyes, and your routing configuration should reflect that.
 
    - Presence of hidden files from versioning, backups by text editors, and
@@ -554,8 +554,8 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
 
       * - Main
         - Yes
-        - Whoever starts the :file:`unitd` executable; by default,
-          :samp:`root`.
+        - Whoever starts the **unitd** executable; by default,
+          **root**.
         - Runs as a daemon, spawning Unit's non-privileged and app processes;
           requires numerous system capabilities and privileges for operation.
 
@@ -563,7 +563,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <source-config-src>` or :ref:`execution
-          <source-startup>`; by default, :samp:`unit`.
+          <source-startup>`; by default, **unit**.
         - Serves the control API, accepting reconfiguration requests,
           sanitizing them, and passing them to other processes for
           implementation.
@@ -572,7 +572,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <source-config-src>` or :ref:`execution
-          <source-startup>`; by default, :samp:`unit`.
+          <source-startup>`; by default, **unit**.
         - Discovers the language modules in the module directory at startup,
           then quits.
 
@@ -580,14 +580,14 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
         - No
         - Set by :option:`!--user` and :option:`!--group` options at
           :ref:`build <source-config-src>` or :ref:`execution
-          <source-startup>`; by default, :samp:`unit`.
+          <source-startup>`; by default, **unit**.
         - Serves client requests, accepting them, processing them on the spot,
           passing them to app processes, or proxying them further; requires
           access to static content paths you configure.
 
       * - App processes
         - No
-        - Set by per-app :samp:`user` and :samp:`group`
+        - Set by per-app **user** and **group**
           :ref:`options <configuration-applications>`; by default,
           :option:`!--user` and :option:`!--group` values.
         - Serve client requests that are routed to apps; require access to
@@ -606,7 +606,7 @@ notorious :samp:`777`, instead assigning them on a need-to-know basis.
             unit   ... unit: "front" application
 
    The important outtake here is to understand that Unit's non-privileged
-   processes don't require running as :samp:`root`.  Instead, they should have
+   processes don't require running as **root**.  Instead, they should have
    the minimal privileges required to operate, which so far means the ability
    to open connections and access the application code and the static files
    shared during routing.
@@ -676,13 +676,13 @@ disk space.
             ... unit: main v|version| [... --pid :nxt_ph:`/path/to/unit.pid <Make sure to check for runtime overrides>` --log :nxt_ph:`/path/to/unit.log <Make sure to check for runtime overrides>` ...]
 
    Another issue is the logs' accessibility.  Logs are opened and updated by
-   the :ref:`main process <security-apps>` that usually runs as :samp:`root`.
+   the :ref:`main process <security-apps>` that usually runs as **root**.
    However, to make them available for a certain consumer, you may need to
    enable access for a dedicated user that the consumer runs as.
 
    Perhaps, the most straightforward way to achieve this is to assign log
    ownership to the consumer's account.  Suppose you have a log utility running
-   as :samp:`log_user:log_group`:
+   as **log_user:log_group**:
 
    .. code-block:: console
 

@@ -16,7 +16,7 @@ To run apps based on the `Catalyst
 
 #. `Create
    <https://metacpan.org/dist/Catalyst-Manual/view/lib/Catalyst/Manual/Tutorial/02_CatalystBasics.pod#CREATE-A-CATALYST-PROJECT>`_
-   a Catalyst app.  Here, let's store it at :file:`/path/to/app/`:
+   a Catalyst app.  Here, let's store it at **/path/to/app/**:
 
    .. code-block:: console
 
@@ -25,7 +25,7 @@ To run apps based on the `Catalyst
       $ cd app
       $ perl Makefile.PL
 
-   Make sure the app's :file:`.psgi` file includes the :file:`lib/`
+   Make sure the app's **.psgi** file includes the **lib/**
    directory:
 
    .. code-block:: perl
@@ -36,7 +36,7 @@ To run apps based on the `Catalyst
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-perl>` the |app| configuration for Unit
-   (use real values for :samp:`script` and :samp:`working_directory`):
+   (use real values for **script** and **working_directory**):
 
    .. code-block:: json
 

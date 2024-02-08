@@ -13,8 +13,8 @@ To run Django apps using the |app| `framework
 #. Install and configure the Django 3.0+ `framework
    <https://www.djangoproject.com>`__.  The official docs `recommend
    <https://docs.djangoproject.com/en/stable/topics/install/#installing-an-official-release-with-pip>`_
-   setting up a virtual environment; if you do, list it as :samp:`home` when
-   configuring Unit later.  Here, it's :samp:`/path/to/venv/`.
+   setting up a virtual environment; if you do, list it as **home** when
+   configuring Unit later.  Here, it's **/path/to/venv/**.
 
 #. Install |app| in your virtual environment:
 
@@ -27,7 +27,7 @@ To run Django apps using the |app| `framework
 
 #. Create a Django project.  Here, we'll use the `tutorial chat app
    <https://channels.readthedocs.io/en/stable/tutorial/part_1.html#tutorial-part-1-basic-setup>`_,
-   installing it at :samp:`/path/to/app/`; use a real path in your
+   installing it at **/path/to/app/**; use a real path in your
    configuration.  The following steps assume your project uses `basic
    directory structure
    <https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-startproject>`_:
@@ -49,22 +49,22 @@ To run Django apps using the |app| `framework
    <https://channels.readthedocs.io/en/stable/tutorial/part_1.html#integrate-the-channels-library>`_.
 
 #. Next, create the |app| :ref:`configuration <configuration-python>` for
-   Unit.  Here, the :file:`/path/to/app/` directory is stored in the
-   :samp:`path` option; the virtual environment is :samp:`home`; the ASGI
-   module in the :file:`mysite/` subdirectory is `imported
-   <https://docs.python.org/3/reference/import.html>`_ via :samp:`module`.  If
+   Unit.  Here, the **/path/to/app/** directory is stored in the
+   **path** option; the virtual environment is **home**; the ASGI
+   module in the **mysite/** subdirectory is `imported
+   <https://docs.python.org/3/reference/import.html>`_ via **module**.  If
    you reorder your directories, :ref:`set up <configuration-python>`
-   :samp:`path`, :samp:`home`, and :samp:`module` accordingly.
+   **path**, **home**, and **module** accordingly.
 
    You can also set up some environment variables that your project relies on,
-   using the :samp:`environment` option.  Finally, if your project uses
+   using the **environment** option.  Finally, if your project uses
    Django's `static files
    <https://docs.djangoproject.com/en/stable/howto/static-files/>`_, optionally
    add a :ref:`route <configuration-routes>` to :ref:`serve
    <configuration-static>` them with Unit.
 
-   Here's an example (use real values for :samp:`share`, :samp:`path`,
-   :samp:`environment`, :samp:`module`, and :samp:`home`):
+   Here's an example (use real values for **share**, **path**,
+   **environment**, **module**, and **home**):
 
    .. code-block:: json
 

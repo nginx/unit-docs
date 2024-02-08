@@ -7,7 +7,7 @@ Trac
 
 .. warning::
 
-  So far, Unit doesn't support handling the :samp:`REMOTE_USER` headers
+  So far, Unit doesn't support handling the **REMOTE_USER** headers
   directly, so authentication should be implemented via external means.  For
   example, consider using `trac-oidc <https://pypi.org/project/trac-oidc/>`_ or
   `OAuth2Plugin <https://trac-hacks.org/wiki/OAuth2Plugin>`_.
@@ -54,7 +54,7 @@ Unit:
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so a
    `wrapper <https://trac.edgewall.org/wiki/1.3/TracModWSGI#Averybasicscript>`_
    script is required to run Trac as a Unit app; let's save it as
-   :file:`/path/to/app/trac_wsgi.py`.  Here, the :samp:`application` callable
+   **/path/to/app/trac_wsgi.py**.  Here, the **application** callable
    serves as the entry point for the app:
 
     .. code-block:: python
@@ -68,8 +68,8 @@ Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
-   (use real values for :samp:`share`, :samp:`path`, :samp:`home`,
-   :samp:`module`, :samp:`TRAC_ENV`, and :samp:`PYTHON_EGG_CACHE`):
+   (use real values for **share**, **path**, **home**,
+   **module**, **TRAC_ENV**, and **PYTHON_EGG_CACHE**):
 
    .. code-block:: json
 
@@ -110,9 +110,9 @@ Unit:
           }
       }
 
-   The route serves requests for static files in Trac's :file:`/chrome/`
+   The route serves requests for static files in Trac's **/chrome/**
    `hierarchy <https://trac.edgewall.org/wiki/TracDev/TracURLs>`_ from the
-   :file:`static/` directory.
+   **static/** directory.
 
 #. .. include:: ../include/howto_upload_config.rst
 

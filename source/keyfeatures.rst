@@ -4,7 +4,7 @@
 .. include:: include/replace.rst
 
 ############
-Key Features
+Key features
 ############
 
 From the start,
@@ -65,7 +65,7 @@ Flexibility
 
 - Originating IP identification
   :ref:`supports <configuration-listeners-xff>`
-  :samp:`X-Forwarded-For` and similar header fields.
+  **X-Forwarded-For** and similar header fields.
 
 
 ************
@@ -113,7 +113,7 @@ Performance
 
 
 *********************
-Security & Robustness
+Security & robustness
 *********************
 
 - Client connections
@@ -147,7 +147,7 @@ Security & Robustness
 
 
 ***********************
-Supported App Languages
+Supported app languages
 ***********************
 
 Unit interoperates with:

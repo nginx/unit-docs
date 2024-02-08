@@ -26,12 +26,12 @@ Configure a :ref:`listener <configuration-listeners>` in Unit:
           }
       }
 
-Here, :samp:`forwarded` is optional; it enables identifying the
+Here, **forwarded** is optional; it enables identifying the
 :ref:`originating IPs <configuration-listeners-xff>` of requests proxied from
-:samp:`source`.
+**source**.
 
-In NGINX configuration, create an upstream in the :samp:`http` context, adding
-the listener's socket as a :samp:`server`:
+In NGINX configuration, create an upstream in the **http** context, adding
+the listener's socket as a **server**:
 
 .. code-block:: nginx
 
@@ -49,8 +49,8 @@ the listener's socket as a :samp:`server`:
        }
    }
 
-A more compact alternative would be a direct :samp:`proxy_pass` in your
-:samp:`location`:
+A more compact alternative would be a direct **proxy_pass** in your
+**location**:
 
 .. code-block:: nginx
 
@@ -64,8 +64,8 @@ A more compact alternative would be a direct :samp:`proxy_pass` in your
        }
    }
 
-The :samp:`proxy_set_header X-Forwarded-For` directives work together with the
-listener's :samp:`client_ip` option.
+The **proxy_set_header X-Forwarded-For** directives work together with the
+listener's **client_ip** option.
 
 For details, see the `NGINX documentation <https://nginx.org>`_.  Commercial
 support and advanced features are `also available <https://www.nginx.com>`_.
@@ -87,9 +87,9 @@ only.  To enable secure remote access, you can use NGINX as a reverse proxy.
    or a different solution such as SSH for security and authentication.
 
 Use this configuration template for NGINX (replace placeholders in
-:samp:`ssl_certificate`, :samp:`ssl_certificate_key`,
-:samp:`ssl_client_certificate`, :samp:`allow`, :samp:`auth_basic_user_file`,
-and :samp:`proxy_pass` with real values):
+**ssl_certificate**, **ssl_certificate_key**,
+**ssl_client_certificate**, **allow**, **auth_basic_user_file**,
+and **proxy_pass** with real values):
 
 .. code-block:: nginx
 

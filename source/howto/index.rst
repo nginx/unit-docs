@@ -2,9 +2,9 @@
    :og:description: Run a variety of frameworks and applications, use Unit with
                     Docker, build custom modules, and resolve other issues.
 
-#####
-Howto
-#####
+######
+How-to
+######
 
 This section describes various real-life situations and issues that you may
 experience with Unit.

@@ -7,11 +7,11 @@
 .. _configuration-stats:
 
 ****************
-Usage Statistics
+Usage statistics
 ****************
 
 Unit collects instance- and app-wide metrics,
-available via the :samp:`GET`-only :samp:`/status` section of the
+available via the **GET**-only **/status** section of the
 :ref:`control API <configuration-api>`:
 
 .. list-table::
@@ -20,15 +20,15 @@ available via the :samp:`GET`-only :samp:`/status` section of the
     * - Option
       - Description
 
-    * - :samp:`connections`
+    * - **connections**
       - Object;
         lists per-instance connection statistics.
 
-    * - :samp:`requests`
+    * - **requests**
       - Object;
         lists per-instance request statistics.
 
-    * - :samp:`applications`
+    * - **applications**
       - Object;
         each option item lists per-app process and request statistics.
 
@@ -63,7 +63,7 @@ Example:
        }
    }
 
-The :samp:`connections` object offers the following Unit instance metrics:
+The **connections** object offers the following Unit instance metrics:
 
 .. list-table::
     :header-rows: 1
@@ -71,19 +71,19 @@ The :samp:`connections` object offers the following Unit instance metrics:
     * - Option
       - Description
 
-    * - :samp:`accepted`
+    * - **accepted**
       - Integer;
         total accepted connections during the instance's lifetime.
 
-    * - :samp:`active`
+    * - **active**
       - Integer;
         current active connections for the instance.
 
-    * - :samp:`idle`
+    * - **idle**
       - Integer;
         current idle connections for the instance.
 
-    * - :samp:`closed`
+    * - **closed**
       - Integer;
         total closed connections during the instance's lifetime.
 
@@ -104,7 +104,7 @@ Example:
    refer to
    :ref:`configuration-stngs`.
 
-The :samp:`requests` object currently exposes a single instance-wide metric:
+The **requests** object currently exposes a single instance-wide metric:
 
 .. list-table::
     :header-rows: 1
@@ -112,7 +112,7 @@ The :samp:`requests` object currently exposes a single instance-wide metric:
     * - Option
       - Description
 
-    * - :samp:`total`
+    * - **total**
       - Integer;
         total non-API requests during the instance's lifetime.
 
@@ -124,8 +124,8 @@ Example:
        "total": 1307
    }
 
-Each item in :samp:`applications` describes an app
-currently listed in the :samp:`/config/applications`
+Each item in **applications** describes an app
+currently listed in the **/config/applications**
 :ref:`section <configuration-applications>`:
 
 .. list-table::
@@ -134,13 +134,13 @@ currently listed in the :samp:`/config/applications`
     * - Option
       - Description
 
-    * - :samp:`processes`
+    * - **processes**
       - Object;
         lists per-app process statistics.
 
-    * - :samp:`requests`
+    * - **requests**
       - Object;
-        similar to :samp:`/status/requests`,
+        similar to **/status/requests**,
         but includes only the data for a specific app.
 
 Example:
@@ -161,7 +161,7 @@ Example:
        }
    }
 
-The :samp:`processes` object exposes the following per-app metrics:
+The **processes** object exposes the following per-app metrics:
 
 .. list-table::
     :header-rows: 1
@@ -169,15 +169,15 @@ The :samp:`processes` object exposes the following per-app metrics:
     * - Option
       - Description
 
-    * - :samp:`running`
+    * - **running**
       - Integer;
         current running app processes.
 
-    * - :samp:`starting`
+    * - **starting**
       - Integer;
         current starting app processes.
 
-    * - :samp:`idle`
+    * - **idle**
       - Integer;
         current idle app processes.
 

@@ -18,10 +18,10 @@ To install and run the web UI for the `Mailman 3
    we'll use Unit instead.  Also, note the following settings (values from the
    guide are given after the colon):
 
-   - Virtual environment path: :file:`/opt/mailman/venv/`
-   - Installation path: :file:`/etc/mailman3/`
-   - Static file path: :file:`/opt/mailman/web/static/`
-   - User and group: :samp:`mailman:mailman`
+   - Virtual environment path: **/opt/mailman/venv/**
+   - Installation path: **/etc/mailman3/**
+   - Static file path: **/opt/mailman/web/static/**
+   - User and group: **mailman:mailman**
 
    These are needed to configure Unit.
 
@@ -32,7 +32,7 @@ To install and run the web UI for the `Mailman 3
       # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_hint:`/opt/mailman/web/static/ <Mailman's static file path>`
    .. note::
 
-      The :samp:`unit:unit` user-group pair is available only with
+      The **unit:unit** user-group pair is available only with
       :ref:`official packages <installation-precomp-pkgs>`, Docker :ref:`images
       <installation-docker>`, and some :ref:`third-party repos
       <installation-community-repos>`.  Otherwise, account names may differ;
@@ -46,7 +46,7 @@ To install and run the web UI for the `Mailman 3
       # usermod -a -G :nxt_hint:`mailman <Mailman's user group noted in Step 2>` :nxt_hint:`unit <User that Unit's router runs as by default>`
 
 #. Next, prepare the |app| :ref:`configuration <configuration-python>` for Unit
-   (use values from Step 2 for :samp:`share`, :samp:`path`, and :samp:`home`):
+   (use values from Step 2 for **share**, **path**, and **home**):
 
    .. code-block:: json
 

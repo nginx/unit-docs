@@ -19,8 +19,8 @@ For example:
      )
 
 The command mounts the host's current directory where your app files are stored
-to the container's :file:`/www/` directory and publishes the container's port
-:samp:`8000` that the listener will use as port :samp:`8080` on the host,
+to the container's **/www/** directory and publishes the container's port
+**8000** that the listener will use as port **8080** on the host,
 saving the container's ID in the :envvar:`UNIT` environment variable.
 
 Next, upload a configuration to Unit via the control socket:
@@ -31,9 +31,9 @@ Next, upload a configuration to Unit via the control socket:
          --unix-socket :nxt_hint:`/var/run/control.unit.sock <Socket path inside the container>`  \
          http://localhost/config
 
-This command assumes your configuration is stored as :file:`config.json` in the
+This command assumes your configuration is stored as **config.json** in the
 container-mounted directory on the host; if the file defines a listener on port
-:samp:`8000`, your app is now accessible on port :samp:`8080` of the host.  For
+**8000**, your app is now accessible on port **8080** of the host.  For
 details of the Unit configuration, see :ref:`Configuration
 <configuration-api>`.
 
@@ -59,7 +59,7 @@ Apps in a Containerized Unit
 ****************************
 
 Suppose we have a web app with a few dependencies, say :doc:`Flask's <flask>`
-official :samp:`hello, world` app:
+official **hello, world** app:
 
 .. code-block:: console
 
@@ -76,7 +76,7 @@ official :samp:`hello, world` app:
    EOF
 
 However basic it is, there's already a dependency, so let's list it in a file
-called :file:`requirements.txt`:
+called **requirements.txt**:
 
 .. code-block:: console
 
@@ -111,7 +111,7 @@ app:
    }
    EOF
 
-Finally, let's create :file:`log/` and :file:`state/` directories to store Unit
+Finally, let's create **log/** and **state/** directories to store Unit
 :ref:`log and state <source-startup>` respectively:
 
 .. code-block:: console
@@ -135,7 +135,7 @@ Our file structure so far:
        └── wsgi.py
 
 Everything is ready for a containerized Unit.  First, let's create a
-:file:`Dockerfile` to install app prerequisites:
+**Dockerfile** to install app prerequisites:
 
 .. subs-code-block:: docker
 
@@ -166,9 +166,9 @@ Next, we start a container and map it to our directory structure:
    default, our Docker images forward their log output to the `Docker log
    collector <https://docs.docker.com/config/containers/logging/>`_.
 
-We've mapped the source :file:`config/` to :file:`/docker-entrypoint.d/` in the
+We've mapped the source **config/** to **/docker-entrypoint.d/** in the
 container; the official image :ref:`uploads <installation-docker-init>` any
-:file:`.json` files found there into Unit's :samp:`config` section if the
+**.json** files found there into Unit's **config** section if the
 state is empty.  Now we can test the app:
 
 .. code-block:: console
@@ -185,7 +185,7 @@ structure:
    $ mv :nxt_ph:`/path/to/app/ <Directory where all app-related files are stored>` :nxt_ph:`/new/path/to/app/ <New directory; use a real path in your configuration>`
 
 To switch your app to a different Unit image, prepare a corresponding
-:file:`Dockerfile` first:
+**Dockerfile** first:
 
 .. subs-code-block:: docker
 
@@ -234,7 +234,7 @@ Containerized Apps
 ******************
 
 Suppose you have a Unit-ready :doc:`Express <express>` app, stored in the
-:file:`myapp/` directory as :file:`app.js`:
+**myapp/** directory as **app.js**:
 
    .. code-block:: javascript
 
@@ -248,7 +248,7 @@ Suppose you have a Unit-ready :doc:`Express <express>` app, stored in the
 
       http.createServer(app).listen()
 
-Its Unit configuration, stored as :file:`config.json` in the same directory:
+Its Unit configuration, stored as **config.json** in the same directory:
 
    .. code-block:: json
 
@@ -286,10 +286,10 @@ The resulting file structure:
 
 .. note::
 
-   Don't forget to :program:`chmod +x` the :samp:`app.js` file so Unit can run
+   Don't forget to :program:`chmod +x` the **app.js** file so Unit can run
    it.
 
-Let's prepare a :file:`Dockerfile` to install and configure the app in an
+Let's prepare a **Dockerfile** to install and configure the app in an
 image:
 
 .. subs-code-block:: docker
@@ -307,7 +307,7 @@ image:
    EXPOSE 8080
 
 When you start a container based on this image,
-mount the :file:`config.json` file to
+mount the **config.json** file to
 :ref:`initialize <installation-docker-init>`
 Unit's state:
 
@@ -328,7 +328,7 @@ Unit's state:
 .. note::
 
    This mechanism allows to initialize Unit at container startup only if its
-   state is empty; otherwise, the contents of :file:`/docker-entrypoint.d/` is
+   state is empty; otherwise, the contents of **/docker-entrypoint.d/** is
    ignored.  Continuing the previous sample:
 
    .. code-block:: console
@@ -345,8 +345,8 @@ Unit's state:
             -p 8080:8080 unit-expressapp                                                                   \
         )
 
-   Here, Unit *does not* pick up the :samp:`new-config.json` from the
-   :file:`/docker-entrypoint.d/` directory when we run a container from the
+   Here, Unit *does not* pick up the **new-config.json** from the
+   **/docker-entrypoint.d/** directory when we run a container from the
    updated image because Unit's state was initialized and saved earlier.
 
 To configure the app after startup, supply a file or an explicit snippet via
@@ -382,9 +382,9 @@ dependencies.
 Multilanguage Images
 ********************
 
-Earlier, Unit had a :samp:`-full` Docker image with modules for all supported
+Earlier, Unit had a **-full** Docker image with modules for all supported
 languages, but it was discontinued with version 1.22.0.  If you still need a
-multilanguage image, use the following :file:`Dockerfile` template that starts
+multilanguage image, use the following **Dockerfile** template that starts
 with the minimal Unit image based on :ref:`Debian 11 <installation-debian-11>`
 and installs official language module packages:
 
@@ -409,7 +409,7 @@ and installs official language module packages:
        && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/*.list
 
 Instead of packages, you can build custom :ref:`modules
-<source-modules>`; use these :file:`Dockerfile.*` `templates
+<source-modules>`; use these **Dockerfile.*** `templates
 <https://github.com/nginx/unit/tree/master/pkg/docker>`__ as reference.
 
 
@@ -428,7 +428,7 @@ Dockerfile layer:
 
    CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
 
-The :samp:`CMD` instruction above replaces the default :program:`unitd`
+The **CMD** instruction above replaces the default :program:`unitd`
 executable with its debug version.  Use Unit's :ref:`command-line options
 <source-startup>` to alter its startup behavior, for example:
 

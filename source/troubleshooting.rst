@@ -33,7 +33,7 @@ To find out its default location in your installation:
        --log FILE           set log filename
                             default: "/path/to/unit.log"
 
-The :option:`!--log` option overrides the default value;
+The **--log** option overrides the default value;
 if Unit is already running,
 check whether this option is set:
 
@@ -45,22 +45,22 @@ check whether this option is set:
 
 If Unit isn't running,
 see its system startup scripts or configuration files
-to check if :option:`!--log` is set,
+to check if **--log** is set,
 and how.
 
 Available log levels:
 
-- :samp:`[alert]`: Non-fatal errors such as app exceptions or misconfigurations.
+- **[alert]**: Non-fatal errors such as app exceptions or misconfigurations.
 
-- :samp:`[error]`: Serious errors such as invalid ports or addresses.
+- **[error]**: Serious errors such as invalid ports or addresses.
 
-- :samp:`[warn]`: Recoverable issues such as :samp:`umount2(2)` failures.
+- **[warn]**: Recoverable issues such as **umount2(2)** failures.
 
-- :samp:`[notice]`: Self-diagnostic and router events.
+- **[notice]**: Self-diagnostic and router events.
 
-- :samp:`[info]`: General-purpose reporting.
+- **[info]**: General-purpose reporting.
 
-- :samp:`[debug]`: Debug events.
+- **[debug]**: Debug events.
 
 .. note::
 
@@ -72,10 +72,10 @@ Available log levels:
 .. _troubleshooting-router-log:
 
 =============
-Router Events
+Router events
 =============
 
-The :samp:`log_route` option
+The **log_route** option
 in Unit's
 :ref:`settings <configuration-stngs>`
 allows recording
@@ -90,23 +90,23 @@ in the general-purpose log:
       - Description
 
     * - HTTP request line
-      - :samp:`[notice]`
+      - **[notice]**
       - Incoming
         `request line
         <https://datatracker.ietf.org/doc/html/rfc9112#section-3>`__.
 
     * - URI rewritten
-      - :samp:`[notice]`
+      - **[notice]**
       - The request URI is updated.
 
     * - Route step selected
-      - :samp:`[notice]`
+      - **[notice]**
       - The route step is selected
         to serve the request.
 
     * - Fallback taken
-      - :samp:`[notice]`
-      - A :samp:`fallback` action is taken
+      - **[notice]**
+      - A **fallback** action is taken
         after the step is selected.
 
 Sample router logging output may look like this:
@@ -121,7 +121,7 @@ Sample router logging output may look like this:
    [notice] 8308#8339 *16 "fallback" taken
 
 It lists specific steps and actions
-(such as :samp:`routes/2`)
+(such as **routes/2**)
 that can be queried via the
 :doc:`control API <controlapi>`
 for details:
@@ -136,7 +136,7 @@ for details:
 Debug Events
 ============
 
-Unit's log can be set to record :samp:`[debug]`-level events;
+Unit's log can be set to record **[debug]**-level events;
 the steps to enable this mode
 vary by install method.
 
@@ -180,7 +180,7 @@ vary by install method.
 
          CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
 
-      The :samp:`CMD` instruction above
+      The **CMD** instruction above
       replaces the default :program:`unitd` executable
       with its debug version.
 
@@ -189,7 +189,7 @@ vary by install method.
 
       To enable debug-level logging when
       :ref:`installing from source <source>`,
-      use the :option:`!--debug` option:
+      use the **--debug** option:
 
       .. code-block:: console
 
@@ -211,12 +211,12 @@ attach them when
 For builds from
 :ref:`our repositories <installation-precomp-pkgs>`,
 we maintain debug symbols in special packages;
-they have the original packages' names with the :samp:`-dbg` suffix appended,
-such as :samp:`unit-dbg`.
+they have the original packages' names with the **-dbg** suffix appended,
+such as **unit-dbg**.
 
 .. note::
 
-   This section assumes you're running Unit as :samp:`root` (recommended).
+   This section assumes you're running Unit as **root** (recommended).
 
 .. tabs::
    :prefix: core-dumps
@@ -231,7 +231,7 @@ such as :samp:`unit-dbg`.
       adjust the
       `service settings
       <https://www.freedesktop.org/software/systemd/man/systemd.exec.html>`_
-      in :file:`/lib/systemd/system/unit.service`:
+      in **/lib/systemd/system/unit.service**:
 
       .. code-block:: ini
 
@@ -244,7 +244,7 @@ such as :samp:`unit-dbg`.
       update the
       `global settings
       <https://www.freedesktop.org/software/systemd/man/systemd.directives.html>`_
-      in :file:`/etc/systemd/system.conf`:
+      in **/etc/systemd/system.conf**:
 
       .. code-block:: ini
 
@@ -284,7 +284,7 @@ such as :samp:`unit-dbg`.
       Check the
       `core dump settings
       <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`__
-      in :file:`/etc/security/limits.conf`,
+      in **/etc/security/limits.conf**,
       adjusting them if necessary:
 
       .. code-block:: none
@@ -320,7 +320,7 @@ such as :samp:`unit-dbg`.
       Check the
       `core dump settings
       <https://www.freebsd.org/cgi/man.cgi?sysctl.conf(5)>`__
-      in :file:`/etc/sysctl.conf`,
+      in **/etc/sysctl.conf**,
       adjusting them if necessary:
 
       .. code-block:: ini

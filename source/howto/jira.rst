@@ -27,7 +27,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
       $ curl https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-8.19.1.tar.gz -O -C -
       $ tar xzf atlassian-jira-core-8.19.1.tar.gz --strip-components 1
 
-#. Download |app|'s third-party dependencies to the :samp:`lib` subdirectory:
+#. Download |app|'s third-party dependencies to the **lib** subdirectory:
 
    .. code-block:: console
 
@@ -43,12 +43,12 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
       $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-plus/11.0.6/jetty-plus-10.0.6.jar -O -C -
       $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-util/11.0.6/jetty-util-10.0.6.jar -O -C -
 
-   Later, these :file:`.jar` files will be listed in the :samp:`classpath`
+   Later, these **.jar** files will be listed in the **classpath**
    option of the Unit configuration.
 
-#. Patch your |app| configuration, dropping :samp:`env` from the
-   :samp:`comp/env/UserTransaction` object path.  This ensures the
-   :samp:`UserTransaction` object will be found by your installation:
+#. Patch your |app| configuration, dropping **env** from the
+   **comp/env/UserTransaction** object path.  This ensures the
+   **UserTransaction** object will be found by your installation:
 
    .. code-block:: console
 
@@ -59,7 +59,7 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`put together <configuration-java>` the |app| configuration (use
-   real values for :samp:`working_directory` and :samp:`jira.home`):
+   real values for **working_directory** and **jira.home**):
 
    .. code-block:: json
 

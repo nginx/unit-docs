@@ -17,7 +17,7 @@ framework using Unit:
 
 #. Let's try a version of a `tutorial app
    <https://www.starlette.io/applications/>`_,
-   saving it as :file:`/path/to/app/asgi.py`:
+   saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -63,7 +63,7 @@ framework using Unit:
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit
-   (use real values for :samp:`type`, :samp:`home`, and :samp:`path`), adding a
+   (use real values for **type**, **home**, and **path**), adding a
    :ref:`route <configuration-routes>` to serve static content:
 
    .. code-block:: json

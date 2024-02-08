@@ -15,7 +15,7 @@ Create a virtual environment to install |app|'s |app-pip-link|_:
 .. warning::
 
    Create your virtual environment with a Python version that matches the
-   language module from Step |_| 1 up to the minor number (:samp:`3.Y` in this
-   example).  Also, the app :samp:`type` in Step |_| 5 must :ref:`resolve
+   language module from Step |_| 1 up to the minor number (**3.Y** in this
+   example).  Also, the app **type** in Step |_| 5 must :ref:`resolve
    <configuration-apps-common>` to a similarly matching version; Unit doesn't
    infer it from the environment.

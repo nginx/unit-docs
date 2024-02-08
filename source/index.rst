@@ -5,7 +5,7 @@
 .. include:: include/replace.rst
 
 ########################
-Universal Web App Server
+Universal web app server
 ########################
 
 NGINX Unit is a lightweight and versatile application runtime

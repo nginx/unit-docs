@@ -25,7 +25,7 @@ your technology stack, or simply be tech-curious.  In any case:
    * - **Get Unit on the system**
      - #. Install Unit with the language modules you need.  Your options:
 
-          - Official :samp:`.deb/.rpm` :ref:`packages
+          - Official **.deb/.rpm** :ref:`packages
             <installation-precomp-pkgs>`
 
           - Docker :ref:`images <installation-docker>`

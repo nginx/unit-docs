@@ -11,7 +11,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
 
 #. .. include:: ../include/howto_install_unit.rst
 
-   Also, make sure Unit's Go module is available at :samp:`$GOPATH`.
+   Also, make sure Unit's Go module is available at **$GOPATH**.
 
 #. Download |app|'s source files:
 
@@ -28,7 +28,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
       $ curl -O https://unit.nginx.org/_downloads/grafana.patch
       $ patch -p1 < grafana.patch
 
-   Or update the sources manually.  In :file:`conf/defaults.ini`:
+   Or update the sources manually.  In **conf/defaults.ini**:
 
    .. code-block:: ini
       :emphasize-lines: 4
@@ -38,7 +38,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
       # Protocol (http, https, socket, unit)
       protocol = unit
 
-   In :file:`pkg/api/http_server.go`:
+   In **pkg/api/http_server.go**:
 
    .. code-block:: go
       :emphasize-lines: 4, 27-33
@@ -77,7 +77,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
               return nil
           }
 
-   In :file:`pkg/setting/setting.go`:
+   In **pkg/setting/setting.go**:
 
    .. code-block:: go
       :emphasize-lines: 5, 28-30
@@ -124,8 +124,8 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
       $ yarn install --pure-lockfile
       $ yarn start
 
-   Note the directory where the newly built :file:`grafana-server` is placed,
-   usually :file:`$GOPATH/bin/`; it's used for the :samp:`executable` option in
+   Note the directory where the newly built **grafana-server** is placed,
+   usually **$GOPATH/bin/**; it's used for the **executable** option in
    the Unit configuration.
 
 #. Run the following commands so Unit can access |app|'s files:
@@ -137,7 +137,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
 
    .. note::
 
-      The :samp:`unit:unit` user-group pair is available only with
+      The **unit:unit** user-group pair is available only with
       :ref:`official packages <installation-precomp-pkgs>`, Docker :ref:`images
       <installation-docker>`, and some :ref:`third-party repos
       <installation-community-repos>`.  Otherwise, account names may differ;
@@ -147,8 +147,8 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
    <security-apps>`.
 
 #. Next, :ref:`prepare <configuration-php>` the configuration (replace
-   :samp:`$GOPATH` with its value in :samp:`executable` and
-   :samp:`working_directory`):
+   **$GOPATH** with its value in **executable** and
+   **working_directory**):
 
    .. code-block:: json
 

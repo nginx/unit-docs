@@ -17,7 +17,7 @@ To run apps built with the `FastAPI
 
 #. Let's try a version of a `tutorial app
    <https://fastapi.tiangolo.com/tutorial/first-steps/>`_,
-   saving it as :file:`/path/to/app/asgi.py`:
+   saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
 
@@ -35,15 +35,15 @@ To run apps built with the `FastAPI
       `RealWorld example app
       <https://github.com/nsidnev/fastapi-realworld-example-app>`_; just
       install all its dependencies in the same virtual environment where you've
-      installed |app| and add the app's :samp:`environment` :ref:`variables
-      <configuration-apps-common>` like :samp:`DB_CONNECTION` or
-      :samp:`SECRET_KEY` directly to the app configuration in Unit instead of
-      the :file:`.env` file.
+      installed |app| and add the app's **environment** :ref:`variables
+      <configuration-apps-common>` like **DB_CONNECTION** or
+      **SECRET_KEY** directly to the app configuration in Unit instead of
+      the **.env** file.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for
-   Unit (use real values for :samp:`type`, :samp:`home`, and :samp:`path`):
+   Unit (use real values for **type**, **home**, and **path**):
 
    .. code-block:: json
 

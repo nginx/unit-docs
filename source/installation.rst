@@ -80,7 +80,7 @@ Optional dependencies:
 .. _installation-precomp-pkgs:
 
 *****************
-Official Packages
+Official packages
 *****************
 
 Installing an official precompiled Unit binary package
@@ -137,7 +137,7 @@ at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
    that install alongside the official Unit,
    see :ref:`here <modules-pkg>`.
 
-.. nxt_details:: Repo Installation Script
+.. nxt_details:: Repo installation script
    :hash: repo-install
 
    We provide a `script <https://github.com/nginx/unit/tree/master/tools>`__
@@ -168,7 +168,7 @@ Amazon Linux
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -193,13 +193,13 @@ Amazon Linux
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 2.0 LTS
@@ -208,7 +208,7 @@ Amazon Linux
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -233,13 +233,13 @@ Amazon Linux
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: AMI
@@ -254,7 +254,7 @@ Amazon Linux
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -279,13 +279,13 @@ Amazon Linux
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
 .. _installation-precomp-deb:
@@ -309,13 +309,13 @@ Debian
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -339,13 +339,13 @@ Debian
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 11
@@ -360,13 +360,13 @@ Debian
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -390,13 +390,13 @@ Debian
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 10
@@ -417,13 +417,13 @@ Debian
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -446,13 +446,13 @@ Debian
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 9
@@ -473,13 +473,13 @@ Debian
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -502,13 +502,13 @@ Debian
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
 .. _installation-precomp-fedora:
@@ -526,7 +526,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -551,13 +551,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 37
@@ -566,7 +566,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -591,13 +591,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 36, 35
@@ -612,7 +612,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -637,13 +637,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 34, 33
@@ -658,7 +658,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -683,13 +683,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 32
@@ -704,7 +704,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -729,13 +729,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 31, 30
@@ -751,7 +751,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -776,13 +776,13 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 29
@@ -797,7 +797,7 @@ Fedora
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -822,20 +822,20 @@ Fedora
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
 .. _installation-precomp-centos:
 .. _installation-precomp-rhel:
 
 ====================
-RHEL and Derivatives
+RHEL and derivatives
 ====================
 
 .. tabs::
@@ -847,7 +847,7 @@ RHEL and Derivatives
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -872,13 +872,13 @@ RHEL and Derivatives
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 8.x
@@ -887,7 +887,7 @@ RHEL and Derivatives
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -912,13 +912,13 @@ RHEL and Derivatives
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 7.x
@@ -931,7 +931,7 @@ RHEL and Derivatives
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -956,13 +956,13 @@ RHEL and Derivatives
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 6.x
@@ -977,7 +977,7 @@ RHEL and Derivatives
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/yum.repos.d/unit.repo`:
+         **/etc/yum.repos.d/unit.repo**:
 
          .. code-block:: ini
 
@@ -1002,13 +1002,13 @@ RHEL and Derivatives
       .. list-table::
 
          * - Control :ref:`socket <configuration-socket>`
-           - :file:`/var/run/unit/control.sock`
+           - **/var/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 .. note::
 
@@ -1041,13 +1041,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1070,13 +1070,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 22.10
@@ -1097,13 +1097,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1126,13 +1126,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 22.04
@@ -1147,13 +1147,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1176,13 +1176,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 21.10
@@ -1203,13 +1203,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1232,13 +1232,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 21.04
@@ -1259,13 +1259,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1288,13 +1288,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 20.10
@@ -1315,13 +1315,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1344,13 +1344,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 20.04
@@ -1365,13 +1365,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1394,13 +1394,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 19.10
@@ -1421,13 +1421,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1450,13 +1450,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 18.04
@@ -1477,13 +1477,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1506,13 +1506,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
    .. tab:: 16.04
@@ -1533,13 +1533,13 @@ Ubuntu
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
-         ``packages cannot be authenticated``
+         "packages cannot be authenticated"
          warnings
          during installation.
 
       #. To configure Unit's repository,
          create the following file named
-         :file:`/etc/apt/sources.list.d/unit.list`:
+         **/etc/apt/sources.list.d/unit.list**:
 
          .. code-block:: none
 
@@ -1562,13 +1562,13 @@ Ubuntu
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/var/run/control.unit.sock`
+           - **/var/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
 
 .. _installation-macos:
@@ -1610,17 +1610,17 @@ macOS
       .. list-table::
 
          * - Control :ref:`socket <sec-socket>`
-           - :file:`/usr/local/var/run/unit/control.sock` (Intel), :file:`/opt/homebrew/var/run/unit/control.sock` (Apple Silicon)
+           - **/usr/local/var/run/unit/control.sock** (Intel), **/opt/homebrew/var/run/unit/control.sock** (Apple Silicon)
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/usr/local/var/log/unit/unit.log` (Intel), :file:`/opt/homebrew/var/log/unit/unit.log` (Apple Silicon)
+           - **/usr/local/var/log/unit/unit.log** (Intel), **/opt/homebrew/var/log/unit/unit.log** (Apple Silicon)
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`nobody`
+           - **nobody**
 
 .. note::
 
-   To run Unit as :samp:`root` on macOS:
+   To run Unit as **root** on macOS:
 
    .. code-block:: console
 
@@ -1641,7 +1641,7 @@ is called
 Install it
 to run Node.js apps on Unit:
 
-#. First, install the :samp:`unit-dev/unit-devel`
+#. First, install the **unit-dev/unit-devel**
    :ref:`package <installation-precomp-pkgs>`;
    it's needed to build :program:`unit-http`.
 
@@ -1657,7 +1657,7 @@ to run Node.js apps on Unit:
        The :program:`unit-http` module is platform dependent
        due to optimizations;
        you can't move it across systems
-       with the rest of :file:`node-modules`.
+       with the rest of **node-modules**.
        Global installation avoids such scenarios;
        just
        :ref:`relink <configuration-nodejs>`
@@ -1666,9 +1666,9 @@ to run Node.js apps on Unit:
 #. It's entirely possible to run
    :ref:`Node.js apps <configuration-nodejs>`
    on Unit
-   without mentioning :samp:`unit-http` in your app sources.
-   However, you can explicitly use :samp:`unit-http` in your code
-   instead of the built-in :samp:`http`,
+   without mentioning **unit-http** in your app sources.
+   However, you can explicitly use **unit-http** in your code
+   instead of the built-in **http**,
    but mind that such frameworks as Express may require extra
    :doc:`changes <howto/express>`.
 
@@ -1687,7 +1687,7 @@ make sure to update the module as well:
    :ref:`install <source-bld-src-ext>`
    the :program:`unit-http` module from sources.
 
-.. nxt_details:: Working With Multiple Node.js Versions
+.. nxt_details:: Working with multiple Node.js versions
    :hash: multiple-nodejs-versions
 
    To use Unit with multiple Node.js versions side by side,
@@ -1762,7 +1762,7 @@ make sure to update the module as well:
 .. _installation-precomp-startup:
 
 ====================
-Startup and Shutdown
+Startup and shutdown
 ====================
 
 .. tabs::
@@ -1872,13 +1872,13 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/control.unit.sock`
+           - **/run/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit.log`
+           - **/var/log/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
          * - Startup and shutdown
            - .. code-block:: console
@@ -1904,7 +1904,7 @@ Community Repositories
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Versions of these packages
-      with the :samp:`*-debuginfo` suffix
+      with the ***-debuginfo** suffix
       contain symbols for
       :ref:`debugging <troubleshooting-core-dumps>`.
 
@@ -1913,13 +1913,13 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/unit/control.sock`
+           - **/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`_unit` (mind the :samp:`_` prefix)
+           - **_unit** (mind the **_** prefix)
 
          * - Startup and shutdown
            - .. code-block:: console
@@ -1943,7 +1943,7 @@ Community Repositories
          $ cd nginx-unit
 
       Before proceeding further,
-      verify that the :file:`PKGBUILD` and the accompanying files
+      verify that the **PKGBUILD** and the accompanying files
       aren't malicious or untrustworthy.
       AUR packages are user produced without pre-moderation;
       use them at your own risk.
@@ -1959,13 +1959,13 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/nginx-unit.control.sock`
+           - **/run/nginx-unit.control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/nginx-unit.log`
+           - **/var/log/nginx-unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`nobody`
+           - **nobody**
 
          * - Startup and shutdown
            - .. code-block:: console
@@ -2052,13 +2052,13 @@ Community Repositories
         .. list-table::
 
            * - Control :ref:`socket <source-startup>`
-             - :file:`/var/run/unit/control.unit.sock`
+             - **/var/run/unit/control.unit.sock**
 
            * - Log :ref:`file <troubleshooting-log>`
-             - :file:`/var/log/unit/unit.log`
+             - **/var/log/unit/unit.log**
 
            * - Non-privileged :ref:`user and group <security-apps>`
-             - :samp:`www`
+             - **www**
 
            * - Startup and shutdown
              - .. code-block:: console
@@ -2093,13 +2093,13 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/nginx-unit.sock`
+           - **/run/nginx-unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/nginx-unit`
+           - **/var/log/nginx-unit**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`nobody`
+           - **nobody**
 
          * - Startup and shutdown
            - .. code-block:: console
@@ -2161,9 +2161,9 @@ Community Repositories
       `unit-ruby
       <https://cdn.netbsd.org/pub/pkgsrc/current/pkgsrc/www/unit-ruby/index.html>`__.
 
-      Note that :samp:`unit-php` packages require the PHP package
-      to be built with the :samp:`php-embed` option.
-      To enable the option for :samp:`lang/php82`:
+      Note that **unit-php** packages require the PHP package
+      to be built with the **php-embed** option.
+      To enable the option for **lang/php82**:
 
       .. code-block:: console
 
@@ -2180,17 +2180,17 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/var/run/unit/control.unit.sock`
+           - **/var/run/unit/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
          * - Startup and shutdown
            - First, add Unit's startup script
-             to the :file:`/etc/rc.d/` directory:
+             to the **/etc/rc.d/** directory:
 
              .. code-block:: console
 
@@ -2204,7 +2204,7 @@ Community Repositories
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
 
              To enable or disable Unit's automatic startup,
-             edit :file:`/etc/rc.conf`:
+             edit **/etc/rc.conf**:
 
              .. code-block:: ini
 
@@ -2239,7 +2239,7 @@ Community Repositories
       see the
       `package definition
       <https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/http/unit/default.nix>`_;
-      for a :file:`.nix` configuration file defining an app,
+      for a **.nix** configuration file defining an app,
       see
       `this sample
       <https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/web-servers/unit-php.nix>`_.
@@ -2249,17 +2249,17 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/unit/control.unit.sock`
+           - **/run/unit/control.unit.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`unit`
+           - **unit**
 
          * - Startup and shutdown
-           - Add :samp:`services.unit.enable = true;` to
-             :file:`/etc/nixos/configuration.nix`
+           - Add **services.unit.enable = true;** to
+             **/etc/nixos/configuration.nix**
              and rebuild the system configuration:
 
              .. code-block:: console
@@ -2328,13 +2328,13 @@ Community Repositories
         .. list-table::
 
            * - Control :ref:`socket <source-startup>`
-             - :file:`/var/run/unit/control.unit.sock`
+             - **/var/run/unit/control.unit.sock**
 
            * - Log :ref:`file <troubleshooting-log>`
-             - :file:`/var/log/unit/unit.log`
+             - **/var/log/unit/unit.log**
 
            * - Non-privileged :ref:`user and group <security-apps>`
-             - :samp:`_unit`
+             - **_unit**
 
            * - Startup and shutdown
              - .. code-block:: console
@@ -2377,13 +2377,13 @@ Community Repositories
       .. list-table::
 
          * - Control :ref:`socket <source-startup>`
-           - :file:`/run/unit/control.sock`
+           - **/run/unit/control.sock**
 
          * - Log :ref:`file <troubleshooting-log>`
-           - :file:`/var/log/unit/unit.log`
+           - **/var/log/unit/unit.log**
 
          * - Non-privileged :ref:`user and group <security-apps>`
-           - :samp:`nobody`
+           - **nobody**
 
          * - Startup and shutdown
            - .. code-block:: console
@@ -2409,52 +2409,52 @@ come in several language-specific flavors:
    * - Tag
      - Description
 
-   * - :samp:`|version|-minimal`
+   * - **|version|-minimal**
      - No language modules;
-       based on the :samp:`debian:bullseye-slim`
+       based on the **debian:bullseye-slim**
        `image <https://hub.docker.com/_/debian>`__.
 
-   * - :samp:`|version|-go1.21`
+   * - **|version|-go1.21**
      - Single-language;
-       based on the :samp:`golang:1.21`
+       based on the **golang:1.21**
        `image <https://hub.docker.com/_/golang>`__.
 
-   * - :samp:`|version|-jsc11`
+   * - **|version|-jsc11**
      - Single-language;
-       based on the :samp:`eclipse-temurin:11-jdk`
+       based on the **eclipse-temurin:11-jdk**
        `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
-   * - :samp:`|version|-node20`
+   * - **|version|-node20**
      - Single-language;
-       based on the :samp:`node:20`
+       based on the **node:20**
        `image <https://hub.docker.com/_/node>`__.
 
-   * - :samp:`|version|-perl5.38`
+   * - **|version|-perl5.38**
      - Single-language;
-       based on the :samp:`perl:5.38`
+       based on the **perl:5.38**
        `image <https://hub.docker.com/_/perl>`__.
 
-   * - :samp:`|version|-php8.2`
+   * - **|version|-php8.2**
      - Single-language;
-       based on the :samp:`php:8.2-cli`
+       based on the **php:8.2-cli**
        `image <https://hub.docker.com/_/php>`__.
 
-   * - :samp:`|version|-python3.11`
+   * - **|version|-python3.11**
      - Single-language;
-       based on the :samp:`python:3.11`
+       based on the **python:3.11**
        `image <https://hub.docker.com/_/python>`__.
 
-   * - :samp:`|version|-ruby3.2`
+   * - **|version|-ruby3.2**
      - Single-language;
-       based on the :samp:`ruby:3.2`
+       based on the **ruby:3.2**
        `image <https://hub.docker.com/_/ruby>`__.
 
-   * - :samp:`|version|-wasm`
+   * - **|version|-wasm**
      - Single-language;
-       based on the :samp:`debian:bullseye-slim`
+       based on the **debian:bullseye-slim**
        `image <https://hub.docker.com/_/debian>`__.
 
-.. nxt_details:: Customizing Language Versions in Docker Images
+.. nxt_details:: Customizing language versions in Docker images
    :hash: inst-lang-docker
 
    To build a custom language version image,
@@ -2482,14 +2482,14 @@ come in several language-specific flavors:
       see the quick reference for its base image.
 
    The language name can be
-   :samp:`go`, :samp:`jsc`, :samp:`node`, :samp:`perl`,
-   :samp:`php`, :samp:`python`, or :samp:`ruby`;
-   the version is defined as :samp:`<major>.<minor>`,
-   except for :samp:`jsc` and :samp:`node`
+   **go**, **jsc**, **node**, **perl**,
+   **php**, **python**, or **ruby**;
+   the version is defined as **<major>.<minor>**,
+   except for **jsc** and **node**
    that take only major version numbers
    (as seen in the tag table).
    Thus, to create an image with Python 3.10
-   and tag it as :samp:`unit:|version|-python3.10`:
+   and tag it as **unit:|version|-python3.10**:
 
    .. subs-code-block:: console
 
@@ -2505,7 +2505,7 @@ come in several language-specific flavors:
    For other customization scenarios, see the
    :doc:`Docker howto <howto/docker>`.
 
-.. nxt_details:: Images With Pre-1.29.1 Unit Versions
+.. nxt_details:: Images with pre-1.29.1 Unit versions
    :hash: inst-pre-official-docker
 
    Before Unit 1.29.1 was released,
@@ -2514,7 +2514,7 @@ come in several language-specific flavors:
    `NGINX repository <https://hub.docker.com/r/nginx/unit/>`_
    on Docker Hub.
 
-.. nxt_details:: Images With Pre-1.22.0 Unit Versions
+.. nxt_details:: Images with pre-1.22.0 Unit versions
    :hash: inst-legacy-docker
 
    Before Unit 1.22.0 was released,
@@ -2526,15 +2526,15 @@ come in several language-specific flavors:
        * - Tag
          - Description
 
-       * - :samp:`<version>-full`
+       * - **<version>-full**
          - Contains modules for all languages that Unit then supported.
 
-       * - :samp:`<version>-minimal`
+       * - **<version>-minimal**
          - No language modules were included.
 
-       * - :samp:`<version>-<language>`
+       * - **<version>-<language>**
          - A specific language module
-           such as :samp:`1.21.0-ruby2.3` or :samp:`1.21.0-python2.7`.
+           such as **1.21.0-ruby2.3** or **1.21.0-python2.7**.
 
 You can obtain the images from these sources:
 
@@ -2590,7 +2590,7 @@ Runtime details:
 .. list-table::
 
    * - Control :ref:`socket <sec-socket>`
-     - :file:`/var/run/control.unit.sock`
+     - **/var/run/control.unit.sock**
 
    * - Log :ref:`file <troubleshooting-log>`
      - Forwarded to the
@@ -2598,7 +2598,7 @@ Runtime details:
        <https://docs.docker.com/config/containers/logging/>`_
 
    * - Non-privileged :ref:`user and group <security-apps>`
-     - :samp:`unit`
+     - **unit**
 
 For more details,
 see the repository pages
@@ -2611,19 +2611,19 @@ and our
 .. _installation-docker-init:
 
 =====================
-Initial Configuration
+Initial configuration
 =====================
 
 The official images support initial container configuration,
-implemented with an :samp:`ENTRYPOINT`
+implemented with an **ENTRYPOINT**
 `script <https://docs.docker.com/engine/reference/builder/#entrypoint>`_.
 First, the script checks the Unit
 :ref:`state directory <source-config-src-state>`
 in the container
-(:file:`/var/lib/unit/`).
+(**/var/lib/unit/**).
 If it's empty,
 the script processes certain file types
-in the container's :file:`/docker-entrypoint.d/` directory:
+in the container's **/docker-entrypoint.d/** directory:
 
 .. list-table::
    :header-rows: 1
@@ -2631,33 +2631,33 @@ in the container's :file:`/docker-entrypoint.d/` directory:
    * - File Type
      - Purpose/Action
 
-   * - :file:`.pem`
+   * - **.pem**
      - :ref:`Certificate bundles <configuration-ssl>`,
        uploaded under respective names:
-       :samp:`cert.pem` to :samp:`/certificates/cert`.
+       **cert.pem** to **/certificates/cert**.
 
-   * - :file:`.json`
+   * - **.json**
      - :ref:`Configuration snippets <configuration-mgmt>`, uploaded
-       to the :samp:`/config` section of Unit's configuration.
+       to the **/config** section of Unit's configuration.
 
-   * - :file:`.sh`
+   * - **.sh**
      - :nxt_hint:`Shell scripts
        <Use shebang in your scripts to specify a custom shell>`,
-       run after the :file:`.pem` and :file:`.json` files are uploaded;
+       run after the **.pem** and **.json** files are uploaded;
        must be executable.
 
 The script warns about any other file types
-in :file:`/docker-entrypoint.d/`.
+in **/docker-entrypoint.d/**.
 
 This mechanism enables
 customizing your containers at startup,
 reusing configurations,
 and automating workflows to reduce manual effort.
 To use the feature,
-add :samp:`COPY` directives for certificate bundles,
+add **COPY** directives for certificate bundles,
 configuration fragments,
 and shell scripts
-to your :file:`Dockerfile` derived from an official image:
+to your **Dockerfile** derived from an official image:
 
 .. subs-code-block:: docker
 
