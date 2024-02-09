@@ -2297,7 +2297,7 @@ Community Repositories
            # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
         To install Unit from
-        `OpenBSD ports <https://openports.se/www/unit>`_,
+        `OpenBSD ports <https://pkgsrc.se/www/unit>`_,
         start by updating your port collection,
         for example:
 
