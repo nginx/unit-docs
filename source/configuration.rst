@@ -125,7 +125,7 @@ to the **main**
 
 Also, **pass** values can be
 `percent encoded
-<https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__.
+<https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__.
 For example, you can escape slashes in entity names:
 
 .. code-block:: json
@@ -860,10 +860,10 @@ define patterns to be compared to the request's properties:
    * - **arguments**
      - Arguments supplied with the request's
        `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__;
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__;
        these names and value pairs are
        `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__,
        with plus signs
        (**+**)
        replaced by spaces.
@@ -879,14 +879,14 @@ define patterns to be compared to the request's properties:
 
    * - **headers**
      - `Header fields
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-6-3>`__
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-6.3>`__
        supplied with the request.
      - No
 
    * - **host**
      - **Host**
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7.2>`__,
        converted to lower case and normalized
        by removing the port number and the trailing period
        (if any).
@@ -900,9 +900,9 @@ define patterns to be compared to the request's properties:
 
    * - **query**
      - `Query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__,
        `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__,
        with plus signs
        (**+**)
        replaced by spaces.
@@ -924,14 +924,14 @@ define patterns to be compared to the request's properties:
      - `Request target
        <https://datatracker.ietf.org/doc/html/rfc9110#target.resource>`__,
        `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
        and normalized
        by removing the
        `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
        and resolving
        `relative references
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-4-2>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
        ("." and "..", "//").
      - Yes
 
@@ -1227,7 +1227,7 @@ modify this behavior:
    Argument names, non-regex string patterns in **arguments**,
    **query**, and **uri** can be
    `percent encoded
-   <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__
+   <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
    to mask special characters
    (**!** is **%21**, **~** is **%7E**,
    ***** is **%2A**, **%** is **%25**)
@@ -1418,7 +1418,7 @@ Address-based patterns define individual IPv4
 <https://datatracker.ietf.org/doc/html/rfc4632>`__),
 IPv6 (hexadecimal or
 `CIDR
-<https://datatracker.ietf.org/doc/html/rfc4291#section-2-3>`__),
+<https://datatracker.ietf.org/doc/html/rfc4291#section-2.3>`__),
 or any
 `UNIX domain socket <https://en.wikipedia.org/wiki/Unix_domain_socket>`__
 addresses
@@ -1771,7 +1771,7 @@ There's a number of built-in variables available:
    * - **host**
      - **Host**
        `header field
-       <https://datatracker.ietf.org/doc/html/rfc9110#section-7-2>`__,
+       <https://datatracker.ietf.org/doc/html/rfc9110#section-7.2>`__,
        converted to lower case and normalized
        by removing the port number
        and the trailing period (if any).
@@ -1796,10 +1796,10 @@ There's a number of built-in variables available:
    * - **request_uri**
      - Request target
        `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`__
        *including* the
        `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__,
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__,
        normalized by resolving relative path references
        ("." and "..")
        and collapsing adjacent slashes.
@@ -1825,20 +1825,20 @@ There's a number of built-in variables available:
    * - **uri**
      - Request target
        `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`__
        *without* the `query
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-4>`__
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
        part,
        normalized by resolving relative path references
        ("." and "..")
        and collapsing adjacent slashes.
        The value is
        `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2-1>`__:
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__:
        Unit interpolates all percent-encoded entities
        in the request target
        `path
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3-3>`__.
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`__.
 
 These variables can be used with:
 
