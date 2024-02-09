@@ -2,21 +2,21 @@
 .. |mod| replace:: Python 3.6+
 .. |app-pip-package| replace:: responder
 .. |app-pip-link| replace:: PIP package
-.. _app-pip-link: https://responder.kennethreitz.org/en/latest/#installing-responder
+.. _app-pip-link: https://responder.kennethreitz.org/#installing-responder
 
 #########
 Responder
 #########
 
 To run apps built with the `Responder
-<https://responder.kennethreitz.org/en/latest/#>`_ web framework using Unit:
+<https://responder.kennethreitz.org/>`_ web framework using Unit:
 
 #. .. include:: ../include/howto_install_unit.rst
 
 #. .. include:: ../include/howto_install_venv.rst
 
 #. Let's try a Unit-friendly version of a `tutorial app
-   <https://responder.kennethreitz.org/en/latest/quickstart.html#declare-a-web-service>`_,
+   <https://responder.kennethreitz.org/quickstart.html#declare-a-web-service>`_,
    saving it as **/path/to/app/asgi.py**:
 
    .. code-block:: python
@@ -35,7 +35,7 @@ To run apps built with the `Responder
 
    The **app.run()** call is omitted because **app** will be directly
    run by Unit as an ASGI `callable
-   <https://github.com/taoufik07/responder/blob/103816e27ae928d42ed850190472480124ba90e3/responder/api.py#L360>`_.
+   <https://github.com/kennethreitz/responder/blob/c6f3a7364cfa79805b0d51eea011fe34d9bd331a/responder/api.py#L501>`_.
 
 #. .. include:: ../include/howto_change_ownership.rst
 
