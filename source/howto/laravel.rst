@@ -14,7 +14,7 @@ To run apps based on the `Laravel <https://laravel.com>`_ framework using Unit:
 #. .. include:: ../include/howto_install_prereq.rst
 
 #. Create a |app| `project
-   <https://laravel.com/docs/installation#installation-via-composer>`__.
+   <https://laravel.com/docs/installation#creating-a-laravel-project>`__.
    For our purposes, the path is **/path/to/app/**:
 
    .. code-block:: console
