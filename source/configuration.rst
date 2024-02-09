@@ -5375,7 +5375,7 @@ In turn, the **http** option exposes the following settings:
         made of alphanumeric characters and hyphens
         (see
         `RFC 9110
-        <https://www.rfc-editor.org/rfc/rfc9110.html#section-16.3.1-6.2>`__);
+        <https://datatracker.ietf.org/doc/html/rfc9110#section-16.3.1-6>`__);
         otherwise,
         these characters are also permitted:
         **.!#$%&'*+^_`|~**.
