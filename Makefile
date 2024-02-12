@@ -37,7 +37,9 @@ check:
 	@$(SPHINX) -b linkcheck -d "$(BUILDDIR)/.doctrees" source .
 
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILDDIR) $(DEPLOYDIR)
+	rm -rf source/exts/__pycache__/
+	rm -f  output.json output.txt rss.xml
 
 deploy: site
 	$(eval TMP := $(shell mktemp -d))
