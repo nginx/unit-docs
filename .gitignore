@@ -1,3 +1,9 @@
 build/
 deploy/
 source/exts/__pycache__/
+
+# make check output
+output.json
+output.txt
+
+rss.xml
