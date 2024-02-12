@@ -19,7 +19,7 @@ html_use_index = False
 html_permalinks = True
 html_permalinks_icon = u'§'
 html_baseurl = 'https://unit.nginx.org/'
-html_extra_path = ['robots.txt', 'CHANGES.txt', 'go']
+html_extra_path = ['robots.txt', 'CHANGES.txt', 'go', '404.html']
 html_context = {
     'release_date'  : release_date,
     'author'        : author,
