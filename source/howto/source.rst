@@ -152,10 +152,10 @@ revision numbers, respectively); omit the packages you won't use.
       :toc:
 
       .. tab:: wasm-wasi-component
-            
+
           To build Unit with support for the WebAssembly Component Model, you need **rust**
           version 1.76.0+, **cargo** and the developer package for **clang** as mentioned in the :ref:`Required Software Section <source-prereq-build>`.
-          
+
           Next please refer to :ref:`Configuring Modules - Wasm-Wasi-Component <configuration-unit-wasm>` for further instructions.
 
       .. tab:: unit-wasm
@@ -175,30 +175,30 @@ revision numbers, respectively); omit the packages you won't use.
           to the same parent directory
           as the Unit code,
           for example:
- 
+
           .. code-block:: console
- 
+
              $ cd ..
              $ wget -O- https://github.com/bytecodealliance/wasmtime/releases/download/v12.0.0/wasmtime-v12.0.0-x86_64-linux-c-api.tar.xz \
                    | tar Jxf -  # Unpacks to the current directory
- 
+
           Point to the resulting **include** and **lib** directories when
           :ref:`configuring <howto/source-modules-webassembly>` the Unit code.
- 
+
           To build WebAssembly apps that run on Unit, you will also need
           the `wasi-sysroot <https://github.com/WebAssembly/wasi-sdk>`__ SDK:
- 
+
           .. code-block:: console
- 
+
              $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sysroot-20.0.tar.gz | tar zxf -
- 
+
           When building the apps, add the following environment variable:
- 
+
           .. code-block:: console
- 
+
              WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot-dir/ <wasi-sysroot directory>`
- 
- 
+
+
 .. _source-config-src:
 
 ===================
@@ -741,7 +741,7 @@ and place module-specific instructions in the **Makefile**.
          $ ./configure ruby --module=ru23  \
                             --ruby=ruby23
 
-   .. tab:: WebAssembly 
+   .. tab:: WebAssembly
 
       When you run :program:`./configure wasm-wasi-component`,
       the script configures a module to support running WebAssembly applications on Unit.

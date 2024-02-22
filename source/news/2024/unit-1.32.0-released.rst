@@ -12,7 +12,7 @@ Additionally, we are adding the following features:
 
 - Enhanced the NJS experience by making all Unit variables accessible from JavaScript
 
-- Added support for conditional access logging 
+- Added support for conditional access logging
 
 - Added support for changing Unit's control socket permissions
 
@@ -24,9 +24,9 @@ Additionally, we are adding the following features:
 Unit is now on GitHub!
 **********************
 
-This release is special! Special for us and the Community! As you may have noticed we have moved more and more of our development and planning workloads from our old systems to GitHub. 
+This release is special! Special for us and the Community! As you may have noticed we have moved more and more of our development and planning workloads from our old systems to GitHub.
 
-GitHub is not a read-only mirror anymore. GitHub is the single source of truth for our source code and tests. Feel free to create Issues, contribute by opening a pull request or be part in our discussions. Many ways to engage with us! 
+GitHub is not a read-only mirror anymore. GitHub is the single source of truth for our source code and tests. Feel free to create Issues, contribute by opening a pull request or be part in our discussions. Many ways to engage with us!
 
 Furthermore we have also migrated the development and maintenance of unit.nginx.org fully to GitHub. We are looking forward for pull requests and issues to make our Documentation better.
 
@@ -44,7 +44,7 @@ You can find out more about this in our Blog post: WebAssembly Next-Level: Suppo
 Enhanced scripting support - Use Unit-variables in NGINX JavaScript
 *******************************************************************
 
-Using JavaScript in Unit's configuration unlocks almost endless opportunities. A simple Unit configuration can be used to decide where a request should be routed or rewritten to by creating the values for pass and rewrite dynamically inside a JavaScript function. While writing those functions or policies, not having full access to all Unit variables available for the current request turned out to be an huge issue! 
+Using JavaScript in Unit's configuration unlocks almost endless opportunities. A simple Unit configuration can be used to decide where a request should be routed or rewritten to by creating the values for pass and rewrite dynamically inside a JavaScript function. While writing those functions or policies, not having full access to all Unit variables available for the current request turned out to be an huge issue!
 
 With Unit 1.32.0 we have unlocked full access to all Unit variables from our JavaScript runtime.
 
@@ -52,7 +52,7 @@ With Unit 1.32.0 we have unlocked full access to all Unit variables from our Jav
 Conditional access logging
 **************************
 
-Having access logs is a great way to monitor and analyze traffic sent to Unit. But sometimes there are requests we don't want to see in our logs. Periodic health checks or automated UI-tests are a great way to check the current state of your services or web application, but can increase the overall noise in your access logs. 
+Having access logs is a great way to monitor and analyze traffic sent to Unit. But sometimes there are requests we don't want to see in our logs. Periodic health checks or automated UI-tests are a great way to check the current state of your services or web application, but can increase the overall noise in your access logs.
 
 With conditional access logging, you can define rules to decide if a request should be logged or not.
 
