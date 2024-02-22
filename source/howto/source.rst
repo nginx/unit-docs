@@ -741,7 +741,16 @@ and place module-specific instructions in the **Makefile**.
          $ ./configure ruby --module=ru23  \
                             --ruby=ruby23
 
-   .. tab:: WebAssembly
+   .. tab:: WebAssembly 
+
+      When you run :program:`./configure wasm-wasi-component`,
+      the script configures a module to support running WebAssembly applications on Unit.
+
+   .. tab:: Unit-Wasm
+
+      .. warning::
+         Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
+         We recommend to use the new implementation.
 
       When you run :program:`./configure wasm`, the script configures a module
       to support running WebAssembly applications on Unit.

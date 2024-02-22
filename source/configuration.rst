@@ -5124,23 +5124,32 @@ to your app.
 
 .. _configuration-wasm:
 
-=========
-Unit-Wasm
-=========
+===========
+WebAssembly
+===========
 
 .. tabs::
    :prefix: unit-wasm
    :toc:
 
-   .. tab:: WebAssembly
-
-       When you run `./configure wasm-wasi-component` the script configures a module to support running WebAssembly applications on Unit.
-
-   .. tab:: Unit-Wasm
+   .. tab:: wasm-wasi-component
 
        First, make sure to install Unit along with the 
        :ref:`WebAssembly language module <installation-precomp-pkgs>`.
 
+       Besides the 
+       :ref:`common options <configuration-apps-common>`, 
+       you have:
+
+   .. tab:: unit-wasm
+
+       .. warning::
+          Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
+          We recommend to use the new implementation.
+  
+       First, make sure to install Unit along with the 
+       :ref:`WebAssembly language module <installation-precomp-pkgs>`.
+  
        Besides the 
        :ref:`common options <configuration-apps-common>`, 
        you have:
