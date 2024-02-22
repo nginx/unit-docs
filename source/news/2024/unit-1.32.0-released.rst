@@ -26,9 +26,9 @@ Unit is now on GitHub!
 
 This release is special! Special for us and the Community! As you may have noticed we have moved more and more of our development and planning workloads from our old systems to GitHub.
 
-GitHub is not a read-only mirror anymore. GitHub is the single source of truth for our source code and tests. Feel free to create Issues, contribute by opening a pull request or be part in our discussions. Many ways to engage with us!
+GitHub is no longer just a read-only mirror. It now serves as the primary source for our source code and tests. We invite you to create issues, contribute through pull requests, or join our discussions. There are many ways to get involved with us.
 
-Furthermore we have also migrated the development and maintenance of unit.nginx.org fully to GitHub. We are looking forward for pull requests and issues to make our Documentation better.
+We've also fully transitioned the development and maintenance of unit.nginx.org to GitHub. We look forward to pull requests and issues that will improve our documentation.
 
 ************************************************************************
 WebAssembly next-level: Support for Wasm components and the WASI 0.2 API
