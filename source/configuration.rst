@@ -1,6 +1,6 @@
- .. meta::
+.. meta::
    :og:description: Create and maintain a working configuration using
-                    listeners, routes, apps, and upstreams.
+                  listeners, routes, apps, and upstreams.
 
 .. include:: include/replace.rst
 
@@ -34,9 +34,9 @@ the object's name can be:
   ***:80**
 
 - On Linux-based systems,
-  `abstract UNIX sockets <https://man7.org/linux/man-pages/man7/unix.7.html>`__
-  can be used as well:
-  **unix:@abstract_socket**.
+   `abstract UNIX sockets <https://man7.org/linux/man-pages/man7/unix.7.html>`__
+   can be used as well:
+   **unix:@abstract_socket**.
 
 .. note::
 
@@ -5018,45 +5018,45 @@ Besides the
 you have:
 
 .. list-table::
-    :header-rows: 1
+   :header-rows: 1
 
     * - Option
       - Description
 
     * - **script** (required)
       - String;
-        rack script pathname,
-        including the **.ru** extension,
-        for instance:
-        **/www/rubyapp/script.ru**.
+         rack script pathname,
+         including the **.ru** extension,
+         for instance:
+         **/www/rubyapp/script.ru**.
 
     * - **hooks**
       - String;
-        pathname of the **.rb** file
-        setting the event hooks
-        invoked during the app's lifecycle.
+         pathname of the **.rb** file
+         setting the event hooks
+         invoked during the app's lifecycle.
 
     * - **threads**
       - Integer;
-        number of worker threads
-        per :ref:`app process <sec-processes>`.
-        When started,
-        each app process creates this number of threads
-        to handle requests.
+         number of worker threads
+         per :ref:`app process <sec-processes>`.
+         When started,
+         each app process creates this number of threads
+         to handle requests.
 
-        The default is **1**.
+         The default is **1**.
 
 Example:
 
 .. code-block:: json
 
    {
-       "type": "ruby",
-       "processes": 5,
-       "user": "www",
-       "group": "www",
-       "script": "/www/cms/config.ru",
-       "hooks": "hooks.rb"
+      "type": "ruby",
+      "processes": 5,
+      "user": "www",
+      "group": "www",
+      "script": "/www/cms/config.ru",
+      "hooks": "hooks.rb"
    }
 
 The **hooks** script
@@ -5080,16 +5080,16 @@ for example:
    # Runs once at app load.
 
    on_worker_boot do
-       File.write("./worker_boot.#{Process.pid}", "worker boot")
+      File.write("./worker_boot.#{Process.pid}", "worker boot")
    end
    # Runs at worker process boot.
 
    on_thread_boot do
-       @mutex.synchronize do
-           # Avoids a race condition that may crash the app.
-           File.write("./thread_boot.#{Process.pid}.#{Thread.current.object_id}",
-                      "thread boot")
-       end
+      @mutex.synchronize do
+         # Avoids a race condition that may crash the app.
+         File.write("./thread_boot.#{Process.pid}.#{Thread.current.object_id}",
+                     "thread boot")
+      end
    end
    # Runs at worker thread boot.
 
@@ -5124,198 +5124,167 @@ to your app.
 
 .. _configuration-wasm:
 
-===========
-WebAssembly
-===========
+=========
+Unit-Wasm
+=========
 
-First, make sure to install Unit along with the
-:ref:`WebAssembly language module <installation-precomp-pkgs>`.
+.. tabs::
+   :prefix: unit-wasm
+   :toc:
 
-Besides the
-:ref:`common options <configuration-apps-common>`,
-you have:
+   .. tab:: WebAssembly
 
-.. list-table::
-    :header-rows: 1
+       When you run `./configure wasm-wasi-component` the script configures a module to support running WebAssembly applications on Unit.
 
-    * - Option
-      - Description
+   .. tab:: Unit-Wasm
 
-    * - **module** (required)
-      - String;
-        WebAssembly module pathname,
-        including the **.wasm** extension,
-        for instance:
-        **/www/wasmapp/module.wasm**.
+       First, make sure to install Unit along with the 
+       :ref:`WebAssembly language module <installation-precomp-pkgs>`.
 
-    * - **request_handler** (required)
-      - String;
-        name of the request handler function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+       Besides the 
+       :ref:`common options <configuration-apps-common>`, 
+       you have:
 
-        The runtime calls this handler,
-        providing the address
-        of the shared memory block
-        used to pass data in and out the app.
+       .. list-table::
+          :header-rows: 1
 
-    * - **malloc_handler** (required)
-      - String;
-        name of the memory allocator function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+          * - Option
+            - Description
+          * - **module** (required)
+            - String; WebAssembly module pathname, including the **.wasm** extension, 
+              for instance: **applications/wasmapp/module.wasm**.
+          * - **request_handler** (required)
+            - String; name of the request handler function. If you use Unit
+              with the official :program:`unit-wasm` :ref:`package <installation-precomp-pkgs>`, 
+              the value is language specific; see the 
+              `SDK <https://github.com/nginx/unit-wasm/>`__ documentation for details. 
+              Otherwise, use the name of your custom implementation.
+             
+              The runtime calls this handler, providing the address of the 
+              shared memory block used to pass data in and out the app.
+          * - **malloc_handler** (required)
+            - String; name of the memory allocator function.  See note above regarding
+              language-specific handlers in the official `unit-wasm` package.
+              
+              The runtime calls this handler at language module startup to allocate
+              the shared memory block used to pass data in and out the app.
+          * - **free_handler** (required)
+            - String;  name of the memory deallocator function.  See note above regarding
+              language-specific handlers in the official `unit-wasm` package.
+              
+              The runtime calls this handler at language module shutdown to free
+              the shared memory block used to pass data in and out the app.
+          * - **access**
+            - Object;  its only array member, **filesystem**, lists directories
+              to which the application has access:
+              
+              .. code-block:: json
 
-        The runtime calls this handler at language module startup
-        to allocate the shared memory block
-        used to pass data in and out the app.
+                  "access": {
+                     "filesystem": [
+                        "/tmp/",
+                        "/var/tmp/"
+                     ]
+                  }   
 
-    * - **free_handler** (required)
-      - String;
-        name of the memory deallocator function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+          * - **module_init_handler**,
+            - String;
+              name of the module initilization function.
+              If you use Unit with the official :program:`unit-wasm`
+              :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific;
+              see the `SDK <https://github.com/nginx/unit-wasm/>`__
+              documentation for details.
+              Otherwise, use the name of your custom implementation.
 
-        The runtime calls this handler at language module shutdown
-        to free the shared memory block
-        used to pass data in and out the app.
+              It is invoked by the WebAssembly language module
+              at language module startup,
+              after the WebAssembly module was initialised.
 
-    * - **access**
-      - Object;
-        its only array member, **filesystem**, lists directories
-        to which the application has access:
+          * - **module_end_handler**
+            - String;
+              name of the module finalization function.
+              If you use Unit with the official :program:`unit-wasm`
+              :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific;
+              see the `SDK <https://github.com/nginx/unit-wasm/>`__
+              documentation for details.
+              Otherwise, use the name of your custom implementation.
 
-        .. code-block:: json
+              It is invoked by the WebAssembly language module
+              at language module shutdown.
 
-           "access": {
-               "filesystem": [
-                   "/tmp/",
-                   "/var/tmp/"
-               ]
-           }
+          * - **request_init_handler**
+            - String;
+              name of the request initialization function.
+              If you use Unit with the official :program:`unit-wasm`
+              :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific;
+              see the `SDK <https://github.com/nginx/unit-wasm/>`__
+              documentation for details.
+              Otherwise, use the name of your custom implementation.
 
-    * - **module_init_handler**,
+              It is invoked by the WebAssembly language module
+              at the start of each request.
 
-      - String;
-        name of the module initilization function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+          * - **request_end_handler**
+            - String;
+              name of the request finalization function.
+              If you use Unit with the official :program:`unit-wasm`
+              :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific;
+              see the `SDK <https://github.com/nginx/unit-wasm/>`__
+              documentation for details.
+              Otherwise, use the name of your custom implementation.
 
-        It is invoked by the WebAssembly language module
-        at language module startup,
-        after the WebAssembly module was initialised.
+              It is invoked by the WebAssembly language module
+              at the end of each request,
+              when the headers and the request body were received.
 
-    * - **module_end_handler**
+          * - **response_end_handler**
+            - String;
+              name of the response finalization function.
+              If you use Unit with the official :program:`unit-wasm`
+              :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific;
+              see the `SDK <https://github.com/nginx/unit-wasm/>`__
+              documentation for details.
+              Otherwise, use the name of your custom implementation.
 
-      - String;
-        name of the module finalization function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+              It is invoked by the WebAssembly language module
+              at the end of each response,
+              when the headers and the response body were sent.
 
-        It is invoked by the WebAssembly language module
-        at language module shutdown.
+       Example:
 
-    * - **request_init_handler**
+       .. code-block:: json
 
-      - String;
-        name of the request initialization function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
+           {
+               "type": "wasm",
+               "module": "/www/webassembly/unitapp.wasm",
+               "request_handler": "my_custom_request_handler",
+               "malloc_handler": "my_custom_malloc_handler",
+               "free_handler": "my_custom_free_handler",
+               "access": {
+                   "filesystem": [
+                       "/tmp/",
+                       "/var/tmp/"
+                   ]
+               }, 
+               "module_init_handler": "my_custom_module_init_handler",
+               "module_end_handler": "my_custom_module_end_handler",
+               "request_init_handler": "my_custom_request_init_handler",
+               "request_end_handler": "my_custom_request_end_handler",
+               "response_end_handler": "my_custom_response_end_handler" 
+           } 
 
-        It is invoked by the WebAssembly language module
-        at the start of each request.
+       Use these handlers to add custom runtime logic to your app; for a detailed 
+       discussion of their usage and requirements, see the 
+       `SDK <https://github.com/nginx/unit-wasm/>`__ source code and documentation.
 
-    * - **request_end_handler**
+       .. note::
 
-      - String;
-        name of the request finalization function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
-
-        It is invoked by the WebAssembly language module
-        at the end of each request,
-        when the headers and the request body were received.
-
-    * - **response_end_handler**
-
-      - String;
-        name of the response finalization function.
-        If you use Unit with the official :program:`unit-wasm`
-        :ref:`package <installation-precomp-pkgs>`,
-        the value is language specific;
-        see the `SDK <https://github.com/nginx/unit-wasm/>`__
-        documentation for details.
-        Otherwise, use the name of your custom implementation.
-
-        It is invoked by the WebAssembly language module
-        at the end of each response,
-        when the headers and the response body were sent.
-
-Example:
-
-.. code-block:: json
-
-   {
-       "type": "wasm",
-       "module": "/www/webassembly/unitapp.wasm",
-       "request_handler": "my_custom_request_handler",
-       "malloc_handler": "my_custom_malloc_handler",
-       "free_handler": "my_custom_free_handler",
-       "access": {
-           "filesystem": [
-               "/tmp/",
-               "/var/tmp/"
-           ]
-       },
-
-       "module_init_handler": "my_custom_module_init_handler",
-       "module_end_handler": "my_custom_module_end_handler",
-       "request_init_handler": "my_custom_request_init_handler",
-       "request_end_handler": "my_custom_request_end_handler",
-       "response_end_handler": "my_custom_response_end_handler"
-   }
-
-Use these handlers
-to add custom runtime logic
-to your app;
-for a detailed discussion of their usage and requirements,
-see the
-`SDK <https://github.com/nginx/unit-wasm/>`__
-source code and documentation.
-
-.. note::
-
-   For WASM-based examples,
-   see our
-   :ref:`Rust and C samples <sample-wasm>`.
-
+           For WASM-based examples, see our :ref:`Rust and C samples <sample-wasm>`.
 
 .. _configuration-stngs:
 

@@ -96,12 +96,12 @@ Wall of fame
 
 Special Thanks to all external contributors helping us making Unit better! With 1.32.0 we would like to send a shout out to:
 
-- Alejandro Colomar (code)
-- Alex Crichton (code)
-- Andrei Vasiliu (code)
-- Chris Adams (code)
-- David Carlier (code)
-- Dean Coakley (docs)
-- rustedsword (code)
-- Hippolyte Pello (docs)
-- Javier Evans (docs)
+- Alejandro Colomar
+- Alex Crichton
+- Andrei Vasiliu
+- Chris Adams
+- David Carlier
+- Dean Coakley
+- rustedsword
+- Hippolyte Pello
+- Javier Evans
