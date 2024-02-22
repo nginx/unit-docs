@@ -3,19 +3,12 @@ Scripting
 #########
 
 NGINX Unit's :doc:`control API <controlapi>` supports
-JavaScript expressions,
-including function calls,
-in the form of
+JavaScript expressions, including function calls,in the form of
 `template literals
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
-written in the
-:program:`njs`
-`dialect <https://nginx.org/en/docs/njs/>`__
-of JavaScript.
-They can be used
-with these
-:doc:`configuration <configuration>`
-options:
+written in
+`NGINX JavaScript <https://nginx.org/en/docs/njs/>`__ ( :program:`njs` ).
+They can be used with these :doc:`configuration <configuration>` options:
 
 - **pass** in
   :ref:`listeners <configuration-listeners>`
@@ -41,9 +34,12 @@ options:
   to enable HTTP redirects.
 
 - **format** in the
-  :ref:`access log <configuration-access-log>`
+  :ref:`access log <customm-log-format>`
   to customize Unit's log output.
 
+- **if** in the
+  :ref:`access log <conditional-access-log>`
+  to dinamically turn Unit's logging on and off.
 
 As its JavaScript engine,
 Unit uses the :program:`njs` library,
@@ -54,68 +50,11 @@ or
 
 .. warning::
 
-   Unit 1.31+ doesn't support
-   pre-0.8 :program:`njs`
-   `versions <https://nginx.org/en/docs/njs/changes.html>`__;
-   please update.
+   Unit 1.32.0 and later require
+   `njs 0.8.2 <https://nginx.org/en/docs/njs/changes.html>`__;
+   please make sure that you are running this version.
 
-Some request properties
-are exposed as :program:`njs` objects or scalars:
-
-.. list-table::
-   :header-rows: 1
-
-   * - Name
-     - Type
-     - Description
-
-   * - **args**
-     - Object
-     - Query string arguments;
-       **Color=Blue** is **args.Color**;
-       can be used with **Object.keys()**.
-
-   * - **cookies**
-     - Object
-     - Request cookies;
-       an **authID** cookie is **cookies.authID**;
-       can be used with **Object.keys()**.
-
-   * - **headers**
-     - Object
-     - Request header fields;
-       **Accept** is **headers.Accept**,
-       **Content-Encoding** is **headers['Content-Encoding']**
-       (hyphen requires an array property accessor);
-       can be used with **Object.keys()**.
-
-   * - **host**
-     - Scalar
-     - **Host**
-       `header field
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`__,
-       converted to lower case and normalized
-       by removing the port number and the trailing period (if any).
-
-   * - **remoteAddr**
-     - Scalar
-     - Remote IP address of the request.
-
-   * - **uri**
-     - Scalar
-     - `Request target
-       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__,
-       `percent decoded
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
-       and normalized by removing the
-       `query string
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
-       and resolving
-       `relative references
-       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
-       ("." and "..", "//").
-
-Template lterals are wrapped in backticks.
+Template literals are wrapped in backticks.
 To use a literal backtick in a string,
 escape it: **\\\\`**
 (escaping backslashes
@@ -170,9 +109,8 @@ so add the module's name to **settings/js_module**:
 
 .. note::
 
-   Mind that the **js_module** option
-   can be a string or an array,
-   so choose the appropriate HTTP method.
+   Please note that the **js_module** option
+   can be a string or an array; choose the appropriate HTTP method.
 
 Now, the **http.route()** function can be used
 with Unit-supplied header field values:
@@ -269,5 +207,4 @@ and all its headers:
    }
 
 For further reference,
-see the :program:`njs`
-`documentation <https://nginx.org/en/docs/njs/>`__.
+see the `njs documentation <https://nginx.org/en/docs/njs/>`__.

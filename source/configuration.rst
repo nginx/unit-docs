@@ -5552,6 +5552,8 @@ Example of a CLF line:
 Custom log formatting
 =====================
 
+.. _customm-log-format:
+
 The **access_log** option
 can be also set to an object
 to customize both the log path
@@ -5611,6 +5613,8 @@ to define the log format:
 ======================
 Conditional access log
 ======================
+
+.. _conditional-access-log:
 
 The **access_log** can be dynamically turned on and off by using the **if** option:
 
