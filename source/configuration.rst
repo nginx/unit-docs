@@ -1783,6 +1783,10 @@ There's a number of built-in variables available:
    * - **remote_addr**
      - Remote IP address of the request.
 
+   * - **request_id**
+     - Contains a string generated with random data. Can be used as a unique
+       request identifier.
+
    * - **request_line**
      - Entire
        `request line
@@ -1839,6 +1843,7 @@ There's a number of built-in variables available:
        in the request target
        `path
        <https://datatracker.ietf.org/doc/html/rfc3986#section-3.3>`__.
+
 
 These variables can be used with:
 
