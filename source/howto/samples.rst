@@ -563,9 +563,9 @@ WebAssembly
       and compile it into WebAssembly Component.
 
       Make sure you have general Rust-Tooling (cargo, rustc, …) installed.
-      We recommend to use `rustup <https://rustup.rs/>`__ to get started.
+      We recommend using `rustup <https://rustup.rs/>`__ to get started.
 
-      This example was build with **rustc** version 1.76.0.
+      This example was built with **rustc** version 1.76.0.
 
       First, install the WebAssembly-specific Rust tooling:
 
@@ -575,14 +575,14 @@ WebAssembly
 
          $ rustup target add wasm32-wasi
 
-      Next, install **cargo component**. This will make it easier to build a
-      Wasm Component from the Rust Code and is the preferred way of doing it.
+      Next, install cargo component. This simplifies building a Wasm
+      Component from Rust Code, making it the recommended method.
 
       .. code-block:: console
 
          $ cargo install cargo-component
 
-      Currently, the fastes way to get started with Wasm Components using WASI
+      Currently, the fastest way to get started with Wasm Components using WASI
       0.2 wasi-http API is the **hello-wasi-http** demo application by
       sunfishcode. Simply clone the repository and build the component running
       the following command:
@@ -603,7 +603,7 @@ WebAssembly
          Creating component /home/unit-build/hello-wasi-http/target/wasm32-wasi/debug/hello_wasi_http.wasm
          $
 
-      This will create a WebAssembly Component you can deploy on Unit using the
+      This creates a WebAssembly Component you can deploy on Unit using the
       following Unit configuration. Make sure you point the **component** path
       to the WebAssembly component you have just created. Create a
       **config.json** file:

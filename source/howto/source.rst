@@ -162,7 +162,7 @@ revision numbers, respectively); omit the packages you won't use.
 
           .. warning::
              Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
-             We recommend to use the new implementation.
+             We recommend using the new implementation.
 
           To build Unit with the `WebAssembly <https://webassembly.org>`__
           language module,
@@ -185,7 +185,7 @@ revision numbers, respectively); omit the packages you won't use.
           Point to the resulting **include** and **lib** directories when
           :ref:`configuring <howto/source-modules-webassembly>` the Unit code.
 
-          To build WebAssembly apps that run on Unit, you will also need
+          To build WebAssembly apps that run on Unit, you need
           the `wasi-sysroot <https://github.com/WebAssembly/wasi-sdk>`__ SDK:
 
           .. code-block:: console
@@ -752,7 +752,7 @@ and place module-specific instructions in the **Makefile**.
 
       .. warning::
          Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
-         We recommend to use the new implementation.
+         We recommend using the new implementation.
 
       When you run :program:`./configure wasm`, the script configures a module
       to support running WebAssembly applications on Unit.
