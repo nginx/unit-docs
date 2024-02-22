@@ -5601,3 +5601,62 @@ to define the log format:
            "format": "`${host + ': ' + uri}`"
        }
    }
+
+
+**********************
+Conditional access log
+**********************
+
+The **access_log** can be dynamically turned on and off by using the **if** option:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - **if**
+      - if the value is empty, 0, false, null, or undefined,
+        the logs will not be recorded.
+
+This feature allows users to specify conditions to control if access log should
+be recorded. The **if** option supports a string and JavaScript code.
+If its value is empty, 0, false, null, or undefined, the logs will not be
+recorded. And the '!' as a prefix inverses the condition.
+
+Example without NJS:
+
+.. code-block:: json
+
+   {
+      "access_log": {
+         "if": "$cookie_session",
+         "path": "..."
+      }
+   }
+
+All requests using a session cookie named **session** will be logged.
+
+We can add ! to inverse the condition.
+
+.. code-block:: json
+
+   {
+      "access_log": {
+         "if": "!$cookie_session",
+         "path": "..."
+      }
+   }
+
+Now, all request without a session cookie will be logged.
+
+Example with NJS and the use of a template literal:
+
+.. code-block:: json
+
+   {
+      "access_log": {
+         "if": "`${uri == '/health' ? false : true}`",
+         "path": "..."
+      }
+   }
