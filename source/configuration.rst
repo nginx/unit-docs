@@ -5141,6 +5141,25 @@ WebAssembly
        :ref:`common options <configuration-apps-common>`, 
        you have:
 
+       .. list-table::
+          :header-rows: 1
+
+          * - Option
+            - Description
+          * - **component** (required)
+            - String; WebAssembly component pathname, including the **.wasm** extension, for instance: "/var/www/wasm/component.wasm"
+          * - **access**
+            - Object;  its only array member, **filesystem**, lists directories to which the application has access:
+              
+              .. code-block:: json
+
+                  "access": {
+                     "filesystem": [
+                        "/tmp/",
+                        "/var/tmp/"
+                     ]
+                  }
+
    .. tab:: unit-wasm
 
        .. warning::
