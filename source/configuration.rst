@@ -5603,9 +5603,9 @@ to define the log format:
    }
 
 
-**********************
+======================
 Conditional access log
-**********************
+======================
 
 The **access_log** can be dynamically turned on and off by using the **if** option:
 
