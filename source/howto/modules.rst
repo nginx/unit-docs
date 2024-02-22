@@ -37,7 +37,7 @@ Node.js using Unit's sources.
 For WebAssembly, Unit delegates bytecode execution to the
 `Wasmtime <https://wasmtime.dev/>`_
 runtime that is installed with the
-:ref:`unit-wasm <installation-precomp-pkgs>`
+:ref:`language module <installation-precomp-pkgs>`
 module or during
 a :ref:`source build <source-wasm>`.
 
