@@ -5,6 +5,7 @@ News
 .. toctree::
    :hidden:
 
+   2024 <news/2024/index>
    2023 <news/2023/index>
    2022 <news/2022/index>
    2021 <news/2021/index>
@@ -20,6 +21,8 @@ Most recent updates (to get them automatically, subscribe to our `RSS feed
    :number: 7
 
 You can also browse our archives:
+
+- :doc:`news/2024/index`
 
 - :doc:`news/2023/index`
 
