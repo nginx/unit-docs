@@ -2589,7 +2589,7 @@ are allowed by a
 :ref:`regex pattern <configuration-routes-matching-patterns>`.
 
 If no MIME types match the request, a 403 "Forbidden" response is
-returned. You can pair that behaviour with a 
+returned. You can pair that behaviour with a
 :ref:`fallback <configuration-fallback>` option that will be called
 when a 40x response would be returned.
 
@@ -5134,11 +5134,11 @@ WebAssembly
 
    .. tab:: wasm-wasi-component
 
-       First, make sure to install Unit along with the 
+       First, make sure to install Unit along with the
        :ref:`WebAssembly language module <installation-precomp-pkgs>`.
 
-       Besides the 
-       :ref:`common options <configuration-apps-common>`, 
+       Besides the
+       :ref:`common options <configuration-apps-common>`,
        you have:
 
        .. list-table::
@@ -5150,7 +5150,7 @@ WebAssembly
             - String; WebAssembly component pathname, including the **.wasm** extension, for instance: "/var/www/wasm/component.wasm"
           * - **access**
             - Object;  its only array member, **filesystem**, lists directories to which the application has access:
-              
+
               .. code-block:: json
 
                   "access": {
@@ -5160,17 +5160,46 @@ WebAssembly
                      ]
                   }
 
+       Example:
+
+       .. code-block:: json
+
+          {
+            "listeners": {
+               "127.0.0.1:8080": {
+                  "pass": "applications/wasm"
+               }
+            },
+            "applications": {
+               "wasm": {
+                  "type": "wasm-wasi-component",
+                  "component": "/var/www/app/component.wasm",
+                  "access": {
+                  "filesystem": [
+                     "/tmp/",
+                     "/var/tmp/"
+                  ]
+                  }
+               }
+            }
+          }
+
+       .. note::
+          A good first Rust based project is available at
+          `sunfishcode/hello-wasi-http <https://github.com/sunfishcode/hello-wasi-http>`__.
+          It also includes all the important steps to get started with WebAssembly, WASI and Rust.
+
    .. tab:: unit-wasm
 
        .. warning::
           Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
           We recommend to use the new implementation.
-  
-       First, make sure to install Unit along with the 
+
+       First, make sure to install Unit along with the
        :ref:`WebAssembly language module <installation-precomp-pkgs>`.
-  
-       Besides the 
-       :ref:`common options <configuration-apps-common>`, 
+
+       Besides the
+       :ref:`common options <configuration-apps-common>`,
        you have:
 
        .. list-table::
@@ -5179,33 +5208,33 @@ WebAssembly
           * - Option
             - Description
           * - **module** (required)
-            - String; WebAssembly module pathname, including the **.wasm** extension, 
+            - String; WebAssembly module pathname, including the **.wasm** extension,
               for instance: **applications/wasmapp/module.wasm**.
           * - **request_handler** (required)
             - String; name of the request handler function. If you use Unit
-              with the official :program:`unit-wasm` :ref:`package <installation-precomp-pkgs>`, 
-              the value is language specific; see the 
-              `SDK <https://github.com/nginx/unit-wasm/>`__ documentation for details. 
+              with the official :program:`unit-wasm` :ref:`package <installation-precomp-pkgs>`,
+              the value is language specific; see the
+              `SDK <https://github.com/nginx/unit-wasm/>`__ documentation for details.
               Otherwise, use the name of your custom implementation.
-             
-              The runtime calls this handler, providing the address of the 
+
+              The runtime calls this handler, providing the address of the
               shared memory block used to pass data in and out the app.
           * - **malloc_handler** (required)
             - String; name of the memory allocator function.  See note above regarding
               language-specific handlers in the official `unit-wasm` package.
-              
+
               The runtime calls this handler at language module startup to allocate
               the shared memory block used to pass data in and out the app.
           * - **free_handler** (required)
             - String;  name of the memory deallocator function.  See note above regarding
               language-specific handlers in the official `unit-wasm` package.
-              
+
               The runtime calls this handler at language module shutdown to free
               the shared memory block used to pass data in and out the app.
           * - **access**
             - Object;  its only array member, **filesystem**, lists directories
               to which the application has access:
-              
+
               .. code-block:: json
 
                   "access": {
@@ -5213,7 +5242,7 @@ WebAssembly
                         "/tmp/",
                         "/var/tmp/"
                      ]
-                  }   
+                  }
 
           * - **module_init_handler**,
             - String;
@@ -5298,16 +5327,16 @@ WebAssembly
                        "/tmp/",
                        "/var/tmp/"
                    ]
-               }, 
+               },
                "module_init_handler": "my_custom_module_init_handler",
                "module_end_handler": "my_custom_module_end_handler",
                "request_init_handler": "my_custom_request_init_handler",
                "request_end_handler": "my_custom_request_end_handler",
-               "response_end_handler": "my_custom_response_end_handler" 
-           } 
+               "response_end_handler": "my_custom_response_end_handler"
+           }
 
-       Use these handlers to add custom runtime logic to your app; for a detailed 
-       discussion of their usage and requirements, see the 
+       Use these handlers to add custom runtime logic to your app; for a detailed
+       discussion of their usage and requirements, see the
        `SDK <https://github.com/nginx/unit-wasm/>`__ source code and documentation.
 
        .. note::
