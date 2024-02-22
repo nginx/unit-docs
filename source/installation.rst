@@ -130,8 +130,8 @@ they're available for:
 The packages include core executables,
 developer files,
 and support for individual languages.
-We also maintain a Homebrew :ref:`tap <installation-macos-homebrew>` for macOS users
-and a :ref:`module <installation-nodejs-package>` for Node.js
+We also maintain a Homebrew :ref:`tap <installation-macos-homebrew>` for
+macOS users and a :ref:`module <installation-nodejs-package>` for Node.js
 at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
 .. note::

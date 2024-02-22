@@ -153,15 +153,20 @@ revision numbers, respectively); omit the packages you won't use.
 
       .. tab:: wasm-wasi-component
 
-          To build Unit with support for the WebAssembly Component Model, you need **rust**
-          version 1.76.0+, **cargo** and the developer package for **clang** as mentioned in the :ref:`Required Software Section <source-prereq-build>`.
+          To build Unit with support for the WebAssembly Component Model,
+          you need **rust** version 1.76.0+, **cargo** and the developer
+          package for **clang** as mentioned in the
+          :ref:`Required Software Section <source-prereq-build>`.
 
-          Next please refer to :ref:`Configuring Modules - WebAssembly <modules-webassembly>` for further instructions.
+          Next please refer to
+          :ref:`Configuring Modules - WebAssembly <modules-webassembly>` for
+          further instructions.
 
       .. tab:: unit-wasm
 
           .. warning::
-             Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
+             Unit 1.32 and later support the WebAssembly Component Model
+             and WASI 0.2 APIs.
              We recommend using the new implementation.
 
           To build Unit with the `WebAssembly <https://webassembly.org>`__
@@ -746,12 +751,14 @@ and place module-specific instructions in the **Makefile**.
       .. _modules-webassembly:
 
       When you run :program:`./configure wasm-wasi-component`,
-      the script configures a module to support running WebAssembly applications on Unit.
+      the script configures a module to support running WebAssembly
+      applications on Unit.
 
    .. tab:: Unit-Wasm
 
       .. warning::
-         Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
+         Unit 1.32 and later support the WebAssembly Component Model and WASI
+         0.2 APIs.
          We recommend using the new implementation.
 
       When you run :program:`./configure wasm`, the script configures a module

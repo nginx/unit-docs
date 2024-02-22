@@ -5152,9 +5152,11 @@ WebAssembly
           * - Option
             - Description
           * - **component** (required)
-            - String; WebAssembly component pathname, including the **.wasm** extension, for instance: "/var/www/wasm/component.wasm"
+            - String; WebAssembly component pathname, including the **.wasm**
+              extension, for instance: "/var/www/wasm/component.wasm"
           * - **access**
-            - Object;  its only array member, **filesystem**, lists directories to which the application has access:
+            - Object;  its only array member, **filesystem**, lists
+              directories to which the application has access:
 
               .. code-block:: json
 
