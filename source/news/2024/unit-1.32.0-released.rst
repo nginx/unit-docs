@@ -4,9 +4,9 @@
 Unit 1.32.0 Released
 ####################
 
-Unit 1.31.0 introduced a Technology Preview of a language module for WebAssembly, and an SDK for C and Rust to help developers build and run web applications that compile to Wasm. It worked well, but we knew that a custom low level ABI on the host side and a developer SDK for server side WebAssembly would not be the end of this journey but a very important step for us in it.
+Unit 1.31.0 introduced a Technology Preview of a WebAssembly language module and an SDK for C and Rust, helping developers build and run web applications compiled to Wasm. Although effective, we recognized that a custom low-level ABI on the host side and a developer SDK for server-side WebAssembly marked not the conclusion, but a significant milestone in our journey.
 
-Unit 1.32.0 comes with a new language module for WebAssembly that supports the WASI 0.2 http world so that WebAssembly Components implementing this Interface can be hosted on Unit.
+Unit 1.32.0 comes with a new language module for WebAssembly that supports the WASI 0.2 HTTP world so that WebAssembly Components implementing this Interface can be hosted on Unit.
 
 Additionally, we are adding the following features:
 
@@ -18,7 +18,7 @@ Additionally, we are adding the following features:
 
 - Added a new variable **request_id**
 
-...and many things more! Keep reading to learn more about what changed since 1.31.1.
+...and much more! Keep reading to learn more about what changed since 1.31.1.
 
 **********************
 Unit is now on GitHub!
