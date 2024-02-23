@@ -6,11 +6,11 @@ Working With Language Modules
 
 Languages supported by Unit fall into these two categories:
 
-- :ref:`External <modules-ext>` (Go, Node.js, WebAssembly): Run outside Unit
-  with an interface layer to the native runtime.
+- :ref:`External <modules-ext>` (Go, Node.js): Run outside Unit with an
+  interface layer to the native runtime.
 
-- :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby): Execute in
-  runtimes that Unit loads at startup.
+- :ref:`Embedded <modules-emb>` (Java, Perl, PHP, Python, Ruby, WebAssembly):
+  Execute in runtimes that Unit loads at startup.
 
 For any specific language and its version, Unit needs a language module.
 
@@ -67,7 +67,8 @@ to find them in your system:
 
    $ ls :nxt_ph:`/path/to/modules <Use runtime value if the default was overridden>`
 
-         java.unit.so  perl.unit.so  php.unit.so  python.unit.so  ruby.unit.so
+         java.unit.so  php.unit.so     ruby.unit.so  wasm_wasi_component.unit.so
+         perl.unit.so  python.unit.so  wasm.unit.so
 
 To clarify the module versions, check the :ref:`Unit log <troubleshooting-log>`
 to see which modules were loaded at startup:
