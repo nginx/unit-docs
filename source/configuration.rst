@@ -2594,7 +2594,7 @@ are allowed by a
 :ref:`regex pattern <configuration-routes-matching-patterns>`.
 
 If no MIME types match the request, a 403 "Forbidden" response is
-returned. You can pair that behaviour with a
+returned. You can pair that behavior with a
 :ref:`fallback <configuration-fallback>` option that will be called
 when a 40x response would be returned.
 
@@ -5192,15 +5192,15 @@ WebAssembly
           }
 
        .. note::
-          A good first Rust based project is available at
+          A good, first Rust-based project is available at
           `sunfishcode/hello-wasi-http <https://github.com/sunfishcode/hello-wasi-http>`__.
-          It also includes all the important steps to get started with WebAssembly, WASI and Rust.
+          It also includes all the important steps to get started with WebAssembly, WASI, and Rust.
 
    .. tab:: unit-wasm
 
        .. warning::
           Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
-          We recommend to use the new implementation.
+          We recommend using the new implementation.
 
        First, make sure to install Unit along with the
        :ref:`WebAssembly language module <installation-precomp-pkgs>`.
@@ -5240,7 +5240,7 @@ WebAssembly
               the shared memory block used to pass data in and out the app.
           * - **access**
             - Object;  its only array member, **filesystem**, lists directories
-              to which the application has access:
+              the application can access:
 
               .. code-block:: json
 
@@ -5263,7 +5263,7 @@ WebAssembly
 
               It is invoked by the WebAssembly language module
               at language module startup,
-              after the WebAssembly module was initialised.
+              after the WebAssembly module was initialized.
 
           * - **module_end_handler**
             - String;
@@ -5630,8 +5630,8 @@ The **access_log** can be dynamically turned on and off by using the **if** opti
       - if the value is empty, 0, false, null, or undefined,
         the logs will not be recorded.
 
-This feature allows users to specify conditions to control if access log should
-be recorded. The **if** option supports a string and JavaScript code.
+This feature lets users set conditions to determine whether access logs are 
+recorded. The **if** option supports a string and JavaScript code.
 If its value is empty, 0, false, null, or undefined, the logs will not be
 recorded. And the '!' as a prefix inverses the condition.
 
@@ -5659,7 +5659,7 @@ We can add ! to inverse the condition.
       }
    }
 
-Now, all request without a session cookie will be logged.
+Now, all requests without a session cookie will be logged.
 
 Example with NJS and the use of a template literal:
 
