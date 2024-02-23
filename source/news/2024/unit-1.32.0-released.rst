@@ -66,12 +66,12 @@ Support for Wasm Components
 Enhanced scripting support - Use Unit-variables in NGINX JavaScript
 *******************************************************************
 
-Using JavaScript in Unit's configuration unlocks almost endless opportunities.
-A simple Unit configuration can be used to decide where a request should be
-routed or rewritten to by creating the values for pass and rewrite dynamically
-inside a JavaScript function. While writing those functions or policies,
+Using JavaScript in Unit's configuration unlocks vast possibilities.
+A simple Unit configuration can determine the routing or rewriting of a request
+by dynamically generating the values for pass and rewrite
+within a JavaScript function. While writing those functions or policies,
 not having full access to all Unit variables available for the current
-request turned out to be an huge issue!
+request turned out to be a huge issue!
 
 With Unit 1.32.0 we have unlocked full access to all Unit variables
 from our JavaScript runtime.
@@ -80,11 +80,12 @@ from our JavaScript runtime.
 Conditional access logging
 **************************
 
-Having access logs is a great way to monitor and analyze traffic sent to Unit.
-But sometimes there are requests we don't want to see in our logs. Periodic
-health checks or automated UI-tests are a great way to check the current state
-of your services or web application, but can increase the overall noise in your
-access logs.
+Access logs are a great way to monitor the traffic sent to Unit.
+However, you might find that certain requests, such as regular
+health checks and automated UI tests, aren't ones you want
+cluttering up your logs. While these checks are crucial for monitoring
+the health of your services or web applications, they can significantly
+increase the volume of data in your access logs, leading to unnecessary noise.
 
 With conditional access logging, you can define rules to decide if a request
 should be logged or not.
