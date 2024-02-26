@@ -556,7 +556,7 @@ WebAssembly
    :prefix: web-assembly
    :toc:
 
-   .. tab:: wasm-was-component
+   .. tab:: wasm-wasi-component
 
       Instead of dealing with bytecode,
       let's build a Unit-capable Rust app
