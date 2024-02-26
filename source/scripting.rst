@@ -54,6 +54,62 @@ or
    `njs 0.8.2 <https://nginx.org/en/docs/njs/changes.html>`__;
    please make sure that you are running this version.
 
+Some request properties
+are exposed as :program:`njs` objects or scalars:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+
+   * - **args**
+     - Object
+     - Query string arguments;
+       **Color=Blue** is **args.Color**;
+       can be used with **Object.keys()**.
+
+   * - **cookies**
+     - Object
+     - Request cookies;
+       an **authID** cookie is **cookies.authID**;
+       can be used with **Object.keys()**.
+
+   * - **headers**
+     - Object
+     - Request header fields;
+       **Accept** is **headers.Accept**,
+       **Content-Encoding** is **headers['Content-Encoding']**
+       (hyphen requires an array property accessor);
+       can be used with **Object.keys()**.
+
+   * - **host**
+     - Scalar
+     - **Host**
+       `header field
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.4>`__,
+       converted to lower case and normalized
+       by removing the port number and the trailing period (if any).
+
+   * - **remoteAddr**
+     - Scalar
+     - Remote IP address of the request.
+
+   * - **uri**
+     - Scalar
+     - `Request target
+       <https://datatracker.ietf.org/doc/html/rfc7230#section-5.3>`__,
+       `percent decoded
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-2.1>`__
+       and normalized by removing the
+       `query string
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-3.4>`__
+       and resolving
+       `relative references
+       <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
+       ("." and "..", "//").
+
 Template literals are wrapped in backticks.
 To use a literal backtick in a string,
 escape it: **\\\\`**
