@@ -249,7 +249,7 @@ issued by :program:`curl`:
    }
 
 
-This uses a series of transformations
+This example uses a series of transformations
 to log the request's
 date, IP, URI,
 and all its headers:
@@ -260,6 +260,20 @@ and all its headers:
        "path": "/var/log/unit/access_kv.log",
        "format": "`@timestamp=${new Date().toISOString()} ip=${remoteAddr} uri=${uri} ${Object.keys(headers).map(k => 'req.' + k + '=\"' + headers[k] + '\"').join(' ')}\n`"
    }
+
+The next example will add the **Cache-Control** Header based on the HTTP Request method:
+
+.. code-block:: json
+
+   {
+       "action": {
+         "pass": "applications/my_app",
+         "response_headers": {
+            "Cache-Control": "`${vars.method.startsWith('P') ? 'no-cache' : 'max-age=3600'}`"
+         }
+       }
+   }
+
 
 For further reference,
 see the `njs documentation <https://nginx.org/en/docs/njs/>`__.
