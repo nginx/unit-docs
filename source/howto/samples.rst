@@ -560,7 +560,7 @@ WebAssembly
 
       Instead of dealing with bytecode,
       let's build a Unit-capable Rust app
-      and compile it into WebAssembly Component.
+      and compile it into a WebAssembly Component.
 
       Make sure you have general Rust-Tooling (cargo, rustc, …) installed.
       We recommend using `rustup <https://rustup.rs/>`__ to get started.
