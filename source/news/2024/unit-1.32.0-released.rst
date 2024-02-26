@@ -43,8 +43,8 @@ without having a need to rebuild them. This is also the first Language Module
 for Unit that was driven by the Community. Special thanks to Alex Crichton
 for the contribution!
 
-You can find out more about this in our Blog post: WebAssembly Next-Level:
-Support for Wasm Components
+We are preparing a blog post where we will dive deeper into the details of the
+new WebAssembly language module. Stay tuned!
 
 *******************************************************************
 Enhanced scripting support - Use Unit-variables in NGINX JavaScript
@@ -76,48 +76,6 @@ the response. For all other methods we set a **max-age** of 3600 seconds.
          }
     }
 
-****************
-CLI enhancements
-****************
-
-The **unitc** command line tool is a convenient way of applying and editing Unit
-configuration without constructing lengthy **curl(1)** commands or knowing where
-the control socket is located. Unit 1.32.0 includes two useful enhancements to
-**unitc** that, included in the official packages.
-
-A Docker container ID can now be specified as the configuration target.
-To access the configuration of a local Unit container, use the **docker://**
-scheme to specify the container ID or name.
-
-It is now also possible to convert Unit's configuration to and from YAML.
-This can be convenient when a more compact format is desirable, such as when
-storing it in a source control system. YAML format also provides an elegant way
-of displaying Unit's usage statistics without the noise" of JSON.
-
-Let's combine these two enhancements to display a compact form of Unit's usage
-statistics from a Docker container:
-
-.. code-block:: bash
-
-    $ unitc docker://f4f3d9e918e6 /status --format YAML
-    connections:
-      accepted: 1067
-      active: 13
-      idle: 4
-      closed: 1050
-    requests:
-      total: 1307
-    applications:
-      my_app:
-         processes:
-            running: 14
-            starting: 0
-            idle: 4
-         requests:
-            active: 10
-
-Note that the `yq(1) <https://github.com/mikefarah/yq#install>`__ tool is required
-for YAML format conversion.
 
 .. _conditional-access-logging-news:
 **************************
@@ -164,6 +122,49 @@ is present in a request or not.
 
 In this example Unit will check the existence of a Cookie named session
 and only log request including this cookie.
+
+****************
+CLI enhancements
+****************
+
+The **unitc** command line tool is a convenient way of applying and editing Unit
+configuration without constructing lengthy **curl(1)** commands or knowing where
+the control socket is located. Unit 1.32.0 includes two useful enhancements to
+**unitc** that, included in the official packages.
+
+A Docker container ID can now be specified as the configuration target.
+To access the configuration of a local Unit container, use the **docker://**
+scheme to specify the container ID or name.
+
+It is now also possible to convert Unit's configuration to and from YAML.
+This can be convenient when a more compact format is desirable, such as when
+storing it in a source control system. YAML format also provides an elegant way
+of displaying Unit's usage statistics without the noise" of JSON.
+
+Let's combine these two enhancements to display a compact form of Unit's usage
+statistics from a Docker container:
+
+.. code-block:: bash
+
+    $ unitc docker://f4f3d9e918e6 /status --format YAML
+    connections:
+      accepted: 1067
+      active: 13
+      idle: 4
+      closed: 1050
+    requests:
+      total: 1307
+    applications:
+      my_app:
+         processes:
+            running: 14
+            starting: 0
+            idle: 4
+         requests:
+            active: 10
+
+Note that the `yq(1) <https://github.com/mikefarah/yq#install>`__ tool is required
+for YAML format conversion.
 
 
 **********************
