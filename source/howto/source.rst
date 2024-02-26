@@ -950,6 +950,15 @@ counterparts, see :ref:`here <source-config-src>`.
           # unitd --control [::1]:8080
           # unitd --control :nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
 
+   * - **--control-mode**
+     - Sets the permission of the UNIX domain control socket. Default: 0600
+
+   * - **--control-user**
+     - Sets the owner of the UNIX domain control socket.
+
+   * - **--control-group**
+     - Sets the group of the UNIX domain control socket.
+
    * - **--group name**, **--user name**
      - Group name and user name used to run Unit's non-privileged
        :ref:`processes <security-apps>`.
