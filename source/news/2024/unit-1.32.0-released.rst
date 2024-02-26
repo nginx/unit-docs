@@ -28,23 +28,6 @@ Additionally, we are adding the following features:
 
 ...and much more! Keep reading to learn more about what changed since 1.31.1.
 
-**********************
-Unit is now on GitHub!
-**********************
-
-This release is special! Special for us and the Community! As you may have
-noticed we have moved more and more of our development and planning workloads
-from our old systems to GitHub.
-
-GitHub is no longer just a read-only mirror. It now serves as the primary
-source for our source code and tests. We invite you to create issues,
-contribute through pull requests, or join our discussions. There are
-many ways to get involved with us.
-
-We've also fully transitioned the development and maintenance of unit.nginx.org
-to GitHub. We look forward to pull requests and issues that will improve our
-documentation.
-
 ************************************************************************
 WebAssembly next-level: Support for Wasm components and the WASI 0.2 API
 ************************************************************************
@@ -183,6 +166,22 @@ In this example Unit will check the existence of a Cookie named session
 and only log request including this cookie.
 
 
+**********************
+Unit is now on GitHub!
+**********************
+
+This release is special! Special for us and the Community! As you may have
+noticed we have moved more and more of our development and planning workloads
+from our old systems to GitHub.
+
+GitHub is no longer just a read-only mirror. It now serves as the primary
+source for our source code and tests. We invite you to create issues,
+contribute through pull requests, or join our discussions. There are
+many ways to get involved with us.
+
+We've also fully transitioned the development and maintenance of unit.nginx.org
+to GitHub. We look forward to pull requests and issues that will improve our
+documentation.
 
 *************************************
 Changes in behavior and other updates
