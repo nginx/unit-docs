@@ -5554,7 +5554,7 @@ Example of a CLF line:
 Custom log formatting
 =====================
 
-.. _customm-log-format:
+.. _custom-log-format:
 
 The **access_log** option
 can be also set to an object
@@ -5630,7 +5630,7 @@ The **access_log** can be dynamically turned on and off by using the **if** opti
       - if the value is empty, 0, false, null, or undefined,
         the logs will not be recorded.
 
-This feature lets users set conditions to determine whether access logs are 
+This feature lets users set conditions to determine whether access logs are
 recorded. The **if** option supports a string and JavaScript code.
 If its value is empty, 0, false, null, or undefined, the logs will not be
 recorded. And the '!' as a prefix inverses the condition.

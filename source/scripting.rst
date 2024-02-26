@@ -34,7 +34,7 @@ They can be used with these :doc:`configuration <configuration>` options:
   to enable HTTP redirects.
 
 - **format** in the
-  :ref:`access log <customm-log-format>`
+  :ref:`access log <custom-log-format>`
   to customize Unit's log output.
 
 - **if** in the
