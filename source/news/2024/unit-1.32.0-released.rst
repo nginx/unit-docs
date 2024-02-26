@@ -37,7 +37,7 @@ technology preview for WebAssembly, a lot has changed an happened in the
 WebAssembly ecosystem.
 
 So we evolved and with 1.32.0, we are happy to announce the support for the
-WebAssembly Component Model using the WASI 0.2 APIs. This will open the
+WebAssembly Component Model using the WASI 0.2 APIs. This opens the
 possibilities to run Wasm Components compatible with the WASI 0.2 APIs on Unit
 without having a need to rebuild them. This is also the first Language Module
 for Unit that was driven by the Community. Special thanks to Alex Crichton
@@ -195,8 +195,8 @@ Changes in behavior and other updates
 Docker image uses **stderr**, so now you can send **access_log** to stdout
 ==========================================================================
 
-With 1.32.0 the **unit.log** file will be symlinked to the container's
-**/dev/stderr** instead of **/dev/stdout**. This will leave room for the
+With 1.32.0 the **unit.log** file is symlinked to the container's
+**/dev/stderr** instead of **/dev/stdout**. This leaves room for the
 *access_log* to be redirected to **/dev/stdout** and will not populate
 the Unit log messages to **stdout** which might be scraped by log collectors.
 
