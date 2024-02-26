@@ -52,18 +52,19 @@ Enhanced scripting support - Use Unit-variables in NGINX JavaScript
 
 Using JavaScript in Unit's configuration unlocks almost endless opportunities.
 A simple Unit configuration can be used to decide where a request should be
-routed or rewritten to by creating the values for pass and rewrite dynamically
-inside a JavaScript function.
+routed or rewritten to by creating the values for **pass** and **rewrite**
+dynamically inside a JavaScript function.
 
 Previously JavaScript modules had access to a
 :doc:`limited set of objects and scalars <../../scripting>`. Now JavaScript has
 access to all of :ref:`Unit's variables <configuration-variables>` through
 the vars object.
 
-In the following sample configuration, we set the Cache-Control header based on
-the HTTP method. We do this by accessing the method variable as **vars.method**.
-When the method starts with a "P" (POST, PUT, PATCH), we do not want to cache
-the response. For all other methods we set a **max-age** of 3600 seconds.
+In the following sample configuration, we set the **Cache-Control** header
+based on the HTTP method. We do this by accessing the method variable as
+**vars.method**. When the method starts with a "P" (POST, PUT, PATCH),
+we do not want to cache the response. For all other methods we set a **max-age**
+of 3600 seconds.
 
 .. code-block:: json
 
@@ -173,16 +174,18 @@ Unit is now on GitHub!
 
 This release is special! Special for us and the Community! As you may have
 noticed we have moved more and more of our development and planning workloads
-from our old systems to GitHub.
+from our old systems to `GitHub <https://github.com/nginx/unit/>`__.
 
 GitHub is no longer just a read-only mirror. It now serves as the primary
-source for our source code and tests. We invite you to create issues,
-contribute through pull requests, or join our discussions. There are
-many ways to get involved with us.
+source for our source code and tests. We invite you to create
+`issues <https://github.com/nginx/unit/issues>`__, contribute through
+`pull requests <https://github.com/nginx/unit/pulls>`__, or join our
+`discussions <https://github.com/nginx/unit/discussions>`__. There are many
+ways to get involved with us.
 
 We've also fully transitioned the development and maintenance of unit.nginx.org
-to GitHub. We look forward to pull requests and issues that will improve our
-documentation.
+to the `Github unit-docs <https://github.com/nginx/unit-docs/>`__ repository.
+We look forward to pull requests and issues that will improve our documentation.
 
 *************************************
 Changes in behavior and other updates
