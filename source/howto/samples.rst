@@ -584,7 +584,7 @@ WebAssembly
 
       Currently, the fastest way to get started with Wasm Components using WASI
       0.2 wasi-http API is the **hello-wasi-http** demo application by
-      sunfishcode. Simply clone the repository and build the component running
+      Dan Gohman. Clone the repository and build the component running
       the following command:
 
       .. code-block:: console
