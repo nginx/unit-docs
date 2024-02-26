@@ -4,26 +4,27 @@
 Unit 1.32.0 Released
 ####################
 
-NGINX Unit is a lightweight and versatile application runtime that provides
-the essential components for your web application as a single open-source
-server: running application code (including WebAssembly),
-serving static assets, handling TLS and request routing.
 
 Unit 1.32.0 comes with a new language module for WebAssembly that supports
 the WASI 0.2 HTTP world so that WebAssembly Components implementing this
 interface can be hosted on Unit.
 
+This new language module improves upon the existing WebAssembly support. We
+recommend all users to use this new implementation for WebAssembly. We consider
+the old **unit-wasm** module deprecated now.
 
 Additionally, we are adding the following features:
 
-- Enhanced the NJS experience by making all Unit variables accessible
-  from JavaScript
+- Enhanced the :doc:`NJS experience <../../scripting>` by making all Unit variables
+  accessible from JavaScript
 
-- Added support for conditional access logging
+- Added support for
+  :ref:`conditional access logging <conditional-access-logging-news>`, to help
+  you filter the requests that are logged
 
 - Added support for changing Unit's control socket permissions
 
-- Added a new variable **request_id**
+- Added a :ref:`new variable <configuration-variables>`, **request_id**
 
 ...and much more! Keep reading to learn more about what changed since 1.31.1.
 
@@ -135,6 +136,7 @@ statistics from a Docker container:
 Note that the `yq(1) <https://github.com/mikefarah/yq#install>`__ tool is required
 for YAML format conversion.
 
+.. _conditional-access-logging-news:
 **************************
 Conditional access logging
 **************************
