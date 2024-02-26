@@ -188,9 +188,24 @@ and only log request including this cookie.
 Changes in behavior and other updates
 *************************************
 
-- Docker image uses **stderr** (was **stdout**) so now you can send **access_log** to stdout.
-- Node JS Language Module enhancements
--
+==========================================================================
+Docker image uses **stderr**, so now you can send **access_log** to stdout
+==========================================================================
+
+With 1.32.0 the **unit.log** file will be symlinked to the containers
+**/dev/stderr** instead of **/dev/stdout**. This will leave room for the
+*access_log* to be redirected to **/dev/stdout** and will not populate
+the Unit log messages to **stdout** which might be scraped by log collectors.
+
+=======================================================
+unit.nginx.org/download/ is now sources.nginx.org/unit/
+=======================================================
+
+We have moved the location of the Unit tarballs from "unit.nginx.org/download/"
+to a new, central source archive for NGINX:
+`sources.nginx.org/unit/ <https://sources.nginx.org/unit/>`__.
+The old link is currenlty proxying to the new location, but officially
+deprecated now! Please update to the new location "sources.nginx.org/unit/".
 
 ************
 Wall of fame
