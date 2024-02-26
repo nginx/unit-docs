@@ -174,7 +174,7 @@ revision numbers, respectively); omit the packages you won't use.
           you need the
           `Wasmtime <https://wasmtime.dev>`__
           runtime.
-          Download it C API
+          Download the C API
           `files <https://github.com/bytecodealliance/wasmtime/releases/>`__
           suitable for your OS and architecture
           to the same parent directory
@@ -757,7 +757,7 @@ and place module-specific instructions in the **Makefile**.
    .. tab:: Unit-Wasm
 
       .. warning::
-         Unit 1.32 and later support the WebAssembly Component Model and WASI
+         Unit 1.32.0 and later support the WebAssembly Component Model and WASI
          0.2 APIs.
          We recommend using the new implementation.
 

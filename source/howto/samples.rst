@@ -646,7 +646,7 @@ WebAssembly
    .. tab:: unit-wasm
 
       .. warning::
-         Unit 1.32 and later support the WebAssembly Component
+         Unit 1.32.0 and later support the WebAssembly Component
          Model and WASI 0.2 APIs.
          We recommend to use the new implementation.
 
@@ -729,7 +729,7 @@ WebAssembly
 
          $ curl http://localhost:8080
 
-               * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.1.0/0x00010000)] *
+               * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.3.0/0x00030000)] *
 
                [Request Info]
                REQUEST_PATH = /
@@ -740,6 +740,11 @@ WebAssembly
                LOCAL_ADDR   = 127.0.0.1
                LOCAL_PORT   = 8080
                SERVER_NAME  = localhost
+               
+               [Request Headers]
+               Host = localhost:8080
+               User-Agent = curl/8.2.1
+               Accept = */*
 
       Further,
       you can research the Unit-based WebAssembly app internals in more depth.
