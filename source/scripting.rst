@@ -3,7 +3,7 @@ Scripting
 #########
 
 NGINX Unit's :doc:`control API <controlapi>` supports
-JavaScript expressions, including function calls,in the form of
+JavaScript expressions, including function calls, in the form of
 `template literals
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
 written in
