@@ -122,7 +122,7 @@ is present in a request or not.
     }
 
 In this example Unit will check the existence of a Cookie named session
-and only log request including this cookie.
+and only log requests when it exists.
 
 ****************
 CLI enhancements
