@@ -165,9 +165,10 @@ revision numbers, respectively); omit the packages you won't use.
       .. tab:: unit-wasm
 
           .. warning::
-             Unit 1.32 and later support the WebAssembly Component Model
-             and WASI 0.2 APIs.
-             We recommend using the new implementation.
+             The **unit-wasm** module is deprecated.
+             We recommend using **wasm-wasi-component** instead,
+             available in Unit 1.32.0 and later, which supports 
+             WebAssembly Components using standard WASI 0.2 interfaces.
 
           To build Unit with the `WebAssembly <https://webassembly.org>`__
           language module,
