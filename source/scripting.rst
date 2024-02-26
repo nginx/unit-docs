@@ -51,8 +51,7 @@ or
 .. warning::
 
    Unit 1.32.0 and later require
-   `njs 0.8.2 <https://nginx.org/en/docs/njs/changes.html>`__;
-   please make sure that you are running this version.
+   `njs 0.8.2 <https://nginx.org/en/docs/njs/changes.html>`__.
 
 Some request properties
 are exposed as :program:`njs` objects or scalars:
