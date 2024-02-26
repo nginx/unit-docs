@@ -5199,8 +5199,10 @@ WebAssembly
    .. tab:: unit-wasm
 
        .. warning::
-          Unit 1.32 and later support the WebAssembly Component Model and WASI 0.2 APIs.
-          We recommend using the new implementation.
+          The `unit-wasm` module is deprecated.
+          We recommend using `wasm-wasi-component` instead, which supports
+          WebAssembly Components using standard WASI 0.2 interfaces.
+          The `wasm-wasi-component` module is available in Unit 1.32 and later.
 
        First, make sure to install Unit along with the
        :ref:`WebAssembly language module <installation-precomp-pkgs>`.
