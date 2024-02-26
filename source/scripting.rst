@@ -39,7 +39,7 @@ They can be used with these :doc:`configuration <configuration>` options:
 
 - **if** in the
   :ref:`access log <conditional-access-log>`
-  to dinamically turn Unit's logging on and off.
+  to dynamically turn Unit's logging on and off.
 
 As its JavaScript engine,
 Unit uses the :program:`njs` library,
