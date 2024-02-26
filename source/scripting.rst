@@ -109,6 +109,10 @@ are exposed as :program:`njs` objects or scalars:
        <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
        ("." and "..", "//").
 
+   * - **vars**
+     - Object
+     - Unit :ref:`variables <configuration-variables>`; vars.method is **$method**.
+
 Template literals are wrapped in backticks.
 To use a literal backtick in a string,
 escape it: **\\\\`**
