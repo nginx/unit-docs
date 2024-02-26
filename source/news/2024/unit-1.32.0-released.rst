@@ -104,7 +104,6 @@ should be logged or not.
     }
 
 In this example we don't want to log any health checks sent to Unit.
-Anything will be logged to the given file in the defined format as usual.
 As shown in our example, to get the maximum out of the newly added **if**
 option, you can combine it with our JavaScript scripting feature, but this
 is not a must.
