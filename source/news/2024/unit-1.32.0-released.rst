@@ -66,15 +66,31 @@ Support for Wasm Components
 Enhanced scripting support - Use Unit-variables in NGINX JavaScript
 *******************************************************************
 
-Using JavaScript in Unit's configuration unlocks vast possibilities.
-A simple Unit configuration can determine the routing or rewriting of a request
-by dynamically generating the values for pass and rewrite
-within a JavaScript function. While writing those functions or policies,
-not having full access to all Unit variables available for the current
-request turned out to be a huge issue!
+Using JavaScript in Unit's configuration unlocks almost endless opportunities.
+A simple Unit configuration can be used to decide where a request should be
+routed or rewritten to by creating the values for pass and rewrite dynamically
+inside a JavaScript function.
 
-With Unit 1.32.0 we have unlocked full access to all Unit variables
-from our JavaScript runtime.
+Previously JavaScript modules had access to a
+:doc:`limited set of objects and scalars <../../scripting>`. Now JavaScript has
+access to all of :ref:`Unit's variables <configuration-variables>` through
+the vars object.
+
+In the following sample configuration, we set the Cache-Control header based on
+the HTTP method. We do this by accessing the method variable as **vars.method**.
+When the method starts with a "P" (POST, PUT, PATCH), we do not want to cache
+the response. For all other methods we set a **max-age** of 3600 seconds.
+
+.. code-block:: json
+
+    {
+        "action": {
+            "pass": "applications/my_app",
+               "response_headers": {
+               "Cache-Control": "`${vars.method.startsWith('P') ? 'no-cache' : 'max-age=3600'}`"
+               }
+         }
+    }
 
 **************************
 Conditional access logging
@@ -97,6 +113,7 @@ should be logged or not.
             "if": "`${uri == '/health' ? false : true}`",
             "path": "/var/log/unit/access.log",
             "format": "`${host + ': ' + uri}`"
+        }
     }
 
 In this example we don't want to log any health checks sent to Unit.
@@ -114,6 +131,7 @@ is present in a request or not.
         "access_log": {
             "if": "$cookie_session",
             "path": "…"
+        }
     }
 
 In this example Unit will check the existence of a Cookie named session
