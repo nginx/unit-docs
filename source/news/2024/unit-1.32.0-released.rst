@@ -125,6 +125,7 @@ and only log request including this cookie.
 Changes in behavior and other updates
 *************************************
 
+- Docker image uses **stderr** (was **stdout**) so now you can send **access_log** to stdout.
 - Node JS Language Module enhancements
 
 ************
