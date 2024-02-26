@@ -29,7 +29,7 @@ Additionally, we are adding the following features:
 ...and much more! Keep reading to learn more about what changed since 1.31.1.
 
 ************************************************************************
-WebAssembly next-level: Support for Wasm components and the WASI 0.2 API
+WebAssembly: Support for Wasm components and the WASI 0.2 API
 ************************************************************************
 
 Since the release of Unit 1.31.0 in August 2023 and the announcement of our
