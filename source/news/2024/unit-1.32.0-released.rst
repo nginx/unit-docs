@@ -131,7 +131,7 @@ CLI enhancements
 The **unitc** command line tool is a convenient way of applying and editing Unit
 configuration without constructing lengthy **curl(1)** commands or knowing where
 the control socket is located. Unit 1.32.0 includes two useful enhancements to
-**unitc** that, included in the official packages.
+**unitc** that are included in the official packages.
 
 A Docker container ID can now be specified as the configuration target.
 To access the configuration of a local Unit container, use the **docker://**
@@ -195,7 +195,7 @@ Changes in behavior and other updates
 Docker image uses **stderr**, so now you can send **access_log** to stdout
 ==========================================================================
 
-With 1.32.0 the **unit.log** file will be symlinked to the containers
+With 1.32.0 the **unit.log** file will be symlinked to the container's
 **/dev/stderr** instead of **/dev/stdout**. This will leave room for the
 *access_log* to be redirected to **/dev/stdout** and will not populate
 the Unit log messages to **stdout** which might be scraped by log collectors.
