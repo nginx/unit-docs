@@ -750,9 +750,12 @@ and place module-specific instructions in the **Makefile**.
 
       .. _modules-webassembly:
 
-      When you run :program:`./configure wasm-wasi-component`,
+      When you run :program:./configure wasm-wasi-component,
       the script configures a module to support running WebAssembly
       components on Unit.
+
+      The module doesn't accept any extra configuration parameters.
+      The module's basename is wasm-wasi-component.
 
    .. tab:: Unit-Wasm
 
