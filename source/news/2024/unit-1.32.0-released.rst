@@ -4,6 +4,11 @@
 Unit 1.32.0 Released
 ####################
 
+NGINX Unit is a lightweight and versatile application runtime that provides
+the essential components for your web application as a single open-source
+server: running application code (including WebAssembly),
+serving static assets, handling TLS and request routing.
+
 Unit 1.31.0 introduced a Technology Preview of a WebAssembly language module
 and an SDK for C and Rust, helping developers build and run web applications
 compiled to Wasm. Although effective, we recognized that a custom low-level
