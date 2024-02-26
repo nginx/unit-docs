@@ -2409,47 +2409,47 @@ come in several language-specific flavors:
    * - Tag
      - Description
 
-   * - **|version|-minimal**
+   * - :samp:`|version|-minimal`
      - No language modules;
        based on the **debian:bullseye-slim**
        `image <https://hub.docker.com/_/debian>`__.
 
-   * - **|version|-go1.21**
+   * - :samp:`|version|-go1.21`
      - Single-language;
        based on the **golang:1.21**
        `image <https://hub.docker.com/_/golang>`__.
 
-   * - **|version|-jsc11**
+   * - :samp:`|version|-jsc11`
      - Single-language;
        based on the **eclipse-temurin:11-jdk**
        `image <https://hub.docker.com/_/eclipse-temurin>`__.
 
-   * - **|version|-node20**
+   * - :samp:`|version|-node20`
      - Single-language;
        based on the **node:20**
        `image <https://hub.docker.com/_/node>`__.
 
-   * - **|version|-perl5.38**
+   * - :samp:`|version|-perl5.38`
      - Single-language;
        based on the **perl:5.38**
        `image <https://hub.docker.com/_/perl>`__.
 
-   * - **|version|-php8.2**
+   * - :samp:`|version|-php8.2`
      - Single-language;
        based on the **php:8.2-cli**
        `image <https://hub.docker.com/_/php>`__.
 
-   * - **|version|-python3.11**
+   * - :samp:`|version|-python3.11`
      - Single-language;
        based on the **python:3.11**
        `image <https://hub.docker.com/_/python>`__.
 
-   * - **|version|-ruby3.2**
+   * - :samp:`|version|-ruby3.2`
      - Single-language;
        based on the **ruby:3.2**
        `image <https://hub.docker.com/_/ruby>`__.
 
-   * - **|version|-wasm**
+   * - :samp:`|version|-wasm`
      - Single-language;
        based on the **debian:bullseye-slim**
        `image <https://hub.docker.com/_/debian>`__.
