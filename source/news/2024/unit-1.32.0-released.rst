@@ -9,15 +9,10 @@ the essential components for your web application as a single open-source
 server: running application code (including WebAssembly),
 serving static assets, handling TLS and request routing.
 
-Unit 1.31.0 introduced a Technology Preview of a WebAssembly language module
-and an SDK for C and Rust, helping developers build and run web applications
-compiled to Wasm. Although effective, we recognized that a custom low-level
-ABI on the host side and a developer SDK for server-side WebAssembly marked
-not the conclusion, but a significant milestone in our journey.
-
 Unit 1.32.0 comes with a new language module for WebAssembly that supports
 the WASI 0.2 HTTP world so that WebAssembly Components implementing this
-Interface can be hosted on Unit.
+interface can be hosted on Unit.
+
 
 Additionally, we are adding the following features:
 
@@ -193,6 +188,7 @@ Changes in behavior and other updates
 
 - Docker image uses **stderr** (was **stdout**) so now you can send **access_log** to stdout.
 - Node JS Language Module enhancements
+-
 
 ************
 Wall of fame
