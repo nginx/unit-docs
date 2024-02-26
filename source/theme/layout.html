@@ -30,12 +30,46 @@
 <meta property="twitter:card" content="summary_large_image">
 
 <style>
+/* open-sans-regular - latin_latin-ext */
 @font-face {
-    font-family: 'Open Sans';
-    src: local('OpenSans'), local('Open Sans'), local('Open Sans Regular'), local('OpenSans-Regular'),
-         url('{{ pathto('_static/OpenSans.woff2', 1) + '?' + md5('theme/static/OpenSans.woff2') }}') format('woff2'),
-         url('{{ pathto('_static/OpenSans.woff', 1) + '?' + md5('theme/static/OpenSans.woff') }}') format('woff');
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('OpenSans'), local('Open Sans'), local('Open Sans Regular'), local('OpenSans-Regular'),
+       url('{{ pathto('/_static/open-sans-v40-latin_latin-ext-regular.woff2', 1) + '?' + md5('theme/static/open-sans-v40-latin_latin-ext-regular.woff2') }}') format('woff2');
 }
+
+/* open-sans-italic - latin_latin-ext */
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: local('OpenSansItalic'), local('Open Sans Italic'), local('OpenSans Italic'), local('OpenSans-Italic'),
+       url('{{ pathto('/_static/open-sans-v40-latin_latin-ext-italic.woff2', 1) + '?' + md5('theme/static/open-sans-v40-latin_latin-ext-italic.woff2') }}') format('woff2');
+}
+
+/* open-sans-700 - latin_latin-ext */
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('OpenSansBold'), local('Open Sans Bold'), local('OpenSans Bold'), local('OpenSans-Bold'),
+       url('{{ pathto('/_static/open-sans-v40-latin_latin-ext-700.woff2', 1) + '?' + md5('theme/static/open-sans-v40-latin_latin-ext-700.woff2') }}') format('woff2');
+}
+
+/* open-sans-700italic - latin_latin-ext */
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local('OpenSansBoldItalic'), local('Open Sans Bold Italic'), local('OpenSans Bold Italic'), local('OpenSans-BoldItalic'), local('OpenSans-Bold-Italic'),
+       url('{{ pathto('/_static/open-sans-v40-latin_latin-ext-700italic.woff2', 1) + '?' + md5('theme/static/open-sans-v40-latin_latin-ext-700italic.woff2') }}') format('woff2');
+}
+
 </style>
 <link rel="stylesheet" href="{{ pathto('_static/' + styles[-1], 1) + '?' + md5('theme/static/' + styles[-1]) }}" />
 <link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
