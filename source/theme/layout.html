@@ -1,101 +1,146 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!-- TrustArc handles cookie consent and is a prerequisite for loading Tealium -->
-<script async="async" src="https://consent.trustarc.com/notice?domain=f5.com&c=teconsent&js=nj&noticeType=bb&text=true&gtm=1" crossorigin=""></script>
-<!-- Tealium profile utag.sync.js script -->
-<script src="https://mktg.tags.f5.com/nginx-unit/prod/utag.sync.js"></script>
-<!-- End TrustArc/Tealium -->
+    <!-- TrustArc handles cookie consent and is a prerequisite for loading Tealium -->
+    <script async="async"
+        src="https://consent.trustarc.com/notice?domain=f5.com&c=teconsent&js=nj&noticeType=bb&text=true&gtm=1"
+        crossorigin=""></script>
+    <!-- Tealium profile utag.sync.js script -->
+    <script src="https://mktg.tags.f5.com/nginx-unit/prod/utag.sync.js"></script>
+    <!-- End TrustArc/Tealium -->
 
-<meta charset="utf-8" />
-{%- if pagename == "index" %}
-<meta name="go-import" content="unit.nginx.org hg https://hg.nginx.org/unit" />
-{%- endif %}
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-{%- if pagename == 'index' %}
-<meta property="og:url" content="{{ nxt_baseurl }}">
-{%- else %}
-<meta property="og:url" content="{{ nxt_baseurl + pagename|replace('/index', '', 1) + '/' }}">
-{%- endif %}
-<meta property="og:title" content="{{ project }}: {{ title|striptags|e }}">
-{{ metatags }}
-<meta property="og:image" content="{{ 'http://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
-<meta property="og:image:secure_url" content="{{ 'https://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
-<meta property="og:image:width" content="988">
-<meta property="og:image:height" content="357">
-<meta property="og:image:alt" content="NGINX Unit logo" />
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
+    <meta charset="utf-8" />
+    {%- if pagename == "index" %}
+    <meta name="go-import" content="unit.nginx.org hg https://hg.nginx.org/unit" />
+    {%- endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    {%- if pagename == 'index' %}
+    <meta property="og:url" content="{{ nxt_baseurl }}">
+    {%- else %}
+    <meta property="og:url" content="{{ nxt_baseurl + pagename|replace('/index', '', 1) + '/' }}">
+    {%- endif %}
+    <meta property="og:title" content="{{ project }}: {{ title|striptags|e }}">
+    {{ metatags }}
+    <meta property="og:image"
+        content="{{ 'http://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
+    <meta property="og:image:secure_url"
+        content="{{ 'https://unit.nginx.org/_static/logo.png' + '?' + md5('theme/static/logo.png') }}">
+    <meta property="og:image:width" content="988">
+    <meta property="og:image:height" content="357">
+    <meta property="og:image:alt" content="NGINX Unit logo" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
 
-<style>
-@font-face {
-    font-family: 'Open Sans';
-    src: local('OpenSans'), local('Open Sans'), local('Open Sans Regular'), local('OpenSans-Regular'),
-         url('{{ pathto('_static/OpenSans.woff2', 1) + '?' + md5('theme/static/OpenSans.woff2') }}') format('woff2'),
-         url('{{ pathto('_static/OpenSans.woff', 1) + '?' + md5('theme/static/OpenSans.woff') }}') format('woff');
-}
-</style>
-<link rel="stylesheet" href="{{ pathto('_static/' + styles[-1], 1) + '?' + md5('theme/static/' + styles[-1]) }}" />
-<link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
-<link rel="alternate" type="application/rss+xml" title="Subscribe to NGINX Unit News" href="{{ nxt_baseurl + nxt_rss_file }}" />
-<script async src="{{ pathto('_static/script.js', 1) + '?' + md5('theme/static/script.js') }}"></script>
+    <style>
+        @font-face {
+            font-family: 'Open Sans';
+            src: local('OpenSans'),
+            local('Open Sans'),
+            local('Open Sans Regular'),
+            local('OpenSans-Regular'),
+            url('{{ pathto(' _static/OpenSans.woff2', 1) + ' ?' + md5(' theme/static/OpenSans.woff2') }}') format('woff2');
+        }
 
-{%- if next %}
-<link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
-{%- endif %}
-{%- if prev and pagename != "index" %}
-<link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
-{%- endif %}
+        @font-face {
+            font-family: 'Open Sans';
+            src: local('OpenSans'),
+            local('Open Sans'),
+            local('Open Sans Bold'),
+            local('OpenSans-Bold'),
+            url('{{ pathto(' _static/OpenSans-Bold.woff2', 1) + ' ?' + md5(' theme/static/OpenSans-Bold.woff2') }}') format('woff2');
+            font-weight: bold;
+        }
 
-<title>{{ title|striptags|e }} — {{project}}</title>
+        @font-face {
+            font-family: 'Open Sans';
+            src: local('OpenSans'),
+            local('Open Sans'),
+            local('Open Sans Italic'),
+            local('OpenSans-Italic'),
+            url('{{ pathto(' _static/OpenSans-Italic.woff2', 1) + ' ?' + md5(' theme/static/OpenSans-Italic.woff2') }}') format('woff2');
+            font-style: italic;
+        }
+
+        @font-face {
+            font-family: 'Open Sans';
+            src: local('OpenSans'),
+            local('Open Sans'),
+            local('Open Sans BoldItalic'),
+            local('OpenSans-BoldItalic'),
+            url('{{ pathto(' _static/OpenSans-BoldItalic.woff2', 1) + ' ?' + md5(' theme/static/OpenSans.woff2') }}') format('woff2');
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ pathto('_static/' + styles[-1], 1) + '?' + md5('theme/static/' + styles[-1]) }}" />
+    <link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
+    <link rel="alternate" type="application/rss+xml" title="Subscribe to NGINX Unit News"
+        href="{{ nxt_baseurl + nxt_rss_file }}" />
+    <script async src="{{ pathto('_static/script.js', 1) + '?' + md5('theme/static/script.js') }}"></script>
+
+    {%- if next %}
+    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+    {%- endif %}
+    {%- if prev and pagename != "index" %}
+    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+    {%- endif %}
+
+    <title>{{ title|striptags|e }} — {{project}}</title>
 </head>
-<body>
-<!-- Tealium Universal Tag -->
-<script type="text/javascript">
-  (function(a,b,c,d) {
-      a='//mktg.tags.f5.com/nginx-unit/prod/utag.js';
-      b=document;c='script';d=b.createElement(c);d.src=a;
-      d.type='text/java'+c;d.async=true;
-      a=b.getElementsByTagName(c)[0];a.parentNode.insertBefore(d,a)})();
-</script>
-<!-- End Tealium Universal Tag -->
 
-<!-- Global banner goes here
+<body>
+    <!-- Tealium Universal Tag -->
+    <script type="text/javascript">
+        (function (a, b, c, d) {
+            a = '//mktg.tags.f5.com/nginx-unit/prod/utag.js';
+            b = document; c = 'script'; d = b.createElement(c); d.src = a;
+            d.type = 'text/java' + c; d.async = true;
+            a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a)
+        })();
+    </script>
+    <!-- End Tealium Universal Tag -->
+
+    <!-- Global banner goes here
     <div id="rennab"><a href="BANNER LINK">BANNER TEXT</a></div>
 -->
-<div id="main">
-<div id="side">
-    <h1>
-        {%- if pagename != "index" %}
-        <a href="{{ pathto('index') }}">
-        {%- endif %}
-            <img src="{{ pathto('_static/logo.svg', 1) + '?' + md5('theme/static/logo.svg')}}" alt="{{project}}" />
-        {%- if pagename != "index" %}
-        </a>
-        {%- endif %}
-        <div title="Released on {{release_date}}">v. {{version}}</div>
-    </h1>
-    {{ toctree(maxdepth = 4) }}
-</div>
-<div id="content">
-    {% block body %} {% endblock %}
-    {% if edit_on_github_url %}
-    <div class="nxt_github_link"><a href="{{ edit_on_github_url }}"><div></div>Improve this page</a></div>
-    {% endif %}
-    <p id="footer">
-        © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
-    </p>
-    <p id="tecookie">
-        <!-- TrustArc cookie preferences link -->
-        <span id="teconsent"></span>
-        <!-- End TrustArc cookie preferences link -->
-    </p>
-</div>
-</div>
-<!-- TrustArc cookie consent -->
-<div id="consent_blackbar" style="position:fixed;top:0px;width:100%">
-<!-- End TrustArc cookie consent -->
+    <div id="main">
+        <div id="side">
+            <h1>
+                {%- if pagename != "index" %}
+                <a href="{{ pathto('index') }}">
+                    {%- endif %}
+                    <img src="{{ pathto('_static/logo.svg', 1) + '?' + md5('theme/static/logo.svg')}}"
+                        alt="{{project}}" />
+                    {%- if pagename != "index" %}
+                </a>
+                {%- endif %}
+                <div title="Released on {{release_date}}">v. {{version}}</div>
+            </h1>
+            {{ toctree(maxdepth = 4) }}
+        </div>
+        <div id="content">
+            {% block body %} {% endblock %}
+            {% if edit_on_github_url %}
+            <div class="nxt_github_link"><a href="{{ edit_on_github_url }}">
+                    <div></div>Improve this page
+                </a></div>
+            {% endif %}
+            <p id="footer">
+                © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
+            </p>
+            <p id="tecookie">
+                <!-- TrustArc cookie preferences link -->
+                <span id="teconsent"></span>
+                <!-- End TrustArc cookie preferences link -->
+            </p>
+        </div>
+    </div>
+    <!-- TrustArc cookie consent -->
+    <div id="consent_blackbar" style="position:fixed;top:0px;width:100%">
+        <!-- End TrustArc cookie consent -->
 </body>
+
 </html>
