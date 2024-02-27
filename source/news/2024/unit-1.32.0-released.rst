@@ -206,6 +206,7 @@ unit.nginx.org/download/ is now sources.nginx.org/unit/
 We have moved the location of the Unit tarballs from "unit.nginx.org/download/"
 to a new, central source archive for NGINX:
 `sources.nginx.org/unit/ <https://sources.nginx.org/unit/>`__.
+
 The old link is currently proxying to the new location, but officially
 deprecated now! Please update to the new location "sources.nginx.org/unit/".
 
