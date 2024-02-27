@@ -567,8 +567,6 @@ WebAssembly (Wasm)
 
       This example was built with **rustc** version 1.76.0.
 
-      First, install the WebAssembly-specific Rust tooling:
-
       Start by adding the wasm32-wasi support as a compilation target for **rustc**
 
       .. code-block:: console
