@@ -5,8 +5,8 @@ import os, sys
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2024'
-version = '1.31.1'
-release_date = 'Oct 19, 2023'
+version = '1.32.0'
+release_date = 'Feb 27, 2024'
 release = version
 needs_sphinx = '6.2'
 
@@ -39,3 +39,4 @@ suppress_warnings = ['misc.highlighting_failure']
 
 sys.path.append(os.path.abspath('./exts'))
 extensions = ['inline', 'nxt', 'subs', 'github']
+smartquotes_action = 'qe'

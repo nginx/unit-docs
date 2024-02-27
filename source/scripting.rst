@@ -3,19 +3,12 @@ Scripting
 #########
 
 NGINX Unit's :doc:`control API <controlapi>` supports
-JavaScript expressions,
-including function calls,
-in the form of
+JavaScript expressions, including function calls, in the form of
 `template literals
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
-written in the
-:program:`njs`
-`dialect <https://nginx.org/en/docs/njs/>`__
-of JavaScript.
-They can be used
-with these
-:doc:`configuration <configuration>`
-options:
+written in
+`NGINX JavaScript <https://nginx.org/en/docs/njs/>`__ ( :program:`njs` ).
+They can be used with these :doc:`configuration <configuration>` options:
 
 - **pass** in
   :ref:`listeners <configuration-listeners>`
@@ -41,9 +34,12 @@ options:
   to enable HTTP redirects.
 
 - **format** in the
-  :ref:`access log <configuration-access-log>`
+  :ref:`access log <custom-log-format>`
   to customize Unit's log output.
 
+- **if** in the
+  :ref:`access log <conditional-access-log>`
+  to dynamically turn Unit's logging on and off.
 
 As its JavaScript engine,
 Unit uses the :program:`njs` library,
@@ -54,10 +50,8 @@ or
 
 .. warning::
 
-   Unit 1.31+ doesn't support
-   pre-0.8 :program:`njs`
-   `versions <https://nginx.org/en/docs/njs/changes.html>`__;
-   please update.
+   Unit 1.32.0 and later require
+   `njs 0.8.2 <https://nginx.org/en/docs/njs/changes.html>`__.
 
 Some request properties
 are exposed as :program:`njs` objects or scalars:
@@ -115,7 +109,11 @@ are exposed as :program:`njs` objects or scalars:
        <https://datatracker.ietf.org/doc/html/rfc3986#section-4.2>`__
        ("." and "..", "//").
 
-Template lterals are wrapped in backticks.
+   * - **vars**
+     - Object
+     - Unit :ref:`variables <configuration-variables>`; vars.method is **$method**.
+
+Template literals are wrapped in backticks.
 To use a literal backtick in a string,
 escape it: **\\\\`**
 (escaping backslashes
@@ -170,9 +168,8 @@ so add the module's name to **settings/js_module**:
 
 .. note::
 
-   Mind that the **js_module** option
-   can be a string or an array,
-   so choose the appropriate HTTP method.
+   Please note that the **js_module** option
+   can be a string or an array; choose the appropriate HTTP method.
 
 Now, the **http.route()** function can be used
 with Unit-supplied header field values:
@@ -256,7 +253,7 @@ issued by :program:`curl`:
    }
 
 
-This uses a series of transformations
+This example uses a series of transformations
 to log the request's
 date, IP, URI,
 and all its headers:
@@ -268,6 +265,19 @@ and all its headers:
        "format": "`@timestamp=${new Date().toISOString()} ip=${remoteAddr} uri=${uri} ${Object.keys(headers).map(k => 'req.' + k + '=\"' + headers[k] + '\"').join(' ')}\n`"
    }
 
+The next example will add the **Cache-Control** Header based on the HTTP Request method:
+
+.. code-block:: json
+
+   {
+       "action": {
+         "pass": "applications/my_app",
+         "response_headers": {
+            "Cache-Control": "`${vars.method.startsWith('P') ? 'no-cache' : 'max-age=3600'}`"
+         }
+       }
+   }
+
+
 For further reference,
-see the :program:`njs`
-`documentation <https://nginx.org/en/docs/njs/>`__.
+see the `njs documentation <https://nginx.org/en/docs/njs/>`__.

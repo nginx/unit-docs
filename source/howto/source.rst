@@ -147,39 +147,62 @@ revision numbers, respectively); omit the packages you won't use.
 .. nxt_details:: Enabling WebAssembly
    :hash: source-wasm
 
-   To build Unit with the `WebAssembly <https://webassembly.org>`__
-   language module,
-   you need the
-   `Wasmtime <https://wasmtime.dev>`__
-   runtime.
-   Download it C API
-   `files <https://github.com/bytecodealliance/wasmtime/releases/>`__
-   suitable for your OS and architecture
-   to the same parent directory
-   as the Unit code,
-   for example:
+   .. tabs::
+      :prefix: source-enable-webassembly
+      :toc:
 
-   .. code-block:: console
+      .. tab:: wasm-wasi-component
 
-      $ cd ..
-      $ wget -O- https://github.com/bytecodealliance/wasmtime/releases/download/v12.0.0/wasmtime-v12.0.0-x86_64-linux-c-api.tar.xz \
-            | tar Jxf -  # Unpacks to the current directory
+          To build Unit with support for the WebAssembly Component Model,
+          you need **rust** version 1.76.0+, **cargo** and the developer
+          package for **clang** as mentioned in the
+          :ref:`Required Software Section <source-prereq-build>`.
 
-   Point to the resulting **include** and **lib** directories when
-   :ref:`configuring <howto/source-modules-webassembly>` the Unit code.
+          Next please refer to
+          :ref:`Configuring Modules - WebAssembly <modules-webassembly>` for
+          further instructions.
 
-   To build WebAssembly apps that run on Unit, you will also need
-   the `wasi-sysroot <https://github.com/WebAssembly/wasi-sdk>`__ SDK:
+      .. tab:: unit-wasm
 
-   .. code-block:: console
+          .. warning::
+             The **unit-wasm** module is deprecated.
+             We recommend using **wasm-wasi-component** instead,
+             available in Unit 1.32.0 and later, which supports 
+             WebAssembly Components using standard WASI 0.2 interfaces.
 
-      $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sysroot-20.0.tar.gz | tar zxf -
+          To build Unit with the `WebAssembly <https://webassembly.org>`__
+          language module,
+          you need the
+          `Wasmtime <https://wasmtime.dev>`__
+          runtime.
+          Download the C API
+          `files <https://github.com/bytecodealliance/wasmtime/releases/>`__
+          suitable for your OS and architecture
+          to the same parent directory
+          as the Unit code,
+          for example:
 
-   When building the apps, add the following environment variable:
+          .. code-block:: console
 
-   .. code-block:: console
+             $ cd ..
+             $ wget -O- https://github.com/bytecodealliance/wasmtime/releases/download/v12.0.0/wasmtime-v12.0.0-x86_64-linux-c-api.tar.xz \
+                   | tar Jxf -  # Unpacks to the current directory
 
-      WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot-dir/ <wasi-sysroot directory>`
+          Point to the resulting **include** and **lib** directories when
+          :ref:`configuring <howto/source-modules-webassembly>` the Unit code.
+
+          To build WebAssembly apps that run on Unit, you need
+          the `wasi-sysroot <https://github.com/WebAssembly/wasi-sdk>`__ SDK:
+
+          .. code-block:: console
+
+             $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sysroot-20.0.tar.gz | tar zxf -
+
+          When building the apps, add the following environment variable:
+
+          .. code-block:: console
+
+             WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot-dir/ <wasi-sysroot directory>`
 
 
 .. _source-config-src:
@@ -725,6 +748,22 @@ and place module-specific instructions in the **Makefile**.
                             --ruby=ruby23
 
    .. tab:: WebAssembly
+
+      .. _modules-webassembly:
+
+      When you run :program:./configure wasm-wasi-component,
+      the script configures a module to support running WebAssembly
+      components on Unit.
+
+      The module doesn't accept any extra configuration parameters.
+      The module's basename is wasm-wasi-component.
+
+   .. tab:: Unit-Wasm
+
+      .. warning::
+         Unit 1.32.0 and later support the WebAssembly Component Model and WASI
+         0.2 APIs.
+         We recommend using the new implementation.
 
       When you run :program:`./configure wasm`, the script configures a module
       to support running WebAssembly applications on Unit.

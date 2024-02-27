@@ -34,6 +34,13 @@ In Node.js, Unit is supported by an :program:`npm`-hosted `package
 otherwise, :ref:`build <howto/source-modules-nodejs>` it for your version of
 Node.js using Unit's sources.
 
+For WebAssembly, Unit delegates bytecode execution to the
+`Wasmtime <https://wasmtime.dev/>`_
+runtime that is installed with the
+:ref:`language module <installation-precomp-pkgs>`
+module or during
+a :ref:`source build <source-wasm>`.
+
 .. _modules-emb:
 
 *************************

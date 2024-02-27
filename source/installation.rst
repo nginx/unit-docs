@@ -63,6 +63,7 @@ App languages and platforms that Unit can run
 - Perl |_| 5.12 or later
 - Python |_| 2.6, 2.7, 3
 - Ruby |_| 2.0 or later
+- WebAssembly Components WASI |_| 0.2
 
 Optional dependencies:
 
@@ -75,6 +76,8 @@ Optional dependencies:
 - The
   `njs <https://nginx.org/en/docs/njs/>`__
   scripting language
+
+- Wasmtime for WebAssembly Support
 
 
 .. _installation-precomp-pkgs:
@@ -127,8 +130,8 @@ they're available for:
 The packages include core executables,
 developer files,
 and support for individual languages.
-We also maintain a Homebrew :ref:`tap <installation-macos-homebrew>` for macOS users
-and a :ref:`module <installation-nodejs-package>` for Node.js
+We also maintain a Homebrew :ref:`tap <installation-macos-homebrew>` for
+macOS users and a :ref:`module <installation-nodejs-package>` for Node.js
 at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
 
 .. note::

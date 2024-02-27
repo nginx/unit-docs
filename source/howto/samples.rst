@@ -548,134 +548,234 @@ Try this sample out with the Dockerfile :download:`here
 
 .. _sample-wasm:
 
-***********
-WebAssembly
-***********
+******************
+WebAssembly (Wasm)
+******************
 
-Instead of dealing with bytecode,
-let's build a Unit-capable Rust app
-and compile it into WebAssembly.
+.. tabs::
+   :prefix: web-assembly
+   :toc:
 
-.. note::
+   .. tab:: wasm-wasi-component
 
-   Currently, WebAssembly support is provided as a Technology Preview.
-   This includes support
-   for compiling Rust and C code into Unit-compatible WebAssembly,
-   using our SDK in the form of the the :program:`libunit-wasm` library.
-   For details, see our :program:`unit-wasm`
-   `repository <https://github.com/nginx/unit-wasm>`__
-   on GitHub.
+      Instead of dealing with bytecode,
+      let's build a Unit-capable Rust app
+      and compile it into a WebAssembly (Wasm) component.
 
-First, install the WebAssembly-specific Rust tooling:
+      Make sure you have the Rust toolchain (cargo, rustc, etc.) installed.
+      We recommend using `rustup <https://rustup.rs/>`__ to get started.
 
-.. code-block:: console
+      This example was built with **rustc** version 1.76.0.
 
-   $ rustup target add wasm32-wasi
+      Start by adding the wasm32-wasi support as a compilation target for **rustc**
 
-Next, initialize a new Rust project with a library target
-(apps are loaded by Unit's WebAssembly module as dynamic libraries).
-Then, add our **unit-wasm** crate
-to enable the :program:`libunit-wasm` library:
+      .. code-block:: console
 
-.. code-block:: console
+         $ rustup target add wasm32-wasi
 
-   $ cargo init --lib wasm_on_unit
-   $ cd wasm_on_unit/
-   $ cargo add unit-wasm
+      Next, install cargo component. This simplifies building a WebAssembly
+      component from Rust Code, making it the recommended method.
 
-Append the following to **Cargo.toml**:
+      .. code-block:: console
 
-.. code-block:: toml
+         $ cargo install cargo-component
 
-   [lib]
-   crate-type = ["cdylib"]
+      Currently, the fastest way to get started with WebAssembly components using WASI
+      0.2 wasi-http API is the **hello-wasi-http** demo application by
+      Dan Gohman. Clone the repository and build the component running
+      the following command:
 
-Save some sample code from our :program:`unit-wasm` repo as **src/lib.rs**:
+      .. code-block:: console
 
-.. code-block:: console
+         $ git clone https://github.com/sunfishcode/hello-wasi-http
+         $ cd hello-wasi-http
+         $ cargo component build
 
-   wget -O src/lib.rs https://raw.githubusercontent.com/nginx/unit-wasm/main/examples/rust/echo-request/src/lib.rs
+      The output of the build command should be similar to this:
 
-Build the Rust module with WebAssembly as the target:
+      .. code-block:: console
 
-.. code-block:: console
+         $ cargo component build
+         Compiling hello-wasi-http v0.0.0 (/home/unit-build/hello-wasi-http)
+         Finished dev [unoptimized + debuginfo] target(s) in 0.17s
+         Creating component /home/unit-build/hello-wasi-http/target/wasm32-wasi/debug/hello_wasi_http.wasm
+         $
 
-   $ cargo build --target wasm32-wasi
+      This creates a WebAssembly component you can deploy on Unit using the
+      following Unit configuration. Make sure you point the **component** path
+      to the WebAssembly component you have just created. Create a
+      **config.json** file:
 
-This yields the
-**target/wasm32-wasi/debug/wasm_on_unit.wasm** file
-(path may depend on other options).
+      .. code-block:: json
 
-Upload the :ref:`app config <configuration-wasm>` to Unit and test it:
-
-.. code-block:: console
-
-   # curl -X PUT --data-binary '{
-         "listeners": {
-             "127.0.0.1:8080": {
-                 "pass": "applications/wasm"
-             }
-         },
-
-         "applications": {
-             "wasm": {
-                 "type": "wasm",
-                 "module": ":nxt_ph:`/path/to/wasm_on_unit <app directory>`/target/wasm32-wasi/debug/wasm_on_unit.wasm",
-                 "request_handler": "uwr_request_handler",
-                 "malloc_handler": "luw_malloc_handler",
-                 "free_handler": "luw_free_handler",
-                 "module_init_handler": "uwr_module_init_handler",
-                 "module_end_handler": "uwr_module_end_handler"
-             }
+         {
+            "listeners": {
+               "127.0.0.1:8080": {
+                  "pass": "applications/wasm"
+               }
+            },
+            "applications": {
+               "wasm": {
+                  "type": "wasm-wasi-component",
+                  "component": "/home/unit-build/hello-wasi-http/target/wasm32-wasi/debug/hello_wasi_http.wasm"
+               }
+            }
          }
-     }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
-   $ curl http://localhost:8080
+      Apply the Unit configuration by using the CLI:
 
-         * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.1.0/0x00010000)] *
+      .. code-block:: console
 
-         [Request Info]
-         REQUEST_PATH = /
-         METHOD       = GET
-         VERSION      = HTTP/1.1
-         QUERY        =
-         REMOTE       = 127.0.0.1
-         LOCAL_ADDR   = 127.0.0.1
-         LOCAL_PORT   = 8080
-         SERVER_NAME  = localhost
+         $ unitc /config < config.json
 
-Further,
-you can research the Unit-based WebAssembly app internals in more depth.
-Clone the :program:`unit-wasm` repository
-and build the examples in C and Rust
-(may require :program:`clang` and :program:`lld`):
+      Or by sending it manually to Units control API:
 
-.. code-block:: console
+      .. code-block:: console
 
-   $ git clone https://github.com/nginx/unit-wasm/
-   $ cd unit-wasm
-   $ make help                                               # Explore your options first
-   $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples       # C examples
-   $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples-rust  # Rust examples
+         $ cat config.json | curl -X PUT -d @- --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-.. note::
+      Congratulations! You have created your very first WebAssembly component
+      on Unit! Send a GET Request to your configured listener.
 
-   If the above commands fail like this:
+      .. code-block:: console
 
-   .. code-block:: console
+         $ curl http://localhost:8080
 
-      wasm-ld: error: cannot open .../lib/wasi/libclang_rt.builtins-wasm32.a: No such file or directory
-      clang: error: linker command failed with exit code 1 (use -v to see invocation)
+   .. tab:: unit-wasm
 
-   Download and install the library to :program:`clang`'s run-time dependency directory:
+      .. warning::
+         Unit 1.32.0 and later support the WebAssembly component
+         Model and WASI 0.2 APIs.
+         We recommend to use the new implementation.
 
-   .. code-block:: console
+      Instead of dealing with bytecode, let's build a Unit-capable
+      Rust app and compile it into WebAssembly.
 
-      $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/libclang_rt.builtins-wasm32-wasi-20.0.tar.gz \
-            | tar zxf -                  # Unpacks to lib/wasi/ in the current directory
-      $ clang -print-runtime-dir         # Double-check the run-time directory, which is OS-dependent
+      .. note::
 
-             :nxt_ph:`/path/to/runtime/dir <run-time directory>`/linux
+         Currently, WebAssembly support is provided as a Technology Preview.
+         This includes support
+         for compiling Rust and C code into Unit-compatible WebAssembly,
+         using our SDK in the form of the the :program:`libunit-wasm` library.
+         For details, see our :program:`unit-wasm`
+         `repository <https://github.com/nginx/unit-wasm>`__
+         on GitHub.
 
-      # mkdir :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi  # Note the last part of the pathname
-      # cp :nxt_hint:`lib/wasi/ <wget output above>`libclang_rt.builtins-wasm32.a :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi/
+      First, install the WebAssembly-specific Rust tooling:
+
+      .. code-block:: console
+
+         $ rustup target add wasm32-wasi
+
+      Next, initialize a new Rust project with a library target
+      (apps are loaded by Unit's WebAssembly module as dynamic libraries).
+      Then, add our **unit-wasm** crate
+      to enable the :program:`libunit-wasm` library:
+
+      .. code-block:: console
+
+         $ cargo init --lib wasm_on_unit
+         $ cd wasm_on_unit/
+         $ cargo add unit-wasm
+
+      Append the following to **Cargo.toml**:
+
+      .. code-block:: toml
+
+         [lib]
+         crate-type = ["cdylib"]
+
+      Save some sample code from our :program:`unit-wasm` repo as **src/lib.rs**:
+
+      .. code-block:: console
+
+         wget -O src/lib.rs https://raw.githubusercontent.com/nginx/unit-wasm/main/examples/rust/echo-request/src/lib.rs
+
+      Build the Rust module with WebAssembly as the target:
+
+      .. code-block:: console
+
+         $ cargo build --target wasm32-wasi
+
+      This yields the
+      **target/wasm32-wasi/debug/wasm_on_unit.wasm** file
+      (path may depend on other options).
+
+      Upload the :ref:`app config <configuration-wasm>` to Unit and test it:
+
+      .. code-block:: console
+
+         # curl -X PUT --data-binary '{
+               "listeners": {
+                  "127.0.0.1:8080": {
+                     "pass": "applications/wasm"
+                  }
+               },
+
+               "applications": {
+                  "wasm": {
+                     "type": "wasm",
+                     "module": ":nxt_ph:`/path/to/wasm_on_unit <app directory>`/target/wasm32-wasi/debug/wasm_on_unit.wasm",
+                     "request_handler": "uwr_request_handler",
+                     "malloc_handler": "luw_malloc_handler",
+                     "free_handler": "luw_free_handler",
+                     "module_init_handler": "uwr_module_init_handler",
+                     "module_end_handler": "uwr_module_end_handler"
+                  }
+               }
+         }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
+
+         $ curl http://localhost:8080
+
+               * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.3.0/0x00030000)] *
+
+               [Request Info]
+               REQUEST_PATH = /
+               METHOD       = GET
+               VERSION      = HTTP/1.1
+               QUERY        =
+               REMOTE       = 127.0.0.1
+               LOCAL_ADDR   = 127.0.0.1
+               LOCAL_PORT   = 8080
+               SERVER_NAME  = localhost
+
+               [Request Headers]
+               Host = localhost:8080
+               User-Agent = curl/8.2.1
+               Accept = */*
+
+      Further,
+      you can research the Unit-based WebAssembly app internals in more depth.
+      Clone the :program:`unit-wasm` repository
+      and build the examples in C and Rust
+      (may require :program:`clang` and :program:`lld`):
+
+      .. code-block:: console
+
+         $ git clone https://github.com/nginx/unit-wasm/
+         $ cd unit-wasm
+         $ make help                                               # Explore your options first
+         $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples       # C examples
+         $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples-rust  # Rust examples
+
+      .. note::
+
+         If the above commands fail like this:
+
+         .. code-block:: console
+
+            wasm-ld: error: cannot open .../lib/wasi/libclang_rt.builtins-wasm32.a: No such file or directory
+            clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+         Download and install the library to :program:`clang`'s run-time dependency directory:
+
+         .. code-block:: console
+
+            $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/libclang_rt.builtins-wasm32-wasi-20.0.tar.gz \
+                  | tar zxf -                  # Unpacks to lib/wasi/ in the current directory
+            $ clang -print-runtime-dir         # Double-check the run-time directory, which is OS-dependent
+
+                  :nxt_ph:`/path/to/runtime/dir <run-time directory>`/linux
+
+            # mkdir :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi  # Note the last part of the pathname
+            # cp :nxt_hint:`lib/wasi/ <wget output above>`libclang_rt.builtins-wasm32.a :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi/
