@@ -548,9 +548,9 @@ Try this sample out with the Dockerfile :download:`here
 
 .. _sample-wasm:
 
-***********
-WebAssembly
-***********
+******************
+WebAssembly (Wasm)
+******************
 
 .. tabs::
    :prefix: web-assembly
@@ -560,7 +560,7 @@ WebAssembly
 
       Instead of dealing with bytecode,
       let's build a Unit-capable Rust app
-      and compile it into a WebAssembly Component.
+      and compile it into a WebAssembly (Wasm) component.
 
       Make sure you have general Rust-Tooling (cargo, rustc, …) installed.
       We recommend using `rustup <https://rustup.rs/>`__ to get started.
@@ -575,14 +575,14 @@ WebAssembly
 
          $ rustup target add wasm32-wasi
 
-      Next, install cargo component. This simplifies building a Wasm
-      Component from Rust Code, making it the recommended method.
+      Next, install cargo component. This simplifies building a WebAssembly
+      component from Rust Code, making it the recommended method.
 
       .. code-block:: console
 
          $ cargo install cargo-component
 
-      Currently, the fastest way to get started with Wasm Components using WASI
+      Currently, the fastest way to get started with WebAssembly components using WASI
       0.2 wasi-http API is the **hello-wasi-http** demo application by
       Dan Gohman. Clone the repository and build the component running
       the following command:
@@ -603,7 +603,7 @@ WebAssembly
          Creating component /home/unit-build/hello-wasi-http/target/wasm32-wasi/debug/hello_wasi_http.wasm
          $
 
-      This creates a WebAssembly Component you can deploy on Unit using the
+      This creates a WebAssembly component you can deploy on Unit using the
       following Unit configuration. Make sure you point the **component** path
       to the WebAssembly component you have just created. Create a
       **config.json** file:
@@ -636,7 +636,7 @@ WebAssembly
 
          $ cat config.json | curl -X PUT -d @- --unix-socket /path/to/control.unit.sock http://localhost/config/
 
-      Congratulations! You have created your very first WebAssembly Component
+      Congratulations! You have created your very first WebAssembly component
       on Unit! Send a GET Request to your configured listener.
 
       .. code-block:: console
@@ -646,7 +646,7 @@ WebAssembly
    .. tab:: unit-wasm
 
       .. warning::
-         Unit 1.32.0 and later support the WebAssembly Component
+         Unit 1.32.0 and later support the WebAssembly component
          Model and WASI 0.2 APIs.
          We recommend to use the new implementation.
 
@@ -740,7 +740,7 @@ WebAssembly
                LOCAL_ADDR   = 127.0.0.1
                LOCAL_PORT   = 8080
                SERVER_NAME  = localhost
-               
+
                [Request Headers]
                Host = localhost:8080
                User-Agent = curl/8.2.1
