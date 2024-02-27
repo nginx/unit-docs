@@ -13,7 +13,7 @@ This new language module improves upon the existing WebAssembly support. We
 recommend all users to use this new implementation for WebAssembly. We consider
 the old **unit-wasm** module deprecated now.
 
-Additionally, we are adding the following features:
+Additionally, we have added the following features:
 
 - Enhanced the :doc:`NJS (NGINX JavaScript) experience <../../scripting>` by making all Unit variables
   accessible from JavaScript
@@ -24,7 +24,7 @@ Additionally, we are adding the following features:
 
 - Added support for changing Unit's control socket permissions
 
-- Added a :ref:`new variable <configuration-variables>`, **request_id**
+- Added a :ref:`new variable <configuration-variables>`, **$request_id**
 
 ...and much more! Keep reading to learn more about what changed since 1.31.1.
 
