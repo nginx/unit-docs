@@ -39,3 +39,4 @@ suppress_warnings = ['misc.highlighting_failure']
 
 sys.path.append(os.path.abspath('./exts'))
 extensions = ['inline', 'nxt', 'subs', 'github']
+smartquotes = False
