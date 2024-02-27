@@ -562,7 +562,7 @@ WebAssembly (Wasm)
       let's build a Unit-capable Rust app
       and compile it into a WebAssembly (Wasm) component.
 
-      Make sure you have general Rust-Tooling (cargo, rustc, …) installed.
+      Make sure you have the Rust toolchain (cargo, rustc, etc.) installed.
       We recommend using `rustup <https://rustup.rs/>`__ to get started.
 
       This example was built with **rustc** version 1.76.0.
