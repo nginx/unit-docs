@@ -79,6 +79,7 @@ of 3600 seconds.
 
 
 .. _conditional-access-logging-news:
+
 **************************
 Conditional access logging
 **************************
