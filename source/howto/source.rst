@@ -149,7 +149,6 @@ revision numbers, respectively); omit the packages you won't use.
 
    .. tabs::
       :prefix: source-enable-webassembly
-      :toc:
 
       .. tab:: wasm-wasi-component
 
