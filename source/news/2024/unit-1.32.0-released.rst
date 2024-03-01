@@ -33,7 +33,7 @@ WebAssembly: Support for Wasm components and the WASI 0.2 API
 ************************************************************************
 
 Since the release of Unit 1.31.0 in August 2023 and the announcement of our
-technology preview for WebAssembly, a lot has changed an happened in the
+technology preview for WebAssembly, a lot has changed and happened in the
 WebAssembly ecosystem.
 
 So we evolved and with 1.32.0, we are happy to announce the support for the
