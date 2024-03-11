@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="go-import" content="unit.nginx.org hg https://hg.nginx.org/unit" />
+<meta name="go-import" content="unit.nginx.org git https://github.com/nginx/unit" />
 <meta http-equiv="refresh" content="0; url=/configuration/#modifying-go-sources" />
 </head>
 <body>
