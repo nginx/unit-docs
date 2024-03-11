@@ -186,8 +186,8 @@ Amazon Linux
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc17 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc17 unit-perl  \
                   unit-php unit-python39 unit-python311 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -226,8 +226,8 @@ Amazon Linux
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -272,8 +272,8 @@ Amazon Linux
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python27 unit-python34 unit-python35 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -544,8 +544,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -584,8 +584,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -630,8 +630,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-python310 unit-ruby unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -676,8 +676,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -722,8 +722,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python38 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -769,8 +769,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -815,8 +815,8 @@ Fedora
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -865,8 +865,8 @@ RHEL and derivatives
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python39 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -905,8 +905,8 @@ RHEL and derivatives
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39 unit-wasm
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -949,8 +949,8 @@ RHEL and derivatives
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -995,8 +995,8 @@ RHEL and derivatives
 
          .. code-block:: console
 
-            # yum install unit
-            # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
+            # dnf install unit
+            # dnf install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
@@ -2369,7 +2369,7 @@ Community Repositories
 
       .. code-block:: console
 
-         # yum install --enablerepo=remi unit  \
+         # dnf install --enablerepo=remi unit  \
                php54-unit-php php55-unit-php php56-unit-php  \
                php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
                php80-unit-php php81-unit-php php82-unit-php

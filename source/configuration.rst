@@ -3985,7 +3985,7 @@ and rebuild the app.
 
            .. code-block:: console
 
-              # yum install unit-devel
+              # dnf install unit-devel
 
    - If you installed Unit from
      :doc:`source <howto/source>`,

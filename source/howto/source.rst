@@ -49,19 +49,19 @@ revision numbers, respectively); omit the packages you won't use.
 
       .. code-block:: console
 
-         # yum install gcc make
-         # yum install golang
-         # yum install curl && \
+         # dnf install gcc make
+         # dnf install golang
+         # dnf install curl && \
                curl -sL https://rpm.nodesource.com/setup_:nxt_ph:`VERSION <Node.js 8.11 or later is supported>`.x | bash - && \
-               yum install nodejs
+               dnf install nodejs
          # npm install -g node-gyp
-         # yum install php-devel php-embedded
-         # yum install perl-devel perl-libs
-         # yum install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-devel
-         # yum install ruby-devel rubygem-rack
-         # yum install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
-         # yum install openssl-devel
-         # yum install pcre2-devel
+         # dnf install php-devel php-embedded
+         # dnf install perl-devel perl-libs
+         # dnf install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-devel
+         # dnf install ruby-devel rubygem-rack
+         # dnf install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
+         # dnf install openssl-devel
+         # dnf install pcre2-devel
 
 
    .. tab:: FreeBSD

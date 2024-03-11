@@ -222,14 +222,14 @@ adjust the command samples as needed to fit your scenario.
 
          .. code-block:: console
 
-            # yum install -y php-7.3.8
-            # yum install php-devel php-embedded
+            # dnf install -y php-7.3.8
+            # dnf install php-devel php-embedded
 
       #. Install RPM development tools and prepare the directory structure:
 
          .. code-block:: console
 
-            # yum install -y rpmdevtools
+            # dnf install -y rpmdevtools
             $ rpmdev-setuptree
 
       #. Create a **.spec** `file
@@ -318,4 +318,4 @@ adjust the command samples as needed to fit your scenario.
                 Wrote: /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<moduleversion>.<arch>.rpm
                 ...
 
-            # yum install -y /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<moduleversion>.<arch>.rpm
+            # dnf install -y /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<moduleversion>.<arch>.rpm
