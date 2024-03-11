@@ -115,7 +115,7 @@ adjust the command samples as needed to fit your scenario.
    For details of building Unit language modules, see the source code
    :ref:`howto <source-modules>`; it also describes building
    :doc:`Unit <source>` itself.  For more packaging examples, see our package
-   `sources <https://hg.nginx.org/unit/file/tip/pkg/>`_.
+   `sources <https://github.com/nginx/unit/tree/master/pkg>`_.
 
 ..
    Legacy anchors to preserve existing external links.
