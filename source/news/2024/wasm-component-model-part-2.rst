@@ -29,8 +29,7 @@ After the installation completes, you can confirm the current version of Rust by
    $ rustc -V
    rustc 1.76.0 (07dca489a 2024-02-04)
 
-To work with Wasm Components, we need some additional tooling. This is a one-time setup for your machine to be able to write Rust source 
-code and compile it to a WebAssembly Component.
+To work with Wasm Components, we need some additional tooling. This is a one-time setup for you to be able to write Rust source code and compile it to a Wasm Component.
 
 ==========================================================================
 Add the wasm32-wasi compiler target
@@ -75,7 +74,7 @@ Using the **wasi** Rust library
 
 Our experience with the official WASI Rust library was very interesting and exciting. The component build time was fascinating, and the library has a low dependency footprint. However, there are some costs in terms of developer experience. See for yourselves:
 
-Start by creating a new Wasm Component using cargo component:
+Start by creating a new Wasm Component using **cargo component**:
 
 .. code-block:: bash
 
@@ -158,9 +157,7 @@ The actual code from **src/lib.rs** should look like this:
       }
    }
 
-As you can see, targeting the wasi crate requires some low-level Rust work by us. Not bad at all but something to consider when choosing this 
-option. For the **wasi/http:proxy** world there is an interface description available on `Github <https://github.com/WebAssembly/wasi-http/blob/main/proxy.md>`__ 
-which will help to write your code.
+Targeting the wasi crate requires some low-level Rust work by us. Not bad at all, but something to consider when choosing this option. For the **wasi:http/proxy** world there is an interface description available on `Github <https://github.com/WebAssembly/wasi-http/blob/main/proxy.md>`__ which will help to write your code.
 
 Let's build the component. Run the following command from the **test-wasi-component** directory:
 

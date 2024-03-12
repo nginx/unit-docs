@@ -57,10 +57,7 @@ The WIT files used by the Wasm Component Model and the **wasi:http/proxy** world
 One of the interesting facts about WIT-files is the versioning system. As the host implementing the Wasm runtime as well as the component we are about to build are creating bindings for the contracts defined by the WIT files, it is important to target the same version of those contracts or choose a runtime that supports multiple versions of those WIT files. But this is worth another blog post. For now, we should focus on the latest stable release, which it was published in February 2024 and is labeled as WASI 0.2. 
 This release included **wasi:cli** and the **wasi:http** worlds.
 
-In the Wasm ecosystem these contracts are called worlds. So, we will do from now on. For the use cases of NGINX Unit it was pretty 
-clear we will targeting the **wasi/http:proxy** world. You can think of the **wasi:http/proxy** world as the set of interfaces describing 
-how a HTTP request and response will look like including all its data (HTTP Method, Headers, Body, etc.). If you are an old school web 
-developer, this might remind you of CGI.
+In the WebAssembly ecosystem, these contracts are referred to as "worlds." Therefore, we will use that term from now on. For the use cases of NGINX Unit, it was pretty clear we will be targeting the **wasi:http/proxy** world. You can think of the **wasi:http/proxy** world as the set of interfaces describing how a HTTP request and response will look like, including all its data (HTTP Method, Headers, Body, and more). If you are an old-school web developer, this might remind you of CGI.
 
 ************************************************************************
 NGINX Unit, Wasmtime and Rust - A runtime implementation
@@ -71,10 +68,9 @@ After a brief investigation, we discovered that the WASI/WIT pair we'd already h
 As mentioned at the beginning of this article, any challenge, regardless of its complexity, can be solved when the right people and community share the same mindset.
 Fermyon has been, and continues to be, a valuable and significant partner for us. After a late-night Slack and Zoom Session, we found it too complex to add native support for the Component Model to the Wasmtime C-API. Additionally, implementing the interfaces manually with WIT files without help from automation tools like **bindgen** would result in a significant amount of ongoing upkeep work.
 
-While explaining how the internals of NGINX Unit and the current C-based Language Module work to Fermyon they shared a prototype of a 
-Rust based Unit Language Module targeting the Rust-API of Wasmtime. Not the C-API anymore.
+While explaining how the internals of NGINX Unit and the current C-based Language Module work to Fermyon, they shared a prototype of a Rust-based Unit Language Module targeting the Rust API of Wasmtime. Not the C-API anymore.
 
-This was the moment we added Rust to the core of NGINX Unit. With all this knowledge we are now ready to write some code.
+Now we are equipped with the necessary knowledge to write some code.
 
 ************************************************************************
 What's next?
