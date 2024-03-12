@@ -4,12 +4,11 @@
 WebAssembly Components with Fermyons Spin SDK for Rust
 ############################################################
 
-In our blog series `Part 1 </news/2024/wasm-component-model-part-1/>`__ and `2 </news/2024/wasm-component-model-part-2/>`__ we have covered the core mechanism of the 
-WebAssembly Component Model and show cased how to create a Wasm Component using WASI 0.2 APIs and the **wasi/http:proxy** world.
+In our blog series `Part 1 </news/2024/wasm-component-model-part-1/>`__ and `2 </news/2024/wasm-component-model-part-2/>`__ , we have covered the core mechanism of the WebAssembly Component Model and showcased how to create a Wasm Component using WASI 0.2 APIs and the **wasi/http:proxy** world.
 
 In this blog post, we will have a look on the `Fermyon's Spin <https://www.fermyon.com/spin>`__ SDK for `Rust <https://fermyon.github.io/rust-docs/spin/main/spin_sdk/index.html>`__ and create a component that can be hosted on NGINX Unit.
 
-The Spin SDK for Rust comes with a great developer experience as it wraps a lot of the manual work in an easy to consume Rust API.
+The Spin SDK for Rust provides a great developer experience, as it wraps a lot of the manual work in an easy to consume Rust API.
 
 Let's start by creating a new Rust library using **cargo new**. This will create a new library project in a sub-directory **test-spin-component** of our current work directory.
 
@@ -19,14 +18,13 @@ Let's start by creating a new Rust library using **cargo new**. This will create
    $ cargo new --lib test-spin-component
    $ cd test-spin-component
 
-Add the latest version of the "spin-sdk" and "anyhow" (Flexible Error Types and a dependency of the Spin SDK) crates to the project by issuing:
+Add the latest version of the "spin-sdk" and "anyhow" (Flexible Error Types and a dependency of the Spin SDK) crates to the project by running the following command:
 
 .. code-block:: bash
 
    $ cargo add spin-sdk anyhow
 
-Before we implement the actual functionality, we must modify our **Cargo.toml** file. Open the **Cargo.toml** with an editor of your 
-choice and append the following to the bottom of your existing **Cargo.toml** file.
+Before we implement the actual functionality, we must modify our **Cargo.toml** file. Open the **Cargo.toml** with an editor of your choice and append the following to the bottom of your existing **Cargo.toml** file.
 
 .. code-block:: toml
 
@@ -64,7 +62,7 @@ Compile the Rust Library into a Wasm Component using **cargo component**:
 
     $ cargo component build --release
 
-To run the Wasm Component on NGINX Unit, startup Unit and use this initial configuration.
+To run the Wasm Component on NGINX Unit, start up Unit and use this initial configuration.
 
 .. note:: Make sure you point to the Wasm component by using an absolute path. 
 
@@ -84,5 +82,4 @@ To run the Wasm Component on NGINX Unit, startup Unit and use this initial confi
         }
     }
 
-As the Wasm Component we have just crated uses the request and response interfaces defined by the **wasi:http/proxy** 
-it can easily be deployed on NGINX Unit.
+As the Wasm Component we have just created uses the request and response interfaces defined by the **wasi:http/proxy**, it can easily be deployed on NGINX Unit.
