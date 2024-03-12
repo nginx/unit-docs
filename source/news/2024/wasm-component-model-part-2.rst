@@ -1,23 +1,23 @@
 :orphan:
 
-************************************************************************
+##################################################################
 The WebAssembly Component Model - The Why, How and What - Part 2
-************************************************************************
+##################################################################
 
 This is Part 2 of our Blog series about the Wasm Component Model, it's ecosytem and how to use Wasm Components with NGINX Unit.
 In `Part 1 </news/2024/wasm-component-model-part-1>`__ we have covered all the conceptional parts. In this part, we will focus on the process of creating a Wasm Component.
 
-==========================================================================
+************************************************************************
 Tutorial - A Rust based Wasm Component
-==========================================================================
+************************************************************************
 
 Rust is the premier language for WebAssembly development and the most mature in terms of support. In the example, we will use Rust and its ecosystem to create a Wasm Component that can be hosted directly on NGINX Unit.
 
 This tutorial targets Linux-based operating systems and macOS. If you are on Windows, we recommend using WSL2 (Windows Subsystem for Linux) to follow along. If you haven't already installed NGINX Unit alongside with the WebAssembly language module, please refer to the `docs <https://unit.nginx.org/installation/#official-packages>`__ on how to do it or use the official `Docker Image <https://unit.nginx.org/installation/#docker-images>`__ **unit:wasm**.
 
-==========================================================================
+=============================
 Rust Development Setup
-==========================================================================
+=============================
 
 Let's start by installing the Rust ecosystem, if not already done. At the time of writing, Rust 1.76 is the latest stable version. 
 To install Rust, see the instructions on their `website <https://www.rust-lang.org/tools/install>`__.
@@ -31,9 +31,9 @@ After the installation completes, you can confirm the current version of Rust by
 
 To work with Wasm Components, we need some additional tooling. This is a one-time setup for you to be able to write Rust source code and compile it to a Wasm Component.
 
-==========================================================================
+======================================
 Add the wasm32-wasi compiler target
-==========================================================================
+======================================
 
 The wasm32-wasi compiler target will provide general Wasm support to your rustc installation. Add the target by running:
 
@@ -41,9 +41,9 @@ The wasm32-wasi compiler target will provide general Wasm support to your rustc 
 
    $ rustup target add wasm32-wasi
 
-==========================================================================
+======================================
 Install cargo-component
-==========================================================================
+======================================
 
 **cargo-component** will add a cargo subcommand to build Wasm Components without any intermediate steps from our Rust project. 
 To install the latest version run the following command:
@@ -52,9 +52,9 @@ To install the latest version run the following command:
 
    $ cargo install cargo-component
 
-==========================================================================
+=================================================
 Install wasmtime runtime and CLI for testing
-==========================================================================
+=================================================
 
 The wasmtime-cli will be used to test and play around with the Wasm component. At the time of writing, we are using Wasmtime 18. 
 To install the latest version of Wasmtime run:
@@ -63,14 +63,14 @@ To install the latest version of Wasmtime run:
 
    $ curl https://wasmtime.dev/install.sh -sSf | bash
 
-For more information about Wasmtime and installing it, see their `Github repository <https://github.com/bytecodealliance/wasmtime/>`__
+For more information about Wasmtime and installing it, see their `GitHub repository <https://github.com/bytecodealliance/wasmtime/>`__
 
 Once we have all the tools in place, we can create the Rust projects.
 
 .. _tutorial-rust-based-wasm-component:
-==========================================================================
+======================================
 Using the **wasi** Rust library
-==========================================================================
+======================================
 
 Our experience with the official WASI Rust library was very interesting and exciting. The component build time was fascinating, and the library has a low dependency footprint. However, there are some costs in terms of developer experience. See for yourselves:
 
@@ -80,7 +80,7 @@ Start by creating a new Wasm Component using **cargo component**:
 
    $ cargo component new --lib test-wasi-component
 
-At the time of writing, the wasi crate (Version 0.12.1) available on `crates.io <https://crates.io/crates/wasi>`__ didn't include the latest version available on GitHub. As we are making use of a Macro in Rust, we will have to clone the repository <https://github.com/bytecodealliance/wasi>`__ and reference it from our new Wasm Component project.
+At the time of writing, the wasi crate (Version 0.12.1) available on `crates.io <https://crates.io/crates/wasi>`__ didn't include the latest version available on GitHub. As we are making use of a Macro in Rust, we will have to clone the `repository <https://github.com/bytecodealliance/wasi>`__ and reference it from our new Wasm Component project.
 
 Clone the bytecodealliances wasi repository
 
@@ -157,7 +157,7 @@ The actual code from **src/lib.rs** should look like this:
       }
    }
 
-Targeting the wasi crate requires some low-level Rust work by us. Not bad at all, but something to consider when choosing this option. For the **wasi:http/proxy** world there is an interface description available on `Github <https://github.com/WebAssembly/wasi-http/blob/main/proxy.md>`__ which will help to write your code.
+Targeting the wasi crate requires some low-level Rust work by us. Not bad at all, but something to consider when choosing this option. For the **wasi:http/proxy** world there is an interface description available on `GitHub <https://github.com/WebAssembly/wasi-http/blob/main/proxy.md>`__ which will help to write your code.
 
 Let's build the component. Run the following command from the **test-wasi-component** directory:
 
@@ -232,7 +232,7 @@ Apply the configuration using **unitc**:
 
 .. code-block:: bash
 
-   unitc config.json /config
+   $ unitc config.json /config
 
 Sending a request to the exposed endpoint will create the same output from a different runtime implementation:
 

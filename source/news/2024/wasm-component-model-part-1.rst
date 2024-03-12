@@ -16,10 +16,9 @@ The WebAssembly Component Model and NGINX Unit
 ************************************************************************
 
 A lot has happened since we shipped the first version of our Wasm Language Module for Unit. 
-Back in September 2023 we said: ::
+Back in September 2023 we said:
 
-   We introduce WebAssembly support as a Technology Preview - we expect to replace it with WASI-HTTP
-   support as soon as that is possible.
+   | We introduce WebAssembly support as a Technology Preview - we expect to replace it with WASI-HTTP support as soon as that is possible.
 
 We have done just that with Unit 1.32.0. This release supports Wasm Components using the WASI 0.2 APIs and the wasi:http/proxy world as its main interface. 
 
@@ -48,7 +47,7 @@ As we are creating Wasm components for server-side runtimes, we cannot target br
 The code we write can be compiled into an executable binary file. After launching it, we will see "Hello World" printed on the command line. The magic behind this is a standard called POSIX, which defines system calls. System calls work differently on different operating systems.
 
 WASI provides an abstraction layer for those syscalls, that can be targeted from the Code that will be compiled to Wasm. 
-A WASI compatible runtime will be able to handle the execution of that code. We see this in action in our `Rust tutorial </news/2024/wasm-component-model-part-2>`-- further in part 2 of this blog series. Since Preview2 of the WASI proposal - `the WASI-APIs are defined in WIT-files <https://bytecodealliance.org/articles/webassembly-the-updated-roadmap-for-developers#webassembly-system-interface-wasi>`__.
+A WASI compatible runtime will be able to handle the execution of that code. We see this in action in our `Rust tutorial </news/2024/wasm-component-model-part-2>`__ further in part 2 of this blog series. Since Preview2 of the WASI proposal - `the WASI-APIs are defined in WIT-files <https://bytecodealliance.org/articles/webassembly-the-updated-roadmap-for-developers#webassembly-system-interface-wasi>`__.
 
 WIT (Wasm Interface Types) is a descriptive `interface description language (IDL) <https://en.wikipedia.org/wiki/IDL_(programming_language)>`__ to define interfaces. It isn't a general-purpose coding language. The written WIT files don't contain any business logic; they are pure definitions of contracts. Multiple interfaces can be further combined into worlds. While it is not required to deeply understand the way you can create your own WIT-files, it will help to track down issues or trouble-shoot them while building components. To learn more about the WIT programming language, see the official `documentation. <https://component-model.bytecodealliance.org/design/wit.html#structure-of-a-wit-file>`__
 
