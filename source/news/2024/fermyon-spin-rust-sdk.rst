@@ -4,7 +4,7 @@
 WebAssembly Components with Fermyon's Spin SDK for Rust
 ############################################################
 
-In our blog series `Part 1 </news/2024/wasm-component-model-part-1/>`__ and `2 </news/2024/wasm-component-model-part-2/>`__ , we have covered the core mechanism of the WebAssembly Component Model and showcased how to create a Wasm Component using WASI 0.2 APIs and the **wasi/http:proxy** world.
+In our blog series `Part 1 </news/2024/wasm-component-model-part-1/>`__ and `Part 2 </news/2024/wasm-component-model-part-2/>`__ , we have covered the core mechanism of the WebAssembly Component Model and showcased how to create a Wasm Component using WASI 0.2 APIs and the **wasi/http:proxy** world.
 
 In this blog post, we will have a look on the `Fermyon's Spin <https://www.fermyon.com/spin>`__ SDK for `Rust <https://fermyon.github.io/rust-docs/spin/main/spin_sdk/index.html>`__ and create a Wasm Component that can be hosted on NGINX Unit.
 
