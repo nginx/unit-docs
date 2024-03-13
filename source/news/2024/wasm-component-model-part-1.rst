@@ -8,8 +8,7 @@ Are you interested in getting started with the WebAssembly Component Model but f
 
 In this post, we'll share some of the lessons we learned and the "aha" moments we experienced while adding support for the WebAssembly Component Model to NGINX Unit, thanks to the assistance of the robust and active community.
 
-If you're already familiar with the Wasm ecosystem or just would like to start with code, feel free to
-jump directly to `Part 2 </news/2024/wasm-component-model-part-2>`__ of this blog series.
+If you're already familiar with the Wasm ecosystem or just would like to start with code, feel free to jump directly to `Part 2 </news/2024/wasm-component-model-part-2>`__ of this blog series.
 
 ************************************************************************
 The WebAssembly Component Model and NGINX Unit
