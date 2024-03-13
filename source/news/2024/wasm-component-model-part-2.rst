@@ -57,7 +57,7 @@ Install wasmtime runtime and CLI for testing
 =================================================
 
 The wasmtime-cli will be used to test and play around with the Wasm component. At the time of writing, we are using Wasmtime 18. 
-To install the latest version of Wasmtime run:
+To install the latest version of Wasmtime, run:
 
 .. code-block:: bash
 
