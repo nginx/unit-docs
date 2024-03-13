@@ -24,8 +24,9 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Timo Stark
-   :description: Part 1 of 2 of our Wasm Compoent Model blog seires and a deep dive into the 
-                 Wasm Component Model, it's ecosytem and how eveything came to life on NGINX Unit.
+   :description: Are you interested in getting started with the WebAssembly Component Model
+                 but feel overwhelmed by the ecosystem and unsure where to begin? If so,
+                 this blog post is for you!
    :email: unit-owner@nginx.org
    :title: The WebAssembly Component Model - Part 1
    :url: news/2024/wasm-component-model-part-1
