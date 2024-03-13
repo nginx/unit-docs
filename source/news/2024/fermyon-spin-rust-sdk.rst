@@ -8,7 +8,7 @@ In our blog series `Part 1 </news/2024/wasm-component-model-part-1/>`__ and `Par
 
 In this blog post, we will have a look at the `Fermyon's Spin <https://www.fermyon.com/spin>`__ SDK for `Rust <https://fermyon.github.io/rust-docs/spin/main/spin_sdk/index.html>`__ and create a Wasm Component that can be hosted on NGINX Unit.
 
-The Spin SDKs provide a great developer experience, as they wrap a lot of the manual work in easy to consume APIs. In this blog post we will focus on Rust , but if you would like to learn more about the other language SDKs, please see the official `documentation <https://developer.fermyon.com/spin/v2/language-support-overview>`__.
+The Spin SDKs provide a great developer experience, as they wrap a lot of the manual work in easy to consume APIs. In this blog post we will focus on Rust, but if you would like to learn more about the other language SDKs, please see the official `documentation <https://developer.fermyon.com/spin/v2/language-support-overview>`__.
 
 Let's start by creating a new Rust library using **cargo new**. This will create a new library project in a sub-directory **test-spin-component** of our current work directory.
 
