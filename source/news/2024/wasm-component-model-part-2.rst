@@ -4,7 +4,7 @@
 The WebAssembly Component Model - The Why, How and What - Part 2
 ##################################################################
 
-This is Part 2 of our Blog series about the Wasm Component Model, it's ecosytem and how to use Wasm Components with NGINX Unit.
+This is Part 2 of our blog series about the Wasm Component Model, it's ecosytem and how to use Wasm Components with NGINX Unit.
 In `Part 1 </news/2024/wasm-component-model-part-1>`__ we have covered all the conceptional parts. In this part, we will focus on the process of creating a Wasm Component.
 
 ************************************************************************

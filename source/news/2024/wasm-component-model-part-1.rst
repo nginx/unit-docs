@@ -24,7 +24,7 @@ We have done just that with Unit 1.32.0. This release supports Wasm Components u
 
 Let's pause here for a moment. If the previous sentence contained unfamiliar vocabulary, don't worry. This blog post will explain the concept of the Component Model for WebAssembly (Wasm) and the role that the WebAssembly System Interface (WASI) plays in this context. We will also discuss the significance of the "WebAssembly Interface Types."
 
-As you can read in our first `Wasm Blog Post <https://www.nginx.com/blog/server-side-webassembly-nginx-unit/>`__ , the Wasm runtime shares data with the Wasm Module as raw bytes over shared memory. To make sense of this byte stream, the Host as well as the Wasm Module must speak about the same things or technically speaking, implementing the same interfaces. It is a core concept of NGINX Unit to create an application-specific context of an incoming HTTP request and share this set of bytes in memory with the runtime. 
+As you can read in our first `Wasm blog post <https://www.nginx.com/blog/server-side-webassembly-nginx-unit/>`__ , the Wasm runtime shares data with the Wasm Module as raw bytes over shared memory. To make sense of this byte stream, the Host as well as the Wasm Module must speak about the same things or technically speaking, implementing the same interfaces. It is a core concept of NGINX Unit to create an application-specific context of an incoming HTTP request and share this set of bytes in memory with the runtime. 
 
 This is exactly what we did with **unit-wasm** and it was an interesting and necessary learning to add Wasm support to Unit. However, this is far away from implementing or using a standard. This is where the Wasm Component Model comes into play.
 
