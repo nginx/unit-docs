@@ -13,7 +13,7 @@ Tutorial - A Rust based Wasm Component
 
 Rust is the premier language for WebAssembly development and the most mature in terms of support. In the example, we will use Rust and its ecosystem to create a Wasm Component that can be hosted directly on NGINX Unit.
 
-This tutorial targets Linux-based operating systems and macOS. If you are on Windows, we recommend using WSL2 (Windows Subsystem for Linux) to follow along. If you haven't already installed NGINX Unit alongside with the WebAssembly language module, please refer to the `docs <https://unit.nginx.org/installation/#official-packages>`__ on how to do it or use the official `Docker Image <https://unit.nginx.org/installation/#docker-images>`__ **unit:wasm**.
+This tutorial targets Linux-based operating systems and MacOS. If you are on Windows, we recommend using WSL2 (Windows Subsystem for Linux) to follow along. If you haven't already installed NGINX Unit alongside the WebAssembly language module, please refer to the `docs <https://unit.nginx.org/installation/#official-packages>`__ on how to do it or use the official `Docker Image <https://unit.nginx.org/installation/#docker-images>`__ **unit:wasm**.
 
 =============================
 Rust Development Setup
