@@ -46,7 +46,7 @@ Install cargo-component
 ======================================
 
 **cargo-component** will add a cargo subcommand to build Wasm Components without any intermediate steps from our Rust project. 
-To install the latest version run the following command:
+To install the latest version, run the following command:
 
 .. code-block:: bash
 
