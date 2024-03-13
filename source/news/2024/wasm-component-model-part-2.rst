@@ -208,7 +208,7 @@ While the **wasmtime-cli**  interface is good for testing Wasm components locall
 
 With NGINX Units Wasm runtime, you will be able to run your Wasm workloads next to other host applications on a single host and make use of all the other powerful Unit features. Given Units design and as we have decoupled the listeners from the application runtime, you can make full use of the Unit Router to make routing decisions before sharing a request with your Wasm Component or add HTTPS to your stack.
 
-To run the component on NGINX Unit, start Unit and send the initial configuration, make sure you point to the Wasm component by using an absolute path.
+To run the component on NGINX Unit, start Unit, and send the initial configuration, make sure you point to the Wasm component by using an absolute path.
 
 Create a **config.json** file:
 
