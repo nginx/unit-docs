@@ -257,4 +257,4 @@ What's next?
 
 The Wasm ecosystem and all its associated projects are undergoing rapid and positive changes. Every week brings new features and opportunities for innovation. NGINX Unit remains dedicated to Wasm and will continue implementing new features in our Wasmtime integration and publishing technical blog posts about Wasm.
 
-Feel free to share your feedback about this blog post on our `GitHub discussions <https://github.com/nginx/unit/discussions>`__ pages. We'd love to know what you think is missing regarding the work with Wasm Components.
+Feel free to share your feedback about this blog post on our `GitHub discussions <https://github.com/nginx/unit/discussions>`__ page. We'd love to know what you think is missing regarding the work with Wasm Components.
