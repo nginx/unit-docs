@@ -440,20 +440,20 @@ class NxtTranslator(HTMLTranslator):
 
     def __write_news_entry(self, e: List[dict], prefix: str = "") -> None:
         date = datetime.fromisoformat(e["date"]).strftime("%B %-d, %Y")
-        self.body.append(
-            f"""
-            <div class=nxt_news_item>
-             <h2>
-                 {e['title']}
-                 <a class=headerlink href={prefix + e['anchor']}
-                     title="Permalink to this headline">§</a>
-             </h2>
-             <p class=nxt_news_authordate>
-                 {e['author']}&nbsp;on&nbsp;{date}
-             </p>
-             <p>{e['description']}</p>"""
-        )
         if "relurl" in e:
+            self.body.append(
+                f"""
+                <div class=nxt_news_item>
+                <h2>
+                    <a href={e["relurl"]}>{e['title']}</a>
+                    <a class=headerlink href={prefix + e['anchor']}
+                        title="Permalink to this headline">§</a>
+                </h2>
+                <p class=nxt_news_authordate>
+                    {e['author']}&nbsp;on&nbsp;{date}
+                </p>
+                <p>{e['description']}</p>"""
+            )
             domain = urlparse(e["relurl"]).netloc
             if domain.startswith("www."):
                 domain = domain[4:]

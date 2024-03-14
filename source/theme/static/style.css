@@ -180,6 +180,9 @@ iframe {
 #content h3 .headerlink {
     color: #00974d;
 }
+#content h2 a {
+    color: #00974d;
+}
 #content .headerlink {
     visibility: hidden;
     display: inline-block;
