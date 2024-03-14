@@ -80,25 +80,15 @@ Start by creating a new Wasm Component using **cargo component**:
 
    $ cargo component new --lib test-wasi-component
 
-At the time of writing, the wasi crate (Version 0.12.1) available on `crates.io <https://crates.io/crates/wasi>`__ didn't include the latest version available on GitHub. As we are making use of a Macro in Rust, we will have to clone the `repository <https://github.com/bytecodealliance/wasi>`__ and reference it from our new Wasm Component project.
+Navigate into the **test-wasi-component** directory.
 
-Clone the bytecodealliances wasi repository
-
-.. code-block:: bash
-
-   $ git clone https://github.com/bytecodealliance/wasi
-
-You should now have a directory structure like this:
+Add the **wasi** crate:
 
 .. code-block:: bash
 
-   $ ls -lah
-   ../
-   ./
-   wasi
-   test-wasi-component
+   $ cargo add wasi
 
-Navigate into the **test-wasi-component** directory and modify the **Cargo.toml** file with the text editor of your choice. Add the wasi crate to the dependencies section and the **proxy = true** configuration to the **[package.metadata.component]** section. After saving the changes, your **Cargo.toml** file should look like this:
+Next, modify the **Cargo.toml** file with the text editor of your choice. Add the **proxy = true** configuration to the **[package.metadata.component]** section. After saving the changes, your **Cargo.toml** file should look like this:
 
 .. code-block:: toml
 
@@ -110,7 +100,7 @@ Navigate into the **test-wasi-component** directory and modify the **Cargo.toml*
    [dependencies]
    bitflags = "2.4.2"
    wit-bindgen-rt = "0.21.0"
-   wasi = { path = "../wasi" }
+   wasi = "0.13.0"
 
    [lib]
    crate-type = ["cdylib"]
