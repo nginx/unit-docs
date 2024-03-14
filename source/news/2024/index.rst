@@ -6,7 +6,7 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Timo Stark
-   :description: Building Wasm Components using Feryon's Spin SDK for Rust
+   :description: Building Wasm Components using Fermyon's Spin SDK for Rust
                  and run them on NGINX Unit.
    :email: unit-owner@nginx.org
    :title: Wasm Components: Working with the Spin SDK for Rust
