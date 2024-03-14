@@ -46,7 +46,7 @@ Generating Certificates
                       },
 
                       "action": {
-                          "share": ":nxt_ph:`/var/www/www.example.com/ <Arbitrary directory, preferably the one used for storing static files>`"
+                          "share": ":nxt_ph:`/var/www/www.example.com/$uri <Arbitrary directory, preferably the one used for storing static files>`"
                       }
                   }
               ]
