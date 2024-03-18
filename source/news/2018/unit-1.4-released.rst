@@ -59,7 +59,8 @@ routing, and serving of static media assets.
 
 Please also welcome Artem Konev, who joined our team as a technical writer.  He
 has already started improving documentation on the website and updated it with
-the configuration options currently available: https://hg.nginx.org/unit-docs/
+the configuration options currently available:
+https://github.com/nginx/unit-docs/
 
 Of course, the website still leaves much to be desired, so Artem will strive to
 provide industry-grade documentation for Unit.  You are welcome to join this
