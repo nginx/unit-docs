@@ -6,7 +6,7 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Unit Team
-   :description: Version 1.32.1 is a maintenance release, fixing bugs in the new WebAssembly Language Module and in our NJS implementation.
+   :description: Version 1.32.1 is a maintenance release that fixes bugs in the new WebAssembly Language Module and in our NJS implementation.
    :email: unit-owner@nginx.org
    :title: Unit 1.32.1 Released
    :url: news/2024/unit-1.32.1-released
