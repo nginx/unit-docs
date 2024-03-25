@@ -6,6 +6,12 @@ Unit 1.32.1 Released
 
 NGINX Unit 1.32.1 is a maintenance release, fixing bugs in the new WebAssembly Language Module and in our NJS implementation.
 
+===============
+Resolved issues
+===============
+
+This release fixes the following issues:
+
 **************************************************************
 Applications of type `wasm-wasi-component` can't be restarted
 **************************************************************
@@ -26,9 +32,9 @@ With **1.32.0** we have released the possibility to access all Unit variables fo
 As reported in GitHub issue `#1169 <https://github.com/nginx/unit/issues/1169>`__ the variables are cached and will hold the wrong value, which is definitely not the way this feature should work. With 1.32.1 we have fixed this issue.
 
 
-**************
+==============
 Full Changelog
-**************
+==============
 
 .. code-block:: none
 
@@ -39,7 +45,7 @@ Full Changelog
 
         *) Bugfix: Wasm application process hangs after receiving restart signal
            from the control.
-    
+
 
 
 For a full list of changes and bugfixes,
