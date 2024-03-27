@@ -5627,7 +5627,7 @@ recorded. The **if** option supports a string and JavaScript code.
 If its value is empty, 0, false, null, or undefined, the logs will not be
 recorded. And the '!' as a prefix inverses the condition.
 
-Example without NJS:
+Example without njs:
 
 .. code-block:: json
 
@@ -5653,7 +5653,7 @@ We can add ! to inverse the condition.
 
 Now, all requests without a session cookie will be logged.
 
-Example with NJS and the use of a template literal:
+Example with njs and the use of a template literal:
 
 .. code-block:: json
 
