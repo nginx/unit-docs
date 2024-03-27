@@ -15,7 +15,7 @@ the old **unit-wasm** module deprecated now.
 
 Additionally, we have added the following features:
 
-- Enhanced the :doc:`NJS (NGINX JavaScript) experience <../../scripting>` by making all Unit variables
+- Enhanced the :doc:`njs (NGINX JavaScript) experience <../../scripting>` by making all Unit variables
   accessible from JavaScript
 
 - Added support for
