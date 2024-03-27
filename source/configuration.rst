@@ -5025,31 +5025,21 @@ you have:
 .. list-table::
    :header-rows: 1
 
-    * - Option
-      - Description
+   * - Option
+     - Description
 
-    * - **script** (required)
-      - String;
-         rack script pathname,
-         including the **.ru** extension,
-         for instance:
-         **/www/rubyapp/script.ru**.
+   * - **script** (required)
+     - String; rack script pathname, including the **.ru** extension,
+       for instance: **/www/rubyapp/script.ru**.
 
-    * - **hooks**
-      - String;
-         pathname of the **.rb** file
-         setting the event hooks
-         invoked during the app's lifecycle.
+   * - **hooks**
+     - String; pathname of the **.rb** file setting the event hooks invoked
+       during the app's lifecycle.
 
-    * - **threads**
-      - Integer;
-         number of worker threads
-         per :ref:`app process <sec-processes>`.
-         When started,
-         each app process creates this number of threads
-         to handle requests.
-
-         The default is **1**.
+   * - **threads**
+     - Integer; number of worker threads per
+       :ref:`app process <sec-processes>`. When started, each app process
+       creates this number of threads to handle requests. The default is **1**.
 
 Example:
 

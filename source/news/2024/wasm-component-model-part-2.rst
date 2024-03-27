@@ -19,7 +19,7 @@ This tutorial targets Linux-based operating systems and MacOS. If you are on Win
 Rust Development Setup
 =============================
 
-Let's start by installing the Rust ecosystem, if not already done. At the time of writing, Rust 1.76 is the latest stable version. 
+Let's start by installing the Rust ecosystem, if not already done. At the time of writing, Rust 1.76 is the latest stable version.
 To install Rust, see the instructions on their `website <https://www.rust-lang.org/tools/install>`__.
 
 After the installation completes, you can confirm the current version of Rust by running:
@@ -45,7 +45,7 @@ The wasm32-wasi compiler target will provide general Wasm support to your rustc 
 Install cargo-component
 ======================================
 
-**cargo-component** will add a cargo subcommand to build Wasm Components without any intermediate steps from our Rust project. 
+**cargo-component** will add a cargo subcommand to build Wasm Components without any intermediate steps from our Rust project.
 To install the latest version, run the following command:
 
 .. code-block:: bash
@@ -56,7 +56,7 @@ To install the latest version, run the following command:
 Install wasmtime runtime and CLI for testing
 =================================================
 
-The wasmtime-cli will be used to test and play around with the Wasm component. At the time of writing, we are using Wasmtime 18. 
+The wasmtime-cli will be used to test and play around with the Wasm component. At the time of writing, we are using Wasmtime 18.
 To install the latest version of Wasmtime, run:
 
 .. code-block:: bash
@@ -68,6 +68,7 @@ For more information about Wasmtime and installing it, see their `GitHub reposit
 Once we have all the tools in place, we can create the Rust projects.
 
 .. _tutorial-rust-based-wasm-component:
+
 ======================================
 Using the **wasi** Rust library
 ======================================
@@ -152,7 +153,7 @@ Targeting the wasi crate requires some low-level Rust work by us. Not bad at all
 Let's build the component. Run the following command from the **test-wasi-component** directory:
 
 .. code-block:: bash
-   
+
    $ cargo component build --release
 
 The build shows a very small dependency footprint, so is a major benefit from the wasi crate.
@@ -194,7 +195,7 @@ Sending a request to the exposed endpoint will output something like this:
 NGINX Unit for production grade Wasm workloads
 ************************************************************************
 
-While the **wasmtime-cli**  interface is good for testing Wasm components locally, there are more requirements for production workloads. 
+While the **wasmtime-cli**  interface is good for testing Wasm components locally, there are more requirements for production workloads.
 
 With NGINX Units Wasm runtime, you will be able to run your Wasm workloads next to other host applications on a single host and make use of all the other powerful Unit features. Given Units design and as we have decoupled the listeners from the application runtime, you can make full use of the Unit Router to make routing decisions before sharing a request with your Wasm Component or add HTTPS to your stack.
 
@@ -216,7 +217,7 @@ Create a **config.json** file:
             "component": "path/target/wasm32-wasi/release/test_wasi_component.wasm"
          }
       }
-   }   
+   }
 
 Apply the configuration using **unitc**:
 

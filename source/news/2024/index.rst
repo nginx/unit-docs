@@ -5,6 +5,14 @@ News of 2024
 News archive for the year 2024.
 
 .. nxt_news_entry::
+   :author: Unit Team
+   :description: Version 1.32.1 is a maintenance release that fixes bugs in the new WebAssembly Language Module and in our NJS implementation.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.32.1 Released
+   :url: news/2024/unit-1.32.1-released
+   :date: 2024-03-26
+
+.. nxt_news_entry::
    :author: Timo Stark
    :description: Building Wasm Components using Fermyon's Spin SDK for Rust
                  and run them on NGINX Unit.
