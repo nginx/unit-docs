@@ -4,7 +4,7 @@
 Unit 1.32.1 Released
 ####################
 
-NGINX Unit 1.32.1 is a maintenance release that fixes bugs in the new WebAssembly Language Module and in our NJS implementation.
+NGINX Unit 1.32.1 is a maintenance release that fixes bugs in the new WebAssembly Language Module and in our njs implementation.
 
 ===============
 Resolved issues
@@ -27,7 +27,7 @@ As restarts will work independently of the application type, the behavior shippe
 Unit-variables in NGINX JavaScript are constantly cached
 ************************************************************
 
-In **1.32.0** we added the possibility to access all Unit variables form inside NJS.
+In **1.32.0** we added the possibility to access all Unit variables form inside njs.
 
 As reported in GitHub issue `#1169 <https://github.com/nginx/unit/issues/1169>`__ the variables were cached and would hold the wrong value, which is not how this feature should work. With version 1.32.1, we have fixed this issue.
 
