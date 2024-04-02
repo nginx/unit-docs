@@ -110,8 +110,8 @@
         </a>
         {%- endif %}
         {% set release_year = release_date.split(',')[1].strip() %}
-        <div title="Released on {{release_date}}">
-         <a style="text-decoration:none; color:#cbd5e1;" href="{{ pathto('news') }}{{release_year}}/unit-{{version}}-released/">v. {{version}}</a>
+        <div id="version_link" title="Released on {{release_date}}">
+         <a style="text-decoration:none;" href="{{ pathto('news') }}{{release_year}}/unit-{{version}}-released/">v. {{version}}</a>
          </div>
     </h1>
     {{ toctree(maxdepth = 4) }}
