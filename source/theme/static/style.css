@@ -15,7 +15,6 @@ a {
 }
 #version_link a {
     color: #333;
-
 }
 a:hover {
     text-decoration: none;
