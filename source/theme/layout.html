@@ -109,7 +109,10 @@
         {%- if pagename != "index" %}
         </a>
         {%- endif %}
-        <div title="Released on {{release_date}}">v. {{version}}</div>
+        {% set release_year = release_date.split(',')[1].strip() %}
+        <div id="version_link" title="Released on {{release_date}}">
+         <a style="text-decoration:none;" href="{{ pathto('news') }}{{release_year}}/unit-{{version}}-released/">v. {{version}}</a>
+         </div>
     </h1>
     {{ toctree(maxdepth = 4) }}
 </div>
