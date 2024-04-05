@@ -424,7 +424,7 @@ Dockerfile layer:
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
 
    CMD ["unitd-debug","--no-daemon","--control","unix:/var/run/control.unit.sock"]
 
@@ -434,7 +434,7 @@ executable with its debug version.  Use Unit's :ref:`command-line options
 
 .. subs-code-block:: docker
 
-   FROM nginx/unit:|version|-minimal
+   FROM unit:|version|-minimal
 
    CMD ["unitd","--no-daemon","--control","0.0.0.0:8080"]
 
