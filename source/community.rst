@@ -26,7 +26,7 @@ Reporting bugs and issues
 *************************
 
 - You can report issues and bugs on the
-  `Issues <https://github.com/nginx/unit-docs/issues>`_
+  `Issues <https://github.com/nginx/unit-docs/issues>`_ section of the Unit repo.
 
 - If you have found a fix or want to suggest a change to the code,
   you can open a `pull request <https://github.com/nginx/unit-docs/pulls>`_
