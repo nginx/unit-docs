@@ -25,18 +25,8 @@ Recorded sessions:
 Reporting bugs and issues
 *************************
 
-You can report bugs and issues on GitHub:
-
-<<<<<<< HEAD
 - You can report issues and bugs on the
   `Issues <https://github.com/nginx/unit-docs/issues>`_
-  section of the Unit repo.
-=======
-NGINX Unit is released under the
-`Apache 2.0 license <https://github.com/nginx/unit/blob/master/LICENSE>`_;
-we maintain GitHub
-`repos <https://github.com/nginx>`_.
->>>>>>> origin/main
 
 - If you have found a fix or want to suggest a change to the code,
   you can open a `pull request <https://github.com/nginx/unit-docs/pulls>`_
@@ -55,7 +45,6 @@ Please report any security-related issues concerning Unit to
 For our mutual convenience, specifically mention **NGINX Unit** in the subject and follow the
 `CVSS v3.1 <https://www.first.org/cvss/v3.1/specification-document>`__.
 
-
 ************
 Contributing
 ************
@@ -70,7 +59,6 @@ before submitting your pull request.
 If you are interested in contributing to the Unit documentation,
 or find a typo or an error in the docs, you can submit a pull request on the
 `unit-docs repo <https://github.com/nginx/unit-docs/pulls>`_.
-
 
 ***********
 Source Code
