@@ -1994,7 +1994,7 @@ Community Repositories
                             unit-perl5.36  \
                             unit-php81 unit-php82 unit-php83  \
                             unit-python39  \
-                            unit-ruby3.1  \
+                            unit-ruby3.2  \
                             unit-wasm
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
@@ -2128,7 +2128,7 @@ Community Repositories
          # pkg_add unit-perl  \
                    unit-python2.7  \
                    unit-python3.8 unit-python3.9 unit-python3.10 unit-python3.11 unit-python3.12  \
-                   unit-ruby31 unit-ruby32
+                   unit-ruby31 unit-ruby32 unit-ruby33
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       To build Unit manually,
