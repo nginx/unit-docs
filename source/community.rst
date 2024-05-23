@@ -26,15 +26,11 @@ Reporting bugs and issues
 *************************
 
 - You can report issues and bugs on the
-  `Issues <https://github.com/nginx/unit-docs/issues>`_ section of the Unit repo.
+  `Issues <https://github.com/nginx/unit/issues>`_ section of the Unit repo.
 
 - If you have found a fix or want to suggest a change to the code,
-  you can open a `pull request <https://github.com/nginx/unit-docs/pulls>`_
+  you can open a `pull request <https://github.com/nginx/unit/pulls>`_
   on the Unit repo.
-
-You can also ask questions and discuss your suggestions for Unit by
-`subscribing <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
-to the unit@nginx.org mailing list and posting your ideas there.
 
 ***************************
 Reporting security concerns
@@ -50,13 +46,21 @@ Contributing
 ************
 
 We welcome contributions to the NGINX Unit project.
-If you have a feature request or a bug fix, please submit a pull request on the
-`unit repo <https://github.com/nginx/unit-docs/pulls>`_.
 
-Please review the `Contributing Guideliens <https://github.com/nginx/unit/blob/master/CONTRIBUTING.md>`_
+If you have a feature request or want to suggest an improvement, please submit a pull request on the
+`unit repo <https://github.com/nginx/unit/pulls>`_.
+
+Please review the `Contributing Guidelines <https://github.com/nginx/unit/blob/master/CONTRIBUTING.md>`_
 before submitting your pull request.
 
-If you are interested in contributing to the Unit documentation,
+You can also ask questions and discuss your suggestions for Unit:
+
+- Visiting the `Discussions section <https://github.com/nginx/unit/discussions>`_
+  of the Unit repo.
+- By `subscribing <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
+  to the unit@nginx.org mailing list and posting your ideas there.
+
+If you are interested in contributing to the **Unit documentation**,
 or find a typo or an error in the docs, you can submit a pull request on the
 `unit-docs repo <https://github.com/nginx/unit-docs/pulls>`_.
 
