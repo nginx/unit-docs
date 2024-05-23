@@ -42,8 +42,8 @@ Reporting security concerns
 
 Please report any security-related issues concerning Unit to
 `security-alert@nginx.org <security-alert@nginx.org>`__.
-For our mutual convenience, specifically mention **NGINX Unit** in the subject and follow the
-`CVSS v3.1 <https://www.first.org/cvss/v3.1/specification-document>`__.
+For our mutual convenience, specifically mention **NGINX Unit** in the subject and, if possible, provide a
+`CVSS score<https://www.first.org/cvss/>`__.
 
 ************
 Contributing
