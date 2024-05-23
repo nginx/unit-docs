@@ -57,8 +57,8 @@ You can also ask questions and discuss your suggestions for Unit:
 
 - Visiting the `Discussions section <https://github.com/nginx/unit/discussions>`_
   of the Unit repo.
-- By `subscribing <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
-  to the unit@nginx.org mailing list and posting your ideas there.
+- Subscribing to the `unit@nginx.org mailing list <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
+  and posting your ideas there.
 
 If you are interested in contributing to the **Unit documentation**,
 or find a typo or an error in the docs, you can submit a pull request on the
