@@ -1724,7 +1724,7 @@ make sure to update the module as well:
 
    .. code-block:: console
 
-      $ hg clone https://hg.nginx.org/unit
+      $ git clone https://github.com/nginx/unit
       $ cd unit
       $ pwd
             :nxt_hint:`/home/user/unit <Note the path to the source code>`
