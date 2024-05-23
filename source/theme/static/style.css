@@ -13,6 +13,9 @@ pre {
 a {
     color: #333;
 }
+#version_link a {
+    color: #333;
+}
 a:hover {
     text-decoration: none;
 }
@@ -178,6 +181,9 @@ iframe {
 #content h1 .headerlink,
 #content h2 .headerlink,
 #content h3 .headerlink {
+    color: #00974d;
+}
+#content h2 a {
     color: #00974d;
 }
 #content .headerlink {
@@ -777,6 +783,9 @@ iframe {
     }
     a {
         color: #8cb4ff;
+    }
+    #version_link a {
+        color: #cbd5e1;
     }
     #content .literal,
     #content span.option {

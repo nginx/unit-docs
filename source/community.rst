@@ -23,7 +23,7 @@ Contribution
 ************
 
 NGINX Unit is released under the
-`Apache 2.0 license <https://hg.nginx.org/unit/file/tip/LICENSE>`_;
+`Apache 2.0 license <https://github.com/nginx/unit/blob/master/LICENSE>`_;
 we maintain GitHub
 `repos <https://github.com/nginx>`_.
 

@@ -9,7 +9,7 @@
 
 <meta charset="utf-8" />
 {%- if pagename == "index" %}
-<meta name="go-import" content="unit.nginx.org hg https://hg.nginx.org/unit" />
+<meta name="go-import" content="unit.nginx.org git https://github.com/nginx/unit" />
 {%- endif %}
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Open Graph / Facebook -->
@@ -109,14 +109,17 @@
         {%- if pagename != "index" %}
         </a>
         {%- endif %}
-        <div title="Released on {{release_date}}">v. {{version}}</div>
+        {% set release_year = release_date.split(',')[1].strip() %}
+        <div id="version_link" title="Released on {{release_date}}">
+         <a style="text-decoration:none;" href="{{ pathto('news') }}{{release_year}}/unit-{{version}}-released/">v. {{version}}</a>
+         </div>
     </h1>
     {{ toctree(maxdepth = 4) }}
 </div>
 <div id="content">
     {% block body %} {% endblock %}
     {% if edit_on_github_url %}
-    <div class="nxt_github_link"><a href="{{ edit_on_github_url }}"><div></div>Improve this page</a></div>
+    <div class="nxt_github_link"><a href="{{ edit_on_github_url }}"><div></div>Edit this page</a></div>
     {% endif %}
     <p id="footer">
         © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>

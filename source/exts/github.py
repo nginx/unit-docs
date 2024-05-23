@@ -9,7 +9,7 @@ Usage:
 layout.html:
     {% if edit_on_github_url %}
         <div class="nxt_github_link">
-            <a href="{{ edit_on_github_url }}"><div></div>Improve this page</a>
+            <a href="{{ edit_on_github_url }}"><div></div>Edit this page</a>
         </div>
     {% endif %}
 """
