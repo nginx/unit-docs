@@ -53,7 +53,7 @@ If you have a feature request or want to suggest an improvement, please submit a
 Please review the `Contributing Guidelines <https://github.com/nginx/unit/blob/master/CONTRIBUTING.md>`_
 before submitting your pull request.
 
-You can also ask questions and discuss your suggestions for Unit:
+You can also ask questions and discuss your suggestions for Unit by:
 
 - Visiting the `Discussions section <https://github.com/nginx/unit/discussions>`_
   of the Unit repo.
