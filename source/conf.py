@@ -32,7 +32,7 @@ rst_prolog = """
 """.format(release_date)
 
 edit_on_github_project = 'nginx/unit-docs'
-edit_on_github_branch = 'master'
+edit_on_github_branch = 'main'
 
 exclude_patterns = ['include']
 suppress_warnings = ['misc.highlighting_failure']
