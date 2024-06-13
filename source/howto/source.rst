@@ -127,7 +127,7 @@ revision numbers, respectively); omit the packages you won't use.
 
       $ cd ..
       $ hg clone https://hg.nginx.org/njs
-      $ hg update -r 0.8.2
+      $ hg update -d 10/24/2023
 
    If you prefer `Git <https://git-scm.com/downloads>`_:
 
