@@ -115,9 +115,11 @@ revision numbers, respectively); omit the packages you won't use.
    :hash: source-njs
 
    To build Unit with `njs <https://nginx.org/en/docs/njs/>`__ support,
-   download the :program:`njs` code
-   to the same parent directory
+   download the :program:`njs` code to the same parent directory
    as the Unit code.
+
+   **0.8.2** is the latest version of :program:`njs` that Unit supports.
+   Make sure to check out the correct branch before configuring the binaries.
 
    If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
 
@@ -125,6 +127,7 @@ revision numbers, respectively); omit the packages you won't use.
 
       $ cd ..
       $ hg clone https://hg.nginx.org/njs
+      $ hg update -r 0.8.2
 
    If you prefer `Git <https://git-scm.com/downloads>`_:
 
@@ -132,6 +135,7 @@ revision numbers, respectively); omit the packages you won't use.
 
       $ cd ..
       $ git clone https://github.com/nginx/njs
+      $ git checkout 0.8.2
 
    Next, configure and build the :program:`njs` binaries:
 
@@ -166,7 +170,7 @@ revision numbers, respectively); omit the packages you won't use.
           .. warning::
              The **unit-wasm** module is deprecated.
              We recommend using **wasm-wasi-component** instead,
-             available in Unit 1.32.0 and later, which supports 
+             available in Unit 1.32.0 and later, which supports
              WebAssembly Components using standard WASI 0.2 interfaces.
 
           To build Unit with the `WebAssembly <https://webassembly.org>`__
