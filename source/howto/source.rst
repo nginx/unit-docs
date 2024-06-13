@@ -119,29 +119,18 @@ revision numbers, respectively); omit the packages you won't use.
    as the Unit code.
 
    **0.8.2** is the latest version of :program:`njs` that Unit supports.
-   Make sure to check out the correct branch before configuring the binaries.
-
-   If you'd like to use `Mercurial <https://www.mercurial-scm.org/downloads>`_:
+   Make sure you are in the correct branch before configuring the binaries.
 
    .. code-block:: console
 
-      $ cd ..
-      $ hg clone https://hg.nginx.org/njs
-      $ hg update -d 10/24/2023
-
-   If you prefer `Git <https://git-scm.com/downloads>`_:
-
-   .. code-block:: console
-
-      $ cd ..
-      $ git clone https://github.com/nginx/njs
-      $ git checkout 0.8.2
+      $ git clone https://github.com/nginx/njs.git
+      $ cd njs
+      $ git checkout -b 0.8.2 0.8.2
 
    Next, configure and build the :program:`njs` binaries:
 
    .. code-block:: console
 
-      $ cd njs
       $ ./configure :nxt_hint:`--no-zlib --no-libxml2 <Ensures Unit can link against the resulting library>` && make
 
    Point to the resulting source and build directories when :ref:`configuring
