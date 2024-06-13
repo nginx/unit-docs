@@ -127,7 +127,9 @@ revision numbers, respectively); omit the packages you won't use.
       $ cd njs
       $ git checkout -b 0.8.2 0.8.2
 
-   Next, configure and build the :program:`njs` binaries:
+   Next, configure and build the :program:`njs` binaries. Make sure to use the
+   `--no-zlib` and `--no-libxml2` options to avoid
+   conflicts with Unit's dependencies:
 
    .. code-block:: console
 
