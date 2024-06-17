@@ -44,6 +44,6 @@ def setup(app):
     """Connects the extension to the app."""
 
     app.add_config_value("edit_on_github_project", "", True)
-    app.add_config_value("edit_on_github_branch", "master", True)
+    app.add_config_value("edit_on_github_branch", "main", True)
 
     app.connect("html-page-context", html_page_context)
