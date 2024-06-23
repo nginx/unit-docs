@@ -33,7 +33,7 @@ rst_prolog = """
 
 edit_on_github_project = 'nginx/unit-docs'
 edit_on_github_discussion = 'nginx/unit'
-edit_on_github_branch = 'master'
+edit_on_github_branch = 'main'
 
 exclude_patterns = ['include']
 suppress_warnings = ['misc.highlighting_failure']
