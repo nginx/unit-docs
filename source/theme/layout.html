@@ -119,10 +119,10 @@
 <div id="content">
     {% block body %} {% endblock %}
     {% if edit_on_github_url %}
-    <div class="nxt_github_link"><a href="{{ edit_on_github_url }}"><div></div>Edit this page</a></div>
+    <div class="nxt_edit_link"><a href="{{ edit_on_github_url }}"><div></div>Edit this page</a></div>
     {% endif %}
     {% if edit_on_github_url %}
-    <div class="nxt_github_link"><a href="https://github.com/nginx/unit/discussions/"><div></div>Discuss this software</a></div>
+    <div class="nxt_discuss_link"><a href="https://github.com/nginx/unit/discussions/"><div></div>Discuss on GitHub</a></div>
     {% endif %}
     <p id="footer">
         © {{copyright}} <a href="https://www.nginx.com/">{{author}}</a>
