@@ -1,5 +1,5 @@
 .. |app| replace:: Symfony
-.. |mod| replace:: PHP 8.1+
+.. |mod| replace:: PHP 8.2+
 
 #######
 Symfony
