@@ -1,0 +1,34 @@
+name: Build and deploy docs (unit.nginx.org)
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+        - preview
+        - dev
+        - staging
+        - prod
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  call-docs-build-push:
+    uses: nginxinc/docs-actions/.github/workflows/docs-build-push.yml@main
+    permissions:
+      pull-requests: write # needed to write preview url comment to PR
+      contents: read
+    with:
+      production_url_path: ""
+      preview_url_path: "/previews/unit"
+      docs_source_path: "deploy"
+      docs_build_path: "."
+      doc_type: "sphinx"
+      environment: ${{inputs.environment}}
+    secrets:
+      AZURE_CREDENTIALS: ${{secrets.AZURE_CREDENTIALS}}
+      AZURE_KEY_VAULT: ${{secrets.AZURE_KEY_VAULT}}
