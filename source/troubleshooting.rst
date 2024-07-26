@@ -403,4 +403,4 @@ Getting Support
        specification.
 
 In addition,
-we offer `commercial support <https://www.nginx.com/support/>`_.
+we offer `commercial support <https://my.f5.com/manage/s/article/K000140156/>`_.
