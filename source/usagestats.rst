@@ -52,6 +52,11 @@ Example:
                    "lib": "/opt/unit/modules/python-3.12.1.unit.so"
                }
            ],
+
+           "php": {
+              "version": "8.3.4",
+              "lib": "/opt/unit/modules/php.unit.so"
+           }
        },
 
        "connections": {
