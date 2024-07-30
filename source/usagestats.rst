@@ -48,8 +48,8 @@ Example:
                    "lib": "/opt/unit/modules/python.unit.so"
                },
                {
-                   "version": "3.12.1",
-                   "lib": "/opt/unit/modules/python-3.12.1.unit.so"
+                   "version": "3.8",
+                   "lib": "/opt/unit/modules/python-3.8.unit.so"
                }
            ],
 
