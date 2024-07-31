@@ -9,7 +9,7 @@
    configuration
    scripting
    certificates
-   usagestats
+   statusapi
    howto/index
    troubleshooting
    community
