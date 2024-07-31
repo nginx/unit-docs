@@ -22,7 +22,7 @@ instance- and app-wide metrics, and makes them available via the **GET**-only
 
     * - **modules**
       - Object;
-        list of currently loaded language modules.
+        lists currently loaded language modules.
 
     * - **connections**
       - Object;
