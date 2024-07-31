@@ -7,12 +7,12 @@
 .. _configuration-stats:
 
 ****************
-Usage statistics
+Status API
 ****************
 
-Unit collects instance- and app-wide metrics,
-available via the **GET**-only **/status** section of the
-:ref:`control API <configuration-api>`:
+Unit collects information about the loaded language models, as well as
+instance- and app-wide metrics, and makes them available via the **GET**-only
+**/status** section of the :ref:`control API <configuration-api>`:
 
 .. list-table::
     :header-rows: 1

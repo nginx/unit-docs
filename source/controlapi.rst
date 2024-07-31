@@ -36,7 +36,7 @@ that comprises four primary options:
 
    * - **/status**
      - Queried for
-       :doc:`usage statistics <usagestats>`.
+       :doc:`usage statistics <statusapi>`.
 
 
 .. _configuration-socket:
