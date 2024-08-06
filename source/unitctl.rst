@@ -237,7 +237,7 @@ Check the status of Unit
 Unitctl can query the control API to provide the **status** of the running Unit
 daemon.
 
-To get the current status of the Unit, run the following command:
+To get the current status of the Unit, run:
 
 .. code-block:: console
 
