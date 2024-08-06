@@ -157,7 +157,10 @@ host network.
 List and restart running apps
 +++++++++++++++++++++++++++++
 
-The **app** command allows you to list and restart the active applications.
+The **app** command lets you list and restart active applications.
+
+Options
+-------
 
 The **app** command has the following options:
 
@@ -173,7 +176,7 @@ The **app** command has the following options:
    * - **reload <APP_NAME>**
      - Restart the specified application
 
-To list the active applications, run the following command:
+To list active applications, run:
 
 .. code-block:: console
 
@@ -185,7 +188,7 @@ To list the active applications, run the following command:
      }
    }
 
-To restart an application, run the following command:
+To restart an application, run:
 
 .. code-block:: console
 
