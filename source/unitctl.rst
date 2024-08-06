@@ -126,20 +126,18 @@ Running unitcl with the **instances** command shows output similar to this:
 
 You can use the **new** option with three arguments to deploy a new instance of Unit:
 
-1. A means to show the control API: Either a file path to open a unix socket, or
-   a TCP address with port.
+1. **Control API path**: A file path for a Unix socket or a TCP address with port.
 
-   - If a directory is specified the Unit container will mount this to
-     **/var/run** internally. The control socket and pid file will be accessible
-     from the host. For example: **/tmp/2**.
-   - If a TCP address is specified, the Unit container will listen on this
-     address and port. For example: **127.0.0.1:7171**.
+   - If you specify a directory, the Unit container will mount it to **/var/run** internally. 
+     The control socket and pid file are accessible from the host. Example: **/tmp/2**.
+   - If you specify a TCP address, the Unit container will listen on this
+     address and port. Example: **127.0.0.1:7171**.
 
-2. A path to an application. The Unit container will mount this in READ ONLY mode
-   to **/www** internally. This will allow the user to configure their Unit
-   container to expose an application stored on the host. For example: **$(pwd)**.
+2. **Application path**. The Unit container will mount this path in read-only mode
+   to **/www** internally. This setup allows you to configure the Unit
+   container to expose an application stored on the host. Example: **$(pwd)**.
 
-3. An image tag. Unitctl will deploy this image, enabling you to deploy custom
+3. **Image tag**: Unitctl will deploy this image, enabling you use custom
    images. For example: **unit:wasm**.
 
 .. code-block:: console
