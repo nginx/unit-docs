@@ -18,7 +18,7 @@ Unit in your environment.
 Download binaries
 *****************
 
-Unitctl binaries are available for Linux (ARM64 and X64) and MacOS systems.
+Unitctl binaries are available for Linux (ARM64 and X64) and macOS systems.
 
 Download the latest binaries from the `Unit GitHub releases page
 <https://github.com/nginx/unit/releases>`_.
