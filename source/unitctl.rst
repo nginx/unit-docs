@@ -265,10 +265,9 @@ To get the current status of the Unit, run the following command:
 Send configuration payloads to Unit
 +++++++++++++++++++++++++++++++++++
 
-Using the **execute** command, Unitctl can accept custom request payloads and
-query given API endpoints with them. The request payload must be passed in using
-the **-f** flag either as a filename or using the **-** filename to denote the
-use of stdin as shown in the example below.
+With the **execute** command, Unitctl can accept custom request payloads and
+query specified API endpoints with them. Use the **-f** flag to pass the request 
+payload as a filename or **-** to denote stdin, as shown in the example below.
 
 .. code-block:: console
 
