@@ -209,7 +209,7 @@ Fetch active listeners
 
 Unitctl can query a given control API to fetch all configured listeners.
 
-To list all active listeners, run the following command:
+To list all active listeners, run:
 
 .. code-block:: console
 
