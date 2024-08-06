@@ -18,25 +18,21 @@ Unit in your environment.
 Download binaries
 *****************
 
-We provide unitctl binaries for Linux (both ARM64 and X64) and MacOS systems.
+Unitctl binaries are available for Linux (ARM64 and X64) and MacOS systems.
 
-You can find the latest binaries on the `Unit GitHub releases page
-<https://github.com/nginx/unit/releases>`_
+Download the latest binaries from the `Unit GitHub releases page <https://github.com/nginx/unit/releases>`_.
 
 *****************
 Build from source
 *****************
 
-If you would like to build unitctl from source, you can do so by following the
-instructions in the `unitctl repository
-<https://github.com/nginx/unit/tree/master/tools/unitctl>`_.
+To build unitctl from source, follow the instructions in the `unitctl repository <https://github.com/nginx/unit/tree/master/tools/unitctl>`_.
 
 *************
 Using unitctl
 *************
 
-The unitctl CLI provides a number of commands that allow you to interact with
-Unit. The following is a list of the available commands:
+The unitctl CLI offers several commands to interact with Unit. Here are the available commands:
 
 .. list-table::
    :header-rows: 1
@@ -64,7 +60,7 @@ Unit. The following is a list of the available commands:
      - Send a raw JSON payload to Unit
 
    * - **status**
-     - Get the current status of the Unit
+     - Get the current status of Unit
 
    * - **listeners**
      - List all active listeners
@@ -101,10 +97,10 @@ There are also a number of options that you can use with the unitctl CLI:
 List and create instances of Unit
 +++++++++++++++++++++++++++++++++
 
-The **instances** command allows you to list all running Unit processes and
+The **instances** command lets you list all running Unit processes and
 deploy new instances of Unit.
 
-The **instances** command has the following options:
+The **instances** command has the following option:
 
 .. list-table::
    :header-rows: 1
@@ -115,8 +111,7 @@ The **instances** command has the following options:
    * - **new**
      - Deploy a new instance of Unit
 
-Running unitcl with the **instances** command will display an output similar to
-the following:
+Running unitcl with the **instances** command shows output similar to this:
 
 .. code-block:: console
 
@@ -129,8 +124,7 @@ the following:
       Runtime flags: --no-daemon
       Configure options: --prefix=/opt/unit --user=myUser --group=myGroup --openssl
 
-The **instances** command can also be used to deploy a new instance of Unit
-using the **new** option and three arguments:
+You can use the **new** option with three arguments to deploy a new instance of Unit:
 
 1. A means to show the control API: Either a file path to open a unix socket, or
    a TCP address with port.
