@@ -20,9 +20,8 @@ Download binaries
 
 We provide unitctl binaries for Linux (both ARM64 and X64) and MacOS systems.
 
-.. warning::
-
-   Links TBD
+You can find the latest binaries on the `Unit GitHub releases page
+<https://github.com/nginx/unit/releases>`_
 
 *****************
 Build from source
@@ -53,6 +52,10 @@ Unit. The following is a list of the available commands:
 
    * - **edit**
      - Open the current Unit configuration in the default system editor
+
+   * - **export**
+     - Export the current Unit configuration (excluding certificates) to a
+       tarball
 
    * - **import**
      - Import Unit configuration from a directory
@@ -98,6 +101,20 @@ There are also a number of options that you can use with the unitctl CLI:
 List and create instances of Unit
 +++++++++++++++++++++++++++++++++
 
+The **instances** command allows you to list all running Unit processes and
+deploy new instances of Unit.
+
+The **instances** command has the following options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - **new**
+     - Deploy a new instance of Unit
+
 Running unitcl with the **instances** command will display an output similar to
 the following:
 
@@ -142,11 +159,25 @@ using the **new** option and three arguments:
 After the deployment is complete, you will have one Unit container running on the
 host network.
 
-++++++++++++++++++++++++++++
-List and restart runnin apps
-++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++
+List and restart running apps
++++++++++++++++++++++++++++++
 
 The **app** command allows you to list and restart the active applications.
+
+The **app** command has the following options:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - **list**
+     - List all active applications
+
+   * - **reload <APP_NAME>**
+     - Restart the specified application
 
 To list the active applications, run the following command:
 
@@ -209,7 +240,8 @@ To list all active listeners, run the following command:
 Check the status of Unit
 ++++++++++++++++++++++++
 
-Unitctl can query the control API to provide the status of the running Unit daemon.
+Unitctl can query the control API to provide the **status** of the running Unit
+daemon.
 
 To get the current status of the Unit, run the following command:
 
@@ -239,9 +271,10 @@ To get the current status of the Unit, run the following command:
 Send configuration payloads to Unit
 +++++++++++++++++++++++++++++++++++
 
-Unitctl can accept custom request payloads and query given API endpoints with them.
-The request payload must be passed in using the **-f** flag either as a filename
-or using the **-** filename to denote the use of stdin as shown in the example below.
+Using the **execute** command, Unitctl can accept custom request payloads and
+query given API endpoints with them. The request payload must be passed in using
+the **-f** flag either as a filename or using the **-** filename to denote the
+use of stdin as shown in the example below.
 
 .. code-block:: console
 
@@ -278,7 +311,8 @@ Edit current configuration
 ++++++++++++++++++++++++++
 
 Unitctl can fetch the configuration from a running instance of Unit and load it
-in any number of preconfigured editors on your command line.
+in any number of preconfigured editors on your command line using the **edit**
+command.
 
 Unitctl will try to use whatever editor is configured with the **EDITOR** environment
 variable, but will default to vim, emacs, nano, vi, or pico.
@@ -306,8 +340,9 @@ changes. Once you save and close the editor, you will see the following output:
 Importing the configuration from a folder
 +++++++++++++++++++++++++++++++++++++++++
 
-Unitctl will parse existing configuration, certificates, and NJS modules stored
-in a directory and convert them into a payload to reconfigure a given Unit daemon.
+Using the **import** command, Unitctl will parse existing configuration,
+certificates, and NJS modules stored in a directory and convert them into a
+payload to reconfigure a given Unit daemon.
 
 To export the configuration, run the following command:
 
@@ -323,11 +358,11 @@ To export the configuration, run the following command:
 Exporting the configuration from Unit
 +++++++++++++++++++++++++++++++++++++
 
-Unitctl will query a control API to fetch running configuration and NJS modules
-from a Unit process. Due to a technical limitation this output will not contain
-the currently stored certificate bundles. The output is saved as a tarball at the
-filename given with the **-f** argument. Standard out may be used with **-f -**
-as shown in the following examples:
+The **export** command will query a control API to fetch running configuration
+and NJS modules from a Unit process. Due to a technical limitation this output
+will not contain the currently stored certificate bundles. The output is saved
+as a tarball at the filename given with the **-f** argument. Standard out may be
+used with **-f -** as shown in the following examples:
 
 .. code-block:: console
 
