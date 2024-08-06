@@ -20,13 +20,15 @@ Download binaries
 
 Unitctl binaries are available for Linux (ARM64 and X64) and MacOS systems.
 
-Download the latest binaries from the `Unit GitHub releases page <https://github.com/nginx/unit/releases>`_.
+Download the latest binaries from the `Unit GitHub releases page
+<https://github.com/nginx/unit/releases>`_.
 
 *****************
 Build from source
 *****************
 
-To build unitctl from source, follow the instructions in the `unitctl repository <https://github.com/nginx/unit/tree/master/tools/unitctl>`_.
+To build unitctl from source, follow the instructions in the `unitctl repository
+<https://github.com/nginx/unit/tree/master/tools/unitctl>`_.
 
 *************
 Using unitctl
