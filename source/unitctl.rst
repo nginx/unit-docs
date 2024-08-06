@@ -8,8 +8,8 @@ CLI (unitctl)
 #############
 
 Unit provides a `Rust SDK <https://github.com/nginx/unit/tree/master/tools/unitctl>`_
-to interact with its :ref:`control API <source-startup>`, and a CLI (unitctl)
-that exposes the functionality provided by the SDK.
+to interact with its :ref:`control API <source-startup>`, and a command line
+interface (unitctl) that exposes the functionality provided by the SDK.
 
 This CLI is a powerful tool that allows you to deploy, manage, and configure
 Unit in your environment.
