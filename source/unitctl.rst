@@ -307,20 +307,19 @@ Edit current configuration
 ++++++++++++++++++++++++++
 
 Unitctl can fetch the configuration from a running instance of Unit and load it
-in any number of preconfigured editors on your command line using the **edit**
-command.
+in a preconfigured editor on your command line using the **edit** command.
 
-Unitctl will try to use whatever editor is configured with the **EDITOR** environment
-variable, but will default to vim, emacs, nano, vi, or pico.
+Unitctl tries to use the editor configured with the **EDITOR** environment
+variable, but defaults to vim, emacs, nano, vi, or pico if **EDITOR** is not set.
 
-To edit the current configuration, run the following command:
+To edit the current configuration, run:
 
 .. code-block:: console
 
    $ unitctl edit
 
-The configuration will be loaded into the editor, and you can make any necessary
-changes. Once you save and close the editor, you will see the following output:
+The configuration loads into the editor, allowing you to make any necessary
+changes. Once you save and close the editor, you see the following output:
 
 .. code-block:: console
 
@@ -336,11 +335,11 @@ changes. Once you save and close the editor, you will see the following output:
 Importing the configuration from a folder
 +++++++++++++++++++++++++++++++++++++++++
 
-Using the **import** command, Unitctl will parse existing configuration,
-certificates, and NJS modules stored in a directory and convert them into a
-payload to reconfigure a given Unit daemon.
+The **import** command lets Unitctl read configuration files, certificates, and
+NJS modules from a directory. Unitctl then converts these files into a payload
+to reconfigure a Unit daemon.
 
-To export the configuration, run the following command:
+To export the configuration, run:
 
 .. code-block:: console
 
@@ -354,11 +353,11 @@ To export the configuration, run the following command:
 Exporting the configuration from Unit
 +++++++++++++++++++++++++++++++++++++
 
-The **export** command will query a control API to fetch running configuration
-and NJS modules from a Unit process. Due to a technical limitation this output
-will not contain the currently stored certificate bundles. The output is saved
-as a tarball at the filename given with the **-f** argument. Standard out may be
-used with **-f -** as shown in the following examples:
+The **export** command queries a control API to fetch the running configuration
+and NJS modules from a Unit process. The output does not include the currently
+stored certificate bundles due to a technical limitation. The output is saved
+as a tarball with the filename specified by the **-f** argument. You can also
+use standard output with **-f -**, as shown in the examples below:
 
 .. code-block:: console
 
@@ -379,7 +378,7 @@ used with **-f -** as shown in the following examples:
 Wait for a socket to be available
 +++++++++++++++++++++++++++++++++
 
-All commands support waiting on unix sockets for availability:
+All commands support waiting for Unix sockets to become available:
 
 .. code-block:: console
 
