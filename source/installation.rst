@@ -178,7 +178,8 @@ Amazon Linux
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/amzn/2023/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -218,7 +219,8 @@ Amazon Linux
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/amzn2/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -264,7 +266,8 @@ Amazon Linux
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/amzn/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -536,7 +539,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -576,7 +580,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -622,7 +627,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -668,7 +674,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -714,7 +721,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -761,7 +769,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -807,7 +816,8 @@ Fedora
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/fedora/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -857,7 +867,8 @@ RHEL and derivatives
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -897,7 +908,8 @@ RHEL and derivatives
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -941,7 +953,8 @@ RHEL and derivatives
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
@@ -987,7 +1000,8 @@ RHEL and derivatives
             [unit]
             name=unit repo
             baseurl=https://packages.nginx.org/unit/rhel/$releasever/$basearch/
-            gpgcheck=0
+            gpgkey=https://unit.nginx.org/keys/nginx-keyring.gpg
+            gpgcheck=1
             enabled=1
 
       #. Install the core package
