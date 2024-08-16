@@ -111,7 +111,7 @@ Available listener options:
         means use the OS default. For example. on Linux since 5.4, this is
         **4096** (previously **128**) and on FreeBSD it's **128**.
 
-        On other systems default is **511**.
+        On other systems the default is **511**.
 
         NOTE: Whatever limit you set here will be limited by the OS
         system-wide sysctl. For example. on Linux that is
@@ -5375,6 +5375,16 @@ that stores instance-wide preferences.
 
     * - Option
       - Description
+
+    * - **listen_threads**
+      - Integer;
+        controls the number of router threads created to handle client
+        connections. Each thread includes all the configured listeners.
+
+        By default, we create as many threads as the number of CPUs that
+        are available to run on.
+
+        *(since 1.33.0)*
 
     * - **http**
       - Object;
