@@ -99,6 +99,21 @@ Available listener options:
         defines SSL/TLS
         :ref:`settings <configuration-listeners-ssl>`.
 
+    * - **backlog**
+      - Integer;
+        controls the 'backlog' parameter to the listen(2) system-call.
+        This essentially limits the number of pending connections waiting
+        to be accepted.
+
+        The default varies by system. On Linux, FreeBSD, OpenBSD and macOS
+        we default (-1) to the OS's default. E.g. on Linux since 5.4 this is
+        4096, on FreeBSD it's 128.
+
+        On other systems we default to 511.
+
+        NOTE: Whatever limit you set here will be limited by the OS's
+        system-wide sysctl, e.g. on Linux net.core.somaxconn and on BSD
+        kern.ipc.somaxconn
 
 Here, a local listener accepts requests at port 8300
 and passes them to the **blogs** app
