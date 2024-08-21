@@ -5508,6 +5508,8 @@ In turn, the **http** option exposes the following settings:
 
         The default is **true**.
 
+        *(since 1.30.0)*
+
     * - **static**
       - Object;
         configures static asset handling.
