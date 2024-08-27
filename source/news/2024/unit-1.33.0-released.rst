@@ -41,7 +41,7 @@ Wall of fame
 ************
 
 Special Thanks to all external contributors helping us
-making Unit better! With 1.32.0 we would like to send a shout out to:
+making Unit better! With 1.33.0 we would like to send a shout out to:
 
 - Alejandro Colomar
 - Costas Drongos
