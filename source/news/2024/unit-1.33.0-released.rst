@@ -34,7 +34,7 @@ This release introduces two new configuration options:
 unitctl CLI tool
 ****************
 
-:ref:`unitctl <unitctl>` is a powerful, Rust-based CLI tool that allows you to
+:ref:`unitctl <unitctl>` is a Rust-based CLI tool that allows you to
 deploy, manage, and configure Unit in your environment.
 
 ****************************
