@@ -13,45 +13,120 @@ New configuration options
 
 This release introduces two new configuration options:
 
-#. `listen_threads`
+#. **listen_threads**
 
-   This option can be set under `/settings/listen_threads` and controls the
+   This option can be set under **/settings/listen_threads** and controls the
    number of threads the router process creates to handle client
    connections. By default Unit creates the same number of threads as there
    are CPUs available.
 
-#. `backlog`
+#. **backlog**
 
-   This option can be set under `/listeners/backlog`. This is a per-listener
-   option that sets the the backlog parameter as passed to the listen(2)
+   This option can be set under **/listeners/backlog**. This is a per-listener
+   option that sets the the backlog parameter as passed to the **listen(2)**
    system-call, which defines the maximum length for the queue of pending
    connections for the socket.
 
-   This is analogous to the `backlog` parameter of the `listen` directive in
+   This is analogous to the **backlog** parameter of the **listen** directive in
    NGINX.
 
 ****************
 unitctl CLI tool
 ****************
 
-Chunked request body support
+:ref:`unitctl <unitctl>` is a powerful, Rust-based CLI tool that allows you to
+deploy, manage, and configure Unit in your environment.
 
+****************************
+Chunked request body support
+****************************
+
+Unit can now accept chunked requests rather than returning **411
+Length Required**. This feature is experimental and can
+be enabled setting the **/settings/chunked_transform** configuration option
+to true.
 
 *************************************
 Changes in behavior and other updates
 *************************************
 
-==========================================================================
-Change 1
-==========================================================================
+* On Linux, we now default to a **listen(2)** backlog of -1, which means we
+  use the OS's default: 4096 for Linux 5.4 and later; 128 for older versions.
 
-Change 1 description.
+  The previous default for Unit was 511.
 
-=======================================================
-Change 2
-=======================================================
+* Under systemd, Unit once again runs in **forking** mode. This allows the
+  per-application logging feature to work out the box.
 
-Change 2 description.
+* The Python language module now supports **Application Factories**
+  (thanks to Gourav).
+
+**********************
+Changes for developers
+**********************
+
+We have made some changes to the build system:
+
+===============================================
+Prettified make output by default with GNU make
+===============================================
+
+Instead of getting the normal compiler command for each target being built
+you now get a simplified line like:
+
+.. code-block:: console
+
+   CC     build/src/nxt_cgroup.o
+
+
+You can use the `V=1` option to get the old verbose output, for example:
+
+.. code-block:: console
+
+   make V=1
+
+==============
+Make variables
+==============
+
+You can now control some aspects of the build process by passing variables to
+make (like the above). The currently supported variables are:
+
+.. list-table::
+   :widths: 15 80 5
+   :header-rows: 1
+
+   * - Option
+     - Description
+     - Default
+   * - **D=1**
+     - Enables debug builds (-O0)
+     - 0
+   * - **E=0**
+     - Disables -Werror
+     - 1
+   * - **V=1**
+     - Enables verbose output
+     - 0
+   * - **EXTRA_CFLAGS=**
+     - Add extra compiler options
+     -
+
+===========
+GCC & Clang
+===========
+
+We removed support for a bunch of esoteric compilers. GCC and Clang are now the
+only supported compilers for building Unit.
+
+==========
+-std=gnu11
+==========
+
+We now build with **-std=gnu11** (C11 with GNU extensions). While previously we
+didn't explicitly set the -std= option, as we were supporting CentOS 7 (which is now
+EOL), we were effectively limited to **-std=gnu89/90**.
+
 
 ************
 Wall of fame

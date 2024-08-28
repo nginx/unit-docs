@@ -2,6 +2,7 @@
    :og:description: Learn how to use the Unit CLI.
 
 .. include:: include/replace.rst
+.. _unitctl:
 
 #############
 CLI (unitctl)
@@ -130,7 +131,7 @@ You can use the **new** option with three arguments to deploy a new instance of 
 
 1. **Control API path**: A file path for a Unix socket or a TCP address with port.
 
-   - If you specify a directory, the Unit container will mount it to **/var/run** internally. 
+   - If you specify a directory, the Unit container will mount it to **/var/run** internally.
      The control socket and pid file are accessible from the host. Example: **/tmp/2**.
    - If you specify a TCP address, the Unit container will listen on this
      address and port. Example: **127.0.0.1:7171**.
@@ -269,7 +270,7 @@ Send configuration payloads to Unit
 +++++++++++++++++++++++++++++++++++
 
 With the **execute** command, Unitctl can accept custom request payloads and
-query specified API endpoints with them. Use the **-f** flag to pass the request 
+query specified API endpoints with them. Use the **-f** flag to pass the request
 payload as a filename or **-** to denote stdin, as shown in the example below.
 
 .. code-block:: console
