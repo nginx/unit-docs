@@ -90,7 +90,7 @@ Make variables
 ==============
 
 You can now control some aspects of the build process by passing variables to
-make (like the above). The currently supported variables are:
+`make` (like the above). The currently supported variables are:
 
 .. list-table::
    :widths: 15 80 5
