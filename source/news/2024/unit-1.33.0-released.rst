@@ -17,7 +17,7 @@ This release introduces two new configuration options:
 
    This option can be set under **/settings/listen_threads** and controls the
    number of threads the router process creates to handle client
-   connections. By default Unit creates the same number of threads as there
+   connections. By default, Unit creates the same number of threads as there
    are CPUs available.
 
 #. **backlog**
