@@ -4,21 +4,38 @@
 Unit 1.33.0 Released
 ####################
 
+We are pleased to announce the release of NGINX Unit 1.33.0. This release includes
+a number of new features and changes:
 
-Unit 1.33.0 is now available. This release includes a number of new features
-and changes:
+*************************
+New configuration options
+*************************
 
-************************************************************************
-Feature 1
-************************************************************************
+This release introduces two new configuration options:
 
-Feature 1 description.
+#. `listen_threads`
 
-*******************************************************************
-Feature 2
-*******************************************************************
+   This option can be set under `/settings/listen_threads` and controls the
+   number of threads the router process creates to handle client
+   connections. By default Unit creates the same number of threads as there
+   are CPUs available.
 
-Feature 2 description.
+#. `backlog`
+
+   This option can be set under `/listeners/backlog`. This is a per-listener
+   option that sets the the backlog parameter as passed to the listen(2)
+   system-call, which defines the maximum length for the queue of pending
+   connections for the socket.
+
+   This is analogous to the `backlog` parameter of the `listen` directive in
+   NGINX.
+
+****************
+unitctl CLI tool
+****************
+
+Chunked request body support
+
 
 *************************************
 Changes in behavior and other updates
