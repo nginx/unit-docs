@@ -10,6 +10,7 @@
    scripting
    certificates
    statusapi
+   unitctl
    howto/index
    troubleshooting
    community
