@@ -6,7 +6,7 @@ project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2024'
 version = '1.33.0'
-release_date = 'Aug 27, 2024'
+release_date = 'Aug 29, 2024'
 release = version
 needs_sphinx = '6.2'
 
