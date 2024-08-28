@@ -50,8 +50,8 @@ to true.
 Changes in behavior and other updates
 *************************************
 
-* On Linux, we now default to a **listen(2)** backlog of `-1`, which means we
-  use the OS's default: `4096` for Linux 5.4 and later; `128` for older versions.
+* On Linux, we now default to a **listen(2)** backlog of **-1**, which means we
+  use the OS's default: **4096** for Linux 5.4 and later; **128** for older versions.
 
   The previous default for Unit was 511.
 
@@ -79,7 +79,7 @@ you now get a simplified line like:
    CC     build/src/nxt_cgroup.o
 
 
-You can use the `V=1` option to get the old verbose output, for example:
+You can use the **V=1** option to get the old verbose output, for example:
 
 .. code-block:: console
 
@@ -90,7 +90,7 @@ Make variables
 ==============
 
 You can now control some aspects of the build process by passing variables to
-`make` (like the above). The currently supported variables are:
+**make** (like the above). The currently supported variables are:
 
 .. list-table::
    :widths: 15 80 5
