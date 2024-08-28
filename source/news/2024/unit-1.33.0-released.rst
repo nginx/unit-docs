@@ -50,8 +50,8 @@ to true.
 Changes in behavior and other updates
 *************************************
 
-* On Linux, we now default to a **listen(2)** backlog of -1, which means we
-  use the OS's default: 4096 for Linux 5.4 and later; 128 for older versions.
+* On Linux, we now default to a **listen(2)** backlog of `-1`, which means we
+  use the OS's default: `4096` for Linux 5.4 and later; `128` for older versions.
 
   The previous default for Unit was 511.
 
