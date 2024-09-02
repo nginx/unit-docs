@@ -116,7 +116,7 @@ You can now control some aspects of the build process by passing variables to
 GCC & Clang
 ===========
 
-We removed support for a several lesser-known compilers. GCC and Clang are now the
+We removed support for several lesser-known compilers. GCC and Clang are now the
 only supported compilers for building Unit.
 
 ==========
