@@ -673,7 +673,7 @@ class NewsEntryDirective(Directive):
         self.items.append(self.options)
         node = nxt_news_entry()
         node.options = self.options
-        node.prefix = "../" * (env.docname.count("/") + 1)
+        node.prefix = "../"
         self.options["anchor"] = (
             env.docname.rsplit("/", 1)[0]
             + "/#"
@@ -682,7 +682,7 @@ class NewsEntryDirective(Directive):
         if "url" in self.options:
             self.options["relurl"] = (
                 "" if "://" in self.options["url"] else node.prefix
-            ) + self.options["url"]
+            ) + self.options["url"] + "/"
         return [node]
 
 
