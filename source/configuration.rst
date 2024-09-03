@@ -3312,14 +3312,15 @@ shared between all application languages:
 
     * - **stderr**, **stdout**
       - Strings;
-        filenames where Unit redirects
-        the application's output.
+        filenames where Unit redirects the application's output.
 
-        The default is **/dev/null**.
+        The default when running *with* **--no-daemon** is to send
+        *stdout* to the *console* and *stderr* to Unit's *log*.
 
-        When running in **--no-daemon** mode, application output
-        is always redirected to
-        :ref:`Unit's log file <troubleshooting-log>`.
+        The default when running *without* **--no-daemon** is to send
+        *stdout* to */dev/null* and *stderr* to Unit's *log*.
+
+        These options have *no* effect when running with **--no-daemon**.
 
     * - **user**
       - String;
