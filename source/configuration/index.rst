@@ -2,7 +2,7 @@
    :og:description: Create and maintain a working configuration using
                   listeners, routes, apps, and upstreams.
 
-.. include:: include/replace.rst
+.. include:: ../include/replace.rst
 
 #############
 Configuration
@@ -2228,7 +2228,7 @@ affects the resulting response headers.
 The values support
 :ref:`variables <configuration-variables>`
 and
-:doc:`template literals <scripting>`,
+:doc:`template literals <../scripting>`,
 which enables arbitrary runtime logic:
 
 .. code-block:: json
@@ -2441,7 +2441,7 @@ A **share**-based action provides the following options:
    <installation-precomp-pkgs>`,
    the process runs as **unit:unit**;
    for details of other installation methods,
-   see :doc:`installation`.
+   see :doc:`../installation`.
 
 Consider the following configuration:
 
@@ -3988,7 +3988,7 @@ and rebuild the app.
               # yum install unit-devel
 
    - If you installed Unit from
-     :doc:`source <howto/source>`,
+     :doc:`source <../howto/source>`,
      install the include files and libraries:
 
      .. code-block:: console
@@ -4101,7 +4101,7 @@ Example:
 
    For Go-based examples,
    see our
-   :doc:`howto/grafana`
+   :doc:`../howto/grafana`
    howto or a basic
    :ref:`sample <sample-go>`.
 
@@ -4191,10 +4191,10 @@ Example:
 
    For Java-based examples,
    see our
-   :doc:`howto/jira`,
-   :doc:`howto/opengrok`,
+   :doc:`../howto/jira`,
+   :doc:`../howto/opengrok`,
    and
-   :doc:`howto/springboot`
+   :doc:`../howto/springboot`
    howtos or a basic
    :ref:`sample <sample-java>`.
 
@@ -4343,9 +4343,9 @@ your app only needs to replace the default **websocket**:
 
    For Node.js-based examples,
    see our
-   :doc:`howto/apollo`,
-   :doc:`howto/express`,
-   :doc:`howto/koa`,
+   :doc:`../howto/apollo`,
+   :doc:`../howto/express`,
+   :doc:`../howto/koa`,
    and
    :ref:`Docker <docker-apps>`
    howtos or a basic
@@ -4412,9 +4412,9 @@ Example:
 
    For Perl-based examples of Perl,
    see our
-   :doc:`howto/bugzilla`
+   :doc:`../howto/bugzilla`
    and
-   :doc:`howto/catalyst`
+   :doc:`../howto/catalyst`
    howtos or a basic
    :ref:`sample <sample-perl>`.
 
@@ -4665,23 +4665,23 @@ are shared by all targets within the app.
 
    For PHP-based examples,
    see our
-   :doc:`howto/cakephp`,
-   :doc:`howto/codeigniter`,
-   :doc:`howto/dokuwiki`,
-   :doc:`howto/drupal`,
-   :doc:`howto/laravel`,
-   :doc:`howto/lumen`,
-   :doc:`howto/matomo`,
-   :doc:`howto/mediawiki`,
-   :doc:`howto/modx`,
-   :doc:`howto/nextcloud`,
-   :doc:`howto/phpbb`,
-   :doc:`howto/phpmyadmin`,
-   :doc:`howto/roundcube`,
-   :doc:`howto/symfony`,
-   :doc:`howto/wordpress`,
+   :doc:`../howto/cakephp`,
+   :doc:`../howto/codeigniter`,
+   :doc:`../howto/dokuwiki`,
+   :doc:`../howto/drupal`,
+   :doc:`../howto/laravel`,
+   :doc:`../howto/lumen`,
+   :doc:`../howto/matomo`,
+   :doc:`../howto/mediawiki`,
+   :doc:`../howto/modx`,
+   :doc:`../howto/nextcloud`,
+   :doc:`../howto/phpbb`,
+   :doc:`../howto/phpmyadmin`,
+   :doc:`../howto/roundcube`,
+   :doc:`../howto/symfony`,
+   :doc:`../howto/wordpress`,
    and
-   :doc:`howto/yii`
+   :doc:`../howto/yii`
    howtos or a basic
    :ref:`sample <sample-php>`.
 
@@ -4972,27 +4972,27 @@ are shared by all targets in the app.
 
    For Python-based examples,
    see our
-   :doc:`howto/bottle`,
-   :doc:`howto/datasette`,
-   :doc:`howto/django`,
-   :doc:`howto/djangochannels`,
-   :doc:`howto/falcon`,
-   :doc:`howto/fastapi`,
-   :doc:`howto/flask`,
-   :doc:`howto/guillotina`,
-   :doc:`howto/mailman`,
-   :doc:`howto/mercurial`,
-   :doc:`howto/moin`,
-   :doc:`howto/plone`,
-   :doc:`howto/pyramid`,
-   :doc:`howto/quart`,
-   :doc:`howto/responder`,
-   :doc:`howto/reviewboard`,
-   :doc:`howto/sanic`,
-   :doc:`howto/starlette`,
-   :doc:`howto/trac`,
+   :doc:`../howto/bottle`,
+   :doc:`../howto/datasette`,
+   :doc:`../howto/django`,
+   :doc:`../howto/djangochannels`,
+   :doc:`../howto/falcon`,
+   :doc:`../howto/fastapi`,
+   :doc:`../howto/flask`,
+   :doc:`../howto/guillotina`,
+   :doc:`../howto/mailman`,
+   :doc:`../howto/mercurial`,
+   :doc:`../howto/moin`,
+   :doc:`../howto/plone`,
+   :doc:`../howto/pyramid`,
+   :doc:`../howto/quart`,
+   :doc:`../howto/responder`,
+   :doc:`../howto/reviewboard`,
+   :doc:`../howto/sanic`,
+   :doc:`../howto/starlette`,
+   :doc:`../howto/trac`,
    and
-   :doc:`howto/zope`
+   :doc:`../howto/zope`
    howtos or a basic
    :ref:`sample <sample-python>`.
 
@@ -5110,9 +5110,9 @@ to your app.
 
    For Ruby-based examples,
    see our
-   :doc:`howto/rails`
+   :doc:`../howto/rails`
    and
-   :doc:`howto/redmine`
+   :doc:`../howto/redmine`
    howtos or a basic
    :ref:`sample <sample-ruby>`.
 
@@ -5366,9 +5366,9 @@ that stores instance-wide preferences.
       - String or an array of strings;
         lists enabled
         :program:`njs`
-        :doc:`modules <scripting>`,
+        :doc:`modules <../scripting>`,
         uploaded
-        via the :doc:`control API <controlapi>`.
+        via the :doc:`control API <../controlapi>`.
 
 In turn, the **http** option exposes the following settings:
 
@@ -5591,7 +5591,7 @@ is formed *after* the request has been handled.
 Besides
 :ref:`built-in variables <configuration-variables-native>`,
 you can use :program:`njs`
-:doc:`templates <scripting>`
+:doc:`templates <../scripting>`
 to define the log format:
 
 .. code-block:: json

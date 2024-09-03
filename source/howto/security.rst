@@ -366,7 +366,7 @@ notorious **777**, instead assigning them on a need-to-know basis.
          # find :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
          # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
-   #. To run a single app, :doc:`configure <../configuration>` Unit as follows:
+   #. To run a single app, :doc:`configure <../configuration/index>` Unit as follows:
 
       .. code-block:: json
 
@@ -397,7 +397,7 @@ notorious **777**, instead assigning them on a need-to-know basis.
              }
          }
 
-   #. To run several apps side by side, :doc:`configure <../configuration>`
+   #. To run several apps side by side, :doc:`configure <../configuration/index>`
       them with appropriate user and group names.  The following
       configuration distinguishes apps based on the request URI, but you can
       implement another scheme such as different listeners:

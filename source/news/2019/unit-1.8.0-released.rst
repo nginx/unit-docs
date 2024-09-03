@@ -42,7 +42,7 @@ applications, and leave us feedback.  If you're a Jira user, please use this
 HowTo: https://unit.nginx.org/howto/jira/
 
 More documentation is available in :doc:`../../installation` and
-:doc:`../../configuration` sections.
+:doc:`../../configuration/index` sections.
 
 We intend to use our open-development process to refine and improve the
 software and to eventually test and certify the software's compatibility
