@@ -4739,6 +4739,16 @@ you have:
 
         The default is **application**.
 
+    * - **factory**
+      - Boolean:
+        when enabled, Unit treats **callable** as a factory.
+
+        The default is **false**.
+
+        **Note:** Unit does *not* support passing arguments to factories.
+
+        *(since 1.33.0)*
+
     * - **home**
       - String;
         path to the app's
