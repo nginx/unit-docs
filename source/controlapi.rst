@@ -28,7 +28,7 @@ that comprises four primary options:
 
    * - **/config**
      - Used for general
-       :doc:`configuration management <configuration>`.
+       :doc:`configuration management <configuration/index>`.
 
    * - **/control**
      - Queried for
