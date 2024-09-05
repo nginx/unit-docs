@@ -11,7 +11,7 @@ a number of new features and changes:
 New configuration options
 *************************
 
-This release introduces two new configuration options:
+This release introduces three new configuration options:
 
 #. **listen_threads**
 
@@ -29,6 +29,17 @@ This release introduces two new configuration options:
 
    This is analogous to the **backlog** parameter of the **listen** directive in
    NGINX.
+
+#. **factory**
+
+  This can be set under '/applications/<app>/factory'
+
+  This option is a boolean value. If set to 'true', Unit treats 'callable' as
+  a factory.
+
+  The default value is 'false'.
+
+  NOTE: Unit does **not** support passing arguments to factories.
 
 ****************
 unitctl CLI tool
@@ -139,6 +150,7 @@ making Unit better! With 1.33.0 we would like to send a shout out to:
 - Costas Drongos
 - Gourav
 - Remi Collet
+- Robbie McKinstry
 
 Special thanks to Arjun for his fuzzing work.
 
@@ -166,6 +178,9 @@ Full Changelog
     *) Feature: add "if" option to the "match" object.
 
     *) Feature: Unit ships with a new Rust based CLI application "unitctl".
+
+    *) Feature: the wasm-wasi-component language module now inherits the
+       processes environment.
 
     *) Change: under systemd unit runs in forking mode (once again).
 
