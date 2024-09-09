@@ -55,7 +55,7 @@ Chunked request body support
 Unit can now accept chunked requests rather than returning **411
 Length Required**. This feature is experimental (not documented and subject to change), and can
 be enabled setting the **/settings/chunked_transform** configuration option
-to true.
+to **true**.
 
 *************************************
 Changes in behavior and other updates
