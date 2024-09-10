@@ -200,6 +200,8 @@ Full Changelog
     *) Change: default listen(2) backlog on Linux now defaults to Kernel
        default.
 
+    *) Bugfix: fix a crash when interrupting a download via a proxy.
+
     *) Bugfix: don't create the $runstatedir directory which triggered an
        Alpine packaging error.
 
