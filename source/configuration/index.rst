@@ -99,6 +99,25 @@ Available listener options:
         defines SSL/TLS
         :ref:`settings <configuration-listeners-ssl>`.
 
+    * - **backlog**
+      - Integer;
+        controls the 'backlog' parameter to the *listen(2)* system-call.
+        This essentially limits the number of pending connections waiting
+        to be accepted.
+
+        The default varies by system.
+
+        On Linux, FreeBSD, OpenBSD and macOS the default is **-1** which
+        means use the OS default. For example. on Linux since 5.4, this is
+        **4096** (previously **128**) and on FreeBSD it's **128**.
+
+        On other systems the default is **511**.
+
+        NOTE: Whatever limit you set here will be limited by the OS
+        system-wide sysctl. For example. on Linux that is
+        **net.core.somaxconn** and on BSD it's **kern.ipc.somaxconn**
+
+        *(since 1.33.0)*
 
 Here, a local listener accepts requests at port 8300
 and passes them to the **blogs** app
@@ -3293,14 +3312,15 @@ shared between all application languages:
 
     * - **stderr**, **stdout**
       - Strings;
-        filenames where Unit redirects
-        the application's output.
+        filenames where Unit redirects the application's output.
 
-        The default is **/dev/null**.
+        The default when running *with* **--no-daemon** is to send
+        *stdout* to the *console* and *stderr* to Unit's *log*.
 
-        When running in **--no-daemon** mode, application output
-        is always redirected to
-        :ref:`Unit's log file <troubleshooting-log>`.
+        The default when running *without* **--no-daemon** is to send
+        *stdout* to */dev/null* and *stderr* to Unit's *log*.
+
+        These options have *no* effect when running with **--no-daemon**.
 
     * - **user**
       - String;
@@ -4720,6 +4740,16 @@ you have:
 
         The default is **application**.
 
+    * - **factory**
+      - Boolean:
+        when enabled, Unit treats **callable** as a factory.
+
+        The default is **false**.
+
+        **Note:** Unit does *not* support passing arguments to factories.
+
+        *(since 1.33.0)*
+
     * - **home**
       - String;
         path to the app's
@@ -5357,6 +5387,16 @@ that stores instance-wide preferences.
     * - Option
       - Description
 
+    * - **listen_threads**
+      - Integer;
+        controls the number of router threads created to handle client
+        connections. Each thread includes all the configured listeners.
+
+        By default, we create as many threads as the number of CPUs that
+        are available to run on.
+
+        *(since 1.33.0)*
+
     * - **http**
       - Object;
         fine-tunes handling of HTTP requests
@@ -5468,6 +5508,8 @@ In turn, the **http** option exposes the following settings:
         <https://datatracker.ietf.org/doc/html/rfc9110.html#section-10.2.4>`__.
 
         The default is **true**.
+
+        *(since 1.30.0)*
 
     * - **static**
       - Object;
