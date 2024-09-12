@@ -101,6 +101,8 @@ Generating Certificates
       # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
             /etc/letsencrypt/live/www.example.com/privkey.pem > :nxt_ph:`bundle1.pem <Arbitrary certificate bundle's filename>`
 
+   .. code-block:: console
+
       # curl -X PUT --data-binary @:nxt_ph:`bundle1.pem <Certificate bundle's filename>`  \
              --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
              http://localhost/certificates/:nxt_ph:`certbot1 <Certificate bundle name in Unit's configuration>`
@@ -170,8 +172,12 @@ For manual renewal and rollover:
             1: Keep the existing certificate for now
             2: Renew & replace the cert (may be subject to CA rate limits)
 
+   .. code-block:: console
+
       # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
             /etc/letsencrypt/live/www.example.com/privkey.pem > :nxt_ph:`bundle2.pem <Arbitrary certificate bundle's filename>`
+
+   .. code-block:: console
 
       # curl -X PUT --data-binary @:nxt_ph:`bundle2.pem <Certificate bundle's filename>`  \
              --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
@@ -229,9 +235,12 @@ For manual renewal and rollover:
       # cat /etc/letsencrypt/live/cdn.example.com/fullchain.pem  \
             /etc/letsencrypt/live/cdn.example.com/privkey.pem > :nxt_hint:`cdn.example.com.pem <Arbitrary certificate bundle's filename>`
 
+   .. code-block:: console
+
       # cat /etc/letsencrypt/live/www.example.com/fullchain.pem  \
             /etc/letsencrypt/live/www.example.com/privkey.pem > :nxt_hint:`www.example.com.pem <Arbitrary certificate bundle's filename>`
 
+   .. code-block:: console
 
       # curl -X PUT --data-binary @:nxt_hint:`cdn.example.com.pem <Certificate bundle's filename>`  \
              --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \
@@ -240,6 +249,8 @@ For manual renewal and rollover:
              {
                  "success": "Certificate chain uploaded."
              }
+
+   .. code-block:: console
 
       # curl -X PUT --data-binary @:nxt_hint:`www.example.com.pem <Certificate bundle's filename>`  \
              --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>`  \

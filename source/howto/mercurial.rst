@@ -67,11 +67,29 @@ control system using Unit:
    .. code-block:: console
 
       $ hg config --edit
+
+   .. code-block:: console
+
       $ hg clone http://localhost/ project/
+
+   .. code-block:: console
+
       $ cd project/
+
+   .. code-block:: console
+
       $ touch hg_rocks.txt
+
+   .. code-block:: console
+
       $ hg add
+
+   .. code-block:: console
+
       $ hg commit -m 'Official: Mercurial on Unit rocks!'
+
+   .. code-block:: console
+
       $ hg push
 
    .. image:: ../images/hg.png

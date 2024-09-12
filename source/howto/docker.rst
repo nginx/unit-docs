@@ -64,7 +64,13 @@ official **hello, world** app:
 .. code-block:: console
 
    $ cd :nxt_ph:`/path/to/app/ <Directory where all app-related files will be stored; use a real path in your configuration>`
+
+.. code-block:: console
+
    $ mkdir webapp
+
+.. code-block:: console
+
    $ cat << EOF > webapp/wsgi.py
 
    from flask import Flask
@@ -91,6 +97,9 @@ app:
 .. code-block:: console
 
    $ mkdir config
+
+.. code-block:: console
+
    $ cat << EOF > config/config.json
 
    {
@@ -117,7 +126,13 @@ Finally, let's create **log/** and **state/** directories to store Unit
 .. code-block:: console
 
    $ mkdir log
+
+.. code-block:: console
+
    $ touch log/unit.log
+
+.. code-block:: console
+
    $ mkdir state
 
 Our file structure so far:
@@ -315,11 +330,15 @@ Unit's state:
 
    $ docker build --tag=:nxt_hint:`unit-expressapp <Arbitrary image tag>` .
 
+.. code-block:: console
+
    $ export UNIT=$(                                                                             \
          docker run -d                                                                          \
          --mount type=bind,src="$(pwd)/myapp/config.json",dst=/docker-entrypoint.d/config.json  \
          -p 8080:8080 unit-expressapp                                                           \
      )
+
+.. code-block:: console
 
    $ curl -X GET localhost:8080
 
@@ -358,15 +377,21 @@ the :ref:`control API <configuration-api>`:
      ...
      EOF
 
+.. code-block:: console
+
    $ export UNIT=$(                                                                     \
          docker run -d                                                                  \
          --mount type=bind,src="$(pwd)/myapp/new-config.json",dst=/cfg/new-config.json  \
          unit-expressapp                                                                \
      )
 
+.. code-block:: console
+
    $ docker exec -ti $UNIT curl -X PUT --data-binary @/cfg/new-config.json  \
             --unix-socket /var/run/control.unit.sock  \
             http://localhost/config
+
+.. code-block:: console
 
    $ docker exec -ti $UNIT curl -X PUT -d '"/www/newapp/"'  \
             --unix-socket  /var/run/control.unit.sock  \

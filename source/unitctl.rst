@@ -363,8 +363,17 @@ use standard output with **-f -**, as shown in the examples below:
 .. code-block:: console
 
    $ unitctl export -f config.tar
+
+.. code-block:: console
+
    $ unitctl export -f -
+
+.. code-block:: console
+
    $ unitctl export -f - | tar xf - config.json
+
+.. code-block:: console
+
    $ unitctl export -f - > config.tar
 
 .. warning::

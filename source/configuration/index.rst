@@ -421,6 +421,8 @@ The **tickets** option works as follows:
 
            LoYjFVxpUFFOj4TzGkr5MsSIRMjhuh8RCsVvtIJiQ12FGhn0nhvvQsEND1+OugQ7
 
+  .. code-block:: console
+
      $ openssl rand -base64 80
 
            GQczhdXawyhTrWrtOXI7l3YYUY98PrFYzjGhBbiQsAWgaxm+mbkm4MmZZpDw0tkK
@@ -1971,13 +1973,19 @@ from the incoming requests:
 
        HTTP/1.1 201 Created
 
+.. code-block:: console
+
    $ curl -i -X PUT http://localhost
 
        HTTP/1.1 202 Accepted
 
+.. code-block:: console
+
    $ curl -i -X POST http://localhost
 
        HTTP/1.1 203 Non-Authoritative Information
+
+.. code-block:: console
 
    $ curl -i --head http://localhost  # Bumpy ride ahead, no route defined
 
@@ -2047,6 +2055,9 @@ it is considered empty.
    .. code-block:: console
 
          $ curl http://localhost/blog     # Targets the 'blog' app
+
+   .. code-block:: console
+
          $ curl http://localhost/sandbox  # Targets the 'sandbox' app
 
    A different approach puts the **Host** header field
@@ -2777,10 +2788,15 @@ won't be resolved.
    .. code-block:: console
 
       $ mkdir -p /www/localhost/static/ && cd /www/localhost/static/
+
+   .. code-block:: console
+
       $ cat > index.html << EOF
 
             > index.html
             > EOF
+
+   .. code-block:: console
 
       $ ln -s index.html /www/localhost/static/symlink
 
@@ -2793,6 +2809,8 @@ won't be resolved.
       $ curl http://localhost/index.html
 
             index.html
+
+   .. code-block:: console
 
       $ curl http://localhost/symlink
 
@@ -2818,6 +2836,8 @@ won't be resolved.
       $ curl http://localhost/index.html
 
             index.html
+
+   .. code-block:: console
 
       $ curl http://localhost/symlink
 
@@ -3666,6 +3686,8 @@ and set the **memory.high** limit:
 
        cpuset cpu io memory pids
 
+.. code-block:: console
+
    # echo 1G > /sys/fs/cgroup:nxt_hint:`/staging/app <cgroup's path set in Unit configuration>`/memory.high
 
 For more details
@@ -3985,6 +4007,8 @@ and rebuild the app.
         $ go env CGO_ENABLED
 
               0
+
+     .. code-block:: console
 
         $ go env -w CGO_ENABLED=1
 

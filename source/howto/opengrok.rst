@@ -17,6 +17,9 @@ To run the `OpenGrok
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`{src,data,dist,etc,log}
+
+   .. code-block:: console
+
       $ tar -C :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`dist --strip-components=1 -xzf opengrok-:nxt_ph:`X.Y.Z <Specific OpenGrok version>`.tar.gz
 
    Our servlet container is Unit so we can repackage the **source.war**

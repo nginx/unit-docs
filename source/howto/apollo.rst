@@ -23,8 +23,17 @@ using Unit:
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ npm install @apollo/server graphql
+
+   .. code-block:: console
+
       # npm link unit-http
 
 #. Create the `middleware
@@ -35,6 +44,9 @@ using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ npm init
 
    Next, add the following code:

@@ -30,8 +30,17 @@ Unit:
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ virtualenv venv
+
+   .. code-block:: console
+
       $ source venv/bin/activate
 
 #. Next, `install Trac <https://trac.edgewall.org/wiki/TracInstall>`_ and its
@@ -41,14 +50,38 @@ Unit:
    .. code-block:: console
 
       $ pip install Trac
+
+   .. code-block:: console
+
       $ pip install babel docutils genshi \
                     pygments pytz textile             # optional dependencies
+
+   .. code-block:: console
+
       $ mkdir :nxt_ph:`static/ <Arbitrary directory name>`                                 # will store Trac's /chrome/ tree
+
+   .. code-block:: console
+
       $ mkdir :nxt_ph:`trac_env/ <Arbitrary directory name>`
+
+   .. code-block:: console
+
       $ trac-admin trac_env/ initenv                  # initialize Trac environment
+
+   .. code-block:: console
+
       $ trac-admin trac_env/ deploy static/           # extract Trac's static files
+
+   .. code-block:: console
+
       $ mv static/htdocs static/chrome                # align static file paths
+
+   .. code-block:: console
+
       $ rm -rf static/cgi-bin/                        # remove unneeded files
+
+   .. code-block:: console
+
       $ deactivate
 
 #. Unit :ref:`uses WSGI <configuration-python>` to run Python apps, so a

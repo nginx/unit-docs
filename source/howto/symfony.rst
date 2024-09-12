@@ -16,6 +16,9 @@ To run apps built with the `Symfony <https://symfony.com>`_ framework using Unit
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ symfony new --demo :nxt_ph:`app <Arbitrary app name>`
 
    This creates the app's directory tree at **/path/to/app/**.  Its

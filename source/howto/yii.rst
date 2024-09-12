@@ -26,6 +26,9 @@ versions 1.1 or 2.0 using Unit:
          .. code-block:: console
 
             $ cd :nxt_ph:`/path/to/ <Partial path to the application directory; use a real path in your configuration>`
+
+         .. code-block:: console
+
             $ composer create-project --prefer-dist yiisoft/yii2-app-basic :nxt_ph:`app <Arbitrary app name>`
 
          This creates the app's directory tree at **/path/to/app/**.
@@ -130,6 +133,9 @@ versions 1.1 or 2.0 using Unit:
          .. code-block:: console
 
             $ git clone git@github.com:yiisoft/yii.git :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`
+
+         .. code-block:: console
+
             $ :nxt_ph:`/path/to/yii1.1/ <Arbitrary framework path>`framework/yiic webapp :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
          This creates the app's directory tree at **/path/to/app/**.

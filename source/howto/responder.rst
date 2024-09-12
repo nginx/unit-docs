@@ -74,6 +74,9 @@ To run apps built with the `Responder
 
             Hello, World!
 
+
+   .. code-block:: console
+
       $ curl http://localhost/hello/JohnDoe
 
             Hello, JohnDoe!

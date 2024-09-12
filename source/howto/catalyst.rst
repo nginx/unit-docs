@@ -21,8 +21,17 @@ To run apps based on the `Catalyst
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ catalyst.pl :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
+
+   .. code-block:: console
+
       $ cd app
+
+   .. code-block:: console
+
       $ perl Makefile.PL
 
    Make sure the app's **.psgi** file includes the **lib/**

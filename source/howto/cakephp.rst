@@ -17,6 +17,9 @@ To run apps based on the `CakePHP <https://cakephp.org>`_ framework using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ composer create-project --prefer-dist cakephp/app:4.* :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
 
    This creates the app's directory tree at **/path/to/app/**.  Its

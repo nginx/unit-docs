@@ -21,6 +21,9 @@ Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/ <Path where the application directory will be created; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ composer create-project laravel/lumen :nxt_ph:`app <Arbitrary app name; becomes the application directory name>`
 
 #. .. include:: ../include/howto_change_ownership.rst

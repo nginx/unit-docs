@@ -54,6 +54,9 @@ To run the `Review Board
    .. code-block:: console
 
       $ chmod u+w :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`htdocs/media/uploaded/
+
+   .. code-block:: console
+
       $ chmod u+w :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`data/
 
 #. Next, :ref:`prepare <configuration-python>` the |app| configuration for Unit

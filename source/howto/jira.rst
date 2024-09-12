@@ -24,7 +24,13 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ curl https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-software-8.19.1.tar.gz -O -C -
+
+   .. code-block:: console
+
       $ tar xzf atlassian-jira-core-8.19.1.tar.gz --strip-components 1
 
 #. Download |app|'s third-party dependencies to the **lib** subdirectory:
@@ -32,15 +38,45 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
    .. code-block:: console
 
       $ cd lib/
+
+   .. code-block:: console
+
       $ curl https://github.com/mar0x/unit-transaction-init/releases/download/2.0/transaction-init-2.0.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/com/atomikos/atomikos-util/5.0.8/atomikos-util-5.0.8.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-api/5.0.8/transactions-api-5.0.8.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-jdbc/5.0.8/transactions-jdbc-5.0.8.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/com/atomikos/transactions-jta/5.0.8/transactions-jta-5.0.8.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/com/atomikos/transactions/5.0.8/transactions-5.0.8.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/javax/transaction/jta/1.1/jta-1.1.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-jndi/11.0.6/jetty-jndi-10.0.6.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-plus/11.0.6/jetty-plus-10.0.6.jar -O -C -
+
+   .. code-block:: console
+
       $ curl https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-util/11.0.6/jetty-util-10.0.6.jar -O -C -
 
    Later, these **.jar** files will be listed in the **classpath**
@@ -53,6 +89,9 @@ To run `Atlassian Jira <https://www.atlassian.com/software/jira>`_ using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ sed -i 's#comp/env/UserTransaction#comp/UserTransaction#g'  \
             atlassian-jira/WEB-INF/classes/entityengine.xml
 

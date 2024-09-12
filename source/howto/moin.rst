@@ -48,10 +48,25 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
          .. code-block:: console
 
             $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+         .. code-block:: console
+
             $ mkdir single/
+
+         .. code-block:: console
+
             $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` single/
+
+         .. code-block:: console
+
             $ cp -r wiki/data/ single/data/
+
+         .. code-block:: console
+
             $ cp -r wiki/underlay/ single/underlay/
+
+         .. code-block:: console
+
             $ cp :nxt_hint:`wiki/server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` single/moin.py
 
          Next, `edit
@@ -67,14 +82,41 @@ To run the `MoinMoin <https://moinmo.in/MoinMoinWiki>`_ wiki engine using Unit:
          .. code-block:: console
 
             $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+         .. code-block:: console
+
             $ mkdir multi/ multi/wiki1/ multi/wiki2/
+
+         .. code-block:: console
+
             $ cp wiki/config/wikifarm/* multi/
+
+         .. code-block:: console
+
             $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` multi/wiki1.py
+
+         .. code-block:: console
+
             $ cp :nxt_hint:`wiki/config/wikiconfig.py <Wiki instance configuration>` multi/wiki2.py
+
+         .. code-block:: console
+
             $ cp -r wiki/data/ multi/wiki1/data/
+
+         .. code-block:: console
+
             $ cp -r wiki/data/ multi/wiki2/data/
+
+         .. code-block:: console
+
             $ cp -r wiki/underlay/ multi/wiki1/underlay/
+
+         .. code-block:: console
+
             $ cp -r wiki/underlay/ multi/wiki2/underlay/
+
+         .. code-block:: console
+
             $ cp :nxt_hint:`wiki/server/moin.wsgi <WSGI module to run, extension should be changed for proper discovery>` multi/moin.py
 
          Next, `edit

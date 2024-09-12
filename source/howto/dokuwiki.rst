@@ -21,8 +21,17 @@ using Unit:
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>` && cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ wget https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
+
+   .. code-block:: console
+
       $ tar xvzf dokuwiki-stable.tgz :nxt_hint:`--strip-components <Avoids creating a redundant subdirectory>`=1
+
+   .. code-block:: console
+
       $ rm dokuwiki-stable.tgz
 
 #. .. include:: ../include/howto_change_ownership.rst

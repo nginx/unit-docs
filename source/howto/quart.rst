@@ -71,6 +71,9 @@ To run apps built with the `Quart
 
             <body><h1>Hello, World!</h1></body>
 
+
+   .. code-block:: console
+
       $ wscat -c ws://localhost/ws
 
             < Hello, World!

@@ -181,6 +181,9 @@ OpenAPI specification
    .. code-block:: console
 
       $ docker build --tag=unit-openapi -f unit-openapi.Dockerfile .
+
+   .. code-block:: console
+
       $ docker run -d -p 8765:8765 -p 8080:8080 unit-openapi
 
    Next, open **http://localhost:8765** in a browser.
@@ -366,6 +369,8 @@ provided you supply the right JSON:
    # curl -X PUT -d '{ "pass": "applications/blogs" }' --unix-socket \
           :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/listeners/127.0.0.1:8300
 
+.. code-block:: console
+
    # curl -X PUT -d '"applications/blogs"' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
           http://localhost/config/listeners/127.0.0.1:8300/pass
 
@@ -460,8 +465,12 @@ adding a URI-based route to the development version of the app:
        ]
        EOF
 
+.. code-block:: console
+
    # curl -X PUT --data-binary @config.json --unix-socket \
           :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/routes
+
+.. code-block:: console
 
    # curl -X PUT -d '"routes"' --unix-socket \
           :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` 'http://localhost/config/listeners/*:8400/pass'

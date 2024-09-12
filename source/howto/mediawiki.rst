@@ -137,7 +137,13 @@ documentation platform using Unit:
    .. code-block:: console
 
       $ chmod 600 LocalSettings.php
+
+   .. code-block:: console
+
       # chown :nxt_ph:`unit:unit <Values from Step 3>` LocalSettings.php
+
+   .. code-block:: console
+
       # mv LocalSettings.php :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
 #. After installation, add a match condition to the first step to disable
