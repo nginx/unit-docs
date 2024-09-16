@@ -32,7 +32,9 @@ This release introduces three new configuration options:
 
 #. **factory**
 
-  This can be set under '/applications/<app>/factory'
+  This option can be set under '/applications/<app>/factory' and is specific to
+  Python applications. This allows you to enable the `Application factories`
+  feature of Python.
 
   This option is a boolean value. If set to 'true', Unit treats 'callable' as
   a factory.
