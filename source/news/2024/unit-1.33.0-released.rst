@@ -50,6 +50,12 @@ unitctl CLI tool
 :ref:`unitctl <unitctl>` is a Rust-based CLI tool that allows you to
 deploy, manage, and configure Unit in your environment.
 
+.. note::
+
+   This is a "Technical Preview" release of **unitctl**. We welcome feedback and
+   suggestions for this early access version. It is provided to test its features
+   and should not be used in production environments.
+
 ****************************
 Chunked request body support
 ****************************

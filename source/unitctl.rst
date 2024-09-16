@@ -8,6 +8,12 @@
 CLI (unitctl)
 #############
 
+.. note::
+
+   This is a "Technical Preview" release of **unitctl**. We welcome feedback and
+   suggestions for this early access version. It is provided to test its features
+   and should not be used in production environments.
+
 Unit provides a `Rust SDK <https://github.com/nginx/unit/tree/master/tools/unitctl>`_
 to interact with its :ref:`control API <source-startup>`, and a command line
 interface (unitctl) that exposes the functionality provided by the SDK.
