@@ -160,7 +160,7 @@ Full Changelog
 
 .. code-block:: none
 
-  Changes with Unit 1.33.0                                         29 Aug 2024
+  Changes with Unit 1.33.0                                           17 Sep 2024
 
     *) Feature: show list of loaded language modules in the /status
        endpoint.

@@ -10,7 +10,7 @@ News archive for the year 2024.
    :email: unit-owner@nginx.org
    :title: Unit 1.33.0 Released
    :url: news/2024/unit-1.33.0-released
-   :date: 2024-08-29
+   :date: 2024-09-17
 
 .. nxt_news_entry::
    :author: Unit Team
