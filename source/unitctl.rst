@@ -164,7 +164,7 @@ host network.
 List and restart running apps
 +++++++++++++++++++++++++++++
 
-The **app** command lets you list and restart active applications.
+The **apps** command lets you list and restart active applications.
 
 Options
 -------
