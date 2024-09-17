@@ -199,7 +199,7 @@ To restart an application, run:
 
 .. code-block:: console
 
-   $ unitctl app reload wasm
+   $ unitctl apps restart wasm
    {
       "success": "Ok"
    }
