@@ -52,7 +52,7 @@ The unitctl CLI offers several commands to interact with Unit. Here are the avai
    * - **instances**
      - List all running Unit processes
 
-   * - **app**
+   * - **apps**
      - List and restart active applications
 
    * - **edit**
