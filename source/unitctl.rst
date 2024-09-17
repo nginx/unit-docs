@@ -187,7 +187,7 @@ To list active applications, run:
 
 .. code-block:: console
 
-   $ unitctl app list
+   $ unitctl apps list
    {
      "wasm": {
         "type": "wasm-wasi-component",
