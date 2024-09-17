@@ -169,7 +169,7 @@ The **apps** command lets you list and restart active applications.
 Options
 -------
 
-The **app** command has the following options:
+The **apps** command has the following options:
 
 .. list-table::
    :header-rows: 1
