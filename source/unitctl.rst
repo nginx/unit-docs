@@ -180,7 +180,7 @@ The **app** command has the following options:
    * - **list**
      - List all active applications
 
-   * - **reload <APP_NAME>**
+   * - **restart <APP_NAME>**
      - Restart the specified application
 
 To list active applications, run:
