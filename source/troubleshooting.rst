@@ -261,6 +261,9 @@ such as **unit-dbg**.
       .. code-block:: console
 
          # systemctl daemon-reload
+
+      .. code-block:: console
+
          # systemctl restart unit.service
 
       After a crash,
@@ -272,6 +275,8 @@ such as **unit-dbg**.
 
                TIME                            PID   UID   GID SIG COREFILE  EXE
                Mon 2020-07-27 11:05:40 GMT    1157     0     0  11 present   /usr/sbin/unitd
+
+      .. code-block:: console
 
          # ls -al /var/lib/systemd/coredump/  # default, see also /etc/systemd/coredump.conf and /etc/systemd/coredump.conf.d/*.conf
 
@@ -301,7 +306,13 @@ such as **unit-dbg**.
       .. code-block:: console
 
          # ulimit -c unlimited
+
+      .. code-block:: console
+
          # cd :nxt_ph:`/path/to/unit/ <Unit's installation directory>`
+
+      .. code-block:: console
+
          # sbin/unitd           # or sbin/unitd-debug
 
       After a crash,
@@ -336,6 +347,9 @@ such as **unit-dbg**.
       .. code-block:: console
 
          # sysctl kern.coredump=1
+
+      .. code-block:: console
+
          # sysctl kern.corefile=/path/to/core/files/%N.core
 
       Next, restart Unit
@@ -351,6 +365,9 @@ such as **unit-dbg**.
       .. code-block:: console
 
          # cd :nxt_ph:`/path/to/unit/ <Unit's installation directory>`
+
+      .. code-block:: console
+
          # sbin/unitd
 
       After a crash,

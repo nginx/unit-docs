@@ -31,17 +31,47 @@ revision numbers, respectively); omit the packages you won't use.
       .. code-block:: console
 
          # apt install build-essential
+
+      .. code-block:: console
+
          # apt install golang
+
+      .. code-block:: console
+
          # apt install curl && \
                curl -sL https://deb.nodesource.com/setup_:nxt_ph:`VERSION <Node.js 8.11 or later is supported>`.x | bash - && \
                apt install nodejs
+
+      .. code-block:: console
+
          # npm install -g node-gyp
+
+      .. code-block:: console
+
          # apt install php-dev libphp-embed
+
+      .. code-block:: console
+
          # apt install libperl-dev
+
+      .. code-block:: console
+
          # apt install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-dev
+
+      .. code-block:: console
+
          # apt install ruby-dev ruby-rack
+
+      .. code-block:: console
+
          # apt install openjdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`-jdk
+
+      .. code-block:: console
+
          # apt install libssl-dev
+
+      .. code-block:: console
+
          # apt install libpcre2-dev
 
 
@@ -50,17 +80,47 @@ revision numbers, respectively); omit the packages you won't use.
       .. code-block:: console
 
          # yum install gcc make
+
+      .. code-block:: console
+
          # yum install golang
+
+      .. code-block:: console
+
          # yum install curl && \
                curl -sL https://rpm.nodesource.com/setup_:nxt_ph:`VERSION <Node.js 8.11 or later is supported>`.x | bash - && \
                yum install nodejs
+
+      .. code-block:: console
+
          # npm install -g node-gyp
+
+      .. code-block:: console
+
          # yum install php-devel php-embedded
+
+      .. code-block:: console
+
          # yum install perl-devel perl-libs
+
+      .. code-block:: console
+
          # yum install python:nxt_ph:`X <Both Python 2 and Python 3 are supported>`-devel
+
+      .. code-block:: console
+
          # yum install ruby-devel rubygem-rack
+
+      .. code-block:: console
+
          # yum install java-:nxt_ph:`X.Y.Z <Java 8 or later is supported. Different JDKs may be used>`-openjdk-devel
+
+      .. code-block:: console
+
          # yum install openssl-devel
+
+      .. code-block:: console
+
          # yum install pcre2-devel
 
 
@@ -71,14 +131,41 @@ revision numbers, respectively); omit the packages you won't use.
       .. code-block:: console
 
          # cd /usr/ports/lang/go/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/www/node/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/www/npm/ && make install clean && npm i -g node-gyp
+
+      .. code-block:: console
+
          # cd /usr/ports/lang/php:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/lang/perl:nxt_ph:`X.Y <Perl 5.12 or later is supported>`/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/lang/python/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/lang/ruby:nxt_ph:`XY <Ruby 2.0 or later is supported>`/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/java/openjdk:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/security/openssl/ && make install clean
+
+      .. code-block:: console
+
          # cd /usr/ports/devel/pcre2/ && make install clean
 
       Packages:
@@ -86,13 +173,37 @@ revision numbers, respectively); omit the packages you won't use.
       .. code-block:: console
 
          # pkg install go
+
+      .. code-block:: console
+
          # pkg install node && pkg install npm && npm i -g node-gyp
+
+      .. code-block:: console
+
          # pkg install php:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`
+
+      .. code-block:: console
+
          # pkg install perl:nxt_ph:`X <Perl 5.12 or later is supported>`
+
+      .. code-block:: console
+
          # pkg install python
+
+      .. code-block:: console
+
          # pkg install ruby:nxt_ph:`XY <Ruby 2.0 is supported>`
+
+      .. code-block:: console
+
          # pkg install openjdk:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`
+
+      .. code-block:: console
+
          # pkg install openssl
+
+      .. code-block:: console
+
          # pkg install pcre2
 
 
@@ -101,11 +212,29 @@ revision numbers, respectively); omit the packages you won't use.
       .. code-block:: console
 
          # pkg install gcc
+
+      .. code-block:: console
+
          # pkg install golang
+
+      .. code-block:: console
+
          # pkg install php-:nxt_ph:`XY <PHP versions 5, 7, and 8 are supported>`
+
+      .. code-block:: console
+
          # pkg install ruby
+
+      .. code-block:: console
+
          # pkg install jdk-:nxt_ph:`X <Java 8 or later is supported. Different JDKs may be used>`
+
+      .. code-block:: console
+
          # pkg install openssl
+
+      .. code-block:: console
+
          # pkg install pcre
 
       Also, use :program:`gmake` instead of :program:`make` when :ref:`building
@@ -124,7 +253,13 @@ revision numbers, respectively); omit the packages you won't use.
    .. code-block:: console
 
       $ git clone https://github.com/nginx/njs.git
+
+   .. code-block:: console
+
       $ cd njs
+
+   .. code-block:: console
+
       $ git checkout -b 0.8.2 0.8.2
 
    Next, configure and build the :program:`njs` binaries. Make sure to use the
@@ -179,6 +314,9 @@ revision numbers, respectively); omit the packages you won't use.
           .. code-block:: console
 
              $ cd ..
+
+          .. code-block:: console
+
              $ wget -O- https://github.com/bytecodealliance/wasmtime/releases/download/v12.0.0/wasmtime-v12.0.0-x86_64-linux-c-api.tar.xz \
                    | tar Jxf -  # Unpacks to the current directory
 
@@ -397,7 +535,13 @@ structure <source-dir>`:
        .. code-block:: console
 
           $ ./configure --control=127.0.0.1:8080
+
+       .. code-block:: console
+
           $ ./configure --control=[::1]:8080
+
+       .. code-block:: console
+
           $ ./configure --control=unix:/path/to/control.unit.sock  # Note the unix: prefix
 
        .. warning::
@@ -808,6 +952,9 @@ To build and install Unit's executables and language modules that you have
 .. code-block:: console
 
    $ make
+
+.. code-block:: console
+
    # make install
 
 Mind that **make install** requires setting up Unit's :ref:`directory
@@ -818,7 +965,13 @@ To run Unit from the build directory tree without installing:
 .. code-block:: console
 
    $ ./configure --prefix=./build
+
+.. code-block:: console
+
    $ make
+
+.. code-block:: console
+
    $ ./build/sbin/unitd
 
 You can also build and install language modules individually; the specific
@@ -842,8 +995,10 @@ configuration, run :command:`make <module basename>` and :command:`make
 .. code-block:: console
 
    $ make :nxt_hint:`perl-5.20 <This is the --module option value from ./configure perl>`
-   # make :nxt_hint:`perl-5.20 <This is the --module option value from ./configure perl>`-install
 
+.. code-block:: console
+
+   # make :nxt_hint:`perl-5.20 <This is the --module option value from ./configure perl>`-install
 
 .. _source-bld-src-ext:
 
@@ -857,6 +1012,9 @@ configuration, run :command:`make <go>-install` and :command:`make
 .. code-block:: console
 
    # make :nxt_hint:`go <This is the --go option value from ./configure go>`-install
+
+.. code-block:: console
+
    # make :nxt_hint:`node <This is the --node option value from ./configure nodejs>`-install
 
 .. note::
@@ -887,9 +1045,17 @@ If you customized the executable pathname with :option:`!--go` or
 .. code-block:: console
 
    $ ./configure nodejs --node=:nxt_hint:`/usr/local/bin/node8.12 <Executable pathname>`
+
+.. code-block:: console
+
    # make :nxt_hint:`/usr/local/bin/node8.12 <Executable pathname becomes a part of the target>`-install
 
+.. code-block:: console
+
    $ ./configure go --go=:nxt_hint:`/usr/local/bin/go1.7 <Executable pathname>`
+
+.. code-block:: console
+
    # make :nxt_hint:`/usr/local/bin/go1.7 <Executable pathname becomes a part of the target>`-install
 
 
@@ -941,7 +1107,13 @@ counterparts, see :ref:`here <source-config-src>`.
        .. code-block:: console
 
           # unitd --control 127.0.0.1:8080
+
+       .. code-block:: console
+
           # unitd --control [::1]:8080
+
+       .. code-block:: console
+
           # unitd --control :nxt_hint:`unix:/path/to/control.unit.sock <Note the unix: prefix>`
 
    * - **--control-mode**

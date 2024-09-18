@@ -25,7 +25,13 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
    .. code-block:: console
 
       $ cd :nxt_hint:`$GOPATH/src/github.com/grafana/grafana <The path where the previous step saves the application's files>`
+
+   .. code-block:: console
+
       $ curl -O https://unit.nginx.org/_downloads/grafana.patch
+
+   .. code-block:: console
+
       $ patch -p1 < grafana.patch
 
    Or update the sources manually.  In **conf/defaults.ini**:
@@ -133,6 +139,9 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
    .. code-block:: console
 
       # chown -R :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_hint:`$GOPATH/src/github.com/grafana/grafana <Path to the application's files>`
+
+   .. code-block:: console
+
       # chown :nxt_hint:`unit:unit <User and group that Unit's router runs as by default>` :nxt_hint:`$GOPATH/bin/grafana-server <Path to the application's executable>`
 
    .. note::

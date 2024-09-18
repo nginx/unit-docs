@@ -133,6 +133,9 @@ as **GET**-table JSON using **/certificates**:
 
       # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/
+
+   .. code-block:: console
+
       # curl -X GET --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` \
              http://localhost/certificates/:nxt_hint:`bundle <Certificate bundle name>`/chain/0/subject/alt_names/0/
 

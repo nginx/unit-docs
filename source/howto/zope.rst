@@ -29,9 +29,21 @@ Unit:
          .. code-block:: console
 
             $ pip install -U pip wheel zc.buildout
+
+         .. code-block:: console
+
             $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+         .. code-block:: console
+
             $ wget https://pypi.org/packages/source/Z/Zope/Zope-:nxt_ph:`A.B.C <Zope version>`.tar.gz
+
+         .. code-block:: console
+
             $ tar xfvz Zope-:nxt_ph:`A.B.C <Zope version>`.tar.gz :nxt_hint:`--strip-components <Avoids creating a redundant subdirectory>`=1
+
+         .. code-block:: console
+
             $ buildout
 
          Next, add a new configuration file named
@@ -107,11 +119,26 @@ Unit:
          .. code-block:: console
 
             $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+         .. code-block:: console
+
             $ :nxt_hint:`python3 --version <Make sure your virtual environment version matches the module version>`
                   Python :nxt_hint:`3.Y.Z <Major version, minor version, and revision number>`
+
+         .. code-block:: console
+
             $ python3 -m venv :nxt_hint:`venv <This is the virtual environment directory>`
+
+         .. code-block:: console
+
             $ source venv/bin/activate
+
+         .. code-block:: console
+
             $ pip install 'zope[wsgi]'
+
+         .. code-block:: console
+
             $ deactivate
 
          .. warning::

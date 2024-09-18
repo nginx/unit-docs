@@ -65,6 +65,9 @@ To run apps based on the `Spring Boot
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`demo/
+
+   .. code-block:: console
+
       $ ./gradlew bootWar
 
    If you chose `Maven <https://maven.apache.org>`__:
@@ -72,6 +75,9 @@ To run apps based on the `Spring Boot
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`demo/
+
+   .. code-block:: console
+
       $ ./mvnw package
 
    .. note::

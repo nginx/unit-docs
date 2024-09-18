@@ -85,6 +85,9 @@ safe.
    .. code-block:: console
 
       $ ssh -N -L :nxt_hint:`./here.sock <Local socket>`::nxt_ph:`/path/to/control.unit.sock <Socket on the Unit server; use a real path in your command>` root@:nxt_hint:`unit.example.com <Unit server hostname>` &
+
+   .. code-block:: console
+
       $ curl --unix-socket :nxt_hint:`./here.sock <Use the local socket to configure Unit>`
 
             {
@@ -103,6 +106,9 @@ safe.
    .. code-block:: console
 
       # unitd --control 203.0.113.14:8080
+
+   .. code-block:: console
+
       $ curl 203.0.113.14:8080
 
             {
@@ -119,6 +125,9 @@ safe.
    .. code-block:: console
 
       # unitd --control 127.0.0.1:8080
+
+   .. code-block:: console
+
       $ curl 203.0.113.14:8080
 
           curl: (7) Failed to connect to 203.0.113.14 port 8080: Connection refused
@@ -146,9 +155,13 @@ safe.
             --state DIRECTORY    set state directory name
                                  default: ":nxt_ph:`/default/path/to/unit/state/ <Build-time setting, can be overridden>`"
 
+   .. subs-code-block:: console
+
       $ ps ax | grep unitd
 
             ... unit: main v|version| [... --state :nxt_ph:`/path/to/unit/state/ <Make sure to check for runtime overrides>` ...]
+
+   .. subs-code-block:: console
 
       # ls -l :nxt_ph:`/path/to/unit/state/ <If it's overridden, use the runtime setting>`
 
@@ -230,6 +243,8 @@ notorious **777**, instead assigning them on a need-to-know basis.
             --group GROUP        set non-privileged processes to run as specified group
                                  default: user's primary group
 
+   .. subs-code-block:: console
+
       $ ps ax | grep unitd
 
             ... unit: main v|version| [... --user :nxt_ph:`unit_user <Make sure to check for runtime overrides>` --group :nxt_ph:`unit_group <Make sure to check for runtime overrides>` ...]
@@ -272,8 +287,17 @@ notorious **777**, instead assigning them on a need-to-know basis.
       .. code-block:: console
 
          # :nxt_hint:`useradd <Add user account without home directory>` -M app_user
+
+      .. code-block:: console
+
          # groupadd app_group
+
+      .. code-block:: console
+
          # :nxt_hint:`usermod <Deny interactive login>` -L app_user
+
+      .. code-block:: console
+
          # :nxt_hint:`usermod <Add user to the group>` -a -G app_group app_user
 
       Even if you run a single app, this helps if you add more apps or need to
@@ -298,6 +322,8 @@ notorious **777**, instead assigning them on a need-to-know basis.
          # ls -l /
 
                :nxt_hint:`drwxr-xr-x <Permissions are OK>`  some_user some_group  path
+
+      .. code-block:: console
 
          # ls -l /path/
 
@@ -324,8 +350,17 @@ notorious **777**, instead assigning them on a need-to-know basis.
       .. code-block:: console
 
          # :nxt_hint:`chown <Assign ownership for the app code>` -R app_user:app_group :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>`
+
+      .. code-block:: console
+
          # :nxt_hint:`chown <Assign ownership for the static files>` -R app_user:app_group :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>`
+
+      .. code-block:: console
+
          # find :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>` -type d -exec :nxt_hint:`chmod <Add read/execute permissions to app code directories for user and group>` u=rx,g=rx,o= {} \;
+
+      .. code-block:: console
+
          # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type d -exec :nxt_hint:`chmod <Add read/execute permissions to static file directories for user and group>` u=rx,g=rx,o= {} \;
 
    #. If the app needs to update specific directories or files, make sure
@@ -356,6 +391,9 @@ notorious **777**, instead assigning them on a need-to-know basis.
       .. code-block:: console
 
          # find :nxt_ph:`/path/to/app/code/ <Path to the application's code directory; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to app code for user and group>` u=r,g=r,o= {} \;
+
+      .. code-block:: console
+
          # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
    #. For :ref:`external <modules-emb>` apps, additionally make the app code or
@@ -364,9 +402,12 @@ notorious **777**, instead assigning them on a need-to-know basis.
       .. code-block:: console
 
          # find :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read and execute rights to app code for user and group>` u=rx,g=rx,o= {} \;
+
+      .. code-block:: console
+
          # find :nxt_ph:`/path/to/static/app/files/ <Can be outside the app directory tree; use a real path in your command>` -type f -exec :nxt_hint:`chmod <Add read rights to static files for user and group>` u=r,g=r,o= {} \;
 
-   #. To run a single app, :doc:`configure <../configuration>` Unit as follows:
+   #. To run a single app, :doc:`configure <../configuration/index>` Unit as follows:
 
       .. code-block:: json
 
@@ -397,7 +438,7 @@ notorious **777**, instead assigning them on a need-to-know basis.
              }
          }
 
-   #. To run several apps side by side, :doc:`configure <../configuration>`
+   #. To run several apps side by side, :doc:`configure <../configuration/index>`
       them with appropriate user and group names.  The following
       configuration distinguishes apps based on the request URI, but you can
       implement another scheme such as different listeners:
@@ -688,6 +729,8 @@ disk space.
 
       # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group :nxt_ph:`/path/to/unit.log <If it's overridden, use the runtime setting>`
 
+   .. code-block:: console
+
       # :nxt_hint:`curl <Enable access log in the Unit configuration at the given path>` -X PUT -d '":nxt_ph:`/path/to/access.log <Use a real path in your configuration>`"'  \
              --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket>` \
              http://localhost/config/access_log
@@ -695,6 +738,8 @@ disk space.
             {
                 "success": "Reconfiguration done."
             }
+
+   .. code-block:: console
 
       # :nxt_hint:`chown <Assign ownership to the log user>` log_user:log_group :nxt_ph:`/path/to/access.log <Use a real path in your command>`
 

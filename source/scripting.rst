@@ -8,7 +8,7 @@ JavaScript expressions, including function calls, in the form of
 <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>`__
 written in
 `NGINX JavaScript <https://nginx.org/en/docs/njs/>`__ ( :program:`njs` ).
-They can be used with these :doc:`configuration <configuration>` options:
+They can be used with these :doc:`configuration <configuration/index>` options:
 
 - **pass** in
   :ref:`listeners <configuration-listeners>`

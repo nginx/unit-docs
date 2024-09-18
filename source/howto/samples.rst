@@ -60,6 +60,8 @@ Upload the :ref:`app config <configuration-go>` to Unit and test it:
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
+.. code-block:: console
+
    $ curl http://localhost:8080
 
        Hello, Go on Unit!
@@ -148,6 +150,8 @@ Upload the :ref:`app config <configuration-java>` to Unit and test it:
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
+.. code-block:: console
+
    $ curl http://localhost:8080
 
        Hello, JSP on Unit!
@@ -224,7 +228,13 @@ Make it executable and link the Node.js language package you've :ref:`installed
 .. code-block:: console
 
    $ cd /www
+
+.. code-block:: console
+
    $ chmod +x app.js
+
+.. code-block:: console
+
    $ npm link unit-http
 
 Upload the :ref:`app config <configuration-nodejs>` to Unit and test it:
@@ -245,6 +255,8 @@ Upload the :ref:`app config <configuration-nodejs>` to Unit and test it:
          }
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
+
+.. code-block:: console
 
    $ curl http://localhost:8080
 
@@ -319,6 +331,8 @@ Upload the :ref:`app config <configuration-perl>` to Unit and test it:
          }
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
+
+.. code-block:: console
 
    $ curl http://localhost:8080
 
@@ -450,6 +464,8 @@ Upload the :ref:`app config <configuration-python>` to Unit and test it:
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
+.. code-block:: console
+
    $ curl http://localhost:8080
 
        Hello, Python on Unit!
@@ -516,6 +532,8 @@ Upload the :ref:`app config <configuration-ruby>` to Unit and test it:
          }
      }
      }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
+
+.. code-block:: console
 
    $ curl http://localhost:8080
 
@@ -588,7 +606,13 @@ WebAssembly (Wasm)
       .. code-block:: console
 
          $ git clone https://github.com/sunfishcode/hello-wasi-http
+
+      .. code-block:: console
+
          $ cd hello-wasi-http
+
+      .. code-block:: console
+
          $ cargo component build
 
       The output of the build command should be similar to this:
@@ -675,7 +699,13 @@ WebAssembly (Wasm)
       .. code-block:: console
 
          $ cargo init --lib wasm_on_unit
+
+      .. code-block:: console
+
          $ cd wasm_on_unit/
+
+      .. code-block:: console
+
          $ cargo add unit-wasm
 
       Append the following to **Cargo.toml**:
@@ -725,6 +755,8 @@ WebAssembly (Wasm)
                }
          }' --unix-socket :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` http://localhost/config/
 
+      .. code-block:: console
+
          $ curl http://localhost:8080
 
                * Welcome to WebAssembly in Rust on Unit! [libunit-wasm (0.3.0/0x00030000)] *
@@ -753,9 +785,21 @@ WebAssembly (Wasm)
       .. code-block:: console
 
          $ git clone https://github.com/nginx/unit-wasm/
+
+      .. code-block:: console
+
          $ cd unit-wasm
+
+      .. code-block:: console
+
          $ make help                                               # Explore your options first
+
+      .. code-block:: console
+
          $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples       # C examples
+
+      .. code-block:: console
+
          $ make WASI_SYSROOT=:nxt_ph:`/path/to/wasi-sysroot/ <wasi-sysroot directory>` examples-rust  # Rust examples
 
       .. note::
@@ -773,9 +817,17 @@ WebAssembly (Wasm)
 
             $ wget -O- https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/libclang_rt.builtins-wasm32-wasi-20.0.tar.gz \
                   | tar zxf -                  # Unpacks to lib/wasi/ in the current directory
+
+         .. code-block:: console
+
             $ clang -print-runtime-dir         # Double-check the run-time directory, which is OS-dependent
 
                   :nxt_ph:`/path/to/runtime/dir <run-time directory>`/linux
 
+         .. code-block:: console
+
             # mkdir :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi  # Note the last part of the pathname
+
+         .. code-block:: console
+
             # cp :nxt_hint:`lib/wasi/ <wget output above>`libclang_rt.builtins-wasm32.a :nxt_ph:`/path/to/runtime/dir <run-time directory>`/wasi/

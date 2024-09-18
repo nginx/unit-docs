@@ -6,10 +6,11 @@
    news
    installation
    controlapi
-   configuration
+   configuration/index
    scripting
    certificates
    statusapi
+   unitctl
    howto/index
    troubleshooting
    community

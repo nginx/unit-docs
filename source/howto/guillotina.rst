@@ -100,6 +100,8 @@ To run apps built with the `Guillotina
 
             {"@type":"Container","id":"container","title":"container"}
 
+   .. code-block:: console
+
       $ curl --user root:root http://localhost/db/container
 
             {

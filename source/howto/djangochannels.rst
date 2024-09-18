@@ -21,8 +21,17 @@ To run Django apps using the |app| `framework
     .. code-block:: console
 
        $ cd :nxt_ph:`/path/to/venv/ <Path to the virtual environment; use a real path in your configuration>`
+
+    .. code-block:: console
+
        $ source bin/activate
+
+    .. code-block:: console
+
        $ pip install channels
+
+    .. code-block:: console
+
        $ deactivate
 
 #. Create a Django project.  Here, we'll use the `tutorial chat app

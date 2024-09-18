@@ -21,8 +21,17 @@ To run apps built with the `Koa <https://koajs.com>`_ web framework using Unit:
    .. code-block:: console
 
       $ mkdir -p :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
+
+   .. code-block:: console
+
       $ npm install koa
+
+   .. code-block:: console
+
       # npm link unit-http
 
 #. Let’s try a version of the `tutorial app

@@ -23,9 +23,18 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
    .. code-block:: console
 
       $ mkdir /tmp/plone && cd /tmp/plone/
+
+   .. code-block:: console
+
       $ wget https://launchpad.net/plone/:nxt_ph:`A.B <Plone version>`/:nxt_ph:`A.B.C <Plone version>`/+download/Plone-:nxt_ph:`A.B.C <Plone version>`-UnifiedInstaller-1.0.tgz
+
+   .. code-block:: console
+
       $ tar xzvf Plone-:nxt_ph:`A.B.C <Plone version>`-UnifiedInstaller-1.0.tgz  \
             :nxt_hint:`--strip-components <Avoids creating a redundant subdirectory>`=1
+
+   .. code-block:: console
+
       $ ./install.sh --target=:nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`  \
                      --with-python=:nxt_ph:`/full/path/to/python <Full pathname of the Python executable used to create Plone's virtual environment>`  \
                      standalone
@@ -73,6 +82,9 @@ To run the `Plone <https://plone.org>`_ content management system using Unit:
    .. code-block:: console
 
       $ cd :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`zinstance/
+
+   .. code-block:: console
+
       $ bin/buildout -c wsgi.cfg
 
             ...

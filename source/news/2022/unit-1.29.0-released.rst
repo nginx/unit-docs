@@ -131,8 +131,17 @@ Installing and running Unit on a typical Linux system is now as simple as this:
 .. code-block:: console
 
    $ wget https://unit.nginx.org/_downloads/setup-unit && chmod +x setup-unit
+
+.. code-block:: console
+
    # ./setup-unit repo-config
+
+.. code-block:: console
+
    # apt install unit || yum install unit
+
+.. code-block:: console
+
    # ./setup-unit welcome
 
 The :program:`setup-unit` tool has other useful functions you can explore by
@@ -155,6 +164,9 @@ reads and updates the entire configuration:
 .. code-block:: console
 
    $ unitc /config
+
+.. code-block:: console
+
    $ cat conf.json | unitc /config
 
 You can find these tools and their corresponding documentation in the

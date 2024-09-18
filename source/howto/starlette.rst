@@ -115,9 +115,13 @@ framework using Unit:
 
             Hello, world!
 
+   .. code-block:: console
+
       $ curl http://localhost/user/me
 
             Hello, John Doe!
+
+   .. code-block:: console
 
       $ wscat -c ws://localhost/ws
 

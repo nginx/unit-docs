@@ -2,7 +2,7 @@
    :og:description: Create and maintain a working configuration using
                   listeners, routes, apps, and upstreams.
 
-.. include:: include/replace.rst
+.. include:: ../include/replace.rst
 
 #############
 Configuration
@@ -99,6 +99,25 @@ Available listener options:
         defines SSL/TLS
         :ref:`settings <configuration-listeners-ssl>`.
 
+    * - **backlog**
+      - Integer;
+        controls the 'backlog' parameter to the *listen(2)* system-call.
+        This essentially limits the number of pending connections waiting
+        to be accepted.
+
+        The default varies by system.
+
+        On Linux, FreeBSD, OpenBSD and macOS the default is **-1** which
+        means use the OS default. For example. on Linux since 5.4, this is
+        **4096** (previously **128**) and on FreeBSD it's **128**.
+
+        On other systems the default is **511**.
+
+        NOTE: Whatever limit you set here will be limited by the OS
+        system-wide sysctl. For example. on Linux that is
+        **net.core.somaxconn** and on BSD it's **kern.ipc.somaxconn**
+
+        *(since 1.33.0)*
 
 Here, a local listener accepts requests at port 8300
 and passes them to the **blogs** app
@@ -401,6 +420,8 @@ The **tickets** option works as follows:
      $ openssl rand -base64 48
 
            LoYjFVxpUFFOj4TzGkr5MsSIRMjhuh8RCsVvtIJiQ12FGhn0nhvvQsEND1+OugQ7
+
+  .. code-block:: console
 
      $ openssl rand -base64 80
 
@@ -1952,13 +1973,19 @@ from the incoming requests:
 
        HTTP/1.1 201 Created
 
+.. code-block:: console
+
    $ curl -i -X PUT http://localhost
 
        HTTP/1.1 202 Accepted
 
+.. code-block:: console
+
    $ curl -i -X POST http://localhost
 
        HTTP/1.1 203 Non-Authoritative Information
+
+.. code-block:: console
 
    $ curl -i --head http://localhost  # Bumpy ride ahead, no route defined
 
@@ -2028,6 +2055,9 @@ it is considered empty.
    .. code-block:: console
 
          $ curl http://localhost/blog     # Targets the 'blog' app
+
+   .. code-block:: console
+
          $ curl http://localhost/sandbox  # Targets the 'sandbox' app
 
    A different approach puts the **Host** header field
@@ -2228,7 +2258,7 @@ affects the resulting response headers.
 The values support
 :ref:`variables <configuration-variables>`
 and
-:doc:`template literals <scripting>`,
+:doc:`template literals <../scripting>`,
 which enables arbitrary runtime logic:
 
 .. code-block:: json
@@ -2441,7 +2471,7 @@ A **share**-based action provides the following options:
    <installation-precomp-pkgs>`,
    the process runs as **unit:unit**;
    for details of other installation methods,
-   see :doc:`installation`.
+   see :doc:`../installation`.
 
 Consider the following configuration:
 
@@ -2758,10 +2788,15 @@ won't be resolved.
    .. code-block:: console
 
       $ mkdir -p /www/localhost/static/ && cd /www/localhost/static/
+
+   .. code-block:: console
+
       $ cat > index.html << EOF
 
             > index.html
             > EOF
+
+   .. code-block:: console
 
       $ ln -s index.html /www/localhost/static/symlink
 
@@ -2774,6 +2809,8 @@ won't be resolved.
       $ curl http://localhost/index.html
 
             index.html
+
+   .. code-block:: console
 
       $ curl http://localhost/symlink
 
@@ -2799,6 +2836,8 @@ won't be resolved.
       $ curl http://localhost/index.html
 
             index.html
+
+   .. code-block:: console
 
       $ curl http://localhost/symlink
 
@@ -3293,14 +3332,15 @@ shared between all application languages:
 
     * - **stderr**, **stdout**
       - Strings;
-        filenames where Unit redirects
-        the application's output.
+        filenames where Unit redirects the application's output.
 
-        The default is **/dev/null**.
+        The default when running *with* **--no-daemon** is to send
+        *stdout* to the *console* and *stderr* to Unit's *log*.
 
-        When running in **--no-daemon** mode, application output
-        is always redirected to
-        :ref:`Unit's log file <troubleshooting-log>`.
+        The default when running *without* **--no-daemon** is to send
+        *stdout* to */dev/null* and *stderr* to Unit's *log*.
+
+        These options have *no* effect when running with **--no-daemon**.
 
     * - **user**
       - String;
@@ -3646,6 +3686,8 @@ and set the **memory.high** limit:
 
        cpuset cpu io memory pids
 
+.. code-block:: console
+
    # echo 1G > /sys/fs/cgroup:nxt_hint:`/staging/app <cgroup's path set in Unit configuration>`/memory.high
 
 For more details
@@ -3966,6 +4008,8 @@ and rebuild the app.
 
               0
 
+     .. code-block:: console
+
         $ go env -w CGO_ENABLED=1
 
    - If you installed Unit from the
@@ -3988,7 +4032,7 @@ and rebuild the app.
               # yum install unit-devel
 
    - If you installed Unit from
-     :doc:`source <howto/source>`,
+     :doc:`source <../howto/source>`,
      install the include files and libraries:
 
      .. code-block:: console
@@ -4101,7 +4145,7 @@ Example:
 
    For Go-based examples,
    see our
-   :doc:`howto/grafana`
+   :doc:`../howto/grafana`
    howto or a basic
    :ref:`sample <sample-go>`.
 
@@ -4191,10 +4235,10 @@ Example:
 
    For Java-based examples,
    see our
-   :doc:`howto/jira`,
-   :doc:`howto/opengrok`,
+   :doc:`../howto/jira`,
+   :doc:`../howto/opengrok`,
    and
-   :doc:`howto/springboot`
+   :doc:`../howto/springboot`
    howtos or a basic
    :ref:`sample <sample-java>`.
 
@@ -4343,9 +4387,9 @@ your app only needs to replace the default **websocket**:
 
    For Node.js-based examples,
    see our
-   :doc:`howto/apollo`,
-   :doc:`howto/express`,
-   :doc:`howto/koa`,
+   :doc:`../howto/apollo`,
+   :doc:`../howto/express`,
+   :doc:`../howto/koa`,
    and
    :ref:`Docker <docker-apps>`
    howtos or a basic
@@ -4412,9 +4456,9 @@ Example:
 
    For Perl-based examples of Perl,
    see our
-   :doc:`howto/bugzilla`
+   :doc:`../howto/bugzilla`
    and
-   :doc:`howto/catalyst`
+   :doc:`../howto/catalyst`
    howtos or a basic
    :ref:`sample <sample-perl>`.
 
@@ -4665,23 +4709,23 @@ are shared by all targets within the app.
 
    For PHP-based examples,
    see our
-   :doc:`howto/cakephp`,
-   :doc:`howto/codeigniter`,
-   :doc:`howto/dokuwiki`,
-   :doc:`howto/drupal`,
-   :doc:`howto/laravel`,
-   :doc:`howto/lumen`,
-   :doc:`howto/matomo`,
-   :doc:`howto/mediawiki`,
-   :doc:`howto/modx`,
-   :doc:`howto/nextcloud`,
-   :doc:`howto/phpbb`,
-   :doc:`howto/phpmyadmin`,
-   :doc:`howto/roundcube`,
-   :doc:`howto/symfony`,
-   :doc:`howto/wordpress`,
+   :doc:`../howto/cakephp`,
+   :doc:`../howto/codeigniter`,
+   :doc:`../howto/dokuwiki`,
+   :doc:`../howto/drupal`,
+   :doc:`../howto/laravel`,
+   :doc:`../howto/lumen`,
+   :doc:`../howto/matomo`,
+   :doc:`../howto/mediawiki`,
+   :doc:`../howto/modx`,
+   :doc:`../howto/nextcloud`,
+   :doc:`../howto/phpbb`,
+   :doc:`../howto/phpmyadmin`,
+   :doc:`../howto/roundcube`,
+   :doc:`../howto/symfony`,
+   :doc:`../howto/wordpress`,
    and
-   :doc:`howto/yii`
+   :doc:`../howto/yii`
    howtos or a basic
    :ref:`sample <sample-php>`.
 
@@ -4719,6 +4763,16 @@ you have:
         that Unit runs as the app.
 
         The default is **application**.
+
+    * - **factory**
+      - Boolean:
+        when enabled, Unit treats **callable** as a factory.
+
+        The default is **false**.
+
+        **Note:** Unit does *not* support passing arguments to factories.
+
+        *(since 1.33.0)*
 
     * - **home**
       - String;
@@ -4972,27 +5026,27 @@ are shared by all targets in the app.
 
    For Python-based examples,
    see our
-   :doc:`howto/bottle`,
-   :doc:`howto/datasette`,
-   :doc:`howto/django`,
-   :doc:`howto/djangochannels`,
-   :doc:`howto/falcon`,
-   :doc:`howto/fastapi`,
-   :doc:`howto/flask`,
-   :doc:`howto/guillotina`,
-   :doc:`howto/mailman`,
-   :doc:`howto/mercurial`,
-   :doc:`howto/moin`,
-   :doc:`howto/plone`,
-   :doc:`howto/pyramid`,
-   :doc:`howto/quart`,
-   :doc:`howto/responder`,
-   :doc:`howto/reviewboard`,
-   :doc:`howto/sanic`,
-   :doc:`howto/starlette`,
-   :doc:`howto/trac`,
+   :doc:`../howto/bottle`,
+   :doc:`../howto/datasette`,
+   :doc:`../howto/django`,
+   :doc:`../howto/djangochannels`,
+   :doc:`../howto/falcon`,
+   :doc:`../howto/fastapi`,
+   :doc:`../howto/flask`,
+   :doc:`../howto/guillotina`,
+   :doc:`../howto/mailman`,
+   :doc:`../howto/mercurial`,
+   :doc:`../howto/moin`,
+   :doc:`../howto/plone`,
+   :doc:`../howto/pyramid`,
+   :doc:`../howto/quart`,
+   :doc:`../howto/responder`,
+   :doc:`../howto/reviewboard`,
+   :doc:`../howto/sanic`,
+   :doc:`../howto/starlette`,
+   :doc:`../howto/trac`,
    and
-   :doc:`howto/zope`
+   :doc:`../howto/zope`
    howtos or a basic
    :ref:`sample <sample-python>`.
 
@@ -5110,9 +5164,9 @@ to your app.
 
    For Ruby-based examples,
    see our
-   :doc:`howto/rails`
+   :doc:`../howto/rails`
    and
-   :doc:`howto/redmine`
+   :doc:`../howto/redmine`
    howtos or a basic
    :ref:`sample <sample-ruby>`.
 
@@ -5357,6 +5411,16 @@ that stores instance-wide preferences.
     * - Option
       - Description
 
+    * - **listen_threads**
+      - Integer;
+        controls the number of router threads created to handle client
+        connections. Each thread includes all the configured listeners.
+
+        By default, we create as many threads as the number of CPUs that
+        are available to run on.
+
+        *(since 1.33.0)*
+
     * - **http**
       - Object;
         fine-tunes handling of HTTP requests
@@ -5366,9 +5430,9 @@ that stores instance-wide preferences.
       - String or an array of strings;
         lists enabled
         :program:`njs`
-        :doc:`modules <scripting>`,
+        :doc:`modules <../scripting>`,
         uploaded
-        via the :doc:`control API <controlapi>`.
+        via the :doc:`control API <../controlapi>`.
 
 In turn, the **http** option exposes the following settings:
 
@@ -5468,6 +5532,8 @@ In turn, the **http** option exposes the following settings:
         <https://datatracker.ietf.org/doc/html/rfc9110.html#section-10.2.4>`__.
 
         The default is **true**.
+
+        *(since 1.30.0)*
 
     * - **static**
       - Object;
@@ -5591,7 +5657,7 @@ is formed *after* the request has been handled.
 Besides
 :ref:`built-in variables <configuration-variables-native>`,
 you can use :program:`njs`
-:doc:`templates <scripting>`
+:doc:`templates <../scripting>`
 to define the log format:
 
 .. code-block:: json

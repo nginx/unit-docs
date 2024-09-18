@@ -77,6 +77,9 @@ To run the `Roundcube <https://roundcube.net>`_ webmail platform using Unit:
 
       # curl -X PUT -d ':nxt_ph:`"/path/to/app/ <Path to the application directory; use a real path in your configuration>`public_html$uri"' --unix-socket \
             :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` :nxt_hint:`http://localhost/config/routes/1/action/share <Path to the app's document root in our configuration; mind that route steps are zero-indexed>`
+
+   .. code-block:: console
+
       # curl -X PUT -d '":nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`public_html/"' --unix-socket \
             :nxt_ph:`/path/to/control.unit.sock <Path to Unit's control socket in your installation>` :nxt_hint:`http://localhost/config/applications/roundcube/root <Path to the app's root option in Unit's control API>`
 

@@ -138,13 +138,31 @@ adjust the command samples as needed to fit your scenario.
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`ca-certificates apt-transport-https debian-archive-keyring <Needed to install the php7.3 package from the PHP repo>`
+
+         .. code-block:: console
+
             # curl --output /usr/share/keyrings/php-keyring.gpg  \
                   :nxt_hint:`https://packages.sury.org/php/apt.gpg <Adding the repo key to make it usable>`
+
+         .. code-block:: console
+
             # echo "deb [signed-by=/usr/share/keyrings/php-keyring.gpg]  \
                   https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list
+
+         .. code-block:: console
+
             # apt update
+
+         .. code-block:: console
+
             # apt install php7.3
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`php-dev libphp-embed <Needed to build the module and the package>`
 
       #. Create a staging directory for your package:
@@ -223,6 +241,9 @@ adjust the command samples as needed to fit your scenario.
          .. code-block:: console
 
             # yum install -y php-7.3.8
+
+         .. code-block:: console
+
             # yum install php-devel php-embedded
 
       #. Install RPM development tools and prepare the directory structure:
@@ -230,6 +251,9 @@ adjust the command samples as needed to fit your scenario.
          .. code-block:: console
 
             # yum install -y rpmdevtools
+
+         .. code-block:: console
+
             $ rpmdev-setuptree
 
       #. Create a **.spec** `file
@@ -239,6 +263,9 @@ adjust the command samples as needed to fit your scenario.
          .. code-block:: console
 
             $ cd ~/rpmbuild/SPECS
+
+         .. code-block:: console
+
             $ rpmdev-newspec unit-php7.3
 
       #. Run :program:`unitd --version` and note the :program:`./configure`
@@ -317,5 +344,7 @@ adjust the command samples as needed to fit your scenario.
                 ...
                 Wrote: /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<moduleversion>.<arch>.rpm
                 ...
+
+         .. code-block:: console
 
             # yum install -y /home/user/rpmbuild/RPMS/<arch>/unit-php7.3-<moduleversion>.<arch>.rpm

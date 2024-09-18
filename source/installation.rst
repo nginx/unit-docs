@@ -149,6 +149,9 @@ at the `npm <https://www.npmjs.com/package/unit-http>`_ registry.
    .. code-block:: console
 
       $ wget https://raw.githubusercontent.com/nginx/unit/master/tools/setup-unit && chmod +x setup-unit
+
+   .. code-block:: console
+
       # ./setup-unit repo-config
 
    Use it at your discretion;
@@ -188,8 +191,14 @@ Amazon Linux
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc17 unit-perl  \
                   unit-php unit-python39 unit-python311 unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -229,8 +238,14 @@ Amazon Linux
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -276,8 +291,14 @@ Amazon Linux
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python27 unit-python34 unit-python35 unit-python36
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -334,9 +355,18 @@ Debian
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc17 unit-perl  \
                   unit-php unit-python3.11 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
@@ -385,9 +415,18 @@ Debian
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.9 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
 
@@ -442,9 +481,18 @@ Debian
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -498,9 +546,18 @@ Debian
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python2.7 unit-python3.5 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -549,8 +606,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -590,8 +653,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python311 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -637,8 +706,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-python310 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -684,8 +759,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python39 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -731,8 +812,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python38 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -779,8 +866,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -826,8 +919,14 @@ Fedora
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python27 unit-python37 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -877,8 +976,14 @@ RHEL and derivatives
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module and build Go apps>` unit-go unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python39 unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -918,8 +1023,14 @@ RHEL and derivatives
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36 unit-python38 unit-python39 unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -963,8 +1074,14 @@ RHEL and derivatives
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-jsc11  \
                   unit-perl unit-php unit-python27 unit-python36
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1010,8 +1127,14 @@ RHEL and derivatives
          .. code-block:: console
 
             # yum install unit
+
+         .. code-block:: console
+
             # yum install :nxt_hint:`unit-devel <Required to install the Node.js module>` unit-jsc8 unit-perl  \
                   unit-php unit-python
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1077,9 +1200,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19 unit-jsc20  \
                           unit-perl unit-php unit-python3.11 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1133,9 +1265,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19  \
                           unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1183,9 +1324,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
                           unit-perl unit-php unit-python2.7 unit-python3.10 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1239,9 +1389,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc16 unit-jsc17 unit-jsc18  \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-python3.10 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1295,7 +1454,13 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc15 unit-jsc16 unit-jsc17  \
                           unit-perl unit-php unit-python2.7 unit-python3.9 unit-ruby
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
@@ -1351,9 +1516,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-jsc13 unit-jsc14 unit-jsc15  \
                           unit-perl unit-php unit-python3.8 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1401,9 +1575,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.8 unit-ruby unit-wasm
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1457,9 +1640,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.7 unit-python3.8 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1513,9 +1705,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-jsc11 unit-perl  \
                   unit-php unit-python2.7 unit-python3.6 unit-python3.7 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1569,9 +1770,18 @@ Ubuntu
          .. code-block:: console
 
             # apt update
+
+         .. code-block:: console
+
             # apt install unit
+
+         .. code-block:: console
+
             # apt install :nxt_hint:`unit-dev <Required to install the Node.js module>` unit-jsc8 unit-perl unit-php  \
                   unit-python2.7 unit-python3.5 unit-ruby
+
+         .. code-block:: console
+
             # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1619,7 +1829,13 @@ macOS
       .. code-block:: console
 
          $ brew install unit-java unit-perl unit-php unit-python unit-python3 unit-ruby
+
+      .. code-block:: console
+
          # pkill unitd  # Stop Unit
+
+      .. code-block:: console
+
          # unitd        # Start Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1642,6 +1858,9 @@ macOS
    .. code-block:: console
 
       $ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+   .. code-block:: console
+
       $ sudo --preserve-env=OBJC_DISABLE_INITIALIZE_FORK_SAFETY :nxt_ph:`/path/to/unitd <Unit's executable pathname>` ...
 
 
@@ -1721,7 +1940,13 @@ make sure to update the module as well:
    .. code-block:: console
 
       $ nvm install 18
+
+   .. code-block:: console
+
       $ nvm install 16
+
+   .. code-block:: console
+
       $ nvm use 18
             Now using node :nxt_hint:`v18.12.1 <Note the version numbers>` (npm v8.19.2)
 
@@ -1739,11 +1964,22 @@ make sure to update the module as well:
    .. code-block:: console
 
       $ git clone https://github.com/nginx/unit
+
+   .. code-block:: console
+
       $ cd unit
+
+   .. code-block:: console
+
       $ pwd
             :nxt_hint:`/home/user/unit <Note the path to the source code>`
 
+   .. code-block:: console
+
       $ ./configure
+
+   .. code-block:: console
+
       $ ./configure nodejs
 
             configuring nodejs module
@@ -1761,6 +1997,8 @@ make sure to update the module as well:
 
       $ CPPFLAGS="-I/home/user/unit/include/" LDFLAGS="-L/home/user/unit/lib/"  \
             make node-install
+
+   .. code-block:: console
 
       $ npm list -g
 
@@ -1873,7 +2111,13 @@ Community Repositories
       .. code-block:: console
 
          # apk update
+
+      .. code-block:: console
+
          # apk upgrade
+
+      .. code-block:: console
+
          # apk add unit
 
       To install service manager files
@@ -1882,6 +2126,9 @@ Community Repositories
       .. code-block:: console
 
          # apk add unit-openrc unit-perl unit-php7 unit-python3 unit-ruby
+
+      .. code-block:: console
+
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -1901,8 +2148,17 @@ Community Repositories
            - .. code-block:: console
 
                 # :nxt_hint:`service unit enable <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
 
 
@@ -1916,8 +2172,17 @@ Community Repositories
       .. code-block:: console
 
          # apt-get update
+
+      .. code-block:: console
+
          # apt-get install unit
+
+      .. code-block:: console
+
          # apt-get install unit-perl unit-php unit-python3 unit-ruby
+
+      .. code-block:: console
+
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       Versions of these packages
@@ -1942,8 +2207,17 @@ Community Repositories
            - .. code-block:: console
 
                 # :nxt_hint:`service unit enable <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit disable <Disable Unit's automatic startup>`
 
 
@@ -1988,8 +2262,17 @@ Community Repositories
            - .. code-block:: console
 
                 # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
@@ -2003,13 +2286,22 @@ Community Repositories
         .. code-block:: console
 
            # pkg install -y unit
+
+        .. code-block:: console
+
            # pkg install -y :nxt_hint:`libunit <Required to install the Node.js module>`
+
+        .. code-block:: console
+
            # pkg install -y unit-java8  \
                             unit-perl5.36  \
                             unit-php81 unit-php82 unit-php83  \
                             unit-python39  \
                             unit-ruby3.2  \
                             unit-wasm
+
+        .. code-block:: console
+
            # service unitd restart  # Necessary for Unit to pick up any changes in language module setup
 
         To install Unit from
@@ -2035,7 +2327,13 @@ Community Repositories
         .. code-block:: console
 
            # cd /usr/ports/www/unit/
+
+        .. code-block:: console
+
            # make
+
+        .. code-block:: console
+
            # make install
 
         Repeat the steps for the other ports you need:
@@ -2081,8 +2379,17 @@ Community Repositories
              - .. code-block:: console
 
                   # :nxt_hint:`service unitd enable <Enable Unit to launch automatically at system startup>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`service unitd restart <Start or restart Unit; one-time action>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`service unitd stop <Stop a running Unit; one-time action>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`service unitd disable <Disable Unit's automatic startup>`
 
 
@@ -2098,6 +2405,9 @@ Community Repositories
       .. code-block:: console
 
          # emerge --sync
+
+      .. code-block:: console
+
          # emerge www-servers/nginx-unit
 
       To install specific language modules and features,
@@ -2122,8 +2432,17 @@ Community Repositories
            - .. code-block:: console
 
                 # :nxt_hint:`rc-update add nginx-unit <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`rc-service nginx-unit restart <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`rc-service nginx-unit stop <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`rc-update del nginx-unit <Disable Unit's automatic startup>`
 
 
@@ -2138,11 +2457,20 @@ Community Repositories
       .. code-block:: console
 
          # pkg_add unit
+
+      .. code-block:: console
+
          # pkg_add :nxt_hint:`libunit <Required to install the Node.js module>`
+
+      .. code-block:: console
+
          # pkg_add unit-perl  \
                    unit-python2.7  \
                    unit-python3.8 unit-python3.9 unit-python3.10 unit-python3.11 unit-python3.12  \
                    unit-ruby31 unit-ruby32 unit-ruby33
+
+      .. code-block:: console
+
          # service unit restart  # Necessary for Unit to pick up any changes in language module setup
 
       To build Unit manually,
@@ -2158,6 +2486,9 @@ Community Repositories
       .. code-block:: console
 
          # cd /usr/pkgsrc/www/unit/
+
+      .. code-block:: console
+
          # make build install
 
       Repeat the steps for the other packages you need:
@@ -2218,6 +2549,9 @@ Community Repositories
              .. code-block:: console
 
                 # :nxt_hint:`service unit restart <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`service unit stop <Stop a running Unit; one-time action>`
 
              To enable or disable Unit's automatic startup,
@@ -2288,8 +2622,17 @@ Community Repositories
              .. code-block:: console
 
                 # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
@@ -2303,14 +2646,41 @@ Community Repositories
         .. code-block:: console
 
            # pkg_add unit
+
+        .. code-block:: console
+
            # pkg_add unit-perl
+
+        .. code-block:: console
+
            # pkg_add unit-php74
+
+        .. code-block:: console
+
            # pkg_add unit-php80
+
+        .. code-block:: console
+
            # pkg_add unit-php81
+
+        .. code-block:: console
+
            # pkg_add unit-php82
+
+        .. code-block:: console
+
            # pkg_add unit-php83
+
+        .. code-block:: console
+
            # pkg_add unit-python
+
+        .. code-block:: console
+
            # pkg_add unit-ruby
+
+        .. code-block:: console
+
            # rcctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
         To install Unit from
@@ -2321,6 +2691,9 @@ Community Repositories
         .. code-block:: console
 
            $ cd /usr/
+
+        .. code-block:: console
+
            $ cvs -d anoncvs@anoncvs.spacehopper.org:/cvs checkout -P ports
 
         Next, browse to the port path to build and install Unit:
@@ -2328,7 +2701,13 @@ Community Repositories
         .. code-block:: console
 
            $ cd /usr/ports/www/unit/
+
+        .. code-block:: console
+
            $ make
+
+        .. code-block:: console
+
            # make install
 
         This also installs the language modules for Perl, PHP, Python, and Ruby;
@@ -2354,11 +2733,21 @@ Community Repositories
              - **_unit**
 
            * - Startup and shutdown
+
              - .. code-block:: console
 
                   # :nxt_hint:`rcctl enable unit <Enable Unit to launch automatically at system startup>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`rcctl restart unit <Start or restart Unit; one-time action>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`rcctl stop unit <Stop a running Unit; one-time action>`
+
+               .. code-block:: console
+
                   # :nxt_hint:`rcctl disable unit <Disable Unit's automatic startup>`
 
 
@@ -2387,6 +2776,9 @@ Community Repositories
                php54-unit-php php55-unit-php php56-unit-php  \
                php70-unit-php php71-unit-php php72-unit-php php73-unit-php php74-unit-php  \
                php80-unit-php php81-unit-php php82-unit-php
+
+      .. code-block:: console
+
          # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
 
       Runtime details:
@@ -2406,8 +2798,17 @@ Community Repositories
            - .. code-block:: console
 
                 # :nxt_hint:`systemctl enable unit <Enable Unit to launch automatically at system startup>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl restart unit <Start or restart Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl stop unit <Stop a running Unit; one-time action>`
+
+             .. code-block:: console
+
                 # :nxt_hint:`systemctl disable unit <Disable Unit's automatic startup>`
 
 
@@ -2511,9 +2912,21 @@ come in several language-specific flavors:
    .. subs-code-block:: console
 
       $ git clone https://github.com/nginx/unit
+
+   .. code-block:: console
+
       $ cd unit
+
+   .. code-block:: console
+
       $ git checkout |version|  # Optional; use to choose a specific Unit version
+
+   .. code-block:: console
+
       $ cd pkg/docker/
+
+   .. code-block:: console
+
       $ make build-:nxt_ph:`python3.10 <Language name and version>` VERSIONS_:nxt_ph:`python <Language name>`=:nxt_ph:`3.10 <Language version>`
 
    For details, see the
@@ -2567,6 +2980,9 @@ You can obtain the images from these sources:
       .. code-block:: console
 
          $ docker pull unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+
+      .. code-block:: console
+
          $ docker run -d unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
 
@@ -2579,6 +2995,9 @@ You can obtain the images from these sources:
       .. code-block:: console
 
          $ docker pull public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
+
+      .. code-block:: console
+
          $ docker run -d public.ecr.aws/nginx/unit::nxt_ph:`TAG <Specific image tag; see above for a complete list>`
 
 
@@ -2596,9 +3015,17 @@ You can obtain the images from these sources:
       .. subs-code-block:: console
 
          $ curl -O https://packages.nginx.org/unit/docker/1.29.1/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
+
+      .. code-block:: console
+
          $ curl -O https://packages.nginx.org/unit/docker/1.29.1/nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
+
+      .. code-block:: console
+
          $ sha512sum -c nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz.sha512
                nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz: OK
+
+      .. code-block:: console
 
          $ docker load < nginx-unit-:nxt_ph:`TAG <Specific image tag; see above for a complete list>`.tar.gz
 
@@ -2722,8 +3149,17 @@ or as a tarball.
       .. subs-code-block:: console
 
          $ git clone https://github.com/nginx/unit            # Latest updates to the repository
+
+      .. subs-code-block:: console
+
          $ # -- or --
+
+      .. subs-code-block:: console
+
          $ git clone -b |version| https://github.com/nginx/unit  # Specific version tag; see https://github.com/nginx/unit/tags
+
+      .. subs-code-block:: console
+
          $ cd unit
 
 
@@ -2732,7 +3168,13 @@ or as a tarball.
       .. subs-code-block:: console
 
          $ curl -O https://sources.nginx.org/unit/unit-|version|.tar.gz
+
+      .. subs-code-block:: console
+
          $ tar xzf unit-|version|.tar.gz
+
+      .. subs-code-block:: console
+
          $ cd unit-|version|
 
 To build Unit and specific language modules from these sources,
