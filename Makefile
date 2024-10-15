@@ -5,7 +5,7 @@ SITEMAP		?= python3 sitemaps.py
 URL		?= https://unit.nginx.org
 GOOGLE		?= https://www.google.com/webmasters/tools/ping?sitemap=
 BING		?= http://www.bing.com/ping?sitemap=
-UNIT_SECURITY	?= https://github.com/nginx/unit/raw/master/SECURITY.txt
+UNIT_SECURITY	?= https://github.com/nginx/unit/raw/master/SECURITY.md
 
 BUILDDIR	?= build
 DEPLOYDIR	?= deploy
