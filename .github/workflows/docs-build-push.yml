@@ -15,13 +15,16 @@ on:
   pull_request:
     branches:
       - "*"
+  push:
+    branches:
+      - "main"
 
 permissions:
   contents: read
 
 jobs:
   call-docs-build-push:
-    uses: nginxinc/docs-actions/.github/workflows/docs-build-push.yml@main
+    uses: nginxinc/docs-actions/.github/workflows/docs-build-push.yml@9c59fab05a8131f4d691ba6ea2b6a119f3ef832a # v1.0.7
     permissions:
       pull-requests: write # needed to write preview url comment to PR
       contents: read
@@ -32,6 +35,8 @@ jobs:
       docs_build_path: "."
       doc_type: "sphinx"
       environment: ${{inputs.environment}}
+      auto_deploy_branch: "main"
+      auto_deploy_env: "prod"
     secrets:
       AZURE_CREDENTIALS: ${{secrets.AZURE_CREDENTIALS_DOCS}}
       AZURE_KEY_VAULT: ${{secrets.AZURE_KEY_VAULT_DOCS}}
