@@ -3305,7 +3305,7 @@ shared between all application languages:
         existing environment variables.
 
         If an environment variable already exists in the system and gets declared
-        in the object, the object's value takes precendence and gets passed to
+        in this object, the object's value takes precedence and gets passed to
         the application.
 
     * - **group**
