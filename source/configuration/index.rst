@@ -3298,6 +3298,16 @@ shared between all application languages:
       - String-valued object;
         environment variables to be passed to the app.
 
+        Unit passes the environment variables to the app without modification,
+        even if no enviroment configuration object is specified.
+
+        Any data specified in the **environment** object gets merged to the
+        existing environment variables.
+
+        If an environment variable already exists in the system and gets declared
+        in this object, the object's value takes precedence and gets passed to
+        the application.
+
     * - **group**
       - String;
         group name that runs the
