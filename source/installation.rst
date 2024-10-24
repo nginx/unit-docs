@@ -125,7 +125,8 @@ they're available for:
   :ref:`21.10 <installation-ubuntu-2110>`,
   :ref:`22.04 <installation-ubuntu-2204>`,
   :ref:`22.10 <installation-ubuntu-2210>`,
-  :ref:`23.04 <installation-ubuntu-2304>`
+  :ref:`23.04 <installation-ubuntu-2304>`,
+  :ref:`24.04 <installation-ubuntu-2404>`
 
 The packages include core executables,
 developer files,
@@ -1168,6 +1169,65 @@ Ubuntu
 
 .. tabs::
    :prefix: ubuntu
+
+
+   .. tab:: 24.04
+
+      Supported architectures: arm64, x86-64.
+
+      #. Download and save NGINX's signing key:
+
+         .. code-block:: console
+
+            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+                  https://unit.nginx.org/keys/nginx-keyring.gpg
+
+         This eliminates the
+         "packages cannot be authenticated"
+         warnings
+         during installation.
+
+      #. To configure Unit's repository,
+         create the following file named
+         **/etc/apt/sources.list.d/unit.list**:
+
+         .. code-block:: none
+
+            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ noble unit
+            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ noble unit
+
+      #. Install the core package
+         and other packages you need:
+
+         .. code-block:: console
+
+            # apt update
+
+         .. code-block:: console
+
+            # apt install unit
+
+         .. code-block:: console
+
+            # apt install :nxt_hint:`unit-dev <Required to install the Node.js module and build Go apps>` unit-go unit-jsc11 unit-jsc17 unit-jsc18 unit-jsc19 unit-jsc20  \
+                          unit-perl unit-php unit-python3.12 unit-ruby unit-wasm
+
+         .. code-block:: console
+
+            # systemctl restart unit  # Necessary for Unit to pick up any changes in language module setup
+
+      Runtime details:
+
+      .. list-table::
+
+         * - Control :ref:`socket <sec-socket>`
+           - **/var/run/control.unit.sock**
+
+         * - Log :ref:`file <troubleshooting-log>`
+           - **/var/log/unit.log**
+
+         * - Non-privileged :ref:`user and group <security-apps>`
+           - **unit**
 
    .. tab:: 23.04
 
