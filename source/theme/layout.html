@@ -29,6 +29,11 @@
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 
+<!-- Coveo search -->
+<link rel="stylesheet" href="https://static.cloud.coveo.com/searchui/v2.10120/0/css/CoveoFullSearch.min.css" integrity="sha512-dKxjZNcct/eifkq2gBWAXYo6+1mTNuLA0JDyGu+nY1xChd2f/3pJuNZYnTlLphC0PLrS7phX6WgQ1WIAqog+GQ==" crossorigin="anonymous" />
+
+<script class="coveo-script" src="https://static.cloud.coveo.com/searchui/v2.10120/0/js/CoveoJsSearch.Lazy.min.js" integrity="sha512-5Km5somlZa+ecZZR6KqaIG6Esppn6NYwgDI+6cSLX3KGS1cdnzgVIsA7YcurpbgjpG/ltESf66J98WuhqcHo0w==" crossorigin="anonymous"></script>
+
 <style>
 /* open-sans-regular - latin_latin-ext */
 @font-face {
@@ -70,6 +75,25 @@
        url('{{ pathto('_static/open-sans-v40-latin_latin-ext-700italic.woff2', 1) + '?' + md5('theme/static/open-sans-v40-latin_latin-ext-700italic.woff2') }}') format('woff2');
 }
 
+#search {
+    width: 100%; /* Full width of the column */
+    padding: 0; /* Reset padding */
+    margin: 0; /* Reset margin */
+}
+
+#search .CoveoSearchbox {
+    width: 100%;
+    padding: 0; /* Remove padding from search box */
+    margin: 0; /* Remove margin from search box */
+}
+
+/* Adjust positioning of the navigation directly below the search box */
+#side #search + .toctree-wrapper {
+    margin-top: 0; /* Remove any top margin */
+    padding-top: 0; /* Remove any top padding */
+
+
+}
 </style>
 <link rel="stylesheet" href="{{ pathto('_static/' + styles[-1], 1) + '?' + md5('theme/static/' + styles[-1]) }}" />
 <link rel="icon" href="{{ pathto('_static/icon.png', 1) + '?' + md5('theme/static/icon.png') }}" />
@@ -114,6 +138,10 @@
          <a style="text-decoration:none;" href="{{ pathto('news') }}{{release_year}}/unit-{{version}}-released/">v. {{version}}</a>
          </div>
     </h1>
+    <!-- Coveo search -->
+    <div id="search" class="CoveoSearchInterface" style="min-height: auto; min-width: auto; padding-bottom: 1em;">
+      <div class="CoveoSearchbox"></div>
+   </div>
     {{ toctree(maxdepth = 4) }}
 </div>
 <div id="content">
@@ -137,5 +165,14 @@
 <!-- TrustArc cookie consent -->
 <div id="consent_blackbar" style="position:fixed;top:0px;width:100%">
 <!-- End TrustArc cookie consent -->
+
+<!-- Coveo search -->
+<script>
+   Coveo.SearchEndpoint.configureCloudV2Endpoint('organization-id', 'your-api-key');
+   Coveo.init(document.getElementById('search'));
+</script>
+
+
+
 </body>
 </html>
