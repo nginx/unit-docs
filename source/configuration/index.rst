@@ -5679,6 +5679,31 @@ to define the log format:
        }
    }
 
+===============
+JSON log format
+===============
+
+Starting with NGINX Unit 1.34.0, **format** can instead be an object
+describing JSON field name/value pairs, for example,
+
+.. code-block:: json
+
+  {
+      "access_log": {
+          "path": "/tmp/access.log",
+          "format": {
+              "remote_addr": "$remote_addr",
+              "time_local": "$time_local",
+              "request_line": "$request_line",
+              "status": "$status",
+              "body_bytes_sent": "$body_bytes_sent",
+              "header_referer": "$header_referer",
+              "header_user_agent": "$header_user_agent"
+          }
+      }
+  }
+
+The JSON *values* can be strings, variables and JavaScript.
 
 ======================
 Conditional access log
