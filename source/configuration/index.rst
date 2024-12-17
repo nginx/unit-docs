@@ -5444,6 +5444,12 @@ that stores instance-wide preferences.
         uploaded
         via the :doc:`control API <../controlapi>`.
 
+    * - **telemetry**
+      - Object:
+        OpenTelemetry configuration
+
+        *(since 1.34.0)*
+
 In turn, the **http** option exposes the following settings:
 
 .. list-table::
@@ -5583,6 +5589,59 @@ In turn, the **http** option exposes the following settings:
         **.svg**, **.ttf**, **.txt**, **.wav**, **.webm**,
         **.webp**, **.woff2**, **.woff**, **.xml**, and
         **.zip**.
+
+The **telemetry** option exposes the following settings:
+
+.. list-table::
+    :header-rows: 1
+
+    * - Option
+      - Description
+
+    * - **endpoint** (required)
+      - The endpoint for the OpenTelemetry (OTEL) Collector.
+
+        It takes a URL to either a gRPC or HTTP(S) endpoint.
+
+    * - **protocol** (required)
+      - Determines the protocol used to communicate with the endpoint.
+
+        Can be either *http(s)* or *grpc*
+
+    * - **batch_size**
+      - Number of spans to cache before triggering a transaction with the
+        configured endpoint. This is optional.
+
+        This allows the user to cache up to N spans before the OpenTelemetry
+        (OTEL) background thread sends spans over the network to the
+        collector.
+
+        If specified, it must be a positive integer.
+
+    * - **sampling_ratio**
+      - Percentage of requests to trace.
+
+        This allows the user to only trace anywhere from 0% to 100% of
+        requests that hit Unit. In high throughput environments this
+        percentage should be lower. This allows the user to save space in
+        storing span data, and to collect request metrics like time to decode
+        headers and whatnot without storing massive amounts of duplicate
+        superfluous data.
+
+        If specified, it must be a positive floating point number.
+
+Example:
+
+.. code-block:: json
+
+    "settings": {
+        "telemetry": {
+            "batch_size": 20,
+            "endpoint": "http://example.com/v1/traces",
+            "protocol": "http",
+            "sampling_ratio": 1.0
+        }
+    },
 
 .. _configuration-access-log:
 
