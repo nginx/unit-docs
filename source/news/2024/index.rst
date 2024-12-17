@@ -6,6 +6,15 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Unit Team
+   :description: Version 1.34.0 includes three new configuration options and a
+    CLI tool.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.34.0 Released
+   :url: news/2024/unit-1.34.0-released
+   :date: 2024-12-19
+
+.. nxt_news_entry::
+   :author: Unit Team
    :description: Version 1.33.0 includes three new configuration options and a CLI tool.
    :email: unit-owner@nginx.org
    :title: Unit 1.33.0 Released
