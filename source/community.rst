@@ -21,6 +21,9 @@ Recorded sessions:
 - `NGINX Unit Community Call No.1
   <https://www.youtube.com/watch?v=EZbcc6D03Io>`__
 
+You can also share your questions by posting in the `Discussions section <https://github.com/nginx/unit/discussions>`_
+  of the Unit repo.
+
 *************************
 Reporting bugs and issues
 *************************
