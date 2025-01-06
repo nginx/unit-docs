@@ -4,7 +4,7 @@ import os, sys
 
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
-copyright = '2017-2024'
+copyright = '2017-2025'
 version = '1.34.0'
 release_date = 'Dec 19, 2024'
 release = version
