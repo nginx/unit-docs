@@ -39,7 +39,7 @@ order them leaf to root.
 
 Upload the resulting bundle file to Unit's certificate storage
 under a suitable name
-(in this case, **bundle**), running the following command as root:
+(in this case, **bundle**):
 
 .. code-block:: console
 
@@ -127,7 +127,7 @@ as **GET**-table JSON using **/certificates**:
 
    Access array items,
    such as individual certificates in a chain,
-   and their properties by indexing, running the following commands as root:
+   and their properties by indexing:
 
    .. code-block:: console
 
@@ -196,7 +196,7 @@ the application is now accessible via SSL/TLS:
 
 Finally, you can delete a certificate bundle
 that you don't need anymore
-from the storage, running the following command as root:
+from the storage:
 
 .. code-block:: console
 

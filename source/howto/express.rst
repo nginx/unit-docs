@@ -10,8 +10,7 @@ using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the
    **unit-dev/unit-devel** package.  Next, :ref:`install
-   <installation-nodejs-package>` Unit's **unit-http** package. Run the following
-   command as root:
+   <installation-nodejs-package>` Unit's **unit-http** package:
 
    .. code-block:: console
 
@@ -32,8 +31,6 @@ using Unit:
    .. code-block:: console
 
       $ npm install express --save
-
-   Run the following command as root:
 
    .. code-block:: console
 

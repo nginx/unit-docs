@@ -180,8 +180,7 @@ platform using Unit:
 #. .. include:: ../include/howto_upload_config.rst
 
 #. Adjust Unit's **max_body_size** :ref:`option <configuration-stngs>` to
-   avoid potential issues with large file uploads, for example, runnig the
-   following command as root:
+   avoid potential issues with large file uploads, for example:
 
    .. code-block:: console
 

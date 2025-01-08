@@ -9,10 +9,6 @@ advisable to obtain certificates for your website from a certificate authority
 <https://certbot.eff.org>`__ that issues free certificates signed by `Let's
 Encrypt <https://letsencrypt.org>`_, a non-profit CA.
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 ***********************
 Generating Certificates
 ***********************

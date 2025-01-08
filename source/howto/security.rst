@@ -9,9 +9,6 @@ configuration, and maintenance.
 This guide lists the steps to protect your Unit from installation to individual
 app configuration.
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
 
 .. _security-update:
 

@@ -4,10 +4,6 @@
 
 .. include:: ../include/replace.rst
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 #############
 Configuration
 #############

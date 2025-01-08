@@ -1,4 +1,4 @@
-Run the following command (as root) so Unit can access :nxt_hint:`the application
+Run the following command so Unit can access :nxt_hint:`the application
 directory <If the application uses several directories, run the command for
 each one>`:
 

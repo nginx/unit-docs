@@ -130,7 +130,7 @@ may benefit from this
    Repeat these commands on the second machine
    to see where the target instance stores its state.
 
-   Stop both Unit instances, for example, running the following command as root:
+   Stop both Unit instances, for example:
 
    .. code-block:: console
 
@@ -147,7 +147,7 @@ may benefit from this
    Copy the reference state directory to the target state directory
    by arbitrary means;
    make sure to include subdirectories and hidden files.
-   Finally, restart both Unit instances running the following command as root:
+   Finally, restart both Unit instances:
 
    .. code-block:: console
 
@@ -204,10 +204,6 @@ OpenAPI specification
 ***********
 Quick start
 ***********
-
-
-.. note::
-   Run the `curl` commands in this section as root.
 
 For a brief intro,
 we configure Unit to serve a static file.
@@ -268,7 +264,7 @@ To configure Unit,
 **PUT** this snippet to the **/config** section via the
 :ref:`control socket <source-startup>`.
 Working with JSON in the command line can be cumbersome;
-instead, save and upload it as **snippet.json**.
+instead, save and upload it as **snippet.json**:
 
 .. code-block:: console
 
@@ -366,7 +362,7 @@ connections are properly closed,
 processes end smoothly.
 
 Any type of update can be done with different URIs,
-provided you supply the right JSON. Run the following commands as root:
+provided you supply the right JSON:
 
 .. code-block:: console
 
@@ -404,7 +400,7 @@ For instance, save your application object as **wiki.json**:
        "path": "/www/wiki/"
    }
 
-Use it to set up an application called **wiki-prod**.
+Use it to set up an application called **wiki-prod**:
 
 .. code-block:: console
 

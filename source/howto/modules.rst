@@ -14,10 +14,6 @@ Languages supported by Unit fall into these two categories:
 
 For any specific language and its version, Unit needs a language module.
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 .. _modules-ext:
 
 *************************

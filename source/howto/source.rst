@@ -7,10 +7,6 @@ Building From Source
 After you've obtained Unit's :ref:`source code <source>`, configure
 and compile it to fine-tune and run a custom Unit build.
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 .. _source-prereq-build:
 
 ============================

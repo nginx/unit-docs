@@ -1,5 +1,5 @@
 Upload the updated configuration.  Assuming the JSON above was added to
-:file:`config.json`. Run the following command as root:
+:file:`config.json`:
 
 .. code-block:: console
 

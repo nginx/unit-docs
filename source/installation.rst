@@ -30,10 +30,6 @@ You can install NGINX Unit in four alternative ways:
   and :ref:`build <source-config-src>` a custom binary from scratch;
   just make sure you know what you're doing.
 
-.. note::
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 
 .. _source-prereqs:
 

@@ -7,9 +7,6 @@ App Samples
    These steps assume Unit was already :ref:`installed
    <installation-precomp-pkgs>` with the language module for each app.
 
-   The commands in this document starting with a hash (#) must be run as root or
-   with superuser privileges.
-
 .. _sample-go:
 
 **
