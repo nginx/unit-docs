@@ -8,18 +8,11 @@
 Community
 #########
 
-************************
-Meetings and discussions
-************************
+The `Discussions section <https://github.com/nginx/unit/discussions>`_ of the
+Unit repo is the main place for discussing any topics related to the NGINX Unit project.
 
-We hold semi-regular meetings on Zoom
-to discuss all things related to Unit
-with our tightly knit and vibrant community.
-
-Recorded sessions:
-
-- `NGINX Unit Community Call No.1
-  <https://www.youtube.com/watch?v=EZbcc6D03Io>`__
+Here you can share your ideas, ask questions, and discuss any issues both about
+using Unit and contributing to Unit.
 
 *************************
 Reporting bugs and issues
@@ -59,6 +52,10 @@ You can also ask questions and discuss your suggestions for Unit by:
   of the Unit repo.
 - Subscribing to the `unit@nginx.org mailing list <https://mailman.nginx.org/mailman3/lists/unit.nginx.org/>`_
   and posting your ideas there.
+
+*************
+Documentation
+*************
 
 If you are interested in contributing to the **Unit documentation**,
 or find a typo or an error in the docs, you can submit a pull request on the
