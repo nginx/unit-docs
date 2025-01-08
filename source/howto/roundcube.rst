@@ -71,7 +71,7 @@ To run the `Roundcube <https://roundcube.net>`_ webmail platform using Unit:
 #. After installation, switch **share** and **root** to the
    **public_html/** subdirectory to `protect
    <https://github.com/roundcube/roundcubemail/wiki/Installation#protect-your-installation>`__
-   sensitive data:
+   sensitive data, run the following command as root:
 
    .. code-block:: console
 

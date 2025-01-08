@@ -151,7 +151,7 @@ by their **Authorization** header field values:
    export default http
 
 To upload it to Unit's JavaScript module storage
-as **http**:
+as **http**, run the following command as root:
 
 .. code-block:: console
 
@@ -159,7 +159,8 @@ as **http**:
          http://localhost/js_modules/:nxt_ph:`http <Module name in Unit's configuration>`
 
 Unit doesn't enable the uploaded modules by default,
-so add the module's name to **settings/js_module**:
+so add the module's name to **settings/js_module** running the following command
+as root:
 
 .. code-block:: console
 
