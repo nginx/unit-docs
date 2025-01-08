@@ -138,6 +138,8 @@ documentation platform using Unit:
 
       $ chmod 600 LocalSettings.php
 
+   Run the following commands (as root) to set the correct ownership:
+
    .. code-block:: console
 
       # chown :nxt_ph:`unit:unit <Values from Step 3>` LocalSettings.php
@@ -147,7 +149,7 @@ documentation platform using Unit:
       # mv LocalSettings.php :nxt_ph:`/path/to/app/ <Path to the application directory; use a real path in your configuration>`
 
 #. After installation, add a match condition to the first step to disable
-   access to the **mw-config/** directory:
+   access to the **mw-config/** directory. Run the following command (as root):
 
    .. code-block:: console
 

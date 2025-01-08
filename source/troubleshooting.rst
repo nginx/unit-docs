@@ -9,6 +9,10 @@
 Troubleshooting
 ###############
 
+.. note::
+   The commands in this document starting with a hash (#) must be run as root or
+   with superuser privileges.
+
 .. _troubleshooting-log:
 
 *******

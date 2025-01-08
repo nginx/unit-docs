@@ -134,7 +134,7 @@ so we can :ref:`configure it <configuration-go>` to run on Unit.
    usually **$GOPATH/bin/**; it's used for the **executable** option in
    the Unit configuration.
 
-#. Run the following commands so Unit can access |app|'s files:
+#. Run the following commands (as root) so Unit can access |app|'s files:
 
    .. code-block:: console
 

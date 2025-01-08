@@ -25,7 +25,7 @@ To install and run the web UI for the `Mailman 3
 
    These are needed to configure Unit.
 
-#. Run the following command so Unit can access |app|'s static files:
+#. Run the following command (as root) so Unit can access |app|'s static files:
 
    .. code-block:: console
 
@@ -39,7 +39,7 @@ To install and run the web UI for the `Mailman 3
       run the :program:`ps aux | grep unitd` command to be sure.
 
    Alternatively, add Unit's unprivileged user account to |app|'s group so Unit
-   can access the static files:
+   can access the static files. Run the following command as root:
 
    .. code-block:: console
 
