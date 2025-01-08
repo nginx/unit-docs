@@ -1870,19 +1870,15 @@ macOS
 Node.js
 =======
 
-Unit's npm-hosted Node.js
-`module <https://www.npmjs.com/package/unit-http>`__
-is called
-:program:`unit-http`.
-Install it
-to run Node.js apps on Unit:
+Unit's npm-hosted Node.js `module <https://www.npmjs.com/package/unit-http>`__
+is called :program:`unit-http`.
+Install it to run Node.js apps on Unit:
 
 #. First, install the **unit-dev/unit-devel**
-   :ref:`package <installation-precomp-pkgs>`;
-   it's needed to build :program:`unit-http`.
+   :ref:`package <installation-precomp-pkgs>`; it's needed to build :program:`unit-http`.
 
-#. Next, build and install :program:`unit-http` globally
-   (this requires :program:`npm` and :program:`node-gyp`):
+#. Next, build and install :program:`unit-http` globally (this requires
+   :program:`npm` and :program:`node-gyp`):
 
     .. code-block:: console
 
@@ -1890,26 +1886,22 @@ to run Node.js apps on Unit:
 
     .. warning::
 
-       The :program:`unit-http` module is platform dependent
-       due to optimizations;
-       you can't move it across systems
-       with the rest of **node-modules**.
-       Global installation avoids such scenarios;
-       just
-       :ref:`relink <configuration-nodejs>`
+       The :program:`unit-http` module is platform dependent due to optimizations;
+       you can't move it across systems with the rest of **node-modules**.
+       Global installation avoids such scenarios; just :ref:`relink <configuration-nodejs>`
        the migrated app.
 
-#. It's entirely possible to run
-   :ref:`Node.js apps <configuration-nodejs>`
-   on Unit
-   without mentioning **unit-http** in your app sources.
-   However, you can explicitly use **unit-http** in your code
-   instead of the built-in **http**,
-   but mind that such frameworks as Express may require extra
+#. It's entirely possible to run :ref:`Node.js apps <configuration-nodejs>`
+   on Unit without mentioning **unit-http** in your app sources.
+   However, you can explicitly use **unit-http** in your code instead of the
+   built-in **http**, but mind that such frameworks as Express may require extra
    :doc:`changes <howto/express>`.
 
-If you update Unit later,
-make sure to update the module as well:
+.. warning::
+
+    The :program:`unit-http` module and :program:`Unit` must have matching version numbers.
+
+If you update Unit later, make sure to update the module as well:
 
 .. code-block:: console
 
@@ -1917,25 +1909,20 @@ make sure to update the module as well:
 
 .. note::
 
-   You can also
-   :ref:`configure <howto/source-modules-nodejs>`
-   and
-   :ref:`install <source-bld-src-ext>`
-   the :program:`unit-http` module from sources.
+   You can also :ref:`configure <howto/source-modules-nodejs>` and
+   :ref:`install <source-bld-src-ext>` the :program:`unit-http` module from sources.
 
 .. nxt_details:: Working with multiple Node.js versions
    :hash: multiple-nodejs-versions
 
-   To use Unit with multiple Node.js versions side by side,
-   we recommend
+   To use Unit with multiple Node.js versions side by side, we recommend
    `Node Version Manager <https://github.com/nvm-sh/nvm>`__:
 
    .. code-block:: console
 
       $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/:nxt_ph:`x.y.z <nvm version>`/install.sh | bash
 
-   Install the versions you need
-   and select the one you want to use with Unit:
+   Install the versions you need and select the one you want to use with Unit:
 
    .. code-block:: console
 
@@ -1950,15 +1937,13 @@ make sure to update the module as well:
       $ nvm use 18
             Now using node :nxt_hint:`v18.12.1 <Note the version numbers>` (npm v8.19.2)
 
-   Having selected the specific version,
-   install the :program:`node-gyp` module:
+   Having selected the specific version, install the :program:`node-gyp` module:
 
    .. code-block:: console
 
       $ npm install -g node-gyp
 
-   Next, clone the Unit source code
-   to build a :program:`unit-http` module
+   Next, clone the Unit source code to build a :program:`unit-http` module
    for the selected Node.js version:
 
    .. code-block:: console
