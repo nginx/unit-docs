@@ -10,7 +10,8 @@ using Unit:
 
 #. Install :ref:`Unit <installation-precomp-pkgs>` with the
    **unit-dev/unit-devel** package.  Next, :ref:`install
-   <installation-nodejs-package>` Unit's **unit-http** package:
+   <installation-nodejs-package>` Unit's **unit-http** package. Run the following
+   command as root:
 
    .. code-block:: console
 
@@ -18,7 +19,7 @@ using Unit:
 
 #. Create your app directory, `install
    <https://expressjs.com/en/starter/installing.html>`_ |app|, and link
-   **unit-http**:
+   **unit-http**. Run the commands starting with a hash (#) as root:
 
    .. code-block:: console
 
