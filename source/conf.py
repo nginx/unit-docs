@@ -5,8 +5,8 @@ import os, sys
 project = 'NGINX Unit'
 author = 'NGINX, Inc.'
 copyright = '2017-2025'
-version = '1.34.0'
-release_date = 'Dec 19, 2024'
+version = '1.34.1'
+release_date = 'Jan 10, 2025'
 release = version
 needs_sphinx = '6.2'
 
