@@ -6,8 +6,7 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Unit Team
-   :description: Version 1.34.0 includes three new configuration options and a
-    CLI tool.
+   :description: Version 1.34.0 includes initial OpenTelemetry (OTEL) support.
    :email: unit-owner@nginx.org
    :title: Unit 1.34.0 Released
    :url: news/2024/unit-1.34.0-released
@@ -15,7 +14,8 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Unit Team
-   :description: Version 1.33.0 includes three new configuration options and a CLI tool.
+   :description: Version 1.33.0 includes three new configuration options
+                 and a CLI tool.
    :email: unit-owner@nginx.org
    :title: Unit 1.33.0 Released
    :url: news/2024/unit-1.33.0-released
@@ -23,7 +23,9 @@ News archive for the year 2024.
 
 .. nxt_news_entry::
    :author: Unit Team
-   :description: Version 1.32.1 is a maintenance release that fixes bugs in the new WebAssembly Language Module and in our njs implementation.
+   :description: Version 1.32.1 is a maintenance release that fixes bugs
+                 in the new WebAssembly Language Module and in our njs
+                 implementation.
    :email: unit-owner@nginx.org
    :title: Unit 1.32.1 Released
    :url: news/2024/unit-1.32.1-released
