@@ -2,7 +2,17 @@
 News of 2025
 ############
 
+
 News archive for the year 2025.
+
+.. nxt_news_entry::
+   :author: Unit Team
+   :description: Version 1.34.2 is a maintenance release that fixes a couple
+                 of Java WebSocket issues.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.34.2 Released
+   :url: news/2025/unit-1.34.2-released
+   :date: 2025-02-26
 
 .. nxt_news_entry::
    :author: Unit Team
