@@ -1136,7 +1136,7 @@ counterparts, see :ref:`here <source-config-src>`.
    * - **--log pathname**
      - Pathname for Unit's :ref:`log <troubleshooting-log>`.
 
-   * - **--modules directory**
+   * - **--modulesdir directory**
      - Directory path for Unit's language :doc:`modules <modules>`
        (***.unit.so** files).
 
@@ -1144,10 +1144,10 @@ counterparts, see :ref:`here <source-config-src>`.
      - Pathname for the PID file of Unit's :program:`main` :ref:`process
        <security-apps>`.
 
-   * - **--state directory**
+   * - **--statedir directory**
      - Directory path for Unit's state storage.
 
-   * - **--tmp directory**
+   * - **--tmpdir directory**
      - Directory path for Unit's temporary file storage.
 
 Finally, to stop a running Unit:
