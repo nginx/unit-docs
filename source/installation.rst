@@ -336,7 +336,7 @@ Debian
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -350,8 +350,8 @@ Debian
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bookworm unit
 
       #. Install the core package
          and other packages you need:
@@ -396,7 +396,7 @@ Debian
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -410,8 +410,8 @@ Debian
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ bullseye unit
 
       #. Install the core package
          and other packages you need:
@@ -462,7 +462,7 @@ Debian
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -476,8 +476,8 @@ Debian
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ buster unit
 
       #. Install the core package
          and other packages you need:
@@ -527,7 +527,7 @@ Debian
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -541,8 +541,8 @@ Debian
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/debian/ stretch unit
 
       #. Install the core package
          and other packages you need:
@@ -1181,7 +1181,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1195,8 +1195,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ lunar unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ lunar unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ lunar unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ lunar unit
 
       #. Install the core package
          and other packages you need:
@@ -1246,7 +1246,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1260,8 +1260,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ kinetic unit
 
       #. Install the core package
          and other packages you need:
@@ -1305,7 +1305,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1319,8 +1319,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ jammy unit
 
       #. Install the core package
          and other packages you need:
@@ -1370,7 +1370,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1384,8 +1384,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ impish unit
 
       #. Install the core package
          and other packages you need:
@@ -1435,7 +1435,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1449,8 +1449,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ hirsute unit
 
       #. Install the core package
          and other packages you need:
@@ -1497,7 +1497,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1511,8 +1511,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ groovy unit
 
       #. Install the core package
          and other packages you need:
@@ -1556,7 +1556,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1570,8 +1570,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
 
       #. Install the core package
          and other packages you need:
@@ -1621,7 +1621,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1635,8 +1635,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ eoan unit
 
       #. Install the core package
          and other packages you need:
@@ -1686,7 +1686,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1700,8 +1700,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ bionic unit
 
       #. Install the core package
          and other packages you need:
@@ -1751,7 +1751,7 @@ Ubuntu
 
          .. code-block:: console
 
-            # curl --output /usr/share/keyrings/nginx-keyring.gpg  \
+            # curl --output /etc/apt/keyrings/nginx-keyring.gpg  \
                   https://unit.nginx.org/keys/nginx-keyring.gpg
 
          This eliminates the
@@ -1765,8 +1765,8 @@ Ubuntu
 
          .. code-block:: none
 
-            deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
-            deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
+            deb [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
+            deb-src [signed-by=/etc/apt/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ xenial unit
 
       #. Install the core package
          and other packages you need:
