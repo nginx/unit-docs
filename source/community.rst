@@ -31,6 +31,9 @@ Unit repo is the main place for discussing any topics related to the NGINX Unit 
 Here you can share your ideas, ask questions, and discuss any issues both about
 using Unit and contributing to Unit.
 
+You can also share your questions by posting in the `Discussions section <https://github.com/nginx/unit/discussions>`_
+  of the Unit repo.
+
 *************************
 Reporting bugs and issues
 *************************
