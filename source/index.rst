@@ -41,10 +41,6 @@ released on |release_date|.
   :doc:`key features <keyfeatures>`
   for further details.
 
-- Peek at our future plans
-  with a GitHub-based
-  `roadmap <https://github.com/orgs/nginx/projects/1>`_.
-
 .. raw:: html
 
    <div class="video">
@@ -64,3 +60,14 @@ released on |release_date|.
 Watch the entire NGINX Unit tutorial course
 `here
 <https://www.youtube.com/playlist?list=PLGz_X9w9raXdV3vuPUu0kKBSBjG9rPaUf>`__.
+
+.. note::
+
+   Going forward, NGINX Unit will no longer receive new features or
+   enhancements from the project maintainers. NGINX Unit is still open to
+   community contributions.
+
+   The team is focusing its limited capacity to keep NGINX Unit stable,
+   secure and high-quality. Its focus will be on critical maintenance, such
+   as for security issues, dependency upgrades, and resolving crashes or
+   undefined behavior.
