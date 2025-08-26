@@ -5476,6 +5476,12 @@ In turn, the **http** option exposes the following settings:
 
         The default is 30.
 
+    * - **compression**
+      - Object:
+        HTTP compression configuration
+
+        *(since 1.35.0)*
+
     * - **discard_unsafe_fields**
       - Boolean;
         controls header field name parsing.
@@ -5593,6 +5599,75 @@ In turn, the **http** option exposes the following settings:
         **.svg**, **.ttf**, **.txt**, **.wav**, **.webm**,
         **.webp**, **.woff2**, **.woff**, **.xml**, and
         **.zip**.
+
+The **compression** option exposes the following settings:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - **types**
+     - Array:
+       list of MIME types that are considered for compression.
+
+   * - **compressors**
+     - Array:
+       list of compressors to enable.
+
+The **compressors** option exposes the following settings:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Option
+     - Description
+
+   * - **encoding** (required)
+     - The compression method to enable.
+
+       Depending on how Unit was built, the supported encodings are any or all
+       of; gzip, deflate, zstd & br.
+
+   * - **level**
+     - The compression level to use.
+
+       If not specified the default of the specified encoder is used.
+
+   * - **min_length**
+     - The minimumn length of data to be considreed for compression.
+
+       If set to 0 or not specified then there is no minimum amount of data
+       that will be considreed before compressing.
+
+Example:
+
+.. code-block:: json
+
+  "compression": {
+      "types": [
+              "text/*"
+      ],
+      "compressors": [
+          {
+              "encoding": "gzip",
+              "level": 3,
+              "min_length": 4096
+          },
+          {
+              "encoding": "deflate",
+              "min_length": 0
+          },
+          {
+              "encoding": "zstd",
+          },
+          {
+              "encoding": "br",
+              "min_length": 1024
+          }
+      ]
+  }
 
 The **telemetry** option exposes the following settings:
 
