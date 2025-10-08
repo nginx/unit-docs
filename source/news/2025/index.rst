@@ -7,6 +7,14 @@ News archive for the year 2025.
 
 .. nxt_news_entry::
    :author: Unit Team
+   :description: Version 1.35.0 includes initial HTTP compression support.
+   :email: unit-owner@nginx.org
+   :title: Unit 1.35.0 Released
+   :url: news/2025/unit-1.35.0-released
+   :date: 2025-08-26
+
+.. nxt_news_entry::
+   :author: Unit Team
    :description: Version 1.34.2 is a maintenance release that fixes a couple
                  of Java WebSocket issues.
    :email: unit-owner@nginx.org
